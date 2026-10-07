@@ -2,7 +2,7 @@
 // Sem ?mode=render, a página vira um player com a trilha (build/trilha.wav).
 import { loadAssets } from './assets.js';
 import { drawChar } from './chars.js';
-import { ELENCO, EMPRESAS } from './roteiro.js';
+import { ELENCO, EMPRESAS, RETRATOS } from './roteiro.js';
 import { C, text } from './core.js';
 
 const params = new URLSearchParams(location.search);
@@ -20,6 +20,7 @@ async function init() {
 
   let world;
   if (TEST === 'lineup') world = lineup();
+  else if (TEST === 'retratos') world = retratos();
   else {
     const { buildFilm } = await import('./film.js');
     world = buildFilm();
@@ -58,6 +59,26 @@ function preview(world) {
   show(+(params.get('t') || 0));
 }
 
+// Prancha das caricaturas feitas a partir das fotos.
+function retratos() {
+  const ids = Object.keys(RETRATOS);
+  return {
+    duration: 2,
+    frame(t) {
+      let s = `<rect width="1920" height="1080" fill="${C.bg}"/>`;
+      s += text('Caricaturas a partir das fotos (na ordem em que chegaram)', 960, 70, { size: 38, weight: 900 });
+      ids.forEach((id, i) => {
+        const col = i % 6, row = Math.floor(i / 6);
+        const x = 190 + col * 308, y = 470 + row * 470;
+        s += `<ellipse cx="${x}" cy="${y - 150}" rx="128" ry="150" fill="${['#cfe3ff', '#ffe1cc', '#d3f1e6', '#e3e1ff', '#f9e3c4', '#d6dcff'][(i + row) % 6]}" opacity=".7"/>`;
+        s += drawChar(id, { x, y, t: t + i * 0.37, s: 1.75, expr: t < 1 ? 'happy' : 'neutral', blink: 0 });
+        s += text(RETRATOS[id].nome, x, y + 46, { size: 30, weight: 900 });
+      });
+      return s;
+    },
+  };
+}
+
 // Prancha do elenco (teste visual).
 function lineup() {
   const comp = Object.keys(EMPRESAS), team = Object.keys(ELENCO);
@@ -70,7 +91,7 @@ function lineup() {
       comp.forEach((id, i) => {
         const x = 150 + i * 232, y = 430;
         s += `<ellipse cx="${x}" cy="${y - 120}" rx="105" ry="110" fill="${['#cfe3ff', '#d6dcff', '#cdeedd', '#d3f1e6', '#dfe7ff', '#f9e3c4', '#e3e1ff', '#ffe1cc'][i]}" opacity=".7"/>`;
-        s += drawChar(id, { x, y, t: t + i * 0.3, expr: t < 1 ? 'happy' : exprs[i], talk: t >= 2 && t < 3 ? 1 : 0, armR: t >= 3 ? 70 : undefined, propR: id === 'cronos' ? 'clipboard' : id === 'acelerado' ? 'wrench' : id === 'obrinha' ? 'blueprint' : undefined, front: id === 'modulo' ? 'tablet' : undefined });
+        s += drawChar(id, { x, y, t: t + i * 0.3, expr: t < 1 ? 'happy' : exprs[i], talk: t >= 2 && t < 3 ? 1 : 0, armR: t >= 3 ? 70 : undefined, tag: undefined, propR: id === 'cronos' ? 'clipboard' : id === 'acelerado' ? 'wrench' : id === 'obrinha' ? 'blueprint' : undefined, front: id === 'modulo' ? 'tablet' : undefined });
         s += text(EMPRESAS[id].nome, x, y + 40, { size: 26, weight: 800 });
         s += text(EMPRESAS[id].empresa, x, y + 70, { size: 20, weight: 600, fill: C.soft, family: 'DM Sans' });
       });

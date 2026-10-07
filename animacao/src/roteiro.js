@@ -65,20 +65,37 @@ export const ELENCO = {
   sampaio:    { nome: 'Sampaio', skin: '#c68863', hair: 'short', hairColor: '#1a1a1a', outfit: 'suit', top: '#6d4c3d', bottom: '#4a3a32', tie: '#d9b44a', glasses: true },
 };
 
+// Caricaturas a partir das fotos enviadas (na ordem recebida). Falta saber quem é
+// quem: quando os nomes chegarem, copie a linha da foto para a pessoa em ELENCO.
+export const RETRATOS = {
+  foto1:  { nome: 'Foto 1', skin: '#ebbd9b', hair: 'side', hairColor: '#2b1d15', glasses: 'round', glassesColor: '#2b2b30', beard: 'short', outfit: 'suit', top: '#5b6069', bottom: '#4a4f57', tie: '#1f3a7a', grin: true },
+  foto2:  { nome: 'Foto 2', skin: '#f0c9ab', hair: 'longStraight', hairColor: '#3b2418', hairColor2: '#7a5034', outfit: 'top', top: '#1d1d22', bottom: '#2b2b33', necklace: true, grin: true, lashes: true },
+  foto3:  { nome: 'Foto 3', skin: '#ebc4a4', hair: 'slick', hairColor: '#2a1d16', beard: 'full', outfit: 'suit', top: '#2b2e36', bottom: '#2b2e36', tie: '#b9bec7' },
+  foto4:  { nome: 'Foto 4', skin: '#d9a07c', hair: 'bigCurly', hairColor: '#3a2216', freckles: true, outfit: 'top', top: '#f4f1ea', bottom: '#c9b79a', knit: true, necklace: true, grin: true, lashes: true },
+  foto5:  { nome: 'Foto 5', skin: '#e8bc98', hair: 'bald', hairColor: '#5a3e2b', glasses: 'round', glassesColor: '#7a5230', beard: 'full', beardColor: '#5a3e2b', outfit: 'suit', top: '#1f2f5a', bottom: '#1f2f5a', tie: '#a9c4ea', grin: true },
+  foto6:  { nome: 'Foto 6', skin: '#dba582', hair: 'side', hairColor: '#1e1a17', glasses: 'geo', glassesColor: '#2b2b30', beard: 'full', outfit: 'polo', top: '#1c1f26', bottom: '#3a3f4a', grin: true },
+  foto7:  { nome: 'Foto 7', skin: '#f0d0b2', hair: 'grayUp', hairColor: '#7f7f80', hairColor2: '#d2d2d2', browColor: '#4a4a4a', glasses: 'rect', glassesColor: '#1e1e22', outfit: 'vestShirt', top: '#1f2a4a', inner: '#5c6068', bottom: '#2a3040' },
+  foto8:  { nome: 'Foto 8', skin: '#e8bb98', hair: 'side', hairColor: '#2a1d16', glasses: 'rect', glassesColor: '#3a3a3a', beard: 'goatee', outfit: 'dotted', top: '#f4f4f6', bottom: '#4a4f5a', grin: true },
+  foto9:  { nome: 'Foto 9', skin: '#eac3a3', hair: 'shoulder', hairColor: '#141418', earrings: 'stud', outfit: 'blazer', top: '#f3f1ec', inner: '#f7f3ea', bottom: '#e9e5dc', buttons: true, necklace: true, necklaceColor: '#7a1f3a' },
+  foto10: { nome: 'Foto 10', skin: '#e8c0a0', hair: 'wavy', hairColor: '#2a1a14', earrings: 'stud', outfit: 'plaid', top: '#d8c7a8', plaidColor: '#3a3530', inner: '#dcc6a6', turtleneck: true, bottom: '#3a3530' },
+  foto11: { nome: 'Foto 11', skin: '#e7bd9d', hair: 'longWavy', hairColor: '#141214', lashes: true, earrings: 'drop', earringColor: '#1f8a5a', outfit: 'blouseCollar', top: '#fbfbf8', bottom: '#2b2f3a', grin: true },
+  foto12: { nome: 'Foto 12', skin: '#e2b18f', hair: 'curlyTop', hairColor: '#2a1d16', glasses: 'geo', glassesColor: '#c9a24a', beard: 'short', outfit: 'blazer', top: '#5b5a45', inner: '#2f3a4a', bottom: '#3a3a33' },
+};
+
 // Os 13 do quadro final, na ordem da esquerda para a direita (Antonialli no centro).
 export const QUADRO_FINAL = ['bruno', 'jose', 'nara', 'marcos', 'thauany', 'joao', 'antonialli',
   'mancini', 'jaqueline', 'giovanna', 'pedro', 'monica', 'vinicius'];
 
 // Personagens das empresas (docs/analise-roteiro-projeto-do-ano.md, seção 13).
 export const EMPRESAS = {
-  modulo:    { nome: 'Módulo', empresa: 'TOTVS', skin: '#e8b48f', top: '#1667e0', bottom: '#0a3f91', tie: '#7fc0ff' },
-  cronos:    { nome: 'Cronos', empresa: 'A&M', skin: '#f3c9a8', top: '#0c2f57', bottom: '#0c2f57', tie: '#4f8fd6' },
-  cuidado:   { nome: 'Dra. Cuidado', empresa: 'Unimed', skin: '#c68863', hair: 'bun', hairColor: '#1e1410', outfit: 'labcoat', top: '#0b9a5c', bottom: '#0b7a4b', stethoscope: true },
-  frasco:    { nome: 'Dr. Frasco', empresa: 'FUNED', skin: '#f1d0b5', hairColor: '#f4f4f4', top: '#2fb36b', bottom: '#1d5fb8' },
-  acelerado: { nome: 'Acelerado', empresa: 'CAOA', skin: '#d9a07a', outfit: 'racing', top: '#13286b', bottom: '#13286b', accent: '#14a04f' },
-  campo:     { nome: 'Tío Campo', empresa: 'John Deere Argentina', skin: '#e0a882', hair: 'short', hairColor: '#4a3220', outfit: 'overalls', top: '#c4473a', bottom: '#3b5b8a', hat: 'campo', mustache: true },
-  astro:     { nome: 'Astro', empresa: 'Hughes', skin: '#f3c9a8', hair: 'short', hairColor: '#3a2a1a', outfit: 'spacesuit', top: '#f4f6fa', bottom: '#f4f6fa', accent: '#1e4fae' },
-  obrinha:   { nome: 'Obrinha', empresa: 'Libercon', skin: '#a86d4b', hair: 'short', hairColor: '#141010', outfit: 'vest', top: '#1f5fd1', bottom: '#3a4250', hat: 'obra' },
+  modulo:    { nome: 'Módulo', empresa: 'TOTVS', skin: '#e8b48f', top: '#1667e0', bottom: '#0a3f91', tie: '#7fc0ff', badge: 'totvs' },
+  cronos:    { nome: 'Cronos', empresa: 'A&M', skin: '#f3c9a8', top: '#0c2f57', bottom: '#0c2f57', tie: '#4f8fd6', badge: 'alvarez-marsal' },
+  cuidado:   { nome: 'Dra. Cuidado', empresa: 'Unimed', skin: '#c68863', hair: 'bun', hairColor: '#1e1410', outfit: 'labcoat', top: '#0b9a5c', bottom: '#0b7a4b', stethoscope: true, badge: 'unimed' },
+  frasco:    { nome: 'Dr. Frasco', empresa: 'FUNED', skin: '#f1d0b5', hairColor: '#f4f4f4', top: '#2fb36b', bottom: '#1d5fb8', badge: 'funed' },
+  acelerado: { nome: 'Acelerado', empresa: 'CAOA', skin: '#d9a07a', outfit: 'racing', top: '#13286b', bottom: '#13286b', accent: '#14a04f', badge: 'caoa' },
+  campo:     { nome: 'Tío Campo', empresa: 'John Deere Argentina', skin: '#e0a882', hair: 'short', hairColor: '#4a3220', outfit: 'overalls', top: '#c4473a', bottom: '#3b5b8a', hat: 'campo', mustache: true, badge: 'john-deere' },
+  astro:     { nome: 'Astro', empresa: 'Hughes', skin: '#f3c9a8', hair: 'short', hairColor: '#3a2a1a', outfit: 'spacesuit', top: '#f4f6fa', bottom: '#f4f6fa', accent: '#1e4fae', badge: 'hughes' },
+  obrinha:   { nome: 'Obrinha', empresa: 'Libercon', skin: '#a86d4b', hair: 'short', hairColor: '#141010', outfit: 'vest', top: '#1f5fd1', bottom: '#3a4250', hat: 'obra', badge: 'libercon' },
 };
 
 // Linha do tempo. Cada plano tem duração (s), legendas relativas ao início

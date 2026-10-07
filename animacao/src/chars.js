@@ -5,7 +5,9 @@
 //       expr, talk, gaze:[dx,dy], blink, propR, propL, front, lock, ting, sweat, alpha, headTilt }
 // armL/armR: ângulo de elevação em graus (-28 = repouso; 90 = para cima).
 import { tr, g, op, clamp, lerp, hash, C, n2 } from './core.js';
-import { ELENCO, EMPRESAS } from './roteiro.js';
+import { ELENCO, EMPRESAS, RETRATOS } from './roteiro.js';
+import { personHead, personTorso, hairBehind } from './people.js';
+import { logo, logoSize } from './assets.js';
 
 export const ASC = 1.45;
 const INK = C.ink;
@@ -242,31 +244,37 @@ function walkAngles(st) {
   return { leg: 24 * s, swing: 16 * s, bob: Math.abs(Math.cos(st.walk)) * 3.2 };
 }
 
+function blinkOf(st, seed) {
+  if (st.blink != null) return Math.max(0.08, 1 - st.blink);
+  const per = 4.2 + (seed % 10) / 10;
+  const ph = ((st.t ?? 0) + (seed % 97) * 0.37) % per;
+  return ph < 0.14 ? Math.max(0.08, Math.abs(ph - 0.07) / 0.07) : 1;
+}
+function talkOf(st, seed) {
+  if (!st.talk) return 0;
+  const k = typeof st.talk === 'number' ? st.talk : 1, t = st.t ?? 0;
+  return k * (0.3 + 0.7 * Math.abs(Math.sin(t * 13.5 + seed))) * (0.65 + 0.35 * Math.sin(t * 3.9 + seed));
+}
+
 function human(S, st, seed) {
   const W = walkAngles(st);
   const skin = S.skin, shoe = S.shoes ?? '#262a33';
   const armL = (st.armL ?? -28) + W.swing, armR = (st.armR ?? -28) - W.swing;
-  const sleeve = S.outfit === 'labcoat' ? '#fbfbf8' : S.outfit === 'blouse' ? S.top : S.outfit === 'spacesuit' ? '#f4f6fa' : S.top;
+  const sleeve = S.outfit === 'labcoat' ? '#fbfbf8' : S.outfit === 'spacesuit' ? '#f4f6fa' : S.outfit === 'vestShirt' ? (S.inner ?? S.top) : S.top;
   const hand = S.outfit === 'spacesuit' ? '#e9edf3' : S.outfit === 'racing' ? '#23252c' : skin;
-  const HX = 0, HY = -116;
-  let s = '';
-  s += legs(-10.5, 10.5, -26, 20, S.outfit === 'spacesuit' ? '#e9edf3' : S.bottom, S.outfit === 'spacesuit' ? '#9aa3b5' : shoe, W.leg);
-  s += torso(S);
-  s += arm(-1, -24, -73, armL, st.lenL ?? 24, sleeve, hand, st.propL ? PROPS[st.propL] : null);
-  // braço direito por trás da cabeça (ex.: ajeitar o cabelo); a mão é redesenhada na frente
-  if (st.behindR) s += arm(1, 24, -73, armR, st.lenR ?? 24, sleeve, hand, null);
-  // cabeça
   const tilt = st.headTilt ?? 0;
-  let head = hairBack(S.hair, S.hairColor);
-  head += `<circle cx="-27" cy="2" r="6.5" fill="${skin}"/><circle cx="27" cy="2" r="6.5" fill="${skin}"/>`;
-  head += `<circle cx="0" cy="0" r="28" fill="${skin}"/>`;
-  head += face(st, { cx: 0, cy: 0, ex: 10, er: 0.95, my: 11, mw: 16 }, seed);
-  if (S.mustache) head += `<path d="M-1 6 q-7 -5 -13 1 q6 5 13 0z M1 6 q7 -5 13 1 q-6 5 -13 0z" fill="${S.hairColor}"/>`;
-  if (S.glasses) head += `<g stroke="${S.glassesColor ?? '#2b2b36'}" stroke-width="2.4" fill="rgba(255,255,255,.12)"><circle cx="-10" cy="0" r="9.5"/><circle cx="10" cy="0" r="9.5"/></g><path d="M-0.5 -1h1" stroke="${S.glassesColor ?? '#2b2b36'}" stroke-width="2.4"/>`;
-  head += hairFront(S.hair, S.hairColor, st.lock ?? 0);
+  const headT = `translate(0 -116) rotate(${n2(tilt)})`;
+  let s = `<g transform="${headT}">${hairBehind(S)}</g>`;
+  s += legs(-10.5, 10.5, -26, 20, S.outfit === 'spacesuit' ? '#e9edf3' : S.bottom, S.outfit === 'spacesuit' ? '#9aa3b5' : shoe, W.leg);
+  s += personTorso(S) ?? torso(S);
+  s += arm(-1, -24, -73, armL, st.lenL ?? 24, sleeve, hand, st.propL ? PROPS[st.propL] : null);
+  if (st.behindR) s += arm(1, 24, -73, armR, st.lenR ?? 24, sleeve, hand, null);
+  const E = resolveExpr(st.expr);
+  let head = personHead(S, st, E, seed, st.t ?? 0, blinkOf(st, seed), talkOf(st, seed));
+  if (S.mustache && !S.beard) head += `<path d="M-1 9 q-7 -5 -13 1 q6 5 13 0z M1 9 q7 -5 13 1 q-6 5 -13 0z" fill="${S.hairColor}"/>`;
   if (S.hat) head += hat(S.hat);
-  if (S.outfit === 'spacesuit') head += `<circle r="38" fill="rgba(190,225,255,.22)" stroke="#ffffff" stroke-width="3.5"/><path d="M-24 -20 q8 -12 22 -14" stroke="rgba(255,255,255,.8)" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M22 -30 l8 -16" stroke="#c9ced6" stroke-width="2.5"/><circle cx="31" cy="-48" r="4.5" fill="#ff5a5a"/>`;
-  s += `<g transform="translate(${HX} ${HY}) rotate(${n2(tilt)})">${head}</g>`;
+  if (S.outfit === 'spacesuit') head += `<circle r="40" fill="rgba(190,225,255,.22)" stroke="#ffffff" stroke-width="3.5"/><path d="M-25 -21 q8 -12 22 -15" stroke="rgba(255,255,255,.8)" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M23 -31 l8 -16" stroke="#c9ced6" stroke-width="2.5"/><circle cx="32" cy="-49" r="4.5" fill="#ff5a5a"/>`;
+  s += `<g transform="${headT}">${head}</g>`;
   if (st.behindR) {
     const a = (-armR * Math.PI) / 180, L = st.lenR ?? 24;
     s += `<circle cx="${n2(24 + Math.cos(a) * L)}" cy="${n2(-73 + Math.sin(a) * L)}" r="6.6" fill="${hand}"/>`;
@@ -360,7 +368,7 @@ function acelerado(S, st, seed) {
 }
 
 const KIND = { modulo, cronos, frasco, acelerado };
-const ALL = { ...ELENCO, ...EMPRESAS };
+const ALL = { ...ELENCO, ...EMPRESAS, ...RETRATOS };
 
 // Desenha um personagem pelo id (chaves de ELENCO e EMPRESAS).
 export function drawChar(id, st = {}) {
@@ -379,7 +387,21 @@ export function drawChar(id, st = {}) {
     extra += `<g transform="translate(26 -148) rotate(${n2(k * 90)})" opacity="${n2(1 - k * k)}"><path d="M0 ${-sz} L${sz * 0.22} ${-sz * 0.22} L${sz} 0 L${sz * 0.22} ${sz * 0.22} L0 ${sz} L${-sz * 0.22} ${sz * 0.22} L${-sz} 0 L${-sz * 0.22} ${-sz * 0.22}z" fill="#ffd84a"/></g>`;
   }
   if (st.alarm) extra += `<g opacity="${n2(st.alarm)}"><path d="M-4 -186 l-4 -26 h16 l-4 26z M0 -178 m-5 0 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0" fill="${C.red}"/></g>`;
-  const inner = shadowEl(st, r.rx) + `<g transform="translate(0 ${n2(-bob)})">${r.body}${extra}</g>`;
+  // selo com o logo da empresa, atrás do personagem, acompanhando o movimento
+  let behind = '';
+  const badge = st.badge === false ? null : st.badge ?? S.badge;
+  if (badge && (st.badgeAlpha ?? 1) > 0.01) {
+    const L = logoSize(badge, 36, 104);
+    const bw = L.w + 26, bh = L.h + 18, by = (S.hat ? -234 : -218) + Math.sin((st.t ?? 0) * 2.3 + seed) * 3;
+    behind += op(st.badgeAlpha ?? 1, `<g transform="translate(0 ${n2(by)}) scale(${dir} 1)"><path d="M-7 ${n2(bh / 2 - 1)} L0 ${n2(bh / 2 + 9)} L7 ${n2(bh / 2 - 1)}Z" fill="#fff"/><rect x="${n2(-bw / 2)}" y="${n2(-bh / 2)}" width="${n2(bw)}" height="${n2(bh)}" rx="${n2(Math.min(14, bh / 2))}" fill="#fff" stroke="rgba(43,30,10,.12)" stroke-width="1.5"/>${logo(badge, 0, 0, 36, 104)}</g>`);
+  }
+  const tagTxt = st.tag === true ? (S.nome ?? '').split(' ')[0] : st.tag;
+  if (tagTxt) {
+    const tw = tagTxt.length * 8.6 + 22;
+    const ty = S.hair === 'bigCurly' ? -200 : -188;
+    extra += `<g transform="translate(0 ${ty}) scale(${dir} 1)"><rect x="${n2(-tw / 2)}" y="-13" width="${n2(tw)}" height="26" rx="13" fill="#20212b" opacity=".9"/><text x="0" y="5.5" font-family="Outfit" font-weight="800" font-size="15" fill="#fff" text-anchor="middle">${tagTxt}</text></g>`;
+  }
+  const inner = shadowEl(st, r.rx) + `<g transform="translate(0 ${n2(-bob)})">${behind}${r.body}${extra}</g>`;
   const br = st.walk == null && !st.hop ? Math.sin((st.t ?? 0) * 1.9 + seed) * 0.012 : 0;
   const body = g(tr(st.x ?? 0, st.y ?? 0, s, st.lean ?? 0, (st.sx ?? 1) * (1 - br * 0.5) * dir, (st.sy ?? 1) * (1 + br)), inner);
   return op(st.alpha ?? 1, body);

@@ -82,7 +82,7 @@ async function main() {
     const out = opt('out', path.join(BUILD, 'projeto-do-ano.mp4'));
     const a = ['-y', '-framerate', String(fps), '-i', path.join(dir, 'f%05d.jpg')];
     if (fs.existsSync(audio)) a.push('-i', audio);
-    a.push('-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-movflags', '+faststart');
+    a.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart');
     if (fs.existsSync(audio)) a.push('-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ar', '48000', '-c:a', 'aac', '-b:a', '192k', '-shortest');
     a.push(out);
     const r = spawnSync('ffmpeg', a, { stdio: 'inherit' });

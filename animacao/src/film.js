@@ -139,9 +139,9 @@ function mapWorld(t, o = {}) {
       if (k <= 0) return;
       const tx = mx + 175 + j * 130;
       const hop = Math.sin(clamp(k) * Math.PI) * 60;
-      s += ch(id, { x: tx, y: 885, s: 1.25, t: t + j, expr: 'happy', hop, alpha: clamp(k * 3), armR: ma > 0.6 && ma < 2 ? 100 + Math.sin(t * 9 + j) * 12 : -20 });
+      s += ch(id, { x: tx, y: 885, s: 1.25, t: t + j, expr: 'happy', hop, alpha: clamp(k * 3), tag: true, armR: ma > 0.6 && ma < 2 ? 100 + Math.sin(t * 9 + j) * 12 : -20 });
     });
-    if (fixAge[i] > 0.15) s += checkBadge(mx, 560, clamp((fixAge[i] - 0.15) / 0.4), 0.9);
+    if (fixAge[i] > 0.15) s += checkBadge(mx - 105, 650, clamp((fixAge[i] - 0.15) / 0.4), 0.8);
     s += burst(mx, 600, fixAge[i] - 0.1, { r: 170, n: 12 });
   });
   return s;
@@ -285,8 +285,8 @@ P.c2_handshake = (lt, t) => {
   const mx = lerp(760, 872, walkK), cx = lerp(1180, 1050, walkK);
   const shakeA = lt > 7.1 ? Math.sin(t * 14) * 6 : 0;
   const hs = seg(lt, 6.9, 7.2);
-  world += ch('modulo', { x: mx, y: GY, t, walk: walking ? W(t, 2.2) : null, expr: lt > 7.1 ? 'joy' : lt < 4 ? 'happy' : 'neutral', armL: lt < 3.6 && lt > 0.6 ? 100 + Math.sin(t * 8) * 14 : -20, armR: lerp(-20, 4 + shakeA, hs), lenR: lerp(24, 40, hs), gaze: lt > 4 ? [0.8, 0] : [0, 0], front: 'tablet' });
-  world += ch('cronos', { x: cx, y: GY, t, dir: -1, walk: walking ? W(t, 2.2) : null, expr: lt > 7.1 ? 'proud' : lt > 4 ? 'sly' : 'neutral', armR: lerp(-25, 4 - shakeA, hs), lenR: lerp(24, 40, hs), armL: lt > 4.2 && lt < 6 ? 30 : -25, propL: 'clipboard', gaze: lt < 4 ? [0.6, 0] : [0, 0] });
+  world += ch('modulo', { x: mx, y: GY, t, badge: false, walk: walking ? W(t, 2.2) : null, expr: lt > 7.1 ? 'joy' : lt < 4 ? 'happy' : 'neutral', armL: lt < 3.6 && lt > 0.6 ? 100 + Math.sin(t * 8) * 14 : -20, armR: lerp(-20, 4 + shakeA, hs), lenR: lerp(24, 40, hs), gaze: lt > 4 ? [0.8, 0] : [0, 0], front: 'tablet' });
+  world += ch('cronos', { x: cx, y: GY, t, dir: -1, badge: false, walk: walking ? W(t, 2.2) : null, expr: lt > 7.1 ? 'proud' : lt > 4 ? 'sly' : 'neutral', armR: lerp(-25, 4 - shakeA, hs), lenR: lerp(24, 40, hs), armL: lt > 4.2 && lt < 6 ? 30 : -25, propL: 'clipboard', gaze: lt < 4 ? [0.6, 0] : [0, 0] });
   world += burst(962, 760, lt - 7.15, { r: 200, n: 14 });
   const cam = lt < 4.0 ? [kf(lt, [[0, 600], [4, 680]]), 560, 1.25] : lt < 6.1 ? [kf(lt, [[4.0, 680], [4.6, 1290], [6.1, 1320]]), 560, 1.25] : [kf(lt, [[6.1, 1320], [7.0, 960]]), kf(lt, [[6.1, 560], [7.0, 600]]), kf(lt, [[6.1, 1.25], [7.0, 1.15]])];
   // etiquetas de identidade no mundo
@@ -299,8 +299,8 @@ P.c2_leader = (lt, t) => {
   const ax = 700 + lt * 210;
   let world = officeWorld(t);
   const team = [['bruno', 170, 'happy'], ['monica', 300, 'proud'], ['pedro', 430, 'happy'], ['thauany', 560, 'happy']];
-  team.slice().reverse().forEach(([id, d, e], i) => (world += ch(id, { x: ax - d, y: GY + 12, t: t + i, walk: W(t + i * 0.13, 1.8), expr: e, s: 1.35 })));
-  world += ch('antonialli', { x: ax, y: GY + 14, t, walk: W(t, 1.8), expr: 'determined', s: 1.45, gaze: [0.6, 0] });
+  team.slice().reverse().forEach(([id, d, e], i) => (world += ch(id, { x: ax - d, y: GY + 12, t: t + i, walk: W(t + i * 0.13, 1.8), expr: e, s: 1.35, tag: true })));
+  world += ch('antonialli', { x: ax, y: GY + 14, t, walk: W(t, 1.8), expr: 'determined', s: 1.45, gaze: [0.6, 0], tag: true });
   const hud = lowerThird('Guilherme Antonialli', 'Liderança da parceria A&M + TOTVS · Diretor Sênior', lt - 0.4, 6.4, { y: 140, color: C.navy });
   return { bg: paperBg({ floorY: 2000 }), world, cam: [ax + 160, 560, 1.0], hud };
 };
@@ -428,10 +428,10 @@ P.c4_vinicius = (lt, t) => {
     if (k > 0) world += op(clamp(k * 2), robot(lerp(2100, 400 + i * 520, ease.out(k)) + Math.sin(t * 1.3 + i) * 40, 560 + i * 40 + Math.sin(t * 2 + i) * 20, t, i, 0.9));
   }
   const pose = lt < 1.7 ? { armR: 40 + Math.sin(t * 3) * 6, expr: 'neutral', talk: 0.6, gaze: [-0.8, -0.2] } : lt < 3.0 ? { armR: 70, lenR: 30, expr: 'determined', gaze: [0.6, 0.4] } : { armR: 95 + Math.sin(t * 8) * 10, armL: 95, expr: 'joy', gaze: [0, -0.5] };
-  world += ch('vinicius', { x: 1040, y: GY, t, ...pose });
+  world += ch('vinicius', { x: 1040, y: GY, t, tag: true, ...pose });
   let hud = lowerThird('Vinicius de Sousa', 'Delivery Center', lt - 0.3, 2.9, { y: 140, color: C.blue });
-  hud += tag('MENOS PPT NA GAVETA.', 700, 760, { k: clamp((lt - 2.4) / 0.3), bg: C.red, size: 46, rot: -4 });
-  hud += tag('MAIS RESULTADO NO P&L.', 1280, 760, { k: clamp((lt - 3.2) / 0.3), bg: C.green, size: 46, rot: 3 });
+  hud += tag('MENOS PPT NA GAVETA.', 620, 740, { k: clamp((lt - 2.4) / 0.3), bg: C.red, size: 46, rot: -4 });
+  hud += tag('MAIS RESULTADO NO P&L.', 1330, 820, { k: clamp((lt - 3.2) / 0.3), bg: C.green, size: 46, rot: 3 });
   if (lt > 4.6) hud = tag('MENOS PPT NA GAVETA.', 700, 140, { bg: C.red, size: 40, rot: -4, alpha: 1 }) + tag('MAIS RESULTADO NO P&L.', 1260, 140, { bg: C.green, size: 40, rot: 3 });
   return { bg: stageBg({ seed: 91 }), world, cam: [960, 560, 1.0], hud };
 };
@@ -505,7 +505,7 @@ P.c5_detail = (lt, t, p) => {
 // ---------- escritório: comédia ----------
 function paladiniDesk(t, o = {}) {
   let s = '';
-  s += ch('paladini', { x: 1290, y: 828, t, ...(o.pal ?? {}) });
+  s += ch('paladini', { x: 1290, y: 828, t, tag: true, ...(o.pal ?? {}) });
   s += monitor(1180, 760, 150, 104, 'chart', t);
   s += desk(1290, 760, 360, { h: 120 });
   const pa = o.paperAge ?? -1;
@@ -523,7 +523,7 @@ function paladiniDesk(t, o = {}) {
 P.c5_giovanna = (lt, t) => {
   const gx = -50 + lt * 360;
   let world = officeWorld(t, { skipDesk: 1290 }) + paladiniDesk(t, { pal: { expr: 'calm', gaze: [0.5, 0.4], armL: -10, armR: -10 } });
-  world += ch('giovanna', { x: gx, y: GY + 10, t, walk: W(t, 3.2), expr: lt > 1.8 ? 'excited' : 'determined', propR: 'phone', armR: 10, lean: 6, talk: lt > 1.8 ? 1 : 0 });
+  world += ch('giovanna', { x: gx, y: GY + 10, t, walk: W(t, 3.2), expr: lt > 1.8 ? 'excited' : 'determined', propR: 'phone', armR: 10, lean: 6, talk: lt > 1.8 ? 1 : 0, tag: true });
   world += `<path d="M${gx - 110} 700 h-90 M${gx - 120} 760 h-130 M${gx - 100} 820 h-70" stroke="${C.ink}" stroke-width="6" stroke-linecap="round" opacity=".25"/>`;
   if (lt > 1.8) world += bubble('Paladini!', gx + 60, GY - 270, { k: clamp((lt - 1.8) / 0.25), size: 40, tail: -1 });
   return { bg: paperBg({ floorY: 2000 }), world, cam: [Math.min(gx + 200, 1000), 650, 1.3] };
@@ -533,7 +533,7 @@ P.c5_paladini = (lt, t) => {
   const startle = lt < 1.0;
   const pal = startle ? { expr: 'surprised', hop: bump(lt, 0.05, 0.55) * 90, armL: 120, armR: 120, alarm: clamp(1 - (lt - 0.6) / 0.4), gaze: [-0.8, 0] } : { expr: lt > 2.4 ? ['surprised', 'neutral', seg(lt, 2.4, 3.2) * 0.6] : 'surprised', gaze: [-0.9, 0], armL: -10, armR: -10, talk: lt > 2.5 && lt < 3.2 ? 0.8 : 0, sweat: 0.7 };
   let world = officeWorld(t, { skipDesk: 1290 }) + paladiniDesk(t, { pal, paperAge: lt - 0.08 });
-  world += ch('giovanna', { x: gx, y: GY + 10, t, walk: lt < 0.5 ? W(t, 3) : null, expr: lt > 0.6 && lt < 2.4 ? 'determined' : 'sly', propR: 'phone', armR: 10, talk: lt > 0.7 && lt < 2.3 ? 1 : 0, gaze: [0.9, 0] });
+  world += ch('giovanna', { x: gx, y: GY + 10, t, walk: lt < 0.5 ? W(t, 3) : null, expr: lt > 0.6 && lt < 2.4 ? 'determined' : 'sly', propR: 'phone', armR: 10, talk: lt > 0.7 && lt < 2.3 ? 1 : 0, gaze: [0.9, 0], tag: true });
   if (lt > 2.5) world += bubble('Pagou.', 1330, 560, { k: clamp((lt - 2.5) / 0.25), size: 40, tail: -1 });
   return { bg: paperBg({ floorY: 2000 }), world, cam: [1140, 660, 1.5] };
 };
@@ -569,16 +569,16 @@ P.c5_antecipar = (lt, t) => {
 };
 P.c5_phones = (lt, t) => {
   const left = `<clipPath id="spL"><path d="M0 0 H1010 L910 1080 H0Z"/></clipPath><clipPath id="spR"><path d="M1010 0 H1920 V1080 H910Z"/></clipPath>`;
-  const sideA = g(camStr([780, 700, 1.7]), officeWorld(t) + ch('giovanna', { x: 760, y: GY + 10, t, expr: 'excited', armR: 81, lenR: 31, propR: 'phone', talk: 1, headTilt: 8, armL: 30 + Math.sin(t * 10) * 15 }));
-  const sideB = g(camStr([2400, 700, 1.7]), officeWorld(t + 3) + ch('bruno', { x: 2420, y: GY + 10, t, expr: 'determined', armR: 81, lenR: 31, propR: 'phone', talk: 1, headTilt: 8, dir: -1 }));
+  const sideA = g(camStr([920, 700, 1.7]), officeWorld(t) + ch('giovanna', { x: 760, y: GY + 10, t, expr: 'excited', armR: 81, lenR: 31, propR: 'phone', talk: 1, headTilt: 8, armL: 30 + Math.sin(t * 10) * 15, tag: true }));
+  const sideB = g(camStr([2260, 700, 1.7]), officeWorld(t + 3) + ch('bruno', { x: 2420, y: GY + 10, t, expr: 'determined', armR: 81, lenR: 31, propR: 'phone', talk: 1, headTilt: 8, dir: -1, tag: true }));
   const hud = left + `<g clip-path="url(#spL)"><rect width="1920" height="1080" fill="${C.bg}"/>${sideA}</g><g clip-path="url(#spR)"><rect width="1920" height="1080" fill="${C.bg}"/>${sideB}</g><path d="M1010 0 L910 1080" stroke="#fff" stroke-width="14"/>`;
   return { bg: '', world: '', cam: [960, 540, 1], hud };
 };
 P.c5_celebrate = (lt, t) => {
   let world = officeWorld(t);
   const hop = i => Math.abs(Math.sin((lt + i * 0.18) * 6.5)) * 70;
-  world += ch('giovanna', { x: 860, y: GY + 10, t, expr: 'joy', hop: hop(0), armL: 115 + Math.sin(t * 10) * 10, armR: 115, propR: 'phone' });
-  world += ch('bruno', { x: 1080, y: GY + 10, t: t + 0.3, expr: 'joy', hop: hop(1), armL: 115, armR: 115 + Math.sin(t * 10) * 10, propL: 'phone' });
+  world += ch('giovanna', { x: 860, y: GY + 10, t, expr: 'joy', hop: hop(0), armL: 115 + Math.sin(t * 10) * 10, armR: 115, propR: 'phone', tag: true });
+  world += ch('bruno', { x: 1080, y: GY + 10, t: t + 0.3, expr: 'joy', hop: hop(1), armL: 115, armR: 115 + Math.sin(t * 10) * 10, propL: 'phone', tag: true });
   world += confetti(970, 200, lt, { n: 90, w: 1400, seed: 7 });
   return { bg: paperBg({ floorY: 2000 }), world, cam: [970, 620, 1.3] };
 };
@@ -653,7 +653,7 @@ P.c6_fade = (lt, t, p) => {
 function spotBlack() { return `<rect width="1920" height="1080" fill="#0b0c10"/><ellipse cx="960" cy="${GY + 8}" rx="260" ry="34" fill="#fff6d6" opacity=".14"/><path d="M820 -40 L1100 -40 L1260 ${GY} L660 ${GY}Z" fill="#fff6d6" opacity=".06"/>`; }
 P.c6_gente = (lt, t) => {
   const gx = lerp(-150, 940, seg(lt, 0, 0.6));
-  let world = ch('giovanna', { x: gx, y: GY, t, s: 1.5, walk: lt < 0.6 ? W(t, 3) : null, expr: lt < 2.2 ? 'thinking' : 'worried', talk: (lt > 0.6 && lt < 1.6) || (lt > 2.3 && lt < 3.4) ? 1 : 0, gaze: lt < 2.2 ? [Math.sin(t * 2) * 0.8, 0] : [0, 0], propR: lt > 2.2 ? 'nf' : null, armR: lt > 2.2 ? 40 : -20 });
+  let world = ch('giovanna', { x: gx, y: GY, t, s: 1.5, tag: true, walk: lt < 0.6 ? W(t, 3) : null, expr: lt < 2.2 ? 'thinking' : 'worried', talk: (lt > 0.6 && lt < 1.6) || (lt > 2.3 && lt < 3.4) ? 1 : 0, gaze: lt < 2.2 ? [Math.sin(t * 2) * 0.8, 0] : [0, 0], propR: lt > 2.2 ? 'nf' : null, armR: lt > 2.2 ? 40 : -20 });
   if (lt > 0.6) world += bubble('Gente…', gx + 90, GY - 330, { k: clamp((lt - 0.6) / 0.25), size: 38 });
   if (lt > 2.3) world += bubble('Mas pagou a NF?', gx + 120, GY - 420, { k: clamp((lt - 2.3) / 0.25), size: 38 });
   return { bg: spotBlack(), world, cam: [960, 640, 1.25], chrome: false };

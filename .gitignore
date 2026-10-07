@@ -2,3 +2,4 @@ node_modules/
 animacao/build/*
 !animacao/build/cues.json
 !animacao/build/projeto-do-ano.mp4
+__pycache__/

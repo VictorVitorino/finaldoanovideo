@@ -1,0 +1,19 @@
+{
+  "name": "projeto-do-ano-animacao",
+  "version": "1.0.0",
+  "description": "Animação 2D do roteiro Projeto do Ano (A&M + TOTVS)",
+  "scripts": {
+    "cues": "node render.mjs cues",
+    "frames": "node render.mjs frames",
+    "encode": "node render.mjs encode"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.1.0",
+    "@fontsource/outfit": "^5.1.0"
+  },
+  "type": "module",
+  "private": true
+}

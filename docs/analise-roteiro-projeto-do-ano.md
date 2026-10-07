@@ -209,3 +209,32 @@ Os personagens de pessoas reais (Antonialli, Giovanna, Paladini, etc.) seguem as
 - **Argentina:** o Tío Campo evita o estereótipo de gaúcho (bombacha, lenço, mate). Validar a caracterização com a equipe da John Deere Argentina.
 - **Parceiros:** Módulo e Cronos são personagens de parceria. Confirmar com TOTVS e A&M se aceitam personagens que representam a empresa (e não só o logo).
 - **Alternativa:** se alguma empresa não aprovar personagem, o personagem pode virar um cargo: "a equipe de Unimed", "o time da CAOA", com um representante humano em vez de um mascote.
+
+## 14. Animação produzida (versão 2D)
+
+A primeira tentativa foi em 3D (bonecos estilo Pixar renderizados em WebGL) e foi descartada a pedido. A versão atual segue a referência enviada (vídeo SpecForge): animação 2D vetorial, mascotes simpáticos com rosto expressivo, cores chapadas, fundo creme com manchas pastel, legenda em pílula com destaque, etiqueta de capítulo e transições em diagonal. O estilo vem da referência; roteiro, personagens e cenários são os nossos.
+
+- **Código e instruções:** pasta `animacao/` (ver `animacao/README.md`).
+- **Elenco:** os 8 mascotes da seção 13 em 2D (Módulo em bloco, Cronos com cabeça de cronômetro, Dr. Frasco em forma de frasco, Acelerado de capacete, Dra. Cuidado, Tío Campo, Astro e Obrinha) e as 16 pessoas do roteiro. A aparência das pessoas é provisória.
+- **Mapa dos projetos (cena 3):** cada projeto é um lugar numa estrada (clínica, laboratório, pista, fazenda na Argentina, espaço e obra). Uma nuvem de chuva emburrada vira sol quando o time chega, e o cartão mostra antes → depois.
+- **Áudio:** trilha e efeitos sintetizados. A narração e as falas estão como legendas, prontas para guiar a gravação da locução.
+
+### Duração: 2:51 em vez de 2:25
+
+O texto falado do roteiro (cerca de 290 palavras), somado às pausas cômicas, não cabe em 2:25 num ritmo natural de narração. A animação ficou com 2:51. Para chegar perto de 2:25 (cerca de 26 s a menos), sugestões de corte:
+
+| Corte | Economia |
+|---|---|
+| Cena 2: encurtar a apresentação para "De um lado, a TOTVS. Do outro, a A&M Performance." | ~4 s |
+| Cena 3: 5 s por projeto em vez de 6 s | ~6 s |
+| Cena 4: slides do framework com 1,5 s cada | ~3,6 s |
+| Cena 5: tirar o cartão "MAS TEM UM DETALHE…" e encurtar as pausas | ~3 s |
+| Cena 6: fala do Antonialli sem "Hoje são seis, em dois países" | ~2,7 s |
+| Cena 6: tirar o plano do narrador "Um projeto que gera projetos…" (repete a ideia da fala anterior) | ~4,8 s |
+| Cena 1: encurtar os cortes do caos e a muda | ~1,8 s |
+
+As durações de cada plano ficam em `animacao/src/roteiro.js`.
+
+### Pendências que continuam valendo
+
+Os itens 7.1 a 7.6 seguem abertos: o tratamento das NFs nas cenas 5 e 6, o valor do FY27, as métricas antes/depois, os slides reais do framework (a cena 4 usa uma versão ilustrativa), os logos oficiais com permissão de uso e a aprovação de cada pessoa caricaturada.

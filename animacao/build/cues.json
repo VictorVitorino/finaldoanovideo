@@ -1,0 +1,894 @@
+{
+ "total": 170.9,
+ "fps": 30,
+ "sfx": [
+  {
+   "t": 0.1,
+   "s": "pings",
+   "plano": "c1_black"
+  },
+  {
+   "t": 1.2,
+   "s": "slam",
+   "plano": "c1_wide"
+  },
+  {
+   "t": 1,
+   "s": "ring",
+   "plano": "c1_wide"
+  },
+  {
+   "t": 2.9,
+   "s": "slam",
+   "plano": "c1_monitors"
+  },
+  {
+   "t": 3.1,
+   "s": "alarm",
+   "plano": "c1_monitors"
+  },
+  {
+   "t": 4.5,
+   "s": "slam",
+   "plano": "c1_stress"
+  },
+  {
+   "t": 4.9,
+   "s": "ring",
+   "plano": "c1_stress"
+  },
+  {
+   "t": 6.5,
+   "s": "slam",
+   "plano": "c1_calendar"
+  },
+  {
+   "t": 7.3,
+   "s": "stamp",
+   "plano": "c1_calendar"
+  },
+  {
+   "t": 8.55,
+   "s": "paper",
+   "plano": "c1_silence"
+  },
+  {
+   "t": 12.6,
+   "s": "pickup",
+   "plano": "c1_call"
+  },
+  {
+   "t": 16.1,
+   "s": "sparkle",
+   "plano": "c1_seed"
+  },
+  {
+   "t": 26.6,
+   "s": "sparkle",
+   "plano": "c2_handshake"
+  },
+  {
+   "t": 26.6,
+   "s": "clap",
+   "plano": "c2_handshake"
+  },
+  {
+   "t": 28,
+   "s": "whoosh",
+   "plano": "c2_leader"
+  },
+  {
+   "t": 34.6,
+   "s": "thud",
+   "plano": "c2_values"
+  },
+  {
+   "t": 35.15,
+   "s": "thud",
+   "plano": "c2_values"
+  },
+  {
+   "t": 35.7,
+   "s": "thud",
+   "plano": "c2_values"
+  },
+  {
+   "t": 36.4,
+   "s": "shine",
+   "plano": "c2_values"
+  },
+  {
+   "t": 37.4,
+   "s": "whoosh",
+   "plano": "c2_unimed"
+  },
+  {
+   "t": 40.35,
+   "s": "whoosh",
+   "plano": "c3_p1"
+  },
+  {
+   "t": 43.3,
+   "s": "fix",
+   "plano": "c3_p1"
+  },
+  {
+   "t": 46.35,
+   "s": "whoosh",
+   "plano": "c3_p2"
+  },
+  {
+   "t": 49.3,
+   "s": "fix",
+   "plano": "c3_p2"
+  },
+  {
+   "t": 52.35,
+   "s": "whoosh",
+   "plano": "c3_p3"
+  },
+  {
+   "t": 55.3,
+   "s": "fix",
+   "plano": "c3_p3"
+  },
+  {
+   "t": 58.35,
+   "s": "whoosh",
+   "plano": "c3_p4"
+  },
+  {
+   "t": 61.3,
+   "s": "fix",
+   "plano": "c3_p4"
+  },
+  {
+   "t": 64.35,
+   "s": "whoosh",
+   "plano": "c3_p5"
+  },
+  {
+   "t": 67.3,
+   "s": "fix",
+   "plano": "c3_p5"
+  },
+  {
+   "t": 70.35,
+   "s": "whoosh",
+   "plano": "c3_p6"
+  },
+  {
+   "t": 73.3,
+   "s": "fix",
+   "plano": "c3_p6"
+  },
+  {
+   "t": 77.1,
+   "s": "pop",
+   "plano": "c3_summary"
+  },
+  {
+   "t": 77.9,
+   "s": "pop",
+   "plano": "c3_summary"
+  },
+  {
+   "t": 78.7,
+   "s": "pop",
+   "plano": "c3_summary"
+  },
+  {
+   "t": 79.5,
+   "s": "shine",
+   "plano": "c3_summary"
+  },
+  {
+   "t": 81.6,
+   "s": "thud",
+   "plano": "c4_method"
+  },
+  {
+   "t": 82.7,
+   "s": "thud",
+   "plano": "c4_method"
+  },
+  {
+   "t": 83.9,
+   "s": "thud",
+   "plano": "c4_method"
+  },
+  {
+   "t": 85.1,
+   "s": "thud",
+   "plano": "c4_method"
+  },
+  {
+   "t": 86.6,
+   "s": "whoosh",
+   "plano": "c4_slides"
+  },
+  {
+   "t": 89,
+   "s": "whoosh",
+   "plano": "c4_slides"
+  },
+  {
+   "t": 91.4,
+   "s": "whoosh",
+   "plano": "c4_slides"
+  },
+  {
+   "t": 93.8,
+   "s": "whoosh",
+   "plano": "c4_slides"
+  },
+  {
+   "t": 97.9,
+   "s": "record_stop",
+   "plano": "c4_vinicius"
+  },
+  {
+   "t": 98.4,
+   "s": "whoosh",
+   "plano": "c4_vinicius"
+  },
+  {
+   "t": 98.95,
+   "s": "drawer",
+   "plano": "c4_vinicius"
+  },
+  {
+   "t": 99.3,
+   "s": "pop",
+   "plano": "c4_vinicius"
+  },
+  {
+   "t": 99.6,
+   "s": "pop",
+   "plano": "c4_vinicius"
+  },
+  {
+   "t": 99.9,
+   "s": "pop",
+   "plano": "c4_vinicius"
+  },
+  {
+   "t": 100.2,
+   "s": "robots",
+   "plano": "c4_vinicius"
+  },
+  {
+   "t": 107.4,
+   "s": "timpani",
+   "plano": "c5_numbers"
+  },
+  {
+   "t": 109.8,
+   "s": "timpani",
+   "plano": "c5_numbers"
+  },
+  {
+   "t": 112.3,
+   "s": "coins",
+   "plano": "c5_growth"
+  },
+  {
+   "t": 114.6,
+   "s": "clap",
+   "plano": "c5_growth"
+  },
+  {
+   "t": 116.25,
+   "s": "typewriter",
+   "plano": "c5_detail"
+  },
+  {
+   "t": 117.8,
+   "s": "steps_fast",
+   "plano": "c5_giovanna"
+  },
+  {
+   "t": 120.45,
+   "s": "startle",
+   "plano": "c5_paladini"
+  },
+  {
+   "t": 120.5,
+   "s": "paper",
+   "plano": "c5_paladini"
+  },
+  {
+   "t": 123.8,
+   "s": "scratch",
+   "plano": "c5_scratch"
+  },
+  {
+   "t": 128.6,
+   "s": "dial",
+   "plano": "c5_phones"
+  },
+  {
+   "t": 130.55,
+   "s": "confetti",
+   "plano": "c5_celebrate"
+  },
+  {
+   "t": 134.65,
+   "s": "stamp",
+   "plano": "c5_operacao"
+  },
+  {
+   "t": 137.25,
+   "s": "ting",
+   "plano": "c5_hair"
+  },
+  {
+   "t": 137.8,
+   "s": "pop",
+   "plano": "c6_montage"
+  },
+  {
+   "t": 138.45,
+   "s": "pop",
+   "plano": "c6_montage"
+  },
+  {
+   "t": 139.1,
+   "s": "pop",
+   "plano": "c6_montage"
+  },
+  {
+   "t": 139.75,
+   "s": "pop",
+   "plano": "c6_montage"
+  },
+  {
+   "t": 140.4,
+   "s": "pop",
+   "plano": "c6_montage"
+  },
+  {
+   "t": 141.05,
+   "s": "pop",
+   "plano": "c6_montage"
+  },
+  {
+   "t": 152.9,
+   "s": "rise",
+   "plano": "c6_narr"
+  },
+  {
+   "t": 156.7,
+   "s": "shine",
+   "plano": "c6_group"
+  },
+  {
+   "t": 163.1,
+   "s": "steps",
+   "plano": "c6_gente"
+  },
+  {
+   "t": 168,
+   "s": "ting",
+   "plano": "c6_hair"
+  },
+  {
+   "t": 169,
+   "s": "button",
+   "plano": "c6_fim"
+  }
+ ],
+ "musica": [
+  {
+   "estilo": "tensao",
+   "de": 0,
+   "ate": 8.4
+  },
+  {
+   "estilo": "esperanca",
+   "de": 9.6,
+   "ate": 19.400000000000002
+  },
+  {
+   "estilo": "tema",
+   "de": 19.400000000000002,
+   "ate": 81.19999999999999
+  },
+  {
+   "estilo": "metodo",
+   "de": 81.19999999999999,
+   "ate": 103.19999999999999
+  },
+  {
+   "estilo": "triunfo",
+   "de": 103.19999999999999,
+   "ate": 116.19999999999999
+  },
+  {
+   "estilo": "furtivo",
+   "de": 117.79999999999998,
+   "ate": 123.79999999999998
+  },
+  {
+   "estilo": "comico",
+   "de": 125.29999999999998,
+   "ate": 132.8
+  },
+  {
+   "estilo": "espiao",
+   "de": 132.8,
+   "ate": 137.8
+  },
+  {
+   "estilo": "final",
+   "de": 137.8,
+   "ate": 161.70000000000002
+  }
+ ],
+ "subs": [
+  {
+   "de": 9.6,
+   "ate": 12.5,
+   "quem": "Narrador",
+   "texto": "Todo mundo que já viveu um projeto de ERP conhece esse filme."
+  },
+  {
+   "de": 12.5,
+   "ate": 15.5,
+   "quem": "Narrador",
+   "texto": "A diferença é quem você chama quando ele começa a dar errado."
+  },
+  {
+   "de": 16.1,
+   "ate": 19.3,
+   "quem": "Narrador",
+   "texto": "A nossa começou com um projeto. E não parou mais de crescer."
+  },
+  {
+   "de": 19.6,
+   "ate": 23.4,
+   "quem": "Narrador",
+   "texto": "De um lado, a TOTVS: a maior empresa de tecnologia do Brasil."
+  },
+  {
+   "de": 23.4,
+   "ate": 27.5,
+   "quem": "Narrador",
+   "texto": "Do outro, a A&M Performance: núcleo de excelência em performance da Alvarez & Marsal."
+  },
+  {
+   "de": 27.8,
+   "ate": 31,
+   "quem": "Narrador",
+   "texto": "Um time de especialistas com mentalidade fazedora e adaptável."
+  },
+  {
+   "de": 31,
+   "ate": 34.3,
+   "quem": "Narrador",
+   "texto": "Executivos que já viveram desafios reais. Gente que entende do jogo."
+  },
+  {
+   "de": 37.5,
+   "ate": 40.1,
+   "quem": "Narrador",
+   "texto": "Tudo começou na Unimed Brasil. Nosso projeto pioneiro."
+  },
+  {
+   "de": 40.5,
+   "ate": 43.8,
+   "quem": "Narrador",
+   "texto": "Tudo começou na maior rede de assistência médica do Brasil."
+  },
+  {
+   "de": 46.5,
+   "ate": 49.8,
+   "quem": "Narrador",
+   "texto": "Depois veio a FUNED, referência em vacinas, medicamentos e biotecnologia."
+  },
+  {
+   "de": 52.5,
+   "ate": 55.8,
+   "quem": "Narrador",
+   "texto": "Na CAOA, acelerando uma montadora."
+  },
+  {
+   "de": 58.5,
+   "ate": 61.8,
+   "quem": "Narrador",
+   "texto": "E a parceria cruzou fronteiras: John Deere, na Argentina."
+  },
+  {
+   "de": 64.5,
+   "ate": 67.8,
+   "quem": "Narrador",
+   "texto": "Na Hughes, a parceria chegou ao espaço."
+  },
+  {
+   "de": 70.5,
+   "ate": 73.8,
+   "quem": "Narrador",
+   "texto": "E na Libercon, construindo junto. Literalmente."
+  },
+  {
+   "de": 81.4,
+   "ate": 83.9,
+   "quem": "Narrador",
+   "texto": "Projeto após projeto, o aprendizado vira método."
+  },
+  {
+   "de": 83.9,
+   "ate": 86.5,
+   "quem": "Narrador",
+   "texto": "O método vira padrão. E o padrão gera previsibilidade."
+  },
+  {
+   "de": 99.4,
+   "ate": 103.1,
+   "quem": "Narrador",
+   "texto": "Com o apoio do Delivery Center, os entregáveis viraram cockpits de dashboards para o cliente."
+  },
+  {
+   "de": 103.4,
+   "ate": 105.3,
+   "quem": "Narrador",
+   "texto": "E quando a gente diz resultado no P&L…"
+  },
+  {
+   "de": 105.4,
+   "ate": 107.1,
+   "quem": "Narrador",
+   "texto": "…é no P&L de todo mundo."
+  },
+  {
+   "de": 112.1,
+   "ate": 114.3,
+   "quem": "Narrador",
+   "texto": "Uma parceria que não só entrega valor para o cliente."
+  },
+  {
+   "de": 114.3,
+   "ate": 116.1,
+   "quem": "Narrador",
+   "texto": "Ela também cresce o nosso negócio."
+  },
+  {
+   "de": 119.6,
+   "ate": 120.4,
+   "quem": "Giovanna",
+   "texto": "Paladini!"
+  },
+  {
+   "de": 121.1,
+   "ate": 122.7,
+   "quem": "Giovanna",
+   "texto": "A TOTVS pagou a nota?"
+  },
+  {
+   "de": 122.9,
+   "ate": 123.8,
+   "quem": "Paladini",
+   "texto": "Pagou."
+  },
+  {
+   "de": 125.1,
+   "ate": 127.3,
+   "quem": "Antonialli",
+   "texto": "Vamos precisar antecipar algumas notas para o FY26."
+  },
+  {
+   "de": 127.4,
+   "ate": 128.5,
+   "quem": "Antonialli",
+   "texto": "Fala com a TOTVS."
+  },
+  {
+   "de": 130.6,
+   "ate": 132.7,
+   "quem": "Giovanna e Bruno",
+   "texto": "Antecipamos as NFs para esse ano fiscal!"
+  },
+  {
+   "de": 132.9,
+   "ate": 134.7,
+   "quem": "Antonialli",
+   "texto": "Agora é Operação Collection Zero Defect."
+  },
+  {
+   "de": 141.9,
+   "ate": 145.1,
+   "quem": "Antonialli",
+   "texto": "Começamos com um projeto na Unimed. Hoje são seis, em dois países,"
+  },
+  {
+   "de": 145.1,
+   "ate": 147.3,
+   "quem": "Antonialli",
+   "texto": "e R$ 7 milhões só neste ano fiscal."
+  },
+  {
+   "de": 147.5,
+   "ate": 150.8,
+   "quem": "Antonialli",
+   "texto": "Isso não é sorte. É método e confiança."
+  },
+  {
+   "de": 151.1,
+   "ate": 152.9,
+   "quem": "Narrador",
+   "texto": "Um projeto que gera projetos."
+  },
+  {
+   "de": 152.9,
+   "ate": 155.6,
+   "quem": "Narrador",
+   "texto": "E mais R$ [X] milhões já a caminho no próximo ano fiscal."
+  },
+  {
+   "de": 163.7,
+   "ate": 164.8,
+   "quem": "Giovanna",
+   "texto": "Gente…"
+  },
+  {
+   "de": 165.4,
+   "ate": 166.7,
+   "quem": "Giovanna",
+   "texto": "Mas pagou a NF?"
+  }
+ ],
+ "planos": [
+  {
+   "id": "c1_black",
+   "cena": 1,
+   "de": 0,
+   "ate": 1
+  },
+  {
+   "id": "c1_wide",
+   "cena": 1,
+   "de": 1,
+   "ate": 2.8
+  },
+  {
+   "id": "c1_monitors",
+   "cena": 1,
+   "de": 2.8,
+   "ate": 4.4
+  },
+  {
+   "id": "c1_stress",
+   "cena": 1,
+   "de": 4.4,
+   "ate": 6.4
+  },
+  {
+   "id": "c1_calendar",
+   "cena": 1,
+   "de": 6.4,
+   "ate": 8.4
+  },
+  {
+   "id": "c1_silence",
+   "cena": 1,
+   "de": 8.4,
+   "ate": 9.4
+  },
+  {
+   "id": "c1_call",
+   "cena": 1,
+   "de": 9.4,
+   "ate": 15.6
+  },
+  {
+   "id": "c1_seed",
+   "cena": 1,
+   "de": 15.6,
+   "ate": 19.4
+  },
+  {
+   "id": "c2_handshake",
+   "cena": 2,
+   "de": 19.4,
+   "ate": 27.6
+  },
+  {
+   "id": "c2_leader",
+   "cena": 2,
+   "de": 27.6,
+   "ate": 34.4
+  },
+  {
+   "id": "c2_values",
+   "cena": 2,
+   "de": 34.4,
+   "ate": 37.4
+  },
+  {
+   "id": "c2_unimed",
+   "cena": 2,
+   "de": 37.4,
+   "ate": 40.2
+  },
+  {
+   "id": "c3_p1",
+   "cena": 3,
+   "de": 40.2,
+   "ate": 46.2
+  },
+  {
+   "id": "c3_p2",
+   "cena": 3,
+   "de": 46.2,
+   "ate": 52.2
+  },
+  {
+   "id": "c3_p3",
+   "cena": 3,
+   "de": 52.2,
+   "ate": 58.2
+  },
+  {
+   "id": "c3_p4",
+   "cena": 3,
+   "de": 58.2,
+   "ate": 64.2
+  },
+  {
+   "id": "c3_p5",
+   "cena": 3,
+   "de": 64.2,
+   "ate": 70.2
+  },
+  {
+   "id": "c3_p6",
+   "cena": 3,
+   "de": 70.2,
+   "ate": 76.2
+  },
+  {
+   "id": "c3_summary",
+   "cena": 3,
+   "de": 76.2,
+   "ate": 81.2
+  },
+  {
+   "id": "c4_method",
+   "cena": 4,
+   "de": 81.2,
+   "ate": 86.6
+  },
+  {
+   "id": "c4_slides",
+   "cena": 4,
+   "de": 86.6,
+   "ate": 96.2
+  },
+  {
+   "id": "c4_vinicius",
+   "cena": 4,
+   "de": 96.2,
+   "ate": 103.2
+  },
+  {
+   "id": "c5_pl",
+   "cena": 5,
+   "de": 103.2,
+   "ate": 107.2
+  },
+  {
+   "id": "c5_numbers",
+   "cena": 5,
+   "de": 107.2,
+   "ate": 112
+  },
+  {
+   "id": "c5_growth",
+   "cena": 5,
+   "de": 112,
+   "ate": 116.2
+  },
+  {
+   "id": "c5_detail",
+   "cena": 5,
+   "de": 116.2,
+   "ate": 117.8
+  },
+  {
+   "id": "c5_giovanna",
+   "cena": 5,
+   "de": 117.8,
+   "ate": 120.4
+  },
+  {
+   "id": "c5_paladini",
+   "cena": 5,
+   "de": 120.4,
+   "ate": 123.8
+  },
+  {
+   "id": "c5_scratch",
+   "cena": 5,
+   "de": 123.8,
+   "ate": 125
+  },
+  {
+   "id": "c5_antecipar",
+   "cena": 5,
+   "de": 125,
+   "ate": 128.6
+  },
+  {
+   "id": "c5_phones",
+   "cena": 5,
+   "de": 128.6,
+   "ate": 130.4
+  },
+  {
+   "id": "c5_celebrate",
+   "cena": 5,
+   "de": 130.4,
+   "ate": 132.8
+  },
+  {
+   "id": "c5_operacao",
+   "cena": 5,
+   "de": 132.8,
+   "ate": 136
+  },
+  {
+   "id": "c5_hair",
+   "cena": 5,
+   "de": 136,
+   "ate": 137.8
+  },
+  {
+   "id": "c6_montage",
+   "cena": 6,
+   "de": 137.8,
+   "ate": 141.7
+  },
+  {
+   "id": "c6_monologue",
+   "cena": 6,
+   "de": 141.7,
+   "ate": 150.9
+  },
+  {
+   "id": "c6_narr",
+   "cena": 6,
+   "de": 150.9,
+   "ate": 155.7
+  },
+  {
+   "id": "c6_group",
+   "cena": 6,
+   "de": 155.7,
+   "ate": 161.7
+  },
+  {
+   "id": "c6_fade",
+   "cena": 6,
+   "de": 161.7,
+   "ate": 163.1
+  },
+  {
+   "id": "c6_gente",
+   "cena": 6,
+   "de": 163.1,
+   "ate": 166.7
+  },
+  {
+   "id": "c6_hair",
+   "cena": 6,
+   "de": 166.7,
+   "ate": 168.7
+  },
+  {
+   "id": "c6_fim",
+   "cena": 6,
+   "de": 168.7,
+   "ate": 170.9
+  }
+ ]
+}

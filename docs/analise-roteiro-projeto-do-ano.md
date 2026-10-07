@@ -106,7 +106,7 @@ Os 13 do quadro final são os 11 acima mais Vinicius de Sousa e Guilherme Antoni
 2. **Placeholder R$ [X] M (cenas 5 e 6):** precisa do valor e da fonte (previsto, contratado ou em pipeline). Hoje o texto diz "já previstos", que precisa de aprovação do Financeiro.
 3. **Resultados por projeto (cena 3):** o roteiro pede "resultado antes e depois" para cada um dos seis projetos, mas não traz nenhum dado. Precisa de uma métrica por projeto, com fonte e aprovação do cliente.
 4. **Confidencialidade do método (cena 4):** os slides 7, 9, 10 e 11 do framework A&M × TOTVS vão aparecer na tela. Confirmar se o framework pode ser mostrado publicamente. Confirmar também a citação das ferramentas (Claude, Luria, Xray, DataHub) e o uso da marca Claude.
-5. **Logos e marcas:** John Deere, Unimed, TOTVS e Libercon. Usar arquivos oficiais, sem redesenho. Confirmar permissão de cada cliente para aparecer em peça de premiação ou marketing (especialmente John Deere e Unimed).
+5. **Logos e marcas:** são oito logos (inventário na seção 12). Usar arquivos oficiais, sem redesenho. Confirmar permissão de cada cliente para aparecer em peça de premiação ou marketing (especialmente John Deere e Unimed).
 6. **Pessoas reais caricaturadas:** o vídeo usa nomes e traços de 13 pessoas, mais o narrador. Obter aprovação de cada uma (caricatura, imagem e voz). Se a narração for feita com voz clonada ou sintética, precisa de consentimento. O humor precisa ser sobre a situação, não sobre a pessoa.
 7. **Superlativos a verificar:** "a maior empresa de tecnologia do Brasil" (TOTVS) e "a maior rede de assistência médica do Brasil" (Unimed). Precisam de fonte ou de reescrita.
 8. **Jargão para o público:** MIT, TMO, GMO, FY26/FY27, P&L, NF, SLA, Remediação, Protheus, RM, "Collection Zero Defect". Para quem não é do setor, usar legenda ou glossário na tela.
@@ -142,4 +142,25 @@ Use este brief como referência de estilo, não como prompt final. Cada caricatu
 ## 11. Status
 
 - Roteiro analisado e estrutura documentada.
+- Logos recebidos e inventariados (seção 12).
 - Vídeo **não gerado**: não há ferramenta de renderização 3D neste ambiente. O próximo passo útil é o storyboard, depois o look-dev dos personagens, quando as pendências da seção 7 estiverem resolvidas.
+
+## 12. Inventário de logos (assets recebidos)
+
+Oito logos ao todo, cobrindo as oito entidades citadas no roteiro. Os quatro primeiros foram enviados com a análise inicial; os quatro últimos, depois. A correspondência de arquivo abaixo segue a ordem de envio (imagens 1 a 8). Confirmar o arquivo original antes de usar.
+
+| Entidade | Papel no roteiro | Onde aparece | Cores predominantes | Observação |
+|---|---|---|---|---|
+| TOTVS | Parceira | Cena 2 (aperto de mão), cena 6 (card final) | Azul | Logo horizontal com símbolo circular |
+| Alvarez & Marsal | Parceira ("A&M Performance") | Cena 2 (aperto de mão), cena 6 (card final) | Azul-marinho e azul | Usar o nome completo, como no roteiro |
+| Unimed | Cliente (projeto 01) | Cena 3 e cena 6 | Verde | Logo horizontal |
+| FUNED | Cliente (projeto 02) | Cena 3 e cena 6 | Azul e verde (símbolo); azul-marinho (texto) | Logo vertical com símbolo em fita |
+| CAOA | Cliente (projeto 03) | Cena 3 e cena 6 | Azul-marinho e verde | Logo horizontal |
+| John Deere | Cliente (projeto 04, Argentina) | Cena 3 e cena 6 | Verde e amarelo | Logo com símbolo do veado; não redesenhar |
+| Hughes | Cliente (projeto 05) | Cena 3 e cena 6 | Azul | Logo horizontal |
+| Libercon | Cliente (projeto 06) | Cena 3 e cena 6 | Azul | Logo vertical com símbolo em "L" |
+
+**Pontos de atenção**
+- Os logos são de marcas de terceiros. Usar os arquivos oficiais de cada empresa e confirmar a permissão de uso (item 7.5).
+- Para a cena 2, o roteiro usa o nome "A&M Performance" e o logo da Alvarez & Marsal. Confirmar se o logo deve ser o da A&M Performance ou o da Alvarez & Marsal, para não haver divergência.
+- A cor azul aparece em quase todas as marcas. Como o acento azul é o da TOTVS (seção 5), os logos precisam de contraste sobre o fundo neutro para não se confundir com o cenário.

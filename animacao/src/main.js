@@ -8,7 +8,9 @@ import { C, text } from './core.js';
 const params = new URLSearchParams(location.search);
 const MODE = params.get('mode') || 'preview';
 const TEST = params.get('test');
+const LAYER = params.get('layer') || 'full';
 if (MODE === 'render') document.body.classList.add('render');
+if (LAYER === 'overlay' || LAYER === 'etiquetas') { document.body.classList.add('transparent'); document.documentElement.classList.add('transparent'); }
 
 const FONTS = ['600 20px Outfit', '700 20px Outfit', '800 20px Outfit', '900 20px Outfit', '500 20px "DM Sans"', '700 20px "DM Sans"', '800 20px "DM Sans"'];
 
@@ -23,7 +25,7 @@ async function init() {
   else if (TEST === 'retratos') world = retratos();
   else {
     const { buildFilm } = await import('./film.js');
-    world = buildFilm();
+    world = buildFilm({ layer: LAYER });
   }
   window.DURATION = world.duration;
   window.renderAt = t => { dyn.innerHTML = world.frame(t); return true; };

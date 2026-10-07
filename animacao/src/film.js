@@ -10,6 +10,8 @@ import {
   placeTrack, placeFarm, placeSpace, placeSite, road, pin, robot, dashCard, vinyl, nfDoc,
 } from './scenery.js';
 import { caption, chrome, wipe, iris, lowerThird, projectCard, typewriter } from './hud.js';
+import { ETIQUETAS } from './producao.js';
+import { ELENCO as _EL, EMPRESAS as _EM, RETRATOS as _RE } from './roteiro.js';
 
 const GY = 880;
 const camStr = ([cx, cy, z, r = 0]) => `translate(960 540) rotate(${n2(r)}) scale(${n2(z)}) translate(${n2(-cx)} ${n2(-cy)})`;
@@ -571,8 +573,8 @@ P.c5_phones = (lt, t) => {
   const left = `<clipPath id="spL"><path d="M0 0 H1010 L910 1080 H0Z"/></clipPath><clipPath id="spR"><path d="M1010 0 H1920 V1080 H910Z"/></clipPath>`;
   const sideA = g(camStr([920, 700, 1.7]), officeWorld(t) + ch('giovanna', { x: 760, y: GY + 10, t, expr: 'excited', armR: 81, lenR: 31, propR: 'phone', talk: 1, headTilt: 8, armL: 30 + Math.sin(t * 10) * 15, tag: true }));
   const sideB = g(camStr([2260, 700, 1.7]), officeWorld(t + 3) + ch('bruno', { x: 2420, y: GY + 10, t, expr: 'determined', armR: 81, lenR: 31, propR: 'phone', talk: 1, headTilt: 8, dir: -1, tag: true }));
-  const hud = left + `<g clip-path="url(#spL)"><rect width="1920" height="1080" fill="${C.bg}"/>${sideA}</g><g clip-path="url(#spR)"><rect width="1920" height="1080" fill="${C.bg}"/>${sideB}</g><path d="M1010 0 L910 1080" stroke="#fff" stroke-width="14"/>`;
-  return { bg: '', world: '', cam: [960, 540, 1], hud };
+  const screen = left + `<g clip-path="url(#spL)"><rect width="1920" height="1080" fill="${C.bg}"/>${sideA}</g><g clip-path="url(#spR)"><rect width="1920" height="1080" fill="${C.bg}"/>${sideB}</g><path d="M1010 0 L910 1080" stroke="#fff" stroke-width="14"/>`;
+  return { bg: '', world: '', cam: [960, 540, 1], screen };
 };
 P.c5_celebrate = (lt, t) => {
   let world = officeWorld(t);
@@ -671,7 +673,25 @@ P.c6_fim = (lt, t) => {
 };
 
 // ============================================================
-export function buildFilm() {
+// Etiqueta de "quem é quem" para os clipes gerados por IA (camada 'etiquetas').
+function etiquetaChip(e, a) {
+  const S = _EM[e.personagem] ?? _EL[e.personagem] ?? _RE[e.personagem];
+  const nome = e.nome ?? (S ? (_EM[e.personagem] ? S.nome : S.nome.split(' ')[0]) : e.personagem);
+  const font = '800 26px Outfit';
+  const tw = measure(nome, font);
+  if (e.logo) {
+    const L = logoSize(e.logo, 40, 130);
+    const w = L.w + tw + 70, h = 64;
+    return op(a, g(tr(e.x, e.y), `<rect x="${n2(-w / 2)}" y="${-h / 2}" width="${n2(w)}" height="${h}" rx="32" fill="#fffdf8" filter="url(#dsSoft)"/>` + logo(e.logo, -w / 2 + 26 + L.w / 2, 0, 40, 130) + `<rect x="${n2(-w / 2 + 40 + L.w)}" y="-18" width="2" height="36" fill="rgba(43,30,10,.15)"/>` + text(nome, -w / 2 + 52 + L.w + tw / 2, 9, { size: 26, weight: 800 })));
+  }
+  const w = tw + 40;
+  return op(a, g(tr(e.x, e.y), `<rect x="${n2(-w / 2)}" y="-22" width="${n2(w)}" height="44" rx="22" fill="#20212b" opacity=".92"/>` + text(nome, 0, 9, { size: 26, weight: 800, fill: '#fff' })));
+}
+
+// layer: 'full' (animatic completo), 'base' (cenário e personagens), 'overlay' (textos,
+// legendas, cartões e transições, fundo transparente) ou 'etiquetas' (quem é quem nos clipes de IA).
+export function buildFilm(opts = {}) {
+  const layer = opts.layer ?? 'full';
   const { planos, total } = linhaDoTempo();
   const cenaStart = {};
   for (const p of planos) if (cenaStart[p.cena] == null) cenaStart[p.cena] = p.t0;
@@ -682,14 +702,24 @@ export function buildFilm() {
       const p = planos.find(x => t >= x.t0 && t < x.t1) ?? planos[planos.length - 1];
       const lt = t - p.t0;
       const fn = P[p.id];
+      if (layer === 'etiquetas') {
+        const a = clamp(Math.min(lt / 0.3, (p.dur - lt) / 0.2));
+        return (ETIQUETAS[p.id] ?? []).map(e => etiquetaChip(e, a)).join('');
+      }
       const r = fn ? fn(lt, t, p) : { bg: paperBg(), world: text(p.id, 960, 540, { size: 60 }) };
-      let s = r.bg ?? paperBg();
-      if (r.world) s += `<g transform="${camStr(r.cam ?? [960, 540, 1])}">${r.world}</g>`;
-      s += `<rect width="1920" height="1080" fill="url(#grain)" opacity=".35"/><rect width="1920" height="1080" fill="url(#vig)"/>`;
-      s += r.hud ?? '';
-      for (const sub of p.subs ?? []) s += caption(sub, lt);
-      if (r.chrome !== false) s += chrome(t, total, p.cena, t - cenaStart[p.cena]);
-      for (const b of bounds) s += wipe(t, b);
+      let s = '';
+      if (layer !== 'overlay') {
+        s += r.bg ?? paperBg();
+        if (r.world) s += `<g transform="${camStr(r.cam ?? [960, 540, 1])}">${r.world}</g>`;
+        s += r.screen ?? '';
+        s += `<rect width="1920" height="1080" fill="url(#grain)" opacity=".35"/><rect width="1920" height="1080" fill="url(#vig)"/>`;
+      }
+      if (layer !== 'base') {
+        s += r.hud ?? '';
+        for (const sub of p.subs ?? []) s += caption(sub, lt);
+        if (r.chrome !== false) s += chrome(t, total, p.cena, t - cenaStart[p.cena]);
+        for (const b of bounds) s += wipe(t, b);
+      }
       return s;
     },
   };

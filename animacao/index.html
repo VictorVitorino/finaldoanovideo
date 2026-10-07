@@ -14,6 +14,7 @@
   @font-face { font-family: 'DM Sans'; font-weight: 800; src: url('./node_modules/@fontsource/dm-sans/files/dm-sans-latin-800-normal.woff2') format('woff2'); }
   html, body { margin: 0; background: #1b1d24; color: #eef0f7; font-family: 'DM Sans', system-ui, sans-serif; }
   body.render { background: #000; overflow: hidden; }
+  html.transparent, body.transparent, body.transparent #wrap { background: transparent !important; }
   #wrap { position: relative; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; }
   body:not(.render) #wrap { margin: 16px auto 0; border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
   #stage { display: block; }

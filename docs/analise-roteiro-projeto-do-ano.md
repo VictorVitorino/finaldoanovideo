@@ -164,3 +164,48 @@ Oito logos ao todo, cobrindo as oito entidades citadas no roteiro. Os quatro pri
 - Os logos são de marcas de terceiros. Usar os arquivos oficiais de cada empresa e confirmar a permissão de uso (item 7.5).
 - Para a cena 2, o roteiro usa o nome "A&M Performance" e o logo da Alvarez & Marsal. Confirmar se o logo deve ser o da A&M Performance ou o da Alvarez & Marsal, para não haver divergência.
 - A cor azul aparece em quase todas as marcas. Como o acento azul é o da TOTVS (seção 5), os logos precisam de contraste sobre o fundo neutro para não se confundir com o cenário.
+
+## 13. Personagens das empresas (conceito)
+
+Cada empresa vira um personagem 3D próprio. O personagem nasce do **setor e do papel** da empresa no roteiro, não da marca gráfica. Ele não usa o símbolo do logo (veado, fita, setas, montanha, "L" etc.). Isso evita que a peça seja lida como uma versão alterada da marca. As cores entram só como acento de figurino ou de cenário, e só com aprovação de cada empresa (ver "Aprovação" abaixo).
+
+### 13.1 Personagens
+
+| Empresa | Personagem | Papel no roteiro | Visual (silhueta e figurino) | Personalidade | Gag principal |
+|---|---|---|---|---|---|
+| TOTVS | **Módulo** | Parceira; base do sistema | Figura alta e ereta, ombros quadrados (lembra blocos de sistema), terno azul com tablet que projeta dashboards | Calmo, organizado, o "chão" da história | Aperta a mão do Cronos e, depois, aciona o botão da "Operação Collection Zero Defect" |
+| Alvarez & Marsal / A&M Performance | **Cronos** | Parceira; performance e metodologia | Terno impecável, relógio de bolso grande, prancheta com gráficos | Pontual ao extremo, obcecado por prazo e métrica | O cronômetro para em cada crise. Ele anda rápido e nunca corre |
+| Unimed | **Dra. Cuidado** | Cliente, projeto 01 (ponto de partida) | Jaleco, estetoscópio, sorriso largo; é quem atende o primeiro chamado | Acolhedora, firme, cooperativa | Atende o telefone que toca na cena 1, o primeiro da história |
+| FUNED | **Dr. Frasco** | Cliente, projeto 02 | Jaleco de laboratório, óculos de proteção, tubos de ensaio no cinto | Curioso, entusiasmado com experimentos | Os tubos borbulham quando ele fica animado |
+| CAOA | **Acelerado** | Cliente, projeto 03 ("acelerando uma montadora") | Macacão de piloto, capacete no braço, chave inglesa gigante | Impaciente, adora velocidade | Sai correndo pelo cenário e volta com o projeto já entregue |
+| John Deere Argentina | **Tío Campo** | Cliente, projeto 04 (cruza fronteiras) | Chapéu de aba larga, botas, macacão de trabalho, parceiro de trator | Paciente, prático, bem-humorado | Conduz o trator de uma cena para outra, cruzando a fronteira |
+| Hughes | **Astro** | Cliente, projeto 05 ("chegou ao espaço") | Traje espacial leve, antena no capacete, visor transparente | Sonhador, visão de longo prazo | Dá um pulo para fora do quadro e volta flutuando |
+| Libercon | **Obrinha** | Cliente, projeto 06 ("construindo junto. Literalmente.") | Capacete de obra, prancheta de planta, luvas de trabalho | Prático, constrói o que promete | Empilha blocos que formam a ponte do vídeo |
+
+Os personagens de pessoas reais (Antonialli, Giovanna, Paladini, etc.) seguem as regras da seção 5 e da seção 7.6.
+
+### 13.2 Regras de design (valem para todos)
+
+- **Silhueta única:** cada personagem tem uma forma reconhecível de longe. Os nomes são palavras de trabalho, não de marca.
+- **Proporções:** cabeça um pouco maior, olhos grandes e expressivos, mãos com gestos claros. Sem rosto infantil.
+- **Figurino:** cada um veste o uniforme do próprio setor. Acento de cor no figurino ou no acessório, nunca o logo inteiro.
+- **Humor:** a piada é o papel do personagem no setor (o cronômetro do Cronos, o trator do Tío Campo), não a aparência.
+- **Trabalho em grupo:** na cena 6, os seis personagens formam uma fila, e o vídeo termina com todos juntos, como uma equipe.
+
+### 13.3 Uso por cena
+
+| Cena | Personagens |
+|---|---|
+| 1. O desafio | Dra. Cuidado (telefone, primeiro chamado) |
+| 2. A parceria | Módulo e Cronos (aperto de mão) |
+| 3. Seis projetos | Os seis personagens de empresa, cada um em um card de ~6 s |
+| 4. Método e IA | Módulo (dashboards), Cronos (slides), Obrinha (blocos do framework) |
+| 5. P&L e NF | Módulo aperta o botão da Operação Collection Zero Defect |
+| 6. Fechamento | Fila final dos oito personagens (seis empresas, parceiros e equipe) |
+
+### 13.4 Aprovação e riscos
+
+- **Aprovação das empresas:** personagens que representam uma empresa precisam de aprovação da área de marca de cada uma. A marca tem regras para mascotes e personificação, e a peça é de premiação, não de uso interno. Enviar o concept e pedir a aprovação antes de produzir (item 7.5).
+- **Argentina:** o Tío Campo evita o estereótipo de gaúcho (bombacha, lenço, mate). Validar a caracterização com a equipe da John Deere Argentina.
+- **Parceiros:** Módulo e Cronos são personagens de parceria. Confirmar com TOTVS e A&M se aceitam personagens que representam a empresa (e não só o logo).
+- **Alternativa:** se alguma empresa não aprovar personagem, o personagem pode virar um cargo: "a equipe de Unimed", "o time da CAOA", com um representante humano em vez de um mascote.

@@ -45,8 +45,14 @@ def tokens(pacote, mapa):
 
 
 def substituir(texto, tk, look):
+    vistos = set()
+
     def rep(m):
         k = m.group(1)
+        if k in tk and k in vistos:
+            return tk[k][0].split()[0]  # depois da primeira menção, só o primeiro nome
+        if k in tk:
+            vistos.add(k)
         if k == 'ESTILO':
             return look['estilo_en']
         if k == 'MOVIMENTO':

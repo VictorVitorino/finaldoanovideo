@@ -116,7 +116,8 @@ async function main() {
       const dir = opt('out', path.join(BUILD, layer === 'full' ? 'frames' : `frames_${layer}`));
       const ext = transparent ? 'png' : 'jpg';
       fs.mkdirSync(dir, { recursive: true });
-      const total = r.linhaDoTempo().total;
+      let total = r.linhaDoTempo().total;
+      if (test) { const P = await openPage(pw, url); total = await P.page.evaluate('window.DURATION'); await P.browser.close(); }
       const nFrames = Math.ceil(total * fps);
       const from = +opt('from', 0), to = Math.min(nFrames, +opt('to', nFrames));
       const todo = [];

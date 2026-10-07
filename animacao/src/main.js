@@ -23,6 +23,7 @@ async function init() {
   let world;
   if (TEST === 'lineup') world = lineup();
   else if (TEST === 'retratos') world = retratos();
+  else if (TEST === 'teste15') world = await (await import('./teste15.js')).buildTeste15();
   else {
     const { buildFilm } = await import('./film.js');
     world = buildFilm({ layer: LAYER });

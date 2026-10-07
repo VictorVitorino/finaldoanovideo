@@ -36,3 +36,26 @@ As ferramentas de IA erram textos e logos. Por isso **nada de texto, número ou 
 - **Locução:** a narração e as falas estão em `build/cues.json`, com os tempos exatos. Grave a locução seguindo esses tempos.
 - **Clipe curto demais:** o último quadro é congelado até completar o tempo do plano. **Clipe longo demais:** é cortado no tempo do plano.
 - **Marcas:** não use "Pixar" ou "Disney" nos prompts. Muitas ferramentas bloqueiam esses nomes, e o estilo já está descrito em termos técnicos no sufixo.
+
+## Teste de 15 s no novo molde (folha de personagem + micro-atuação)
+
+O teste parte de uma folha de personagem no estilo de longa 3D (ex.: "01 VICTOR"). Ela não vai para o git, porque tem a imagem de uma pessoa real. Nenhum plano troca de desenho: a vida vem de deformações pequenas sobre o próprio desenho:
+
+- respiração e transferência de peso, com os pés plantados;
+- inclinação de cabeça e piscada;
+- braço que assenta depois do gesto;
+- câmera com push-in e profundidade de campo.
+
+Os cortes caem no tempo da música.
+
+```bash
+python3 producao/recortar_folha.py <folha.png> build/poc/corte   # poses e close em PNG transparente
+python3 producao/teste15.py quadros                               # cenário + personagem -> build/teste15/base
+python3 producao/teste15.py trilha
+node render.mjs frames --test teste15 --layer overlay --out build/teste15/overlay
+python3 producao/teste15.py montar                                # -> build/teste15/teste15.mp4
+```
+
+Os pontos de referência (pescoço, cintura, olhos, ombro, cotovelo) em `teste15.py` são os da folha do Victor. Para outra pessoa, gere a folha no mesmo layout e confira esses pontos.
+
+A folha ideal tem as poses em resolução maior e fundo liso ou transparente, o que melhora o recorte e a nitidez. Movimentos grandes (andar, virar, apertar a mão) precisam de quadros desenhados ou de clipes de imagem-para-vídeo; a deformação só cobre a micro-atuação.

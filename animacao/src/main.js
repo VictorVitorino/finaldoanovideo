@@ -24,6 +24,8 @@ async function init() {
   if (TEST === 'lineup') world = lineup();
   else if (TEST === 'retratos') world = retratos();
   else if (TEST === 'teste15') world = await (await import('./teste15.js')).buildTeste15();
+  // demais testes e o filme no modelo SpecForge: src/testes/<nome>.js exporta criar({ layer })
+  else if (TEST) world = await (await import('./testes/' + TEST + '.js')).criar({ layer: LAYER });
   else {
     const { buildFilm } = await import('./film.js');
     world = buildFilm({ layer: LAYER });

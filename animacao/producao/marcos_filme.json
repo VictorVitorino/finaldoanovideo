@@ -1263,5 +1263,53 @@
     ]
    ]
   }
+ },
+ "quintao": {
+  "arquivo": "donos/quintao.png",
+  "w": 1197,
+  "h": 2835,
+  "pes_y": 2820,
+  "centro_x": 545.5,
+  "topo": [
+   504,
+   14
+  ],
+  "pescoco": [
+   547,
+   1140
+  ],
+  "piscar": false
+ },
+ "sampaio": {
+  "arquivo": "donos/sampaio.png",
+  "w": 1192,
+  "h": 2808,
+  "pes_y": 2793,
+  "centro_x": 639.5,
+  "topo": [
+   632,
+   14
+  ],
+  "pescoco": [
+   640,
+   1175
+  ],
+  "piscar": false
+ },
+ "paladini": {
+  "arquivo": "paladini/paladini.png",
+  "w": 1149,
+  "h": 2883,
+  "pes_y": 2868,
+  "centro_x": 508.0,
+  "topo": [
+   622,
+   9
+  ],
+  "pescoco": [
+   600,
+   1160
+  ],
+  "piscar": false
  }
 }

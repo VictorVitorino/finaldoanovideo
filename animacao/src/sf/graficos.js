@@ -57,16 +57,17 @@ export function icone(nome, s, cor = '#fff', fundo = TINTA) {
   }
 }
 
-// logo com altura ajustada: marcas quase quadradas (FUNED, John Deere, Libercon) ganham altura extra
-function logoAj(nome, x, y, h, maxW, hMax = h * 1.5) {
-  const L = logoSize(nome, 100);
-  const k = L.w / L.h < 1.6 ? 1.45 : 1;
-  return logo(nome, x, y, Math.min(h * k, hMax), maxW);
+// logo com altura ajustada: marcas quase quadradas ganham altura extra; marcas largas (John Deere,
+// Libercon, Hughes, Unimed: proporção > 4) ganham altura nominal menor e largura máxima maior
+function ajuste(nome, h, maxW, hMax) {
+  const r = logoSize(nome, 100).w / 100;
+  const k = r < 1.6 ? 1.45 : r > 4 ? 0.9 : 1;
+  return [Math.min(h * k, hMax), r > 4 ? maxW * 1.18 : maxW];
 }
-const logoAjSize = (nome, h, maxW, hMax = h * 1.5) => {
-  const L = logoSize(nome, 100);
-  return logoSize(nome, Math.min(h * (L.w / L.h < 1.6 ? 1.45 : 1), hMax), maxW);
-};
+function logoAj(nome, x, y, h, maxW, hMax = h * 1.5) {
+  return logo(nome, x, y, ...ajuste(nome, h, maxW, hMax));
+}
+const logoAjSize = (nome, h, maxW, hMax = h * 1.5) => logoSize(nome, ...ajuste(nome, h, maxW, hMax));
 
 // estrelinha de 4 pontas (brilho)
 const brilho4 = (r, fill, sw = 0) => {

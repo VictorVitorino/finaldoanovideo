@@ -1,6 +1,6 @@
 """Filme "Projeto do Ano — Parceria A&M + TOTVS" no modelo de explainer do SpecForge.
 
-Roteiro: docs/roteiro-storyboard-ae-srt.md (falas preservadas). Três camadas com a mesma câmera:
+Roteiro: docs/roteiro-fy26.md (falas preservadas; três gags de humor físico adicionadas). Três camadas com a mesma câmera:
   fundo     papel, blobs, props (SVG: src/sf/filme.js, layer=fundo)
   atores    personagens chibi 3D com micro-atuação (Python: motor30.py)
   overlay   balões de logo, cartões, adesivos, legendas (SVG: src/sf/filme.js, layer=overlay)
@@ -43,18 +43,31 @@ NOMES = {
     'antonialli': 'Guilherme Antonialli', 'bruno': 'Bruno Moraes', 'jose': 'José Aires', 'nara': 'Nara Martins',
     'marcos': 'Marcos Massao Iwata', 'thauany': 'Thauany Moreira', 'joao': 'João Lopes', 'mancini': 'Marcus Mancini',
     'jaqueline': 'Jaqueline Valdevino', 'giovanna': 'Giovanna Brandão', 'pedro': 'Pedro Lanzetta', 'monica': 'Monica Audrey',
-    'vinicius': 'Vinicius de Sousa', 'paladini': 'Paladini', 'quintao': 'Fabio Quintão', 'sampaio': 'Sampaio',
+    'vinicius': 'Vinicius de Sousa', 'paladini': 'Nathalia Paladini', 'quintao': 'Fabio Quintão', 'sampaio': 'Sampaio',
 }
 TIME13 = ['bruno', 'jose', 'nara', 'marcos', 'thauany', 'joao', 'mancini', 'jaqueline', 'giovanna', 'pedro', 'monica', 'vinicius', 'antonialli']
 MASCOTES = {'modulo': 'totvs', 'cronos': 'alvarez-marsal', 'cuidado': 'unimed', 'frasco': 'funed', 'acelerado': 'caoa',
             'campo': 'john-deere', 'conectado': 'hughes', 'obrinha': 'libercon'}
 PROJETOS = [
-    {'n': '01', 'cliente': 'UNIMED BRASIL', 'frente': 'Remediação', 'erp': 'ERP Protheus', 'logo': 'unimed', 'mascote': 'cuidado', 'lugar': 'hospital', 'time': ['bruno'], 'fala': 'c3_n1', 'dur': 6.0},
-    {'n': '02', 'cliente': 'FUNED', 'frente': 'TMO + GMO', 'erp': 'ERP Protheus', 'logo': 'funed', 'mascote': 'frasco', 'lugar': 'laboratorio', 'time': ['jose', 'nara'], 'fala': 'c3_n2', 'dur': 6.4},
-    {'n': '03', 'cliente': 'CAOA', 'frente': 'Remediação', 'erp': 'ERP Protheus', 'logo': 'caoa', 'mascote': 'acelerado', 'lugar': 'fabrica', 'time': ['marcos', 'thauany'], 'fala': 'c3_n3', 'dur': 5.2},
-    {'n': '04', 'cliente': 'JOHN DEERE ARGENTINA', 'frente': 'Remediação', 'erp': 'ERP Protheus', 'logo': 'john-deere', 'mascote': 'campo', 'lugar': 'fazenda', 'time': ['joao', 'mancini', 'jaqueline'], 'fala': 'c3_n4', 'dur': 6.2},
-    {'n': '05', 'cliente': 'HUGHES', 'frente': 'TMO + GMO', 'erp': 'ERP Protheus', 'logo': 'hughes', 'mascote': 'conectado', 'lugar': 'estacao', 'time': ['giovanna', 'pedro'], 'fala': 'c3_n5', 'dur': 5.4},
-    {'n': '06', 'cliente': 'LIBERCON', 'frente': 'TMO + GMO', 'erp': 'ERP RM', 'logo': 'libercon', 'mascote': 'obrinha', 'lugar': 'obra', 'time': ['monica'], 'fala': 'c3_n6', 'dur': 5.6},
+    {'n': '01', 'cliente': 'UNIMED BRASIL', 'frente': 'Remediação', 'erp': 'ERP Protheus', 'logo': 'unimed', 'mascote': 'cuidado', 'lugar': 'hospital', 'time': ['bruno'], 'fala': 'c4_n1', 'dur': 6.0},
+    {'n': '02', 'cliente': 'FUNED', 'frente': 'TMO + GMO', 'erp': 'ERP Protheus', 'logo': 'funed', 'mascote': 'frasco', 'lugar': 'laboratorio', 'time': ['jose', 'nara'], 'fala': 'c4_n2', 'dur': 6.4},
+    {'n': '03', 'cliente': 'CAOA', 'frente': 'Remediação', 'erp': 'ERP Protheus', 'logo': 'caoa', 'mascote': 'acelerado', 'lugar': 'fabrica', 'time': ['marcos', 'thauany'], 'fala': 'c4_n3', 'dur': 5.2},
+    {'n': '04', 'cliente': 'JOHN DEERE ARGENTINA', 'frente': 'Remediação', 'erp': 'ERP Protheus', 'logo': 'john-deere', 'mascote': 'campo', 'lugar': 'fazenda', 'time': ['joao', 'mancini', 'jaqueline'], 'fala': 'c4_n4', 'dur': 6.2},
+    {'n': '05', 'cliente': 'HUGHES', 'frente': 'TMO + GMO', 'erp': 'ERP Protheus', 'logo': 'hughes', 'mascote': 'conectado', 'lugar': 'estacao', 'time': ['giovanna', 'pedro'], 'fala': 'c4_n5', 'dur': 5.4},
+    {'n': '06', 'cliente': 'LIBERCON', 'frente': 'TMO + GMO', 'erp': 'ERP RM', 'logo': 'libercon', 'mascote': 'obrinha', 'lugar': 'obra', 'time': ['monica'], 'fala': 'c4_n6', 'dur': 5.6},
+]
+# cena 1 do roteiro novo: dez destaques rápidos (texto do roteiro), duração de cada cartela
+PORTFOLIO = [
+    (1.8, {'icone': 'doc', 'numero': 6, 'texto': 'projetos vendidos no *primeiro ano* da parceria'}),
+    (1.8, {'icone': 'pessoas', 'numero': 20, 'texto': 'pessoas passaram pelos projetos'}),
+    (2.2, {'icone': 'cifrao', 'prefixo': '+ R$ ', 'numero': 16, 'sufixo': ' milhões', 'texto': 'em collections, sendo *R$ 7 milhões no FY26*'}),
+    (2.1, {'icone': 'calendario', 'numero': 12, 'sufixo': ' meses', 'texto': 'projetos de longo prazo: média de 12 meses, com *potencial de extensão*'}),
+    (2.0, {'icone': 'raio', 'texto': 'grandes oportunidades de *cross-sell* com as demais especializações da A&M'}),
+    (1.9, {'icone': 'engrenagem', 'texto': '*framework integrado* A&M + TOTVS para TMO & GMO'}),
+    (2.4, {'icone': 'ia', 'texto': '*IA* na construção de métodos e skills para Quality Assurance das MITs (Metodologia de Implantação TOTVS)'}),
+    (2.2, {'icone': 'teste', 'texto': '*IA* na construção da ferramenta de testes integrados: mais governança, automação e escalabilidade'}),
+    (1.9, {'icone': 'cockpit', 'texto': 'Delivery Center na construção do *cockpit executivo* do portfólio'}),
+    (2.2, {'icone': 'fogo', 'texto': 'e não para por aí: *pipeline aquecido* para crescer a parceria no próximo ano'}),
 ]
 
 
@@ -91,159 +104,219 @@ class Linha:
 
 
 def cmd_tempo(a):
+    """Planos, falas, efeitos e estilos de música do roteiro novo (docs/roteiro-fy26.md), 7 cenas."""
     L = Linha(json.load(open(os.path.join(BF, 'vozes', 'vozes.json'))))
     d = L.d
 
-    # ---------------- CENA 1 — o desafio (papel noturno)
-    L.musica.append({'estilo': 'tensao', 'de': 0.0})
-    p = L.plano('1a', 1, 1.9, tom='noite')
+    # ---------------- CENA 1 — portfólio TOTVS (música de abertura, cartelas rápidas, sem narração)
+    L.musica.append({'estilo': 'abertura', 'de': 0.0})
+    p = L.plano('1t', 1, 1.7, tom='creme')
+    L.efeito(0.15, 'whoosh', 0.5), L.efeito(0.6, 'shine', 0.6)
+    for k, (dur, it) in enumerate(PORTFOLIO):
+        p = L.plano(f'1c{k + 1}', 1, dur, tom='creme', item=it, n=k + 1, total=len(PORTFOLIO))
+        L.efeito(p['de'] + 0.1, 'whoosh', 0.3)
+        if it.get('numero'):
+            L.efeito(p['de'] + 0.35, 'tick', 0.5)
+        else:
+            L.efeito(p['de'] + 0.35, 'pop', 0.4)
+    L.musica.append({'estilo': 'silencio', 'de': L.t})
+
+    # ---------------- CENA 2 — o desafio (papel noturno)
+    L.musica.append({'estilo': 'tensao', 'de': L.t + 0.1})
+    p = L.plano('2a', 2, 1.6, tom='noite')
     for k in range(7):
         L.efeito(p['de'] + 0.15 + k * 0.24 * (1 - k * 0.07), 'ping', 0.25 + 0.06 * k)
     L.efeito(p['de'] + 0.5, 'ring', 0.45)
-    for pid, txt, dur in (('1b', 'ESCOPO SUBDIMENSIONADO.', 1.35), ('1c', 'REWORK.', 1.1), ('1d', 'MAPEAMENTO DE PROCESSOS DESALINHADO', 1.6), ('1e', 'GO-LIVE ADIADO.', 1.35)):
-        p = L.plano(pid, 1, dur, tom='noite', texto=txt)
+    for pid, txt, dur in (('2b', 'ESCOPO SUBDIMENSIONADO', 1.15), ('2c', 'RETRABALHO', 0.95), ('2d', 'MAPEAMENTO DE PROCESSOS DESALINHADO', 1.35)):
+        p = L.plano(pid, 2, dur, tom='noite', texto=txt)
         L.efeito(p['de'], 'slam', 0.55)
-    p = L.plano('1f', 1, 1.1, tom='noite')  # silêncio repentino
+    # GO-LIVE ADIADO com humor físico: o botão, a data que foge, o computador que fumega e o cabelo
+    p = L.plano('2e', 2, 6.0, tom='noite', texto='GO-LIVE ADIADO')
+    t0 = p['de']
+    p['marcas'] = {'bruno': t0 + 0.1, 'aperta': t0 + 1.0, 'foge': t0 + 1.45, 'texto': t0 + 1.7, 'fumaca': t0 + 2.6,
+                   'segura': t0 + 3.0, 'antonialli': t0 + 3.1, 'cabelo': t0 + 4.5}
+    L.efeito(t0 + 1.0, 'button', 0.8), L.efeito(t0 + 1.45, 'steps_fast', 0.7), L.efeito(t0 + 1.7, 'slam', 0.55)
+    L.efeito(t0 + 2.6, 'alarm', 0.4), L.efeito(t0 + 3.0, 'startle', 0.5), L.efeito(t0 + 5.1, 'ting', 0.9)
+    p = L.plano('2f', 2, 0.9, tom='noite')  # silêncio repentino
     L.musica.append({'estilo': 'silencio', 'de': p['de']})
-    p = L.plano('1g', 1, 0.45 + d('c1_n1') + 0.35 + d('c1_n2') + 0.5, tom='creme')
-    t = L.fala('c1_n1', p['de'] + 0.45)
-    p['marcas'] = {'pergunta': t + 0.35}
-    L.fala('c1_n2', t + 0.35)
+    p = L.plano('2g', 2, 1.0 + d('c2_n1') + 0.25 + d('c2_n2') + 0.3, tom='creme')
+    t = L.fala('c2_n1', p['de'] + 1.0)
+    p['marcas'] = {'pergunta': t + 0.25, 'claquete': p['de'] + 0.3, 'fita': p['de'] + 0.7}
+    L.efeito(p['de'] + 0.3, 'clap', 0.8)
+    L.fala('c2_n2', t + 0.25)
     L.musica.append({'estilo': 'suave', 'de': p['de'] + 0.2})
-    p = L.plano('1h', 1, 2.3 + d('c1_n3') + 0.7, tom='creme', texto='Toda parceria tem um começo.')
-    L.fala('c1_n3', p['de'] + 2.3)
-    p['marcas'] = {'cresce': p['de'] + 2.3 + d('c1_n3') * 0.62}
+    p = L.plano('2h', 2, 1.5 + d('c2_n3') + 0.5, tom='creme', texto='Toda parceria tem um começo.')
+    L.fala('c2_n3', p['de'] + 1.5)
+    p['marcas'] = {'cresce': p['de'] + 1.5 + d('c2_n3') * 0.62}
     L.efeito(p['ate'] - 0.2, 'whoosh', 0.5)
 
-    # ---------------- CENA 2 — a parceria e a liderança
+    # ---------------- CENA 3 — a parceria e a liderança
     L.musica.append({'estilo': 'tema', 'de': acima(L.t)})
-    p = L.plano('2fase', 2, 1.5, tom='creme', fase={'num': '01', 'parte': 'PARTE 1', 'titulo': 'A parceria', 'icone': 'aperto'})
+    p = L.plano('3fase', 3, 2.3, tom='creme', fase={'num': '01', 'parte': 'PARTE 1', 'titulo': 'A parceria', 'icone': 'aperto'})
     L.efeito(p['de'] + 0.1, 'whoosh', 0.4)
-    p = L.plano('2a', 2, 0.5 + d('c2_n1') + 0.3 + d('c2_n2') + 1.5, tom='creme')
-    t = L.fala('c2_n1', p['de'] + 0.5)
-    t2 = L.fala('c2_n2', t + 0.3)
+    p['marcas'] = {'modulo': p['de'] + 0.55, 'oculos': p['de'] + 1.25}
+    L.efeito(p['de'] + 0.9, 'thud', 0.6), L.efeito(p['de'] + 1.25, 'shine', 0.6)
+    p = L.plano('3a', 3, 0.4 + d('c3_n1') + 0.2 + d('c3_n2') + 1.1, tom='creme')
+    t = L.fala('c3_n1', p['de'] + 0.4)
+    t2 = L.fala('c3_n2', t + 0.2)
     p['marcas'] = {'modulo': p['de'] + 0.15, 'cronos': t + 0.0, 'encontro': t2 + 0.15}
     L.efeito(p['de'] + 1.0, 'pop'), L.efeito(t + 0.85, 'pop'), L.efeito(t2 + 0.15, 'sparkle')
-    p = L.plano('2b', 2, 1.3 + d('c2_n3') + 0.3 + d('c2_n4') + 0.3 + d('c2_n5') + 0.6, tom='creme')
-    t = L.fala('c2_n3', p['de'] + 1.3)
-    p['marcas'] = {'cartao': p['de'] + 0.4, 'fazedora': t - d('c2_n3') * 0.30, 'adaptavel': t - d('c2_n3') * 0.08}
-    t = L.fala('c2_n4', t + 0.3)
-    p['marcas']['executivos'] = t - d('c2_n4') * 0.7
-    t = L.fala('c2_n5', t + 0.3)
-    p['marcas']['jogo'] = t - d('c2_n5') * 0.5
+    p = L.plano('3b', 3, 1.0 + d('c3_n3') + 0.25 + d('c3_n4') + 0.25 + d('c3_n5') + 0.4, tom='creme')
+    t = L.fala('c3_n3', p['de'] + 1.0)
+    p['marcas'] = {'cartao': p['de'] + 0.4, 'fazedora': t - d('c3_n3') * 0.30, 'adaptavel': t - d('c3_n3') * 0.08}
+    t = L.fala('c3_n4', t + 0.25)
+    p['marcas']['executivos'] = t - d('c3_n4') * 0.7
+    t = L.fala('c3_n5', t + 0.25)
+    p['marcas']['jogo'] = t - d('c3_n5') * 0.5
     for k in range(13):
         L.efeito(p['de'] + 0.35 + 0.09 * k, 'pop', 0.18)
     L.efeito(p['marcas']['fazedora'], 'pop', 0.5), L.efeito(p['marcas']['adaptavel'], 'pop', 0.5), L.efeito(p['marcas']['jogo'], 'ting', 0.6)
-    p = L.plano('2d', 2, 3.2, tom='creme')
-    p['marcas'] = {'palavras': [p['de'] + 0.2, p['de'] + 0.8, p['de'] + 1.4, p['de'] + 2.1]}
+    p = L.plano('3d', 3, 2.7, tom='creme')
+    p['marcas'] = {'palavras': [p['de'] + 0.15, p['de'] + 0.65, p['de'] + 1.15, p['de'] + 1.75]}
     for x in p['marcas']['palavras']:
         L.efeito(x, 'pop', 0.45)
-    p = L.plano('2e', 2, 0.45 + d('c2_n6') + 0.6, tom='creme')
-    L.fala('c2_n6', p['de'] + 0.45)
-    L.efeito(p['ate'] - 0.2, 'whoosh', 0.5)
+    L.efeito(L.t - 0.2, 'whoosh', 0.5)
 
-    # ---------------- CENA 3 — seis projetos
-    p = L.plano('3fase', 3, 1.5, tom='bege', fase={'num': '02', 'parte': 'PARTE 2', 'titulo': 'Seis projetos', 'icone': 'pin'})
+    # ---------------- CENA 4 — seis projetos (a capa "Onde tudo começou" leva a fala da Unimed pioneira)
+    p = L.plano('4fase', 4, 0.5 + d('c3_n6') + 0.4, tom='bege', fase={'num': '02', 'parte': 'PARTE 2 · SEIS PROJETOS', 'titulo': 'Onde tudo começou', 'icone': 'pin'})
+    L.fala('c3_n6', p['de'] + 0.5)
     for k, pj in enumerate(PROJETOS):
-        p = L.plano(f'3p{k + 1}', 3, max(pj['dur'], 0.45 + d(pj['fala']) + 2.0), tom='bege', projeto=k)
-        L.fala(pj['fala'], p['de'] + 0.45)
-        p['marcas'] = {'cartao': p['de'] + 0.9, 'antes': p['de'] + 2.2, 'depois': p['de'] + 3.4}
+        p = L.plano(f'4p{k + 1}', 4, max(4.8, 0.35 + d(pj['fala']) + 1.4), tom='bege', projeto=k)
+        L.fala(pj['fala'], p['de'] + 0.35)
+        p['marcas'] = {'cartao': p['de'] + 0.7, 'antes': p['de'] + 1.8, 'depois': p['de'] + 2.9}
+        if k == 0:
+            p['marcas']['pioneiro'] = p['de'] + 0.45 + d(pj['fala']) * 0.6
         L.efeito(p['de'] + 0.15, f'pluck{k + 1}', 0.8)
         L.efeito(p['de'] + 0.5, 'pop', 0.4)
         L.efeito(p['ate'] - 0.15, 'whoosh', 0.3)
-    p = L.plano('3g', 3, 3.4, tom='bege')
-    p = L.plano('3h', 3, 4.6, tom='bege')
-    p['marcas'] = {'itens': [p['de'] + 0.3 + 0.75 * k for k in range(4)]}
-    for x in p['marcas']['itens']:
-        L.efeito(x, 'tick', 0.6)
+    p = L.plano('4g', 4, 2.7, tom='bege')
+    p = L.plano('4h', 4, 3.5, tom='bege', texto='A&M, PARCEIRO ESTRATÉGICO DA TOTVS')
+    p['marcas'] = {'selo': p['de'] + 0.35, 'time': p['de'] + 0.8}
+    L.efeito(p['de'] + 0.4, 'stamp', 0.7)
+    for k in range(13):
+        L.efeito(p['de'] + 0.8 + 0.06 * k, 'pop', 0.15)
 
-    # ---------------- CENA 4 — o método e a IA
+    # ---------------- CENA 5 — framework integrado e ferramentas
     L.musica.append({'estilo': 'metodo', 'de': acima(L.t)})
-    p = L.plano('4fase', 4, 1.5, tom='creme', fase={'num': '03', 'parte': 'PARTE 3', 'titulo': 'O método e a IA', 'icone': 'engrenagem'})
-    slides = [('integrada', 'UM TIME. PAPÉIS COMPLEMENTARES.', 'c4_n1'), ('mits', 'CADA MIT COM PRAZO, DONO E RASTREABILIDADE.', 'c4_n2'),
-              ('remediacao', 'DO PROJETO PARADO AO GO-LIVE.', 'c4_n3'), ('ia', 'IA EM CADA FASE DO PROJETO.', None)]
-    for k, (tipo, txt, fid) in enumerate(slides):
-        dur = max(2.9, 0.35 + (d(fid) if fid else 0) + 0.9)
-        p = L.plano(f'4s{k + 1}', 4, dur, tom='creme', slide=tipo, texto=txt)
+    p = L.plano('5fase', 5, 1.3, tom='creme', fase={'num': '03', 'parte': 'PARTE 3', 'titulo': 'Framework integrado', 'icone': 'engrenagem'})
+    slides = [('5s1', 'visao-integrada', 'UM TIME. PAPÉIS COMPLEMENTARES.', 'c5_n1'), ('5s2', 'metodologia', 'DUAS METODOLOGIAS. UM SÓ PROPÓSITO.', 'c5_n2'),
+              ('5s3', 'mits', 'CADA MIT COM PRAZO, DONO E RASTREABILIDADE.', 'c5_n3'), ('5s4', 'remediacao', 'DO PROJETO PARADO AO GO-LIVE.', None)]
+    for pid, tipo, txt, fid in slides:
+        dur = max(2.6, 0.3 + (d(fid) if fid else 0) + 0.6)
+        p = L.plano(pid, 5, dur, tom='creme', slide=tipo, texto=txt)
         if fid:
-            L.fala(fid, p['de'] + 0.35)
+            L.fala(fid, p['de'] + 0.3)
         L.efeito(p['de'] + 0.1, 'whoosh', 0.25)
-    p = L.plano('4e', 4, 2.8, tom='creme', texto=['MENOS PPT NA GAVETA.', 'MAIS RESULTADO NO P&L.'])
-    L.efeito(p['de'] + 0.2, 'pop', 0.5), L.efeito(p['de'] + 1.3, 'pop', 0.6)
-    p = L.plano('4f', 4, 0.8 + d('c4_n4') + 1.2, tom='creme')
-    L.fala('c4_n4', p['de'] + 0.8)
-    p['marcas'] = {'fecha': p['de'] + 1.0, 'robos': p['de'] + 3.2}
-    L.efeito(p['de'] + 1.0, 'whoosh', 0.35), L.efeito(p['de'] + 3.2, 'robots', 0.5)
+    p = L.plano('5s5', 5, 0.3 + d('c5_n4') + 0.5, tom='creme', slide='visao-integrada', texto='FRAMEWORK INTEGRADO A&M + TOTVS PARA TMO & GMO')
+    t = L.fala('c5_n4', p['de'] + 0.3)
+    p['marcas'] = {'totvs': p['de'] + 0.3 + d('c5_n4') * 0.28, 'am': p['de'] + 0.3 + d('c5_n4') * 0.52, 'time': p['de'] + 0.3 + d('c5_n4') * 0.86}
+    for k in ('totvs', 'am', 'time'):
+        L.efeito(p['marcas'][k], 'pop', 0.45)
+    p = L.plano('5t', 5, 2.1, tom='creme', texto=['MENOS PPT NA GAVETA.', 'MAIS RESULTADO NO P&L.'])
+    L.efeito(p['de'] + 0.15, 'pop', 0.5), L.efeito(p['de'] + 1.0, 'pop', 0.6)
+    p = L.plano('5u', 5, 0.7 + d('c5_n5') + 0.5, tom='creme')
+    L.fala('c5_n5', p['de'] + 0.7)
+    p['marcas'] = {'fecha': p['de'] + 0.7, 'tela2': p['de'] + 0.7 + d('c5_n5') * 0.55}
+    L.efeito(p['de'] + 0.7, 'whoosh', 0.35), L.efeito(p['marcas']['tela2'], 'tick', 0.5)
+    p = L.plano('5v', 5, 0.3 + d('c5_n6') + 0.5, tom='creme', texto='CONSTRUÍDA COM IA: GOVERNANÇA, AUTOMAÇÃO E ESCALA.')
+    L.fala('c5_n6', p['de'] + 0.3)
+    p['marcas'] = {'itens': [p['de'] + 1.0 + 1.0 * k for k in range(6)], 'texto': p['de'] + 0.2}
+    for x in p['marcas']['itens']:
+        L.efeito(x, 'tick', 0.55)
+    p = L.plano('5w', 5, 0.3 + d('c5_n7') + 0.5, tom='creme', slide='ia', texto='IA EM CADA FASE: MÉTODOS, SKILLS E QA DAS MITs.')
+    L.fala('c5_n7', p['de'] + 0.3)
+    L.efeito(p['de'] + 0.1, 'whoosh', 0.25)
 
-    # ---------------- CENA 5 — resultado no P&L e a NF
+    # ---------------- CENA 6 — resultado no P&L, cross-sell e a NF
     L.musica.append({'estilo': 'triunfo', 'de': acima(L.t)})
-    p = L.plano('5fase', 5, 1.5, tom='dourado', fase={'num': '04', 'parte': 'PARTE 4', 'titulo': 'Resultado no P&L', 'icone': 'moeda'})
-    p = L.plano('5a', 5, 0.4 + d('c5_n1') + 0.25 + d('c5_n2') + 1.3, tom='dourado')
-    t = L.fala('c5_n1', p['de'] + 0.4)
-    t = L.fala('c5_n2', t + 0.25)
-    p['marcas'] = {'numero': p['de'] + 0.6}
-    L.efeito(p['de'] + 0.6, 'riser', 0.4), L.efeito(t - 0.2, 'hit', 0.8)
-    p = L.plano('5b', 5, 2.7, tom='dourado')
-    L.efeito(p['de'] + 0.3, 'shine', 0.5)
-    p = L.plano('5c', 5, 0.3 + d('c5_n3') + 0.25 + d('c5_n4') + 0.7, tom='dourado')
-    t = L.fala('c5_n3', p['de'] + 0.3)
-    L.fala('c5_n4', t + 0.25)
-    p['marcas'] = {'cresce': t + 0.25}
-    p = L.plano('5d', 5, 2.1, tom='creme', texto='MAS TEM UM DETALHE…')
+    p = L.plano('6fase', 6, 1.3, tom='dourado', fase={'num': '04', 'parte': 'PARTE 4', 'titulo': 'Resultado no P&L', 'icone': 'moeda'})
+    p = L.plano('6a', 6, 0.3 + d('c6_n1') + 0.2 + d('c6_n2') + 0.9, tom='dourado')
+    t = L.fala('c6_n1', p['de'] + 0.3)
+    t = L.fala('c6_n2', t + 0.2)
+    p['marcas'] = {'numero': p['de'] + 0.5}
+    L.efeito(p['de'] + 0.5, 'riser', 0.4), L.efeito(t - 0.2, 'hit', 0.8)
+    p = L.plano('6b', 6, 2.8, tom='dourado')
+    p['marcas'] = {'fy26': p['de'] + 0.15, 'fy27': p['de'] + 1.1}
+    L.efeito(p['de'] + 0.15, 'tick', 0.6), L.efeito(p['de'] + 1.1, 'tick', 0.6), L.efeito(p['de'] + 1.9, 'shine', 0.5)
+    p = L.plano('6c', 6, 0.2 + d('c6_n3') + 0.5, tom='dourado')
+    t = L.fala('c6_n3', p['de'] + 0.2)
+    p['marcas'] = {'meses': p['de'] + 0.3, 'valor': p['de'] + 0.3 + d('c6_n3') * 0.36, 'cresce': p['de'] + 0.3 + d('c6_n3') * 0.55, 'portas': p['de'] + 0.3 + d('c6_n3') * 0.70}
+    L.efeito(p['marcas']['meses'], 'tick', 0.5), L.efeito(p['marcas']['portas'], 'drawer', 0.6)
+    p = L.plano('6d', 6, 1.7, tom='creme', texto='MAS TEM UM DETALHE…')
     L.musica.append({'estilo': 'silencio', 'de': p['de']})
     L.efeito(p['de'], 'record_stop', 0.8)
-    p = L.plano('5e', 5, 2.0, tom='creme')  # Giovanna anda rápido com o celular
-    L.fala('c5_g1', p['de'] + 0.9)
+    p = L.plano('6e', 6, 1.7, tom='creme')  # Giovanna anda rápido com o celular
+    L.fala('c6_g1', p['de'] + 0.8)
     L.musica.append({'estilo': 'suspense', 'de': p['de'] + 0.1})
     L.efeito(p['de'] + 0.1, 'steps_fast', 0.6)
-    p = L.plano('5f', 5, 0.5 + d('c5_g2') + 0.5, tom='creme')  # Paladini assustada
-    L.fala('c5_g2', p['de'] + 0.5)
+    p = L.plano('6f', 6, 0.4 + d('c6_g2') + 0.35, tom='creme')  # Paladini assustada
+    L.fala('c6_g2', p['de'] + 0.4)
     L.efeito(p['de'] + 0.1, 'startle', 0.6)
-    p = L.plano('5g', 5, 0.35 + d('c5_p1') + 2.6, tom='creme')
-    t = L.fala('c5_p1', p['de'] + 0.35)
+    p = L.plano('6g', 6, 0.3 + d('c6_p1') + 2.1, tom='creme')
+    t = L.fala('c6_p1', p['de'] + 0.3)
     p['marcas'] = {'scratch': t + 0.15}
     L.musica.append({'estilo': 'silencio', 'de': t + 0.1})
     L.efeito(t + 0.15, 'scratch', 0.9)
+    L.efeito(t + 0.9, 'coins', 0.7)
     L.musica.append({'estilo': 'alegria', 'de': t + 0.7})
-    p = L.plano('5h', 5, 0.3 + d('c5_a1') + 0.25 + d('c5_a2') + 0.5, tom='creme')
-    t = L.fala('c5_a1', p['de'] + 0.3)
-    L.fala('c5_a2', t + 0.25)
-    p = L.plano('5i', 5, 1.5 + d('c5_gb') + 0.6, tom='creme')
-    L.efeito(p['de'] + 0.2, 'dial', 0.5)
-    L.fala('c5_gb', p['de'] + 1.5)
-    p['marcas'] = {'comemora': p['de'] + 1.5}
-    L.efeito(p['de'] + 1.5, 'confetti', 0.5)
-    p = L.plano('5j', 5, 0.3 + d('c5_a3') + 2.0, tom='creme')
+    # a ordem, dada enquanto ajeita o cabelo; o envelope da missão vai para a Giovanna e se autodestrói
+    p = L.plano('6h', 6, 0.3 + d('c6_a1') + 0.2 + d('c6_a2') + 1.7, tom='noite')
     L.musica.append({'estilo': 'espiao', 'de': p['de']})
-    t = L.fala('c5_a3', p['de'] + 0.3)
-    p['marcas'] = {'missao': t - 0.6, 'cabelo': t + 0.5}
-    L.efeito(t - 0.6, 'slam', 0.6), L.efeito(t + 0.5, 'ting', 0.8)
+    t = L.fala('c6_a1', p['de'] + 0.3)
+    t2 = L.fala('c6_a2', t + 0.2)
+    p['marcas'] = {'cabelo': p['de'] + 0.4, 'envelope': t - 0.6, 'destroi': t2 + 0.7}
+    L.efeito(p['de'] + 1.0, 'ting', 0.8), L.efeito(t - 0.6, 'whoosh', 0.4), L.efeito(t2 + 0.7, 'fix', 0.6)
+    p = L.plano('6i', 6, 2.1, tom='noite')  # Bruno surge como agente especial
+    p['marcas'] = {'bruno': p['de'] + 0.05, 'oculos': p['de'] + 0.8, 'chip': p['de'] + 1.1}
+    L.efeito(p['de'] + 0.5, 'thud', 0.6), L.efeito(p['de'] + 0.9, 'shine', 0.6)
+    p = L.plano('6j', 6, 4.7, tom='noite')  # o rapel: a gota de suor dispara o alarme
+    t0 = p['de']
+    p['marcas'] = {'desce': t0 + 0.05, 'alcanca': t0 + 1.6, 'gota': t0 + 2.2, 'cai': t0 + 2.8, 'plim': t0 + 3.25, 'alarme': t0 + 3.4}
+    L.efeito(t0 + 0.05, 'drawer', 0.4), L.efeito(t0 + 3.25, 'ting', 0.7), L.efeito(t0 + 3.4, 'alarm', 0.9), L.efeito(t0 + 3.45, 'startle', 0.6)
+    p = L.plano('6k', 6, 1.3, tom='creme')  # corte seco: Giovanna e Bruno ao telefone
+    L.efeito(p['de'] + 0.1, 'dial', 0.5)
+    p = L.plano('6l', 6, 4.4, tom='creme')  # a NF gigante atravessa os obstáculos até o FY26
+    t0 = p['de']
+    p['marcas'] = {'parte': t0 + 0.15, 'pulos': [t0 + 0.95, t0 + 1.75, t0 + 2.55], 'chega': t0 + 3.4, 'carimbo': t0 + 3.75}
+    L.efeito(t0 + 0.2, 'steps_fast', 0.6)
+    for x in p['marcas']['pulos']:
+        L.efeito(x, 'pop', 0.5)
+    L.efeito(t0 + 3.4, 'sparkle', 0.6), L.efeito(t0 + 3.75, 'stamp', 0.8)
+    p = L.plano('6m', 6, 0.2 + d('c6_gb') + 0.6, tom='creme')  # comemoração
+    L.musica.append({'estilo': 'alegria', 'de': p['de']})
+    L.fala('c6_gb', p['de'] + 0.2)
+    p['marcas'] = {'comemora': p['de'] + 0.15}
+    L.efeito(p['de'] + 0.2, 'confetti', 0.6)
+    p = L.plano('6n', 6, 0.3 + d('c6_a3') + 1.7, tom='creme')
+    L.musica.append({'estilo': 'espiao', 'de': p['de']})
+    t = L.fala('c6_a3', p['de'] + 0.3)
+    p['marcas'] = {'missao': t - 0.6, 'cabelo': t + 0.4}
+    L.efeito(t - 0.6, 'slam', 0.6), L.efeito(t + 0.9, 'ting', 0.9)
 
-    # ---------------- CENA 6 — fechamento
+    # ---------------- CENA 7 — fechamento
     L.musica.append({'estilo': 'final', 'de': acima(L.t)})
-    p = L.plano('6a', 6, 3.6, tom='creme')
-    p['marcas'] = {'logos': [p['de'] + 0.2 + 0.55 * k for k in range(6)]}
+    p = L.plano('7a', 7, 3.1, tom='creme')
+    p['marcas'] = {'logos': [p['de'] + 0.15 + 0.48 * k for k in range(6)]}
     for k, x in enumerate(p['marcas']['logos']):
         L.efeito(x, f'pluck{k + 1}', 0.6)
-    p = L.plano('6c', 6, 0.4 + d('c6_a1') + 0.3 + d('c6_a2') + 0.3 + d('c6_a3') + 0.5, tom='creme')
-    t = L.fala('c6_a1', p['de'] + 0.4)
-    t = L.fala('c6_a2', t + 0.3)
-    p['marcas'] = {'numeros': t - d('c6_a2') * 0.75}
-    L.fala('c6_a3', t + 0.3)
-    p = L.plano('6d', 6, 0.4 + d('c6_n1') + 0.3 + d('c6_n2') + 1.6, tom='creme')
-    t = L.fala('c6_n1', p['de'] + 0.4)
-    L.fala('c6_n2', t + 0.3)
-    p['marcas'] = {'frase': t + 0.3}
+    p = L.plano('7b', 7, 0.4 + d('c7_n1') + 0.2, tom='creme')  # Antonialli olha para a câmera, sério
+    L.fala('c7_n1', p['de'] + 0.4)
+    p = L.plano('7c', 7, 0.2 + d('c7_n2') + 0.7, tom='creme')  # pipeline aquecido
+    L.fala('c7_n2', p['de'] + 0.2)
+    p['marcas'] = {'pipeline': p['de'] + 0.2 + d('c7_n2') * 0.35, 'aquecido': p['de'] + 0.2 + d('c7_n2') * 0.55}
+    L.efeito(p['marcas']['pipeline'], 'whoosh', 0.4), L.efeito(p['marcas']['aquecido'], 'rise', 0.6)
+    p = L.plano('7d', 7, 3.0, tom='creme')  # quadro final com todos
+    p['marcas'] = {'frase': p['de'] + 0.5}
     for k in range(13):
         L.efeito(p['de'] + 0.2 + 0.08 * k, 'pop', 0.15)
-    p = L.plano('6e', 6, 3.2, tom='creme')
+    p = L.plano('7e', 7, 3.0, tom='creme')  # frase final + lockup
     L.efeito(p['de'] + 0.3, 'shine', 0.6)
     L.musica.append({'estilo': 'silencio', 'de': p['ate'] - 0.8})
-    p = L.plano('6f', 6, 0.6 + d('c6_g1') + 1.1 + d('c6_g2') + 0.45 + 1.7, tom='creme')
-    t = L.fala('c6_g1', p['de'] + 0.6)
-    t = L.fala('c6_g2', t + 1.1)
-    p['marcas'] = {'corte': t + 0.45}
-    L.efeito(t + 0.5, 'ting', 0.8)
+    p = L.plano('7f', 7, 0.5 + d('c7_g1') + 0.9 + d('c7_g2') + 0.45 + 2.2, tom='creme')  # a piada: ajeita o cabelo, silêncio, corte seco
+    t = L.fala('c7_g1', p['de'] + 0.5)
+    t = L.fala('c7_g2', t + 0.9)
+    p['marcas'] = {'corte': t + 0.45, 'cabelo': t + 0.8}
+    L.efeito(t + 1.3, 'ting', 0.9)
 
     tl = {'dur': round(L.t, 3), 'fps': FPS, 'chao': CHAO, 'planos': L.planos, 'falas': L.falas,
           'sfx': sorted(L.sfx, key=lambda e: e['t']), 'musica': L.musica, 'projetos': PROJETOS, 'nomes': NOMES}
@@ -252,7 +325,7 @@ def cmd_tempo(a):
     for p in L.planos:
         cenas.setdefault(p['cena'], [p['de'], p['ate']])[1] = p['ate']
     print('\n'.join(f'cena {c}: {v[0]:6.1f} – {v[1]:6.1f}  ({v[1] - v[0]:.1f} s)' for c, v in cenas.items()))
-    print(f'total {L.t:.1f} s, {len(L.planos)} planos, {len(L.falas)} falas')
+    print(f'total {L.t:.1f} s ({int(L.t // 60)}:{L.t % 60:04.1f}), {len(L.planos)} planos, {len(L.falas)} falas')
 
 
 # ---------------------------------------------------------------- personagens

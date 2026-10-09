@@ -2,8 +2,9 @@
 
     python3 producao/vozes_filme.py            # gera build/filme/vozes/<id>.wav e vozes.json
     python3 producao/vozes_filme.py --conferir # transcreve de volta (ASR) e mostra o erro por fala
+    python3 producao/vozes_filme.py --so c5_n6,c5_n7   # regrava só essas falas
 
-As falas são as do roteiro (docs/roteiro-storyboard-ae-srt.md), sem alteração; "falado" só
+As falas são as do roteiro novo (docs/roteiro-fy26.md), sem alteração; "falado" só
 ajusta a grafia para a pronúncia sair certa (marcas, siglas, termos em inglês).
 Vozes escolhidas por inteligibilidade (ASR com WER 0) e timbre; trocar em VOZES.
 """
@@ -29,57 +30,60 @@ VOZES = {
     'Antonialli': (9, 1.0),
     'Bruno': (5, 1.08),
     'Giovanna': (1, 1.12),
-    'Paladini': (4, 1.05),
+    'Nathalia Paladini': (4, 1.05),
 }
 
-TOTVS, AM = 'Tótvis', 'Á i Ême'
+TOTVS, AM = 'Tótus', 'Á i Ême'  # TOTVS se fala "Tótus"
+IA = 'I, A,'  # a sigla soletrada, com pausas ("i-á" vira "aí")
+# roteiro novo (docs/roteiro-fy26.md): ids por cena do roteiro
 FALAS = [
-    # cena 1
-    ('c1_n1', 'Narrador', 'Todo mundo que já viveu um projeto de ERP conhece esse filme.', 'Todo mundo que já viveu um projeto de é érre pê conhece esse filme.'),
-    ('c1_n2', 'Narrador', 'A diferença é quem você chama quando ele começa a dar errado.', None),
-    ('c1_n3', 'Narrador', 'A nossa começou com um projeto. E não parou mais de crescer.', None),
-    # cena 2
-    ('c2_n1', 'Narrador', 'De um lado, a TOTVS: a maior empresa de tecnologia do Brasil.', f'De um lado, a {TOTVS}: a maior empresa de tecnologia do Brasil.'),
-    ('c2_n2', 'Narrador', 'Do outro, a A&M Performance: núcleo de excelência em performance da Alvarez & Marsal.',
+    # cena 2 — o desafio
+    ('c2_n1', 'Narrador', 'Todo mundo que já viveu um projeto de ERP conhece esse filme.', 'Todo mundo que já viveu um projeto de E, R, P, conhece esse filme.'),
+    ('c2_n2', 'Narrador', 'A diferença é quem você chama quando ele começa a dar errado.', None),
+    ('c2_n3', 'Narrador', 'A nossa começou com um projeto. E não parou mais de crescer.', None),
+    # cena 3 — a parceria e a liderança
+    ('c3_n1', 'Narrador', 'De um lado, a TOTVS: a maior empresa de tecnologia do Brasil.', f'De um lado, a {TOTVS}: a maior empresa de tecnologia do Brasil.'),
+    ('c3_n2', 'Narrador', 'Do outro, a A&M Performance: núcleo de excelência em performance da Alvarez & Marsal.',
      f'Do outro, a {AM} Perfórmance: núcleo de excelência em perfórmance da Álvarez e Marsal.'),
-    ('c2_n3', 'Narrador', 'Um time de especialistas com mentalidade fazedora e adaptável.', None),
-    ('c2_n4', 'Narrador', 'Executivos que já viveram desafios reais.', None),
-    ('c2_n5', 'Narrador', 'Gente que entende do jogo.', None),
-    ('c2_n6', 'Narrador', 'Tudo começou na Unimed Brasil. Nosso projeto pioneiro.', 'Tudo começou na Unimédi Brasil. Nosso projeto pioneiro.'),
-    # cena 3
-    ('c3_n1', 'Narrador', 'Tudo começou na maior rede de assistência médica do Brasil.', None),
-    ('c3_n2', 'Narrador', 'Depois veio a FUNED, referência em vacinas, medicamentos e biotecnologia.', 'Depois veio a Funédi, referência em vacinas, medicamentos e biotecnologia.'),
-    ('c3_n3', 'Narrador', 'Na CAOA, acelerando uma montadora.', 'Na Cá ôa, acelerando uma montadora.'),
-    ('c3_n4', 'Narrador', 'E a parceria cruzou fronteiras: John Deere, na Argentina.', 'E a parceria cruzou fronteiras: Djón Díer, na Argentina.'),
-    ('c3_n5', 'Narrador', 'Na Hughes, a parceria chegou ao espaço.', 'Na Riúz, a parceria chegou ao espaço.'),
-    ('c3_n6', 'Narrador', 'E na Libercon, construindo junto. Literalmente.', 'E na Líbercon, construindo junto. Literalmente.'),
-    # cena 4
-    ('c4_n1', 'Narrador', 'Projeto após projeto, o aprendizado vira método.', None),
-    ('c4_n2', 'Narrador', 'O método vira padrão.', None),
-    ('c4_n3', 'Narrador', 'E o padrão gera previsibilidade.', None),
-    ('c4_n4', 'Narrador', 'Com o apoio do Delivery Center, os entregáveis viraram cockpits de dashboards para o cliente.',
-     'Com o apoio do Delíveri Cênter, os entregáveis viraram cóc-pits de déch-bórds para o cliente.'),
-    # cena 5
-    ('c5_n1', 'Narrador', 'E quando a gente diz resultado no P&L…', 'E quando a gente diz resultado no pê e éle...'),
-    ('c5_n2', 'Narrador', '…é no P&L de todo mundo.', 'é no pê e éle de todo mundo.'),
-    ('c5_n3', 'Narrador', 'Uma parceria que não só entrega valor para o cliente.', None),
-    ('c5_n4', 'Narrador', 'Ela também cresce o nosso negócio.', None),
-    ('c5_g1', 'Giovanna', 'Paladini!', None),
-    ('c5_g2', 'Giovanna', 'A TOTVS pagou a nota?', f'A {TOTVS} pagou a nota?'),
-    ('c5_p1', 'Paladini', 'Pagou.', None),
-    ('c5_a1', 'Antonialli', 'Vamos precisar antecipar algumas notas para o FY26.', 'Vamos precisar antecipar algumas notas para o éfe uai vinte e seis.'),
-    ('c5_a2', 'Antonialli', 'Fala com a TOTVS.', f'Fala com a {TOTVS}.'),
-    ('c5_gb', 'Giovanna e Bruno', 'Antecipamos as NFs para esse ano fiscal!', 'Antecipamos as ene éfes para esse ano fiscal!'),
-    ('c5_a3', 'Antonialli', 'Agora é Operação Collection Zero Defect.', 'Agora é Operação Colécchion Zíro Dífect.'),
-    # cena 6
-    ('c6_a1', 'Antonialli', 'Começamos com um projeto na Unimed.', 'Começamos com um projeto na Unimédi.'),
-    ('c6_a2', 'Antonialli', 'Hoje são seis, em dois países, e R$ 7 milhões só neste ano fiscal.', 'Hoje são seis, em dois países, e sete milhões de reais só neste ano fiscal.'),
-    ('c6_a3', 'Antonialli', 'Isso não é sorte. É método e confiança.', None),
-    ('c6_n1', 'Narrador', 'Um projeto que gera projetos.', None),
-    # valor do FY27 ainda não confirmado: um "bip" no lugar do número ("xis" soaria como "seis")
-    ('c6_n2', 'Narrador', 'E mais R$ [X] milhões já a caminho no próximo ano fiscal.', 'E mais [bip] milhões de reais já a caminho no próximo ano fiscal.'),
-    ('c6_g1', 'Giovanna', 'Gente…', 'Gente...'),
-    ('c6_g2', 'Giovanna', 'Mas pagou a NF?', None),
+    ('c3_n3', 'Narrador', 'Um time de especialistas com mentalidade fazedora e adaptável.', None),
+    ('c3_n4', 'Narrador', 'Executivos que já viveram desafios reais.', None),
+    ('c3_n5', 'Narrador', 'Gente que entende do jogo.', None),
+    ('c3_n6', 'Narrador', 'Tudo começou na Unimed Brasil. Nosso projeto pioneiro.', 'Tudo começou na Unimédi Brasil. Nosso projeto pioneiro.'),
+    # cena 4 — seis projetos
+    ('c4_n1', 'Narrador', 'A maior rede de assistência médica do Brasil. O primeiro projeto da parceria.', None),
+    ('c4_n2', 'Narrador', 'Depois veio a FUNED, referência em vacinas, medicamentos e biotecnologia.', 'Depois veio a Funédi, referência em vacinas, medicamentos e biotecnologia.'),
+    ('c4_n3', 'Narrador', 'Na CAOA, acelerando uma montadora.', 'Na Cá ôa, acelerando uma montadora.'),
+    ('c4_n4', 'Narrador', 'E a parceria cruzou fronteiras: John Deere, na Argentina.', 'E a parceria cruzou fronteiras: Djón Díer, na Argentina.'),
+    ('c4_n5', 'Narrador', 'Na Hughes, conectando quem conecta o país.', 'Na Riúz, conectando quem conecta o país.'),
+    ('c4_n6', 'Narrador', 'E na Libercon, construindo junto. Literalmente.', 'E na Líbercon, construindo junto. Literalmente.'),
+    # cena 5 — framework integrado e ferramentas
+    ('c5_n1', 'Narrador', 'Projeto após projeto, o aprendizado vira método.', None),
+    ('c5_n2', 'Narrador', 'O método vira padrão.', None),
+    ('c5_n3', 'Narrador', 'E o padrão gera previsibilidade.', None),
+    ('c5_n4', 'Narrador', 'Um framework integrado: a TOTVS na solução, a A&M na gestão da transformação. Um time só.',
+     f'Um frêimuórk integrado: a {TOTVS} na solução, a {AM} na gestão da transformação. Um time só.'),
+    ('c5_n5', 'Narrador', 'O status report virou um cockpit executivo. O cliente enxerga todo o portfólio de projetos.',
+     'O státus ripórt virou um cóc-pit executivo. O cliente enxerga todo o portfólio de projetos.'),
+    ('c5_n6', 'Narrador', 'Nos testes integrados, usamos IA para construir a ferramenta: roteiro padronizado, evidência no lugar certo e cada defeito com dono e prazo. Mais governança, automação e escala.',
+     f'Nos testes integrados, usamos {IA} para construir a ferramenta: roteiro padronizado, evidência no lugar certo e cada defeito com dono e prazo. Mais governança, automação e escala.'),
+    ('c5_n7', 'Narrador', 'E a IA entra no método: skills que garantem a qualidade das MITs.', f'E a {IA} entra no método: skíls que garantem a qualidade das mits.'),
+    # cena 6 — resultado no P&L, cross-sell e a NF
+    ('c6_n1', 'Narrador', 'E quando a gente diz resultado no P&L…', 'E quando a gente diz resultado no pê e éle...'),
+    ('c6_n2', 'Narrador', '…é no P&L de todo mundo.', 'é no pê e éle de todo mundo.'),
+    ('c6_n3', 'Narrador', 'Projetos de longo prazo, com potencial de extensão. Uma parceria que entrega valor para o cliente, cresce o nosso negócio e abre portas para outras especializações da A&M.',
+     f'Projetos de longo prazo, com potencial de extensão. Uma parceria que entrega valor para o cliente, cresce o nosso negócio e abre portas para outras especializações da {AM}.'),
+    ('c6_g1', 'Giovanna', 'Paladini!', None),
+    ('c6_g2', 'Giovanna', 'A TOTVS pagou a nota?', 'A Tó-tus pagou a nota?'),
+    ('c6_p1', 'Nathalia Paladini', 'Pagou.', None),
+    ('c6_a1', 'Antonialli', 'Vamos precisar antecipar algumas notas para o FY26.', 'Vamos precisar antecipar algumas notas para o éfe uai vinte e seis.'),
+    ('c6_a2', 'Antonialli', 'Fala com a TOTVS.', f'Fala com a {TOTVS}.'),
+    ('c6_gb', 'Giovanna e Bruno', 'Antecipamos as NFs para este ano fiscal!', 'Antecipamos as ene éfes para este ano fiscal!'),
+    ('c6_a3', 'Antonialli', 'Agora é Operação Collection Zero Defect.', 'Agora é Operação Colécchion Zíro Dífect.'),
+    # cena 7 — fechamento
+    ('c7_n1', 'Narrador', 'Um projeto que gera projetos.', None),
+    ('c7_n2', 'Narrador', 'E não para por aí: o pipeline está aquecido para crescer a parceria no próximo ano.', 'E não para por aí: o páip-láin está aquecido para crescer a parceria no próximo ano.'),
+    ('c7_g1', 'Giovanna', 'Gente…', 'Gente...'),
+    ('c7_g2', 'Giovanna', 'Mas pagou a NF?', None),
 ]
 
 
@@ -153,11 +157,65 @@ def escrever(caminho, x):
         w.writeframes((np.clip(x, -1, 1) * 32767).astype('<i2').tobytes())
 
 
-def gerar():
+# o que o reconhecedor deve escrever quando a pronúncia sai certa (siglas e marcas)
+ESPERADO = {
+    'c2_n1': 'todo mundo que ja viveu um projeto de erp conhece esse filme',
+    'c3_n1': 'de um lado a totos a maior empresa de tecnologia do brasil',
+    'c6_g2': 'a totos pagou a nota',
+    'c6_a2': 'fala com a totos',
+    'c4_n3': 'na caoa acelerando uma montadora',
+}
+_rec = None
+
+
+def _norm(s):
+    s = ''.join(c for c in unicodedata.normalize('NFD', s.lower()) if unicodedata.category(c) != 'Mn')
+    return ' '.join(re.sub(r'[^\w\s]', ' ', s).split())
+
+
+def ouvir(x):
+    global _rec
+    import sherpa_onnx as so
+    if _rec is None:
+        m = os.path.join(MOD, 'sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8')
+        _rec = so.OfflineRecognizer.from_transducer(encoder=m + '/encoder.int8.onnx', decoder=m + '/decoder.int8.onnx', joiner=m + '/joiner.int8.onnx',
+                                                    tokens=m + '/tokens.txt', model_type='nemo_transducer', num_threads=3)
+    st = _rec.create_stream()
+    st.accept_waveform(SR, x)
+    _rec.decode_stream(st)
+    return _norm(st.result.text)
+
+
+def melhor(fid, falado, quem, n=5):
+    """A síntese varia a cada vez: para siglas e marcas, gera até n versões e fica com a que o ASR entende melhor."""
+    import jiwer
+    alvo = ESPERADO.get(fid)
+    if not alvo:
+        return tratar(sintetizar(falado, *VOZES[quem]))
+    best, bw = None, 9
+    for _ in range(n):
+        x = tratar(sintetizar(falado, *VOZES[quem]))
+        w = jiwer.wer(alvo, ouvir(x) or 'x')
+        if w < bw:
+            best, bw = x, w
+        if w == 0:
+            break
+    print(f'   {fid}: melhor WER {bw:.2f}')
+    return best
+
+
+def gerar(so=None):
     os.makedirs(OUT, exist_ok=True)
+    antigo = {}
+    arq = os.path.join(OUT, 'vozes.json')
+    if so and os.path.exists(arq):
+        antigo = {f['id']: f for f in json.load(open(arq))['falas']}
     saida = []
     for fid, quem, texto, falado in FALAS:
         falado = falado or texto
+        if so and fid not in so and fid in antigo:
+            saida.append(antigo[fid])
+            continue
         if quem == 'Giovanna e Bruno':  # os dois juntos: duas vozes alinhadas no início
             a = sintetizar(falado, *VOZES['Giovanna'])
             b = sintetizar(falado, *VOZES['Bruno'])
@@ -171,7 +229,7 @@ def gerar():
             x = np.concatenate([tratar(sintetizar(antes.strip(), *VOZES[quem])), pausa, bip.astype(np.float32), pausa,
                                 tratar(sintetizar(depois.strip(), *VOZES[quem]))])
         else:
-            x = sintetizar(falado, *VOZES[quem])
+            x = melhor(fid, falado, quem)
         x = tratar(x)
         escrever(os.path.join(OUT, fid + '.wav'), x)
         saida.append({'id': fid, 'quem': quem, 'texto': texto, 'falado': falado, 'dur': round(len(x) / SR, 3)})
@@ -205,5 +263,6 @@ def conferir():
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--conferir', action='store_true')
+    ap.add_argument('--so', help='regenera só estas falas (ids separados por vírgula)')
     a = ap.parse_args()
-    conferir() if a.conferir else gerar()
+    conferir() if a.conferir else gerar(a.so.split(',') if a.so else None)

@@ -18,7 +18,7 @@ import gerar_trilha as T  # noqa: E402
 
 SR = T.SR
 # estilos da timeline -> estilos de gerar_trilha.music
-ESTILO = {'tensao': 'tensao', 'suave': 'esperanca', 'tema': 'tema', 'metodo': 'metodo', 'triunfo': 'triunfo',
+ESTILO = {'abertura': 'triunfo', 'tensao': 'tensao', 'suave': 'esperanca', 'tema': 'tema', 'metodo': 'metodo', 'triunfo': 'triunfo',
           'suspense': 'furtivo', 'alegria': 'comico', 'espiao': 'espiao', 'final': 'final'}
 PENTA = [65, 67, 69, 72, 74, 77]  # Fá pentatônica: um acento por cliente
 

@@ -251,18 +251,19 @@ export function regua(t, total, o = {}) {
 // ---------- marca ----------
 // o: x, y (centro vertical), h (altura do A&M, padrão 64), fundo (pílula clara; padrão só no 'noite'), noite, op
 export function marca(idade = 9, o = {}) {
+  // lockup fixo no canto: pílula branca com A&M | TOTVS, alturas equilibradas pelo peso visual
   const a = ease.out(clamp(idade / 0.5));
   if (a <= 0) return '';
-  const h = o.h ?? 64, x = o.x ?? 46, y = o.y ?? 60;
-  const am = logoSize('alvarez-marsal', h), tv = logoSize('totvs', h * 0.42);
-  const gap = h * 0.36;
-  let s = '';
-  const w = am.w + gap * 2 + tv.w;
-  if (o.fundo ?? o.noite) s += `<rect x="${n2(x - 18)}" y="${n2(y - h / 2 - 8)}" width="${n2(w + 36)}" height="${n2(h + 16)}" rx="${n2(h / 2 + 8)}" fill="#fffdf8" opacity=".94"/>`;
-  s += logo('alvarez-marsal', x + am.w / 2, y, h);
-  const cx = x + am.w + gap;
-  s += `<path d="M${n2(cx - 7)} ${n2(y)}h14M${n2(cx)} ${n2(y - 7)}v14" stroke="${o.noite && !(o.fundo ?? true) ? '#c9d3ee' : '#9a9384'}" stroke-width="3.2" stroke-linecap="round"/>`;
-  s += logo('totvs', cx + gap + tv.w / 2, y, h * 0.42);
+  const h = o.h ?? 46, x = o.x ?? 34, y = o.y ?? 60;
+  const am = logoSize('alvarez-marsal', h), tv = logoSize('totvs', h * 0.62);
+  const pad = 22, gap = 20;
+  const w = pad + am.w + gap * 2 + 2 + tv.w + pad, H = h + 22;
+  let s = `<rect x="${n2(x)}" y="${n2(y - H / 2 + 3)}" width="${n2(w)}" height="${n2(H)}" rx="${n2(H / 2)}" fill="#2b1a05" opacity=".10"/>`;
+  s += `<rect x="${n2(x)}" y="${n2(y - H / 2)}" width="${n2(w)}" height="${n2(H)}" rx="${n2(H / 2)}" fill="#fffdf8" stroke="#e6dccb" stroke-width="1.5"/>`;
+  s += logo('alvarez-marsal', x + pad + am.w / 2, y, h);
+  const dx = x + pad + am.w + gap;
+  s += `<rect x="${n2(dx)}" y="${n2(y - h * 0.34)}" width="2" height="${n2(h * 0.68)}" rx="1" fill="#d9cfbd"/>`;
+  s += logo('totvs', dx + 2 + gap + tv.w / 2, y, h * 0.62);
   return op(a * (o.op ?? 1), g(tr(-24 * (1 - a), 0), s));
 }
 
@@ -296,12 +297,12 @@ export function pilulaCapitulo(num, parte, titulo, idade = 9, o = {}) {
 
 // ---------- legenda ----------
 // o: quem (nome; ausente = narrador), cor (do círculo/etiqueta), karaoke (padrão true: palavras ainda não ditas ficam apagadas),
-//    y (base da pílula, padrão 1046), maxW (padrão 1300)
+//    y (base da pílula, padrão 1046), maxW (padrão 1300), tam (corpo do texto, padrão 38; a pílula acompanha)
 export function legenda(texto, t, de, ate, o = {}) {
   const a = clamp(Math.min((t - de) / 0.25, (ate - t) / 0.2));
   if (a <= 0 || !texto) return '';
-  const size = 38, lh = 50, font = `700 ${size}px "DM Sans"`;
-  const maxW = (o.maxW ?? 1300) - 150;
+  const size = o.tam ?? 38, k_ = size / 38, lh = 50 * k_, font = `700 ${size}px "DM Sans"`;
+  const maxW = (o.maxW ?? 1300) - 150 * k_;
   // palavras com destaque (*...*) — o destaque pode abranger várias palavras
   const pal = [];
   let hi = false;
@@ -322,31 +323,34 @@ export function legenda(texto, t, de, ate, o = {}) {
   }
   const larg = linhas.map(L => L.reduce((s, w, i) => s + w.w + (i ? esp : 0), 0));
   const tw = Math.max(...larg);
-  const h = 92 + (linhas.length - 1) * lh, w = 26 + 58 + 20 + tw + 36;
+  const h = 92 * k_ + (linhas.length - 1) * lh, w = (26 + 58 + 20 + 36) * k_ + tw;
   const yb = o.y ?? 1046, y0 = yb - h, x0 = 960 - w / 2;
   // karaokê: proporcional ao número de letras
   const nLetras = pal.reduce((s, w) => s + w.p.length + 1, 0);
   const prog = o.karaoke === false ? 1e9 : clamp((t - de) / Math.max(0.3, (ate - de) * 0.85)) * nLetras;
-  let s = `<rect x="${n2(x0)}" y="${n2(y0)}" width="${n2(w)}" height="${n2(h)}" rx="24" fill="#262833" opacity=".96"/>`;
-  const ix = x0 + 26 + 29, iy = y0 + h / 2;
+  let s = `<rect x="${n2(x0)}" y="${n2(y0)}" width="${n2(w)}" height="${n2(h)}" rx="${n2(24 * k_)}" fill="#262833" opacity=".96"/>`;
+  const ix = x0 + (26 + 29) * k_, iy = y0 + h / 2;
+  let s0 = '';
   if (!o.quem) {
-    s += `<circle cx="${n2(ix)}" cy="${n2(iy)}" r="29" fill="#fffdf8"/><rect x="${n2(ix - 7)}" y="${n2(iy - 16)}" width="14" height="22" rx="7" fill="${INK}"/><path d="M${n2(ix - 12)} ${n2(iy - 1)}a12 12 0 0 0 24 0M${n2(ix)} ${n2(iy + 11)}v6" stroke="${INK}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
+    s0 += `<circle cx="${n2(ix)}" cy="${n2(iy)}" r="29" fill="#fffdf8"/><rect x="${n2(ix - 7)}" y="${n2(iy - 16)}" width="14" height="22" rx="7" fill="${INK}"/><path d="M${n2(ix - 12)} ${n2(iy - 1)}a12 12 0 0 0 24 0M${n2(ix)} ${n2(iy + 11)}v6" stroke="${INK}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
   } else {
     const cor = o.cor ?? C.blue;
-    s += `<circle cx="${n2(ix)}" cy="${n2(iy)}" r="29" fill="${cor}" stroke="#fffdf8" stroke-width="3"/>` + text(o.quem[0].toUpperCase(), ix, iy + 11, { size: 30, weight: 900, fill: '#fff' });
+    s0 += `<circle cx="${n2(ix)}" cy="${n2(iy)}" r="29" fill="${cor}" stroke="#fffdf8" stroke-width="3"/>` + text(o.quem[0].toUpperCase(), ix, iy + 11, { size: 30, weight: 900, fill: '#fff' });
     const nome = o.quem.toUpperCase(), nf = '800 19px Outfit';
     const nw = measure(nome, nf) + nome.length * 1.2 + 30;
-    s += `<rect x="${n2(x0 + 18)}" y="${n2(y0 - 20)}" width="${n2(nw)}" height="32" rx="16" fill="${cor}" stroke="#262833" stroke-width="3"/>` + text(nome, x0 + 18 + nw / 2, y0 + 3, { size: 19, weight: 800, fill: '#fff', ls: '1.2' });
+    s0 += `<rect x="${n2(x0 + 18)}" y="${n2(y0 - 20)}" width="${n2(nw)}" height="32" rx="16" fill="${cor}" stroke="#262833" stroke-width="3"/>` + text(nome, x0 + 18 + nw / 2, y0 + 3, { size: 19, weight: 800, fill: '#fff', ls: '1.2' });
   }
+  // ícone e etiqueta acompanham o corpo do texto (escala em torno do ícone)
+  s += k_ === 1 ? s0 : `<g transform="translate(${n2(ix)} ${n2(iy)}) scale(${n2(k_)}) translate(${n2(-ix)} ${n2(-iy)})">${s0}</g>`;
   // texto palavra a palavra
-  const tx = x0 + 26 + 58 + 20;
+  const tx = x0 + (26 + 58 + 20) * k_;
   let acc = 0, cur = -1, xx = 0, spans = '';
   for (const w of pal) {
     if (w.l !== cur) { cur = w.l; xx = 0; }
     const dita = acc <= prog;
     acc += w.p.length + 1;
     const cor = w.hi ? '#ffc04a' : '#ffffff';
-    spans += `<text x="${n2(tx + xx)}" y="${n2(y0 + 59 + w.l * lh)}" font-family="DM Sans" font-weight="700" font-size="${size}" fill="${cor}"${dita ? '' : ' fill-opacity=".42"'}>${esc(w.p)}</text>`;
+    spans += `<text x="${n2(tx + xx)}" y="${n2(y0 + 59 * k_ + w.l * lh)}" font-family="DM Sans" font-weight="700" font-size="${size}" fill="${cor}"${dita ? '' : ' fill-opacity=".42"'}>${esc(w.p)}</text>`;
     xx += w.w + esp;
   }
   s += spans;

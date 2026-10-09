@@ -17,7 +17,7 @@ NOMES = {
     'antonialli': 'Guilherme Antonialli', 'bruno': 'Bruno Moraes', 'jose': 'José Aires', 'nara': 'Nara Martins',
     'marcos': 'Marcos Massao Iwata', 'thauany': 'Thauany Moreira', 'joao': 'João Lopes', 'mancini': 'Marcus Mancini',
     'jaqueline': 'Jaqueline Valdevino', 'giovanna': 'Giovanna Brandão', 'pedro': 'Pedro Lanzetta', 'monica': 'Monica Audrey',
-    'vinicius': 'Vinicius de Sousa', 'paladini': 'Paladini', 'quintao': 'Fabio Quintão', 'sampaio': 'Sampaio',
+    'vinicius': 'Vinicius de Sousa', 'paladini': 'Nathalia Paladini', 'quintao': 'Fabio Quintão', 'sampaio': 'Sampaio',
 }
 CORES = {'antonialli': 'azul', 'bruno': 'teal', 'jose': 'verde', 'nara': 'rosa', 'marcos': 'lilas', 'thauany': 'amarelo', 'joao': 'verde',
          'mancini': 'azul', 'jaqueline': 'pessego', 'giovanna': 'rosa', 'pedro': 'teal', 'monica': 'lilas', 'vinicius': 'amarelo',
@@ -133,7 +133,14 @@ def braco(papel):
 
 
 # ---------------------------------------------------------------- planos
-def p_2a(p, t):
+def ajeita(st, t, tc):
+    """Piada recorrente: Antonialli ajeita o cabelo (a cabeça inclina e assenta; a mão e o "ting" vêm da camada de textos)."""
+    if tc is not None and t > tc - 0.3:
+        st['cabeca'] += 5 * M.ease((t - tc + 0.3) / 0.3) - 5 * M.ease((t - tc - 0.8) / 0.4)
+    return st
+
+
+def p_3a(p, t):
     mk = p['marcas']
     q = Quadro(p, push(p, t, 1.0, 1.04))
     for i, t0, xa, xb, cor in (('modulo', mk['modulo'], -280, 600, 'teal'), ('cronos', mk['cronos'], 2200, 1320, 'azul')):
@@ -147,13 +154,11 @@ def p_2a(p, t):
 
 
 def time13(q, t, t_in, y_tras=760, y_frente=880, alt_t=250, alt_f=290, x0=200, x1=1720, pulos=()):
-    """Os 13 do time em duas fileiras; com o elenco confirmado, o Antonialli fica no centro da frente."""
-    ordem = list(FOTOS)
-    if ELENCO.get('antonialli') in ordem:
-        ordem.remove(ELENCO['antonialli'])
-        ordem.insert(9, ELENCO['antonialli'])  # meio da fileira da frente
-    tras, frente = ordem[:7], ordem[7:]
-    for fil, ys, alt, xs in ((tras, y_tras, alt_t, fila(7, x0, x1)), (frente, y_frente, alt_f, fila(6, x0 + 60, x1 - 60))):
+    """Os 13 do time: o Antonialli na frente de todos, como líder; os outros 12 em duas fileiras atrás."""
+    lider = ELENCO.get('antonialli')
+    ordem = [f for f in FOTOS if f != lider]
+    tras, frente = ordem[:6], ordem[6:]
+    for fil, ys, alt, xs in ((tras, y_tras, alt_t, fila(6, x0, x1)), (frente, y_frente, alt_f, fila(6, x0 + 40, x1 - 40))):
         for n, i in enumerate(fil):
             st = cai(i, t, t_in + 0.09 * (FOTOS.index(i)), 520)
             if st is None:
@@ -161,9 +166,15 @@ def time13(q, t, t_in, y_tras=760, y_frente=880, alt_t=250, alt_f=290, x0=200, x
             for k, tp in enumerate(pulos):
                 junta(st, *M.pulo(t, tp + 0.04 * n + 0.02 * k, 0.36, 40))
             q.ator(i, xs[n], ys, alt, st)
+    if lider:
+        st = cai('antonialli', t, t_in + 1.25, 600)
+        if st:
+            for k, tp in enumerate(pulos):
+                junta(st, *M.pulo(t, tp + 0.1, 0.36, 30))
+            q.ator('antonialli', (x0 + x1) / 2, y_frente + 70, alt_f * 1.18, st, lider=True)
 
 
-def p_2b(p, t):
+def p_3b(p, t):
     mk = p['marcas']
     q = Quadro(p, push(p, t, 1.0, 1.05, cy=560))
     time13(q, t, p['de'] + 0.35, pulos=(mk['fazedora'], mk['adaptavel'], mk['jogo']))
@@ -171,11 +182,64 @@ def p_2b(p, t):
 
 
 def p_2e(p, t):
-    q = Quadro(p, push(p, t, 1.0, 1.04))
-    st = cai('cuidado', t, p['de'] + 0.25)
+    """GO-LIVE ADIADO com humor físico: Bruno pula no botão, a data foge, o computador fumega e ele tenta
+    segurá-lo; Antonialli entra desesperado e, claro, ajeita o cabelo."""
+    mk = p['marcas']
+    q = Quadro(p)
+    r = random.Random(int(t * 30))
+    # Bruno: chega pulando, salta para cima do botão (os pés ficam no topo do pedestal), depois corre para o monitor
+    if t >= mk['bruno']:
+        if t < mk['aperta'] - 0.42:
+            x, st = chega_pulando('bruno', t, mk['bruno'], -200, 470, 0.7)
+            y = CHAO
+        elif t < mk['segura']:
+            u = M.ease_io((t - (mk['aperta'] - 0.42)) / 0.42)
+            x = 470 + (640 - 470) * u
+            y = CHAO - 150 * M.ease_out(u)
+            st = idle('bruno', t)
+            arco = -90 * math.sin(math.pi * min(1.0, u))
+            junta(st, arco, 1 - 0.05 * math.sin(math.pi * u), 1 + 0.08 * math.sin(math.pi * u))
+            if t >= mk['aperta']:  # aterrissa amassando o botão
+                sq = M.mola(t - mk['aperta'], 0.18, 20, 8)
+                junta(st, 0, 1 + sq * 0.8, 1 - sq)
+            if t >= mk['foge']:
+                st['cabeca'] += 8 * M.ease((t - mk['foge']) / 0.2)
+        else:
+            u = M.ease_io((t - mk['segura']) / 0.45)
+            x = 640 + (1060 - 640) * u
+            y = CHAO - 150 * (1 - M.ease_out(min(1.0, u * 1.6)))
+            st = idle('bruno', t)
+            if u >= 1:  # segura o monitor que treme
+                st['rot'] += r.uniform(-2.2, 2.2)
+                st['dy'] += r.uniform(-3, 3)
+                st['cabeca'] += r.uniform(-2, 2)
+        extra = {'reacao': '!'} if mk['foge'] < t < mk['segura'] + 0.9 else {}
+        if t > mk['segura'] + 0.5:
+            extra['suor'] = mk['segura'] + 0.5
+        q.ator('bruno', x, y, 330, st, nome=True, **extra)
+    # Antonialli: entra pela direita em pânico, depois se recompõe ajeitando o cabelo
+    if t >= mk['antonialli']:
+        x, st = chega_pulando('antonialli', t, mk['antonialli'], 2150, 1580, 0.6)
+        if t < mk['cabelo'] - 0.3:
+            st['rot'] += r.uniform(-1.4, 1.4)
+            st['dy'] += r.uniform(-2, 2)
+            st['cabeca'] += -4 + r.uniform(-1.2, 1.2)
+            q.ator('antonialli', x, CHAO, 420, st, nome=True, desespero=mk['antonialli'] + 0.6)
+        else:
+            ajeita(st, t, mk['cabelo'])
+            q.ator('antonialli', x, CHAO, 420, st, nome=True, cabelo=mk['cabelo'])
+    return q
+
+
+def p_3fase(p, t):
+    """Capa da parceria: o Módulo cai de pé, pose de bad boy, e os óculos escuros descem."""
+    q = Quadro(p)
+    st = cai('modulo', t, p['marcas']['modulo'], 700)
     if st:
-        aceno(st, braco('cuidado'), t, p['de'] + 0.7)
-        q.ator('cuidado', 1180, CHAO, 440, st, blob={'cor': 'verde', 'r': 280})
+        st['cabeca'] = 3.5 * M.ease((t - p['marcas']['oculos'] - 0.2) / 0.4) + 1.2 * math.sin(2 * math.pi * 0.7 * t)
+        st['rot'] -= 3.0
+        st['braco'] = 0.0
+        q.ator('modulo', 1600, 950, 580, st, oculos=p['marcas']['oculos'], blob={'cor': 'azul', 'r': 320})
     return q
 
 
@@ -185,8 +249,8 @@ def p_projeto(p, t):
     st = cai(pj['mascote'], t, p['de'] + 0.3)
     if st:
         aceno(st, braco(pj['mascote']), t, p['de'] + 0.8)
-        q.ator(pj['mascote'], 880, CHAO, 400, st, blob={'cor': CORES.get(pj['time'][0], 'teal'), 'r': 250})
-    xs = {1: [560], 2: [420, 640], 3: [300, 480, 660]}[len(pj['time'])]
+        q.ator(pj['mascote'], 1130 if len(pj['time']) < 3 else 1180, CHAO, 400, st, blob={'cor': CORES.get(pj['time'][0], 'teal'), 'r': 250})
+    xs = {1: [800], 2: [700, 890], 3: [600, 790, 980]}[len(pj['time'])]
     for n, papel in enumerate(pj['time']):
         t0 = p['de'] + 0.55 + 0.18 * n
         if t < t0:
@@ -196,16 +260,16 @@ def p_projeto(p, t):
     return q
 
 
-def p_3h(p, t):
+def p_4h(p, t):
     q = Quadro(p)
     for n, (i, x) in enumerate(zip(FOTOS, fila(13, 140, 1780))):
-        st = cai(i, t, p['de'] + 2.6 + 0.06 * n, 400)
+        st = cai(i, t, p['marcas']['time'] + 0.06 * n, 400)
         if st:
-            q.ator(i, x, 960, 190, st)
+            q.ator(i, x, 985, 190, st)
     return q
 
 
-def p_4s1(p, t):
+def p_5s1(p, t):
     q = Quadro(p)
     for i, x, cor in (('modulo', 210, 'teal'), ('cronos', 1710, 'azul')):
         st = cai(i, t, p['de'] + 0.5 + (0.15 if i == 'cronos' else 0), 450)
@@ -214,14 +278,27 @@ def p_4s1(p, t):
     return q
 
 
-def p_4f(p, t):
+def p_5s5(p, t):
+    """Um time só: os dois mascotes chegam aos pulinhos quando a narração os chama."""
+    mk = p['marcas']
+    q = Quadro(p)
+    for i, t0, xa, xb, cor in (('modulo', mk['totvs'] - 0.6, -200, 300, 'teal'), ('cronos', mk['am'] - 0.6, 2100, 1620, 'azul')):
+        if t < t0:
+            continue
+        x, st = chega_pulando(i, t, t0, xa, xb, 0.7)
+        junta(st, *M.pulo(t, mk['time'], 0.4, 60))
+        q.ator(i, x, 960, 320, st, blob={'cor': cor, 'r': 200})
+    return q
+
+
+def p_5u(p, t):
     q = Quadro(p, push(p, t, 1.0, 1.03))
     x, st = chega_pulando('vinicius', t, p['de'] + 0.1, -200, 330, 0.8)
     q.ator('vinicius', x, CHAO + 40, 380, st, nome=True, blob={'cor': 'amarelo', 'r': 240})
     return q
 
 
-def p_5a(p, t):
+def p_6a(p, t):
     q = Quadro(p)
     tn = p['marcas']['numero']
     for i, x, cor in (('modulo', 250, 'teal'), ('cronos', 1670, 'azul')):
@@ -232,22 +309,24 @@ def p_5a(p, t):
     return q
 
 
-def p_5c(p, t):
+def p_6c(p, t):
+    """Longo prazo, valor, crescimento e portas: os mascotes dos clientes à esquerda; Módulo e Cronos comemoram."""
     q = Quadro(p)
+    mk = p['marcas']
     cl = ['cuidado', 'frasco', 'acelerado', 'campo', 'conectado', 'obrinha']
     for n, (i, x) in enumerate(zip(cl, fila(6, 70, 900))):
-        st = cai(i, t, p['de'] + 0.3 + 0.08 * n, 450)
+        st = cai(i, t, mk['valor'] + 0.08 * n, 450)
         if st:
             q.ator(i, x, CHAO + 30, 250, st)
-    for n, (i, x) in enumerate((('modulo', 1260), ('cronos', 1560))):
-        st = cai(i, t, p['marcas']['cresce'] + 0.1 * n, 450)
+    for n, (i, x) in enumerate((('modulo', 1040), ('cronos', 1220))):
+        st = cai(i, t, mk['cresce'] + 0.1 * n, 450)
         if st:
-            junta(st, *M.pulo(t, p['marcas']['cresce'] + 0.9 + 0.1 * n, 0.4, 60))
+            junta(st, *M.pulo(t, mk['cresce'] + 0.9 + 0.1 * n, 0.4, 60))
             q.ator(i, x, CHAO + 30, 330, st)
     return q
 
 
-def p_5e(p, t):
+def p_6e(p, t):
     """Giovanna atravessa o escritório depressa, celular na mão."""
     q = Quadro(p)
     x, dy, sx, sy, rot = M.caminhada_pulos(t, p['de'] + 0.05, p['ate'] - 0.25, 2150, 1180, passo=0.19, altura=22)
@@ -256,65 +335,118 @@ def p_5e(p, t):
     return q
 
 
-def p_5f(p, t):
-    """Paladini olha assustada."""
+def p_6f(p, t):
+    """Nathalia Paladini olha assustada."""
     q = Quadro(p, push(p, t, 1.05, 1.12, cy=500))
     st = junta(idle('paladini', t), *M.pulo(t, p['de'] + 0.15, 0.3, 70))
     st['cabeca'] += M.mola(t - p['de'] - 0.15, 6, 14, 5)
-    q.ator('paladini', 760, CHAO, 420, st, nome=True, reacao='!', blob={'cor': 'pessego', 'r': 260})
-    x = 1350
-    q.ator('giovanna', x, CHAO, 400, idle('giovanna', t), nome=True, celular=True, blob={'cor': 'rosa', 'r': 250})
+    q.ator('paladini', 760, CHAO, 470, st, nome=True, reacao='!', blob={'cor': 'pessego', 'r': 260})
+    q.ator('giovanna', 1350, CHAO, 400, idle('giovanna', t), nome=True, celular=True, blob={'cor': 'rosa', 'r': 250})
     return q
 
 
-def p_5g(p, t):
-    """Pagou. → risco de disco → os três felizes em close."""
+def p_6g(p, t):
+    """Pagou. → risco de disco → os donos do dinheiro e o Antonialli, felizes."""
     q = Quadro(p)
     ts = p['marcas']['scratch']
     if t < ts:
-        q.ator('paladini', 760, CHAO, 420, idle('paladini', t), nome=True, blob={'cor': 'pessego', 'r': 260})
+        q.ator('paladini', 760, CHAO, 470, idle('paladini', t), nome=True, blob={'cor': 'pessego', 'r': 260})
         q.ator('giovanna', 1350, CHAO, 400, idle('giovanna', t), nome=True, celular=True, blob={'cor': 'rosa', 'r': 250})
         return q
     q.cam = (960, 540, 1.04)
-    for n, (i, x) in enumerate((('quintao', 460), ('antonialli', 960), ('sampaio', 1460))):
+    for n, (i, x, alt) in enumerate((('quintao', 450, 560), ('antonialli', 960, 470), ('sampaio', 1470, 560))):
         st = cai(i, t, ts + 0.15 + 0.12 * n, 300)
         if st:
             junta(st, *M.pulo(t, ts + 0.9 + 0.12 * n, 0.4, 50))
-            q.ator(i, x, 930, 470, st, nome=True, blob={'cor': CORES[i], 'r': 280})
+            q.ator(i, x, 950, alt, st, nome=True, donos=i != 'antonialli', blob={'cor': CORES[i], 'r': 280})
     return q
 
 
-def p_5h(p, t):
+def p_6h(p, t):
+    """A ordem: Antonialli ajeita o cabelo enquanto fala; Giovanna recebe o envelope da missão."""
+    mk = p['marcas']
+    q = Quadro(p, push(p, t, 1.0, 1.05, cy=520))
+    st = ajeita(idle('antonialli', t), t, mk['cabelo'])
+    q.ator('antonialli', 560, CHAO + 20, 460, st, nome=True, cabelo=mk['cabelo'], blob={'cor': 'azul', 'r': 290})
+    st = idle('giovanna', t)
+    if t > mk['destroi']:  # o envelope explode em fumaça: ela se assusta
+        junta(st, *M.pulo(t, mk['destroi'] + 0.05, 0.3, 50))
+        st['cabeca'] += M.mola(t - mk['destroi'], 5, 14, 5)
+    q.ator('giovanna', 1420, CHAO + 20, 400, st, nome=True, reacao='!' if t > mk['destroi'] else None, blob={'cor': 'rosa', 'r': 250})
+    return q
+
+
+def p_6i(p, t):
+    """Bruno surge como agente especial: cai de pé no foco de luz e os óculos escuros descem."""
+    mk = p['marcas']
     q = Quadro(p, push(p, t, 1.0, 1.06, cy=520))
-    st = idle('antonialli', t)
-    q.ator('antonialli', 760, CHAO + 30, 470, st, nome=True, blob={'cor': 'azul', 'r': 300})
+    st = cai('bruno', t, mk['bruno'], 700)
+    if st:
+        st['rot'] -= 2.0
+        st['cabeca'] += 3 * M.ease((t - mk['oculos'] - 0.2) / 0.4)
+        q.ator('bruno', 960, CHAO + 30, 520, st, nome=True, oculos=mk['oculos'], agente=mk['chip'], blob={'cor': 'teal', 'r': 310})
     return q
 
 
-def p_5i(p, t):
-    """Telefonema em tela dividida e a comemoração dos dois."""
+def p_6j(p, t):
+    """O rapel: Bruno desce pelo cabo até o cofre das NFs, uma gota de suor cai e dispara o alarme."""
+    mk = p['marcas']
+    q = Quadro(p)
+    u = M.ease_io((t - mk['desce']) / (mk['alcanca'] - mk['desce']))
+    y = -260 + (CHAO - 450 + 260) * u
+    st = idle('bruno', t)
+    st['rot'] += 14 + 3 * math.sin(2 * math.pi * 0.5 * t)
+    st['cabeca'] += 6 * M.ease((t - mk['alcanca']) / 0.4)
+    if t > mk['alarme']:
+        r = random.Random(int(t * 30))
+        st['rot'] += r.uniform(-3, 3)
+        st['dy'] += r.uniform(-4, 4)
+    extra = {'reacao': '!'} if t > mk['alarme'] else {}
+    q.ator('bruno', 960, y, 400, st, nome=True, pendurado=True, oculos=mk['desce'] - 9, **extra)
+    return q
+
+
+def p_6k(p, t):
+    """Corte seco: Giovanna e Bruno ao telefone, em tela dividida."""
+    q = Quadro(p)
+    for i, x, pain in (('giovanna', 520, [0, 0, 960, 1080]), ('bruno', 1400, [960, 0, 1920, 1080])):
+        q.ator(i, x, CHAO + 20, 430, idle(i, t), nome=True, celular=True, painel=pain)
+    return q
+
+
+def p_6l(p, t):
+    """A NF gigante corre pelos obstáculos; Giovanna e Bruno esperam no portal do FY26."""
+    mk = p['marcas']
+    q = Quadro(p)
+    for n, (i, x) in enumerate((('giovanna', 1760), ('bruno', 1870))):
+        st = idle(i, t)
+        if t > mk['chega']:
+            for k in range(2):
+                junta(st, *M.pulo(t, mk['chega'] + 0.1 + 0.5 * k + 0.1 * n, 0.4, 60))
+        q.ator(i, x, CHAO + 20, 260, st)
+    return q
+
+
+def p_6m(p, t):
+    """Os dois comemorando."""
     q = Quadro(p)
     tc = p['marcas']['comemora']
-    for i, x, pain in (('giovanna', 520, [0, 0, 960, 1080]), ('bruno', 1400, [960, 0, 1920, 1080])):
+    for i, x in (('giovanna', 700), ('bruno', 1220)):
         st = idle(i, t)
-        if t > tc:
-            for k in range(3):
-                junta(st, *M.pulo(t, tc + 0.05 + 0.55 * k + (0.12 if i == 'bruno' else 0), 0.4, 70))
-        q.ator(i, x, CHAO + 20, 430, st, nome=True, celular=t < tc, painel=pain if t < tc else None)
+        for k in range(3):
+            junta(st, *M.pulo(t, tc + 0.05 + 0.55 * k + (0.12 if i == 'bruno' else 0), 0.4, 70))
+        q.ator(i, x, CHAO + 20, 430, st, nome=True)
     return q
 
 
-def p_5j(p, t):
+def p_6n(p, t):
     q = Quadro(p, push(p, t, 1.0, 1.08, cy=560))
-    st = idle('antonialli', t)
-    tc = p['marcas']['cabelo']
-    if t > tc - 0.4:  # ajeita o cabelo: cabeça inclina, assenta
-        st['cabeca'] += 6 * M.ease((t - tc + 0.4) / 0.3) - 6 * M.ease((t - tc - 0.5) / 0.4)
-    q.ator('antonialli', 960, CHAO + 40, 480, st, nome=True, brilho=tc, blob={'cor': 'azul', 'r': 300})
+    st = ajeita(idle('antonialli', t), t, p['marcas']['cabelo'])
+    q.ator('antonialli', 960, CHAO + 40, 480, st, nome=True, cabelo=p['marcas']['cabelo'], blob={'cor': 'azul', 'r': 300})
     return q
 
 
-def p_6a(p, t):
+def p_7a(p, t):
     q = Quadro(p)
     cl = ['cuidado', 'frasco', 'acelerado', 'campo', 'conectado', 'obrinha']
     for n, (i, x) in enumerate(zip(cl, fila(6, 120, 1800))):
@@ -325,13 +457,30 @@ def p_6a(p, t):
     return q
 
 
-def p_6c(p, t):
-    q = Quadro(p, push(p, t, 1.0, 1.08, cy=520, cx=900))
-    q.ator('antonialli', 560, CHAO + 40, 500, idle('antonialli', t), nome=True, blob={'cor': 'azul', 'r': 320})
+def p_7b(p, t):
+    """Antonialli olha para a câmera, sério."""
+    q = Quadro(p, push(p, t, 1.0, 1.08, cy=520))
+    st = idle('antonialli', t)
+    st['piscar'] = 0.0
+    q.ator('antonialli', 960, CHAO + 40, 500, st, nome=True, blob={'cor': 'azul', 'r': 320})
     return q
 
 
-def p_6d(p, t):
+def p_7c(p, t):
+    """Pipeline aquecido: Antonialli à esquerda apresenta; Módulo e Cronos chegam."""
+    mk = p['marcas']
+    q = Quadro(p, push(p, t, 1.0, 1.03))
+    q.ator('antonialli', 420, CHAO + 20, 440, idle('antonialli', t), nome=True, blob={'cor': 'azul', 'r': 270})
+    for i, t0, xa, xb in (('modulo', mk['pipeline'], -200, 760, ), ('cronos', mk['pipeline'] + 0.2, 2100, 1560)):
+        if t < t0:
+            continue
+        x, st = chega_pulando(i, t, t0, xa, xb, 0.7)
+        junta(st, *M.pulo(t, mk['aquecido'] + 0.3, 0.4, 60))
+        q.ator(i, x, CHAO + 20, 300, st)
+    return q
+
+
+def p_7d(p, t):
     q = Quadro(p, push(p, t, 1.06, 1.0, cy=560))
     time13(q, t, p['de'] + 0.2, y_tras=770, y_frente=900, alt_t=240, alt_f=280, x0=300, x1=1620,
            pulos=(p['marcas']['frase'],))
@@ -342,31 +491,32 @@ def p_6d(p, t):
     return q
 
 
-def p_6e(p, t):
+def p_7e(p, t):
     q = Quadro(p)
     time13(q, t, p['de'] - 10, y_tras=900, y_frente=990, alt_t=190, alt_f=215, x0=260, x1=1660)
     return q
 
 
-def p_6f(p, t):
+def p_7f(p, t):
+    """"Mas pagou a NF?" → corte seco → Antonialli só ajeita o cabelo. Silêncio."""
     q = Quadro(p)
-    tc = p['marcas']['corte']
-    if t < tc:
+    mk = p['marcas']
+    if t < mk['corte']:
         x, st = chega_pulando('giovanna', t, p['de'] + 0.1, 2150, 1300, 0.7)
         q.ator('giovanna', x, CHAO, 400, st, nome=True)
     else:
         q.cam = (960, 470, 1.25)
-        st = idle('antonialli', t)
-        st['cabeca'] += 6 * M.ease((t - tc - 0.2) / 0.3) - 6 * M.ease((t - tc - 1.0) / 0.4)
-        q.ator('antonialli', 960, CHAO + 60, 480, st, nome=True, brilho=tc + 0.45)
+        st = ajeita(idle('antonialli', t), t, mk['cabelo'])
+        st['piscar'] = 0.0
+        q.ator('antonialli', 960, CHAO + 60, 480, st, nome=True, cabelo=mk['cabelo'])
     return q
 
 
-PLANOS = {'2a': p_2a, '2b': p_2b, '2e': p_2e, '3h': p_3h, '4s1': p_4s1, '4f': p_4f, '5a': p_5a, '5c': p_5c,
-          '5e': p_5e, '5f': p_5f, '5g': p_5g, '5h': p_5h, '5i': p_5i, '5j': p_5j, '6a': p_6a, '6c': p_6c, '6d': p_6d,
-          '6e': p_6e, '6f': p_6f}
+PLANOS = {'2e': p_2e, '3fase': p_3fase, '3a': p_3a, '3b': p_3b, '4h': p_4h, '5s1': p_5s1, '5s5': p_5s5, '5u': p_5u,
+          '6a': p_6a, '6c': p_6c, '6e': p_6e, '6f': p_6f, '6g': p_6g, '6h': p_6h, '6i': p_6i, '6j': p_6j, '6k': p_6k,
+          '6l': p_6l, '6m': p_6m, '6n': p_6n, '7a': p_7a, '7b': p_7b, '7c': p_7c, '7d': p_7d, '7e': p_7e, '7f': p_7f}
 for _k in range(1, 7):
-    PLANOS[f'3p{_k}'] = p_projeto
+    PLANOS[f'4p{_k}'] = p_projeto
 
 
 def quadro(t):

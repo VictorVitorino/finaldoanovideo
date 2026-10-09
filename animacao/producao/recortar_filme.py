@@ -1,9 +1,9 @@
 """Recorta os personagens das folhas do filme (time13 + mascotes8) e marca os pontos de referência.
 
-    python3 producao/recortar_filme.py [etapas]      etapas: mascaras,corte,marcos,movimento (padrão: todas)
-    python3 producao/recortar_filme.py mascaras pessoas    só a máscara do modelo de uma folha
+    python3 producao/recortar_filme.py [etapas] [grupos]   etapas: mascaras,corte,marcos,movimento (padrão: todas)
+    python3 producao/recortar_filme.py mascaras,corte donos,paladini   só esses grupos (os outros ficam como estão)
 
-Entrada: build/filme/folhas/{time13,mascotes8}.png. Saída: build/filme/corte/{pessoas,mascotes}/*.png
+Entrada: build/filme/folhas/{time13,mascotes8,donos2,paladini}.png. Saída: build/filme/corte/<grupo>/*.png
 (RGBA, ampliado 3x), check_*.jpg e producao/marcos_filme.json.
 Método: máscara BiRefNet (cache em build/filme/corte/_ml) + distância de cor ao fundo conhecido
 (bege + cor da elipse da célula), componente do personagem, GrabCut na faixa de borda e
@@ -24,7 +24,8 @@ FOLHAS = os.path.join(RAIZ, 'build/filme/folhas')
 CORTE = os.path.join(RAIZ, 'build/filme/corte')
 ML = os.path.join(CORTE, '_ml')
 # IS-Net: leve em CPU/memória (o BiRefNet completo estoura a memória do contêiner)
-MODELO = {'mascotes': 'isnet-general-use.onnx', 'pessoas': 'isnet-general-use.onnx'}
+MODELO = {'mascotes': 'isnet-general-use.onnx', 'pessoas': 'isnet-general-use.onnx', 'donos': 'isnet-general-use.onnx',
+          'paladini': 'isnet-general-use.onnx'}
 MARCOS = os.path.join(RAIZ, 'producao/marcos_filme.json')
 K = 3          # ampliação
 MARGEM = 12    # px em volta do recorte justo
@@ -42,7 +43,15 @@ FOLHA = {
                 + celulas([0, 270, 485, 732, 948, 1188, 1448], 568, 942)),
     'mascotes': ('mascotes8.png', ['modulo', 'cronos', 'cuidado', 'frasco', 'acelerado', 'campo', 'conectado', 'obrinha'],
                  celulas([150, 505, 838, 1160, 1520], 15, 400) + celulas([150, 510, 840, 1185, 1520], 478, 852)),
+    # "os donos do dinheiro": folha à parte, estilo caricatura
+    'donos': ('donos2.png', ['quintao', 'sampaio'], celulas([150, 728, 1300], 20, 985)),
+    # Nathalia Paladini: folha à parte, caricatura centrada (rosto realista)
+    'paladini': ('paladini.png', ['paladini'], celulas([280, 1170], 8, 975)),
 }
+
+
+def grupos(sel=None):
+    return sel.split(',') if sel else list(FOLHA)
 
 
 def caixa(cel, shape):
@@ -83,11 +92,6 @@ def mascaras(grupo):
         m = cv2.resize(out, (L, L), interpolation=cv2.INTER_LINEAR)[oy:oy + h, ox:ox + w]
         np.save(dst, m.astype(np.float16))
         print('modelo', nome, flush=True)
-
-
-if __name__ == '__main__' and len(sys.argv) > 2 and sys.argv[1] == 'mascaras':
-    mascaras(sys.argv[2])
-    sys.exit()
 
 
 # ---------------------------------------------------------------- recorte
@@ -208,9 +212,12 @@ def recortar(nome, rgb, m, cel, bx):
 ORIGEM = {}
 
 
-def corte():
+def corte(sel=None):
     folha_cache = {}
-    for grupo, (arq, ids, cels) in FOLHA.items():
+    if os.path.exists(os.path.join(ML, 'origem.json')):
+        ORIGEM.update(json.load(open(os.path.join(ML, 'origem.json'))))
+    for grupo in grupos(sel):
+        arq, ids, cels = FOLHA[grupo]
         os.makedirs(os.path.join(CORTE, grupo), exist_ok=True)
         src = folha_cache.setdefault(arq, Image.open(os.path.join(FOLHAS, arq)).convert('RGB'))
         for nome, cel in zip(ids, cels):
@@ -247,7 +254,13 @@ def folha_conferencia(grupo, ids, alt=300, por_linha=7):
 
 # ---------------------------------------------------------------- marcos
 # correções à mão (px do recorte); valores aqui substituem os automáticos
-AJUSTE = {}
+AJUSTE = {
+    # caricaturas dos donos do dinheiro: pivô da cabeça no queixo; olhos pequenos, sem piscada
+    'quintao': {'pescoco': [547, 1140], 'piscar': False},
+    'sampaio': {'pescoco': [640, 1175], 'piscar': False},
+    # Paladini: rosto realista (sem piscada sintética); pivô na junção queixo/pescoço
+    'paladini': {'pescoco': [600, 1160], 'piscar': False},
+}
 
 
 def iris(rgba):
@@ -361,11 +374,11 @@ BRACO_FOLHA = {
 }
 
 
-def marcos():
-    tudo = {}
+def marcos(sel=None):
+    tudo = json.load(open(MARCOS)) if sel and os.path.exists(MARCOS) else {}
     org = json.load(open(os.path.join(ML, 'origem.json')))
-    for grupo, (arq, ids, cels) in FOLHA.items():
-        for nome in ids:
+    for grupo in grupos(sel):
+        for nome in FOLHA[grupo][1]:
             rgba = np.array(Image.open(os.path.join(CORTE, grupo, nome + '.png')))
             M = {'arquivo': '%s/%s.png' % (grupo, nome)}
             M.update(marcos_auto(rgba))
@@ -377,13 +390,14 @@ def marcos():
             tudo[nome] = M
             print('marcos', nome, 'olhos' in M, 'maos' in M, flush=True)
     json.dump(tudo, open(MARCOS, 'w'), indent=1, ensure_ascii=False)
-    folha_marcos(tudo)
+    for grupo in grupos(sel):
+        folha_marcos(grupo, [tudo[n] for n in FOLHA[grupo][1]])
 
 
-def folha_marcos(tudo, alt=420):
+def folha_marcos(grupo, lista, alt=420):
     """Conferência dos marcos desenhados sobre o recorte (fica em _ml, não é entregue)."""
     tiles = []
-    for nome, M in tudo.items():
+    for M in lista:
         im = cv2.imread(os.path.join(CORTE, M['arquivo']), cv2.IMREAD_UNCHANGED).astype(np.float32)
         a = im[..., 3:4] / 255
         im = (im[..., :3] * a + 90 * (1 - a)).astype(np.uint8)
@@ -407,19 +421,21 @@ def folha_marcos(tudo, alt=420):
             cv2.line(im, (gx, 0), (gx, 12), (255, 255, 255), 3)
         s = alt / im.shape[0]
         tiles.append(cv2.resize(im, (round(im.shape[1] * s), alt), interpolation=cv2.INTER_AREA))
-    for parte, sel in (('pessoas', tiles[:13]), ('mascotes', tiles[13:])):
-        linhas = [np.hstack(sel[i:i + 7]) for i in range(0, len(sel), 7)]
-        L = max(x.shape[1] for x in linhas)
-        cv2.imwrite(os.path.join(ML, 'marcos_%s.jpg' % parte), np.vstack([np.pad(x, ((0, 4), (0, L - x.shape[1]), (0, 0))) for x in linhas]), [cv2.IMWRITE_JPEG_QUALITY, 85])
+    linhas = [np.hstack(tiles[i:i + 7]) for i in range(0, len(tiles), 7)]
+    L = max(x.shape[1] for x in linhas)
+    cv2.imwrite(os.path.join(ML, 'marcos_%s.jpg' % grupo), np.vstack([np.pad(x, ((0, 4), (0, L - x.shape[1]), (0, 0))) for x in linhas]), [cv2.IMWRITE_JPEG_QUALITY, 85])
 
 
 # ---------------------------------------------------------------- teste de movimento
-def movimento(k=0.35):
+def movimento(sel=None, k=0.35):
     sys.path.insert(0, os.path.join(RAIZ, 'producao'))
     import motor30 as M
     tudo = json.load(open(MARCOS))
+    nomes = [n for gr in grupos(sel) for n in FOLHA[gr][1]]
     blocos = []
     for nome, mk in tudo.items():
+        if nome not in nomes:
+            continue
         p = M.Personagem(os.path.join(CORTE, mk['arquivo']), mk)
         var = [{}, {'piscar': 1.0}, {'cabeca': 5.0}]
         if mk.get('braco'):
@@ -442,12 +458,13 @@ def movimento(k=0.35):
 
 if __name__ == '__main__':
     etapas = sys.argv[1].split(',') if len(sys.argv) > 1 else ['mascaras', 'corte', 'marcos', 'movimento']
+    sel = sys.argv[2] if len(sys.argv) > 2 else None
     if 'mascaras' in etapas:
-        for g in FOLHA:  # um de cada vez (memória)
-            mascaras(g)
+        for gr in grupos(sel):  # um de cada vez (memória)
+            mascaras(gr)
     if 'corte' in etapas:
-        corte()
+        corte(sel)
     if 'marcos' in etapas:
-        marcos()
+        marcos(sel)
     if 'movimento' in etapas:
-        movimento()
+        movimento(sel)

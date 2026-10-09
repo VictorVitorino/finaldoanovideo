@@ -4,7 +4,7 @@ Análise do roteiro FY26 (`docs/roteiro-fy26.md`), das três gags pedidas, como 
 
 **Entradas:**
 - Roteiro novo: `docs/roteiro-fy26.md` (7 cenas; substitui o storyboard anterior).
-- Personagens: 13 do time (Foto 1–13, nomes confirmados), 8 mascotes, Fabio Quintão e Sampaio (sem o cordão) e Nathalia Paladini.
+- Personagens: 13 do time (Foto 1–13, nomes confirmados), 8 mascotes e a folha padronizada de Fabio Quintão, Sampaio e Nathalia Paladini (mesmo estilo do time, sem o cordão).
 - Telas reais que vieram no roteiro: slide "Visão integrada", slide do cockpit executivo (com as duas telas do laptop) e slide "Evolução da fase de teste".
 - Logos novos de FUNED, John Deere e Libercon (vieram em 120 px; foram ampliados).
 - Referência visual: o explainer do SpecForge.
@@ -54,7 +54,7 @@ Com as vozes em velocidade natural, o filme fica com **4:07**. O roteiro mira 2:
 
 ```bash
 cd animacao
-python3 producao/recortar_filme.py                 # folhas -> recortes + marcos (ou: etapas grupo,grupo)
+python3 producao/recortar_filme.py                 # folhas -> recortes + marcos (ou: etapas grupo,grupo; grupos: pessoas, mascotes, trio)
 python3 producao/vozes_filme.py                    # 36 falas (TTS offline); --conferir transcreve de volta
 python3 producao/filme.py tempo                    # planos, falas e efeitos -> build/filme/timeline.json
 python3 producao/filme.py rastro                   # câmera e personagens por quadro -> track.json

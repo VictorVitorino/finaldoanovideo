@@ -3,7 +3,7 @@
     python3 producao/recortar_filme.py [etapas] [grupos]   etapas: mascaras,corte,marcos,movimento (padrão: todas)
     python3 producao/recortar_filme.py mascaras,corte donos,paladini   só esses grupos (os outros ficam como estão)
 
-Entrada: build/filme/folhas/{time13,mascotes8,donos2,paladini}.png. Saída: build/filme/corte/<grupo>/*.png
+Entrada: build/filme/folhas/{time13,mascotes8,trio_novo}.png. Saída: build/filme/corte/<grupo>/*.png
 (RGBA, ampliado 3x), check_*.jpg e producao/marcos_filme.json.
 Método: máscara BiRefNet (cache em build/filme/corte/_ml) + distância de cor ao fundo conhecido
 (bege + cor da elipse da célula), componente do personagem, GrabCut na faixa de borda e
@@ -24,8 +24,7 @@ FOLHAS = os.path.join(RAIZ, 'build/filme/folhas')
 CORTE = os.path.join(RAIZ, 'build/filme/corte')
 ML = os.path.join(CORTE, '_ml')
 # IS-Net: leve em CPU/memória (o BiRefNet completo estoura a memória do contêiner)
-MODELO = {'mascotes': 'isnet-general-use.onnx', 'pessoas': 'isnet-general-use.onnx', 'donos': 'isnet-general-use.onnx',
-          'paladini': 'isnet-general-use.onnx'}
+MODELO = {'mascotes': 'isnet-general-use.onnx', 'pessoas': 'isnet-general-use.onnx', 'trio': 'isnet-general-use.onnx'}
 MARCOS = os.path.join(RAIZ, 'producao/marcos_filme.json')
 K = 3          # ampliação
 MARGEM = 12    # px em volta do recorte justo
@@ -43,10 +42,8 @@ FOLHA = {
                 + celulas([0, 270, 485, 732, 948, 1188, 1448], 568, 942)),
     'mascotes': ('mascotes8.png', ['modulo', 'cronos', 'cuidado', 'frasco', 'acelerado', 'campo', 'conectado', 'obrinha'],
                  celulas([150, 505, 838, 1160, 1520], 15, 400) + celulas([150, 510, 840, 1185, 1520], 478, 852)),
-    # "os donos do dinheiro": folha à parte, estilo caricatura
-    'donos': ('donos2.png', ['quintao', 'sampaio'], celulas([150, 728, 1300], 20, 985)),
-    # Nathalia Paladini: folha à parte, caricatura centrada (rosto realista)
-    'paladini': ('paladini.png', ['paladini'], celulas([280, 1170], 8, 975)),
+    # Fabio Quintão, Sampaio e Nathalia Paladini: folha padronizada (mesmo estilo do time), nomes embaixo
+    'trio': ('trio_novo.png', ['quintao', 'sampaio', 'paladini'], celulas([0, 496, 975, 1448], 90, 930)),
 }
 
 
@@ -255,11 +252,9 @@ def folha_conferencia(grupo, ids, alt=300, por_linha=7):
 # ---------------------------------------------------------------- marcos
 # correções à mão (px do recorte); valores aqui substituem os automáticos
 AJUSTE = {
-    # caricaturas dos donos do dinheiro: pivô da cabeça no queixo; olhos pequenos, sem piscada
-    'quintao': {'pescoco': [547, 1140], 'piscar': False},
-    'sampaio': {'pescoco': [640, 1175], 'piscar': False},
-    # Paladini: rosto realista (sem piscada sintética); pivô na junção queixo/pescoço
-    'paladini': {'pescoco': [600, 1160], 'piscar': False},
+    # Quintão usa óculos (pálpebra sintética fica estranha); Paladini: olhos não detectados (cabelo), pivô à mão
+    'quintao': {'piscar': False},
+    'paladini': {'pescoco': [625, 1085], 'piscar': False},
 }
 
 

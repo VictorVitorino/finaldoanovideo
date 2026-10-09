@@ -354,7 +354,7 @@ def p_6g(p, t):
         q.ator('giovanna', 1350, CHAO, 400, idle('giovanna', t), nome=True, celular=True, blob={'cor': 'rosa', 'r': 250})
         return q
     q.cam = (960, 540, 1.04)
-    for n, (i, x, alt) in enumerate((('quintao', 450, 560), ('antonialli', 960, 470), ('sampaio', 1470, 560))):
+    for n, (i, x, alt) in enumerate((('quintao', 450, 480), ('antonialli', 960, 470), ('sampaio', 1470, 480))):
         st = cai(i, t, ts + 0.15 + 0.12 * n, 300)
         if st:
             junta(st, *M.pulo(t, ts + 0.9 + 0.12 * n, 0.4, 50))

@@ -1265,50 +1265,117 @@
   }
  },
  "quintao": {
-  "arquivo": "donos/quintao.png",
-  "w": 1197,
-  "h": 2835,
-  "pes_y": 2820,
-  "centro_x": 545.5,
+  "arquivo": "trio/quintao.png",
+  "w": 1333,
+  "h": 2445,
+  "pes_y": 2430,
+  "centro_x": 662.5,
   "topo": [
-   504,
-   14
+   638,
+   15
+  ],
+  "olhos": [
+   [
+    500.0,
+    688.0,
+    75.3,
+    72.0
+   ],
+   [
+    795.0,
+    629.5,
+    74.8,
+    71.2
+   ]
+  ],
+  "cabeca": [
+   647,
+   641,
+   343
   ],
   "pescoco": [
-   547,
-   1140
+   647,
+   966
+  ],
+  "cor_palpebra": [
+   116.8,
+   172.9,
+   241.3
+  ],
+  "maos": [
+   [
+    110,
+    1776
+   ],
+   [
+    1230,
+    1776
+   ]
   ],
   "piscar": false
  },
  "sampaio": {
-  "arquivo": "donos/sampaio.png",
-  "w": 1192,
-  "h": 2808,
-  "pes_y": 2793,
-  "centro_x": 639.5,
+  "arquivo": "trio/sampaio.png",
+  "w": 1236,
+  "h": 2461,
+  "pes_y": 2447,
+  "centro_x": 620.0,
   "topo": [
-   632,
-   14
+   516,
+   13
+  ],
+  "olhos": [
+   [
+    480.5,
+    678.5,
+    75.1,
+    72.5
+   ],
+   [
+    780.0,
+    622.5,
+    71.9,
+    71.5
+   ]
+  ],
+  "cabeca": [
+   629,
+   633,
+   336
   ],
   "pescoco": [
-   640,
-   1175
+   629,
+   951
   ],
-  "piscar": false
+  "cor_palpebra": [
+   116.8,
+   175.8,
+   241.3
+  ],
+  "maos": [
+   [
+    131,
+    1817
+   ],
+   [
+    1125,
+    1816
+   ]
+  ]
  },
  "paladini": {
-  "arquivo": "paladini/paladini.png",
-  "w": 1149,
-  "h": 2883,
-  "pes_y": 2868,
-  "centro_x": 508.0,
+  "arquivo": "trio/paladini.png",
+  "w": 1278,
+  "h": 2420,
+  "pes_y": 2405,
+  "centro_x": 701.0,
   "topo": [
-   622,
-   9
+   579,
+   16
   ],
   "pescoco": [
-   600,
-   1160
+   625,
+   1085
   ],
   "piscar": false
  }

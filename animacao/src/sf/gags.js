@@ -281,6 +281,36 @@ export function maoCabelo(x, y, idade, o = {}) {
   return g(tr(x, y, k), s);
 }
 
+// Piada recorrente sem a mão solta: um brilho varre o cabelo (como um pente de luz), riscos de
+// movimento, o "ting" e um adesivo "ajeita o cabelo". (x, y) = topo da cabeça; o.r = raio da cabeça.
+export function ajeitaCabelo(x, y, idade, o = {}) {
+  if (idade < 0 || idade > 2.0) return '';
+  const r = o.r ?? 100, cy = y + r;
+  const id = 'ggCab' + Math.round(x) + '_' + Math.round(y);
+  let s = `<clipPath id="${id}"><circle cx="${F(x)}" cy="${F(cy)}" r="${F(r * 0.98)}"/></clipPath>`;
+  // faixa de brilho que atravessa o cabelo (só a calota: y .. y + 0.72 r)
+  const u = inv(0.2, 0.8, idade);
+  if (u > 0 && u < 1) {
+    const bx = x + lerp(-0.95 * r, 0.95 * r, ease.inOut(u)), by = y + 0.4 * r;
+    const al = Math.sin(u * Math.PI);
+    const faixa = `<ellipse cx="${F(bx)}" cy="${F(by)}" rx="${F(0.16 * r)}" ry="${F(0.62 * r)}" fill="#fff" opacity="${n2(0.55 * al)}" transform="rotate(-18 ${F(bx)} ${F(by)})" filter="url(#gfBrilho)"/>`
+      + `<ellipse cx="${F(bx)}" cy="${F(by)}" rx="${F(0.05 * r)}" ry="${F(0.5 * r)}" fill="#fff" opacity="${n2(0.85 * al)}" transform="rotate(-18 ${F(bx)} ${F(by)})"/>`;
+    s += `<g clip-path="url(#${id})"><g clip-path="url(#${id}R)">${faixa}</g></g>`;
+    s = s.replace('</clipPath>', `</clipPath><clipPath id="${id}R"><rect x="${F(x - r)}" y="${F(y - 10)}" width="${F(2 * r)}" height="${F(0.72 * r + 10)}"/></clipPath>`);
+    // riscos de movimento atrás da faixa
+    for (let i = 0; i < 3; i++) {
+      const lx = bx - (0.28 + 0.12 * i) * r * (u > 0.5 ? 1 : -1) * -1, ly = y - (0.06 + 0.1 * i) * r;
+      s += Ln(lx - 0.1 * r, ly, lx + 0.1 * r, ly - 0.03 * r, 3, INK, `opacity="${n2(0.5 * al)}"`);
+    }
+  }
+  // "ting" no fim da passada
+  s += brilhoCabelo(x + 0.62 * r, y + 0.12 * r, idade - 0.75);
+  // adesivo discreto
+  const al2 = inv(0.1, 0.35, idade) * (1 - ease.in(inv(1.55, 1.85, idade)));
+  if (al2 > 0) s += op(al2, adesivo('ajeita o cabelo ✦', x + 1.2 * r, y + 0.38 * r, idade - 0.1, { cor: COR.ambar, rot: 7, tam: Math.max(22, Math.round(0.13 * r)) }));
+  return s;
+}
+
 // =====================================================================
 // GAG 2 — OPERAÇÃO NF (fundo escuro)
 // =====================================================================

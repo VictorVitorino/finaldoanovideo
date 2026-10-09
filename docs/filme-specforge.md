@@ -25,7 +25,7 @@ O valor do FY27 deixou de ser placeholder: **R$ 9 milhões**. Todos os números 
 
 ### Duração
 
-Com as vozes em velocidade natural, o filme fica com **4:06**. O roteiro mira 2:55, mas só a narração tem 2:03, a cena 1 tem 20 s sem fala, e as gags somam ~30 s. Para encurtar sem cortar falas: tirar os cartões de fase (−6 s), tirar a esteira de cenas da cena 2 (−4 s) e encurtar o rapel e a corrida da NF (−4 s). Chegaria a ~3:50. Abaixo disso é preciso cortar texto ou acelerar as vozes.
+Com as vozes em velocidade natural, o filme fica com **4:07**. O roteiro mira 2:55, mas só a narração tem 2:03, a cena 1 tem 20 s sem fala, e as gags somam ~30 s. Para encurtar sem cortar falas: tirar os cartões de fase (−6 s), tirar a esteira de cenas da cena 2 (−4 s) e encurtar o rapel e a corrida da NF (−4 s). Chegaria a ~3:50. Abaixo disso é preciso cortar texto ou acelerar as vozes.
 
 ## 2. As três gags
 
@@ -40,7 +40,7 @@ Com as vozes em velocidade natural, o filme fica com **4:06**. O roteiro mira 2:
 - Comemoração ("Antecipamos as NFs…"), cartão de missão "OPERAÇÃO COLLECTION ZERO DEFECT" e, claro, o cabelo.
 - Música: o riff de espionagem da trilha durante a missão.
 
-**3. A piada recorrente.** Toda vez que surge um problema, Antonialli ajeita o cabelo: a cabeça inclina, uma mão passa duas vezes sobre o cabelo e brilha um "ting". Acontece no GO-LIVE ADIADO, na ordem da missão, no "Operação Collection Zero Defect" e no final: "Mas pagou a NF?" → ele só ajeita o cabelo. Silêncio. Corte seco.
+**3. A piada recorrente.** Toda vez que surge um problema, Antonialli ajeita o cabelo: a cabeça inclina, um brilho varre o cabelo como um pente de luz, faz "ting" e aparece o adesivo "ajeita o cabelo ✦" (sem mão desenhada por cima do rosto: a primeira versão parecia uma mão solta na testa). Acontece no GO-LIVE ADIADO, na ordem da missão, no "Operação Collection Zero Defect" e no final: "Mas pagou a NF?" → ele só ajeita o cabelo. Silêncio. Corte seco.
 
 ## 3. Pontos para validar
 
@@ -69,8 +69,8 @@ python3 producao/filme.py montar                   # -> build/filme/projeto-do-a
 - `src/sf/ambiente.js`: papel, blobs, régua, pílulas, legendas, cartões de fase, transições, palco.
 - `src/sf/graficos.js`: adesivos, carimbos, cartões, balões, contadores, número herói, telefonema, missão, efeitos de anime.
 - `src/sf/props.js`: crise, escritório, os 6 lugares, slides provisórios, dashboard, robôs, painel financeiro.
-- `src/sf/gags.js`: botão de go-live, calendário fugitivo, monitor fumegante, mão que ajeita o cabelo, envelope, lasers, cabo, gota, alarme, cofre, NF gigante, obstáculos, cartelas do portfólio, tiles, barra de meses, portas, pipeline.
-- `src/sf/telas.js`: slides reais e laptop com as telas do cockpit.
+- `src/sf/gags.js`: botão de go-live, calendário fugitivo, monitor fumegante, o gesto de ajeitar o cabelo, envelope, lasers, cabo, gota, alarme, cofre, NF gigante, obstáculos, cartelas do portfólio, tiles, barra de meses, portas, pipeline.
+- `src/sf/telas.js`: slides reais e laptop com as telas do cockpit. Logos e slides entram como `data:` URL (`assets.js: dataUrl`): referenciados por arquivo, ~5–9% dos quadros saíam sem a imagem (o Chromium revalida o cache entre um quadro e outro).
 - `src/sf/filme.js`: o filme, plano a plano. `producao/direcao_filme.py`: direção dos personagens.
 
 Quem é quem fica em `producao/elenco_filme.json` (todos confirmados). As folhas, os recortes, as vozes e os slides ficam em `build/` e não vão para o git.

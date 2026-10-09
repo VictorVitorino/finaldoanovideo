@@ -316,7 +316,7 @@ export async function criarFilme({ layer = 'full' } = {}) {
         s += o + (u >= 1 ? G.brilhoCabelo(p2x + rx2 * 1.2 * z, p2y - ry2 * 0.8 * z, t - a.oculos - 0.1) : '');
       }
       // piada recorrente: a mão ajeita o cabelo e faz "ting"
-      if (a.cabelo != null) s += GG.maoCabelo(a.topo[0] + 14, a.topo[1] + 10, t - a.cabelo, { escala: a.alt / 520, lado: 1 });
+      if (a.cabelo != null) s += GG.ajeitaCabelo(a.topo[0], a.topo[1], t - a.cabelo, { r: a.alt * 0.22 });
     }
     // ---- cena 1: abertura e cartelas
     if (id === '1t') {
@@ -331,7 +331,7 @@ export async function criarFilme({ layer = 'full' } = {}) {
     if (['2b', '2c', '2d'].includes(id)) s += G.textoCrise(p.texto, lt, {});
     if (id === '2e') {
       if (t > mk.texto) s += G.textoCrise(p.texto, t - mk.texto, { x: 960, y: 230, tam: 150, maxW: 1500 });
-      if (t > mk.foge + 0.3) s += G.carimbo('ADIADO!', 760, 460, t - mk.foge - 0.3, { cor: 'vermelho', icone: 'x', tam: 54, rot: -8 });
+      if (t > mk.foge + 0.3) s += G.carimbo('ADIADO!', 390, 450, t - mk.foge - 0.3, { cor: 'vermelho', icone: 'x', tam: 54, rot: -8 });
       if (t > mk.aperta - 0.05 && t < mk.aperta + 0.5) s += G.impacto(640, 690, t - mk.aperta + 0.05, { tam: 0.7 });
     }
     if (id === '2g') {
@@ -439,7 +439,7 @@ export async function criarFilme({ layer = 'full' } = {}) {
       const b = ator(q, 'bruno');
       if (b && t > mk.gota) { const [fx, fy] = testa(b); s += GG.gotaCaindo(fx + 20, fy, 820, t - mk.gota, {}); }
       if (t > mk.alarme) s += GG.alarme(t - mk.alarme, { dur: p.ate - mk.alarme });
-      s += G.chip('SALA DE CONTROLE · NOTAS FISCAIS', 960, 90, lt - 0.3, { solido: true, cor: '#20212b', h: 50 });
+      s += G.chip('SALA DE CONTROLE · NOTAS FISCAIS', 330, 120, lt - 0.3, { solido: true, cor: '#20212b', h: 50 });
     }
     if (id === '6k') s += G.chip('FALA COM A TOTVS', 960, 110, lt - 0.3, { icone: 'telefone', solido: true, cor: '#0c2f57', h: 58 });
     if (id === '6l' && t > mk.carimbo) s += G.adesivo('NFs ANTECIPADAS!', 960, 200, t - mk.carimbo - 0.1, { cor: '#1f9d57', rot: -4 });
@@ -467,7 +467,7 @@ export async function criarFilme({ layer = 'full' } = {}) {
       s += A.regua(t, tl.dur, {}) + A.marca(9, {}) + A.pilulaCapitulo(c[0], c[1], c[2], t - ini[p.cena], {});
     }
     for (const c of [3, 4, 5, 6, 7]) s += A.transicao(t, ini[c] - 0.45, {});
-    if (id === '7f' && t > mk.corte + 1.4) s += `<rect width="1920" height="1080" fill="#000" opacity="${n2(clamp((t - mk.corte - 1.4) / 0.3))}"/>`;
+    if (id === '7f' && t > mk.corte + 1.9) s += `<rect width="1920" height="1080" fill="#000" opacity="${n2(clamp((t - mk.corte - 1.9) / 0.3))}"/>`;
     return s;
   }
 

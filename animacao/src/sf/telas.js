@@ -2,6 +2,7 @@
 // contorno de tinta, laptop plano. Funções puras do tempo (idade em s desde a entrada; < 0 = invisível),
 // saída em SVG 1920x1080. Imagens: build/filme/slides/<nome>.png (servidas a partir de index.html).
 import { clamp, lerp, inv, ease, g, op, tr, n2 } from '../core.js';
+import { dataUrl } from '../assets.js';
 
 const INK = '#3a2a22';
 const F = n2;
@@ -12,7 +13,13 @@ const SLIDE = [2500, 1406];
 
 const st = (k = 3, cor = INK) => ` stroke="${cor}" stroke-width="${k}" stroke-linejoin="round"`;
 const R = (x, y, w, h, r, fill, k = 3, x2 = '') => `<rect x="${F(x)}" y="${F(y)}" width="${F(w)}" height="${F(h)}" rx="${F(r)}" fill="${fill}"${k ? st(k) : ''}${x2 ? ' ' + x2 : ''}/>`;
-const img = (nome, x, y, w, h) => `<image href="build/filme/slides/${nome}.png" x="${F(x)}" y="${F(y)}" width="${F(w)}" height="${F(h)}" preserveAspectRatio="xMidYMid slice"/>`;
+// Imagens pré-carregadas como data: URL (por arquivo, alguns quadros sairiam sem a imagem).
+const DATA = {};
+export const NOMES = ['visao-integrada', 'testes', 'cockpit', 'cockpit-tela1', 'cockpit-tela2'];
+export async function carregar() {
+  await Promise.all(NOMES.map(async n => { try { DATA[n] = await dataUrl(`build/filme/slides/${n}.png`); } catch (e) { console.warn(String(e)); } }));
+}
+const img = (nome, x, y, w, h) => `<image href="${DATA[nome] || `build/filme/slides/${nome}.png`}" x="${F(x)}" y="${F(y)}" width="${F(w)}" height="${F(h)}" preserveAspectRatio="xMidYMid slice"/>`;
 const uid = (pre, ...p) => ('tl-' + pre + '-' + p.join('-')).replace(/[^a-z0-9-]/gi, '_');
 // entrada com exagero, caindo de "queda" px; saída opcional em o.fim
 const pop = (idade, d = 0.45) => ease.back(inv(0, d, idade));

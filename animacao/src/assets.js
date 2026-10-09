@@ -4,14 +4,25 @@ import { n2 } from './core.js';
 export const LOGO_NAMES = ['totvs', 'alvarez-marsal', 'unimed', 'funed', 'caoa', 'john-deere', 'hughes', 'libercon'];
 export const LOGO = {};
 
+// Lê um arquivo de imagem como data: URL. Imagens referenciadas por arquivo (file://) saem em branco em
+// alguns quadros (o navegador revalida o cache de forma assíncrona entre um quadro e outro); com data:
+// URL a carga é síncrona e o quadro sai sempre completo.
+export async function dataUrl(src) {
+  const r = await fetch(src);
+  if (!r.ok) throw new Error(`imagem ausente: ${src}`);
+  const blob = await r.blob();
+  return new Promise((ok, erro) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = erro; r.readAsDataURL(blob); });
+}
+
 export async function loadAssets(defs) {
   let d = '';
   for (const n of LOGO_NAMES) {
+    const href = await dataUrl(`./assets/logos/${n}.png`);
     const img = new Image();
-    img.src = `./assets/logos/${n}.png`;
+    img.src = href;
     await img.decode();
     LOGO[n] = { w: img.naturalWidth, h: img.naturalHeight };
-    d += `<image id="logo-${n}" href="./assets/logos/${n}.png" width="${img.naturalWidth}" height="${img.naturalHeight}"/>`;
+    d += `<image id="logo-${n}" href="${href}" width="${img.naturalWidth}" height="${img.naturalHeight}"/>`;
   }
   const grain = new Image();
   grain.src = './assets/grain.png';

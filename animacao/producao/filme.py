@@ -236,7 +236,7 @@ def cmd_tempo(a):
     p['marcas'] = {'numero': p['de'] + 0.5}
     L.efeito(p['de'] + 0.5, 'riser', 0.4), L.efeito(t - 0.2, 'hit', 0.8)
     p = L.plano('6b', 6, 2.8, tom='dourado')
-    p['marcas'] = {'fy26': p['de'] + 0.15, 'fy27': p['de'] + 1.1}
+    p['marcas'] = {'fy26': p['de'] + 0.15, 'fy27': p['de'] + 0.75}
     L.efeito(p['de'] + 0.15, 'tick', 0.6), L.efeito(p['de'] + 1.1, 'tick', 0.6), L.efeito(p['de'] + 1.9, 'shine', 0.5)
     p = L.plano('6c', 6, 0.2 + d('c6_n3') + 0.5, tom='dourado')
     t = L.fala('c6_n3', p['de'] + 0.2)
@@ -312,7 +312,7 @@ def cmd_tempo(a):
     p = L.plano('7e', 7, 3.0, tom='creme')  # frase final + lockup
     L.efeito(p['de'] + 0.3, 'shine', 0.6)
     L.musica.append({'estilo': 'silencio', 'de': p['ate'] - 0.8})
-    p = L.plano('7f', 7, 0.5 + d('c7_g1') + 0.9 + d('c7_g2') + 0.45 + 2.2, tom='creme')  # a piada: ajeita o cabelo, silêncio, corte seco
+    p = L.plano('7f', 7, 0.5 + d('c7_g1') + 0.9 + d('c7_g2') + 0.45 + 2.7, tom='creme')  # a piada: ajeita o cabelo, silêncio, corte seco
     t = L.fala('c7_g1', p['de'] + 0.5)
     t = L.fala('c7_g2', t + 0.9)
     p['marcas'] = {'corte': t + 0.45, 'cabelo': t + 0.8}

@@ -1,5 +1,7 @@
 # Animação — Projeto do Ano (A&M + TOTVS)
 
+> **Versão atual (out/2026):** o filme no modelo SpecForge com os personagens chibi 3D, narração e as três gags está em `src/sf/` + `producao/` e é descrito em [`../docs/filme-specforge.md`](../docs/filme-specforge.md). O texto abaixo documenta a primeira versão, 2D desenhada por código (`src/film.js`), que continua renderizável.
+
 Animação 2D do roteiro *Projeto do Ano — Parceria A&M + TOTVS*, no estilo de explainer animado: mascotes simpáticos, cores chapadas, legendas em pílula e transições em diagonal. Tudo é gerado por código, sem software de animação. Cada quadro é um SVG desenhado a partir do tempo, renderizado no Chromium e montado em MP4 com ffmpeg.
 
 - **Duração:** 2:51 (170,9 s), 1920×1080, 30 fps.

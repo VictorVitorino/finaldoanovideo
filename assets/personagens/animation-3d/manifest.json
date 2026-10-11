@@ -1,0 +1,136 @@
+{
+  "versao": 1,
+  "estilo": "Animação 3D inspirada em longas Pixar",
+  "personagens": [
+    {
+      "nome": "Bruno Moraes",
+      "nome_no_roteiro": "Bruno Moraes",
+      "id_personagem": "bruno",
+      "foto_original": "assets/personagens/fotos-originais/Bruno Moraes.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Bruno Moraes.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Giovanna Brandão",
+      "nome_no_roteiro": "Giovanna Brandão",
+      "id_personagem": "giovanna",
+      "foto_original": "assets/personagens/fotos-originais/Giovanna Brandão.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Giovanna Brandão.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Guilherme Antonialli",
+      "nome_no_roteiro": "Guilherme Antonialli",
+      "id_personagem": "antonialli",
+      "foto_original": "assets/personagens/fotos-originais/Guilherme Antonialli.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Guilherme Antonialli.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Jaqueline Valdevino",
+      "nome_no_roteiro": "Jaqueline Valdevino",
+      "id_personagem": "jaqueline",
+      "foto_original": "assets/personagens/fotos-originais/Jaqueline Valdevino.png",
+      "imagem_3d": "assets/personagens/animation-3d/Jaqueline Valdevino.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "José Aires",
+      "nome_no_roteiro": "José Aires",
+      "id_personagem": "jose",
+      "foto_original": "assets/personagens/fotos-originais/José Aires.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/José Aires.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "João Lopes",
+      "nome_no_roteiro": "João Lopes",
+      "id_personagem": "joao",
+      "foto_original": "assets/personagens/fotos-originais/João Lopes.jpg",
+      "imagem_3d": "assets/personagens/animation-3d/João Lopes.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Marcos Massao",
+      "nome_no_roteiro": "Marcos Massao Iwata",
+      "id_personagem": "marcos",
+      "foto_original": "assets/personagens/fotos-originais/Marcos Massao.png",
+      "imagem_3d": "assets/personagens/animation-3d/Marcos Massao.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Marcus Mancini",
+      "nome_no_roteiro": "Marcus Mancini",
+      "id_personagem": "mancini",
+      "foto_original": "assets/personagens/fotos-originais/Marcus Mancini.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Marcus Mancini.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Monica Audrey",
+      "nome_no_roteiro": "Monica Audrey",
+      "id_personagem": "monica",
+      "foto_original": "assets/personagens/fotos-originais/Monica Audrey.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Monica Audrey.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Nara Martins",
+      "nome_no_roteiro": "Nara Martins",
+      "id_personagem": "nara",
+      "foto_original": "assets/personagens/fotos-originais/Nara Martins.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Nara Martins.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Pedro Lanzetta",
+      "nome_no_roteiro": "Pedro Lanzetta",
+      "id_personagem": "pedro",
+      "foto_original": "assets/personagens/fotos-originais/Pedro Lanzetta.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Pedro Lanzetta.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Thauany Moreira",
+      "nome_no_roteiro": "Thauany Moreira",
+      "id_personagem": "thauany",
+      "foto_original": "assets/personagens/fotos-originais/Thauany Moreira.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Thauany Moreira.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    },
+    {
+      "nome": "Vinicius de Sousa",
+      "nome_no_roteiro": "Vinicius de Sousa",
+      "id_personagem": "vinicius",
+      "foto_original": "assets/personagens/fotos-originais/Vinicius de Sousa.jpeg",
+      "imagem_3d": "assets/personagens/animation-3d/Vinicius de Sousa.png",
+      "formato": "PNG",
+      "fundo": "transparente",
+      "tipo": "retrato estilizado de personagem de animação 3D"
+    }
+  ]
+}

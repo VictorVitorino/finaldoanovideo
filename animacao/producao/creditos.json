@@ -1,0 +1,36 @@
+{
+  "titulo": "Projeto do Ano",
+  "subtitulo": "A&M + TOTVS · FY26",
+  "equipe": [
+    { "funcao": "Direção de Imagem", "nome": "Victor Vitorino" },
+    { "funcao": "Direção Executiva", "nome": "Guilherme Antonialli" },
+    { "funcao": "Roteiro", "nome": "Giovanna Brandão" }
+  ],
+  "participantes": [
+    "Bruno Moraes",
+    "Fabio Quintão",
+    "Giovanna Brandão",
+    "Guilherme Antonialli",
+    "Jaqueline Valdevino",
+    "João Lopes",
+    "José Aires",
+    "Marcos Massao Iwata",
+    "Marcus Mancini",
+    "Monica Audrey",
+    "Nara Martins",
+    "Nathalia Paladini",
+    "Pedro Lanzetta",
+    "Sampaio",
+    "Thauany Moreira",
+    "Vinicius de Sousa"
+  ],
+  "agradecimento": [
+    "Uma história feita",
+    "por muitas mãos."
+  ],
+  "cartelas": [
+    { "id": "equipe", "duracao": 6 },
+    { "id": "participantes", "duracao": 10 },
+    { "id": "agradecimento", "duracao": 4 }
+  ]
+}

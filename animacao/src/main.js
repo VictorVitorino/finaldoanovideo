@@ -44,7 +44,7 @@ function preview(world) {
   addEventListener('resize', fit);
   const scrub = document.getElementById('scrub'), time = document.getElementById('time'), play = document.getElementById('play');
   scrub.max = world.duration;
-  const audio = new Audio('./build/trilha.wav');
+  const audio = new Audio(world.audio ?? './build/trilha.wav');
   let playing = false, t0 = 0, start = 0;
   const show = t => { window.renderAt(t); time.textContent = t.toFixed(2) + ' s'; scrub.value = t; };
   play.onclick = () => {

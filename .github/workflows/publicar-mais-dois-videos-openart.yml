@@ -1,0 +1,31 @@
+name: Publicar mais dois videos OpenArt
+on:
+  push:
+    paths:
+      - '.github/workflows/publicar-mais-dois-videos-openart.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar dois MP4 originais do OpenArt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p videos
+          curl --fail --location --retry 3 --retry-delay 5 'https://cdn.openart.ai/openart-ai/production/2026-10/create-video/9637Y9NVgCfIy47MLep6/c68522d22ec6474880062f678cef2424-metadata_7CF7s05U_545da910cd5b_1791773878861_69e51ce4.mp4' --output 'videos/abertura-versao-01-30s.mp4'
+          test -s 'videos/abertura-versao-01-30s.mp4'
+          curl --fail --location --retry 3 --retry-delay 5 'https://cdn.openart.ai/openart-ai/production/2026-10/create-video/9637Y9NVgCfIy47MLep6/5404d8da8099491ab9952ce107a5142b-metadata_BS3r8B0Z_9757d2037569_1791773935906_da7fd60e.mp4' --output 'videos/abertura-versao-02-30s.mp4'
+          test -s 'videos/abertura-versao-02-30s.mp4'
+          ls -lh videos/
+      - name: Adicionar MP4 na Release existente
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh release view "openart-previews-2026-10-12" --repo "$GH_REPO"
+          gh release upload "openart-previews-2026-10-12" videos/*.mp4 --repo "$GH_REPO" --clobber

@@ -1,0 +1,29 @@
+name: Publicar video de cenarios OpenArt
+on:
+  push:
+    paths:
+      - '.github/workflows/publicar-cenarios-openart.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar video original do OpenArt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p videos
+          curl --fail --location --retry 3 --retry-delay 5 'https://cdn.openart.ai/openart-ai/production/2026-10/create-video/9637Y9NVgCfIy47MLep6/77d47b75768842aea94c5bb799e65f31-metadata_zkNXKF7q_f07903d4cabe_1791774791712_ccd2101d.mp4' --output 'videos/cena-06-cenarios-sem-personagens-30s.mp4'
+          test -s 'videos/cena-06-cenarios-sem-personagens-30s.mp4'
+          ls -lh videos/
+      - name: Publicar na mesma Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh release view 'openart-previews-2026-10-12' --repo "$GH_REPO"
+          gh release upload 'openart-previews-2026-10-12' 'videos/cena-06-cenarios-sem-personagens-30s.mp4' --repo "$GH_REPO" --clobber

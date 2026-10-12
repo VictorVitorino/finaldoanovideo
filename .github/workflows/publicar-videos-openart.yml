@@ -1,0 +1,36 @@
+name: Publicar videos OpenArt na Release
+on:
+  push:
+    paths:
+      - '.github/workflows/publicar-videos-openart.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar videos originais do OpenArt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p videos
+          curl --fail --location --retry 3 --retry-delay 5 'https://cdn.openart.ai/openart-ai/production/2026-10/create-video/9637Y9NVgCfIy47MLep6/3289df2cdc4244918e0e0055321173c1-metadata_ldCfrjms_84bbbf4d1fc1_1791772873864_7d13cd45.mp4' --output 'videos/cena-02-origem-parceria-30s.mp4'
+          test -s 'videos/cena-02-origem-parceria-30s.mp4'
+          curl --fail --location --retry 3 --retry-delay 5 'https://cdn.openart.ai/openart-ai/production/2026-10/create-video/9637Y9NVgCfIy47MLep6/3b2a4b8e0d89469fb085a16320065ef9-metadata_AVwt2oUa_36170ad41fb7_1791773042416_035c6205.mp4' --output 'videos/cena-03-equipe-projetos-30s.mp4'
+          test -s 'videos/cena-03-equipe-projetos-30s.mp4'
+          curl --fail --location --retry 3 --retry-delay 5 'https://cdn.openart.ai/openart-ai/production/2026-10/create-video/9637Y9NVgCfIy47MLep6/4b22a1b656c24b54a118ee17f8a7c6ef-metadata_jhKprlVu_04336edb47e9_1791765896686_03385863.mp4' --output 'videos/teste-cena-2027-5s.mp4'
+          test -s 'videos/teste-cena-2027-5s.mp4'
+          ls -lh videos/
+      - name: Criar Release e publicar os tres videos
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TAG="openart-previews-2026-10-12"
+          if ! gh release view "$TAG" --repo "$GH_REPO" >/dev/null 2>&1; then
+            gh release create "$TAG" --repo "$GH_REPO" --target "${{ github.sha }}" --title "Projeto do Ano | Previews OpenArt 12-10-2026" --notes "Tres arquivos MP4 enviados pelo usuario: origem/parceria (30s), equipe/projetos (30s), teste 2027 (5s). Videos de referencia para revisao no Claude. Nao sao necessariamente cortes finais."
+          fi
+          gh release upload "$TAG" videos/*.mp4 --repo "$GH_REPO" --clobber

@@ -1,0 +1,37 @@
+name: Publicar variantes dos personagens reais
+on:
+  push:
+    paths:
+      - '.github/workflows/publicar-variantes-cinematicas-20261012.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar PNGs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/personagens/variantes-cinematicas-20261012
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/8fa4853f09d99fea46bcf2bd4839a086729df42574543dcc5921a25d4d77b2a2.png' --output 'assets/personagens/variantes-cinematicas-20261012/bruno-moraes-apresentando.png'
+          test -s 'assets/personagens/variantes-cinematicas-20261012/bruno-moraes-apresentando.png'
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/ffbb810efaa7096749f64faa8fbab1a0f12da4b64477473e63b7f73fa72f1d47.png' --output 'assets/personagens/variantes-cinematicas-20261012/jaqueline-valdevino-apresentando.png'
+          test -s 'assets/personagens/variantes-cinematicas-20261012/jaqueline-valdevino-apresentando.png'
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/24403cc852f440bd5a9dcc52ab63beb874f1fe55ef194177afd5b3b5b9e39094.png' --output 'assets/personagens/variantes-cinematicas-20261012/jose-aires-positivo.png'
+          test -s 'assets/personagens/variantes-cinematicas-20261012/jose-aires-positivo.png'
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/868031ab3010d21df59eaa07893e0d1df6335577efb2e18079aaa034ed6ec21e.png' --output 'assets/personagens/variantes-cinematicas-20261012/monica-audrey-confianca.png'
+          test -s 'assets/personagens/variantes-cinematicas-20261012/monica-audrey-confianca.png'
+      - name: Criar commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/personagens/variantes-cinematicas-20261012
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: adicionar variantes 3D de quatro personagens reais"
+            git push
+          fi

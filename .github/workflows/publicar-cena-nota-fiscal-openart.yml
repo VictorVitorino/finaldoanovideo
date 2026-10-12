@@ -1,0 +1,29 @@
+name: Publicar cena nota fiscal OpenArt
+on:
+  push:
+    paths:
+      - '.github/workflows/publicar-cena-nota-fiscal-openart.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar video OpenArt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p videos
+          curl --fail --location --retry 3 --retry-delay 5 'https://cdn.openart.ai/openart-ai/production/2026-10/create-video/9637Y9NVgCfIy47MLep6/e2831a804393419589c8b6653ece7a2f-metadata_2DbR5gzn_d64cebe40c9f_1791774231434_55766796.mp4' --output 'videos/cena-05-humor-nota-fiscal-30s.mp4'
+          test -s 'videos/cena-05-humor-nota-fiscal-30s.mp4'
+          ls -lh videos/
+      - name: Enviar video para Release existente
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh release view "openart-previews-2026-10-12" --repo "$GH_REPO"
+          gh release upload "openart-previews-2026-10-12" 'videos/cena-05-humor-nota-fiscal-30s.mp4' --repo "$GH_REPO" --clobber

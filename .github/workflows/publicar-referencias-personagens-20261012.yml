@@ -1,0 +1,43 @@
+name: Publicar cinco referencias de personagens
+on:
+  push:
+    paths:
+      - '.github/workflows/publicar-referencias-personagens-20261012.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Baixar imagens enviadas
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/personagens/referencias-enviadas
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/e6452ae57fbd67b32a8e0bb4959df6f0bd9ce46f8db2e36707f557e293c9eeb1.png' --output 'assets/personagens/referencias-enviadas/giovanna-expressiva.png'
+          test -s 'assets/personagens/referencias-enviadas/giovanna-expressiva.png'
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/d97c4865bfbb8e6d673bb4d32c2ec5b4612cbff16fa01a541ce1222a9c31b180.png' --output 'assets/personagens/referencias-enviadas/mascote-am-positivo.png'
+          test -s 'assets/personagens/referencias-enviadas/mascote-am-positivo.png'
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/c160e231dd7f5ce68abcea5facba74193a82eaa6e912fba6ee9e57ab65eb50d3.png' --output 'assets/personagens/referencias-enviadas/mulher-ruiva-sorridente.png'
+          test -s 'assets/personagens/referencias-enviadas/mulher-ruiva-sorridente.png'
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/0a38eb6d7f5f635fd334e946a9736bd7c9582b37df0f191ff3e778cfb4c38c2d.png' --output 'assets/personagens/referencias-enviadas/guilherme-antonialli-lider.png'
+          test -s 'assets/personagens/referencias-enviadas/guilherme-antonialli-lider.png'
+          curl --fail --location --retry 3 --retry-delay 3 'https://cdn.openart.ai/openart-uploads/production/attachment-transfers/9fb642aac2b51a1b5a3694f28446f33b30a72f87b3c80832bd5ec28ebe7de7af.png' --output 'assets/personagens/referencias-enviadas/mascote-totvs-positivo.png'
+          test -s 'assets/personagens/referencias-enviadas/mascote-totvs-positivo.png'
+          file assets/personagens/referencias-enviadas/*
+      - name: Versionar imagens no repositorio
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/personagens/referencias-enviadas
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(personagens): adicionar 5 referencias 3D enviadas"
+            git push
+          fi

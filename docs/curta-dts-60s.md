@@ -37,7 +37,7 @@ A versão de 30 s continua em [`curta-dts.md`](curta-dts.md).
 | 0:46–0:52 | 8 · Foco | "Foco em entrega, performance, collection… e o melhor de tudo: aprendendo com os melhores." |
 | 0:52–1:00 | 9 · DTS / Performance | "Isso é DTS. Isso é Performance Alvarez and Marsal." |
 
-Os nomes dos diretores não aparecem. O personagem do Victor continua provisório (ver `animacao/src/dts/pessoas.js`).
+Os nomes dos diretores não aparecem. O Victor é careca (laterais raspadas e brilho no topo); o resto do visual do personagem fica em `animacao/src/dts/pessoas.js`.
 
 ## Arquivos
 

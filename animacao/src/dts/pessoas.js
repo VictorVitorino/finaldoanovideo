@@ -12,8 +12,8 @@ const SHOE = '#1b2236';
 
 // Aparência. Os diretores seguem as fotos enviadas; os nomes não aparecem no vídeo.
 export const ELENCO_DTS = {
-  // Victor: sem foto de referência ainda -> visual provisório (trocar aqui quando chegar a foto).
-  victor: { skin: '#e9b892', hair: 'quiff', hairColor: '#2a1d16', outfit: 'blazer', top: '#2c4a6e', shirt: '#dbe9f7', pants: '#1f2b40', badge: true },
+  // Victor: careca (informado por ele); o resto do visual segue provisório até chegar uma foto.
+  victor: { skin: '#e9b892', hair: 'bald', hairColor: '#2a1d16', outfit: 'blazer', top: '#2c4a6e', shirt: '#dbe9f7', pants: '#1f2b40', badge: true },
   // Foto 1: cabelo escuro penteado de lado, barba curta, terno azul, gravata roxa.
   dir1: { skin: '#eebd9a', hair: 'side', hairColor: '#231812', beard: 'short', beardColor: '#2a1d16', outfit: 'suit', top: '#2d4a7a', shirt: '#ffffff', tie: '#6b2f8a', pants: '#24385e' },
   // Foto 2: cabelo longo ondulado castanho com luzes caramelo, blusa preta de renda, brincos.
@@ -46,6 +46,13 @@ function hairFront(S) {
     case 'quiff':
       return `<path d="M-60,-180 Q-66,-222 -40,-236 Q-20,-252 6,-246 Q24,-258 44,-242 Q66,-226 62,-182 Q54,-206 30,-210 Q8,-200 -14,-208 Q-40,-212 -52,-196 Q-58,-190 -60,-180Z" fill="${c}" ${st}/>`
         + `<path d="M-6,-240 Q14,-246 30,-232" stroke="#4a372a" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    case 'bald': {
+      // careca: laterais raspadas bem curtas + brilho no topo da cabeça
+      const lado = `stroke="${c}" stroke-width="7" opacity=".22" fill="none" stroke-linecap="round"`;
+      return `<path d="M-61,-168 Q-63,-190 -55,-206" ${lado}/><path d="M61,-168 Q63,-190 55,-206" ${lado}/>`
+        + `<path d="M-30,-224 Q-8,-236 18,-231" stroke="#fff" stroke-width="7" opacity=".5" fill="none" stroke-linecap="round"/>`
+        + `<ellipse cx="30" cy="-225" rx="5" ry="3.2" fill="#fff" opacity=".45"/>`;
+    }
     case 'side':
       return `<path d="M-61,-176 Q-68,-226 -30,-240 Q10,-252 44,-236 Q66,-222 62,-180 Q56,-200 40,-208 Q12,-222 -18,-210 Q-44,-204 -56,-188 Q-60,-182 -61,-176Z" fill="${c}" ${st}/>`
         + `<path d="M-20,-210 Q-8,-230 30,-232" stroke="#3b2a20" stroke-width="4" fill="none" stroke-linecap="round"/>`;

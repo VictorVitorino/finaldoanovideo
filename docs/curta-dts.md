@@ -22,7 +22,7 @@ Os nomes dos diretores não aparecem em nenhum momento.
 Ficam em `animacao/src/dts/pessoas.js` (`ELENCO_DTS`).
 
 - `dir1`, `dir2` e `dir3` seguem as três fotos enviadas, na ordem em que chegaram.
-- `victor` é **provisório**, porque não havia foto. O visual atual tem cabelo escuro com topete, blazer azul, camisa clara e crachá DTS. Para ajustar, basta trocar a linha `victor` (cabelo, pele, barba, óculos, roupa).
+- `victor` é careca (laterais raspadas e brilho no topo), de blazer azul, camisa clara e crachá DTS. Para ajustar, basta trocar a linha `victor` (cabelo, pele, barba, óculos, roupa).
 
 ## Narração
 

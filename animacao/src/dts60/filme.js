@@ -44,16 +44,24 @@ export function buildFilme(T) {
       + `<path d="M${f(48 + wD + 34)},54 L${f(48 + wD + 34)},84" stroke="${cinza}" stroke-width="2"/>`
       + txt('ALVAREZ & MARSAL', 48 + wD + 50, 76, { anchor: 'start', size: 17, weight: 700, family: 'DM Sans', fill: cinza, ls: 4 });
     // cronômetro regressivo "em 60 segundos"
-    const resta = Math.max(0, Math.ceil(60 * (1 - t / TOTAL) - 1e-6));
-    const ang = 360 * clamp(t / TOTAL);
+    // conta 60 -> 0 em [0, TOTAL - 0.9] e segura "0:00" (pizza completa) no último ~1 s do filme
+    const TZ = TOTAL - 0.9;
+    const resta = t >= TZ ? 0 : Math.max(0, Math.ceil(60 * (1 - t / TZ) - 1e-6));
+    const ang = 360 * clamp(t / TZ);
     const rr = 22, cx = 74, cy = 146;
     const a = (ang - 90) * Math.PI / 180;
     const large = ang > 180 ? 1 : 0;
     s += pilula(44, 118, 138, 56, escuro ? 'rgba(255,255,255,.08)' : '#fff', navy, 3)
       + `<circle cx="${cx}" cy="${cy}" r="${rr}" fill="${escuro ? 'rgba(255,255,255,.12)' : '#eef2f7'}"/>`
-      + (ang > 0.5 ? `<path d="M${cx},${cy} L${cx},${cy - rr} A${rr},${rr} 0 ${large} 1 ${f(cx + Math.cos(a) * rr)},${f(cy + Math.sin(a) * rr)}Z" fill="${COR.orange}"/>` : '')
+      + (ang >= 359.5 ? `<circle cx="${cx}" cy="${cy}" r="${rr}" fill="${COR.orange}"/>`
+        : ang > 0.5 ? `<path d="M${cx},${cy} L${cx},${cy - rr} A${rr},${rr} 0 ${large} 1 ${f(cx + Math.cos(a) * rr)},${f(cy + Math.sin(a) * rr)}Z" fill="${COR.orange}"/>` : '')
       + `<circle cx="${cx}" cy="${cy}" r="${rr}" fill="none" stroke="${navy}" stroke-width="2.5"/>`
       + txt(`0:${String(resta).padStart(2, '0')}`, 106, cy + 11, { anchor: 'start', size: 30, weight: 800, fill: navy });
+    // chegou a 0:00: um pulso laranja sai da pílula (uma vez)
+    if (t >= TZ && t < TZ + 0.7) {
+      const u = (t - TZ) / 0.7, e = 1 - (1 - u) * (1 - u), g = 16 * e;
+      s += `<rect x="${f(44 - g)}" y="${f(118 - g)}" width="${f(138 + 2 * g)}" height="${f(56 + 2 * g)}" rx="${f(28 + g)}" fill="none" stroke="${COR.orange}" stroke-width="${f(4 * (1 - u) + 1)}" opacity="${f(1 - u)}"/>`;
+    }
     // chip da cena
     const mod = CENAS[id];
     if (mod.CHIP) {
@@ -76,6 +84,8 @@ export function buildFilme(T) {
     let bloco = null;
     for (const L of T.legendas) if (t >= wa(L.de) - 0.3) bloco = L;
     if (!bloco) return '';
+    // um bloco falado numa cena com LEGENDA=false (ex.: a capa) não reaparece na cena seguinte
+    if (CENAS[cenaEm(wa(bloco.de))].LEGENDA === false) return '';
     const idx = T.legendas.indexOf(bloco);
     const prox = T.legendas[idx + 1];
     const some = prox ? wa(prox.de) - 0.3 : wb(bloco.ate) + 1.6;

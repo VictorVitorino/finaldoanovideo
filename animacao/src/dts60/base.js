@@ -327,7 +327,7 @@ export function bannerDTS(t, t0, o = {}) {
   // faixas diagonais
   const kd = ease.out(inv(0.7, 1.2, u));
   const dx = (1 - kd) * 420;
-  dentro += `<path d="M${f(180 + dx)},95 L${f(330 + dx)},-95 M${f(262 + dx)},95 L${f(382 + dx)},-95" stroke="${COR.slate}" stroke-width="16"/><path d="M${f(215 + dx)},95 L${f(355 + dx)},-95" stroke="${COR.orange}" stroke-width="3"/>`;
+  dentro += `<path d="M${f(260 + dx)},95 L${f(410 + dx)},-95 M${f(342 + dx)},95 L${f(462 + dx)},-95" stroke="${COR.slate}" stroke-width="16"/><path d="M${f(295 + dx)},95 L${f(435 + dx)},-95" stroke="${COR.orange}" stroke-width="3"/>`;
   // letras D T S
   const letras = ['D', 'T', 'S'];
   let lx = -370;

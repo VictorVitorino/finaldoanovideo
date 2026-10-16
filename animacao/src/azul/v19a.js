@@ -31,13 +31,14 @@ export function capa(L, t, dur) {
   const p1 = entra(L, tr1 - 0.2, 0.5), p2 = entra(L, tr1 + 0.2, 0.5);
   const fio = ease.inOut(inv(tr1 - 0.1, tr2 + 0.4, t));
   if (fio > 0) {
-    const d = `M300 880 C620 820 1300 820 1620 880`;
-    bloco += `<path d="${d}" stroke="${COR.ouro}" stroke-width="2.5" fill="none" opacity=".85" stroke-dasharray="${F(fio * 1400)} 2000"/>`;
-    const px = lerp(300, 1620, fio), py = 880 - 60 * Math.sin(fio * Math.PI) * 0.9;
+    // fio e rótulos ficam no vão entre os personagens (x 585–1355), sem passar por cima deles
+    const d = `M700 735 C860 690 1060 690 1220 735`;
+    bloco += `<path d="${d}" stroke="${COR.ouro}" stroke-width="2.5" fill="none" opacity=".85" stroke-dasharray="${F(fio * 560)} 2000"/>`;
+    const px = lerp(700, 1220, fio), py = 735 - 34 * Math.sin(fio * Math.PI);
     if (fio < 1) bloco += brilhoPonto(px, py, 5, '#fff', 1);
   }
-  bloco += op(clamp(p1 * 2), g(`translate(300 880) scale(${F(p1)})`, pilula('TOTVS · SOLUÇÃO', 0, 0, { fill: 'rgba(7,17,42,.78)', stroke: COR.azul, size: 19, ls: 2.5 })));
-  bloco += op(clamp(p2 * 2), g(`translate(1620 880) scale(${F(p2)})`, pilula('A&M · TRANSFORMAÇÃO', 0, 0, { fill: 'rgba(7,17,42,.78)', stroke: COR.laranja, size: 19, ls: 2.5 })));
+  bloco += op(clamp(p1 * 2), g(`translate(700 735) scale(${F(p1)})`, pilula('TOTVS · SOLUÇÃO', 0, 0, { fill: 'rgba(7,17,42,.78)', stroke: COR.azul, size: 19, ls: 2.5 })));
+  bloco += op(clamp(p2 * 2), g(`translate(1220 735) scale(${F(p2)})`, pilula('A&M · TRANSFORMAÇÃO', 0, 0, { fill: 'rgba(7,17,42,.78)', stroke: COR.laranja, size: 19, ls: 2.5 })));
   s += g(`translate(960 540) scale(${F(push)}) translate(-960 -540)`, bloco);
   return s;
 }

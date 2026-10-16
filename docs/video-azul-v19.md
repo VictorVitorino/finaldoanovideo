@@ -57,7 +57,16 @@ Quadro N = round(t × 30); `--from N --to M` renderiza um trecho. Depois de muda
 ## Regras seguidas
 
 - Nenhum número, texto, logo, legenda ou fala alterado; legendas com os textos exatos do v18 (pílula escura, Open Sans 600,
-  palavras acendem com a voz).
+  palavras acendem com a voz, no máximo duas linhas: falas longas usam fonte 28/25; no ERP e no cockpit a legenda fica
+  centrada sob o painel, longe do personagem).
 - Nenhum elemento cortado ou sobreposto; personagens nas laterais nunca cobrem painéis; sem espelhar personagens.
 - Duração igual à do v18 (170,07 s).
 - Nada de slides de PowerPoint colados: todos os quadros são construídos em SVG.
+- Personagens entram deslizando de fora do quadro (`foraEsq`/`foraDir` em `base.js`) e, quando continuam na cena seguinte,
+  ficam no mesmo tamanho e posição para o dissolve não os duplicar (farol → união → papéis).
+
+## Revisão
+
+Pranchas de 9 quadros a cada 0,5 s por cena (`scratchpad/v19/qa/`) revisadas por seis revisores independentes contra as
+regras acima (elementos cortados/sobrepostos, personagens sobre painéis, sincronia com a narração, glitches, transições);
+cada achado foi conferido no quadro 1920×1080 e corrigido no código antes do render final.

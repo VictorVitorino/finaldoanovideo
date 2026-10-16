@@ -117,9 +117,9 @@ export function dashboard(L, t, dur) {
     fim: P('l10', -1),
   };
   const ini = [m.c1, m.c2, m.c3, m.c4, m.c5, m.c6, m.c7, m.c8, m.c9];
-  const tMont = m.c9txt + 0.3, tSelo = tMont + 1.0;   // montagem do painel logo após o texto do cockpit; selo 1 s depois
+  const tMont = m.c9t + 0.35, tSelo = tMont + 1.0;   // montagem do painel logo após o título do cockpit; selo 1 s depois
   const CW = GR.cw, CH = GR.ch;
-  const txt = (lines, x0, y0, size = 20, fill = COR.claro, w = 600) => lines.map((l, j) => T(l, x0, y0 + j * (size + 6), size, { ...OS, w, fill, anchor: 'start' })).join('');
+  const txt = (lines, x0, y0, size = 20, fill = COR.claro, w = 400) => lines.map((l, j) => T(l, x0, y0 + j * (size + 6), size, { ...OS, w, fill, anchor: 'start' })).join('');   // descrições: peso normal
   const num = (str, x0, y0, size, fill = COR.ouro) => T(str, x0, y0, size, { w: 800, fill, anchor: 'start' });
   const cnt = (n, t0, d = 0.8) => Math.round(n * ease.out(inv(t0, t0 + d, t)));
   const sub = (t0, d = 0.4) => ease.out(inv(t0, t0 + d, t));
@@ -151,7 +151,7 @@ export function dashboard(L, t, dur) {
       c += RV(sub(m.c4, 0.5), 'E', num(String(cnt(12, m.c4, 0.6)), 26, 84, 64), 0, 20, 110, 90);
       c += RV(sub(m.c4m, 0.5), 'D', txt(['meses de', 'duração média'], 118, 60, 19, COR.claro), 110, 36, 220, 60);
       const u = pop(m.c4rel); if (u > 0) c += g(`translate(356 66) scale(${F(u)})`, relogio(0, 0, 30, clamp(inv(m.c4rel, m.c4rec + 0.4, t)), L));
-      c += RV(sub(m.c4txt, 0.5), 'B', txt(['Projetos de longo prazo', 'e recorrência'], 26, 174, 21, '#fff', 700), 0, 150, CW, 70);
+      c += RV(sub(m.c4txt, 0.5), 'B', txt(['Projetos de longo prazo', 'e recorrência'], 26, 174, 20, '#fff', 400), 0, 150, CW, 70);
     }
     if (i === 4) {
       const u0 = pop(m.c5); c += g(`translate(52 54) scale(${F(u0)})`, icoCross(0, 0, 40, clamp(inv(m.c5, m.c5 + 0.8, t))));
@@ -165,7 +165,7 @@ export function dashboard(L, t, dur) {
       c += RV(sub(m.c6, 0.45), 'E', g(`translate(${F(26 + wF / 2)} 44)`, chip('FRAMEWORK INTEGRADO', 0, 0, { size: 15, cor: COR.ouro, ls: 1.5 })), 0, 20, wF + 40, 50);
       if (qE > 0) c += g(`translate(${F(26 + wF + 40)} 44) scale(${F(qE)})`, `<circle cx="-11" r="15" fill="none" stroke="${COR.ouro}" stroke-width="3"/><circle cx="11" r="15" fill="none" stroke="${COR.azulClaro}" stroke-width="3"/>`);
       c += `<rect x="26" y="74" width="${F(lerp(0, CW - 52, ease.out(inv(m.c6 + 0.3, m.c6 + 0.9, t))))}" height="1.5" fill="rgba(108,196,255,.5)"/>`;
-      c += RV(sub(m.c6txt, 0.5), 'D', txt(['Gestão integrada na implantação', 'de soluções do ecossistema TOTVS'], 26, 110, 19, '#fff'), 0, 86, CW, 64);
+      c += RV(sub(m.c6txt, 0.5), 'D', txt(['Gestão integrada na implantação', 'de soluções do ecossistema TOTVS'], 26, 110, 21, '#fff', 700), 0, 86, CW, 64);
       c += RV(sub(m.c6eco, 0.5), 'B', T('TOTVS + A&M', 26, 190, 13, { w: 800, fill: COR.claro, anchor: 'start', ls: 2.5 }) + T('um só time na implantação', 26, 212, 13, { ...OS, w: 400, fill: COR.mudo, anchor: 'start' }), 0, 172, CW, 50);
     }
     if (i === 6) {
@@ -238,8 +238,9 @@ export function dashboard(L, t, dur) {
     const sw = inv(tSelo + 0.15, tSelo + 1.0, t);
     if (sw > 0 && sw < 1) { const xs = lerp(GR.x0 - 300, GR.x0 + GW + 120, sw); painel += `<clipPath id="azGrade"><rect x="${GR.x0}" y="${GR.y0}" width="${GW}" height="${GH}"/></clipPath><polygon points="${F(xs)},${GR.y0} ${F(xs + 170)},${GR.y0} ${F(xs - 80)},${GR.y0 + GH} ${F(xs - 250)},${GR.y0 + GH}" fill="#fff" opacity=".11" clip-path="url(#azGrade)"/>`; }
   }
-  s += painel;
-  s += secao('RESULTADOS QUE FAZEM A DIFERENÇA', GR.x0, 64, L - 0.1);
+  const sai = ease.inOut(inv(dur - 1.15, dur - 0.1, L));   // transição para o ERP: o painel recua suavemente
+  s += g(`translate(960 540) scale(${F(1 - 0.1 * sai)}) translate(-960 -540)`, painel);
+  s += op(1 - sai, secao('RESULTADOS QUE FAZEM A DIFERENÇA', GR.x0, 64, L - 0.1));
   // selo A&M carimbado no canto superior direito do painel
   const ks = inv(tSelo, tSelo + 0.5, t), gs = Math.sin(clamp(inv(tSelo + 0.9, tSelo + 1.8, t)) * Math.PI);
   if (ks > 0) {
@@ -254,9 +255,9 @@ export function dashboard(L, t, dur) {
   }
   // personagens fixos nas laterais (entram depois do dissolve da capa)
   const hB = 460, hA = 455, cxB = 112, cxA = 1812;
-  const eb = sobe(L, 0.5, 0.9), ea = sobe(L, 0.65, 0.9);
-  s += g(tr(-foraEsq('totvs_boy', cxB, hB) * (1 - eb), 0), pessoa('totvs_boy', cxB, 1131, hB, L, { halo: '#3b82f6', haloA: 0.1 }));
-  s += g(tr(foraDir('am_boy', cxA, hA) * (1 - ea), 0), pessoa('am_boy', cxA, 1126, hA, L, { halo: '#f08a2c', haloA: 0.1, fase: 1.6 }));
+  const eb = sobe(L, 0.5, 0.9), ea = sobe(L, 0.65, 0.9), saiM = ease.in(inv(dur - 1.35, dur - 0.75, L));   // saem pelas laterais antes do ERP
+  s += g(tr(-foraEsq('totvs_boy', cxB, hB) * (1 - eb + saiM), 0), pessoa('totvs_boy', cxB, 1131, hB, L, { halo: '#3b82f6', haloA: 0.1 }));
+  s += g(tr(foraDir('am_boy', cxA, hA) * (1 - ea + saiM), 0), pessoa('am_boy', cxA, 1126, hA, L, { halo: '#f08a2c', haloA: 0.1, fase: 1.6 }));
   return s + vinheta(0.7);
 }
 
@@ -286,7 +287,7 @@ export function erp(L, t, dur) {
   const juntos = palavra('l12', 8), fimFala = palavra('l12', -1);
   // painel
   const bx = 560, by = 120, bw = 1200, bh = 640;
-  const kq = ease.out(inv(-0.35, 0.3, L));   // começa durante o dissolve da cena anterior
+  const kq = ease.out(inv(-1.0, -0.2, L));   // o painel se forma durante a transição longa a partir do dashboard
   const cx = bx + bw / 2, cy = by + bh / 2 + 46, RX = 400, RY = 185;
   let pan = vidro(bx, by, bw, bh, { r: 26, fill: 'rgba(14,34,74,.55)' }) + secao('PRINCIPAIS DESAFIOS DE UMA IMPLANTAÇÃO DE ERP', bx + 34, by + 52, L - 0.4, { size: 17 });
   const alinha = ease.inOut(inv(juntos - 0.25, juntos + 0.9, t));
@@ -335,10 +336,10 @@ export function erp(L, t, dur) {
   // ERP central
   const ke = ease.back(inv(tERP - 0.35, tERP + 0.2, t)), pe = 1 + 0.05 * Math.sin(L * 3.5);
   pan += g(`translate(${cx} ${cy}) scale(${F(ke * pe)})`, `<circle r="84" fill="${COR.azul}" opacity=".35" filter="url(#azBrilho)"/><circle r="64" fill="#1f5fe0" stroke="#9cc6ff" stroke-width="3"/>` + T('ERP', 0, 15, 42, { w: 900, fill: '#fff' }));
-  s += op(kq * (1 - ease.in(inv(dur - 0.7, dur - 0.3, L))), g(tr(0, 24 * (1 - kq)), pan));   // o painel some antes do dissolve para o farol
+  s += op(kq * (1 - ease.in(inv(dur - 1.1, dur - 0.45, L))), g(tr(0, 24 * (1 - kq)), pan));   // o painel some antes do dissolve para o farol
   // personagem no padrão 3D (Antonialli líder) à esquerda, olhando para o painel
-  const hp = 600, ep = sobe(L, 0.02, 0.9), cxP = 36 + largPessoa('antonialli_lider', hp) / 2;
-  s += g(tr(-foraEsq('antonialli_lider', cxP, hp) * (1 - ep), 0), pessoa('antonialli_lider', cxP, 1100, hp, L, { halo: '#f08a2c', haloA: 0.12 }));
+  const hp = 600, ep = sobe(L, -0.7, 0.9), cxP = 36 + largPessoa('antonialli_lider', hp) / 2, saiP = ease.in(inv(dur - 1.05, dur - 0.4, L));
+  s += g(tr(-foraEsq('antonialli_lider', cxP, hp) * (1 - ep + saiP), 0), pessoa('antonialli_lider', cxP, 1100, hp, L, { halo: '#f08a2c', haloA: 0.12 }));
   // reação "!" na complexidade
   const xR = 36 + largPessoa('antonialli_lider', hp) + 30, kEx = caos * clamp(1 - alinha * 3), kOk = clamp((alinha - 0.4) * 2.5);
   if (kEx > 0.02) s += op(kEx, T('!', xR, 500 - 6 * Math.abs(Math.sin(L * 6)), 64, { w: 900, fill: COR.ouro }));
@@ -352,7 +353,8 @@ export function farol(L, t, dur) {
   const tLidar = palavra('l13', 3), tChamar = palavra('l13', 11), tQuem = palavra('l13', 12), tJogo = palavra('l13', -1);
   const liga = ease.out(inv(tLidar - 0.4, tLidar + 0.4, t));
   const proj = ease.inOut(inv(tChamar - 0.5, tChamar + 0.6, t));
-  s += cidade(t, 900, { k: 0.9, acende: 0.4 + 1.3 * proj, foco: 960 });
+  const entF = ease.out(inv(-1.0, -0.05, L));   // entrada suave durante a transição a partir do ERP
+  s += g(tr(0, 60 * (1 - entF)), cidade(t, 900, { k: 0.9, acende: 0.4 + 1.3 * proj, foco: 960 }));
   s += `<path d="M840 900 L862 740 L1058 740 L1080 900 Z" fill="#14305e" stroke="rgba(255,255,255,.15)"/>` + `<rect x="900" y="770" width="120" height="64" rx="10" fill="rgba(7,17,42,.85)" stroke="rgba(255,255,255,.25)"/>` + logoImg('alvarez-marsal-branco', 960, 802, 44, 90);
   s += `<rect x="922" y="704" width="76" height="40" rx="10" fill="#1b3a6c" stroke="#8fb4ea" stroke-width="2"/><circle cx="960" cy="704" r="22" fill="#fff4c9" opacity="${F(0.3 + 0.7 * liga)}"/>`;
   s += op(liga, `<circle cx="960" cy="704" r="70" fill="url(#azLuzOuro)"/>`);

@@ -8,15 +8,15 @@ import * as C3 from './v19c.js';
 
 export const CENAS = [
   { id: 'capa', de: 0.0, ate: 7.6, f: A.capa },
-  { id: 'dashboard', de: 7.6, ate: 53.4, f: A.dashboard },   // vai até 53,4: tempo para ver o painel montado e o brilho do selo
-  { id: 'erp', de: 53.4, ate: 64.47, f: A.erp },
-  { id: 'farol', de: 64.47, ate: 70.13, f: A.farol },
-  { id: 'uniao', de: 70.13, ate: 80.0, f: A.uniao },
+  { id: 'dashboard', de: 7.6, ate: 53.6, f: A.dashboard, trans: 1.2 },   // tempo com o painel montado; transição longa para o ERP
+  { id: 'erp', de: 53.6, ate: 64.47, f: A.erp, trans: 1.0 },
+  { id: 'farol', de: 64.47, ate: 71.1, f: A.farol },   // +1 s para ler as frases da A&M
+  { id: 'uniao', de: 71.1, ate: 80.0, f: A.uniao },
   { id: 'papeis', de: 80.0, ate: 90.0, f: C2.papeis },
   { id: 'metodologia', de: 90.0, ate: 112.6, f: C2.metodologia },
   { id: 'tmo', de: 112.6, ate: 119.7, f: C2.tmo },        // vai até 119,7: a montagem dissolve o TMO no trecho original (119,2–119,7)
-  { id: 'original', de: 119.7, ate: 128.1, f: null },
-  { id: 'linha', de: 128.1, ate: 143.13, f: C3.linha },
+  { id: 'original', de: 119.7, ate: 127.3, f: null },
+  { id: 'linha', de: 127.3, ate: 143.13, f: C3.linha },   // começa 0,8 s antes: a montagem dissolve o trecho original na linha do tempo
   { id: 'cockpit', de: 143.13, ate: 156.0, f: C3.cockpit },
   { id: 'rumo', de: 156.0, ate: 170.067, f: C3.rumo },
 ];
@@ -36,8 +36,9 @@ export function quadro(t) {
   let s = cena(c, t);
   const prox = CENAS[i + 1];
   // transição: a próxima cena entra em dissolve nos últimos TRANS s (não entre cenas refeitas e o trecho original)
-  if (prox && prox.f && c.f && t > c.ate - TRANS) {
-    const u = ease.inOut(inv(c.ate - TRANS, c.ate, t));
+  const TR = c.trans ?? TRANS;
+  if (prox && prox.f && c.f && t > c.ate - TR) {
+    const u = ease.inOut(inv(c.ate - TR, c.ate, t));
     s += op(u, cena(prox, t));   // dissolve puro: sem zoom, para que personagens que continuam na cena seguinte não dupliquem
   }
   s += B.chrome(t, { marcas: MARCAS });

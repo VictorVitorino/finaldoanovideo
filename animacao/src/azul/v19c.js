@@ -1,6 +1,6 @@
 // v19 · cenas 11 a 13: linha do tempo dos seis projetos, cockpit/testes/IA com Vinicius e Rumo a 2027.
 import { clamp, lerp, inv, ease, rng, tr, g, op, TAU } from '../core.js';
-import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, fundo, vinheta, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, avatar, palavra } from './base.js';
+import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, fundo, vinheta, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, avatar, palavra, revela } from './base.js';
 
 // curva suave (Catmull-Rom) por pontos; devolve amostras com comprimento acumulado
 function curva(pts, n = 240) {
@@ -195,32 +195,39 @@ function painelIA(L, t, t0) {
 export function cockpit(L, t, dur) {
   let s = fundo(t);
   const tCk = palavra('l25', 2), tGov = palavra('l25', 6), tIA = palavra('l26', 0), tTec = palavra('l27', 0), tQual = palavra('l27', -1);
-  const tP = [tCk - 0.3, tGov - 0.1, tIA - 0.1];   // início de cada painel
-  // câmera: centro em cada painel; no fim, abre para os três
+  // painéis da esquerda para a direita: IA · Testes integrados · Cockpit; a narração visita cockpit → testes → IA (câmera anda para a esquerda)
+  const tP = [tIA - 0.1, tGov - 0.1, tCk - 0.3];   // início de cada painel (índice = posição)
   const cxP = PX.map(x => x + PW / 2);
-  let camx = cxP[0], esc = 1;
-  for (let i = 1; i < 3; i++) { const u = ease.inOut(inv(tP[i] - 0.4, tP[i] + 0.4, t)); camx = lerp(camx, cxP[i], u); }
+  let camx = cxP[2], esc = 1;
+  [[1, tGov - 0.1], [0, tIA - 0.1]].forEach(([i, tt]) => { const u = ease.inOut(inv(tt - 0.4, tt + 0.4, t)); camx = lerp(camx, cxP[i], u); });
   const abre = ease.inOut(inv(tTec - 0.3, tTec + 0.8, t));
   camx = lerp(camx, cxP[1], abre); esc = lerp(1, 0.38, abre);
   let v = '';
   // conectores entre painéis
-  for (let i = 0; i < 2; i++) { const q = ease.out(inv(tP[i + 1] - 0.3, tP[i + 1] + 0.2, t)); v += `<line x1="${PX[i] + PW}" y1="${PY + PH / 2}" x2="${F(lerp(PX[i] + PW, PX[i + 1], q))}" y2="${PY + PH / 2}" stroke="rgba(108,196,255,.6)" stroke-width="2" stroke-dasharray="3 8"/>` + brilhoPonto(PX[i] + PW, PY + PH / 2, 5, COR.ciano, q) + (q >= 1 ? brilhoPonto(PX[i + 1], PY + PH / 2, 5, COR.ciano, 1) : ''); }
-  const pains = [painelCockpit, painelXray, painelIA];
+  [[2, 1, tGov - 0.1], [1, 0, tIA - 0.1]].forEach(([a, b, tt]) => {   // da direita para a esquerda, na ordem da narração
+    const q = ease.out(inv(tt - 0.4, tt + 0.1, t)); if (q <= 0) return;
+    const yy = PY + PH / 2;
+    v += `<line x1="${PX[a]}" y1="${yy}" x2="${F(lerp(PX[a], PX[b] + PW, q))}" y2="${yy}" stroke="rgba(108,196,255,.6)" stroke-width="2" stroke-dasharray="3 8"/>` + brilhoPonto(PX[a], yy, 5, COR.ciano, 1) + (q >= 1 ? brilhoPonto(PX[b] + PW, yy, 5, COR.ciano, 1) : '');
+  });
+  const pains = [painelIA, painelXray, painelCockpit];
   pains.forEach((fn, i) => {
     const q = ease.out(inv(tP[i], tP[i] + 0.6, t)); if (q <= 0) return;
     // painel fora do foco da câmera esmaece (não fica aparecendo atrás do personagem); todos voltam na visão geral
     const longe = Math.min(1, Math.abs(camx - cxP[i]) / (PW * 0.8)), vis = lerp(1 - longe, 1, abre);
-    v += op(q * vis, g(`translate(${PX[i]} ${F(PY + 30 * (1 - q))})`, fn(L, t, tP[i])));
+    const foco = 1 - longe;   // painel em foco: contorno luminoso pulsando + traço de luz correndo pela borda
+    const brilho = foco > 0.05 ? `<rect x="1" y="1" width="${PW - 2}" height="${PH - 2}" rx="26" fill="none" stroke="${COR.ciano}" stroke-width="3" opacity="${F(foco * (0.3 + 0.18 * Math.sin(L * 2.4 + i)))}" filter="url(#azBrilhoP)"/>`
+      + `<rect x="1" y="1" width="${PW - 2}" height="${PH - 2}" rx="26" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" pathLength="100" stroke-dasharray="8 92" stroke-dashoffset="${F(-((L * 30 + i * 33) % 100))}" opacity="${F(0.85 * foco)}"/>` : '';
+    v += op(vis, g(`translate(${PX[i]} ${PY})`, revela(q, 'C', PW, PH + 40, fn(L, t, tP[i]) + brilho, 0, -20)));
   });
   // brilho final em "Tecnologia a serviço da qualidade"
   const fin = Math.sin(clamp(inv(tQual - 0.6, tQual + 1.0, t)) * Math.PI);
   if (fin > 0) v += `<rect x="${PX[0] - 40}" y="${PY - 40}" width="${F(PX[2] + PW - PX[0] + 80)}" height="${PH + 80}" rx="40" fill="none" stroke="${COR.ouro}" stroke-width="4" opacity="${F(0.6 * fin)}"/>`;
-  s += g(`translate(${F(lerp(1060, 1160, abre))} ${F(lerp(470, 520, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
+  s += g(`translate(${F(lerp(1120, 1190, abre))} ${F(lerp(470, 520, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
   // Vinicius à esquerda, no padrão 3D, apresentando
-  const hv = 560, ev = sobe(L, 0.03, 0.9), cxV = 20 + largPessoa('vinicius', hv) / 2;
+  const hv = 500, ev = sobe(L, 0.03, 0.9), cxV = 16 + largPessoa('vinicius', hv) / 2;
   s += g(tr(-foraEsq('vinicius', cxV, hv) * (1 - ev), 0), pessoa('vinicius', cxV, 1110, hv, L, { halo: COR.azul, haloA: 0.12 }));
   const kn = sobe(L, 0.8, 0.5);
-  s += op(kn, g(`translate(${F(20 + largPessoa('vinicius', hv) + 40)} 780)`, pilula('Vinicius de Sousa', 0, 0, { fill: 'rgba(7,17,42,.8)', stroke: 'rgba(255,255,255,.25)', size: 17, fam: 'Open Sans', w: 700, icone: `<circle r="4" fill="${COR.ciano}"/>` })));
+  s += op(kn, g(`translate(${F(cxV)} ${F(1110 - hv - 34)})`, pilula('Vinicius de Sousa', 0, 0, { fill: 'rgba(7,17,42,.8)', stroke: 'rgba(255,255,255,.25)', size: 17, fam: 'Open Sans', w: 700, icone: `<circle r="4" fill="${COR.ciano}"/>` })));
   return s + vinheta(0.6);
 }
 

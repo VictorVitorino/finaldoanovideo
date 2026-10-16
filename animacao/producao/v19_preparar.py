@@ -75,6 +75,14 @@ def main(out):
         im = limitar(aparar(Image.open(os.path.join(PESSOAS, 'novos-9-personagens-3d', arq)).convert('RGBA'), 12), 1100)
         im.save(os.path.join(img, f'{i}.png'), optimize=True)
         meta[i] = {'nome': i + '.png', 'w': im.width, 'h': im.height, 'cx': im.width // 2}
+    # Vinicius: busto recortado da imagem nova (acima da antena que ele segura), base esmaecida
+    vin = Image.open(os.path.join(PESSOAS, 'novos-9-personagens-3d', 'vinicius-de-sousa-antena.png')).convert('RGBA').crop((40, 0, 720, 600))
+    arr = np.array(vin); H, W = arr.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]; arr[..., 3] = np.where((yy > 525) & (xx > 500), 0, arr[..., 3])   # tira a antena
+    fade = np.ones(H); fade[H - 64:] = np.linspace(1, 0, 64)
+    arr[..., 3] = (arr[..., 3] * fade[:, None]).astype('uint8')
+    Image.fromarray(arr).save(os.path.join(img, 'vinicius.png'), optimize=True)
+    meta['vinicius'] = {'nome': 'Vinicius de Sousa', 'w': arr.shape[1], 'h': H, 'cx': arr.shape[1] // 2}
     for n in ['alvarez-marsal', 'totvs']:
         arr = np.array(Image.open(os.path.join(LOGOS, n + '.png')).convert('RGBA'))
         arr[..., :3] = 255

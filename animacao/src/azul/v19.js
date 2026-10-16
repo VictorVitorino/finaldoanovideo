@@ -1,5 +1,5 @@
 // v19 · o filme inteiro na linguagem azul, sobre o áudio do v18 (170 s). Cenas por tempo absoluto.
-// O trecho 119.1–128.1 (Quintão & Antonialli; equipe no palco) é mantido do original na montagem.
+// O trecho 119.2–128.1 (Quintão & Antonialli; equipe no palco) é mantido do original na montagem, com dissolve de 0,5 s a partir do TMO.
 import { clamp, lerp, inv, ease, g, op } from '../core.js';
 import * as B from './base.js';
 import * as A from './v19a.js';
@@ -14,8 +14,8 @@ export const CENAS = [
   { id: 'uniao', de: 70.13, ate: 80.0, f: A.uniao },
   { id: 'papeis', de: 80.0, ate: 90.0, f: C2.papeis },
   { id: 'metodologia', de: 90.0, ate: 112.6, f: C2.metodologia },
-  { id: 'tmo', de: 112.6, ate: 119.1, f: C2.tmo },
-  { id: 'original', de: 119.1, ate: 128.1, f: null },
+  { id: 'tmo', de: 112.6, ate: 119.7, f: C2.tmo },        // vai até 119,7: a montagem dissolve o TMO no trecho original (119,2–119,7)
+  { id: 'original', de: 119.7, ate: 128.1, f: null },
   { id: 'linha', de: 128.1, ate: 143.13, f: C3.linha },
   { id: 'cockpit', de: 143.13, ate: 156.0, f: C3.cockpit },
   { id: 'rumo', de: 156.0, ate: 170.067, f: C3.rumo },

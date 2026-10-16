@@ -4,7 +4,8 @@ Reconstrução completa do vídeo v18 (release [`video-v18`](https://github.com/
 `Projeto-do-Ano-AM-TOTVS-v18-1080p.m4v`, sha256 `644b907d…`, 170 s, 1920×1080, 30 fps) com uma só linguagem visual
 (fundo azul profundo, cartões de vidro, dourado/ciano, personagens 3D do padrão) **sem alterar narração, legendas, textos,
 números, logos nem a ordem das cenas**. O áudio do v18 é usado intacto; o trecho 1:59–2:08 (Quintão & Antonialli e a
-equipe no palco) é mantido do original na montagem.
+equipe no palco) é mantido do original na montagem, com um dissolve de 0,5 s a partir do TMO refeito (o v18 tinha ali o
+seu próprio dissolve a partir do slide antigo).
 
 ## Arquivos
 
@@ -34,8 +35,8 @@ Personagens: mascotes TOTVS e A&M e Antonialli líder de `assets/personagens/nov
 | União | 70,13–80 | feixes azul/laranja, "TECNOLOGIA + GESTÃO" |
 | Papéis complementares | 80–90 | Venn grande (TOTVS × A&M, lente "Atuação Conjunta"), itens do slide original, destaque em "metodologia"; título "UM TIME · PAPÉIS COMPLEMENTARES" pequeno no topo |
 | Metodologia Integrada A&M e TOTVS | 90–112,6 | título "METODOLOGIA INTEGRADA A&M E TOTVS · 6 FASES, E UMA ÚNICA JORNADA"; seis chevrons; câmera acompanha a etapa narrada e volta à visão geral em "Com metodologias" |
-| TMO em três círculos | 112,6–119,1 | círculos entram, disco TMO, rodapé qualidade · previsibilidade · resultados |
-| Original (liderança e equipe) | 119,1–128,1 | trecho do v18 sem alteração |
+| TMO em três círculos | 112,6–119,7 | círculos entram, disco TMO, rodapé qualidade · previsibilidade · resultados |
+| Original (liderança e equipe) | 119,2–128,1 | trecho do v18 sem alteração (dissolve de 0,5 s na entrada) |
 | Linha do tempo | 128,1–143,13 | trilha com seis projetos, cartões e avatares, "Argentina", título |
 | Cockpit · Xray · IA | 143,13–156 | três painéis com pan de câmera, Vinicius |
 | Rumo a 2027 | 156–170,07 | gráfico de crescimento (sem o indicador "R$" fantasma do v18), marcos com logos, chips, "2027" e fechamento |
@@ -44,7 +45,7 @@ Personagens: mascotes TOTVS e A&M e Antonialli líder de `assets/personagens/nov
 
 ```bash
 cd animacao && npm install
-# baixe o v18 da release para build/azul/v18.m4v (áudio e trecho 119,1–128,1 s)
+# baixe o v18 da release para build/azul/v18.m4v (áudio e trecho 119,2–128,1 s)
 python3 producao/v19_preparar.py                                   # build/azul/img/* e build/azul/v19.json
 node render.mjs stills --test v19 --t 8.3,14.2,86.8,160.6          # conferir quadros (build/stills/v19_<t>.jpg)
 node render.mjs frames --test v19 --out build/azul/v19 --workers 4 # 5103 quadros, ~17 min, ~1,1 GB (pula quadros existentes)

@@ -41,7 +41,8 @@ export function quadro(t) {
     s += op(u, cena(prox, t));   // dissolve puro: sem zoom, para que personagens que continuam na cena seguinte não dupliquem
   }
   s += B.chrome(t, { marcas: MARCAS });
-  s += B.legenda(t, c.id === 'erp' || c.id === 'cockpit' ? { cx: 1150 } : {});   // com personagem grande à esquerda, a legenda fica sob o painel
+  // o trecho original já traz a própria legenda: a nossa some antes do dissolve (118,9 s) e volta depois dele (128,1 s)
+  if (t < 118.9 || t >= 128.1) s += B.legenda(t, c.id === 'erp' || c.id === 'cockpit' ? { cx: 1150 } : {});   // com personagem grande à esquerda, a legenda fica sob o painel
   // escurece no fim do filme (o v18 fecha em preto)
   if (t > 169.1) s += `<rect width="1920" height="1080" fill="#000" opacity="${B.F(clamp((t - 169.1) / 0.75))}"/>`;
   return s;

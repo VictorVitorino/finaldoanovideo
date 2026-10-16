@@ -1,5 +1,7 @@
 # Prompt de partida — vídeo "Projeto do Ano FY26" (A&M + TOTVS)
 
+> **Atualização (out/2026):** o trabalho mais recente é a reconstrução do vídeo azul v18 → **v19** (`animacao/src/azul/*`), descrita em `docs/video-azul-v19.md`. O briefing abaixo é do filme chibi anterior.
+
 > Copie tudo abaixo da linha e cole como primeira mensagem do novo chat. (Este arquivo também está no repositório, em `docs/prompt-novo-chat.md`.)
 
 ---

@@ -12,7 +12,7 @@ const LAYER = params.get('layer') || 'full';
 if (MODE === 'render') document.body.classList.add('render');
 if (LAYER === 'overlay' || LAYER === 'etiquetas') { document.body.classList.add('transparent'); document.documentElement.classList.add('transparent'); }
 
-const FONTS = ['600 20px Outfit', '700 20px Outfit', '800 20px Outfit', '900 20px Outfit', '500 20px "DM Sans"', '700 20px "DM Sans"', '800 20px "DM Sans"'];
+const FONTS = ['600 20px Outfit', '700 20px Outfit', '800 20px Outfit', '900 20px Outfit', '500 20px "DM Sans"', '700 20px "DM Sans"', '800 20px "DM Sans"', '400 20px "Open Sans"', '600 20px "Open Sans"', '700 20px "Open Sans"'];
 
 async function init() {
   await Promise.all(FONTS.map(f => document.fonts.load(f, 'ÁÃÇçãõéêíóú')));

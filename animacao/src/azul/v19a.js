@@ -174,19 +174,20 @@ export function dashboard(L, t, dur) {
       chips.forEach(([tx, t0, cor], j) => { const w = chipW(tx, 15); if (j === 2) { cx3 = 26; cy3 += 44; } const q = pop(t0, 0.4); if (q > 0) c += g(`translate(${F(cx3 + w / 2)} ${cy3}) scale(${F(q)})`, chip(tx, 0, 0, { size: 15, cor })); cx3 += w + 10; });
     }
     if (i === 5 && on) {
-      const chips = [['TMO', COR.ouro], ['GMO', COR.ouro], ['A&M + TOTVS', COR.azulClaro]];
-      let cx3 = 26; chips.forEach(([tx, cor], j) => { const w = chipW(tx, 15, 1.5); const q = pop(m.c6 + j * 0.15, 0.4); if (q > 0) c += g(`translate(${F(cx3 + w / 2)} 44) scale(${F(q)})`, chip(tx, 0, 0, { size: 15, cor, ls: 1.5 })); cx3 += w + 10; });
+      // chip único "FRAMEWORK INTEGRADO" com o elo (anéis) ao lado
+      const wF = chipW('FRAMEWORK INTEGRADO', 15, 1.5), qF = pop(m.c6, 0.4), qE = pop(m.c6 + 0.2, 0.5);
+      if (qF > 0) c += g(`translate(${F(26 + wF / 2)} 44) scale(${F(qF)})`, chip('FRAMEWORK INTEGRADO', 0, 0, { size: 15, cor: COR.ouro, ls: 1.5 }));
+      if (qE > 0) c += g(`translate(${F(26 + wF + 40)} 44) scale(${F(qE)})`, `<circle cx="-11" r="15" fill="none" stroke="${COR.ouro}" stroke-width="3"/><circle cx="11" r="15" fill="none" stroke="${COR.azulClaro}" stroke-width="3"/>`);
       c += `<rect x="26" y="74" width="${F(lerp(0, GR.cw - 52, ease.out(inv(m.c6 + 0.3, m.c6 + 0.9, t))))}" height="1.5" fill="rgba(108,196,255,.5)"/>`;
       let u = sub(m.c6txt); c += op(u, g(tr(0, 8 * (1 - u)), txt(['Gestão integrada na implantação', 'de soluções do ecossistema TOTVS'], 26, 110, 19, '#fff')));
       u = sub(m.c6eco); c += op(u, T('TOTVS + A&M', 26, 190, 13, { w: 800, fill: COR.claro, anchor: 'start', ls: 2.5 }) + T('um só time na implantação', 26, 212, 13, { ...OS, w: 400, fill: COR.mudo, anchor: 'start' }));
-      const q = pop(m.c6eco, 0.5); if (q > 0) c += g(`translate(360 196) scale(${F(q)})`, `<circle cx="-11" r="16" fill="none" stroke="${COR.ouro}" stroke-width="3"/><circle cx="11" r="16" fill="none" stroke="${COR.azulClaro}" stroke-width="3"/>`);
     }
     if (i === 6 && on) {
       const u0 = pop(m.c7); c += g(`translate(50 58) scale(${F(u0)})`, icoDoc(0, 0, 40, clamp(inv(m.c7, m.c7 + 0.8, t))) + (t > m.c7chk ? g(`translate(16 22) scale(${F(ease.back(inv(m.c7chk, m.c7chk + 0.4, t)))})`, checkIco(0, 0, 11, COR.verde2)) : '') + `<path d="M28 -34 l3 -8 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 Z" fill="${COR.ouro}" opacity="${F(0.5 + 0.5 * Math.sin(L * 5))}"/>`);
-      c += op(sub(m.c7 + 0.1), txt(['Qualidade e eficiência', 'das MITs'], 100, 50, 22, '#fff', 700));
+      c += op(sub(m.c7 + 0.1), txt(['Utilizando IA', 'como aceleradores'], 100, 50, 22, '#fff', 700));
       const um = sub(m.c7mit);
       if (um > 0) { let xx = 26; [['M', true], ['etodologia de ', false], ['I', true], ['mplantação ', false], ['T', true], ['OTVS', false]].forEach(([p, hl], j) => { const w = larg(p, 16, hl ? 700 : 400, 'os'); if (hl) c += op(um, `<rect x="${F(xx - 2)}" y="112" width="${F(w + 4)}" height="22" rx="4" fill="rgba(230,183,94,.28)" stroke="${COR.ouro}" stroke-width="1"/>`); c += op(um, T(p, xx, 129, 16, { ...OS, w: hl ? 700 : 400, fill: hl ? COR.ouro2 : COR.claro, anchor: 'start' })); xx += w; }); }
-      const u = sub(m.c7txt); c += op(u, g(tr(0, 6 * (1 - u)), txt(['Métodos e skills aplicados à revisão', 'e à validação da qualidade dos', 'documentos de implantação.'], 26, 162, 16, COR.claro, 400)));
+      const u = sub(m.c7txt); c += op(u, g(tr(0, 6 * (1 - u)), txt(['Uso de IA para construção de métodos', 'e skills aplicados à revisão e validação', 'da qualidade dos documentos de implantação.'], 26, 160, 15, COR.claro, 400)));
     }
     if (i === 7 && on) {
       const u0 = pop(m.c8); c += g(`translate(52 54) scale(${F(u0)})`, icoRaio(0, 0, 34));
@@ -312,7 +313,7 @@ export function farol(L, t, dur) {
   s += `<path d="M840 900 L862 740 L1058 740 L1080 900 Z" fill="#14305e" stroke="rgba(255,255,255,.15)"/>` + `<rect x="900" y="770" width="120" height="64" rx="10" fill="rgba(7,17,42,.85)" stroke="rgba(255,255,255,.25)"/>` + logoImg('alvarez-marsal-branco', 960, 802, 44, 90);
   s += `<rect x="922" y="704" width="76" height="40" rx="10" fill="#1b3a6c" stroke="#8fb4ea" stroke-width="2"/><circle cx="960" cy="704" r="22" fill="#fff4c9" opacity="${F(0.3 + 0.7 * liga)}"/>`;
   s += op(liga, `<circle cx="960" cy="704" r="70" fill="url(#azLuzOuro)"/>`);
-  const ang = lerp(-40, -6, proj) + 2.5 * Math.sin(L * 1.3) * (1 - proj);
+  const ang = lerp(-40, -15, proj) + 2.5 * Math.sin(L * 1.3) * (1 - proj);
   const alvo = { x: 960 + Math.sin(ang * Math.PI / 180) * 560, y: 704 - Math.cos(ang * Math.PI / 180) * 500 };
   s += op(liga * 0.9, g(`rotate(${F(ang)} 960 704)`, `<path d="M942 704 L978 704 L1160 160 L760 160 Z" fill="url(#azFeixe)"/>`));
   const r = rng(4);
@@ -321,14 +322,19 @@ export function farol(L, t, dur) {
   if (proj > 0) {
     const k = ease.back(inv(tChamar - 0.1, tChamar + 0.6, t)) * (1 + 0.03 * Math.sin(L * 3));
     s += op(proj, `<ellipse cx="${F(alvo.x)}" cy="${F(alvo.y)}" rx="250" ry="130" fill="#fff1c4" opacity=".14" filter="url(#azBrilho)"/>`);
-    s += g(`translate(${F(alvo.x)} ${F(alvo.y)}) scale(${F(k)})`, `<circle r="112" fill="none" stroke="#ffe3a0" stroke-width="3" opacity=".7"/>` + logoImg('alvarez-marsal-branco', 0, -4, 128, 190));
+    s += g(`translate(${F(alvo.x)} ${F(alvo.y)}) scale(${F(k)})`, `<circle r="94" fill="none" stroke="#ffe3a0" stroke-width="3" opacity=".7"/>` + logoImg('alvarez-marsal-branco', 0, -4, 106, 160));
+    // as três frases da A&M, ao lado do logo projetado
+    const FR = ['Gente que entende do jogo', 'Confiança que impulsa', 'Núcleo de excelência em performance'];
+    FR.forEach((fr, j) => {
+      const q = sobe(L, tChamar - 0.1 + j * 0.3 - (t - L), 0.5); if (q <= 0) return;
+      const x0 = alvo.x + 94 + 48, y0 = alvo.y - 40 + j * 44;
+      s += op(q, g(tr(14 * (1 - q), 0), `<rect x="${F(x0 - 22)}" y="${F(y0 - 13)}" width="8" height="8" rx="2" fill="${COR.ouro}" transform="rotate(45 ${F(x0 - 18)} ${F(y0 - 9)})"/>` + T(fr, x0, y0, 26, { w: 700, fill: '#fff', anchor: 'start' })));
+    });
   }
   // o mascote A&M entra em "quem entende do jogo"
   const ea = sobe(L, tQuem - 0.2 - (t - L), 0.9);
   const ha = 560, cxA = 1787;
   if (ea > 0) s += g(tr(foraDir('am_boy', cxA, ha) * (1 - ea), 0), pessoa('am_boy', cxA, 1120, ha, L, { halo: '#f08a2c' }));
-  const kq = entra(L, tJogo - 0.2 - (t - L), 0.5);
-  if (kq > 0) s += g(`translate(1690 520) scale(${F(kq)})`, pilula('QUEM ENTENDE DO JOGO', 0, 0, { fill: COR.laranja, size: 20, ls: 3 }));
   return s + vinheta(0.6);
 }
 

@@ -28,12 +28,12 @@ Personagens: mascotes TOTVS e A&M e Antonialli líder de `assets/personagens/nov
 | Cena | Trecho | Sincronia |
 |---|---|---|
 | Capa | 0–7,6 | lua, cidade, dois mascotes, faixa de luz e fio dourado nas palavras "projeto"/"parceria" |
-| Dashboard "Resultados que fazem a diferença" | 7,6–52,8 | nove cartões vazios; cada um se preenche na palavra narrada (número → ícones/logos → texto), contadores, zoom contido (1,05, grade sempre inteira entre os personagens), holofote e relevo no cartão ativo, onda final nos nove |
+| Dashboard "Resultados que fazem a diferença" | 7,6–52,8 | nove cartões vazios; cada um se preenche na palavra narrada (número → ícones/logos → texto), contadores, zoom contido (grade sempre inteira entre os personagens), holofote e relevo no cartão ativo, onda final nos nove. Cartão 6 com o chip "FRAMEWORK INTEGRADO" + elo; cartão 7 "Utilizando IA como aceleradores" |
 | Desafio do ERP | 52,8–64,47 | Antonialli (3D padrão) à esquerda; painel se constrói, núcleo ERP, caos na "complexidade", seis nós acendem palavra a palavra, anel de alinhamento em "juntos" |
-| Farol A&M | 64,47–70,13 | holofote na cidade, logo A&M projetado, mascote A&M entra em "chamar", pílula "QUEM ENTENDE DO JOGO" |
+| Farol A&M | 64,47–70,13 | holofote na cidade, logo A&M projetado com as três frases ao lado (Gente que entende do jogo · Confiança que impulsa · Núcleo de excelência em performance), mascote A&M entra em "chamar" |
 | União | 70,13–80 | feixes azul/laranja, "TECNOLOGIA + GESTÃO" |
-| Papéis complementares | 80–90 | Venn construído (TOTVS × A&M, lente "Atuação Conjunta"), itens do slide original, destaque em "metodologia" |
-| Metodologia A&M · TMO | 90–112,6 | seis chevrons; câmera acompanha a etapa narrada e volta à visão geral em "Com metodologias" |
+| Papéis complementares | 80–90 | Venn grande (TOTVS × A&M, lente "Atuação Conjunta"), itens do slide original, destaque em "metodologia"; título "UM TIME · PAPÉIS COMPLEMENTARES" pequeno no topo |
+| Metodologia Integrada A&M e TOTVS | 90–112,6 | título "METODOLOGIA INTEGRADA A&M E TOTVS · 6 FASES, E UMA ÚNICA JORNADA"; seis chevrons; câmera acompanha a etapa narrada e volta à visão geral em "Com metodologias" |
 | TMO em três círculos | 112,6–119,1 | círculos entram, disco TMO, rodapé qualidade · previsibilidade · resultados |
 | Original (liderança e equipe) | 119,1–128,1 | trecho do v18 sem alteração |
 | Linha do tempo | 128,1–143,13 | trilha com seis projetos, cartões e avatares, "Argentina", título |

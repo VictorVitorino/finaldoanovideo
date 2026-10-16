@@ -1,6 +1,6 @@
 // v19 · cenas 11 a 13: linha do tempo dos seis projetos, cockpit/testes/IA com Vinicius e Rumo a 2027.
 import { clamp, lerp, inv, ease, rng, tr, g, op, TAU } from '../core.js';
-import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, fundo, vinheta, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, avatar, palavra, revela } from './base.js';
+import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, fundo, vinheta, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, avatar, palavra, revela, imagem } from './base.js';
 
 // curva suave (Catmull-Rom) por pontos; devolve amostras com comprimento acumulado
 function curva(pts, n = 240) {
@@ -201,7 +201,7 @@ export function cockpit(L, t, dur) {
   let camx = cxP[2], esc = 1;
   [[1, tGov - 0.1], [0, tIA - 0.1]].forEach(([i, tt]) => { const u = ease.inOut(inv(tt - 0.4, tt + 0.4, t)); camx = lerp(camx, cxP[i], u); });
   const abre = ease.inOut(inv(tTec - 0.3, tTec + 0.8, t));
-  camx = lerp(camx, cxP[1], abre); esc = lerp(1, 0.38, abre);
+  camx = lerp(camx, cxP[1], abre); esc = lerp(1, 0.37, abre);
   let v = '';
   // conectores entre painéis
   [[2, 1, tGov - 0.1], [1, 0, tIA - 0.1]].forEach(([a, b, tt]) => {   // da direita para a esquerda, na ordem da narração
@@ -222,9 +222,9 @@ export function cockpit(L, t, dur) {
   // brilho final em "Tecnologia a serviço da qualidade"
   const fin = Math.sin(clamp(inv(tQual - 0.6, tQual + 1.0, t)) * Math.PI);
   if (fin > 0) v += `<rect x="${PX[0] - 40}" y="${PY - 40}" width="${F(PX[2] + PW - PX[0] + 80)}" height="${PH + 80}" rx="40" fill="none" stroke="${COR.ouro}" stroke-width="4" opacity="${F(0.6 * fin)}"/>`;
-  s += g(`translate(${F(lerp(1120, 1190, abre))} ${F(lerp(470, 520, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
+  s += g(`translate(${F(lerp(1120, 1215, abre))} ${F(lerp(470, 520, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
   // Vinicius à esquerda, no padrão 3D, apresentando
-  const hv = 500, ev = sobe(L, 0.03, 0.9), cxV = 16 + largPessoa('vinicius', hv) / 2;
+  const hv = 400, ev = sobe(L, 0.03, 0.9), cxV = 16 + largPessoa('vinicius', hv) / 2;
   s += g(tr(-foraEsq('vinicius', cxV, hv) * (1 - ev), 0), pessoa('vinicius', cxV, 1110, hv, L, { halo: COR.azul, haloA: 0.12 }));
   const kn = sobe(L, 0.8, 0.5);
   s += op(kn, g(`translate(${F(cxV)} ${F(1110 - hv - 34)})`, pilula('Vinicius de Sousa', 0, 0, { fill: 'rgba(7,17,42,.8)', stroke: 'rgba(255,255,255,.25)', size: 17, fam: 'Open Sans', w: 700, icone: `<circle r="4" fill="${COR.ciano}"/>` })));
@@ -237,8 +237,41 @@ function serie(x0, y0, x1, y1, seed, n = 48) {
   for (let i = 0; i <= n; i++) { const u = i / n; const y = lerp(y0, y1, Math.pow(u, 1.2)) + (Math.sin(u * 14 + seed) * 9 + (r() - 0.5) * 10) * Math.sin(u * Math.PI) * 1.2; pts.push([lerp(x0, x1, u), y]); }
   return curva(pts, 300);
 }
-const GX0 = 950, GX1 = 1690, GY = { ouroA: 650, ouroB: 300, azulA: 745, azulB: 445, verdeA: 805, verdeB: 545 };
+const GX0 = 950, GX1 = 1690, GY = { ouroA: 650, ouroB: 380, azulA: 745, azulB: 500, verdeA: 805, verdeB: 600 };
 const S_OURO = serie(GX0, GY.ouroA, GX1, GY.ouroB, 3), S_AZUL = serie(GX0, GY.azulA, GX1, GY.azulB, 5), S_VERDE = serie(GX0, GY.verdeA, GX1, GY.verdeB, 7);
+// rumo além do gráfico: trajetória projetada do foguete (2027 · 2028 · 2029) e bandeiras dos anos
+const EXT = curva([[GX1, GY.ouroB], [1728, 335], [1762, 272], [1792, 200], [1812, 142]], 80);
+const ANOS = [['2027', 0.18, 46, 18], ['2028', 0.55, 46, 16], ['2029', 0.9, -52, -2]];
+const bandeira = (txt, x, y, k) => g(`translate(${F(x)} ${F(y)}) scale(${F(k)})`, `<rect x="-31" y="-13" width="62" height="26" rx="13" fill="rgba(7,17,42,.88)" stroke="${COR.ouro}" stroke-width="1.5"/>` + T(txt, 0, 5, 14, { w: 800, fill: COR.ouro2, ls: 1 }));
+// foguete cartoon (eixo para +x): corpo branco com o logo A&M, bico e aletas vermelhos, chamas animadas e um astronauta
+// montado acenando, com o rosto do Antonialli na viseira
+function foguete(L) {
+  const O = `stroke="#0b1a38" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"`;
+  const membro = (d) => `<path d="${d}" stroke="#0b1a38" stroke-width="15" fill="none" stroke-linecap="round"/><path d="${d}" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/>`;
+  const fl = 1 + 0.22 * Math.sin(L * 23) + 0.1 * Math.sin(L * 37), wave = Math.sin(L * 5) * 12;
+  let r = '';
+  // chamas
+  r += g(`translate(-80 0) scale(${F(fl)} 1)`, `<path d="M0 -16 Q-44 -10 -66 0 Q-44 10 0 16 Z" fill="#f08a2c" ${O}/><path d="M0 -10 Q-28 -6 -42 0 Q-28 6 0 10 Z" fill="#ffd84d"/><path d="M0 -5 Q-13 -3 -20 0 Q-13 3 0 5 Z" fill="#fff"/>`);
+  // perna de trás do astronauta e mochila (atrás do corpo do foguete)
+  r += membro('M-12 -46 L-30 -22') + `<circle cx="-31" cy="-20" r="7" fill="#fff" ${O}/>`;
+  r += `<rect x="-38" y="-86" width="16" height="34" rx="5" fill="#c9d3e6" ${O}/>`;
+  // aletas e corpo
+  r += `<path d="M-62 -22 L-98 -52 L-80 -16 Z" fill="#e23b3b" ${O}/><path d="M-62 22 L-98 52 L-80 16 Z" fill="#e23b3b" ${O}/>`;
+  r += `<path d="M-74 -26 H40 Q72 -26 96 0 Q72 26 40 26 H-74 Q-82 26 -82 18 V-18 Q-82 -26 -74 -26 Z" fill="#fff" ${O}/>`;
+  r += `<path d="M40 -26 Q72 -26 96 0 Q72 26 40 26 Q54 0 40 -26 Z" fill="#e23b3b" ${O}/>`;
+  r += `<rect x="-82" y="-26" width="14" height="52" rx="4" fill="#c9d3e6" ${O}/>`;
+  r += `<path d="M-60 -17 H28" stroke="#e3e9f5" stroke-width="4" stroke-linecap="round" opacity=".9"/>`;
+  r += logoImg('logo-alvarez-marsal', -30, 2, 24, 48);
+  r += `<circle cx="18" cy="0" r="16" fill="#e23b3b" ${O}/><circle cx="18" cy="0" r="10" fill="#4a8cff"/><circle cx="14" cy="-4" r="3" fill="#fff" opacity=".8"/>`;
+  // astronauta: tronco, braços, perna da frente, capacete com a viseira
+  r += `<rect x="-26" y="-88" width="34" height="48" rx="11" fill="#fff" ${O}/><rect x="-16" y="-72" width="14" height="10" rx="2" fill="#4a8cff" ${O} stroke-width="2"/>`;
+  r += g(`rotate(${F(wave)} -20 -76)`, membro('M-20 -76 L-40 -104') + `<circle cx="-42" cy="-107" r="7" fill="#fff" ${O}/>`);
+  r += membro('M2 -74 L26 -46') + `<circle cx="28" cy="-44" r="7" fill="#fff" ${O}/>`;
+  r += membro('M-2 -46 L12 -20') + `<circle cx="13" cy="-18" r="7" fill="#fff" ${O}/>`;
+  r += `<circle cx="-9" cy="-106" r="26" fill="#fff" ${O}/><clipPath id="azVisor"><circle cx="-6" cy="-105" r="18"/></clipPath><circle cx="-6" cy="-105" r="18" fill="#1b2a4a" ${O}/>`;
+  r += `<g clip-path="url(#azVisor)">${imagem('antonialli_rosto', -6 - 23, -105 - 24, 46, 46)}</g><circle cx="-6" cy="-105" r="18" fill="none" stroke="#0b1a38" stroke-width="3"/><ellipse cx="-14" cy="-116" rx="5" ry="2.5" fill="#fff" opacity=".8" transform="rotate(-30 -14 -116)"/>`;
+  return r;
+}
 const MARCOS = [['unimed', 0.03], ['funed', 0.16], ['caoa', 0.30], ['john-deere', 0.44], ['hughes', 0.58], ['libercon', 0.73]];
 
 export function rumo(L, t, dur) {
@@ -254,28 +287,45 @@ export function rumo(L, t, dur) {
   // barras miúdas
   const r = rng(9);
   for (let i = 0; i < 44; i++) { const h = 8 + r() * 30, c = ['#3d5a86', COR.verde, COR.vermelho, COR.ouro][i % 4]; gpanel += `<rect x="${F(950 + i * 18.5)}" y="${F(884 - h)}" width="10" height="${F(h)}" rx="2" fill="${c}" opacity="${F(0.55 * ease.out(inv(0.6 + i * 0.03, 1.0 + i * 0.03, L)))}"/>`; }
-  // séries
-  const uO = ease.out(inv(tRumo - 0.5, tRumo + 3.6, t)), uA = ease.out(inv(tRumo - 0.1, tRumo + 4.0, t)), uV = ease.out(inv(tRumo + 0.3, tRumo + 4.4, t));
+  // séries: a linha de ouro é traçada pelo foguete, devagar, até "Em 2027"; as outras seguem logo atrás
+  const sm = u => u * u * (3 - 2 * u);
+  const uO = sm(clamp(inv(tRumo - 0.3, tEm - 0.5, t))), uA = sm(clamp(inv(tRumo + 0.1, tEm - 0.2, t))), uV = sm(clamp(inv(tRumo + 0.4, tEm + 0.1, t)));
   const linhaS = (S, u, cor, w) => `<path d="${S.d}" stroke="${cor}" stroke-width="${w * 3}" fill="none" opacity=".16" filter="url(#azBrilhoP)" stroke-dasharray="${F(u * S.comp)} 9999"/><path d="${S.d}" stroke="${cor}" stroke-width="${w}" fill="none" stroke-linecap="round" stroke-dasharray="${F(u * S.comp)} 9999"/>`;
   // área sob a linha de ouro
   if (uO > 0) { const p = S_OURO.ponto(uO); gpanel += `<clipPath id="azClipO"><rect x="${GX0}" y="0" width="${F(p[0] - GX0)}" height="1080"/></clipPath><path d="${S_OURO.d} L${GX1} 890 L${GX0} 890 Z" fill="${COR.ouro}" opacity=".08" clip-path="url(#azClipO)"/>`; }
   gpanel += linhaS(S_VERDE, uV, COR.verde, 4) + linhaS(S_AZUL, uA, COR.azulClaro, 4) + linhaS(S_OURO, uO, COR.ouro2, 5);
-  for (const [S, u, cor] of [[S_VERDE, uV, COR.verde], [S_AZUL, uA, COR.azulClaro], [S_OURO, uO, COR.ouro2]]) { const p = S.ponto(u); if (u > 0) gpanel += brilhoPonto(p[0], p[1], u < 1 ? 6 : 8, u < 1 ? '#fff' : cor, 1); }
-  // marcos com logos na linha de ouro
+  for (const [S, u, cor] of [[S_VERDE, uV, COR.verde], [S_AZUL, uA, COR.azulClaro]]) { const p = S.ponto(u); if (u > 0) gpanel += brilhoPonto(p[0], p[1], u < 1 ? 6 : 8, u < 1 ? '#fff' : cor, 1); }
+  // marcos com logos na linha de ouro (acima da linha, fora do caminho do foguete)
   MARCOS.forEach(([lg, um], i) => {
     if (uO < um) return;
     const p = S_OURO.ponto(um), k = ease.back(inv(0, 0.4, (uO - um) * 4.2 + 0.0001));
-    const alto = [-70, -165, -70, -175, -70, -168][i];   // alternado e compensando a subida da curva: cartões vizinhos nunca se tocam
+    const alto = [-136, -222, -136, -230, -136, -222][i];
     gpanel += `<line x1="${F(p[0])}" y1="${F(p[1])}" x2="${F(p[0])}" y2="${F(p[1] + alto + 22)}" stroke="rgba(230,183,94,.5)" stroke-width="1.5"/><circle cx="${F(p[0])}" cy="${F(p[1])}" r="5" fill="${COR.ouro2}" stroke="#fff" stroke-width="1.5"/>`;
     gpanel += logoPilula('logo-' + lg, p[0], p[1] + alto, 136, 42, k);
   });
   gpanel += op(ease.out(inv(tRumo - 0.2, tRumo + 0.4, t)), T('R$ 7 MM · FY26', GX0, GY.ouroA + 40, 15, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 1.5 }) + T('6 PROJETOS', GX0, GY.azulA + 36, 14, { w: 800, fill: COR.claro, anchor: 'start', ls: 1.5 }) + T('20 PESSOAS', GX0, GY.verdeA + 36, 14, { w: 800, fill: COR.claro, anchor: 'start', ls: 1.5 }));
-  const kf = ease.out(inv(tRumo + 3.3, tRumo + 3.9, t));
-  gpanel += op(kf, T('COLLECTIONS FY27', GX1 + 22, GY.ouroB - 10, 12, { w: 800, fill: COR.mudo, anchor: 'start', ls: 1.4 }) + T('R$ 9 MM', GX1 + 22, GY.ouroB + 20, 26, { w: 900, fill: COR.ouro2, anchor: 'start' }));
-  gpanel += op(ease.out(inv(tRumo + 3.7, tRumo + 4.3, t)), T('MAIS', GX1 + 26, GY.azulB - 2, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }) + T('PROJETOS', GX1 + 26, GY.azulB + 16, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }));
-  gpanel += op(ease.out(inv(tRumo + 4.1, tRumo + 4.7, t)), T('PARCERIA', GX1 + 26, GY.verdeB - 2, 13, { w: 800, fill: COR.verde, anchor: 'start', ls: 2 }) + T('EM EXPANSÃO', GX1 + 26, GY.verdeB + 16, 13, { w: 800, fill: COR.verde, anchor: 'start', ls: 2 }));
-  const k27 = ease.back(inv(tEm - 0.1, tEm + 0.5, t));
-  if (k27 > 0) gpanel += g(`translate(1770 200) scale(${F(k27)})`, `<rect x="-70" y="-30" width="140" height="56" rx="12" fill="${COR.ouro}" opacity=".18"/>` + T('2027', 0, 14, 44, { w: 900, fill: COR.ouro2 }));
+  const kf = ease.out(inv(tEm - 0.6, tEm - 0.1, t));
+  gpanel += op(kf, T('COLLECTIONS FY27', GX1 + 22, GY.ouroB + 26, 12, { w: 800, fill: COR.mudo, anchor: 'start', ls: 1.4 }) + T('R$ 9 MM', GX1 + 22, GY.ouroB + 56, 26, { w: 900, fill: COR.ouro2, anchor: 'start' }));
+  gpanel += op(ease.out(inv(tEm - 0.2, tEm + 0.3, t)), T('MAIS', GX1 + 26, GY.azulB - 2, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }) + T('PROJETOS', GX1 + 26, GY.azulB + 16, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }));
+  gpanel += op(ease.out(inv(tEm + 0.1, tEm + 0.6, t)), T('PARCERIA', GX1 + 26, GY.verdeB - 2, 13, { w: 800, fill: COR.verde, anchor: 'start', ls: 2 }) + T('EM EXPANSÃO', GX1 + 26, GY.verdeB + 16, 13, { w: 800, fill: COR.verde, anchor: 'start', ls: 2 }));
+  // rumo além do gráfico: trajetória projetada (tracejada) que o foguete vai percorrendo, com as bandeiras dos anos
+  const uX = sm(clamp(inv(tEm - 0.5, tForte + 0.7, t)));
+  if (uO >= 1) gpanel += `<path d="${EXT.d}" stroke="${COR.ouro}" stroke-width="2" fill="none" stroke-dasharray="4 9" opacity=".5"/>`;
+  if (uX > 0) gpanel += `<path d="${EXT.d}" stroke="${COR.ouro2}" stroke-width="15" fill="none" opacity=".16" filter="url(#azBrilhoP)" stroke-dasharray="${F(uX * EXT.comp)} 9999"/><path d="${EXT.d}" stroke="${COR.ouro2}" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="${F(uX * EXT.comp)} 9999"/>`;
+  ANOS.forEach(([ano, ua, ox, oy]) => {
+    if (uX < ua) return;
+    const p = EXT.ponto(ua), k = ease.back(clamp((uX - ua) * 5));
+    gpanel += `<circle cx="${F(p[0])}" cy="${F(p[1])}" r="5" fill="${COR.ouro2}" stroke="#fff" stroke-width="1.5"/><line x1="${F(p[0])}" y1="${F(p[1])}" x2="${F(p[0] + ox * 0.55)}" y2="${F(p[1] + oy * 0.55)}" stroke="rgba(230,183,94,.6)" stroke-width="1.5"/>` + bandeira(ano, p[0] + ox, p[1] + oy, k);
+  });
+  // o foguete: na cabeça da linha de ouro e, depois, na trajetória projetada; termina pairando no alto
+  if (uO > 0) {
+    const noExt = uO >= 1, S = noExt ? EXT : S_OURO, u = noExt ? uX : uO;
+    const p = S.ponto(u), a0 = S.ponto(Math.max(0, u - 0.015)), b0 = S.ponto(Math.min(1, u + 0.015));
+    const ang = Math.atan2(b0[1] - a0[1], b0[0] - a0[0]) * 180 / Math.PI;
+    const bob = (noExt && u >= 1) ? 4 * Math.sin(L * 2.2) : 2.5 * Math.sin(L * 3.1);
+    for (let j = 1; j <= 10; j++) { const q = u - j * 0.012; if (q <= 0) break; const pp = S.ponto(q); gpanel += `<circle cx="${F(pp[0])}" cy="${F(pp[1])}" r="${F(5.5 - j * 0.45)}" fill="${j % 2 ? COR.ouro2 : '#fff'}" opacity="${F(0.55 - j * 0.05)}"/>`; }
+    gpanel += g(`translate(${F(p[0])} ${F(p[1] + bob)}) rotate(${F(ang)}) scale(0.9)`, foguete(L));
+  }
   s += op(kp, g(tr(0, 20 * (1 - kp)), gpanel));
   // bloco da esquerda: RUMO A 2027 + chips; depois o lockup "JUNTOS, CONSTRUINDO O PRÓXIMO CAPÍTULO"
   const troca = ease.inOut(inv(tEm - 0.5, tEm + 0.2, t)), sai = ease.in(inv(tEm - 0.55, tEm - 0.2, t)), vem = ease.out(inv(tEm - 0.15, tEm + 0.25, t));

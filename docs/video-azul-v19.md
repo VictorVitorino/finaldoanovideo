@@ -33,13 +33,13 @@ Personagens: mascotes TOTVS e A&M e Antonialli líder de `assets/personagens/nov
 | Desafio do ERP | 53,6–64,47 | "Principais desafios de uma implantação de ERP": Antonialli (3D padrão) à esquerda; painel se constrói, núcleo ERP, conectores curvos do núcleo a cada nó (tracejados e inquietos na "complexidade", sólidos e luminosos quando o nó acende, verdes com fluxo em "juntos"), ícones animados |
 | Farol A&M | 64,47–71,1 | holofote na cidade, logo A&M projetado com as três frases ao lado (Gente que entende do jogo · Confiança que impulsa · Núcleo de excelência em performance), mascote A&M entra em "chamar" |
 | União | 71,1–80 | feixes azul/laranja, "TECNOLOGIA + GESTÃO" |
-| Papéis complementares | 80–90 | mandala: dois anéis entrelaçados (TOTVS azul, A&M dourado, R 290) com os logos grandes nas laterais e a descrição de cada lado; itens (16 px) com folga das bordas entrando por máscara; lente estreita só com "Atuação Conjunta · Refinamento de Processos (MIT)"; os cinco itens da atuação conjunta numa fileira de chips sob a mandala; título pequeno no topo |
+| Papéis complementares | 80–90 | mandala: dois anéis entrelaçados (TOTVS azul, A&M dourado, R 290; o arco azul do entrelaçamento usa sweep 0 para ficar sobre o próprio anel) com os logos grandes nas laterais e a descrição de cada lado; itens (16 px) com folga das bordas entrando por máscara; lente estreita só com "Atuação Conjunta · Refinamento de Processos (MIT)"; os cinco itens da atuação conjunta numa fileira de chips sob a mandala; título pequeno no topo |
 | Metodologia Integrada A&M e TOTVS | 90–112,6 | título "METODOLOGIA INTEGRADA A&M E TOTVS · 6 FASES, E UMA ÚNICA JORNADA"; quadro mais baixo, afastado do título e compacto; ícone da etapa ativa pulsa, burst ao acender, anel girando no elo ativo, energia correndo pela linha; seis chevrons; câmera acompanha a etapa narrada e volta à visão geral em "Com metodologias" |
-| TMO em três círculos | 112,6–119,7 | círculos entram, disco TMO, rodapé qualidade · previsibilidade · resultados |
+| TMO em três círculos | 112,6–119,7 | os três círculos vêm de cima e dos cantos e se unem (onda de choque); o disco TMO emerge do centro com clarão, faíscas e anéis; rodapé qualidade · previsibilidade · resultados |
 | Original (liderança e equipe) | 119,2–128,1 | trecho do v18 sem alteração (dissolve de 0,5 s na entrada e de 0,8 s na saída, para a linha do tempo) |
 | Linha do tempo | 127,3–143,13 | trilha com seis projetos, cartões e avatares, "Argentina", título |
-| Cockpit · Xray · IA | 143,13–156 | três painéis (IA · Testes · Cockpit, da esquerda para a direita) com pan de câmera na ordem da narração, entrada por máscara e brilho no painel em foco; Vinicius (busto novo, sem a antena) |
-| Rumo a 2027 | 156–170,07 | gráfico de crescimento (sem o indicador "R$" fantasma do v18), marcos com logos, chips, "2027" e fechamento |
+| Cockpit · Xray · IA | 143,13–156 | três painéis (IA · Testes · Cockpit, da esquerda para a direita) com pan de câmera na ordem da narração, entrada por máscara e brilho no painel em foco; Vinicius (busto novo, sem a antena, 400 px, fora dos painéis) |
+| Rumo a 2027 | 156–170,07 | gráfico de crescimento traçado devagar por um foguete cartoon (logo A&M no corpo, astronauta com o rosto do Antonialli na viseira, chamas e rastro); marcos com logos acima da linha; ao fim do gráfico o foguete segue subindo por uma trajetória projetada com as bandeiras 2027 · 2028 · 2029 e paira no alto; chips e fechamento |
 
 ## Rodar
 

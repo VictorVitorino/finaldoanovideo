@@ -50,7 +50,7 @@ export function papeis(L, t, dur) {
   v += `<circle cx="${cxD}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ouro2}" stroke-width="3" opacity=".9" stroke-dasharray="${F(draw * TAU * R)} 3000" transform="rotate(90 ${cxD} ${cy})"/>`;
   // entrelaçamento: o anel dourado passa por cima na metade de cima e por baixo na de baixo
   v += op(draw, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="rgba(90,130,210,${F(0.30 + 0.30 * lens + 0.12 * time * pulso)})"/></g>`);
-  v += op(draw, `<path d="M${F(cxD - R)} ${cy} A${R} ${R} 0 0 1 ${F(cxD)} ${F(cy - R)}" fill="none" stroke="${COR.ouro2}" stroke-width="3" opacity=".9"/><path d="M${F(cxE)} ${F(cy + R)} A${R} ${R} 0 0 1 ${F(cxE + R)} ${cy}" fill="none" stroke="${COR.azulClaro}" stroke-width="3" opacity=".9"/>`);
+  v += op(draw, `<path d="M${F(cxD - R)} ${cy} A${R} ${R} 0 0 1 ${F(cxD)} ${F(cy - R)}" fill="none" stroke="${COR.ouro2}" stroke-width="3" opacity=".9"/><path d="M${F(cxE)} ${F(cy + R)} A${R} ${R} 0 0 0 ${F(cxE + R)} ${cy}" fill="none" stroke="${COR.azulClaro}" stroke-width="3" opacity=".9"/>`);
   if (lens > 0) v += op(lens, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g><g clip-path="url(#azLensD)"><circle cx="${cxE}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g>`);
   // logos grandes nas laterais, fora dos anéis, com a descrição de cada lado
   const kl = sobe(L, 0.8, 0.5), kd = sobe(L, tProg - 0.2 - (t - L), 0.6);
@@ -200,19 +200,26 @@ export function tmo(L, t, dur) {
   let v = '';
   // anel pontilhado girando
   v += `<circle cx="960" cy="560" r="${F(R * 1.9)}" fill="none" stroke="rgba(108,196,255,.18)" stroke-width="1.5" stroke-dasharray="4 14" transform="rotate(${F(L * 6)} 960 560)"/>`;
+  // os três círculos vêm dos cantos (cima, baixo-esquerda, baixo-direita) e se unem no centro
+  const ORIG = [[960, -340], [60, 1080], [1860, 1080]];
   C.forEach(([cx, cy, cor, l1, l2, t0], i) => {
-    const k = ease.back(inv(t0, t0 + 0.7, L));
-    if (k <= 0) return;
+    const k = ease.inOut(inv(t0, t0 + 1.2, L)); if (k <= 0) return;
+    const x = lerp(ORIG[i][0], cx, k), y = lerp(ORIG[i][1], cy, k), sc = lerp(0.5, 1, k);
     const a = ((i * 120) + L * 20) * Math.PI / 180;
-    v += g(`translate(${cx} ${cy}) scale(${F(k)})`, `<circle r="${R}" fill="${cor}" opacity=".78"/><circle r="${R}" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.5"/>`
-      + `<circle r="${F(R - 10)}" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"/>`
-      + `<circle cx="${F(Math.cos(a) * R)}" cy="${F(Math.sin(a) * R)}" r="4" fill="#fff" opacity=".8"/>`);
     const ang = i === 0 ? -28 : i === 1 ? 62 : -62;
-    const tx = i === 0 ? cx - 20 : i === 1 ? cx - 110 : cx + 110, ty = i === 0 ? cy - 120 : cy + 90;
-    v += op(clamp((k - 0.55) / 0.4), g(`translate(${cx} ${cy}) scale(${F(Math.min(k, 1.03))}) translate(${-cx} ${-cy}) translate(${F(tx)} ${F(ty)}) rotate(${ang})`, T(l1, 0, l2 ? -8 : 10, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) + (l2 ? T(l2, 0, 26, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) : '')));
+    const dx = i === 0 ? -20 : i === 1 ? -110 : 110, dy = i === 0 ? -120 : 90;
+    v += g(`translate(${F(x)} ${F(y)}) scale(${F(sc)})`, `<circle r="${R}" fill="${cor}" opacity=".78"/><circle r="${R}" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.5"/><circle r="${F(R - 10)}" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"/><circle cx="${F(Math.cos(a) * R)}" cy="${F(Math.sin(a) * R)}" r="4" fill="#fff" opacity=".8"/>`
+      + op(clamp((k - 0.6) / 0.35), g(`translate(${dx} ${dy}) rotate(${ang})`, T(l1, 0, l2 ? -8 : 10, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) + (l2 ? T(l2, 0, 26, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) : ''))));
   });
-  const kc = ease.back(inv(0.95, 1.55, L)), pul = 1 + 0.02 * Math.sin(L * 3);
-  v += g(`translate(960 548) scale(${F(kc * pul)})`, `<circle r="130" fill="#fff" opacity=".25" filter="url(#azBrilho)"/><circle r="118" fill="#eef3fb"/><circle r="118" fill="none" stroke="#fff" stroke-width="3"/>` + T('TMO', 0, 22, 62, { w: 900, fill: '#0b2a5c', ls: 2 }));
+  // encontro: onda de choque quando o último círculo chega
+  const tU = C[2][5] + 1.2, ondaU = clamp(inv(tU - 0.1, tU + 0.7, L));
+  if (ondaU > 0 && ondaU < 1) v += `<circle cx="960" cy="548" r="${F(40 + 260 * ondaU)}" fill="none" stroke="#fff" stroke-width="3" opacity="${F(0.7 * (1 - ondaU))}"/>`;
+  // o disco TMO emerge do centro: clarão, faíscas, anéis que se expandem
+  const tD = tU + 0.35, kc = ease.back(inv(tD, tD + 0.7, L)), pul = 1 + 0.02 * Math.sin(L * 3), gl = clamp(inv(tD - 0.2, tD + 0.6, L));
+  if (gl > 0 && gl < 1) v += `<circle cx="960" cy="548" r="${F(60 + 220 * gl)}" fill="url(#azLuz)" opacity="${F(0.9 * Math.sin(gl * Math.PI))}"/>`;
+  if (kc > 0) { const rr = rng(21), q = clamp(inv(tD + 0.05, tD + 0.9, L)); for (let j = 0; j < 20; j++) { const a2 = rr() * TAU, d = 110 + 160 * ease.out(q) * (0.7 + 0.3 * rr()); v += `<circle cx="${F(960 + Math.cos(a2) * d)}" cy="${F(548 + Math.sin(a2) * d)}" r="${F(2 + 2.5 * rr())}" fill="${j % 3 ? '#fff' : COR.ouro2}" opacity="${F((1 - q) * 0.9)}"/>`; } }
+  for (let j = 0; j < 3; j++) { const q = clamp(inv(tD + 0.25 + j * 0.18, tD + 1.15 + j * 0.18, L)); if (q > 0 && q < 1) v += `<circle cx="960" cy="548" r="${F(118 + 160 * q)}" fill="none" stroke="#fff" stroke-width="2" opacity="${F(0.6 * (1 - q))}"/>`; }
+  if (kc > 0) v += g(`translate(960 548) scale(${F(kc * pul)})`, `<circle r="130" fill="#fff" opacity=".25" filter="url(#azBrilho)"/><circle r="118" fill="#eef3fb"/><circle r="118" fill="none" stroke="#fff" stroke-width="3"/>` + T('TMO', 0, 22, 62, { w: 900, fill: '#0b2a5c', ls: 2 }));
   // rodapé que acende com a narração
   const pal = [['QUALIDADE', tQ], ['PREVISIBILIDADE', tP], ['RESULTADOS REAIS', tR]];
   const sizes = pal.map(([p]) => larg(p, 17, 800) + 17 * 5), total = sizes.reduce((a, b) => a + b, 0) + 2 * 70;

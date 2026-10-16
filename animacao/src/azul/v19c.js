@@ -1,6 +1,6 @@
 // v19 · cenas 11 a 13: linha do tempo dos seis projetos, cockpit/testes/IA com Vinicius e Rumo a 2027.
 import { clamp, lerp, inv, ease, rng, tr, g, op, TAU } from '../core.js';
-import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, fundo, vinheta, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, avatar, palavra } from './base.js';
+import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, fundo, vinheta, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, avatar, palavra } from './base.js';
 
 // curva suave (Catmull-Rom) por pontos; devolve amostras com comprimento acumulado
 function curva(pts, n = 240) {
@@ -61,7 +61,7 @@ export function linha(L, t, dur) {
   const head = TRILHA.ponto(u);
   const segue = 1 - ease.inOut(inv(tH - 0.6, tH + 0.4, t));
   // deriva suave atrás da cabeça do caminho, limitada para que nenhum cartão já apresentado saia do quadro
-  const camx = clamp(lerp(960, head[0], 0.3 * segue), 961, 1004), zoom = 1 + 0.012 * segue * ease.out(inv(0.3, 1.2, L));
+  const camx = clamp(lerp(960, head[0], 0.3 * segue), 955, 976), zoom = 1 + 0.012 * segue * ease.out(inv(0.3, 1.2, L));
   let v = '';
   // marca d'água "2026"
   v += T('2026', 960, 720, 420, { w: 900, fill: 'rgba(255,255,255,.035)', ls: 10 });
@@ -183,7 +183,8 @@ function painelIA(L, t, t0) {
     let r = `<rect x="30" y="192" width="${PW - 60}" height="330" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.14)"/><rect x="30" y="192" width="5" height="330" rx="2" fill="${COR.ouro}"/>`;
     r += sparkle(70, 232, 14, COR.ouro);
     const chips = [['Métodos', COR.azulClaro, 'rgba(59,130,246,.25)'], ['Skills', COR.ouro, 'rgba(230,183,94,.25)'], ['QA das MITs', COR.verde, 'rgba(67,209,169,.25)']]; let cx = 100;
-    chips.forEach(([tx, cor, fill], i) => { const w = chipW(tx, 20); const q = ease.back(inv(t0 + 2.4 + i * 0.15, t0 + 2.8 + i * 0.15, t)); if (q > 0) r += g(`translate(${F(cx + w / 2)} 232) scale(${F(q)})`, chip(tx, 0, 0, { size: 20, cor, fill })); cx += w + 14; });
+    const tChip = [palavra('l26', 5), palavra('l26', 8), palavra('l26', 8) + 0.35];   // métodos · skills · QA das MITs
+    chips.forEach(([tx, cor, fill], i) => { const w = chipW(tx, 20); const q = ease.back(inv(tChip[i] - 0.05, tChip[i] + 0.35, t)); if (q > 0) r += g(`translate(${F(cx + w / 2)} 232) scale(${F(q)})`, chip(tx, 0, 0, { size: 20, cor, fill })); cx += w + 14; });
     ['Governança', 'Automação', 'Escala'].forEach((tx, i) => { const q = ease.back(inv(t0 + 2.9 + i * 0.35, t0 + 3.3 + i * 0.35, t)); if (q > 0) r += g(`translate(76 ${300 + i * 68}) scale(${F(q)})`, `<circle r="16" fill="rgba(60,207,110,.18)" stroke="${COR.verde2}" stroke-width="2"/><path d="M-7 0 l5 5 l10 -11" stroke="${COR.verde2}" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`) + op(clamp(q * 1.5), T(tx, 110, 308 + i * 68, 24, { ...OS, w: 600, fill: '#fff', anchor: 'start' })); });
     c += op(kr, g(tr(0, 10 * (1 - kr)), r));
   }
@@ -200,7 +201,7 @@ export function cockpit(L, t, dur) {
   let camx = cxP[0], esc = 1;
   for (let i = 1; i < 3; i++) { const u = ease.inOut(inv(tP[i] - 0.4, tP[i] + 0.4, t)); camx = lerp(camx, cxP[i], u); }
   const abre = ease.inOut(inv(tTec - 0.3, tTec + 0.8, t));
-  camx = lerp(camx, cxP[1], abre); esc = lerp(1, 0.46, abre);
+  camx = lerp(camx, cxP[1], abre); esc = lerp(1, 0.38, abre);
   let v = '';
   // conectores entre painéis
   for (let i = 0; i < 2; i++) { const q = ease.out(inv(tP[i + 1] - 0.3, tP[i + 1] + 0.2, t)); v += `<line x1="${PX[i] + PW}" y1="${PY + PH / 2}" x2="${F(lerp(PX[i] + PW, PX[i + 1], q))}" y2="${PY + PH / 2}" stroke="rgba(108,196,255,.6)" stroke-width="2" stroke-dasharray="3 8"/>` + brilhoPonto(PX[i] + PW, PY + PH / 2, 5, COR.ciano, q) + (q >= 1 ? brilhoPonto(PX[i + 1], PY + PH / 2, 5, COR.ciano, 1) : ''); }
@@ -208,16 +209,16 @@ export function cockpit(L, t, dur) {
   pains.forEach((fn, i) => {
     const q = ease.out(inv(tP[i], tP[i] + 0.6, t)); if (q <= 0) return;
     // painel fora do foco da câmera esmaece (não fica aparecendo atrás do personagem); todos voltam na visão geral
-    const longe = Math.min(1, Math.abs(camx - cxP[i]) / PW), vis = lerp(lerp(1, 0.08, longe), 1, abre);
+    const longe = Math.min(1, Math.abs(camx - cxP[i]) / (PW * 0.8)), vis = lerp(1 - longe, 1, abre);
     v += op(q * vis, g(`translate(${PX[i]} ${F(PY + 30 * (1 - q))})`, fn(L, t, tP[i])));
   });
   // brilho final em "Tecnologia a serviço da qualidade"
   const fin = Math.sin(clamp(inv(tQual - 0.6, tQual + 1.0, t)) * Math.PI);
   if (fin > 0) v += `<rect x="${PX[0] - 40}" y="${PY - 40}" width="${F(PX[2] + PW - PX[0] + 80)}" height="${PH + 80}" rx="40" fill="none" stroke="${COR.ouro}" stroke-width="4" opacity="${F(0.6 * fin)}"/>`;
-  s += g(`translate(1060 ${F(lerp(470, 520, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
+  s += g(`translate(${F(lerp(1060, 1160, abre))} ${F(lerp(470, 520, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
   // Vinicius à esquerda, no padrão 3D, apresentando
-  const hv = 560, ev = entra(L, 0.1, 0.8);
-  s += g(tr(-320 * (1 - ev), 0), pessoa('vinicius', 20 + largPessoa('vinicius', hv) / 2, 1110, hv, L, { halo: COR.azul, haloA: 0.12 }));
+  const hv = 560, ev = sobe(L, 0.03, 0.9), cxV = 20 + largPessoa('vinicius', hv) / 2;
+  s += g(tr(-foraEsq('vinicius', cxV, hv) * (1 - ev), 0), pessoa('vinicius', cxV, 1110, hv, L, { halo: COR.azul, haloA: 0.12 }));
   const kn = sobe(L, 0.8, 0.5);
   s += op(kn, g(`translate(${F(20 + largPessoa('vinicius', hv) + 40)} 780)`, pilula('Vinicius de Sousa', 0, 0, { fill: 'rgba(7,17,42,.8)', stroke: 'rgba(255,255,255,.25)', size: 17, fam: 'Open Sans', w: 700, icone: `<circle r="4" fill="${COR.ciano}"/>` })));
   return s + vinheta(0.6);
@@ -231,7 +232,7 @@ function serie(x0, y0, x1, y1, seed, n = 48) {
 }
 const GX0 = 950, GX1 = 1690, GY = { ouroA: 650, ouroB: 300, azulA: 745, azulB: 445, verdeA: 805, verdeB: 545 };
 const S_OURO = serie(GX0, GY.ouroA, GX1, GY.ouroB, 3), S_AZUL = serie(GX0, GY.azulA, GX1, GY.azulB, 5), S_VERDE = serie(GX0, GY.verdeA, GX1, GY.verdeB, 7);
-const MARCOS = [['unimed', 0.03], ['funed', 0.17], ['caoa', 0.31], ['john-deere', 0.45], ['hughes', 0.59], ['libercon', 0.74]];
+const MARCOS = [['unimed', 0.03], ['funed', 0.16], ['caoa', 0.30], ['john-deere', 0.44], ['hughes', 0.58], ['libercon', 0.73]];
 
 export function rumo(L, t, dur) {
   let s = fundo(t, { bokeh: 1.1 });
@@ -257,7 +258,7 @@ export function rumo(L, t, dur) {
   MARCOS.forEach(([lg, um], i) => {
     if (uO < um) return;
     const p = S_OURO.ponto(um), k = ease.back(inv(0, 0.4, (uO - um) * 4.2 + 0.0001));
-    const alto = [-72, -62, -128, -64, -130, -72][i];
+    const alto = [-70, -165, -70, -175, -70, -168][i];   // alternado e compensando a subida da curva: cartões vizinhos nunca se tocam
     gpanel += `<line x1="${F(p[0])}" y1="${F(p[1])}" x2="${F(p[0])}" y2="${F(p[1] + alto + 22)}" stroke="rgba(230,183,94,.5)" stroke-width="1.5"/><circle cx="${F(p[0])}" cy="${F(p[1])}" r="5" fill="${COR.ouro2}" stroke="#fff" stroke-width="1.5"/>`;
     gpanel += logoPilula('logo-' + lg, p[0], p[1] + alto, 136, 42, k);
   });
@@ -270,14 +271,14 @@ export function rumo(L, t, dur) {
   if (k27 > 0) gpanel += g(`translate(1770 200) scale(${F(k27)})`, `<rect x="-70" y="-30" width="140" height="56" rx="12" fill="${COR.ouro}" opacity=".18"/>` + T('2027', 0, 14, 44, { w: 900, fill: COR.ouro2 }));
   s += op(kp, g(tr(0, 20 * (1 - kp)), gpanel));
   // bloco da esquerda: RUMO A 2027 + chips; depois o lockup "JUNTOS, CONSTRUINDO O PRÓXIMO CAPÍTULO"
-  const troca = ease.inOut(inv(tEm - 0.5, tEm + 0.2, t));
+  const troca = ease.inOut(inv(tEm - 0.5, tEm + 0.2, t)), sai = ease.in(inv(tEm - 0.55, tEm - 0.2, t)), vem = ease.out(inv(tEm - 0.15, tEm + 0.25, t));
   const kr = ease.out(inv(0.2, 0.9, L));
   let esq = '';
   esq += T('RUMO A', 100, 300, 104, { w: 900, fill: '#fff', anchor: 'start', ls: -2 }) + T('2027', 100 + larg('RUMO A ', 104, 900), 300, 104, { w: 900, fill: COR.ouro2, anchor: 'start', ls: -2 });
   const chips = [['MAIS PROJETOS', tMaisP, `<path d="M-9 -3 l9 -5 l9 5 l-9 5 Z M-9 2 l9 5 l9 -5" stroke="${COR.ouro2}" stroke-width="2" fill="none" stroke-linejoin="round"/>`], ['MAIS OPORTUNIDADES', tOp, `<path d="M0 -10 l2.5 7 l7 2.5 l-7 2.5 l-2.5 7 l-2.5 -7 l-7 -2.5 l7 -2.5 Z" fill="${COR.ouro2}"/>`], ['MAIS VALOR', tVal, `<path d="M-9 6 l6 -7 l5 4 l7 -9 M4 -6 h5 v5" stroke="${COR.ouro2}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`]];
   chips.forEach(([tx, t0, ico], i) => { const q = ease.back(inv(t0 - 0.15, t0 + 0.35, t)); if (q <= 0) return; const w = larg(tx, 18, 800) + 86 + tx.length * 3; esq += g(`translate(${F(100 + w / 2)} ${F(380 + i * 72)}) scale(${F(q)})`, pilula(tx, 0, 0, { fill: 'rgba(7,17,42,.75)', stroke: COR.ouro, size: 18, ls: 3, icone: ico, cor: '#fff' })); });
-  s += op(kr * (1 - troca), g(tr(-40 * troca, 0), esq));
-  if (troca > 0) {
+  if (sai < 1) s += op(kr * (1 - sai), g(tr(-40 * sai, 0), esq));
+  if (vem > 0) {
     let j = '';
     const cartao = (id, cx, h) => `<rect x="${F(cx - 110)}" y="-50" width="220" height="100" rx="20" fill="#fff"/>` + logoImg(id, cx, 0, h, 180);
     j += g('translate(0 190)', cartao('logo-alvarez-marsal', 210, 64) + T('+', 340, 12, 30, { w: 800, fill: COR.ouro }) + cartao('logo-totvs', 470, 46));
@@ -285,7 +286,7 @@ export function rumo(L, t, dur) {
     j += T('A&M + TOTVS  ·  PROJETO DO ANO FY26', 100, 420, 15, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 4 });
     const forte = Math.sin(clamp(inv(tForte - 0.3, tForte + 1.0, t)) * Math.PI);
     if (forte > 0) j += `<rect x="86" y="130" width="${F(690)}" height="320" rx="24" fill="${COR.ouro}" opacity="${F(0.08 * forte)}"/>`;
-    s += op(troca, g(tr(30 * (1 - troca), 0), j));
+    s += op(vem, g(tr(30 * (1 - vem), 0), j));
   }
   return s + vinheta(0.6);
 }

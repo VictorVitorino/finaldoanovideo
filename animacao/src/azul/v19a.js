@@ -219,7 +219,7 @@ export function dashboard(L, t, dur) {
   s += g(`translate(960 530) scale(${F(cam[2])}) translate(${F(-cam[0])} ${F(-cam[1])})`, painel);
   s += secao('RESULTADOS QUE FAZEM A DIFERENÇA', GR.x0, 64, L - 0.1);
   // personagens fixos nas laterais (não encobrem o painel na visão geral)
-  const eb = sobe(L, 0.15, 0.9), ea = sobe(L, 0.3, 0.9);
+  const eb = sobe(L, 0.5, 0.9), ea = sobe(L, 0.65, 0.9);
   s += g(tr(-foraEsq('totvs_boy', cxB, hB) * (1 - eb), 0), pessoa('totvs_boy', cxB, 1131, hB, L, { halo: '#3b82f6', haloA: 0.1 }));
   s += g(tr(foraDir('am_boy', cxA, hA) * (1 - ea), 0), pessoa('am_boy', cxA, 1126, hA, L, { halo: '#f08a2c', haloA: 0.1, fase: 1.6 }));
   return s + vinheta(0.7);
@@ -291,9 +291,9 @@ export function erp(L, t, dur) {
   // ERP central
   const ke = ease.back(inv(tERP - 0.35, tERP + 0.2, t)), pe = 1 + 0.05 * Math.sin(L * 3.5);
   pan += g(`translate(${cx} ${cy}) scale(${F(ke * pe)})`, `<circle r="84" fill="${COR.azul}" opacity=".35" filter="url(#azBrilho)"/><circle r="64" fill="#1f5fe0" stroke="#9cc6ff" stroke-width="3"/>` + T('ERP', 0, 15, 42, { w: 900, fill: '#fff' }));
-  s += op(kq, g(tr(0, 24 * (1 - kq)), pan));
+  s += op(kq * (1 - ease.in(inv(dur - 0.7, dur - 0.3, L))), g(tr(0, 24 * (1 - kq)), pan));   // o painel some antes do dissolve para o farol
   // personagem no padrão 3D (Antonialli líder) à esquerda, olhando para o painel
-  const hp = 600, ep = sobe(L, -0.2, 0.9), cxP = 36 + largPessoa('antonialli_lider', hp) / 2;
+  const hp = 600, ep = sobe(L, 0.02, 0.9), cxP = 36 + largPessoa('antonialli_lider', hp) / 2;
   s += g(tr(-foraEsq('antonialli_lider', cxP, hp) * (1 - ep), 0), pessoa('antonialli_lider', cxP, 1100, hp, L, { halo: '#f08a2c', haloA: 0.12 }));
   // reação "!" na complexidade
   const xR = 36 + largPessoa('antonialli_lider', hp) + 30, kEx = caos * clamp(1 - alinha * 3), kOk = clamp((alinha - 0.4) * 2.5);
@@ -325,10 +325,10 @@ export function farol(L, t, dur) {
   }
   // o mascote A&M entra em "quem entende do jogo"
   const ea = sobe(L, tQuem - 0.2 - (t - L), 0.9);
-  const ha = 560, cxA = 1900 - largPessoa('am_boy', ha) / 2;
+  const ha = 560, cxA = 1787;
   if (ea > 0) s += g(tr(foraDir('am_boy', cxA, ha) * (1 - ea), 0), pessoa('am_boy', cxA, 1120, ha, L, { halo: '#f08a2c' }));
   const kq = entra(L, tJogo - 0.2 - (t - L), 0.5);
-  if (kq > 0) s += g(`translate(${F(1900 - largPessoa('am_boy', ha) / 2 - 20)} 520) scale(${F(kq)})`, pilula('QUEM ENTENDE DO JOGO', 0, 0, { fill: COR.laranja, size: 20, ls: 3 }));
+  if (kq > 0) s += g(`translate(1690 520) scale(${F(kq)})`, pilula('QUEM ENTENDE DO JOGO', 0, 0, { fill: COR.laranja, size: 20, ls: 3 }));
   return s + vinheta(0.6);
 }
 
@@ -357,9 +357,9 @@ export function uniao(L, t, dur) {
   const r = rng(8);
   for (let j = 0; j < 30; j++) { const q = inv(tComp - 0.1, tComp + 1.2, t); if (q <= 0 || q >= 1) break; const a = r() * TAU, d = 40 + q * (160 + r() * 240); s += `<circle cx="${F(960 + Math.cos(a) * d)}" cy="${F(yE + Math.sin(a) * d * 0.7)}" r="${F(2 + r() * 3)}" fill="${j % 2 ? COR.ouro : '#fff'}" opacity="${F(1 - q)}"/>`; }
   // personagens
-  const cxM = 60 + largPessoa('totvs_boy', hm) / 2;
+  const cxM = 136;
   s += g(tr(-foraEsq('totvs_boy', cxM, hm) * (1 - em), 0), pessoa('totvs_boy', cxM, 1120, hm, L, { halo: COR.azul }));
-  s += pessoa('am_boy', 1900 - largPessoa('am_boy', hm) / 2, 1120, hm, L, { halo: '#f08a2c' });
+  s += pessoa('am_boy', 1787, 1120, hm, L, { halo: '#f08a2c' });
   // rótulos superiores
   const k1 = sobe(L, tT - 0.2 - (t - L), 0.5), k2 = sobe(L, tA - 0.2 - (t - L), 0.5), kp = entra(L, tA + 1.3 - (t - L), 0.5);
   let e1 = logoPilula('logo-totvs', 190, 170, 150, 66) + T('TOTVS', 290, 165, 32, { w: 900, fill: '#fff', anchor: 'start', ls: 1 }) + T('NA SOLUÇÃO', 290, 192, 14, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 4 })

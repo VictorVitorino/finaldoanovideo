@@ -77,14 +77,14 @@ export function papeis(L, t, dur) {
   const kt = entra(L, 0.1, 0.6);
   const titulo = g(`translate(960 128) scale(${F(lerp(0.9, 1 + 0.03 * time * pulso, kt))})`, vidro(-290, -48, 580, 96, { r: 20, brilho: 0.35 + 0.5 * time, corBrilho: COR.ouro }) + T('UM TIME', -256, -16, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 4 }) + T('PAPÉIS COMPLEMENTARES', -256, 22, 32, { w: 900, fill: '#fff', anchor: 'start' }) + g('translate(250 0)', `<path d="M0 -14 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 Z" fill="${COR.ouro}" opacity="${F(0.6 + 0.4 * pulso)}"/>`));
   v += op(clamp(kt * 2), titulo);
-  v += op(sobe(L, tTime - 0.3 - (t - L), 0.6), T('FRAMEWORK A&M × TOTVS · VISÃO INTEGRADA', 960, 912, 15, { w: 800, fill: COR.ouro2, ls: 6 }));
+  v += op(sobe(L, tMet - 0.2 - (t - L), 0.6), T('FRAMEWORK A&M × TOTVS · VISÃO INTEGRADA', 960, 896, 15, { w: 800, fill: COR.ouro2, ls: 6 }));
   // câmera: leve aproximação na lente durante "metodologia ... conecta"
   const z = lens * (1 - ease.inOut(inv(tTime - 0.2, tTime + 0.6, t)));
   s += g(`translate(960 560) scale(${F(1 + 0.06 * z)}) translate(${F(-960)} ${F(-560)})`, v);
   // mascotes nas laterais
-  const hm = 520, em = entra(L, 0.2, 0.7), ea = entra(L, 0.35, 0.7);
-  s += g(tr(-330 * (1 - em), 0), pessoa('totvs_boy', 20 + largPessoa('totvs_boy', hm) / 2, 1120, hm, L, { halo: COR.azul, haloA: 0.1 }));
-  s += g(tr(330 * (1 - ea), 0), pessoa('am_boy', 1900 - largPessoa('am_boy', hm) / 2, 1115, hm, L, { halo: COR.laranja, haloA: 0.1, fase: 1.7 }));
+  const hm = 560;   // mesmos tamanho e posição da cena anterior (união): continuidade no dissolve
+  s += pessoa('totvs_boy', 136, 1120, hm, L, { halo: COR.azul, haloA: 0.1 });
+  s += pessoa('am_boy', 1787, 1120, hm, L, { halo: COR.laranja, haloA: 0.1 });
   return s + vinheta(0.6);
 }
 
@@ -177,8 +177,6 @@ export function tmo(L, t, dur) {
   const tTudo = palavra('l19', 0), tQ = palavra('l19', 5), tP = palavra('l19', 6), tR = palavra('l19', 8), tNeg = palavra('l19', -1);
   const C = [[960, 400, '#3f6aa0', 'Mapeamento', 'de processos', 0.05], [800, 640, '#0f2d5a', 'Implantação', '', 0.3], [1120, 640, '#8ea2bd', 'Gestão de', 'Mudanças', 0.55]];
   const R = 232;
-  const kl = sobe(L, 0.1, 0.5);
-  s += op(kl, logoImg('alvarez-marsal-branco', 880, 96, 60, 110) + `<rect x="958" y="72" width="1.5" height="48" fill="rgba(255,255,255,.4)"/>` + logoImg('totvs-branco', 1050, 97, 34, 120));
   let v = '';
   // anel pontilhado girando
   v += `<circle cx="960" cy="560" r="${F(R * 1.9)}" fill="none" stroke="rgba(108,196,255,.18)" stroke-width="1.5" stroke-dasharray="4 14" transform="rotate(${F(L * 6)} 960 560)"/>`;
@@ -191,7 +189,7 @@ export function tmo(L, t, dur) {
       + `<circle cx="${F(Math.cos(a) * R)}" cy="${F(Math.sin(a) * R)}" r="4" fill="#fff" opacity=".8"/>`);
     const ang = i === 0 ? -28 : i === 1 ? 62 : -62;
     const tx = i === 0 ? cx - 20 : i === 1 ? cx - 110 : cx + 110, ty = i === 0 ? cy - 120 : cy + 90;
-    v += op(clamp(k * 1.3), g(`translate(${F(tx)} ${F(ty)}) rotate(${ang})`, T(l1, 0, l2 ? -8 : 10, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) + (l2 ? T(l2, 0, 26, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) : '')));
+    v += op(clamp((k - 0.55) / 0.4), g(`translate(${cx} ${cy}) scale(${F(Math.min(k, 1.03))}) translate(${-cx} ${-cy}) translate(${F(tx)} ${F(ty)}) rotate(${ang})`, T(l1, 0, l2 ? -8 : 10, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) + (l2 ? T(l2, 0, 26, 30, { w: 800, fill: i === 2 ? '#0b1a38' : '#fff' }) : '')));
   });
   const kc = ease.back(inv(0.95, 1.55, L)), pul = 1 + 0.02 * Math.sin(L * 3);
   v += g(`translate(960 548) scale(${F(kc * pul)})`, `<circle r="130" fill="#fff" opacity=".25" filter="url(#azBrilho)"/><circle r="118" fill="#eef3fb"/><circle r="118" fill="none" stroke="#fff" stroke-width="3"/>` + T('TMO', 0, 22, 62, { w: 900, fill: '#0b2a5c', ls: 2 }));
@@ -207,7 +205,7 @@ export function tmo(L, t, dur) {
     if (i < 2) { v += op(0.25 + 0.75 * k, `<circle cx="${F(x + 35)}" cy="925" r="3" fill="${COR.ouro2}"/>`); x += 70; }
   });
   const neg = Math.sin(clamp(inv(tNeg - 0.3, tNeg + 1.2, t)) * Math.PI);
-  if (neg > 0) v += `<circle cx="960" cy="560" r="${F(R * 1.85)}" fill="none" stroke="${COR.ouro}" stroke-width="3" opacity="${F(0.5 * neg)}"/>`;
+  if (neg > 0) { const rp = lerp(130, 300, clamp(inv(tNeg - 0.3, tNeg + 1.2, t))); v += `<circle cx="960" cy="548" r="${F(rp)}" fill="none" stroke="${COR.ouro}" stroke-width="3" opacity="${F(0.55 * neg)}"/>`; }
   s += g(`translate(960 560) scale(${F(1 + 0.03 * ease.inOut(inv(0, dur, L)))}) translate(-960 -560)`, v);
   return s + vinheta(0.6);
 }

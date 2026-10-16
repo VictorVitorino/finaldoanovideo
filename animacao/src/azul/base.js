@@ -198,11 +198,16 @@ export function legenda(t, o = {}) {
   if (i < 0) return '';
   const f = falas[i];
   const pal = legendaPalavras(f);
-  const size = o.size ?? 31, esp = larg(' ', size, 600, 'os'), maxW = o.maxW ?? 1240, cxL = o.cx ?? 960;
-  const ws = pal.map(w => larg(w.p, size, 600, 'os'));
-  // quebra em linhas
-  const linhas = [[]]; let lw = 0;
-  pal.forEach((w, k) => { const add = ws[k] + (linhas.at(-1).length ? esp : 0); if (lw + add > maxW && linhas.at(-1).length) { linhas.push([k]); lw = ws[k]; } else { linhas.at(-1).push(k); lw += add; } });
+  const maxW = o.maxW ?? 1240, cxL = o.cx ?? 960;
+  // quebra em linhas; se passar de duas, reduz a fonte (31 → 28 → 25) até caber em duas
+  let size = o.size ?? 31, esp, ws, linhas;
+  for (;;) {
+    esp = larg(' ', size, 600, 'os'); ws = pal.map(w => larg(w.p, size, 600, 'os'));
+    linhas = [[]]; let lw = 0;
+    pal.forEach((w, k) => { const add = ws[k] + (linhas.at(-1).length ? esp : 0); if (lw + add > maxW && linhas.at(-1).length) { linhas.push([k]); lw = ws[k]; } else { linhas.at(-1).push(k); lw += add; } });
+    if (linhas.length <= 2 || size <= 25) break;
+    size -= 3;
+  }
   // duas linhas: equilibra
   if (linhas.length === 2) { const tot = ws.reduce((a, b) => a + b, 0); let acc = 0, cut = 0; for (let k = 0; k < pal.length; k++) { acc += ws[k] + esp; if (acc > tot / 2) { cut = k + 1; break; } } linhas[0] = pal.map((_, k) => k).slice(0, cut); linhas[1] = pal.map((_, k) => k).slice(cut); }
   const lws = linhas.map(l => l.reduce((a, k) => a + ws[k], 0) + esp * (l.length - 1));

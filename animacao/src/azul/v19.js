@@ -35,13 +35,13 @@ export function quadro(t) {
   const c = CENAS[i] ?? CENAS.at(-1);
   let s = cena(c, t);
   const prox = CENAS[i + 1];
-  // transição: a próxima cena entra em dissolve com leve zoom nos últimos TRANS s (não entre cenas refeitas e o trecho original)
+  // transição: a próxima cena entra em dissolve nos últimos TRANS s (não entre cenas refeitas e o trecho original)
   if (prox && prox.f && c.f && t > c.ate - TRANS) {
     const u = ease.inOut(inv(c.ate - TRANS, c.ate, t));
-    s += op(u, g(`translate(960 540) scale(${B.F(lerp(1.05, 1, u))}) translate(-960 -540)`, cena(prox, t)));
+    s += op(u, cena(prox, t));   // dissolve puro: sem zoom, para que personagens que continuam na cena seguinte não dupliquem
   }
   s += B.chrome(t, { marcas: MARCAS });
-  s += B.legenda(t);
+  s += B.legenda(t, c.id === 'erp' ? { cx: 1160 } : {});   // no ERP a legenda fica sob o painel, longe do personagem
   // escurece no fim do filme (o v18 fecha em preto)
   if (t > 169.1) s += `<rect width="1920" height="1080" fill="#000" opacity="${B.F(clamp((t - 169.1) / 0.75))}"/>`;
   return s;

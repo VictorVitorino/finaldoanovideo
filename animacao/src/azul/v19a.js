@@ -1,7 +1,7 @@
 // v19 · cenas 1 a 5: capa, dashboard de resultados, desafio do ERP, farol A&M e união TOTVS + A&M.
 // Cada cena recebe (L = tempo dentro da cena, t = tempo absoluto, dur) e devolve SVG sem chrome/legenda.
 import { clamp, lerp, inv, ease, kf, rng, tr, g, op, TAU } from '../core.js';
-import { F, W, H, COR, T, OS, larg, imagem, logoImg, logoPilula, entra, sobe, fundo, vinheta, cidade, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, avatar, palavra } from './base.js';
+import { F, W, H, COR, T, OS, larg, imagem, logoImg, logoPilula, entra, sobe, fundo, vinheta, cidade, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, foraDir, avatar, palavra } from './base.js';
 
 // ------------------------------------------------------------------ CENA 1 · CAPA
 export function capa(L, t, dur) {
@@ -10,10 +10,10 @@ export function capa(L, t, dur) {
   s += `<circle cx="1640" cy="470" r="230" fill="url(#azLua)"/>`;
   s += g(tr(0, 24 * (1 - ease.out(inv(0, 1.2, L)))), cidade(t, 1000));
   s += vinheta(0.8);
-  const em = entra(L, 0.35, 0.8), ea = entra(L, 0.5, 0.8);
-  const hb = 720, ha = 700;
-  s += g(tr(-420 * (1 - em), 0), pessoa('totvs_boy', 40 + largPessoa('totvs_boy', hb) / 2, 1130, hb, L, { halo: '#3b82f6' }));
-  s += g(tr(460 * (1 - ea), 0), pessoa('am_boy', 1880 - largPessoa('am_boy', ha) / 2, 1125, ha, L, { halo: '#f08a2c', fase: 1.4 }));
+  const em = sobe(L, 0.2, 0.9), ea = sobe(L, 0.4, 0.9);
+  const hb = 720, ha = 700, cxB = 40 + largPessoa('totvs_boy', hb) / 2, cxA = 1880 - largPessoa('am_boy', ha) / 2;
+  s += g(tr(-foraEsq('totvs_boy', cxB, hb) * (1 - em), 0), pessoa('totvs_boy', cxB, 1130, hb, L, { halo: '#3b82f6' }));
+  s += g(tr(foraDir('am_boy', cxA, ha) * (1 - ea), 0), pessoa('am_boy', cxA, 1125, ha, L, { halo: '#f08a2c', fase: 1.4 }));
   // bloco do título
   const k1 = sobe(L, 0.1, 0.5), k2 = sobe(L, 0.25, 0.5);
   let bloco = '';
@@ -105,11 +105,14 @@ export function dashboard(L, t, dur) {
   const fimZoom = m.fim + 0.5;
   const centroG = [GR.x0 + 1.5 * GR.cw + GR.gx, GR.y0 + 1.5 * GR.ch + GR.gy];
   // zoom máximo e alvo limitados à área segura: o grid inteiro continua entre os personagens (x 235–1665) e entre o título e a legenda (y 90–965)
-  const ZOOM = 1.05;
+  const ZOOM = 1.04;
+  const hB = 460, hA = 455, cxB = 112, cxA = 1812;
+  const livreE = cxB + largPessoa('totvs_boy', hB) / 2 + 10, livreD = cxA - largPessoa('am_boy', hA) / 2 - 10;
   const alvo = i => {
     const c = cel(i), ax = lerp(centroG[0], c.x + GR.cw / 2, 0.6), ay = lerp(centroG[1], c.y + GR.ch / 2, 0.5);
     const xr = GR.x0 + 3 * GR.cw + 2 * GR.gx, yb = GR.y0 + 3 * GR.ch + 2 * GR.gy;
-    return [clamp(ax, xr - 705 / ZOOM, GR.x0 + 725 / ZOOM), clamp(ay, yb - 435 / ZOOM, GR.y0 + 440 / ZOOM)];
+    const lo = xr - (livreD - 960) / ZOOM, hi = GR.x0 + (960 - livreE) / ZOOM;
+    return [clamp(ax, Math.min(lo, hi), Math.max(lo, hi)), clamp(ay, yb - 435 / ZOOM, GR.y0 + 440 / ZOOM)];
   };
   let cam = [centroG[0], centroG[1], 1];
   for (let i = 0; i < 9; i++) {
@@ -156,8 +159,6 @@ export function dashboard(L, t, dur) {
       const bx = 262, base = 112, e7 = 7.2;
       if (b1 > 0) c += `<rect x="${bx}" y="${F(base - 7 * e7 * b1)}" width="42" height="${F(7 * e7 * b1)}" rx="7" fill="url(#azAzulV)"/>` + op(b1, T('7', bx + 21, base - 7 * e7 * b1 + 24, 20, { w: 800, fill: '#fff' }) + T('FY26', bx + 21, base + 26, 15, { w: 800, fill: COR.ouro2 }));
       if (b2 > 0) c += `<rect x="${bx + 60}" y="${F(base - 9 * e7 * b2)}" width="42" height="${F(9 * e7 * b2)}" rx="7" fill="url(#azAzulV)"/>` + op(b2, T('9', bx + 81, base - 9 * e7 * b2 + 24, 20, { w: 800, fill: '#fff' }) + T('FY27', bx + 81, base + 26, 15, { w: 800, fill: COR.ouro2 }));
-      const r = rng(5);
-      for (let j = 0; j < 10; j++) { const t1 = m.c3 + 0.15 + j * 0.07, q = inv(t1, t1 + 0.9, t); if (q <= 0 || q >= 1) { r(); r(); continue; } const ang = -Math.PI / 2 + (r() - 0.5) * 1.4, v = 80 + r() * 70; c += `<circle cx="${F(110 + Math.cos(ang) * v * q)}" cy="${F(60 + Math.sin(ang) * v * q + 170 * q * q)}" r="7" fill="${COR.ouro}" stroke="#b67d18" stroke-width="1.5" opacity="${F(1 - q)}"/>`; }
     }
     if (i === 3 && on) {
       c += num(String(cnt(12, m.c4, 0.6)), 26, 84, 64);
@@ -218,9 +219,9 @@ export function dashboard(L, t, dur) {
   s += g(`translate(960 530) scale(${F(cam[2])}) translate(${F(-cam[0])} ${F(-cam[1])})`, painel);
   s += secao('RESULTADOS QUE FAZEM A DIFERENÇA', GR.x0, 64, L - 0.1);
   // personagens fixos nas laterais (não encobrem o painel na visão geral)
-  const eb = entra(L, 0.15, 0.7), ea = entra(L, 0.3, 0.7);
-  s += g(tr(-330 * (1 - eb), 0), pessoa('totvs_boy', 69, 1131, 481, L, { halo: '#3b82f6', haloA: 0.1 }));
-  s += g(tr(330 * (1 - ea), 0), pessoa('am_boy', 1830, 1126, 474, L, { halo: '#f08a2c', haloA: 0.1, fase: 1.6 }));
+  const eb = sobe(L, 0.15, 0.9), ea = sobe(L, 0.3, 0.9);
+  s += g(tr(-foraEsq('totvs_boy', cxB, hB) * (1 - eb), 0), pessoa('totvs_boy', cxB, 1131, hB, L, { halo: '#3b82f6', haloA: 0.1 }));
+  s += g(tr(foraDir('am_boy', cxA, hA) * (1 - ea), 0), pessoa('am_boy', cxA, 1126, hA, L, { halo: '#f08a2c', haloA: 0.1, fase: 1.6 }));
   return s + vinheta(0.7);
 }
 
@@ -249,7 +250,7 @@ export function erp(L, t, dur) {
   const juntos = palavra('l12', 8), fimFala = palavra('l12', -1);
   // painel
   const bx = 560, by = 120, bw = 1200, bh = 640;
-  const kq = ease.out(inv(0.25, 0.8, L));
+  const kq = ease.out(inv(-0.35, 0.3, L));   // começa durante o dissolve da cena anterior
   const cx = bx + bw / 2, cy = by + bh / 2 + 26, RX = 400, RY = 215;
   let pan = vidro(bx, by, bw, bh, { r: 26, fill: 'rgba(14,34,74,.55)' }) + secao('IMPLANTAÇÃO DE ERP', bx + 34, by + 52, L - 0.4, { size: 17 });
   const alinha = ease.inOut(inv(juntos - 0.25, juntos + 0.9, t));
@@ -292,11 +293,12 @@ export function erp(L, t, dur) {
   pan += g(`translate(${cx} ${cy}) scale(${F(ke * pe)})`, `<circle r="84" fill="${COR.azul}" opacity=".35" filter="url(#azBrilho)"/><circle r="64" fill="#1f5fe0" stroke="#9cc6ff" stroke-width="3"/>` + T('ERP', 0, 15, 42, { w: 900, fill: '#fff' }));
   s += op(kq, g(tr(0, 24 * (1 - kq)), pan));
   // personagem no padrão 3D (Antonialli líder) à esquerda, olhando para o painel
-  const hp = 640, ep = entra(L, 0.1, 0.8);
-  s += g(tr(-360 * (1 - ep), 0), pessoa('antonialli_lider', 40 + largPessoa('antonialli_lider', hp) / 2, 1100, hp, L, { halo: '#f08a2c', haloA: 0.12 }));
+  const hp = 600, ep = sobe(L, -0.2, 0.9), cxP = 36 + largPessoa('antonialli_lider', hp) / 2;
+  s += g(tr(-foraEsq('antonialli_lider', cxP, hp) * (1 - ep), 0), pessoa('antonialli_lider', cxP, 1100, hp, L, { halo: '#f08a2c', haloA: 0.12 }));
   // reação "!" na complexidade
-  if (caos > 0.2) s += op(caos, T('!', 40 + largPessoa('antonialli_lider', hp) + 20, 500 - 6 * Math.abs(Math.sin(L * 6)), 64, { w: 900, fill: COR.ouro }));
-  if (alinha > 0.3) s += op(alinha, g(`translate(${F(40 + largPessoa('antonialli_lider', hp) + 30)} 500) scale(${F(ease.back(alinha))})`, checkIco(0, 0, 24, COR.verde)));
+  const xR = 36 + largPessoa('antonialli_lider', hp) + 30, kEx = caos * clamp(1 - alinha * 3), kOk = clamp((alinha - 0.4) * 2.5);
+  if (kEx > 0.02) s += op(kEx, T('!', xR, 500 - 6 * Math.abs(Math.sin(L * 6)), 64, { w: 900, fill: COR.ouro }));
+  if (kOk > 0) s += op(kOk, g(`translate(${F(xR)} 480) scale(${F(ease.back(kOk))})`, checkIco(0, 0, 24, COR.verde)));
   return s + vinheta(0.7);
 }
 
@@ -315,16 +317,16 @@ export function farol(L, t, dur) {
   s += op(liga * 0.9, g(`rotate(${F(ang)} 960 704)`, `<path d="M942 704 L978 704 L1160 160 L760 160 Z" fill="url(#azFeixe)"/>`));
   const r = rng(4);
   for (let j = 0; j < 40; j++) { const q = (r() + L * 0.1) % 1; const yy = 704 - q * 530, xx = 960 + (r() - 0.5) * (40 + q * 360); s += op(liga * 0.6, g(`rotate(${F(ang)} 960 704)`, `<circle cx="${F(xx)}" cy="${F(yy)}" r="${F(1 + r() * 1.8)}" fill="#fff8e0" opacity="${F(0.3 + 0.4 * Math.sin(L * 3 + j))}"/>`)); }
-  s += `<ellipse cx="${F(alvo.x)}" cy="${F(alvo.y + 10)}" rx="320" ry="100" fill="#2b4d86" opacity=".5" filter="url(#azBrilho)"/>`;
+  s += op(liga, `<ellipse cx="${F(alvo.x)}" cy="${F(alvo.y + 10)}" rx="320" ry="100" fill="#2b4d86" opacity=".5" filter="url(#azBrilho)"/>`);
   if (proj > 0) {
     const k = ease.back(inv(tChamar - 0.1, tChamar + 0.6, t)) * (1 + 0.03 * Math.sin(L * 3));
     s += op(proj, `<ellipse cx="${F(alvo.x)}" cy="${F(alvo.y)}" rx="250" ry="130" fill="#fff1c4" opacity=".14" filter="url(#azBrilho)"/>`);
     s += g(`translate(${F(alvo.x)} ${F(alvo.y)}) scale(${F(k)})`, `<circle r="112" fill="none" stroke="#ffe3a0" stroke-width="3" opacity=".7"/>` + logoImg('alvarez-marsal-branco', 0, -4, 128, 190));
   }
   // o mascote A&M entra em "quem entende do jogo"
-  const ea = entra(L, tQuem - 0.1 - (t - L), 0.7);
-  const ha = 560;
-  if (ea > 0) s += g(tr(420 * (1 - ea), 0), pessoa('am_boy', 1900 - largPessoa('am_boy', ha) / 2, 1120, ha, L, { halo: '#f08a2c' }));
+  const ea = sobe(L, tQuem - 0.2 - (t - L), 0.9);
+  const ha = 560, cxA = 1900 - largPessoa('am_boy', ha) / 2;
+  if (ea > 0) s += g(tr(foraDir('am_boy', cxA, ha) * (1 - ea), 0), pessoa('am_boy', cxA, 1120, ha, L, { halo: '#f08a2c' }));
   const kq = entra(L, tJogo - 0.2 - (t - L), 0.5);
   if (kq > 0) s += g(`translate(${F(1900 - largPessoa('am_boy', ha) / 2 - 20)} 520) scale(${F(kq)})`, pilula('QUEM ENTENDE DO JOGO', 0, 0, { fill: COR.laranja, size: 20, ls: 3 }));
   return s + vinheta(0.6);
@@ -339,8 +341,8 @@ const onda = (x0, x1, y, k, cor, f, ph, L) => {
 export function uniao(L, t, dur) {
   let s = fundo(t);
   const tT = palavra('l14', 0), tA = palavra('l14', 3), tComp = palavra('l15', 0), tUn = palavra('l15', 2), tFim = palavra('l15', -1);
-  const hm = 620;
-  const em = entra(L, 0.1, 0.7), ea = entra(L, 0.25, 0.7);
+  const hm = 560;
+  const em = sobe(L, -0.3, 0.9);
   const fa = ease.out(inv(tT, tT + 1.3, t)), fb = ease.out(inv(tA, tA + 1.3, t));
   const yE = 640;
   s += op(clamp(fa * 3), onda(0, 960, yE, 1, COR.azulClaro, fa, 0, L) + onda(0, 960, yE + 28, 0.6, COR.azul, fa, 1.4, L));
@@ -355,8 +357,9 @@ export function uniao(L, t, dur) {
   const r = rng(8);
   for (let j = 0; j < 30; j++) { const q = inv(tComp - 0.1, tComp + 1.2, t); if (q <= 0 || q >= 1) break; const a = r() * TAU, d = 40 + q * (160 + r() * 240); s += `<circle cx="${F(960 + Math.cos(a) * d)}" cy="${F(yE + Math.sin(a) * d * 0.7)}" r="${F(2 + r() * 3)}" fill="${j % 2 ? COR.ouro : '#fff'}" opacity="${F(1 - q)}"/>`; }
   // personagens
-  s += g(tr(-380 * (1 - em), 0), pessoa('totvs_boy', 60 + largPessoa('totvs_boy', hm) / 2, 1120, hm, L, { halo: COR.azul }));
-  s += g(tr(400 * (1 - ea), 0), pessoa('am_boy', 1860 - largPessoa('am_boy', hm) / 2, 1115, hm, L, { halo: COR.laranja, fase: 1.1 }));
+  const cxM = 60 + largPessoa('totvs_boy', hm) / 2;
+  s += g(tr(-foraEsq('totvs_boy', cxM, hm) * (1 - em), 0), pessoa('totvs_boy', cxM, 1120, hm, L, { halo: COR.azul }));
+  s += pessoa('am_boy', 1900 - largPessoa('am_boy', hm) / 2, 1120, hm, L, { halo: '#f08a2c' });
   // rótulos superiores
   const k1 = sobe(L, tT - 0.2 - (t - L), 0.5), k2 = sobe(L, tA - 0.2 - (t - L), 0.5), kp = entra(L, tA + 1.3 - (t - L), 0.5);
   let e1 = logoPilula('logo-totvs', 190, 170, 150, 66) + T('TOTVS', 290, 165, 32, { w: 900, fill: '#fff', anchor: 'start', ls: 1 }) + T('NA SOLUÇÃO', 290, 192, 14, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 4 })

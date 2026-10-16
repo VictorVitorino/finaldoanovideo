@@ -164,6 +164,9 @@ export function pessoa(id, cx, base, h, L, o = {}) {
   return s;
 }
 export const largPessoa = (id, h) => (PROP[id] ? h * PROP[id].r : 0);
+// deslocamento que deixa o personagem inteiramente fora do quadro (para entradas deslizando pela lateral)
+export const foraEsq = (id, cx, h) => cx + largPessoa(id, h) / 2 + 60;
+export const foraDir = (id, cx, h) => 1920 - cx + largPessoa(id, h) / 2 + 60;
 // avatar redondo de uma pessoa do time
 export function avatar(id, cx, cy, r, k = 1, borda = '#fff') {
   const cid = 'av' + id + Math.round(cx) + Math.round(cy);
@@ -195,7 +198,7 @@ export function legenda(t, o = {}) {
   if (i < 0) return '';
   const f = falas[i];
   const pal = legendaPalavras(f);
-  const size = o.size ?? 31, esp = larg(' ', size, 600, 'os'), maxW = o.maxW ?? 1380;
+  const size = o.size ?? 31, esp = larg(' ', size, 600, 'os'), maxW = o.maxW ?? 1240, cxL = o.cx ?? 960;
   const ws = pal.map(w => larg(w.p, size, 600, 'os'));
   // quebra em linhas
   const linhas = [[]]; let lw = 0;
@@ -205,12 +208,12 @@ export function legenda(t, o = {}) {
   const lws = linhas.map(l => l.reduce((a, k) => a + ws[k], 0) + esp * (l.length - 1));
   const bw = Math.max(...lws) + 110, lh = size * 1.22, bh = linhas.length * lh + 34;
   const yc = o.y ?? (linhas.length > 1 ? 985 : 1000);
-  const x0 = 960 - bw / 2, y0 = yc - bh / 2;
+  const x0 = cxL - bw / 2, y0 = yc - bh / 2;
   const a = clamp((t - f.de + 0.3) / 0.22) * (1 - clamp((t - Math.min(f.ate + 0.95, (falas[i + 1]?.de ?? 1e9) - 0.12) + 0.2) / 0.2));
   let s = `<rect x="${F(x0)}" y="${F(y0)}" width="${F(bw)}" height="${F(bh)}" rx="20" fill="rgba(7,16,38,.64)" stroke="rgba(255,255,255,.10)"/>`;
   linhas.forEach((l, li) => {
     const y = y0 + 17 + lh * (li + 0.78);
-    let x = 960 - lws[li] / 2 + 22;
+    let x = cxL - lws[li] / 2 + 22;
     if (li === 0) s += `<circle cx="${F(x - 30)}" cy="${F(y - size * 0.33)}" r="6" fill="${COR.ciano}"/>`;
     for (const k of l) {
       const w = pal[k], dito = t >= w.t - 0.05;

@@ -60,7 +60,8 @@ export function linha(L, t, dur) {
   // câmera: acompanha a cabeça até o 4º marco, depois volta ao geral
   const head = TRILHA.ponto(u);
   const segue = 1 - ease.inOut(inv(tH - 0.6, tH + 0.4, t));
-  const camx = lerp(960, clamp(head[0], 760, 1160), 0.45 * segue), zoom = 1 + 0.06 * segue * ease.out(inv(0.3, 1.2, L));
+  // deriva suave atrás da cabeça do caminho, limitada para que nenhum cartão já apresentado saia do quadro
+  const camx = clamp(lerp(960, head[0], 0.3 * segue), 961, 1004), zoom = 1 + 0.012 * segue * ease.out(inv(0.3, 1.2, L));
   let v = '';
   // marca d'água "2026"
   v += T('2026', 960, 720, 420, { w: 900, fill: 'rgba(255,255,255,.035)', ls: 10 });
@@ -204,7 +205,12 @@ export function cockpit(L, t, dur) {
   // conectores entre painéis
   for (let i = 0; i < 2; i++) { const q = ease.out(inv(tP[i + 1] - 0.3, tP[i + 1] + 0.2, t)); v += `<line x1="${PX[i] + PW}" y1="${PY + PH / 2}" x2="${F(lerp(PX[i] + PW, PX[i + 1], q))}" y2="${PY + PH / 2}" stroke="rgba(108,196,255,.6)" stroke-width="2" stroke-dasharray="3 8"/>` + brilhoPonto(PX[i] + PW, PY + PH / 2, 5, COR.ciano, q) + (q >= 1 ? brilhoPonto(PX[i + 1], PY + PH / 2, 5, COR.ciano, 1) : ''); }
   const pains = [painelCockpit, painelXray, painelIA];
-  pains.forEach((fn, i) => { const q = ease.out(inv(tP[i], tP[i] + 0.6, t)); if (q <= 0) return; v += op(q, g(`translate(${PX[i]} ${F(PY + 30 * (1 - q))})`, fn(L, t, tP[i]))); });
+  pains.forEach((fn, i) => {
+    const q = ease.out(inv(tP[i], tP[i] + 0.6, t)); if (q <= 0) return;
+    // painel fora do foco da câmera esmaece (não fica aparecendo atrás do personagem); todos voltam na visão geral
+    const longe = Math.min(1, Math.abs(camx - cxP[i]) / PW), vis = lerp(lerp(1, 0.08, longe), 1, abre);
+    v += op(q * vis, g(`translate(${PX[i]} ${F(PY + 30 * (1 - q))})`, fn(L, t, tP[i])));
+  });
   // brilho final em "Tecnologia a serviço da qualidade"
   const fin = Math.sin(clamp(inv(tQual - 0.6, tQual + 1.0, t)) * Math.PI);
   if (fin > 0) v += `<rect x="${PX[0] - 40}" y="${PY - 40}" width="${F(PX[2] + PW - PX[0] + 80)}" height="${PH + 80}" rx="40" fill="none" stroke="${COR.ouro}" stroke-width="4" opacity="${F(0.6 * fin)}"/>`;

@@ -8,8 +8,8 @@ import * as C3 from './v19c.js';
 
 export const CENAS = [
   { id: 'capa', de: 0.0, ate: 7.6, f: A.capa },
-  { id: 'dashboard', de: 7.6, ate: 52.8, f: A.dashboard },
-  { id: 'erp', de: 52.8, ate: 64.47, f: A.erp },
+  { id: 'dashboard', de: 7.6, ate: 53.4, f: A.dashboard },   // vai até 53,4: tempo para ver o painel montado e o brilho do selo
+  { id: 'erp', de: 53.4, ate: 64.47, f: A.erp },
   { id: 'farol', de: 64.47, ate: 70.13, f: A.farol },
   { id: 'uniao', de: 70.13, ate: 80.0, f: A.uniao },
   { id: 'papeis', de: 80.0, ate: 90.0, f: C2.papeis },

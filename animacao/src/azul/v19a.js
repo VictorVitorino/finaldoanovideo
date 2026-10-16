@@ -117,7 +117,7 @@ export function dashboard(L, t, dur) {
     fim: P('l10', -1),
   };
   const ini = [m.c1, m.c2, m.c3, m.c4, m.c5, m.c6, m.c7, m.c8, m.c9];
-  const tMont = Math.min(m.fim - 0.9, m.c9dc + 0.45), tSelo = tMont + 0.95;   // montagem do painel e selo
+  const tMont = m.c9txt + 0.3, tSelo = tMont + 1.0;   // montagem do painel logo após o texto do cockpit; selo 1 s depois
   const CW = GR.cw, CH = GR.ch;
   const txt = (lines, x0, y0, size = 20, fill = COR.claro, w = 600) => lines.map((l, j) => T(l, x0, y0 + j * (size + 6), size, { ...OS, w, fill, anchor: 'start' })).join('');
   const num = (str, x0, y0, size, fill = COR.ouro) => T(str, x0, y0, size, { w: 800, fill, anchor: 'start' });
@@ -201,6 +201,13 @@ export function dashboard(L, t, dur) {
     return c;
   };
   const cartao = (i, brilho) => vidro(0, 0, CW, CH, { brilho, borda: 'rgba(108,196,255,.55)', bw: 2, fill: 'rgba(18,42,88,.74)' }) + conteudo(i);
+  // brilho de cada cartão no painel montado: contorno luminoso pulsando devagar + um traço de luz correndo pela borda
+  const brilhoCartao = (i, t0) => {
+    const gl = clamp(inv(t0, t0 + 0.6, t)); if (gl <= 0) return '';
+    const borda = `x="1" y="1" width="${CW - 2}" height="${CH - 2}" rx="18" fill="none"`;
+    return `<rect ${borda} stroke="${i < 4 ? COR.ouro : COR.ciano}" stroke-width="2.5" opacity="${F(gl * (0.28 + 0.18 * Math.sin(L * 2.2 + i * 0.9)))}" filter="url(#azBrilhoP)"/>`
+      + `<rect ${borda} stroke="#fff" stroke-width="2.5" stroke-linecap="round" pathLength="100" stroke-dasharray="12 88" stroke-dashoffset="${F(-((L * 38 + i * 13) % 100))}" opacity="${F(0.85 * gl)}"/>`;
+  };
   let painel = '';
   const S = 2.1, BX = 960 - S * CW / 2, BY = 545 - S * CH / 2;
   // fase 1: um cartão por vez, grande e no centro; entra por máscara (lados alternados) e sai subindo em fade
@@ -222,10 +229,11 @@ export function dashboard(L, t, dur) {
       const lado = col === 0 ? 'E' : col === 2 ? 'D' : lin === 0 ? 'C' : 'B';
       let card = cartao(i, 0.3);
       card = i === 4 ? op(k, g(`translate(${CW / 2} ${CH / 2}) scale(${F(lerp(0.6, 1, k))}) translate(${-CW / 2} ${-CH / 2})`, card)) : revela(k, lado, CW, CH, card);
+      card += brilhoCartao(i, tMont + 0.7 + i * 0.08);
       painel += g(`translate(${x} ${y})`, card);
     }
     const u = ease.inOut(inv(tMont, tMont + 0.8, t)), c9 = cel(8);
-    painel += g(`translate(${F(lerp(BX, c9.x, u))} ${F(lerp(BY, c9.y, u))}) scale(${F(lerp(S, 1, u))})`, cartao(8, lerp(0.8, 0.3, u)));
+    painel += g(`translate(${F(lerp(BX, c9.x, u))} ${F(lerp(BY, c9.y, u))}) scale(${F(lerp(S, 1, u))})`, cartao(8, lerp(0.8, 0.3, u)) + brilhoCartao(8, tMont + 1.3));
     // varredura de luz pelo painel pronto
     const sw = inv(tSelo + 0.15, tSelo + 1.0, t);
     if (sw > 0 && sw < 1) { const xs = lerp(GR.x0 - 300, GR.x0 + GW + 120, sw); painel += `<clipPath id="azGrade"><rect x="${GR.x0}" y="${GR.y0}" width="${GW}" height="${GH}"/></clipPath><polygon points="${F(xs)},${GR.y0} ${F(xs + 170)},${GR.y0} ${F(xs - 80)},${GR.y0 + GH} ${F(xs - 250)},${GR.y0 + GH}" fill="#fff" opacity=".11" clip-path="url(#azGrade)"/>`; }
@@ -233,10 +241,15 @@ export function dashboard(L, t, dur) {
   s += painel;
   s += secao('RESULTADOS QUE FAZEM A DIFERENÇA', GR.x0, 64, L - 0.1);
   // selo A&M carimbado no canto superior direito do painel
-  const ks = inv(tSelo, tSelo + 0.5, t);
+  const ks = inv(tSelo, tSelo + 0.5, t), gs = Math.sin(clamp(inv(tSelo + 0.9, tSelo + 1.8, t)) * Math.PI);
   if (ks > 0) {
     const e = ease.out(ks);
-    s += op(clamp(ks * 3), g(`translate(1680 150) rotate(${F(-14 * (1 - e))}) scale(${F(lerp(1.9, 1, e))})`, seloAM(0, 0, 88)));
+    if (gs > 0) {   // brilho final do selo: clarão dourado, raios girando e anel que se expande
+      s += `<circle cx="1680" cy="150" r="${F(150 + 30 * gs)}" fill="url(#azLuzOuro)" opacity="${F(0.9 * gs)}"/>`;
+      for (let j = 0; j < 8; j++) { const a = (j / 8) * TAU + L * 0.8; s += `<line x1="${F(1680 + Math.cos(a) * 96)}" y1="${F(150 + Math.sin(a) * 96)}" x2="${F(1680 + Math.cos(a) * (130 + 40 * gs))}" y2="${F(150 + Math.sin(a) * (130 + 40 * gs))}" stroke="${COR.ouro2}" stroke-width="2" opacity="${F(0.7 * gs)}" stroke-linecap="round"/>`; }
+      const u = clamp(inv(tSelo + 0.9, tSelo + 1.8, t)); s += `<circle cx="1680" cy="150" r="${F(90 + 90 * u)}" fill="none" stroke="${COR.ouro}" stroke-width="2.5" opacity="${F(0.7 * (1 - u))}"/>`;
+    }
+    s += op(clamp(ks * 3), g(`translate(1680 150) rotate(${F(-14 * (1 - e))}) scale(${F(lerp(1.9, 1, e) * (1 + 0.06 * gs))})`, seloAM(0, 0, 88)));
     if (ks < 1) s += `<circle cx="1680" cy="150" r="${F(88 + 70 * ks)}" fill="none" stroke="${COR.ouro}" stroke-width="3" opacity="${F(0.6 * (1 - ks))}"/>`;
   }
   // personagens fixos nas laterais (entram depois do dissolve da capa)
@@ -278,18 +291,16 @@ export function erp(L, t, dur) {
   let pan = vidro(bx, by, bw, bh, { r: 26, fill: 'rgba(14,34,74,.55)' }) + secao('PRINCIPAIS DESAFIOS DE UMA IMPLANTAÇÃO DE ERP', bx + 34, by + 52, L - 0.4, { size: 17 });
   const alinha = ease.inOut(inv(juntos - 0.25, juntos + 0.9, t));
   const caos = ease.out(inv(tComp - 0.2, tComp + 0.5, t)) * (1 - alinha);
-  // complexidade: ligações emaranhadas entre nós não vizinhos (curvas tracejadas que correm), sem rabiscos soltos
-  const posNo = (i) => { const a = NOS[i].a * Math.PI / 180; return [cx + Math.cos(a) * RX, cy + Math.sin(a) * RY]; };
-  if (caos > 0.01) {
-    let d = '';
-    [[0, 2], [0, 3], [1, 3], [1, 4], [2, 4], [2, 5], [3, 5], [4, 0], [5, 1]].forEach(([a, b], j) => {
-      const pa = posNo(a), pb = posNo(b);
-      const mx = (pa[0] + pb[0]) / 2 + Math.sin(L * 1.6 + j * 1.3) * 70, my = (pa[1] + pb[1]) / 2 + Math.cos(L * 1.2 + j * 2.1) * 45;
-      d += `<path d="M${F(pa[0])} ${F(pa[1])} Q${F(mx)} ${F(my)} ${F(pb[0])} ${F(pb[1])}" stroke="${j % 2 ? COR.vermelho : COR.laranja}" stroke-width="2.2" fill="none" opacity=".5" stroke-dasharray="9 13" stroke-dashoffset="${F(-L * 70 - j * 7)}" stroke-linecap="round"/>`;
-    });
-    pan += op(caos, d);
-  }
-  const tremor = caos * 3;
+  const tremor = caos * 2.5;
+  // conectores: curvas do nó ao núcleo com uma barriga perpendicular (alternada); inquietos e tracejados na complexidade,
+  // sólidos e luminosos quando o nó acende, verdes e com fluxo depois de "juntos"
+  const posNo = (i, jit = 0) => { const a = NOS[i].a * Math.PI / 180; return [cx + Math.cos(a) * RX + jit * Math.sin(L * 23 + i), cy + Math.sin(a) * RY + jit * Math.cos(L * 19 + i * 2)]; };
+  const curva = (i, x, y, onda) => {
+    const mx = (x + cx) / 2, my = (y + cy) / 2, dx = cx - x, dy = cy - y, len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len, ny = dx / len, b = (i % 2 ? 1 : -1) * (34 + onda);
+    const C = [mx + nx * b, my + ny * b];
+    return { d: `M${F(x)} ${F(y)} Q${F(C[0])} ${F(C[1])} ${cx} ${cy}`, p: (u) => [(1 - u) ** 2 * x + 2 * (1 - u) * u * C[0] + u * u * cx, (1 - u) ** 2 * y + 2 * (1 - u) * u * C[1] + u * u * cy] };
+  };
   // construção do painel antes do núcleo: elipse pontilhada se desenhando + guias radiais tênues
   const cons = ease.inOut(inv(0.55, tERP - 0.2 - (t - L), L));
   // elipse como caminho que começa no topo (sentido horário), para o traço se desenhar a partir de cima
@@ -300,20 +311,25 @@ export function erp(L, t, dur) {
     const ghost = ease.out(inv(tComp - 0.1 + i * 0.08, tComp + 0.4 + i * 0.08, t));
     const ap = ease.back(inv(quando[i] - 0.15, quando[i] + 0.4, t));
     if (ghost <= 0) return;
-    const a = n.a * Math.PI / 180;
-    const x = cx + Math.cos(a) * RX + tremor * Math.sin(L * 23 + i), y = cy + Math.sin(a) * RY + tremor * Math.cos(L * 19 + i * 2);
+    const [x, y] = posNo(i, tremor);
     const pulso = Math.sin(clamp(inv(quando[i], quando[i] + 0.8, t)) * Math.PI);
     const cor = alinha > 0.5 ? COR.verde : COR.ouro;
-    // ligação
-    if (ap > 0) pan += `<line x1="${cx}" y1="${cy}" x2="${F(lerp(cx, x, ap))}" y2="${F(lerp(cy, y, ap))}" stroke="${cor}" stroke-width="${F(2.5 + 2 * alinha)}" opacity="${F(0.6 + 0.3 * alinha)}"/>`;
-    else pan += op(ghost * 0.5, `<line x1="${cx}" y1="${cy}" x2="${F(x)}" y2="${F(y)}" stroke="${COR.azulClaro}" stroke-width="1.5" stroke-dasharray="6 8"/>`);
-    if (alinha > 0.3) { const q = (L * 0.9 + i * 0.17) % 1; pan += `<circle cx="${F(lerp(cx, x, q))}" cy="${F(lerp(cy, y, q))}" r="4.5" fill="#fff" opacity="${F(alinha)}"/>`; }
-    const k = ap > 0 ? ap : ghost * 0.85;
+    const cv = curva(i, x, y, caos * 14 * Math.sin(L * 3 + i));
+    if (ap <= 0) {
+      pan += op(ghost * clamp(0.35 + caos), `<path d="${cv.d}" stroke="${i % 2 ? COR.vermelho : COR.laranja}" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-dasharray="8 12" stroke-dashoffset="${F(L * 60)}" opacity=".75"/>`);
+    } else {
+      const k = clamp(ap);
+      pan += `<path d="${cv.d}" stroke="${cor}" stroke-width="9" fill="none" opacity=".16" pathLength="100" stroke-dasharray="${F(k * 100)} 100" filter="url(#azBrilhoP)"/>`
+        + `<path d="${cv.d}" stroke="${cor}" stroke-width="${F(2.5 + 1.5 * alinha)}" fill="none" stroke-linecap="round" pathLength="100" stroke-dasharray="${F(k * 100)} 100" opacity=".95"/>`;
+      if (k < 1) { const [px, py] = cv.p(k); pan += brilhoPonto(px, py, 6, '#fff', 1); }
+      if (alinha > 0.3) for (let j = 0; j < 2; j++) { const q = (L * 0.7 + i * 0.17 + j * 0.5) % 1; const [px, py] = cv.p(q); pan += `<circle cx="${F(px)}" cy="${F(py)}" r="4" fill="#fff" opacity="${F(alinha * (0.9 - 0.3 * j))}"/>`; }
+    }
+    const k = ap > 0 ? ap : ghost * 0.88;
     const fill = ap > 0 ? (alinha > 0.5 ? 'rgba(67,209,169,.22)' : 'rgba(230,183,94,.22)') : 'rgba(59,130,246,.14)';
-    const borda = ap > 0 ? cor : 'rgba(108,196,255,.55)';
+    const borda = ap > 0 ? cor : 'rgba(108,196,255,.6)';
     pan += g(`translate(${F(x)} ${F(y)}) scale(${F(k)})`, `<circle r="${F(46 + 26 * pulso)}" fill="none" stroke="${cor}" stroke-width="3" opacity="${F(pulso * 0.8)}"/>`
-      + `<circle r="38" fill="${fill}" stroke="${borda}" stroke-width="${ap > 0 ? 3 : 1.5}"/>` + iconeNo(n.ico, ap > 0 ? '#fff' : 'rgba(255,255,255,.7)', L)
-      + rotulo(n.r, 0, i === 0 ? -72 : 70, ap > 0 ? cor : 'rgba(108,196,255,.5)'));
+      + `<circle r="38" fill="${fill}" stroke="${borda}" stroke-width="${ap > 0 ? 3 : 1.5}"${ap > 0 ? '' : ' stroke-dasharray="6 6"'}/>` + iconeNo(n.ico, ap > 0 ? '#fff' : 'rgba(255,255,255,.75)', L)
+      + rotulo(n.r, 0, i === 0 ? -72 : 70, ap > 0 ? cor : 'rgba(108,196,255,.55)'));
   });
   if (alinha > 0) pan += `<path d="${elipse}" fill="none" stroke="${COR.verde}" stroke-width="3" pathLength="100" stroke-dasharray="${F(alinha * 100)} 100" opacity=".8"/>`;
   // ERP central

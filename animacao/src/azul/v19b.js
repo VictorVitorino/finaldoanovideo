@@ -36,7 +36,7 @@ export function papeis(L, t, dur) {
   let s = fundo(t);
   const tAM = palavra('l16', 2), tProg = palavra('l16', 7), tMet = palavra('l16', 11), tCon = palavra('l16', 15), tTime = palavra('l16', -1);
   // mandala: dois discos grandes, lente central larga (320 px), textos maiores e alinhados por linha
-  const cxE = 790, cxD = 1130, cy = 560, R = 330, cxM = (cxE + cxD) / 2;
+  const cxE = 810, cxD = 1110, cy = 560, R = 300, cxM = (cxE + cxD) / 2;
   const draw = ease.inOut(inv(0.15, 1.2, L));
   const lens = ease.out(inv(tMet - 0.2, tMet + 0.6, t));
   const time = ease.out(inv(tTime - 0.5, tTime + 0.2, t));
@@ -50,30 +50,33 @@ export function papeis(L, t, dur) {
   if (lens > 0) v += op(lens, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g><g clip-path="url(#azLensD)"><circle cx="${cxE}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g>`);
   // logos e descrição de cada lado (no topo dos discos)
   const kl = sobe(L, 0.8, 0.5), kd = sobe(L, tProg - 0.2 - (t - L), 0.6);
-  v += op(kl, logoPilula('logo-totvs', cxE - 62, cy - R + 40, 124, 46, 1) + logoPilula('logo-alvarez-marsal', cxD + 62, cy - R + 40, 124, 46, 1));
-  v += revela(kl, 'C', 300, 50, T('Gestão Técnica, Funcional', cxE - 62, cy - R + 86, 13, { ...OS, w: 600, fill: COR.azulClaro }) + T('e AMS das Soluções', cxE - 62, cy - R + 104, 13, { ...OS, w: 600, fill: COR.azulClaro }), cxE - 212, cy - R + 70);
-  v += revela(kd, 'C', 300, 50, T('Gestão de Transformação', cxD + 62, cy - R + 86, 13, { ...OS, w: 600, fill: COR.ouro2 }) + T('TMO (PMO + GMO)', cxD + 62, cy - R + 104, 13, { ...OS, w: 600, fill: COR.ouro2 }), cxD - 88, cy - R + 70);
+  const LX = 300, RXl = 1620, LY = 300;   // logos grandes nas laterais, fora dos discos, acima dos mascotes
+  v += op(kl, g(`translate(${LX} ${LY}) scale(${F(lerp(0.9, 1, kl))}) translate(${-LX} ${-LY})`, logoPilula('logo-totvs', LX, LY, 180, 62, 1)) + g(`translate(${RXl} ${LY}) scale(${F(lerp(0.9, 1, kl))}) translate(${-RXl} ${-LY})`, logoPilula('logo-alvarez-marsal', RXl, LY, 180, 62, 1)));
+  v += revela(kl, 'C', 320, 54, T('Gestão Técnica, Funcional', LX, LY + 56, 14, { ...OS, w: 600, fill: COR.azulClaro }) + T('e AMS das Soluções', LX, LY + 75, 14, { ...OS, w: 600, fill: COR.azulClaro }), LX - 160, LY + 40);
+  v += revela(kd, 'C', 320, 54, T('Gestão de Transformação', RXl, LY + 56, 14, { ...OS, w: 600, fill: COR.ouro2 }) + T('TMO (PMO + GMO)', RXl, LY + 75, 14, { ...OS, w: 600, fill: COR.ouro2 }), RXl - 160, LY + 40);
+  // linhas finas ligando cada logo ao seu disco
+  v += op(kl * 0.6, `<line x1="${LX + 95}" y1="${LY}" x2="${F(cxE - R + 6)}" y2="${F(cy - 80)}" stroke="rgba(108,196,255,.35)" stroke-width="1.2" stroke-dasharray="3 6"/>`) + op(kd * 0.6, `<line x1="${RXl - 95}" y1="${LY}" x2="${F(cxD + R - 6)}" y2="${F(cy - 80)}" stroke="rgba(230,183,94,.35)" stroke-width="1.2" stroke-dasharray="3 6"/>`);
   // itens: ícone + duas linhas (17 px), alinhados por linha; entram por máscara de revelação (esquerda vem da esquerda, direita da direita)
   const item = (ico, l1, l2, x, y, k, lado, cor) => {
     const dx = lado < 0 ? 1 : -1, anchor = lado < 0 ? 'start' : 'end';
     const r = g(`translate(${F(x)} ${F(y)})`, `<circle r="17" fill="rgba(255,255,255,.08)" stroke="${cor}" stroke-width="1.5"/>` + glifo(ico, cor, 0.95))
-      + T(l1, x + dx * 30, y + (l2 ? -3 : 6), 17, { ...OS, fill: '#fff', anchor }) + (l2 ? T(l2, x + dx * 30, y + 18, 17, { ...OS, fill: '#fff', anchor }) : '');
+      + T(l1, x + dx * 30, y + (l2 ? -3 : 6), 16, { ...OS, fill: '#fff', anchor }) + (l2 ? T(l2, x + dx * 30, y + 17, 16, { ...OS, fill: '#fff', anchor }) : '');
     return revela(k, lado < 0 ? 'E' : 'D', 300, 60, r, lado < 0 ? x - 24 : x - 276, y - 30);
   };
-  const OFF = [50, 16, 2, 2, 16, 50];
-  ESQ.forEach(([ico, l1, l2], i) => { const k = sobe(L, 0.55 + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxE - R + 70 + OFF[i], 370 + i * 74, k, -1, COR.azulClaro); });
-  DIR.forEach(([ico, l1, l2], i) => { const k = sobe(L, tAM - 0.1 - (t - L) + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxD + R - 70 - OFF[i], 370 + i * 74, k, 1, COR.ouro2); });
+  const OFF = [44, 14, 0, 0, 14, 44];
+  ESQ.forEach(([ico, l1, l2], i) => { const k = sobe(L, 0.55 + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxE - R + 84 + OFF[i], 380 + i * 72, k, -1, COR.azulClaro); });
+  DIR.forEach(([ico, l1, l2], i) => { const k = sobe(L, tAM - 0.1 - (t - L) + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxD + R - 84 - OFF[i], 380 + i * 72, k, 1, COR.ouro2); });
   // lente "Atuação Conjunta": título numa linha com o elo, subtítulo, divisor e cinco itens com check
   if (lens > 0) {
-    const wT = larg('Atuação Conjunta', 22, 800), x0 = cxM - (wT + 34) / 2;
-    let cab = g(`translate(${F(x0 + 12)} 392)`, glifo('elo', '#fff', 1.05)) + T('Atuação Conjunta', x0 + 34, 400, 22, { w: 800, fill: '#fff', anchor: 'start' })
-      + T('Refinamento de Processos (MIT)', cxM, 432, 15, { ...OS, w: 700, fill: COR.ciano })
-      + `<rect x="${F(cxM - 100)}" y="448" width="200" height="1.5" fill="rgba(255,255,255,.35)"/>`;
-    v += revela(lens, 'C', 320, 90, cab, cxM - 160, 372);
+    const wT = larg('Atuação Conjunta', 21, 800), x0 = cxM - (wT + 32) / 2;
+    let cab = g(`translate(${F(x0 + 11)} 396)`, glifo('elo', '#fff', 1.0)) + T('Atuação Conjunta', x0 + 32, 404, 21, { w: 800, fill: '#fff', anchor: 'start' })
+      + T('Refinamento de Processos (MIT)', cxM, 436, 14, { ...OS, w: 700, fill: COR.ciano })
+      + `<rect x="${F(cxM - 90)}" y="452" width="180" height="1.5" fill="rgba(255,255,255,.35)"/>`;
+    v += revela(lens, 'C', 300, 90, cab, cxM - 150, 376);
     MEIO.forEach((tx, i) => {
       const k = sobe(L, tCon - 0.1 - (t - L) + i * 0.2, 0.45); if (k <= 0) return;
-      const y = 486 + i * 30;
-      v += revela(k, 'E', 300, 30, g(`translate(${F(cxM - 118)} ${F(y - 5)})`, checkIco(0, 0, 8, COR.ciano)) + T(tx, cxM - 102, y, 14, { ...OS, fill: '#fff', anchor: 'start' }), cxM - 132, y - 20);
+      const y = 488 + i * 30;
+      v += revela(k, 'E', 280, 30, g(`translate(${F(cxM - 112)} ${F(y - 5)})`, checkIco(0, 0, 8, COR.ciano)) + T(tx, cxM - 96, y, 13, { ...OS, fill: '#fff', anchor: 'start' }), cxM - 126, y - 20);
     });
   }
   // partículas convergindo em "um único time"
@@ -123,13 +126,13 @@ export function metodologia(L, t, dur) {
   const kt = sobe(L, 0.05, 0.5);
   // selo METODOLOGIA A&M
   const ks = sobe(L, 0.2, 0.5);
-  v += op(ks, `<rect x="36" y="150" width="156" height="92" rx="10" fill="rgba(24,52,104,.85)" stroke="rgba(255,255,255,.25)"/>` + g('translate(114 176)', glifo('grafico', '#fff', 1.1)) + T('METODOLOGIA', 114, 212, 12, { w: 800, fill: '#fff', ls: 1.5 }) + T('A&M', 114, 230, 12, { w: 800, fill: '#fff', ls: 1.5 }));
-  v += op(ks, T('PRINCIPAIS', 36, 318, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 2 }) + T('FOCOS A&M', 36, 338, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 2 }));
-  v += op(ks, T('CONEXÃO E', 36, 672, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }) + T('ATUAÇÃO', 36, 692, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }) + T('CONJUNTA', 36, 712, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }));
+  v += op(ks, `<rect x="36" y="210" width="156" height="92" rx="10" fill="rgba(24,52,104,.85)" stroke="rgba(255,255,255,.25)"/>` + g('translate(114 236)', glifo('grafico', '#fff', 1.1)) + T('METODOLOGIA', 114, 272, 12, { w: 800, fill: '#fff', ls: 1.5 }) + T('A&M', 114, 290, 12, { w: 800, fill: '#fff', ls: 1.5 }));
+  v += op(ks, T('PRINCIPAIS', 36, 378, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 2 }) + T('FOCOS A&M', 36, 398, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 2 }));
+  v += op(ks, T('CONEXÃO E', 36, 636, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }) + T('ATUAÇÃO', 36, 656, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }) + T('CONJUNTA', 36, 676, 13, { w: 800, fill: COR.azulClaro, anchor: 'start', ls: 2 }));
   // linha pontilhada de conexão com fluxo
   const fluxo = ease.out(inv(tCond - 0.2, tCond + 0.6, t));
-  v += op(ks, `<line x1="${ex(0)}" y1="596" x2="${F(ex(5) + MW + 20)}" y2="596" stroke="rgba(108,196,255,.55)" stroke-width="2" stroke-dasharray="2 7"/><path d="M${F(ex(5) + MW + 20)} 590 l10 6 l-10 6 Z" fill="${COR.azulClaro}"/>`);
-  if (fluxo > 0) for (let j = 0; j < 14; j++) { const q = ((L * 0.22 + j / 14) % 1); v += `<circle cx="${F(lerp(ex(0), ex(5) + MW, q))}" cy="596" r="3" fill="#fff" opacity="${F(fluxo * 0.9)}"/>`; }
+  v += op(ks, `<line x1="${ex(0)}" y1="560" x2="${F(ex(5) + MW + 20)}" y2="560" stroke="rgba(108,196,255,.55)" stroke-width="2" stroke-dasharray="2 7"/><path d="M${F(ex(5) + MW + 20)} 554 l10 6 l-10 6 Z" fill="${COR.azulClaro}"/>`);
+  if (fluxo > 0) for (let j = 0; j < 14; j++) { const q = ((L * 0.22 + j / 14) % 1); v += `<circle cx="${F(lerp(ex(0), ex(5) + MW, q))}" cy="560" r="3" fill="#fff" opacity="${F(fluxo * 0.9)}"/>`; }
   // varredura final "da definição dos processos à gestão da mudança"
   const var1 = inv(tDef - 0.1, tMud + 0.3, t);
   ETAPAS.forEach((e, i) => {
@@ -140,13 +143,13 @@ export function metodologia(L, t, dur) {
     const brilho = isAtivo ? 1 : varre;
     const ent = ease.out(inv(0.2 + i * 0.06, 0.7 + i * 0.06, L));
     // chevron
-    const d = `M${x} 150 H${x + MW - 22} L${x + MW} 196 L${x + MW - 22} 242 H${x} ${i ? `L${x + 22} 196 Z` : 'Z'}`;
+    const d = `M${x} 210 H${x + MW - 22} L${x + MW} 256 L${x + MW - 22} 302 H${x} ${i ? `L${x + 22} 256 Z` : 'Z'}`;
     v += op(ent, `<path d="${d}" fill="${on ? `rgba(31,72,150,${F(0.75 + 0.25 * ac)})` : 'rgba(18,42,88,.55)'}" stroke="${on ? COR.azulClaro : 'rgba(255,255,255,.22)'}" stroke-width="${on ? 2 : 1.2}"/>`);
     if (brilho > 0) v += `<path d="${d}" fill="${COR.ciano}" opacity="${F(0.22 * brilho)}" filter="url(#azBrilhoP)"/>`;
-    v += op(ent, g(`translate(${F(x + 44)} 180)`, glifo(e.ico, on ? '#fff' : 'rgba(255,255,255,.55)', 1.1)));
-    v += op(ent, T(e.n + ' ' + e.t[0], x + 70, 193, 13, { w: 800, fill: on ? '#fff' : 'rgba(255,255,255,.6)', anchor: 'start', ls: 0.8 }) + T(e.t[1], x + 70 + larg(e.n + ' ', 13, 800), 210, 13, { w: 800, fill: on ? '#fff' : 'rgba(255,255,255,.6)', anchor: 'start', ls: 0.8 }));
+    v += op(ent, g(`translate(${F(x + 44)} 240)`, glifo(e.ico, on ? '#fff' : 'rgba(255,255,255,.55)', 1.1)));
+    v += op(ent, T(e.n + ' ' + e.t[0], x + 70, 253, 13, { w: 800, fill: on ? '#fff' : 'rgba(255,255,255,.6)', anchor: 'start', ls: 0.8 }) + T(e.t[1], x + 70 + larg(e.n + ' ', 13, 800), 270, 13, { w: 800, fill: on ? '#fff' : 'rgba(255,255,255,.6)', anchor: 'start', ls: 0.8 }));
     // focos
-    let y = 318;
+    let y = 378;
     e.focos.forEach((f, j) => {
       const k = on ? ease.out(inv(ini[i] + 0.15 + j * 0.13, ini[i] + 0.5 + j * 0.13, t)) : 0;
       const lins = quebra(f, 15, 'os', MW - 40, 400);
@@ -156,19 +159,19 @@ export function metodologia(L, t, dur) {
     });
     // elo e caixa da conexão
     const kc = on ? ease.back(inv(ini[i] + 0.3, ini[i] + 0.8, t)) : 0;
-    v += op(ent, g(`translate(${F(x + MW / 2)} 596)`, `<circle r="13" fill="rgba(7,17,42,.9)" stroke="${on ? COR.azulClaro : 'rgba(108,196,255,.4)'}" stroke-width="2"/>` + glifo('elo', on ? COR.azulClaro : 'rgba(108,196,255,.5)', 0.7)));
+    v += op(ent, g(`translate(${F(x + MW / 2)} 560)`, `<circle r="13" fill="rgba(7,17,42,.9)" stroke="${on ? COR.azulClaro : 'rgba(108,196,255,.4)'}" stroke-width="2"/>` + glifo('elo', on ? COR.azulClaro : 'rgba(108,196,255,.5)', 0.7)));
     const lins = quebra(e.conj, 15, 'os', MW - 36, 600);
     const bo = on ? 1 : 0.4;
-    v += op(ent * bo, `<rect x="${x}" y="640" width="${MW}" height="104" rx="10" fill="${on ? 'rgba(24,52,104,.85)' : 'rgba(18,42,88,.5)'}" stroke="${on ? `rgba(108,196,255,${F(0.5 + 0.5 * brilho)})` : 'rgba(255,255,255,.18)'}" stroke-width="${1.2 + brilho}"/>`
-      + (on ? lins.map((l, q) => op(kc, T(l, x + MW / 2, 692 - (lins.length - 1) * 10 + q * 20, 15, { ...OS, w: 400, fill: '#fff' }))).join('') : ''));
-    if (kc > 0 && kc < 1) v += `<line x1="${F(x + MW / 2)}" y1="609" x2="${F(x + MW / 2)}" y2="${F(lerp(609, 640, kc))}" stroke="${COR.azulClaro}" stroke-width="2"/>`;
-    else if (on) v += `<line x1="${F(x + MW / 2)}" y1="609" x2="${F(x + MW / 2)}" y2="640" stroke="${COR.azulClaro}" stroke-width="2"/>`;
+    v += op(ent * bo, `<rect x="${x}" y="600" width="${MW}" height="104" rx="10" fill="${on ? 'rgba(24,52,104,.85)' : 'rgba(18,42,88,.5)'}" stroke="${on ? `rgba(108,196,255,${F(0.5 + 0.5 * brilho)})` : 'rgba(255,255,255,.18)'}" stroke-width="${1.2 + brilho}"/>`
+      + (on ? lins.map((l, q) => op(kc, T(l, x + MW / 2, 652 - (lins.length - 1) * 10 + q * 20, 15, { ...OS, w: 400, fill: '#fff' }))).join('') : ''));
+    if (kc > 0 && kc < 1) v += `<line x1="${F(x + MW / 2)}" y1="573" x2="${F(x + MW / 2)}" y2="${F(lerp(573, 600, kc))}" stroke="${COR.azulClaro}" stroke-width="2"/>`;
+    else if (on) v += `<line x1="${F(x + MW / 2)}" y1="573" x2="${F(x + MW / 2)}" y2="600" stroke="${COR.azulClaro}" stroke-width="2"/>`;
   });
   // faixa de luz da varredura
-  if (var1 > 0 && var1 < 1) { const xx = lerp(ex(0), ex(5) + MW, var1); v += `<rect x="${F(xx - 30)}" y="140" width="60" height="620" fill="#fff" opacity=".07" filter="url(#azBrilho)"/>`; }
+  if (var1 > 0 && var1 < 1) { const xx = lerp(ex(0), ex(5) + MW, var1); v += `<rect x="${F(xx - 30)}" y="200" width="60" height="530" fill="#fff" opacity=".07" filter="url(#azBrilho)"/>`; }
   // brilho geral em "metodologias integradas e papéis complementares"
   const int = Math.sin(clamp(inv(tInt, tInt + 1.6, t)) * Math.PI);
-  if (int > 0) v += `<rect x="${ex(0) - 10}" y="140" width="${F(6 * (MW + MG) + 10)}" height="620" rx="16" fill="none" stroke="${COR.ciano}" stroke-width="2" opacity="${F(0.6 * int)}"/>`;
+  if (int > 0) v += `<rect x="${ex(0) - 10}" y="200" width="${F(6 * (MW + MG) + 10)}" height="530" rx="16" fill="none" stroke="${COR.ciano}" stroke-width="2" opacity="${F(0.6 * int)}"/>`;
   s += g(`translate(960 470) scale(${F(cam[2])}) translate(${F(-cam[0])} ${F(-cam[1])})`, v);
   s += op(kt, T('METODOLOGIA INTEGRADA A&M E TOTVS', 960, 58 - 8 * (1 - kt), 22, { w: 800, fill: '#fff', ls: 5 }) + T('6 FASES, E UMA ÚNICA JORNADA', 960, 86 - 8 * (1 - kt), 14, { w: 800, fill: COR.ouro2, ls: 4 }));
   return s + vinheta(0.55);

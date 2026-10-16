@@ -156,12 +156,22 @@ export const checkIco = (x, y, r = 11, cor = COR.verde) => `<circle cx="${F(x)}"
 export function pessoa(id, cx, base, h, L, o = {}) {
   const m = PROP[id]; if (!m) return '';
   const w = h * m.r;
-  const k = 1 + 0.006 * Math.sin(L * 2.0 + (o.fase ?? 0));
-  const bob = 3 * Math.sin(L * 1.1 + (o.fase ?? 0)), sway = 0.6 * Math.sin(L * 0.7 + (o.fase ?? 0) * 1.3);
+  const k = 1, bob = 0, sway = 0;   // personagens estáticos (sem respiração/balanço): só a entrada deslizando
   let s = '';
   if (o.halo !== false) s += `<ellipse cx="${F(cx)}" cy="${F(base - h * 0.6)}" rx="${F(w * 0.5)}" ry="${F(h * 0.46)}" fill="${o.halo ?? '#5aa0ff'}" opacity="${F(o.haloA ?? 0.14)}" filter="url(#azBrilhoG)"/>`;
   s += g(`translate(${F(cx)} ${F(base + bob)}) rotate(${F(sway)}) scale(${F(k)})`, imagem(id, -w / 2, -h, w, h, 'filter="url(#azPessoa)"'));
   return s;
+}
+// máscara de revelação (estilo After Effects): recorta `inner` com um retângulo que cresce a partir de um lado
+// ('E' esquerda, 'D' direita, 'C' cima, 'B' baixo), com um leve deslocamento no sentido da entrada
+let _rev = 0;
+export function revela(k, lado, w, h, inner, x0 = 0, y0 = 0) {
+  k = clamp(k); if (k <= 0) return ''; if (k >= 1) return inner;
+  const id = 'azRev' + (_rev++ % 100000);
+  const rw = lado === 'E' || lado === 'D' ? w * k : w, rh = lado === 'C' || lado === 'B' ? h * k : h;
+  const rx = lado === 'D' ? x0 + w - rw : x0, ry = lado === 'B' ? y0 + h - rh : y0;
+  const dx = lado === 'E' ? -(1 - k) * 26 : lado === 'D' ? (1 - k) * 26 : 0, dy = lado === 'C' ? -(1 - k) * 26 : lado === 'B' ? (1 - k) * 26 : 0;
+  return `<clipPath id="${id}"><rect x="${F(rx)}" y="${F(ry)}" width="${F(rw)}" height="${F(rh)}"/></clipPath><g clip-path="url(#${id})">${g(tr(dx, dy), inner)}</g>`;
 }
 export const largPessoa = (id, h) => (PROP[id] ? h * PROP[id].r : 0);
 // deslocamento que deixa o personagem inteiramente fora do quadro (para entradas deslizando pela lateral)

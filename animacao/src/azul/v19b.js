@@ -1,7 +1,7 @@
 // v19 · cenas 6 a 8: papéis complementares (Venn A&M × TOTVS), metodologia A&M · TMO (seis etapas) e TMO (três círculos).
 // Os textos são os mesmos dos slides do v18; aqui viram frames desenhados e animados no padrão do cenário.
 import { clamp, lerp, inv, ease, rng, tr, g, op, TAU } from '../core.js';
-import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, quebra, fundo, vinheta, vidro, pilula, brilhoPonto, checkIco, pessoa, largPessoa, palavra } from './base.js';
+import { F, W, H, COR, T, OS, larg, logoImg, logoPilula, entra, sobe, quebra, fundo, vinheta, vidro, pilula, brilhoPonto, checkIco, pessoa, largPessoa, palavra, revela } from './base.js';
 
 // glifos simples (traço branco) para listas
 function glifo(n, cor = '#fff', s = 1) {
@@ -34,55 +34,58 @@ const MEIO = ['Planejamento e Priorização', 'Testes Integrados e Aceites', 'Pr
 
 export function papeis(L, t, dur) {
   let s = fundo(t);
-  const tAM = palavra('l16', 2), tProg = palavra('l16', 7), tMet = palavra('l16', 11), tTMO = palavra('l16', 14), tCon = palavra('l16', 15), tTime = palavra('l16', -1);
-  const cxE = 800, cxD = 1120, cy = 540, R = 330;   // lente com 280 px de largura: os itens da atuação conjunta cabem dentro dela
+  const tAM = palavra('l16', 2), tProg = palavra('l16', 7), tMet = palavra('l16', 11), tCon = palavra('l16', 15), tTime = palavra('l16', -1);
+  // mandala: dois discos grandes, lente central larga (320 px), textos maiores e alinhados por linha
+  const cxE = 790, cxD = 1130, cy = 560, R = 330, cxM = (cxE + cxD) / 2;
   const draw = ease.inOut(inv(0.15, 1.2, L));
   const lens = ease.out(inv(tMet - 0.2, tMet + 0.6, t));
   const time = ease.out(inv(tTime - 0.5, tTime + 0.2, t));
   const pulso = 0.5 + 0.5 * Math.sin(L * 2.2);
   let v = '';
   // discos
-  v += `<clipPath id="azLensE"><circle cx="${cxE}" cy="${cy}" r="${R}"/></clipPath>`;
-  v += `<circle cx="${cxE}" cy="${cy}" r="${R}" fill="rgba(176,204,240,.14)" stroke="rgba(214,226,247,.85)" stroke-width="2.5" stroke-dasharray="${F(draw * TAU * R)} 3000" transform="rotate(-90 ${cxE} ${cy})"/>`;
-  v += `<circle cx="${cxD}" cy="${cy}" r="${R}" fill="rgba(17,46,100,.55)" stroke="rgba(214,226,247,.85)" stroke-width="2.5" stroke-dasharray="${F(draw * TAU * R)} 3000" transform="rotate(90 ${cxD} ${cy})"/>`;
-  v += op(draw, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="rgba(70,110,180,${F(0.35 + 0.35 * lens + 0.15 * time * pulso)})"/></g>`);
-  if (lens > 0) v += op(lens, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g>` + `<circle cx="${cxE}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3" clip-path="url(#azLensD)"/>` + `<clipPath id="azLensD"><circle cx="${cxD}" cy="${cy}" r="${R}"/></clipPath>`);
-  // logos nos topos
-  const kl = entra(L, 0.9, 0.5);
-  v += op(clamp(kl * 2), logoPilula('logo-totvs', cxE - 40, cy - R + 22, 120, 46, kl) + logoPilula('logo-alvarez-marsal', cxD + 40, cy - R + 22, 120, 46, kl));
-  // itens da esquerda (TOTVS) e da direita (A&M)
+  v += `<clipPath id="azLensE"><circle cx="${cxE}" cy="${cy}" r="${R}"/></clipPath><clipPath id="azLensD"><circle cx="${cxD}" cy="${cy}" r="${R}"/></clipPath>`;
+  v += `<circle cx="${cxE}" cy="${cy}" r="${R}" fill="rgba(120,170,240,.13)" stroke="rgba(214,226,247,.8)" stroke-width="2" stroke-dasharray="${F(draw * TAU * R)} 3000" transform="rotate(-90 ${cxE} ${cy})"/>`;
+  v += `<circle cx="${cxD}" cy="${cy}" r="${R}" fill="rgba(17,46,100,.5)" stroke="rgba(214,226,247,.8)" stroke-width="2" stroke-dasharray="${F(draw * TAU * R)} 3000" transform="rotate(90 ${cxD} ${cy})"/>`;
+  v += op(draw, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="rgba(70,110,180,${F(0.4 + 0.3 * lens + 0.15 * time * pulso)})"/></g>`);
+  if (lens > 0) v += op(lens, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g><g clip-path="url(#azLensD)"><circle cx="${cxE}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g>`);
+  // logos e descrição de cada lado (no topo dos discos)
+  const kl = sobe(L, 0.8, 0.5), kd = sobe(L, tProg - 0.2 - (t - L), 0.6);
+  v += op(kl, logoPilula('logo-totvs', cxE - 62, cy - R + 40, 124, 46, 1) + logoPilula('logo-alvarez-marsal', cxD + 62, cy - R + 40, 124, 46, 1));
+  v += revela(kl, 'C', 300, 50, T('Gestão Técnica, Funcional', cxE - 62, cy - R + 86, 13, { ...OS, w: 600, fill: COR.azulClaro }) + T('e AMS das Soluções', cxE - 62, cy - R + 104, 13, { ...OS, w: 600, fill: COR.azulClaro }), cxE - 212, cy - R + 70);
+  v += revela(kd, 'C', 300, 50, T('Gestão de Transformação', cxD + 62, cy - R + 86, 13, { ...OS, w: 600, fill: COR.ouro2 }) + T('TMO (PMO + GMO)', cxD + 62, cy - R + 104, 13, { ...OS, w: 600, fill: COR.ouro2 }), cxD - 88, cy - R + 70);
+  // itens: ícone + duas linhas (17 px), alinhados por linha; entram por máscara de revelação (esquerda vem da esquerda, direita da direita)
   const item = (ico, l1, l2, x, y, k, lado, cor) => {
     const dx = lado < 0 ? 1 : -1, anchor = lado < 0 ? 'start' : 'end';
-    let r = g(`translate(${F(x)} ${F(y)}) scale(${F(k)})`, `<circle r="17" fill="rgba(255,255,255,.08)" stroke="${cor}" stroke-width="1.5"/>` + glifo(ico, cor, 0.95));
-    r += op(clamp(k * 1.4), T(l1, x + dx * 30, y + (l2 ? -2 : 6), 18, { ...OS, fill: '#fff', anchor }) + (l2 ? T(l2, x + dx * 30, y + 19, 18, { ...OS, fill: '#fff', anchor }) : ''));
-    return r;
+    const r = g(`translate(${F(x)} ${F(y)})`, `<circle r="17" fill="rgba(255,255,255,.08)" stroke="${cor}" stroke-width="1.5"/>` + glifo(ico, cor, 0.95))
+      + T(l1, x + dx * 30, y + (l2 ? -3 : 6), 17, { ...OS, fill: '#fff', anchor }) + (l2 ? T(l2, x + dx * 30, y + 18, 17, { ...OS, fill: '#fff', anchor }) : '');
+    return revela(k, lado < 0 ? 'E' : 'D', 300, 60, r, lado < 0 ? x - 24 : x - 276, y - 30);
   };
-  const OFF = [46, 12, 0, 0, 12, 46];
-  ESQ.forEach(([ico, l1, l2], i) => { const k = entra(L, 0.6 + i * 0.14, 0.5); if (k > 0) v += item(ico, l1, l2, cxE - R + 75 + OFF[i], 356 + i * 74, k, -1, COR.azulClaro); });
-  DIR.forEach(([ico, l1, l2], i) => { const k = entra(L, tAM - 0.1 - (t - L) + i * 0.14, 0.5); if (k > 0) v += item(ico, l1, l2, cxD + R - 75 - OFF[i], 356 + i * 74, k, 1, COR.ouro2); });
-  // arcos com rótulos
-  const arcE = op(sobe(L, 0.9, 0.6), `<path id="azArcE" d="M${F(cxE - R - 38)} ${cy} A${R + 38} ${R + 38} 0 0 0 ${F(cxE)} ${F(cy + R + 38)}" fill="none"/><text font-family="Outfit" font-weight="800" font-size="20" fill="${COR.ouro2}" letter-spacing="1"><textPath href="#azArcE" startOffset="2%">Gestão Técnica, Funcional e AMS das Soluções</textPath></text>`);
-  const arcD = op(sobe(L, tProg - 0.2 - (t - L), 0.6), `<path id="azArcD" d="M${F(cxD)} ${F(cy - R - 38)} A${R + 38} ${R + 38} 0 0 1 ${F(cxD)} ${F(cy + R + 38)}" fill="none"/><text font-family="Outfit" font-weight="800" font-size="20" fill="${COR.ouro2}" letter-spacing="1"><textPath href="#azArcD" startOffset="22%">Gestão de Transformação TMO (PMO + GMO)</textPath></text>`);
-  v += arcE + arcD;
-  // atuação conjunta (lente)
-  const cxM = (cxE + cxD) / 2;
+  const OFF = [50, 16, 2, 2, 16, 50];
+  ESQ.forEach(([ico, l1, l2], i) => { const k = sobe(L, 0.55 + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxE - R + 70 + OFF[i], 370 + i * 74, k, -1, COR.azulClaro); });
+  DIR.forEach(([ico, l1, l2], i) => { const k = sobe(L, tAM - 0.1 - (t - L) + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxD + R - 70 - OFF[i], 370 + i * 74, k, 1, COR.ouro2); });
+  // lente "Atuação Conjunta": título numa linha com o elo, subtítulo, divisor e cinco itens com check
   if (lens > 0) {
-    v += op(lens, g(tr(0, 10 * (1 - lens)), g(`translate(${F(cxM - 12)} 405)`, glifo('elo', '#fff', 1.1)) + T('Atuação', cxM + 16, 412, 22, { w: 800, fill: '#fff', anchor: 'start' }) + T('Conjunta', cxM, 442, 22, { w: 800, fill: '#fff' })
-      + T('Refinamento de', cxM, 480, 17, { ...OS, w: 700, fill: '#fff' }) + T('Processos (MIT)', cxM, 502, 17, { ...OS, w: 700, fill: '#fff' })));
-    MEIO.forEach((tx, i) => { const k = entra(L, tCon - 0.1 - (t - L) + i * 0.22, 0.45); if (k > 0) v += g(`translate(${F(cxM - 114)} ${F(522 + i * 27)}) scale(${F(k)})`, checkIco(0, 0, 8, COR.ciano)) + op(clamp(k * 1.4), T(tx, cxM - 100, 527 + i * 27, 13, { ...OS, fill: '#fff', anchor: 'start' })); });
+    const wT = larg('Atuação Conjunta', 22, 800), x0 = cxM - (wT + 34) / 2;
+    let cab = g(`translate(${F(x0 + 12)} 392)`, glifo('elo', '#fff', 1.05)) + T('Atuação Conjunta', x0 + 34, 400, 22, { w: 800, fill: '#fff', anchor: 'start' })
+      + T('Refinamento de Processos (MIT)', cxM, 432, 15, { ...OS, w: 700, fill: COR.ciano })
+      + `<rect x="${F(cxM - 100)}" y="448" width="200" height="1.5" fill="rgba(255,255,255,.35)"/>`;
+    v += revela(lens, 'C', 320, 90, cab, cxM - 160, 372);
+    MEIO.forEach((tx, i) => {
+      const k = sobe(L, tCon - 0.1 - (t - L) + i * 0.2, 0.45); if (k <= 0) return;
+      const y = 486 + i * 30;
+      v += revela(k, 'E', 300, 30, g(`translate(${F(cxM - 118)} ${F(y - 5)})`, checkIco(0, 0, 8, COR.ciano)) + T(tx, cxM - 102, y, 14, { ...OS, fill: '#fff', anchor: 'start' }), cxM - 132, y - 20);
+    });
   }
   // partículas convergindo em "um único time"
   if (time > 0) { const r = rng(3); for (let j = 0; j < 40; j++) { const q = ((L * 0.6 + r()) % 1); const lado = j % 2 ? -1 : 1; const x0 = cxM + lado * (R + 160), y0 = cy + (r() - 0.5) * 2 * R; v += `<circle cx="${F(lerp(x0, cxM, q))}" cy="${F(lerp(y0, cy, q))}" r="${F(1.5 + 2 * (1 - q))}" fill="${lado < 0 ? COR.azulClaro : COR.ouro2}" opacity="${F(time * (1 - q) * 0.9)}"/>`; } }
-  // título e rodapé
-  const kt = entra(L, 0.1, 0.6);
-  const titulo = g(`translate(960 76) scale(${F(0.66 * lerp(0.9, 1 + 0.03 * time * pulso, kt))})`, vidro(-290, -48, 580, 96, { r: 20, brilho: 0.35 + 0.5 * time, corBrilho: COR.ouro }) + T('UM TIME', -256, -16, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 4 }) + T('PAPÉIS COMPLEMENTARES', -256, 22, 32, { w: 900, fill: '#fff', anchor: 'start' }) + g('translate(250 0)', `<path d="M0 -14 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 Z" fill="${COR.ouro}" opacity="${F(0.6 + 0.4 * pulso)}"/>`));
-  v += op(clamp(kt * 2), titulo);
+  // título pequeno no topo + subtítulo do framework
+  const kt = sobe(L, 0.1, 0.6);
+  const titulo = g(`translate(960 76) scale(${F(0.66 * lerp(0.94, 1, kt))})`, vidro(-290, -48, 580, 96, { r: 20, brilho: 0.35 + 0.5 * time, corBrilho: COR.ouro }) + T('UM TIME', -256, -16, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 4 }) + T('PAPÉIS COMPLEMENTARES', -256, 22, 32, { w: 900, fill: '#fff', anchor: 'start' }) + g('translate(250 0)', `<path d="M0 -14 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 Z" fill="${COR.ouro}" opacity="${F(0.6 + 0.4 * pulso)}"/>`));
+  v += op(kt, titulo);
   v += op(sobe(L, tMet - 0.2 - (t - L), 0.6), T('FRAMEWORK A&M × TOTVS · VISÃO INTEGRADA', 960, 130, 12, { w: 800, fill: COR.ouro2, ls: 5 }));
-  // câmera: leve aproximação na lente durante "metodologia ... conecta"
-  const z = lens * (1 - ease.inOut(inv(tTime - 0.2, tTime + 0.6, t)));
-  s += g(`translate(960 560) scale(${F(1 + 0.06 * z)}) translate(${F(-960)} ${F(-560)})`, v);
-  // mascotes nas laterais
-  const hm = 560;   // mesmos tamanho e posição da cena anterior (união): continuidade no dissolve
+  s += v;   // câmera parada
+  // mascotes nas laterais (mesmos tamanho e posição da união: continuidade no dissolve)
+  const hm = 560;
   s += pessoa('totvs_boy', 136, 1120, hm, L, { halo: COR.azul, haloA: 0.1 });
   s += pessoa('am_boy', 1787, 1120, hm, L, { halo: COR.laranja, haloA: 0.1 });
   return s + vinheta(0.6);

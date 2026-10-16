@@ -1,7 +1,7 @@
 // v19 · cenas 1 a 5: capa, dashboard de resultados, desafio do ERP, farol A&M e união TOTVS + A&M.
 // Cada cena recebe (L = tempo dentro da cena, t = tempo absoluto, dur) e devolve SVG sem chrome/legenda.
 import { clamp, lerp, inv, ease, kf, rng, tr, g, op, TAU } from '../core.js';
-import { F, W, H, COR, T, OS, larg, imagem, logoImg, logoPilula, entra, sobe, fundo, vinheta, cidade, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, foraDir, avatar, palavra } from './base.js';
+import { F, W, H, COR, T, OS, larg, imagem, logoImg, logoPilula, entra, sobe, fundo, vinheta, cidade, vidro, pilula, chip, chipW, secao, brilhoPonto, checkIco, pessoa, largPessoa, foraEsq, foraDir, avatar, palavra, revela } from './base.js';
 
 // ------------------------------------------------------------------ CENA 1 · CAPA
 export function capa(L, t, dur) {
@@ -83,6 +83,23 @@ function miniDash(x, y, w, h, u1, u2, u3, L) {   // painel do cockpit: barras, l
   return r;
 }
 
+// selo "Alvarez & Marsal · Painel de excelência": borda serrilhada dourada, disco escuro, textos em arco, logo e fitas
+function seloAM(cx, cy, r) {
+  const N = 44, pts = [];
+  for (let i = 0; i < N * 2; i++) { const a = (i / (N * 2)) * TAU, rr = i % 2 ? r : r - 7; pts.push(`${F(cx + Math.cos(a) * rr)},${F(cy + Math.sin(a) * rr)}`); }
+  const ra = r - 31;
+  const fita = (sg) => `<path d="M${F(cx + sg * 10)} ${F(cy + r - 22)} L${F(cx + sg * 10)} ${F(cy + r + 58)} L${F(cx + sg * 32)} ${F(cy + r + 44)} L${F(cx + sg * 54)} ${F(cy + r + 58)} L${F(cx + sg * 44)} ${F(cy + r - 22)} Z" fill="#10224a" stroke="${COR.ouro}" stroke-width="1.2"/>`;
+  const estrela = (x) => `<path d="M${F(x)} ${F(cy - 5)} l1.6 3.4 l3.4 1.6 l-3.4 1.6 l-1.6 3.4 l-1.6 -3.4 l-3.4 -1.6 l3.4 -1.6 Z" fill="${COR.ouro2}"/>`;
+  return fita(-1) + fita(1)
+    + `<polygon points="${pts.join(' ')}" fill="${COR.ouro}"/><circle cx="${cx}" cy="${cy}" r="${r - 12}" fill="#0b1a38"/><circle cx="${cx}" cy="${cy}" r="${r - 16}" fill="none" stroke="${COR.ouro2}" stroke-width="1.5"/>`
+    + `<path id="azSeloT" d="M${F(cx - ra)} ${cy} A${ra} ${ra} 0 1 1 ${F(cx + ra)} ${cy}" fill="none"/><path id="azSeloB" d="M${F(cx - ra)} ${cy} A${ra} ${ra} 0 0 0 ${F(cx + ra)} ${cy}" fill="none"/>`
+    + `<text font-family="Outfit" font-weight="800" font-size="11" fill="${COR.ouro2}" letter-spacing="2.4" text-anchor="middle"><textPath href="#azSeloT" startOffset="50%">ALVAREZ &amp; MARSAL</textPath></text>`
+    + `<text font-family="Outfit" font-weight="800" font-size="10" fill="${COR.ouro2}" letter-spacing="2" text-anchor="middle"><textPath href="#azSeloB" startOffset="50%">PAINEL DE EXCELÊNCIA</textPath></text>`
+    + estrela(cx - ra) + estrela(cx + ra)
+    + logoImg('alvarez-marsal-branco', cx, cy - 6, 40, 64)
+    + `<circle cx="${cx}" cy="${F(cy + 30)}" r="9" fill="${COR.ouro}"/><path d="M${F(cx - 4.5)} ${F(cy + 30)} l3 3.2 l6 -6.6" stroke="#0b1a38" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+
 export function dashboard(L, t, dur) {
   let s = fundo(t, { bokeh: 1.1 });
   const P = (id, i) => palavra(id, i);
@@ -100,126 +117,130 @@ export function dashboard(L, t, dur) {
     fim: P('l10', -1),
   };
   const ini = [m.c1, m.c2, m.c3, m.c4, m.c5, m.c6, m.c7, m.c8, m.c9];
-  // card ativo; câmera: aproxima no card narrado enquanto ele se preenche e volta à visão geral antes do próximo
-  let ativo = -1; for (let i = 0; i < 9; i++) if (t >= ini[i] - 0.35) ativo = i;
-  const fimZoom = m.fim + 0.5;
-  const centroG = [GR.x0 + 1.5 * GR.cw + GR.gx, GR.y0 + 1.5 * GR.ch + GR.gy];
-  // zoom máximo e alvo limitados à área segura: o grid inteiro continua entre os personagens (x 235–1665) e entre o título e a legenda (y 90–965)
-  const ZOOM = 1.04;
-  const hB = 460, hA = 455, cxB = 112, cxA = 1812;
-  const livreE = cxB + largPessoa('totvs_boy', hB) / 2 + 10, livreD = cxA - largPessoa('am_boy', hA) / 2 - 10;
-  const alvo = i => {
-    const c = cel(i), ax = lerp(centroG[0], c.x + GR.cw / 2, 0.6), ay = lerp(centroG[1], c.y + GR.ch / 2, 0.5);
-    const xr = GR.x0 + 3 * GR.cw + 2 * GR.gx, yb = GR.y0 + 3 * GR.ch + 2 * GR.gy;
-    const lo = xr - (livreD - 960) / ZOOM, hi = GR.x0 + (960 - livreE) / ZOOM;
-    return [clamp(ax, Math.min(lo, hi), Math.max(lo, hi)), clamp(ay, yb - 435 / ZOOM, GR.y0 + 440 / ZOOM)];
-  };
-  let cam = [centroG[0], centroG[1], 1];
-  for (let i = 0; i < 9; i++) {
-    const zin = ini[i] - 0.35;
-    const hout = i < 8 ? Math.min(ini[i + 1] - 1.05, ini[i] + 3.4) : m.fim + 0.25;
-    if (t < zin) break;
-    const k = ease.inOut(inv(zin, zin + 0.7, t)) * (1 - ease.inOut(inv(hout, hout + 0.75, t)));
-    const a = alvo(i);
-    cam = [lerp(centroG[0], a[0], k), lerp(centroG[1], a[1], k), lerp(1, ZOOM, k)];
-  }
-  const ent = ease.out(inv(0.05, 0.7, L));
-  let painel = '';
-  // holofote suave sobre o card ativo
-  if (ativo >= 0 && t < fimZoom + 0.3) { const c = cel(ativo); painel += `<ellipse cx="${F(c.x + GR.cw / 2)}" cy="${F(c.y + GR.ch / 2)}" rx="340" ry="230" fill="url(#azSpot)" opacity="${F(ease.out(inv(ini[ativo] - 0.35, ini[ativo] + 0.3, t)))}"/>`; }
-  for (let i = 0; i < 9; i++) {
-    const { x, y } = cel(i);
-    const e = ease.out(inv(0.1 + i * 0.05, 0.6 + i * 0.05, L));
-    const on = t >= ini[i], ac = clamp(inv(ini[i], ini[i] + 0.45, t));
-    const isAtivo = ativo === i && t < fimZoom;
-    const lift = isAtivo ? ease.out(inv(ini[i] - 0.35, ini[i] + 0.1, t)) : 0;
-    // onda final: depois do último card, um brilho percorre os nove (revelação do dashboard completo)
-    const onda = Math.sin(clamp(inv(m.fim + 0.3 + i * 0.1, m.fim + 0.9 + i * 0.1, t)) * Math.PI);
-    const k = 1 + 0.045 * lift + 0.015 * onda;
-    let c = vidro(0, 0, GR.cw, GR.ch, { brilho: isAtivo ? 0.9 : (on ? 0.25 + 0.6 * onda : 0), borda: on ? `rgba(108,196,255,${F(0.25 + 0.5 * (isAtivo ? 1 : 0.4) + 0.3 * onda)})` : COR.borda, bw: isAtivo || onda > 0.5 ? 2.2 : 1.5, fill: on ? 'rgba(18,42,88,.6)' : 'rgba(16,38,80,.35)' });
-    const txt = (lines, x0, y0, size = 20, fill = COR.claro, w = 600) => lines.map((l, j) => T(l, x0, y0 + j * (size + 6), size, { ...OS, w, fill, anchor: 'start' })).join('');
-    const num = (str, x0, y0, size, fill = COR.ouro) => T(str, x0, y0, size, { w: 800, fill, anchor: 'start' });
-    const cnt = (n, t0, d = 0.8) => Math.round(n * ease.out(inv(t0, t0 + d, t)));
-    const sub = (t0, d = 0.4) => ease.out(inv(t0, t0 + d, t));
-    const pop = (t0, d = 0.45) => ease.back(inv(t0, t0 + d, t));
-    if (i === 0 && on) {
-      c += num(String(cnt(6, m.c1)), 26, 84, 64);
+  const tMont = Math.min(m.fim - 0.9, m.c9dc + 0.45), tSelo = tMont + 0.95;   // montagem do painel e selo
+  const CW = GR.cw, CH = GR.ch;
+  const txt = (lines, x0, y0, size = 20, fill = COR.claro, w = 600) => lines.map((l, j) => T(l, x0, y0 + j * (size + 6), size, { ...OS, w, fill, anchor: 'start' })).join('');
+  const num = (str, x0, y0, size, fill = COR.ouro) => T(str, x0, y0, size, { w: 800, fill, anchor: 'start' });
+  const cnt = (n, t0, d = 0.8) => Math.round(n * ease.out(inv(t0, t0 + d, t)));
+  const sub = (t0, d = 0.4) => ease.out(inv(t0, t0 + d, t));
+  const pop = (t0, d = 0.45) => ease.back(inv(t0, t0 + d, t));
+  const RV = (k, lado, inner, x0, y0, w, h) => revela(k, lado, w, h, inner, x0, y0);
+  // conteúdo de cada cartão (coordenadas locais 420x250): números e descrições entram por máscara de revelação,
+  // vindos de lados diferentes; ícones e logos "pulam" no lugar
+  const conteudo = (i) => {
+    let c = '';
+    if (i === 0) {
+      c += RV(sub(m.c1, 0.5), 'E', num(String(cnt(6, m.c1)), 26, 84, 64), 0, 20, 140, 90);
       LOGOS6.forEach((lg, j) => { const q = pop(m.c1logos + j * 0.12); if (q > 0) c += logoPilula('logo-' + lg, 150 + (j % 3) * 88, 42 + Math.floor(j / 3) * 50, 80, 38, q); });
-      const u = sub(m.c1txt); c += op(u, g(tr(0, 8 * (1 - u)), txt(['projetos vendidos', 'no primeiro ano'], 26, 164)));
+      c += RV(sub(m.c1txt, 0.5), 'D', txt(['projetos vendidos', 'no primeiro ano'], 26, 164), 0, 140, CW, 70);
     }
-    if (i === 1 && on) {
-      c += num(String(cnt(20, m.c2)), 26, 84, 64);
+    if (i === 1) {
+      c += RV(sub(m.c2, 0.5), 'E', num(String(cnt(20, m.c2)), 26, 84, 64), 0, 20, 140, 90);
       for (let j = 0; j < 20; j++) { const q = pop(m.c2av + j * 0.055, 0.35); if (q <= 0) continue; const col = j % 10, lin = Math.floor(j / 10); const cx2 = 148 + col * 26, cy2 = 46 + lin * 30; const gold = j === 3 || j === 8 || j === 11 || j === 17; c += g(`translate(${cx2} ${cy2}) scale(${F(q)})`, `<circle r="11" fill="${gold ? COR.ouro : 'rgba(108,196,255,.9)'}"/><circle cy="-3" r="4" fill="${COR.navy}"/><path d="M-6.5 7 q6.5 -8 13 0 Z" fill="${COR.navy}"/>`); }
-      const u = sub(m.c2txt); c += op(u, g(tr(0, 8 * (1 - u)), txt(['pessoas passaram', 'pelos projetos'], 26, 164)));
+      c += RV(sub(m.c2txt, 0.5), 'D', txt(['pessoas passaram', 'pelos projetos'], 26, 164), 0, 140, CW, 70);
     }
-    if (i === 2 && on) {
-      c += num('R$', 26, 76, 30) + num(String(cnt(16, m.c3)), 78, 84, 64) + num('mi', 158, 76, 28);
-      const u = sub(m.c3txt); c += op(u, g(tr(0, 8 * (1 - u)), txt(['em collections · FY26 + FY27'], 26, 176)));
+    if (i === 2) {
+      c += RV(sub(m.c3, 0.5), 'E', num('R$', 26, 76, 30) + num(String(cnt(16, m.c3)), 78, 84, 64) + num('mi', 158, 76, 28), 0, 20, 250, 90);
+      c += RV(sub(m.c3txt, 0.5), 'D', txt(['em collections · FY26 + FY27'], 26, 176), 0, 150, CW, 50);
       const b1 = ease.out(inv(m.b26 - 0.05, m.b26 + 0.55, t)), b2 = ease.out(inv(m.b27 - 0.05, m.b27 + 0.55, t));
       const bx = 262, base = 112, e7 = 7.2;
       if (b1 > 0) c += `<rect x="${bx}" y="${F(base - 7 * e7 * b1)}" width="42" height="${F(7 * e7 * b1)}" rx="7" fill="url(#azAzulV)"/>` + op(b1, T('7', bx + 21, base - 7 * e7 * b1 + 24, 20, { w: 800, fill: '#fff' }) + T('FY26', bx + 21, base + 26, 15, { w: 800, fill: COR.ouro2 }));
       if (b2 > 0) c += `<rect x="${bx + 60}" y="${F(base - 9 * e7 * b2)}" width="42" height="${F(9 * e7 * b2)}" rx="7" fill="url(#azAzulV)"/>` + op(b2, T('9', bx + 81, base - 9 * e7 * b2 + 24, 20, { w: 800, fill: '#fff' }) + T('FY27', bx + 81, base + 26, 15, { w: 800, fill: COR.ouro2 }));
     }
-    if (i === 3 && on) {
-      c += num(String(cnt(12, m.c4, 0.6)), 26, 84, 64);
-      let u = sub(m.c4m); c += op(u, txt(['meses de', 'duração média'], 118, 60, 19, COR.claro));
-      u = pop(m.c4rel); if (u > 0) c += g(`translate(356 66) scale(${F(u)})`, relogio(0, 0, 30, clamp(inv(m.c4rel, m.c4rec + 0.4, t)), L));
-      u = sub(m.c4txt); c += op(u, g(tr(0, 8 * (1 - u)), txt(['Projetos de longo prazo', 'e recorrência'], 26, 174, 21, '#fff', 700)));
+    if (i === 3) {
+      c += RV(sub(m.c4, 0.5), 'E', num(String(cnt(12, m.c4, 0.6)), 26, 84, 64), 0, 20, 110, 90);
+      c += RV(sub(m.c4m, 0.5), 'D', txt(['meses de', 'duração média'], 118, 60, 19, COR.claro), 110, 36, 220, 60);
+      const u = pop(m.c4rel); if (u > 0) c += g(`translate(356 66) scale(${F(u)})`, relogio(0, 0, 30, clamp(inv(m.c4rel, m.c4rec + 0.4, t)), L));
+      c += RV(sub(m.c4txt, 0.5), 'B', txt(['Projetos de longo prazo', 'e recorrência'], 26, 174, 21, '#fff', 700), 0, 150, CW, 70);
     }
-    if (i === 4 && on) {
+    if (i === 4) {
       const u0 = pop(m.c5); c += g(`translate(52 54) scale(${F(u0)})`, icoCross(0, 0, 40, clamp(inv(m.c5, m.c5 + 0.8, t))));
-      c += op(sub(m.c5 + 0.1), txt(['Cross-sell com', 'especializações'], 100, 48, 22, '#fff', 700));
+      c += RV(sub(m.c5 + 0.1, 0.5), 'D', txt(['Cross-sell com', 'especializações'], 100, 48, 22, '#fff', 700), 96, 20, 300, 70);
       const chips = [['Melhoria de processos', m.ch1, COR.verde], ['Reforma tributária', m.ch2, COR.verde], ['Transformação digital', m.ch3, COR.verde], ['entre outros', m.ch3 + 0.2, COR.ouro]];
       let cx3 = 26, cy3 = 150;
       chips.forEach(([tx, t0, cor], j) => { const w = chipW(tx, 15); if (j === 2) { cx3 = 26; cy3 += 44; } const q = pop(t0, 0.4); if (q > 0) c += g(`translate(${F(cx3 + w / 2)} ${cy3}) scale(${F(q)})`, chip(tx, 0, 0, { size: 15, cor })); cx3 += w + 10; });
     }
-    if (i === 5 && on) {
-      // chip único "FRAMEWORK INTEGRADO" com o elo (anéis) ao lado
-      const wF = chipW('FRAMEWORK INTEGRADO', 15, 1.5), qF = pop(m.c6, 0.4), qE = pop(m.c6 + 0.2, 0.5);
-      if (qF > 0) c += g(`translate(${F(26 + wF / 2)} 44) scale(${F(qF)})`, chip('FRAMEWORK INTEGRADO', 0, 0, { size: 15, cor: COR.ouro, ls: 1.5 }));
+    if (i === 5) {
+      const wF = chipW('FRAMEWORK INTEGRADO', 15, 1.5), qE = pop(m.c6 + 0.25, 0.5);
+      c += RV(sub(m.c6, 0.45), 'E', g(`translate(${F(26 + wF / 2)} 44)`, chip('FRAMEWORK INTEGRADO', 0, 0, { size: 15, cor: COR.ouro, ls: 1.5 })), 0, 20, wF + 40, 50);
       if (qE > 0) c += g(`translate(${F(26 + wF + 40)} 44) scale(${F(qE)})`, `<circle cx="-11" r="15" fill="none" stroke="${COR.ouro}" stroke-width="3"/><circle cx="11" r="15" fill="none" stroke="${COR.azulClaro}" stroke-width="3"/>`);
-      c += `<rect x="26" y="74" width="${F(lerp(0, GR.cw - 52, ease.out(inv(m.c6 + 0.3, m.c6 + 0.9, t))))}" height="1.5" fill="rgba(108,196,255,.5)"/>`;
-      let u = sub(m.c6txt); c += op(u, g(tr(0, 8 * (1 - u)), txt(['Gestão integrada na implantação', 'de soluções do ecossistema TOTVS'], 26, 110, 19, '#fff')));
-      u = sub(m.c6eco); c += op(u, T('TOTVS + A&M', 26, 190, 13, { w: 800, fill: COR.claro, anchor: 'start', ls: 2.5 }) + T('um só time na implantação', 26, 212, 13, { ...OS, w: 400, fill: COR.mudo, anchor: 'start' }));
+      c += `<rect x="26" y="74" width="${F(lerp(0, CW - 52, ease.out(inv(m.c6 + 0.3, m.c6 + 0.9, t))))}" height="1.5" fill="rgba(108,196,255,.5)"/>`;
+      c += RV(sub(m.c6txt, 0.5), 'D', txt(['Gestão integrada na implantação', 'de soluções do ecossistema TOTVS'], 26, 110, 19, '#fff'), 0, 86, CW, 64);
+      c += RV(sub(m.c6eco, 0.5), 'B', T('TOTVS + A&M', 26, 190, 13, { w: 800, fill: COR.claro, anchor: 'start', ls: 2.5 }) + T('um só time na implantação', 26, 212, 13, { ...OS, w: 400, fill: COR.mudo, anchor: 'start' }), 0, 172, CW, 50);
     }
-    if (i === 6 && on) {
+    if (i === 6) {
       const u0 = pop(m.c7); c += g(`translate(50 58) scale(${F(u0)})`, icoDoc(0, 0, 40, clamp(inv(m.c7, m.c7 + 0.8, t))) + (t > m.c7chk ? g(`translate(16 22) scale(${F(ease.back(inv(m.c7chk, m.c7chk + 0.4, t)))})`, checkIco(0, 0, 11, COR.verde2)) : '') + `<path d="M28 -34 l3 -8 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 Z" fill="${COR.ouro}" opacity="${F(0.5 + 0.5 * Math.sin(L * 5))}"/>`);
-      c += op(sub(m.c7 + 0.1), txt(['Utilizando IA', 'como aceleradores'], 100, 50, 22, '#fff', 700));
-      const um = sub(m.c7mit);
-      if (um > 0) { let xx = 26; [['M', true], ['etodologia de ', false], ['I', true], ['mplantação ', false], ['T', true], ['OTVS', false]].forEach(([p, hl], j) => { const w = larg(p, 16, hl ? 700 : 400, 'os'); if (hl) c += op(um, `<rect x="${F(xx - 2)}" y="112" width="${F(w + 4)}" height="22" rx="4" fill="rgba(230,183,94,.28)" stroke="${COR.ouro}" stroke-width="1"/>`); c += op(um, T(p, xx, 129, 16, { ...OS, w: hl ? 700 : 400, fill: hl ? COR.ouro2 : COR.claro, anchor: 'start' })); xx += w; }); }
-      const u = sub(m.c7txt); c += op(u, g(tr(0, 6 * (1 - u)), txt(['Uso de IA para construção de métodos', 'e skills aplicados à revisão e validação', 'da qualidade dos documentos de implantação.'], 26, 160, 15, COR.claro, 400)));
+      c += RV(sub(m.c7 + 0.1, 0.5), 'D', txt(['Utilizando IA', 'como aceleradores'], 100, 50, 22, '#fff', 700), 96, 20, 300, 70);
+      // MIT em destaque: letras M·I·T maiores em caixas douradas
+      const um = sub(m.c7mit, 0.5);
+      if (um > 0) {
+        let mit = ''; let xx = 26;
+        [['M', true], ['etodologia de ', false], ['I', true], ['mplantação ', false], ['T', true], ['OTVS', false]].forEach(([p, hl]) => { const w = larg(p, hl ? 20 : 17, hl ? 800 : 400, 'os'); if (hl) mit += `<rect x="${F(xx - 3)}" y="109" width="${F(w + 6)}" height="27" rx="5" fill="rgba(230,183,94,.3)" stroke="${COR.ouro}" stroke-width="1.2"/>`; mit += T(p, xx, 129, hl ? 20 : 17, { ...OS, w: hl ? 800 : 400, fill: hl ? COR.ouro2 : COR.claro, anchor: 'start' }); xx += w + (hl ? 2 : 0); });
+        mit += `<rect x="26" y="141" width="${F(xx - 26)}" height="1.5" fill="${COR.ouro}" opacity=".6"/>`;
+        c += RV(um, 'E', mit, 0, 104, CW, 44);
+      }
+      c += RV(sub(m.c7txt, 0.5), 'B', txt(['Uso de IA para construção de métodos', 'e skills aplicados à revisão e validação', 'da qualidade dos documentos de implantação.'], 26, 166, 15, COR.claro, 400), 0, 150, CW, 80);
     }
-    if (i === 7 && on) {
+    if (i === 7) {
       const u0 = pop(m.c8); c += g(`translate(52 54) scale(${F(u0)})`, icoRaio(0, 0, 34));
-      c += op(sub(m.c8 + 0.1), T('Testes integrados', 100, 50, 22, { ...OS, w: 700, fill: '#fff', anchor: 'start' }));
-      c += op(sub(m.c8x), T('FERRAMENTA XRAY', 100, 74, 12, { w: 800, fill: COR.verde, anchor: 'start', ls: 2.5 }));
+      c += RV(sub(m.c8 + 0.1, 0.5), 'D', T('Testes integrados', 100, 50, 22, { ...OS, w: 700, fill: '#fff', anchor: 'start' }), 96, 24, 300, 36);
+      c += RV(sub(m.c8x, 0.5), 'D', T('FERRAMENTA XRAY', 100, 74, 12, { w: 800, fill: COR.verde, anchor: 'start', ls: 2.5 }), 96, 60, 300, 22);
       [['Gestão', m.k1, 26], ['Execução', m.k2, 132], ['Rastreabilidade', m.k3, 250]].forEach(([tx, t0, xx]) => { const q = pop(t0, 0.4); if (q > 0) c += g(`translate(${xx} 118) scale(${F(q)})`, `<circle cx="10" r="10" fill="none" stroke="${COR.verde}" stroke-width="2"/><path d="M5.5 0 l3 3.2 l6 -6.4" stroke="${COR.verde}" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>` + T(tx, 27, 6, 15, { ...OS, fill: '#fff', anchor: 'start' })); });
-      const u = sub(m.c8txt); c += op(u, g(tr(0, 6 * (1 - u)), txt(['Ferramenta de testes que permite gerenciar,', 'executar e garantir a rastreabilidade dos testes', 'de ponta a ponta.'], 26, 160, 15, COR.claro, 400)));
+      c += RV(sub(m.c8txt, 0.5), 'B', txt(['Ferramenta de testes que permite gerenciar,', 'executar e garantir a rastreabilidade dos testes', 'de ponta a ponta.'], 26, 160, 15, COR.claro, 400), 0, 144, CW, 80);
     }
-    if (i === 8 && on) {
-      const u0 = sobe(L, 0, 0);
-      const q = ease.out(inv(m.c9, m.c9 + 0.5, t));
-      c += op(q, g(tr(0, 10 * (1 - q)), miniDash(24, 22, GR.cw - 48, 110, clamp(inv(m.c9 + 0.1, m.c9 + 0.9, t)), clamp(inv(m.c9 + 0.5, m.c9 + 1.3, t)), ease.out(inv(m.c9 + 1.0, m.c9 + 1.8, t)), L)));
-      c += op(sub(m.c9t), T('Cockpit executivo', 26, 168, 22, { ...OS, w: 700, fill: '#fff', anchor: 'start' }));
-      const u = sub(m.c9txt);
+    if (i === 8) {
+      c += RV(ease.out(inv(m.c9, m.c9 + 0.5, t)), 'C', miniDash(24, 22, CW - 48, 110, clamp(inv(m.c9 + 0.1, m.c9 + 0.9, t)), clamp(inv(m.c9 + 0.5, m.c9 + 1.3, t)), ease.out(inv(m.c9 + 1.0, m.c9 + 1.8, t)), L), 0, 10, CW, 130);
+      c += RV(sub(m.c9t, 0.5), 'D', T('Cockpit executivo', 26, 168, 22, { ...OS, w: 700, fill: '#fff', anchor: 'start' }), 0, 146, CW, 30);
       const dc = ease.out(inv(m.c9dc, m.c9dc + 0.4, t));
-      c += op(u, T('Gestão do portfólio de projetos', 26, 196, 15, { ...OS, w: 400, fill: COR.claro, anchor: 'start' }) + T('com apoio do ', 26, 218, 15, { ...OS, w: 400, fill: COR.claro, anchor: 'start' }) + T('Delivery Center', 26 + larg('com apoio do ', 15, 400, 'os'), 218, 15, { ...OS, w: 700, fill: dc > 0 ? COR.ouro2 : COR.claro, anchor: 'start' }));
-      if (dc > 0 && dc < 1) c += `<rect x="20" y="202" width="${F(190)}" height="24" rx="6" fill="${COR.ouro}" opacity="${F(0.25 * Math.sin(dc * Math.PI))}"/>`;
+      let tx = T('Gestão do portfólio de projetos', 26, 196, 15, { ...OS, w: 400, fill: COR.claro, anchor: 'start' }) + T('com apoio do ', 26, 218, 15, { ...OS, w: 400, fill: COR.claro, anchor: 'start' }) + T('Delivery Center', 26 + larg('com apoio do ', 15, 400, 'os'), 218, 15, { ...OS, w: 700, fill: dc > 0 ? COR.ouro2 : COR.claro, anchor: 'start' });
+      if (dc > 0 && dc < 1) tx += `<rect x="20" y="202" width="190" height="24" rx="6" fill="${COR.ouro}" opacity="${F(0.25 * Math.sin(dc * Math.PI))}"/>`;
+      c += RV(sub(m.c9txt, 0.5), 'B', tx, 0, 180, CW, 50);
     }
-    // barra de rodapé do card
-    c += `<rect x="24" y="${GR.ch - 12}" width="${F(lerp(44, GR.cw - 48, ac))}" height="3" rx="1.5" fill="${i < 4 ? COR.ouro : COR.azulClaro}" opacity="${F(0.45 + 0.55 * ac)}"/>`;
-    painel += op(ent, g(`translate(${F(x + GR.cw / 2)} ${F(y + GR.ch / 2 + 26 * (1 - e))}) scale(${F(k)}) translate(${-GR.cw / 2} ${-GR.ch / 2})`, c));
+    const ac = clamp(inv(ini[i], ini[i] + 0.45, t));
+    c += `<rect x="24" y="${CH - 12}" width="${F(lerp(44, CW - 48, ac))}" height="3" rx="1.5" fill="${i < 4 ? COR.ouro : COR.azulClaro}" opacity="${F(0.45 + 0.55 * ac)}"/>`;
+    return c;
+  };
+  const cartao = (i, brilho) => vidro(0, 0, CW, CH, { brilho, borda: 'rgba(108,196,255,.55)', bw: 2, fill: 'rgba(18,42,88,.74)' }) + conteudo(i);
+  let painel = '';
+  const S = 2.1, BX = 960 - S * CW / 2, BY = 545 - S * CH / 2;
+  // fase 1: um cartão por vez, grande e no centro; entra por máscara (lados alternados) e sai subindo em fade
+  for (let i = 0; i < 9; i++) {
+    const tIn = ini[i] - 0.3, tOut = i < 8 ? ini[i + 1] - 0.3 : tMont;
+    if (t < tIn || t > tOut + 0.3) continue;
+    if (i === 8 && t >= tMont) continue;   // o nono voa para a grade na fase 2
+    const kIn = ease.out(inv(tIn, tIn + 0.45, t)), kOut = i < 8 ? ease.in(inv(tOut, tOut + 0.28, t)) : 0;
+    if (kOut >= 1) continue;
+    const card = revela(kIn, i % 2 ? 'D' : 'E', CW, CH, cartao(i, 0.8));
+    painel += op(1 - kOut, g(`translate(${F(BX)} ${F(BY - 36 * kOut)}) scale(${S})`, card));
   }
-  // partículas dos cards acesos
-  const r = rng(11);
-  for (let j = 0; j < 36; j++) {
-    const i = Math.floor(r() * 9), t1 = ini[i] + 0.2 + r() * 4, q = inv(t1, t1 + 2.0, t);
-    if (q <= 0 || q >= 1) { r(); continue; }
-    const { x, y } = cel(i); painel += `<circle cx="${F(x + r() * GR.cw)}" cy="${F(y + GR.ch - q * 130)}" r="${F(1.5 + 1.5 * Math.sin(q * Math.PI))}" fill="${COR.ouro}" opacity="${F(0.7 * Math.sin(q * Math.PI))}"/>`;
+  // fase 2: os nove cartões compõem o painel (revelações vindas de lados diferentes; o nono voa do centro para o seu lugar)
+  if (t >= tMont) {
+    const GW = 3 * CW + 2 * GR.gx, GH = 3 * CH + 2 * GR.gy;
+    for (let i = 0; i < 8; i++) {
+      const { x, y } = cel(i), col = i % 3, lin = Math.floor(i / 3);
+      const k = ease.out(inv(tMont + i * 0.07, tMont + 0.5 + i * 0.07, t)); if (k <= 0) continue;
+      const lado = col === 0 ? 'E' : col === 2 ? 'D' : lin === 0 ? 'C' : 'B';
+      let card = cartao(i, 0.3);
+      card = i === 4 ? op(k, g(`translate(${CW / 2} ${CH / 2}) scale(${F(lerp(0.6, 1, k))}) translate(${-CW / 2} ${-CH / 2})`, card)) : revela(k, lado, CW, CH, card);
+      painel += g(`translate(${x} ${y})`, card);
+    }
+    const u = ease.inOut(inv(tMont, tMont + 0.8, t)), c9 = cel(8);
+    painel += g(`translate(${F(lerp(BX, c9.x, u))} ${F(lerp(BY, c9.y, u))}) scale(${F(lerp(S, 1, u))})`, cartao(8, lerp(0.8, 0.3, u)));
+    // varredura de luz pelo painel pronto
+    const sw = inv(tSelo + 0.15, tSelo + 1.0, t);
+    if (sw > 0 && sw < 1) { const xs = lerp(GR.x0 - 300, GR.x0 + GW + 120, sw); painel += `<clipPath id="azGrade"><rect x="${GR.x0}" y="${GR.y0}" width="${GW}" height="${GH}"/></clipPath><polygon points="${F(xs)},${GR.y0} ${F(xs + 170)},${GR.y0} ${F(xs - 80)},${GR.y0 + GH} ${F(xs - 250)},${GR.y0 + GH}" fill="#fff" opacity=".11" clip-path="url(#azGrade)"/>`; }
   }
-  s += g(`translate(960 530) scale(${F(cam[2])}) translate(${F(-cam[0])} ${F(-cam[1])})`, painel);
+  s += painel;
   s += secao('RESULTADOS QUE FAZEM A DIFERENÇA', GR.x0, 64, L - 0.1);
-  // personagens fixos nas laterais (não encobrem o painel na visão geral)
+  // selo A&M carimbado no canto superior direito do painel
+  const ks = inv(tSelo, tSelo + 0.5, t);
+  if (ks > 0) {
+    const e = ease.out(ks);
+    s += op(clamp(ks * 3), g(`translate(1680 150) rotate(${F(-14 * (1 - e))}) scale(${F(lerp(1.9, 1, e))})`, seloAM(0, 0, 88)));
+    if (ks < 1) s += `<circle cx="1680" cy="150" r="${F(88 + 70 * ks)}" fill="none" stroke="${COR.ouro}" stroke-width="3" opacity="${F(0.6 * (1 - ks))}"/>`;
+  }
+  // personagens fixos nas laterais (entram depois do dissolve da capa)
+  const hB = 460, hA = 455, cxB = 112, cxA = 1812;
   const eb = sobe(L, 0.5, 0.9), ea = sobe(L, 0.65, 0.9);
   s += g(tr(-foraEsq('totvs_boy', cxB, hB) * (1 - eb), 0), pessoa('totvs_boy', cxB, 1131, hB, L, { halo: '#3b82f6', haloA: 0.1 }));
   s += g(tr(foraDir('am_boy', cxA, hA) * (1 - ea), 0), pessoa('am_boy', cxA, 1126, hA, L, { halo: '#f08a2c', haloA: 0.1, fase: 1.6 }));
@@ -231,15 +252,16 @@ const NOS = [
   { r: 'PROCESSOS', a: -90, ico: 0 }, { r: 'PESSOAS', a: -28, ico: 1 }, { r: 'INTEGRAÇÕES', a: 28, ico: 2 },
   { r: 'PRAZOS', a: 90, ico: 3 }, { r: 'RISCOS', a: 152, ico: 4 }, { r: 'MUDANÇA', a: 208, ico: 5 },
 ];
-function iconeNo(i, cor = '#fff') {
+function iconeNo(i, cor = '#fff', L = 0) {
+  // ícones com movimento: engrenagem gira, pessoas acenam, elo pulsa, ponteiro do relógio anda, alerta pisca, setas giram
   const st = `stroke="${cor}" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"`;
   switch (i) {
-    case 0: return `<circle r="13" ${st}/><path d="M0 -18 v5 M0 13 v5 M-18 0 h5 M13 0 h5 M-13 -13 l3.5 3.5 M9.5 9.5 l3.5 3.5 M13 -13 l-3.5 3.5 M-9.5 9.5 l-3.5 3.5" ${st}/>`;
-    case 1: return `<circle cx="-7" cy="-6" r="6" ${st}/><circle cx="9" cy="-4" r="5" ${st}/><path d="M-18 13 q11 -14 22 0 M3 12 q8 -10 16 0" ${st}/>`;
-    case 2: return `<path d="M-4 -4 a8 8 0 0 0 -11 0 l-5 5 a8 8 0 0 0 11 11 l3 -3 M4 4 a8 8 0 0 0 11 0 l5 -5 a8 8 0 0 0 -11 -11 l-3 3 M-5 5 l10 -10" ${st}/>`;
-    case 3: return `<circle r="14" ${st}/><path d="M0 -8 v8 l6 5" ${st}/>`;
-    case 4: return `<path d="M0 -15 L16 12 H-16 Z" ${st}/><path d="M0 -4 v7 M0 8 v1" ${st}/>`;
-    default: return `<path d="M-14 4 a14 14 0 0 1 26 -8 M14 -4 a14 14 0 0 1 -26 8" ${st}/><path d="M12 -12 v8 h-8 M-12 12 v-8 h8" ${st}/>`;
+    case 0: return g(`rotate(${F((L * 40) % 360)})`, `<circle r="13" ${st}/><path d="M0 -18 v5 M0 13 v5 M-18 0 h5 M13 0 h5 M-13 -13 l3.5 3.5 M9.5 9.5 l3.5 3.5 M13 -13 l-3.5 3.5 M-9.5 9.5 l-3.5 3.5" ${st}/>`);
+    case 1: return g(tr(0, 1.5 * Math.sin(L * 3)), `<circle cx="-7" cy="-6" r="6" ${st}/><circle cx="9" cy="-4" r="5" ${st}/><path d="M-18 13 q11 -14 22 0 M3 12 q8 -10 16 0" ${st}/>`);
+    case 2: return g(`scale(${F(1 + 0.07 * Math.sin(L * 4))})`, `<path d="M-4 -4 a8 8 0 0 0 -11 0 l-5 5 a8 8 0 0 0 11 11 l3 -3 M4 4 a8 8 0 0 0 11 0 l5 -5 a8 8 0 0 0 -11 -11 l-3 3 M-5 5 l10 -10" ${st}/>`);
+    case 3: return `<circle r="14" ${st}/>` + g(`rotate(${F((L * 120) % 360)})`, `<path d="M0 0 v-9" ${st}/>`) + `<path d="M0 0 l6 4" ${st}/>`;
+    case 4: return `<path d="M0 -15 L16 12 H-16 Z" ${st}/><path d="M0 -4 v7 M0 8 v1" ${st} opacity="${F(0.35 + 0.65 * Math.abs(Math.sin(L * 5)))}"/>`;
+    default: return g(`rotate(${F((-L * 50) % 360)})`, `<path d="M-14 4 a14 14 0 0 1 26 -8 M14 -4 a14 14 0 0 1 -26 8" ${st}/><path d="M12 -12 v8 h-8 M-12 12 v-8 h8" ${st}/>`);
   }
 }
 const rotulo = (txt, x, y, cor) => { const w = larg(txt, 15, 800) + 26 + txt.length * 1.5; return `<rect x="${F(x - w / 2)}" y="${F(y - 15)}" width="${F(w)}" height="30" rx="15" fill="rgba(7,17,42,.85)" stroke="${cor}" stroke-width="1.2"/>` + T(txt, x, y + 5, 15, { w: 800, fill: '#fff', ls: 1.5 }); };
@@ -252,14 +274,19 @@ export function erp(L, t, dur) {
   // painel
   const bx = 560, by = 120, bw = 1200, bh = 640;
   const kq = ease.out(inv(-0.35, 0.3, L));   // começa durante o dissolve da cena anterior
-  const cx = bx + bw / 2, cy = by + bh / 2 + 26, RX = 400, RY = 215;
-  let pan = vidro(bx, by, bw, bh, { r: 26, fill: 'rgba(14,34,74,.55)' }) + secao('IMPLANTAÇÃO DE ERP', bx + 34, by + 52, L - 0.4, { size: 17 });
+  const cx = bx + bw / 2, cy = by + bh / 2 + 46, RX = 400, RY = 185;
+  let pan = vidro(bx, by, bw, bh, { r: 26, fill: 'rgba(14,34,74,.55)' }) + secao('PRINCIPAIS DESAFIOS DE UMA IMPLANTAÇÃO DE ERP', bx + 34, by + 52, L - 0.4, { size: 17 });
   const alinha = ease.inOut(inv(juntos - 0.25, juntos + 0.9, t));
   const caos = ease.out(inv(tComp - 0.2, tComp + 0.5, t)) * (1 - alinha);
-  // nós-fantasma (complexidade) e linhas emaranhadas
+  // complexidade: ligações emaranhadas entre nós não vizinhos (curvas tracejadas que correm), sem rabiscos soltos
+  const posNo = (i) => { const a = NOS[i].a * Math.PI / 180; return [cx + Math.cos(a) * RX, cy + Math.sin(a) * RY]; };
   if (caos > 0.01) {
-    const r = rng(17); let d = '';
-    for (let j = 0; j < 8; j++) { const p = () => [cx + (r() - 0.5) * 820, cy + (r() - 0.5) * 400]; const [a, b, c2, e] = [p(), p(), p(), p()]; d += `<path d="M${F(a[0])} ${F(a[1])} C${F(b[0] + 26 * Math.sin(L * 3 + j))} ${F(b[1])} ${F(c2[0])} ${F(c2[1] + 26 * Math.cos(L * 3 + j))} ${F(e[0])} ${F(e[1])}" stroke="${j % 2 ? COR.vermelho : COR.laranja}" stroke-width="2.2" fill="none" opacity=".5"/>`; }
+    let d = '';
+    [[0, 2], [0, 3], [1, 3], [1, 4], [2, 4], [2, 5], [3, 5], [4, 0], [5, 1]].forEach(([a, b], j) => {
+      const pa = posNo(a), pb = posNo(b);
+      const mx = (pa[0] + pb[0]) / 2 + Math.sin(L * 1.6 + j * 1.3) * 70, my = (pa[1] + pb[1]) / 2 + Math.cos(L * 1.2 + j * 2.1) * 45;
+      d += `<path d="M${F(pa[0])} ${F(pa[1])} Q${F(mx)} ${F(my)} ${F(pb[0])} ${F(pb[1])}" stroke="${j % 2 ? COR.vermelho : COR.laranja}" stroke-width="2.2" fill="none" opacity=".5" stroke-dasharray="9 13" stroke-dashoffset="${F(-L * 70 - j * 7)}" stroke-linecap="round"/>`;
+    });
     pan += op(caos, d);
   }
   const tremor = caos * 3;
@@ -285,7 +312,7 @@ export function erp(L, t, dur) {
     const fill = ap > 0 ? (alinha > 0.5 ? 'rgba(67,209,169,.22)' : 'rgba(230,183,94,.22)') : 'rgba(59,130,246,.14)';
     const borda = ap > 0 ? cor : 'rgba(108,196,255,.55)';
     pan += g(`translate(${F(x)} ${F(y)}) scale(${F(k)})`, `<circle r="${F(46 + 26 * pulso)}" fill="none" stroke="${cor}" stroke-width="3" opacity="${F(pulso * 0.8)}"/>`
-      + `<circle r="38" fill="${fill}" stroke="${borda}" stroke-width="${ap > 0 ? 3 : 1.5}"/>` + iconeNo(n.ico, ap > 0 ? '#fff' : 'rgba(255,255,255,.7)')
+      + `<circle r="38" fill="${fill}" stroke="${borda}" stroke-width="${ap > 0 ? 3 : 1.5}"/>` + iconeNo(n.ico, ap > 0 ? '#fff' : 'rgba(255,255,255,.7)', L)
       + rotulo(n.r, 0, i === 0 ? -72 : 70, ap > 0 ? cor : 'rgba(108,196,255,.5)'));
   });
   if (alinha > 0) pan += `<path d="${elipse}" fill="none" stroke="${COR.verde}" stroke-width="3" pathLength="100" stroke-dasharray="${F(alinha * 100)} 100" opacity=".8"/>`;

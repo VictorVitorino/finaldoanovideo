@@ -29,11 +29,11 @@ Personagens: mascotes TOTVS e A&M e Antonialli líder de `assets/personagens/nov
 | Cena | Trecho | Sincronia |
 |---|---|---|
 | Capa | 0–7,6 | lua, cidade, dois mascotes, faixa de luz e fio dourado nas palavras "projeto"/"parceria" |
-| Dashboard "Resultados que fazem a diferença" | 7,6–52,8 | nove cartões vazios; cada um se preenche na palavra narrada (número → ícones/logos → texto), contadores, zoom contido (grade sempre inteira entre os personagens), holofote e relevo no cartão ativo, onda final nos nove. Cartão 6 com o chip "FRAMEWORK INTEGRADO" + elo; cartão 7 "Utilizando IA como aceleradores" |
-| Desafio do ERP | 52,8–64,47 | Antonialli (3D padrão) à esquerda; painel se constrói, núcleo ERP, caos na "complexidade", seis nós acendem palavra a palavra, anel de alinhamento em "juntos" |
+| Dashboard "Resultados que fazem a diferença" | 7,6–52,8 | câmera parada; um cartão por vez, grande no centro, com números e descrições entrando por máscara de revelação (lados alternados) e contadores; no fim os nove cartões compõem o painel (revelações de lados diferentes, o último voa para o seu lugar), varredura de luz e selo "Alvarez & Marsal · Painel de excelência" carimbado no canto. Cartão 6 com o chip "FRAMEWORK INTEGRADO" + elo; cartão 7 "Utilizando IA como aceleradores" com MIT em destaque |
+| Desafio do ERP | 52,8–64,47 | "Principais desafios de uma implantação de ERP": Antonialli (3D padrão) à esquerda; painel se constrói, núcleo ERP, ligações emaranhadas (curvas tracejadas que correm) na "complexidade", seis nós com ícones animados acendem palavra a palavra, anel de alinhamento em "juntos" |
 | Farol A&M | 64,47–70,13 | holofote na cidade, logo A&M projetado com as três frases ao lado (Gente que entende do jogo · Confiança que impulsa · Núcleo de excelência em performance), mascote A&M entra em "chamar" |
 | União | 70,13–80 | feixes azul/laranja, "TECNOLOGIA + GESTÃO" |
-| Papéis complementares | 80–90 | Venn grande (TOTVS × A&M, lente "Atuação Conjunta"), itens do slide original, destaque em "metodologia"; título "UM TIME · PAPÉIS COMPLEMENTARES" pequeno no topo |
+| Papéis complementares | 80–90 | mandala: dois discos grandes com logo e descrição no topo, itens (17 px) entrando por máscara, lente "Atuação Conjunta" com título numa linha, subtítulo e cinco itens; título pequeno no topo |
 | Metodologia Integrada A&M e TOTVS | 90–112,6 | título "METODOLOGIA INTEGRADA A&M E TOTVS · 6 FASES, E UMA ÚNICA JORNADA"; seis chevrons; câmera acompanha a etapa narrada e volta à visão geral em "Com metodologias" |
 | TMO em três círculos | 112,6–119,7 | círculos entram, disco TMO, rodapé qualidade · previsibilidade · resultados |
 | Original (liderança e equipe) | 119,2–128,1 | trecho do v18 sem alteração (dissolve de 0,5 s na entrada) |
@@ -63,8 +63,9 @@ Quadro N = round(t × 30); `--from N --to M` renderiza um trecho. Depois de muda
 - Nenhum elemento cortado ou sobreposto; personagens nas laterais nunca cobrem painéis; sem espelhar personagens.
 - Duração igual à do v18 (170,07 s).
 - Nada de slides de PowerPoint colados: todos os quadros são construídos em SVG.
-- Personagens entram deslizando de fora do quadro (`foraEsq`/`foraDir` em `base.js`) e, quando continuam na cena seguinte,
-  ficam no mesmo tamanho e posição para o dissolve não os duplicar (farol → união → papéis).
+- Personagens estáticos (sem respiração nem balanço); entram deslizando de fora do quadro (`foraEsq`/`foraDir` em `base.js`)
+  e, quando continuam na cena seguinte, ficam no mesmo tamanho e posição para o dissolve não os duplicar.
+- Entradas de texto/números com máscara de revelação (`revela` em `base.js`), estilo After Effects; sem zoom/balanço de câmera.
 
 ## Revisão
 

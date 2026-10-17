@@ -13,6 +13,7 @@ async function init() {
   const world = await (await import('./' + TEST + '.js')).criar();
   window.DURATION = world.duration;
   window.renderAt = t => { dyn.innerHTML = world.frame(t); return true; };
+  window.frameAt = t => world.frame(t);
   window.renderAt(Number(params.get('t') || 0));
   window.READY = true;
 }

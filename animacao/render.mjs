@@ -4,6 +4,7 @@
 //   node render.mjs stills --t 1.5,12 [--test lineup]  -> build/stills/*.jpg
 //   node render.mjs frames [--workers 3] [--from N] [--to N]
 //   node render.mjs encode [--audio build/trilha.wav] [--out build/projeto-do-ano.mp4]
+//   node render.mjs pdf --page carrossel.html --w 1080 --h 1350 --test paginas --t 0.5,1.5,2.5 --out x.pdf
 //
 // Requer playwright (Chromium) e ffmpeg.
 import http from 'http';
@@ -100,7 +101,22 @@ async function main() {
   const transparent = layer === 'overlay' || layer === 'etiquetas';
   const url = `http://localhost:${port}/${PAGE}?mode=render&layer=${layer}${test ? '&test=' + test : ''}`;
   try {
-    if (cmd === 'stills') {
+    if (cmd === 'pdf') {
+      // PDF vetorial: uma página por quadro (t = 0.5, 1.5, ...), no tamanho do quadro.
+      const times = opt('t', '0.5').split(',').map(Number);
+      const out = opt('out', path.join(BUILD, 'carrossel.pdf'));
+      const P = await openPage(pw, url);
+      await P.page.evaluate(({ times, VW, VH }) => {
+        const svgs = times.map(t => `<svg width="${VW}" height="${VH}" viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" style="display:block;break-after:page">${window.frameAt(t)}</svg>`);
+        document.body.innerHTML = svgs.join('');
+        const st = document.createElement('style');
+        st.textContent = `@page { size: ${VW}px ${VH}px; margin: 0 } html, body { margin: 0; background: #fff }`;
+        document.head.appendChild(st);
+      }, { times, VW, VH });
+      await P.page.pdf({ path: out, width: `${VW}px`, height: `${VH}px`, printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
+      console.log(out);
+      await P.browser.close();
+    } else if (cmd === 'stills') {
       const times = opt('t', '0').split(',').map(Number);
       const out = opt('out', path.join(BUILD, 'stills'));
       fs.mkdirSync(out, { recursive: true });

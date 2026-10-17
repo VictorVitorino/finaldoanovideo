@@ -132,9 +132,9 @@ export function lockupPerformance(x, y, size = 34, cor = '#fff') {
 
 // Mini banner DTS (DTS | Digital & Technology Services) com faixa tricolor.
 export function bannerDTS(x, y, s = 1, o = {}) {
-  const w = 420, h = 96;
+  const w = 460, h = 96;
   let b = `<rect x="0" y="0" width="${w}" height="${h}" rx="10" fill="${C.navy}"/>`
-    + `<path d="M300,${h} L370,0 M342,${h} L404,0" stroke="${C.slate}" stroke-width="9"/><path d="M322,${h} L388,0" stroke="${C.orange}" stroke-width="1.8"/>`
+    + `<path d="M372,${h} L424,0 M414,${h} L462,0" stroke="${C.slate}" stroke-width="9"/><path d="M393,${h} L443,0" stroke="${C.orange}" stroke-width="1.8"/>`
     + t('DTS', 22, 66, { f: 'B', w: 800, s: 58, c: '#fff', ls: -1 })
     + `<rect x="148" y="24" width="3.5" height="46" fill="${C.orange}"/>`
     + t('Digital & Technology', 162, 44, { f: 'B', w: 500, s: 19, c: '#DBE6F2' })
@@ -163,7 +163,7 @@ export function diagonais(x, y, h, u = 1, o = {}) {
 export function cabecalho(pag, total, titulo, sub, k = 1) {
   const h = 128;
   let s = `<rect x="0" y="0" width="${W}" height="${h}" fill="${C.navy}"/>`;
-  s += diagonais(760, 0, h, k, { alpha: 0.9 });
+  s += `<clipPath id="cabClip"><rect width="${W}" height="${h}"/></clipPath><g clip-path="url(#cabClip)">${diagonais(760, 0, h, k, { alpha: 0.9 })}</g>`;
   const L = lockupAM(48, 62, 27, '#fff');
   s += L.svg + t('DTS · PERFORMANCE', 48 + 66 * 0.9, 92, { f: 'M', w: 500, s: 13, c: C.blueL, ls: 2 });
   s += `<rect x="${f(48 + L.w + 26)}" y="34" width="2" height="62" fill="#ffffff" opacity=".35"/>`;
@@ -186,12 +186,17 @@ export function rodape(pag, total, fonte, o = {}) {
   linhas.slice(0, 4).forEach((l, i) => { s += t(l, 48, y0 + 30 + i * 19, { f: 'M', w: 400, s: 13.5, c: C.grey }); });
   const P = lockupPerformance(W - 48 - 300, y0 + 58, 30, C.navy);
   s += `<g transform="translate(${f(300 - P.w)} 0)">${P.svg}</g>`;
-  // bolinhas de página
+  // bolinhas de página: a ativa é larga e enche com o progresso da página (o.prog 0..1)
+  const larguras = Array.from({ length: total }, (_, i) => (i + 1 === pag ? 40 : 12));
+  const gap = 8, totalW = larguras.reduce((a, b) => a + b, 0) + gap * (total - 1);
+  let bx = W - 48 - totalW;
   for (let i = 0; i < total; i++) {
     const on = i + 1 === pag;
-    s += `<rect x="${f(W - 48 - (total - i) * 30 + (on ? -10 : 0))}" y="${y0 + 84}" width="${on ? 34 : 14}" height="8" rx="4" fill="${on ? C.orange : C.blueLL}"/>`;
+    s += `<rect x="${f(bx)}" y="${y0 + 84}" width="${larguras[i]}" height="8" rx="4" fill="${on ? C.orangeBg : i + 1 < pag ? C.orange : C.blueLL}"${on ? ` stroke="${C.orange}" stroke-width="1"` : ''}/>`;
+    if (on) s += `<rect x="${f(bx)}" y="${y0 + 84}" width="${f(larguras[i] * clamp(o.prog ?? 1))}" height="8" rx="4" fill="${C.orange}"/>`;
+    bx += larguras[i] + gap;
   }
-  if (o.arraste) s += t('arraste →', W - 48 - total * 30 - 30, y0 + 92, { f: 'M', w: 500, s: 13, c: C.grey, a: 'end' });
+  if (o.arraste) s += t('arraste →', W - 48 - totalW - 16, y0 + 92, { f: 'M', w: 500, s: 13, c: C.grey, a: 'end' });
   return s;
 }
 

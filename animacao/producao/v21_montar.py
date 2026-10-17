@@ -23,12 +23,17 @@ def montar(saidas, so_filme):
     org = next(c for c in J['cenas'] if c['id'] == 'original')
     A, B = org['de'] - X, org['ate'] + Y                  # slot do original no filme (com os dissolves)
     k = (B - A) / (ORIG_B - ORIG_A)                       # fator de tempo do clipe original para caber no slot
+    palco = os.path.join(AZ, 'v21', f'palco_{k:.4f}.mp4')    # a interpolação é lenta (~9 min): fica em cache por fator
+    if not os.path.exists(palco):
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', V18, '-filter_complex',
+                        f"[0:v]trim={ORIG_A}:{ORIG_B},setpts=(PTS-STARTPTS)*{k:.6f},minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,scale=1920:1080,format=yuv420p[v]",
+                        '-map', '[v]', '-c:v', 'libx264', '-preset', 'fast', '-crf', '10', palco], check=True)
     fc = (f"[0:v]trim=0:{A + X},setpts=PTS-STARTPTS,format=yuv420p[f0];"
-          f"[1:v]trim={ORIG_A}:{ORIG_B},setpts=(PTS-STARTPTS)*{k:.6f},minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,scale=1920:1080,format=yuv420p[f1];"
+          f"[1:v]setpts=PTS-STARTPTS,fps=30,format=yuv420p[f1];"
           f"[0:v]trim={B - Y},setpts=PTS-STARTPTS,format=yuv420p[f2];"
           f"[f0][f1]xfade=transition=fade:duration={X}:offset={A}[f01];"
           f"[f01][f2]xfade=transition=fade:duration={Y}:offset={B - Y}[filme];")
-    ins = ['-framerate', '30', '-i', FR, '-i', V18, '-i', MIX]
+    ins = ['-framerate', '30', '-i', FR, '-i', palco, '-i', MIX]
     if so_filme:
         fc += f"[2:a]apad,atrim=0:{total:.4f}[af]"; mapa = ['-map', '[filme]', '-map', '[af]']
     else:

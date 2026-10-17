@@ -20,7 +20,7 @@ INICIO, FIM, PAUSA = 0.9, 2.5, 0.32
 PAUSA_ANTES = {'l02': 0.6, 'l11': 1.3, 'l13': 0.5, 'l14': 0.35, 'l16': 0.35, 'l17': 0.4, 'l18': 0.45, 'l19': 0.6, 'l20': 0.6, 'l22': 0.6, 'l25': 0.5, 'l28': 0.6}
 # grafia para a pronúncia (marcas, siglas, inglês); o texto da legenda não muda
 PRON = [('Alvarez & Marsal', 'Álvares e Marsál'), ('TOTVS', 'Tótus'), ('A&M', 'Á i Ême'), ('ERP', 'E, R, P,'), ('TMO', 'Tê Eme Ó'),
-        ('MITs', 'mits'), ('skills', 'squils'), ('Xray', 'Éks-rei'), ('cockpit', 'cócpit'), ('Delivery Center', 'Delíveri Cênter'),
+        ('MITs', 'mits'), ('skills', 'squils'), ('Xray', 'Éks-rei'), ('cockpit', 'cóck pit'), ('Delivery Center', 'Delíveri Cênter'),
         ('Cross-sell', 'Cróss-sél'), ('collections', 'colécxions'), ('Cutover', 'Cât-ôver'), ('Unimed', 'Unimédi'), ('FUNED', 'Funédi'),
         ('CAOA', 'Cá-ôa'), ('John Deere', 'Djón Díer'), ('Hughes', 'Riúz'), ('Libercon', 'Líbercon'), ('Antonialli', 'Antoniáli'),
         ('2026', 'dois mil e vinte e seis'), ('2027', 'dois mil e vinte e sete')]

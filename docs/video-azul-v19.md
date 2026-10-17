@@ -73,3 +73,25 @@ Quadro N = round(t × 30); `--from N --to M` renderiza um trecho. Depois de muda
 Pranchas de 9 quadros a cada 0,5 s por cena (`scratchpad/v19/qa/`) revisadas por seis revisores independentes contra as
 regras acima (elementos cortados/sobrepostos, personagens sobre painéis, sincronia com a narração, glitches, transições);
 cada achado foi conferido no quadro 1920×1080 e corrigido no código antes do render final.
+
+## v20 · remoção do par de pernas extra (carrinho)
+
+O v20 (release [`videov-20`](https://github.com/VictorVitorino/finaldoanovideo/releases/tag/videov-20),
+`Projeto.Totvs.-.Final.do.ano.mp4`, sha256 `2210d627…`, 3:30) tinha, na abertura (0:01–0:15) e no encerramento (3:11–3:30),
+um segundo par de pernas do Fabio Quintão dentro do carrinho (calça e sapatos duplicados sob o tronco, atrás da grade).
+
+| O quê | Onde |
+|---|---|
+| Remoção: polígono-âncora por tomada, rastreio do carrinho (LK + similaridade RANSAC), LaMa em quadros-chave a cada 10 quadros deformado para os vizinhos; arames, capas azuis e pele nunca pintados | `animacao/producao/v20_pernas.py` (`TOMADAS`) |
+| Montagem: quadros tratados sobrepostos no v20 original, áudio intacto | `animacao/producao/v20_montar.py` |
+
+Tomadas tratadas (quadros a 30 fps): W 40–67, A 148–226, B 267–366, C 405–433, D 5740–5766, D2 5796–5838, E 6053–6140,
+F1 6141–6157, F3 6240–6302. Modelos: `big-lama.pt` (baixado pelo pacote `simple-lama-inpainting`) e torch em CPU.
+
+```bash
+cd animacao && mkdir -p build/azul/v20in && curl -L -o build/azul/v20in/v20.mp4 <url da release>
+# extrai os quadros das tomadas (png/nNNNNNN.png), ex.: ffmpeg -ss 8.9 -i v20.mp4 -frames:v 100 -start_number 267 png/n%06d.png
+python3 producao/v20_pernas.py testar        # antes/depois dos quadros-âncora em build/azul/v20in/teste/
+python3 producao/v20_pernas.py rodar         # build/azul/v20in/fix/
+python3 producao/v20_montar.py               # build/azul/Projeto-Totvs-Final-do-ano-v20-pernas(.mp4|-leve.mp4)
+```

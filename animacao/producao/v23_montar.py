@@ -31,7 +31,7 @@ TETO = 1.30                                               # aceleração máxima
 GAP = 0.40                                                # silêncio mínimo entre o fim de uma fala e a âncora da próxima
 INTRO_FIM = 14.85                                         # até aqui (v22) áudio original do carrinho (a voz antiga entra em 14,9 s)
 FADE_V22 = 183.0 - VE.CORTE                               # fade do filme para o preto (v22); daí em diante nada muda
-DUCK_DB, VOZ_PICO = -5.0, 0.60                            # voz 2,5 dB abaixo do primeiro corte: mesmo equilíbrio voz/trilha do vídeo final
+DUCK_DB, GANHO_VOZ_DB = -5.0, 0.0                         # ducking da trilha sob a voz; ajuste fino da voz em relação à narração original
 
 FALAS = json.load(open(os.path.join(RAIZ, 'producao', 'dados', 'v19_falas.json')))['falas']
 
@@ -48,7 +48,8 @@ def v22_de_vf_audio(t):
 def plano():
     # âncora = onde a voz antiga começava no v22 + 0,5 s (no vídeo final o vídeo está em +14,70 s e o áudio em +14,20 s do v18:
     # a legenda gravada aparece 0,3 s antes desse ponto, como no desenho original)
-    anc = [v22_de_vf_audio(VE.DESLOC_V - 0.5 + f['de']) + 0.5 for f in FALAS] + [FADE_V22]
+    # mapeia o ponto +0,5 s (lado da imagem) e não o início da voz antiga: para l16 esse início cai dentro de um corte de áudio
+    anc = [v22_de_vf_audio(VE.DESLOC_V + f['de']) for f in FALAS] + [FADE_V22]
     falas = []
     for i, f in enumerate(FALAS):
         x, sr = sf.read(os.path.join(V23, 'falas', f['id'] + '.wav'), dtype='float32'); assert sr == 44100
@@ -133,33 +134,52 @@ def video(inv, total, dur22, vid):
 def audio(anc, falas, segs, total):
     A22, sr = sf.read(V22_AUDIO, dtype='float32'); assert sr == SR
     M, srm = sf.read(INSTR, dtype='float32'); M = resample_poly(M, SR, srm, axis=0).astype(np.float32) if srm != SR else M
-    # instrumental do vídeo final no tempo do v22 (mesmos cortes de áudio do v22), depois esticado por trecho
+    # instrumental do vídeo final no tempo do v22 (mesmos cortes de áudio do v22, emendados sem cruzamento: é a linha do tempo da imagem)
     Mv22 = np.concatenate([M[int(a * SR):(int(b * SR) if b is not None else len(M))] for a, b in VE.AUDIO])
+    XF = int(0.04 * SR)                                   # fusões de 40 ms (o mesmo cruzamento que vf_editar usou nas emendas do áudio)
     out = np.zeros((int(total * SR) + SR, 2), np.float32)
     # abertura do carrinho intacta até INTRO_FIM; dali até a primeira âncora só a trilha (a voz antiga começava em 14,9 s,
-    # antes do corte do carrinho, e vazaria sob a fala nova); fusão de 60 ms
-    i_c = int(INTRO_FIM * SR); i_a0 = int(anc[0] * SR); xf = int(0.06 * SR)
+    # antes do corte do carrinho, e vazaria sob a fala nova)
+    i_c = int(INTRO_FIM * SR); i_a0 = int(anc[0] * SR)
     out[:i_c] = A22[:i_c]; out[i_c:i_a0] = Mv22[i_c:i_a0]
-    r = np.linspace(0, 1, xf, dtype=np.float32)[:, None]; out[i_c - xf:i_c] = A22[i_c - xf:i_c] * (1 - r) + Mv22[i_c - xf:i_c] * r
+    r = np.linspace(0, 1, XF, dtype=np.float32)[:, None]; out[i_c - XF:i_c] = A22[i_c - XF:i_c] * (1 - r) + Mv22[i_c - XF:i_c] * r
+    # trilha por trecho, esticada por k; cada trecho leva 40 ms a mais de fonte no fim e o seguinte entra em fusão sobre essa cauda
+    ext = XF
     for a, b, Oa, Ob, k in segs:
-        seg = estica_musica(Mv22[int(a * SR):int(b * SR)], SR, k)
-        i0 = int(Oa * SR); seg = seg[:int(Ob * SR) - i0]; out[i0:i0 + len(seg)] = seg
-    aN, ON = segs[-1][1], segs[-1][3]
-    resto = A22[int(aN * SR):]; out[int(ON * SR):int(ON * SR) + len(resto)] = resto      # fade + encerramento do carrinho, intactos
-    # ducking sob a voz e a voz nova no nível da narração original (pico 0,80 como no mix do vídeo final)
-    env = np.zeros(len(out), np.float32); vozes = np.zeros_like(out)
+        src = Mv22[int(a * SR):int(b * SR) + ext]
+        seg = estica_musica(src, SR, k); i0 = int(Oa * SR); n_corpo = int(Ob * SR) - i0
+        seg = seg[:n_corpo + XF]
+        if len(seg) < n_corpo + XF: seg = np.concatenate([seg, np.zeros((n_corpo + XF - len(seg), 2), np.float32)])
+        seg[:XF] *= r; seg[n_corpo:] *= (1 - r)[:len(seg) - n_corpo]
+        if i0 == i_a0: seg[:XF] /= np.maximum(r, 1e-3)   # o primeiro trecho continua a trilha já escrita (k = 1): sem fade-in
+        out[i0:i0 + len(seg)] += seg
+    # fade do filme + encerramento do carrinho, intactos do v22; o áudio do v22 perdeu 40 ms em cada uma das 3 emendas cruzadas
+    aN, ON = segs[-1][1], segs[-1][3]; perdido = (len(VE.AUDIO) - 1) * 0.04
+    resto = A22[int((aN - perdido) * SR):].copy(); resto[:XF] *= r
+    out[int(ON * SR):int(ON * SR) + len(resto)] += resto
+    # voz: ganho único para todas as falas, igualando o RMS da narração original (faixa de voz do vídeo final nas janelas das falas)
+    VOC = next(os.path.join(AZ, 'videofinal', f) for f in os.listdir(os.path.join(AZ, 'videofinal')) if 'Vocals' in f)
+    V, srv = sf.read(VOC, dtype='float32'); V = V.mean(1)
+    ref = np.concatenate([V[int((f['de'] + VE.DESLOC_V - 0.5) * srv):int((f['ate'] + VE.DESLOC_V) * srv)] for f in FALAS])
+    rms = lambda x: float(np.sqrt(np.mean(x ** 2)) + 1e-9)
+    novas = []
     for fl in falas:
         x, srx = sf.read(os.path.join(V23, 'falas', fl['id'] + '.wav'), dtype='float32')
-        x = estica_voz(x, srx, fl['s']); x = resample_poly(x, SR, srx).astype(np.float32)
-        x *= VOZ_PICO / max(1e-6, np.abs(x).max()) * 0.9
-        i0 = int(fl['O'] * SR); vozes[i0:i0 + len(x)] += x[:, None]; env[max(0, i0 - int(0.15 * SR)):i0 + len(x) + int(0.25 * SR)] = 1
-    # suaviza o envelope (120 ms) e aplica só na faixa do filme
+        x = estica_voz(x, srx, fl['s']); novas.append(resample_poly(x, SR, srx).astype(np.float32))
+    g = rms(ref) / rms(np.concatenate(novas)) * 10 ** (GANHO_VOZ_DB / 20)
+    g = min(g, 0.95 / max(np.abs(x).max() for x in novas))
+    env = np.zeros(len(out), np.float32); vozes = np.zeros_like(out)
+    for fl, x in zip(falas, novas):
+        i0 = int(fl['O'] * SR); vozes[i0:i0 + len(x)] += (x * g)[:, None]
+        env[max(0, i0 - int(0.15 * SR)):i0 + len(x) + int(0.25 * SR)] = 1
+    # ducking: envelope suavizado (120 ms) só na faixa do filme
     ker = np.ones(int(0.12 * SR), np.float32) / int(0.12 * SR); env = np.convolve(env, ker, 'same')
-    g = 10 ** (DUCK_DB / 20); i_a, i_b = int(anc[0] * SR), int(ON * SR)
-    out[i_a:i_b] *= (1 - env[i_a:i_b] * (1 - g))[:, None]
+    gd = 10 ** (DUCK_DB / 20); i_b = int(ON * SR)
+    out[i_a0:i_b] *= (1 - env[i_a0:i_b] * (1 - gd))[:, None]
     out += vozes; out = out[:int(total * SR)]
-    pico = np.abs(out).max();
+    pico = np.abs(out).max()
     if pico > 0.98: out *= 0.98 / pico
+    print('voz: ganho %.2f (%.1f dB); RMS referência %.1f dBFS' % (g, 20 * np.log10(g), 20 * np.log10(rms(ref))))
     sf.write(os.path.join(V23, 'audio.wav'), out, SR)
 
 

@@ -1,50 +1,44 @@
-"""Monta o v20 corrigido: o vídeo original (build/azul/v20in/v20.mp4) com os quadros tratados (build/azul/v20in/fix/
-nNNNNNN.png) sobrepostos nos seus intervalos; áudio copiado sem alteração.
+"""Monta o v20 corrigido: decodifica o original (build/azul/v20in/v20.mp4) quadro a quadro, substitui os quadros tratados
+(build/azul/v20in/fix/nNNNNNN.png) e recodifica; áudio copiado sem alteração. Master (crf 18) e versão leve (crf 26)
+numa só passada.
 
-Saídas: build/azul/Projeto-Totvs-Final-do-ano-v20-pernas.mp4 (master, crf 18) e ...-leve.mp4 (crf 26, < 30 MB).
 Uso: python3 producao/v20_montar.py [--crf 18] [--leve 26]
 """
-import argparse, os, re, subprocess
+import argparse, os, re, subprocess, sys
+import numpy as np
+from PIL import Image
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = os.path.join(RAIZ, 'build', 'azul', 'v20in')
 FIX, ORIG = os.path.join(BASE, 'fix'), os.path.join(BASE, 'v20.mp4')
-FPS = 30
+W, H, FPS = 1920, 1080, 30
 
 
-def intervalos():
-    """faixas contíguas de quadros tratados"""
-    ns = sorted(int(m.group(1)) for f in os.listdir(FIX) if (m := re.match(r'n(\d{6})\.png$', f)))
-    out, a, p = [], ns[0], ns[0]
-    for n in ns[1:]:
-        if n != p + 1: out.append((a, p)); a = n
-        p = n
-    out.append((a, p))
-    return out
-
-
-def montar(saida, crf, faixas):
-    cmd = ['ffmpeg', '-v', 'error', '-y', '-i', ORIG]
-    fc, atual = '', '[0:v]'
-    for i, (a, b) in enumerate(faixas, start=1):
-        cmd += ['-framerate', str(FPS), '-start_number', str(a), '-i', os.path.join(FIX, 'n%06d.png')]
-        fc += f"[{i}:v]setpts=PTS-STARTPTS+{a}/{FPS}/TB,format=yuv420p[f{i}];"
-        fc += f"{atual}[f{i}]overlay=eof_action=pass:enable='between(n,{a},{b})'[v{i}];"
-        atual = f'[v{i}]'
-    fc = fc.rstrip(';')
-    cmd += ['-filter_complex', fc, '-map', atual, '-map', '0:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf),
-            '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', saida]
-    subprocess.run(cmd, check=True)
-    print(saida, round(os.path.getsize(saida) / 1e6, 1), 'MB')
+def montar(crf, leve):
+    fixos = {int(m.group(1)) for f in os.listdir(FIX) if (m := re.match(r'n(\d{6})\.png$', f))}
+    print(len(fixos), 'quadros tratados')
+    dec = subprocess.Popen(['ffmpeg', '-v', 'error', '-i', ORIG, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE, bufsize=10 ** 8)
+    saida = os.path.join(RAIZ, 'build', 'azul', 'Projeto-Totvs-Final-do-ano-v20-pernas')
+    enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', ORIG,
+                            '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', saida + '.mp4',
+                            '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', str(leve), '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', saida + '-leve.mp4'],
+                           stdin=subprocess.PIPE, bufsize=10 ** 8)
+    n, tam, usados = 0, W * H * 3, 0
+    while True:
+        buf = dec.stdout.read(tam)
+        if len(buf) < tam: break
+        if n in fixos:
+            buf = np.array(Image.open(os.path.join(FIX, f'n{n:06d}.png')).convert('RGB'), dtype=np.uint8).tobytes(); usados += 1
+        enc.stdin.write(buf); n += 1
+        if n % 600 == 0: print(f'  {n} quadros', file=sys.stderr)
+    enc.stdin.close(); enc.wait(); dec.wait()
+    print(n, 'quadros;', usados, 'substituídos')
+    for s in (saida + '.mp4', saida + '-leve.mp4'): print(s, round(os.path.getsize(s) / 1e6, 1), 'MB')
 
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--crf', type=int, default=18)
     ap.add_argument('--leve', type=int, default=26)
-    ap.add_argument('--so-leve', action='store_true')
     a = ap.parse_args()
-    faixas = intervalos()
-    print('faixas:', faixas)
-    if not a.so_leve: montar(os.path.join(RAIZ, 'build', 'azul', 'Projeto-Totvs-Final-do-ano-v20-pernas.mp4'), a.crf, faixas)
-    montar(os.path.join(RAIZ, 'build', 'azul', 'Projeto-Totvs-Final-do-ano-v20-pernas-leve.mp4'), a.leve, faixas)
+    montar(a.crf, a.leve)

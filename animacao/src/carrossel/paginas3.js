@@ -1,8 +1,8 @@
 // As 3 páginas do carrossel. Cada função desenha o miolo da página (entre o cabeçalho e o rodapé)
 // no tempo local tt (s), seguindo os beats B de tempos.json. modo.estatico = true desenha o estado final (PDF).
-import { W, C, t, tRico, larg, kicker, quebra, op, fin, inv, ease, n2, varredura, ico } from './base.js';
+import { W, C, t, tRico, larg, kicker, quebra, op, fin, back, clamp, inv, ease, n2, varredura } from './base.js';
 import { titulo } from './componentes.js';
-import { waffle, colunas, barrasTempo, linhaDoTempo } from './adocao.js';
+import { waffle, colunas, barrasTempo } from './adocao.js';
 import { P1, P2, P3 } from './dados.js';
 
 const f = n2;
@@ -64,30 +64,53 @@ export function pagina2(tt, B) {
   return s;
 }
 
-// ---------- página 3 · o que fazemos: gestão da mudança desde o dia zero ----------
+// ---------- página 3 · o que fazemos: três momentos ----------
 export function pagina3(tt, B) {
   let s = marcaDagua(3, tt, B.kicker);
   s += op(fin(tt, B.kicker, 0.4), kicker(P3.kicker, 48, 190));
   s += titulo(P3.titulo, 48, 258, tt, B.titulo, { s: 64, lh: 68 });
-  s += rotulo(P3.linhaTitulo, 48, 386, tt, B.linha - 0.4);
-  const L = linhaDoTempo({ x: 48, y: 462, w: 984, t0: B.linha, fases: P3.fases, golive: P3.golive, faixas: P3.faixas, antes: P3.antes }, tt);
-  s += L.svg;
-  // entregas
-  const ey = 790, cw = 480, ch = 70;
-  P3.entregas.forEach((e, i) => {
-    const a0 = B.entregas + i * 0.25;
-    const k = fin(tt, a0, 0.45);
+  s += rotulo(P3.sub, 48, 392, tt, B.linha - 0.4);
+  // linha do tempo: 3 colunas (antes · durante · depois), kickoff e go-live nas divisas
+  const cx0 = 48, cw = 328, cxs = [cx0, cx0 + cw, cx0 + 2 * cw, cx0 + 3 * cw];
+  const yA = 452;
+  const kL = fin(tt, B.linha, 0.5);
+  let lt = `<path d="M${cx0},${yA} L${cx0 + 3 * cw},${yA}" stroke="${C.navy}" stroke-width="2"/>`;
+  P3.momentos.forEach((m, i) => { lt += t(m.quando, cxs[i] + cw / 2, yA - 18, { f: 'M', w: 700, s: 15, c: C.navy, a: 'middle', ls: 1.5 }); });
+  s += op(kL, lt);
+  P3.marcos.forEach((mk, i) => {
+    const k = back(tt, B.linha + 0.4 + i * 0.2, 0.5), x = cxs[i + 1];
+    if (k > 0) s += `<g transform="translate(${x} ${yA}) scale(${f(k)})"><path d="M0,-13 L11,0 L0,13 L-11,0Z" fill="${C.orange}"/></g>` + op(k, t(mk, x, yA + 36, { f: 'M', w: 700, s: 13, c: C.orangeD, a: 'middle', ls: 1.5 }));
+  });
+  P3.faixas.forEach((fx, i) => {
+    const a0 = B.linha + 0.7 + i * 0.5, u = ease.out(inv(a0, a0 + 0.8, tt));
+    if (u <= 0) return;
+    const y = yA + 56 + i * 56, xa = cxs[fx.de], xb = cxs[fx.ate], cor = i ? C.navy : C.orange;
+    s += `<rect x="${f(xa)}" y="${y}" width="${f((xb - xa) * u)}" height="44" rx="10" fill="${cor}"/>`;
+    s += op(clamp(u * 3), t(fx.rot, xa + 16, y + 30, { f: 'H', w: 700, s: 20, c: i ? '#fff' : C.navy, ls: 1 }));
+  });
+  // três momentos
+  const my = 648;
+  P3.momentos.forEach((m, i) => {
+    const a0 = B.entregas + i * 0.45, k = fin(tt, a0, 0.5);
     if (k <= 0) return;
-    const x = 48 + (i % 2) * (cw + 24), y = ey + Math.floor(i / 2) * (ch + 16);
-    let b = `<rect x="${x}" y="${y}" width="${cw}" height="${ch}" rx="12" fill="#fff" stroke="${C.blueLL}" stroke-width="1.5"/>`
-      + `<rect x="${x}" y="${y}" width="5" height="${ch}" rx="2.5" fill="${C.orange}"/>`
-      + `<circle cx="${x + 40}" cy="${y + ch / 2}" r="21" fill="${C.blueBg}"/>` + ico(e.ico, x + 40, y + ch / 2, 1.1, C.navy, 2.2)
-      + t(e.rot, x + 76, y + 30, { f: 'B', w: 700, s: 18, c: C.navy })
-      + t(e.sub, x + 76, y + 52, { f: 'B', w: 500, s: 15.5, c: C.slate });
+    const x = cxs[i] + (i ? 22 : 0), w = cw - 22;
+    let b = '';
+    if (i) b += `<path d="M${cxs[i]},${my} L${cxs[i]},${my + 270}" stroke="${C.blueLL}" stroke-width="1.5"/>`;
+    b += `<circle cx="${x + 20}" cy="${my + 22}" r="20" fill="${C.orange}"/>` + t(String(m.n), x + 20, my + 30, { f: 'H', w: 800, s: 24, c: C.navy, a: 'middle' });
+    b += t(m.titulo, x + 54, my + 31, { f: 'H', w: 700, s: 28, c: C.navy, ls: 0.3 });
+    let yy = my + 78;
+    m.itens.forEach((it, q) => {
+      const linhas = quebra(it, 18, w - 30, 500, 'B');
+      const kk = fin(tt, a0 + 0.25 + q * 0.15, 0.4);
+      let eb = `<circle cx="${x + 8}" cy="${yy - 6}" r="4" fill="${C.orange}"/>`;
+      linhas.forEach((l, r) => { eb += t(l, x + 24, yy + r * 24, { f: 'B', w: 500, s: 18, c: C.slate }); });
+      b += op(kk, eb);
+      yy += linhas.length * 24 + 16;
+    });
     s += `<g opacity="${f(k)}" transform="translate(0 ${f((1 - k) * 14)})">${b}</g>`;
   });
   // CTA
-  const by = 966, bh = 236, cx = 48, cwid = 984;
+  const by = 956, bh = 240, cx = 48, cwid = 984;
   const k = ease.out(inv(B.cta, B.cta + 0.55, tt));
   if (k > 0) {
     const Q = P3.cta;
@@ -96,10 +119,10 @@ export function pagina3(tt, B) {
       + `<g clip-path="url(#ctaClip)"><path d="M${cx + cwid - 90},${by + bh} L${cx + cwid + 10},${by}" stroke="${C.slate}" stroke-width="34"/><path d="M${cx + cwid - 146},${by + bh} L${cx + cwid - 46},${by}" stroke="${C.orange}" stroke-width="2.4"/></g>`;
     b += op(fin(tt, B.cta + 0.2, 0.4), t(Q.pergunta, cx + 36, by + 68, { f: 'H', w: 700, s: 40, c: '#fff', ls: 0.3 }));
     b += op(fin(tt, B.cta + 0.5, 0.4), tRico(Q.destaque, cx + 36, by + 124, { f: 'H', w: 800, s: 50, c: '#fff', hi: C.orange, ls: 0.3 }));
-    b += op(fin(tt, B.final, 0.45), `<rect x="${cx + 36}" y="${by + 148}" width="${cwid - 260}" height="1.5" fill="#fff" opacity=".25"/>`
-      + t(Q.acao, cx + 36, by + 186, { f: 'B', w: 700, s: 24, c: '#fff' })
-      + t(Q.acao2, cx + 36, by + 214, { f: 'B', w: 500, s: 17, c: C.blueLL })
-      + t(Q.lema, cx + cwid - 200, by + 214, { f: 'M', w: 500, s: 16, c: C.orangeL, ls: 1.5, a: 'end' }));
+    b += op(fin(tt, B.final, 0.45), `<rect x="${cx + 36}" y="${by + 150}" width="${cwid - 260}" height="1.5" fill="#fff" opacity=".25"/>`
+      + t(Q.acao, cx + 36, by + 188, { f: 'B', w: 700, s: 24, c: '#fff' })
+      + t(Q.acao2, cx + 36, by + 216, { f: 'B', w: 500, s: 17, c: C.blueLL })
+      + t(Q.lema, cx + cwid - 200, by + 216, { f: 'M', w: 500, s: 16, c: C.orangeL, ls: 1.5, a: 'end' }));
     s += `<g opacity="${f(Math.min(1, k * 1.4))}" transform="translate(${f((1 - k) * 40)} 0)">${b}</g>`;
     s += varredura('vcta', cx, by, cwid, bh, inv(B.final + 0.2, B.final + 1.3, tt), 14);
   }

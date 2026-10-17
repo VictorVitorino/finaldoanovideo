@@ -1,4 +1,4 @@
-// Base visual do carrossel "Gestão de Mudanças Tech" (A&M · DTS · Performance), 1080 x 1350.
+// Base visual do carrossel "Gestão da Mudança" (Alvarez & Marsal · Performance · DTS), 1080 x 1350.
 // Linguagem de consultoria A&M: navy #002B49, laranja #F78C16, Barlow Condensed nos títulos,
 // Inter no texto e JetBrains Mono nos rótulos técnicos. Tudo é função pura do tempo.
 import { clamp, lerp, inv, ease, kf, n2, esc, measure, rng } from '../core.js';
@@ -166,7 +166,7 @@ export function cabecalho(pag, total, titulo, sub, k = 1) {
   let s = `<rect x="0" y="0" width="${W}" height="${h}" fill="${C.navy}"/>`;
   s += `<clipPath id="cabClip"><rect width="${W}" height="${h}"/></clipPath><g clip-path="url(#cabClip)">${diagonais(760, 0, h, k, { alpha: 0.9 })}</g>`;
   const L = lockupAM(48, 62, 27, '#fff');
-  s += L.svg + t('DTS · PERFORMANCE', 48 + 66 * 0.9, 93, { f: 'M', w: 500, s: 15, c: C.blueL, ls: 2 });
+  s += L.svg + t('PERFORMANCE · DTS', 48 + 66 * 0.9, 93, { f: 'M', w: 500, s: 15, c: C.blueL, ls: 2 });
   s += `<rect x="${f(48 + L.w + 26)}" y="34" width="2" height="62" fill="#ffffff" opacity=".35"/>`;
   const tx = 48 + L.w + 50;
   s += t(titulo, tx, 63, { f: 'H', w: 700, s: 34, c: '#fff', ls: 1.5 });

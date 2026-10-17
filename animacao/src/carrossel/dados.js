@@ -5,8 +5,11 @@
 export const CAB = { titulo: 'GESTÃO DA MUDANÇA', sub: 'Tecnologia precisa de adoção' };
 
 export const ABERTURA = {
-  selo: 'ALVAREZ & MARSAL · DTS · PERFORMANCE',
+  selo: 'ALVAREZ & MARSAL · PERFORMANCE · DTS',
   linhas: ['TECNOLOGIA NÃO SE', 'ADOTA SOZINHA.', '*QUEM FAZ A ADOÇÃO É A*', '*GESTÃO DA MUDANÇA.*'],
+  // teaser da capa (Gallup, maio/2026, trabalhadores dos EUA)
+  teaser: { num: 15, linhas: ['de cada 100 trabalhadores', 'usam IA todos os dias'], sub: 'mesmo com 47 que já têm IA implantada pela empresa', fonte: 'Gallup, 2026' },
+  rodape: { esquerda: 'ALVAREZ & MARSAL · PERFORMANCE · DTS', direita: '3 PÁGINAS →' },
 };
 
 export const P1 = {
@@ -51,27 +54,18 @@ export const P2 = {
 export const P3 = {
   kicker: '03 · O QUE FAZEMOS',
   titulo: ['GESTÃO DA MUDANÇA', '*DESDE O DIA ZERO.*'],
-  linhaTitulo: 'Onde a Gestão da Mudança entra no seu projeto de IA',
-  fases: [{ rot: 'Antes', de: -0.3, ate: 0 }, { rot: 'Desenho', de: 0, ate: 0.32 }, { rot: 'Construção', de: 0.32, ate: 0.68 }, { rot: 'Depois', de: 0.68, ate: 1 }],
-  golive: 0.68,
-  faixas: [
-    { rot: 'Gestão da Mudança', de: -0.3, ate: 1, cor: '#F78C16', txt: '#002B49', itens: [
-      { em: -0.15, rot: 'Preparar o terreno' }, { em: 0.16, rot: 'Patrocínio e narrativa', linha: 1 }, { em: 0.46, rot: 'Capacitação e champions' }, { em: 0.70, rot: 'Apoio no go-live', linha: 1 }, { em: 0.95, rot: 'Reforço e medição', a: 'end', dx: 30 },
-    ] },
-    { rot: 'Tecnologia', de: 0, ate: 0.74, cor: '#002B49', txt: '#fff', itens: [
-      { em: 0.18, rot: 'Desenho' }, { em: 0.45, rot: 'Construção e testes' }, { em: 0.68, rot: 'Go-live' },
-    ] },
-  ],
-  antes: { de: -0.3, rot: 'ANTES DO KICKOFF' },
-  entregas: [
-    { ico: 'megafone', rot: 'Sensibilização antes do projeto', sub: 'o porquê, para cada público' },
-    { ico: 'pessoas', rot: 'Liderança e patrocínio ativos', sub: 'patrocinadores e champions' },
-    { ico: 'livro', rot: 'Capacitação por perfil', sub: 'trilhas, regras de uso, suporte' },
-    { ico: 'painel', rot: 'Adoção medida e sustentada', sub: 'uso real, proficiência, reforço' },
+  sub: 'O que fazemos em cada momento do seu projeto de IA',
+  // linha do tempo simples: a Gestão da Mudança começa antes do kickoff e segue depois do go-live
+  marcos: ['KICKOFF', 'GO-LIVE'],
+  faixas: [{ rot: 'GESTÃO DA MUDANÇA', de: 0, ate: 3 }, { rot: 'TECNOLOGIA', de: 1, ate: 2 }],
+  momentos: [
+    { n: 1, quando: 'ANTES DO KICKOFF', titulo: 'Preparar o terreno', itens: ['Sensibilizar: o porquê da mudança, para cada público', 'Mapear impactos por área e perfil', 'Engajar a liderança como patrocinadora'] },
+    { n: 2, quando: 'DURANTE O PROJETO', titulo: 'Levar as pessoas junto', itens: ['Narrativa e comunicação contínuas', 'Capacitação por perfil, antes do go-live', 'Rede de champions nas áreas'] },
+    { n: 3, quando: 'DEPOIS DO GO-LIVE', titulo: 'Fazer virar hábito', itens: ['Apoio no uso e regras claras', 'Medir a adoção: uso real e proficiência', 'Reforçar, reconhecer e ajustar'] },
   ],
   cta: {
     pergunta: 'Seu projeto de IA já tem data de início.', destaque: '*A Gestão da Mudança já começou?*',
-    acao: 'Fale com o time A&M · DTS + Performance', acao2: 'Chame no privado ou comente aqui.', lema: 'Leadership. Action. Results.',
+    acao: 'Fale com o time A&M · Performance + DTS', acao2: 'Chame no privado ou comente aqui.', lema: 'Leadership. Action. Results.',
   },
   fontes: '',
 };

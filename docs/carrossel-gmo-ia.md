@@ -1,4 +1,4 @@
-# Carrossel "Tecnologia precisa de adoção. Quem faz a adoção é a Gestão da Mudança" (A&M · DTS · Performance)
+# Carrossel "Tecnologia precisa de adoção. Quem faz a adoção é a Gestão da Mudança" (Alvarez & Marsal · Performance · DTS)
 
 Peça de venda para o LinkedIn sobre Gestão da Mudança em projetos de adoção de IA. A tese em uma linha: **tecnologia não se adota sozinha; quem faz a adoção é a Gestão da Mudança; quanto mais cedo ela entra no projeto, mais fácil a adoção e menor o risco.** São 3 páginas com cara de apresentação de consultoria, em dois formatos:
 
@@ -6,19 +6,19 @@ Peça de venda para o LinkedIn sobre Gestão da Mudança em projetos de adoção
 |---|---|
 | [`videos/carrossel-gmo-ia.mp4`](../videos/carrossel-gmo-ia.mp4) | Vídeo 1080×1350 (4:5), ~68 s, 30 fps, **sem som**. Cerca de 22 s por página, para dar tempo de leitura. O gancho abre a página 1 e as páginas trocam com uma cortina diagonal. |
 | [`videos/carrossel-gmo-ia.pdf`](../videos/carrossel-gmo-ia.pdf) | Carrossel de documento (3 páginas vetoriais), para o post que o leitor passa com o dedo. |
-| [`videos/carrossel-gmo-ia-capa.jpg`](../videos/carrossel-gmo-ia-capa.jpg) | Capa (miniatura) do vídeo: o quadro do gancho. |
+| [`videos/carrossel-gmo-ia-capa.jpg`](../videos/carrossel-gmo-ia-capa.jpg) | Capa (miniatura) do vídeo: o quadro do gancho completo, com as diagonais da marca, o teaser "15 de cada 100 trabalhadores usam IA todos os dias" (grade que se preenche) e a assinatura Alvarez & Marsal · PERFORMΛNCE · DTS. |
 
 ## O fio da história
 
-**Gancho:** "Tecnologia não se adota sozinha. Quem faz a adoção é a Gestão da Mudança." Uma curva laranja sobe ao fundo. Depois o painel sobe e vira o cabeçalho da página 1.
+**Gancho (capa):** "Tecnologia não se adota sozinha. Quem faz a adoção é a Gestão da Mudança." Abaixo, o teaser com a grade de 100 quadrados que se preenche até 15 ("de cada 100 trabalhadores usam IA todos os dias, mesmo com 47 que já têm IA implantada pela empresa", Gallup 2026) e a assinatura da marca. Depois o painel sobe e vira o cabeçalho da página 1.
 
 | Página | Mensagem | O que está na tela |
 |---|---|---|
 | **1 · IA versus adoção** | Comprar IA é rápido. Adotar IA é outra história. | Quase 9 em cada 10 organizações já usam IA em alguma função. O gráfico "de cada 100 trabalhadores" (três grades de 100 quadrados que se preenchem): **47** têm IA implantada pela empresa → **30** usam com frequência → **15** usam todos os dias; lacuna de adoção de 32 pontos. Conclusão: implantar não garante uso; a adoção precisa ser construída com as pessoas. |
 | **2 · Com e sem Gestão da Mudança** | Com Gestão da Mudança, a adoção sobe. Sem ela, o risco é alto. | Gráfico 1: projetos que atingiram os objetivos por eficácia da gestão da mudança (GMO fraca → forte): **13% → 39% → 73% → 88%** (7x). Gráfico 2, o custo de começar tarde: **47%** atingiram os objetivos quando a GMO começou na iniciação × **29%** quando só começou no encerramento. Conclusão: quanto mais cedo a Gestão da Mudança entra, mais fácil a adoção; começar depois do go-live é correr atrás do prejuízo. O dado "85% dizem que deveria começar na iniciação, só 40% começam" ficou na legenda do post. |
-| **3 · O que fazemos** | Gestão da Mudança desde o dia zero. | Linha do tempo do projeto com a faixa da Gestão da Mudança começando **antes do kickoff** (preparar o terreno, patrocínio e narrativa, capacitação e champions, apoio no go-live, reforço e medição) sobre a faixa da tecnologia. Quatro entregas e a chamada: "Seu projeto de IA já tem data de início. A gestão da mudança já começou?" |
+| **3 · O que fazemos** | Gestão da Mudança desde o dia zero. | Linha do tempo em três momentos, com kickoff e go-live nas divisas: a faixa da Gestão da Mudança cobre os três; a da tecnologia, só o meio. Embaixo, o que fazemos em cada momento: **1 · Antes do kickoff, preparar o terreno** (sensibilizar com o porquê, mapear impactos, engajar a liderança como patrocinadora); **2 · Durante o projeto, levar as pessoas junto** (narrativa e comunicação, capacitação por perfil antes do go-live, rede de champions); **3 · Depois do go-live, fazer virar hábito** (apoio no uso, medir a adoção, reforçar e ajustar). Chamada: "Seu projeto de IA já tem data de início. A Gestão da Mudança já começou?" |
 
-DTS, Performance e Gestão da Mudança aparecem juntos no cabeçalho (A&M · DTS · PERFORMANCE), no CTA e no rodapé (lockup PERFORMΛNCE). O carrossel não fala de eficiência operacional nem de EBIT: o assunto é adoção.
+A hierarquia de marca é Alvarez & Marsal → Performance → DTS: no cabeçalho (A&M · PERFORMANCE · DTS), na capa, no CTA ("Fale com o time A&M · Performance + DTS") e no rodapé (lockup PERFORMΛNCE). O carrossel não fala de eficiência operacional nem de EBIT: o assunto é adoção.
 
 ## Fontes e verificação
 
@@ -54,7 +54,7 @@ Com gestão da mudança, a adoção sobe. Sem ela, o risco é alto: no benchmark
 
 E o momento importa. Quando a gestão da mudança começa na iniciação do projeto, 47% atingem os objetivos; quando só começa no encerramento, 29%. 85% dos praticantes dizem que ela deveria começar na iniciação, mas só 40% começam (Prosci). Começar depois do go-live é correr atrás do prejuízo.
 
-É por isso que, na Alvarez & Marsal, a Gestão da Mudança entra antes do kickoff: preparar o terreno, patrocínio e narrativa, capacitação por persona, apoio no go-live e adoção medida depois. DTS e Performance no mesmo plano. Para cada dólar investido em tecnologia de IA, invista o mesmo nas pessoas.
+É por isso que, na Alvarez & Marsal, a Gestão da Mudança entra antes do kickoff: preparar o terreno, levar as pessoas junto durante o projeto e fazer a IA virar hábito depois do go-live. Performance e DTS no mesmo plano. Para cada dólar investido em tecnologia de IA, invista o mesmo nas pessoas.
 
 Seu projeto de IA já tem data de início. A gestão da mudança já começou?
 
@@ -63,7 +63,7 @@ Seu projeto de IA já tem data de início. A gestão da mudança já começou?
 
 ## Antes de publicar
 
-1. **Aprovação interna:** o sócio responsável e a área de marca precisam validar a linha do tempo e as quatro entregas da página 3 e a frase "DTS e Performance no mesmo plano". São descrições do time, não texto institucional publicado.
+1. **Aprovação interna:** o sócio responsável e a área de marca precisam validar os três momentos da página 3 e a frase "Performance e DTS no mesmo plano". São descrições do time, não texto institucional publicado.
 2. **Prosci:** os números foram vistos em trechos literais do site da Prosci (o site não abriu neste ambiente). Vale abrir as páginas da tabela uma vez antes de publicar.
 3. **Respostas prontas para comentários previsíveis:**
    - "O 7x é resultado da A&M?" Não: é benchmark da Prosci para projetos de mudança em geral, correlação.
@@ -91,7 +91,7 @@ O render pula quadros que já existem: apague `build/carrossel/frames` depois de
 | Qualquer texto, número ou fonte | `animacao/src/carrossel/dados.js` |
 | Duração das páginas e o instante de cada animação | `animacao/src/carrossel/tempos.json` |
 | Layout de cada página | `animacao/src/carrossel/paginas3.js` |
-| Grades "de cada 100", colunas por eficácia, barras do custo de começar tarde, linha do tempo | `animacao/src/carrossel/adocao.js` |
+| Grades "de cada 100", colunas por eficácia, barras do custo de começar tarde | `animacao/src/carrossel/adocao.js` |
 | Título cinético, cortina e componentes antigos | `animacao/src/carrossel/componentes.js` |
 | Cabeçalho, rodapé, marcas A&M, banner DTS, PERFORMΛNCE, paleta | `animacao/src/carrossel/base.js` |
-| Gancho de abertura e montagem do vídeo | `animacao/src/carrossel/video.js` |
+| Capa (gancho com teaser e assinatura) e montagem do vídeo | `animacao/src/carrossel/video.js` |

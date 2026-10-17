@@ -1,6 +1,6 @@
 // Vídeo do carrossel: abertura (gancho) + 3 páginas animadas, com cortina diagonal entre elas.
 // Tempos em tempos.json (mesma fonte que a trilha usa em producao/carrossel_audio.py).
-import { W, H, C, defs, cabecalho, rodape, t, tRico, op, fin, clamp, inv, ease, n2 } from './base.js';
+import { W, H, C, defs, cabecalho, rodape, t, tRico, op, fin, clamp, inv, ease, n2, lockupAM, lockupPerformance, contaNum } from './base.js';
 import { cortina } from './componentes.js';
 import { PAGINAS } from './paginas3.js';
 import { CAB, ABERTURA } from './dados.js';
@@ -16,43 +16,61 @@ export async function carregarTempos() {
   return T;
 }
 
-// gancho em tela cheia navy, antes de o painel subir e virar o cabeçalho da página 1
+// capa / gancho em tela cheia navy, antes de o painel subir e virar o cabeçalho da página 1:
+// diagonais da marca, as 4 linhas, o teaser "15 de cada 100" (grade que se preenche) e a assinatura.
 function abertura(tt, B) {
   const fimSobe = B.sobe + 0.75;
   if (tt >= fimSobe) return '';
   const u = ease.inOut(inv(B.sobe, fimSobe, tt));
   const hp = H + (HEAD - 6 - H) * u;
-  let s = `<rect x="0" y="0" width="${W}" height="${f(hp)}" fill="url(#gNavy)"/>`;
-  // grade de pontos + curva exponencial ao fundo (a adoção que só sobe)
+  let s = `<clipPath id="capaClip"><rect x="0" y="0" width="${W}" height="${f(hp)}"/></clipPath><g clip-path="url(#capaClip)">`
+    + `<rect x="0" y="0" width="${W}" height="${H}" fill="url(#gNavy)"/>`;
   const kTxt = 1 - ease.out(inv(B.sobe - 0.05, B.sobe + 0.3, tt));
   if (kTxt > 0) {
-    let fundo = '';
-    for (let gx = 0; gx <= W; gx += 54) for (let gy = 180; gy <= H; gy += 54) fundo += `<circle cx="${gx}" cy="${gy}" r="1.6" fill="#fff" opacity=".09"/>`;
-    const uc = ease.inOut(inv(0.1, 3.2, tt));
-    const pts = [];
-    for (let i = 0; i <= 60 * uc; i++) { const x = i / 60; pts.push([60 + x * (W - 120), H - 170 - Math.pow(x, 4.5) * (H - 520)]); }
-    if (pts.length > 1) {
-      const d = pts.map((p, i) => `${i ? 'L' : 'M'}${f(p[0])},${f(p[1])}`).join(' ');
-      fundo += `<path d="${d} L${f(pts[pts.length - 1][0])},${H - 170} L60,${H - 170}Z" fill="${C.orange}" opacity=".07"/>`;
-      fundo += `<path d="${d}" fill="none" stroke="${C.orange}" stroke-width="4" opacity=".55" stroke-linecap="round"/>`;
-      const pp = pts[pts.length - 1];
-      fundo += `<circle cx="${f(pp[0])}" cy="${f(pp[1])}" r="9" fill="${C.orange}"/><circle cx="${f(pp[0])}" cy="${f(pp[1])}" r="${f(16 + 6 * Math.sin(tt * 6))}" fill="none" stroke="${C.orange}" stroke-width="2" opacity=".5"/>`;
-    }
+    // diagonais grandes da marca (ardósia) e a linha laranja, à direita
+    let fundo = `<radialGradient id="gCapa" cx="0.85" cy="0.78" r="0.55"><stop offset="0" stop-color="${C.orange}" stop-opacity=".22"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0"/></radialGradient>`
+      + `<rect x="0" y="0" width="${W}" height="${H}" fill="url(#gCapa)"/>`
+      + `<path d="M760,${H} L1060,134" stroke="${C.slate}" stroke-width="110" opacity=".35"/><path d="M900,${H} L1200,134" stroke="${C.slate}" stroke-width="60" opacity=".3"/>`
+      + `<path d="M830,${H} L1130,134" stroke="${C.orange}" stroke-width="2.5" opacity=".8"/>`;
     s += op(kTxt, fundo);
-    // selo e linhas do gancho
-    let txt = op(fin(tt, -0.5, 0.5), `<rect x="72" y="452" width="34" height="5" fill="${C.orange}"/>` + t(ABERTURA.selo, 120, 461, { f: 'M', w: 600, s: 20, c: C.blueL, ls: 3 }));
-    // 4 linhas: as duas últimas (laranja) entram juntas no hook3, com 0,2 s de defasagem
-    // a 1ª linha já está na tela no quadro 0 (miniatura do feed antes do autoplay)
+    // selo
+    let txt = op(fin(tt, -0.5, 0.5), `<rect x="72" y="296" width="34" height="5" fill="${C.orange}"/>` + t(ABERTURA.selo, 120, 305, { f: 'M', w: 600, s: 19, c: C.blueL, ls: 3 }));
+    // 4 linhas: a 1ª já está na tela no quadro 0 (miniatura do feed antes do autoplay)
     const ks = [B.hook1 - 0.5, B.hook2, B.hook3, B.hook3 + 0.2];
-    const ys = [570, 672, 790, 884], tams = [96, 96, 80, 80];
+    const ys = [410, 510, 626, 716], tams = [96, 96, 80, 80];
     ABERTURA.linhas.forEach((l, i) => {
       const k = fin(tt, ks[i], 0.45);
       if (k <= 0) return;
       txt += `<g opacity="${f(clamp(k))}" transform="translate(${f((1 - k) * -40)} 0)">${tRico(l, 70, ys[i], { f: 'H', w: 800, s: tams[i], c: '#fff', hi: C.orange, ls: 0.5 })}</g>`;
     });
+    // teaser: grade de 100 que se preenche até 15 + o número grande
+    const T = ABERTURA.teaser, gx = 72, gy = 830, dot = 21, gap = 6;
+    const ug = ease.out(inv(B.hook2 + 0.2, B.hook3 + 1.4, tt));
+    const cheios = Math.round(T.num * ug);
+    let grade = '';
+    for (let k = 0; k < 100; k++) {
+      const col = k % 10, row = 9 - Math.floor(k / 10), on = k < cheios;
+      grade += `<rect x="${f(gx + col * (dot + gap))}" y="${f(gy + row * (dot + gap))}" width="${dot}" height="${dot}" rx="4" fill="${on ? C.orange : '#fff'}" opacity="${on ? 1 : 0.13}"/>`;
+    }
+    const gw = 10 * dot + 9 * gap, tx = gx + gw + 44;
+    let teaser = grade + op(fin(tt, B.hook2 + 0.3, 0.4), t(contaNum(T.num, ug), tx, gy + 128, { f: 'H', w: 800, s: 150, c: C.orange }));
+    const kt = fin(tt, B.hook2 + 0.8, 0.5);
+    let tl = '';
+    T.linhas.forEach((l, i) => { tl += t(l, tx + 4, gy + 170 + i * 32, { f: 'B', w: 700, s: 26, c: '#fff' }); });
+    tl += t(T.sub, tx + 4, gy + 240, { f: 'B', w: 500, s: 17, c: C.blueL });
+    tl += t(T.fonte, tx + 4, gy + 268, { f: 'M', w: 500, s: 13, c: C.blueL, ls: 1.5 });
+    teaser += op(kt, tl);
+    txt += op(fin(tt, B.hook2 + 0.1, 0.5), teaser);
+    // assinatura
+    const kr = fin(tt, B.hook3 + 0.4, 0.5);
+    const Lk = lockupAM(72, 1262, 22, '#fff');
+    const Pk = lockupPerformance(72 + Lk.w + 28, 1262, 24, '#fff');
+    txt += op(kr, `<path d="M72,1216 L${W - 72},1216" stroke="#fff" stroke-opacity=".2" stroke-width="1.5"/>` + Lk.svg + Pk.svg
+      + t('· DTS', 72 + Lk.w + 28 + Pk.w + 14, 1262, { f: 'B', w: 600, s: 22, c: '#fff', ls: 1 })
+      + t(ABERTURA.rodape.direita, W - 72, 1262, { f: 'M', w: 600, s: 15, c: C.blueL, a: 'end', ls: 2 }));
     s += op(kTxt, `<g transform="translate(0 ${f(-(1 - kTxt) * 120)})">${txt}</g>`);
   }
-  return s;
+  return s + '</g>';
 }
 
 export async function criar() {

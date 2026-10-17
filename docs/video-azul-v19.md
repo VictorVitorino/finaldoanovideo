@@ -111,11 +111,11 @@ O v21 mantém a abertura e o encerramento do carrinho do v20 e troca o miolo pel
 | Linha do tempo: FUNED com José e Victor (foto fora do git, em `build/azul/fontes/`) | `src/azul/v19c.js`, `producao/v19_preparar.py` |
 | Cockpit: visão geral dos três painéis maior e centralizada acima do Vinicius | `src/azul/v19c.js` (`cockpit`) |
 | Rumo a 2027: time inteiro lado a lado (2×7) no espaço livre; foguete com brilho, rastro luminoso e astronauta de cabeça grande | `src/azul/v19c.js` (`rumo`, `foguete`) |
-| Montagem: v20 0–15,0 s + filme + v20 185,1–210,1 s; palco do v18 (119,4–128,1 s) desacelerado por igual com `minterpolate`; áudio de cada bloco com a duração exata do vídeo | `animacao/producao/v21_montar.py` |
+| Montagem por partes: v20 0–15,0 s + filme + v20 185,1–210,1 s, cada parte com áudio da mesma duração do vídeo e concatenadas sem recodificar (sincronia medida: 21 ms constantes); palco do v18 (119,4–128,1 s) desacelerado 1,41x com `minterpolate` (cache em `build/azul/v21/palco_*.mp4`); versão leve crf 27 (~28 MB) | `animacao/producao/v21_montar.py` |
 
 ```bash
 cd animacao
 python3 producao/v21_voz.py voz && python3 producao/v21_voz.py mix
 node render.mjs frames --test v19 --out build/azul/v21 --workers 4
-python3 producao/v21_montar.py             # build/azul/Projeto-do-Ano-AM-TOTVS-v21(.mp4|-leve.mp4)
+python3 producao/v21_montar.py             # build/azul/Projeto-do-Ano-AM-TOTVS-v21(.mp4|-leve.mp4), 3:21
 ```

@@ -4,7 +4,7 @@ do v18 encaixado no slot da cena 'original', áudio build/azul/v21/mix.wav) + en
 cada bloco de áudio tem exatamente a duração do bloco de vídeo, então a sincronia não escorrega nas junções. O trecho do palco
 é desacelerado de forma uniforme até caber no slot, com interpolação de movimento (minterpolate) para não engasgar.
 
-Saídas: build/azul/Projeto-do-Ano-AM-TOTVS-v21.mp4 (crf 18) e ...-v21-leve.mp4 (crf 26, < 30 MB).
+Saídas: build/azul/Projeto-do-Ano-AM-TOTVS-v21.mp4 (crf 18) e ...-v21-leve.mp4 (crf 27, < 30 MB).
 Uso: python3 producao/v21_montar.py [--so-filme]
 """
 import argparse, json, os, subprocess
@@ -61,6 +61,6 @@ def montar(saidas, so_filme):
 
 
 if __name__ == '__main__':
-    ap = argparse.ArgumentParser(); ap.add_argument('--so-filme', action='store_true'); ap.add_argument('--crf', type=int, default=18); ap.add_argument('--leve', type=int, default=26)
+    ap = argparse.ArgumentParser(); ap.add_argument('--so-filme', action='store_true'); ap.add_argument('--crf', type=int, default=18); ap.add_argument('--leve', type=int, default=27)
     a = ap.parse_args(); suf = '-so-filme' if a.so_filme else ''
     montar([(os.path.join(AZ, f'Projeto-do-Ano-AM-TOTVS-v21{suf}.mp4'), a.crf), (os.path.join(AZ, f'Projeto-do-Ano-AM-TOTVS-v21{suf}-leve.mp4'), a.leve)], a.so_filme)

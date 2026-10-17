@@ -44,7 +44,7 @@ function abertura(tt, B) {
     // 4 linhas: as duas últimas (laranja) entram juntas no hook3, com 0,2 s de defasagem
     // a 1ª linha já está na tela no quadro 0 (miniatura do feed antes do autoplay)
     const ks = [B.hook1 - 0.5, B.hook2, B.hook3, B.hook3 + 0.2];
-    const ys = [584, 692, 802, 894], tams = [110, 84, 84, 84];
+    const ys = [570, 672, 790, 884], tams = [96, 96, 80, 80];
     ABERTURA.linhas.forEach((l, i) => {
       const k = fin(tt, ks[i], 0.45);
       if (k <= 0) return;

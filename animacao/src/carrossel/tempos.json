@@ -1,21 +1,21 @@
 {
  "fps": 30,
- "cortina": 1.1,
+ "cortina": 1.2,
  "paginas": [
   {
-   "id": "contexto",
-   "dur": 16.0,
-   "beats": { "hook1": 0.05, "hook2": 1.15, "hook3": 1.85, "sobe": 3.6, "kicker": 4.05, "titulo": 4.25, "grafico": 5.2, "funil": 8.9, "conclusao": 11.8 }
+   "id": "ia-versus-adocao",
+   "dur": 22.0,
+   "beats": { "hook1": 0.05, "hook2": 0.9, "hook3": 2.2, "sobe": 5.2, "kicker": 5.6, "titulo": 5.8, "grafico": 7.2, "conclusao": 12.2 }
   },
   {
-   "id": "desafio",
-   "dur": 15.5,
-   "beats": { "kicker": 0.3, "titulo": 0.5, "barra": 1.6, "matriz": 3.4, "foco": 8.6, "focoFim": 10.6, "conclusao": 10.9 }
+   "id": "com-e-sem-gmo",
+   "dur": 22.0,
+   "beats": { "kicker": 0.3, "titulo": 0.5, "colunas": 2.2, "tempo": 6.0, "conclusao": 11.0 }
   },
   {
-   "id": "solucao",
-   "dur": 16.5,
-   "beats": { "kicker": 0.3, "titulo": 0.5, "equacao": 1.5, "etapas": 3.8, "kpis": 6.9, "selo": 8.3, "cta": 10.4, "final": 11.6 }
+   "id": "o-que-fazemos",
+   "dur": 22.0,
+   "beats": { "kicker": 0.3, "titulo": 0.5, "linha": 2.0, "entregas": 6.4, "cta": 8.6, "final": 9.8 }
   }
  ]
 }

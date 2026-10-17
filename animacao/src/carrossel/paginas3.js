@@ -2,7 +2,7 @@
 // no tempo local tt (s), seguindo os beats B de tempos.json. modo.estatico = true desenha o estado final (PDF).
 import { W, C, t, tRico, larg, kicker, quebra, op, fin, inv, ease, n2, varredura, ico } from './base.js';
 import { titulo } from './componentes.js';
-import { escada, colunas, barrasTempo, curvasAdocao, linhaDoTempo } from './adocao.js';
+import { escada, colunas, barrasTempo, linhaDoTempo } from './adocao.js';
 import { P1, P2, P3 } from './dados.js';
 
 const f = n2;
@@ -33,10 +33,14 @@ export function pagina1(tt, B) {
   let s = marcaDagua(1, tt, B.kicker);
   s += op(fin(tt, B.kicker, 0.4), kicker(P1.kicker, 48, 190));
   s += titulo(P1.titulo, 48, 258, tt, B.titulo, { s: 64, lh: 68 });
-  s += rotulo(P1.escadaTitulo, 48, 392, tt, B.grafico - 0.4);
-  s += escada({ x: 48, y: 420, w: 984, h: 560, t0: B.grafico, step: 1.1,
+  // frase de abertura (McKinsey) em duas linhas
+  quebra(P1.abre, 23, 984, 500, 'B').forEach((l, i) => {
+    s += op(fin(tt, B.grafico - 1.2 + i * 0.15, 0.45), tRico(l, 48, 394 + i * 32, { f: 'B', w: 500, s: 23, c: C.navy, hi: C.orangeD, hw: 700 }));
+  });
+  s += op(fin(tt, B.grafico - 0.4, 0.4), t(P1.escadaTitulo.toUpperCase(), 48, 486, { f: 'M', w: 600, s: 14, c: C.orangeD, ls: 2 }));
+  s += escada({ x: 48, y: 496, w: 984, h: 490, t0: B.grafico, step: 1.1, max: 52,
     itens: P1.escada.map((it, i) => ({ ...it, cor: [C.navy, C.slate, C.orange][i] })) }, tt);
-  s += conclusao(P1.conclusao, 48, 1064, 984, tt, B.conclusao);
+  s += conclusao(P1.conclusao, 48, 1070, 984, tt, B.conclusao);
   return s;
 }
 
@@ -46,20 +50,28 @@ export function pagina2(tt, B) {
   s += op(fin(tt, B.kicker, 0.4), kicker(P2.kicker, 48, 190));
   s += titulo(P2.titulo, 48, 254, tt, B.titulo, { s: 54, lh: 58 });
   // gráfico 1: colunas por qualidade da gestão da mudança
-  s += rotulo(P2.colunasTitulo, 48, 438, tt, B.colunas - 0.4);
-  s += colunas({ x: 48, y: 452, w: 984, h: 300, t0: B.colunas, step: 0.45, itens: P2.colunas, zonas: P2.zonas, destaque: P2.destaque,
+  s += rotulo(P2.colunasTitulo, 48, 444, tt, B.colunas - 0.4);
+  s += colunas({ x: 48, y: 460, w: 984, h: 310, t0: B.colunas, step: 0.45, itens: P2.colunas, zonas: P2.zonas, destaque: P2.destaque,
     cores: ['#C0392B', C.orangeL, C.blue, C.navy] }, tt);
-  // gráfico 2: o custo de começar tarde
-  const ty = 800;
-  s += op(fin(tt, B.tempo - 0.4, 0.4), t(P2.tempoTitulo, 48, ty, { f: 'B', w: 700, s: 18, c: C.navy })
-    + t(P2.tempoSub, 48 + larg(P2.tempoTitulo, 18, 700) + 14, ty, { f: 'B', w: 500, s: 15, c: C.grey }));
-  if (P2.tempo.length) {
-    s += barrasTempo({ x: 48, y: ty + 22, w: 984, hBar: 36, gap: 14, rotW: 300, t0: B.tempo, step: 0.4, max: 100, suf: P2.tempoSuf ?? '%',
-      itens: P2.tempo.map((it, i) => ({ ...it, cor: [C.navy, C.blue, C.orangeL, '#C0392B'][i] })) }, tt);
-  } else {
-    s += curvasAdocao({ x: 110, y: ty + 40, w: 760, h: 180, t0: B.tempo, golive: 0.65, nota: P2.tempoNota, curvas: P2.curvas ?? [] }, tt);
+  // gráfico 2: o custo de começar tarde (barras reais) + a lacuna entre intenção e prática
+  const ty = 834;
+  s += op(fin(tt, B.tempo - 0.4, 0.4), t(P2.tempoTitulo, 48, ty, { f: 'B', w: 700, s: 19, c: C.navy })
+    + t(P2.tempoSub, 48 + larg(P2.tempoTitulo, 19, 700) + 12, ty, { f: 'B', w: 500, s: 15, c: C.grey }));
+  s += barrasTempo({ x: 48, y: ty + 30, w: 620, hBar: 50, gap: 26, rotW: 236, t0: B.tempo, step: 0.5, max: 100,
+    itens: P2.tempo.map((it, i) => ({ ...it, cor: [C.navy, '#C0392B'][i] })) }, tt);
+  // lacuna: 85% × 40%
+  const L = P2.lacuna, lx = 716, ly = ty + 26;
+  const kl = fin(tt, B.tempo + 1.3, 0.5);
+  if (kl > 0) {
+    let b = `<rect x="${lx}" y="${ly}" width="${1032 - lx}" height="150" rx="12" fill="${C.blueBg}"/>`;
+    [L.a, L.b].forEach((it, i) => {
+      const yy = ly + 26 + i * 70, cor = i ? '#C0392B' : C.navy;
+      b += t(`${it.val}%`, lx + 16, yy + 30, { f: 'H', w: 800, s: 38, c: cor });
+      quebra(it.rot, 13.5, 1032 - lx - 112, 500, 'B').forEach((l, q) => { b += t(l, lx + 94, yy + 14 + q * 17, { f: 'B', w: 500, s: 13.5, c: C.slate }); });
+    });
+    s += `<g opacity="${f(kl)}" transform="translate(0 ${f((1 - kl) * 12)})">${b}</g>`;
   }
-  s += conclusao(P2.conclusao, 48, 1086, 984, tt, B.conclusao, { s: 21 });
+  s += conclusao(P2.conclusao, 48, 1066, 984, tt, B.conclusao, { s: 22 });
   return s;
 }
 

@@ -12,37 +12,36 @@ export const ABERTURA = {
 export const P1 = {
   kicker: '01 · IA VERSUS ADOÇÃO',
   titulo: ['COMPRAR IA É RÁPIDO.', '*ADOTAR IA É OUTRA HISTÓRIA.*'],
-  escadaTitulo: 'Da tecnologia comprada à tecnologia adotada',
-  // McKinsey, The State of AI in 2026 (89% usam em ≥1 função; 44% escalando) · BCG, AI at Work 2026 (36% capacitação adequada)
+  // McKinsey, The State of AI in 2026: "nearly nine in ten" usam IA em ao menos uma função
+  abre: 'Quase *9 em cada 10* organizações já usam IA em alguma função. Mas ter a ferramenta não é o mesmo que usá-la:',
+  escadaTitulo: 'Da IA implantada à IA adotada',
+  // Gallup, maio/2026, 22.573 trabalhadores dos EUA: 47% dizem que a empresa integrou IA; 30% usam com frequência; 15% diariamente
   escada: [
-    { val: 89, rot: 'têm IA', sub: 'usam IA em ao menos uma função' },
-    { val: 44, rot: 'escalaram', sub: 'a IA já escala pela empresa' },
-    { val: 36, rot: 'capacitaram', sub: 'das pessoas se sentem capacitadas', semQueda: true },
+    { val: 47, rot: 'implantaram', sub: 'a empresa integrou ferramentas de IA' },
+    { val: 30, rot: 'usam com frequência', sub: 'algumas vezes por semana ou mais' },
+    { val: 15, rot: 'usam todo dia', sub: 'a IA virou hábito de trabalho' },
   ],
-  conclusao: 'A tecnologia chega pronta. *A adoção precisa ser construída, com as pessoas.* É isso que a Gestão da Mudança faz.',
-  fontes: 'McKinsey, The State of AI in 2026 · BCG, AI at Work 2026',
+  conclusao: 'Implantar não garante uso. *A adoção precisa ser construída, com as pessoas.* É isso que a Gestão da Mudança faz.',
+  fontes: 'Gallup, maio/2026 (22.573 trabalhadores dos EUA) · McKinsey, The State of AI in 2026',
 };
 
 export const P2 = {
   kicker: '02 · COM E SEM GESTÃO DA MUDANÇA',
   titulo: ['COM GESTÃO DA MUDANÇA,', 'A ADOÇÃO SOBE.', '*SEM, O RISCO É ALTO.*'],
   colunasTitulo: 'Projetos que atingiram os objetivos, por qualidade da gestão da mudança',
-  // Prosci, benchmark de projetos de mudança (correlação)
+  // Prosci, Best Practices in Change Management (benchmark de projetos de mudança; correlação)
   colunas: [{ val: 13, rot: 'ruim' }, { val: 39, rot: 'razoável' }, { val: 73, rot: 'boa' }, { val: 88, rot: 'excelente' }],
   zonas: [{ de: 0, ate: 1, rot: 'sem GMO', cor: '#FDECEC', txt: '#9B1C1C' }, { de: 3, ate: 4, rot: 'com GMO', cor: '#E8F1F8', txt: '#002B49' }],
   destaque: { num: '7x', rot: 'MAIS CHANCE' },
   tempoTitulo: 'O custo de começar tarde',
-  tempoSub: 'Resultado do projeto conforme o momento em que a gestão da mudança entrou',
-  // barras por momento de início (só se a série da Prosci for verificada); senão, as curvas ilustrativas abaixo
-  tempo: [],
-  // curvas ilustrativas de adoção ao longo do projeto (forma ilustrativa; a direção é a da Prosci:
-  // quanto mais cedo a gestão da mudança começa, maior a chance de atingir os objetivos; 97% recomendam começar na iniciação ou no planejamento)
-  curvas: [
-    { rot: 'GMO desde o início', cor: '#F78C16', txt: '#002B49', pts: [[0, 0.04], [0.15, 0.14], [0.3, 0.3], [0.45, 0.5], [0.6, 0.7], [0.75, 0.84], [0.9, 0.9], [1, 0.92]] },
-    { rot: 'GMO só no go-live', cor: '#5E8AB4', pts: [[0, 0.02], [0.2, 0.04], [0.4, 0.07], [0.6, 0.12], [0.7, 0.26], [0.8, 0.42], [0.9, 0.52], [1, 0.58]] },
-    { rot: 'Sem GMO', cor: '#C0392B', tracejado: true, pts: [[0, 0.02], [0.3, 0.04], [0.6, 0.08], [0.7, 0.16], [0.8, 0.22], [0.9, 0.25], [1, 0.26]] },
+  tempoSub: 'projetos que atingiram os objetivos, conforme quando a gestão da mudança começou',
+  // Prosci: 47% quando a gestão da mudança começou na iniciação do projeto; 29% quando só começou no encerramento
+  tempo: [
+    { rot: 'GMO desde a iniciação', val: 47 },
+    { rot: 'GMO só no encerramento', val: 29 },
   ],
-  tempoNota: 'Curvas ilustrativas. Direção conforme a Prosci: 97% dos praticantes recomendam começar na iniciação ou no planejamento.',
+  // Prosci: 85% dizem que deveria começar na iniciação; só 40% começaram
+  lacuna: { a: { val: 85, rot: 'dizem que a GMO deveria começar na iniciação do projeto' }, b: { val: 40, rot: 'de fato começaram nesse momento' } },
   conclusao: '*Quanto mais cedo a Gestão da Mudança entra, mais fácil a adoção.* Começar depois do go-live é correr atrás da resistência.',
   fontes: 'Prosci, Best Practices in Change Management (benchmark; correlação)',
 };
@@ -55,7 +54,7 @@ export const P3 = {
   golive: 0.68,
   faixas: [
     { rot: 'Gestão da Mudança', de: -0.3, ate: 1, cor: '#F78C16', txt: '#002B49', itens: [
-      { em: -0.15, rot: 'Preparar o terreno' }, { em: 0.16, rot: 'Patrocínio e narrativa' }, { em: 0.5, rot: 'Capacitação e champions' }, { em: 0.72, rot: 'Apoio no go-live' }, { em: 0.95, rot: 'Reforço e medição', a: 'end', dx: 12 },
+      { em: -0.15, rot: 'Preparar o terreno' }, { em: 0.16, rot: 'Patrocínio e narrativa' }, { em: 0.5, rot: 'Capacitação e champions' }, { em: 0.70, rot: 'Apoio no go-live', linha: 1 }, { em: 0.95, rot: 'Reforço e medição', a: 'end', dx: 30 },
     ] },
     { rot: 'Tecnologia', de: 0, ate: 0.74, cor: '#002B49', txt: '#fff', itens: [
       { em: 0.18, rot: 'Desenho' }, { em: 0.45, rot: 'Construção e testes' }, { em: 0.68, rot: 'Go-live' },

@@ -8,25 +8,25 @@ const f = n2;
 // ---------- escada: três colunas que descem, com a queda anotada entre elas ----------
 // o: { x, y, w, h, itens: [{ val, rot, sub, cor }], t0, step, suf }
 export function escada(o, tt) {
-  const n = o.itens.length, cw = o.w / n, bw = Math.min(170, cw * 0.56), base = o.y + o.h, hMax = o.h - 150;
+  const n = o.itens.length, cw = o.w / n, bw = Math.min(190, cw * 0.58), base = o.y + o.h, hMax = o.h - 150, max = o.max ?? 100;
   let s = `<path d="M${f(o.x)},${f(base)} L${f(o.x + o.w)},${f(base)}" stroke="${C.blueL}" stroke-width="2"/>`;
   o.itens.forEach((it, i) => {
     const a0 = o.t0 + i * (o.step ?? 0.9);
     const u = ease.out(inv(a0, a0 + 0.8, tt));
     if (u <= 0) return;
-    const cx = o.x + cw * (i + 0.5), h = (it.val / 100) * hMax * u, cor = it.cor ?? C.navy;
+    const cx = o.x + cw * (i + 0.5), h = (it.val / max) * hMax * u, cor = it.cor ?? C.navy;
     s += `<rect x="${f(cx - bw / 2)}" y="${f(base - h)}" width="${f(bw)}" height="${f(h)}" rx="8" fill="${cor}"/>`;
     s += t(contaNum(it.val, u) + (o.suf ?? '%'), cx, base - h - 16, { f: 'H', w: 800, s: 54, c: cor, a: 'middle' });
     const kr = fin(tt, a0 + 0.35, 0.4);
     let rb = t(it.rot, cx, base + 34, { f: 'B', w: 700, s: 19, c: C.navy, a: 'middle' });
-    quebra(it.sub ?? '', 15, cw - 16, 500, 'B').forEach((l, q) => { rb += t(l, cx, base + 58 + q * 19, { f: 'B', w: 500, s: 15, c: C.slate, a: 'middle' }); });
+    quebra(it.sub ?? '', 15.5, cw - 8, 500, 'B').forEach((l, q) => { rb += t(l, cx, base + 58 + q * 19, { f: 'B', w: 500, s: 15.5, c: C.slate, a: 'middle' }); });
     s += op(kr, rb);
     // queda entre esta coluna e a anterior (só quando as duas têm a mesma base)
     if (i > 0 && !it.semQueda) {
-      const prev = o.itens[i - 1], hp = (prev.val / 100) * hMax, cxp = o.x + cw * (i - 0.5);
+      const prev = o.itens[i - 1], hp = (prev.val / max) * hMax, cxp = o.x + cw * (i - 0.5);
       const kq = ease.out(inv(a0 + 0.5, a0 + 1.0, tt));
       if (kq > 0) {
-        const x1 = cxp + bw / 2 + 8, x2 = cx - bw / 2 - 8, ym = base - hp, yn = base - (it.val / 100) * hMax;
+        const x1 = cxp + bw / 2 + 8, x2 = cx - bw / 2 - 8, ym = base - hp, yn = base - (it.val / max) * hMax;
         s += `<path d="M${f(x1)},${f(ym)} L${f(lerp(x1, x2, kq))},${f(lerp(ym, yn, kq))}" stroke="${C.orange}" stroke-width="3" stroke-dasharray="7 6" stroke-linecap="round"/>`;
         const dif = prev.val - it.val;
         s += op(kq, `<g transform="translate(${f((x1 + x2) / 2)} ${f((ym + yn) / 2 - 22)})"><rect x="-44" y="-16" width="88" height="30" rx="15" fill="${C.orangeBg}" stroke="${C.orange}" stroke-width="1.5"/>${t(`−${dif} p.p.`, 0, 5, { f: 'M', w: 700, s: 14, c: C.orangeD, a: 'middle' })}</g>`);
@@ -66,13 +66,13 @@ export function colunas(o, tt) {
     const k = ease.out(inv(a0, a0 + 0.7, tt));
     if (k > 0) {
       const x1 = o.x + cw * 0.5 + bw / 2 + 10, x2 = o.x + cw * (n - 0.5) - bw / 2 - 10;
-      const y1 = base - 42 - (o.itens[0].val / 100) * (hMax - 60) - 64, y2 = base - 42 - (o.itens[n - 1].val / 100) * (hMax - 60) - 64;
+      const y1 = base - 42 - (o.itens[0].val / 100) * (hMax - 60) - 70, y2 = base - 42 - (o.itens[n - 1].val / 100) * (hMax - 60) - 70;
       const xm = lerp(x1, x2, k), ym = lerp(y1, y2, k);
       s += `<path d="M${f(x1)},${f(y1)} L${f(xm)},${f(ym)}" stroke="${C.orange}" stroke-width="3.5" stroke-linecap="round"/>`;
       if (k > 0.97) s += `<path d="M${f(x2 - 14)},${f(y2 + 2)} L${f(x2)},${f(y2)} L${f(x2 - 6)},${f(y2 + 14)}" fill="none" stroke="${C.orange}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
       const kb = back(tt, a0 + 0.6, 0.5);
       if (kb > 0) {
-        const bx = (x1 + x2) / 2, by = (y1 + y2) / 2 - 44;
+        const bx = (x1 + x2) / 2, by = (y1 + y2) / 2 - 52;
         s += `<g transform="translate(${f(bx)} ${f(by)}) scale(${f(kb)})"><circle r="44" fill="${C.orange}"/><circle r="38" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 5" opacity=".8"/>${t(o.destaque.num, 0, 6, { f: 'H', w: 800, s: 38, c: C.navy, a: 'middle' })}${t(o.destaque.rot, 0, 26, { f: 'M', w: 700, s: 10, c: C.navy, a: 'middle', ls: 1 })}</g>`;
       }
     }
@@ -178,7 +178,8 @@ export function linhaDoTempo(o, tt) {
         const k = fin(tt, a0 + 0.5 + j * 0.25, 0.4);
         const cx = X(it.em);
         s += op(k, `<circle cx="${f(cx)}" cy="${f(y + h / 2)}" r="6" fill="${fx.txt ?? '#fff'}" stroke="${fx.cor}" stroke-width="2"/>`
-          + t(it.rot, cx + (it.dx ?? 0), y + h + 22, { f: 'B', w: 600, s: 14.5, c: C.slate, a: it.a ?? 'middle' }));
+          + (it.linha ? `<path d="M${f(cx)},${f(y + h + 4)} L${f(cx)},${f(y + h + 22 + it.linha * 18 - 12)}" stroke="${C.blueLL}" stroke-width="1.5"/>` : '')
+          + t(it.rot, cx + (it.dx ?? 0), y + h + 22 + (it.linha ?? 0) * 18, { f: 'B', w: 600, s: 14.5, c: C.slate, a: it.a ?? 'middle' }));
       });
     }
     y += h + (fx.gapBaixo ?? 72);

@@ -101,6 +101,22 @@ def aparar(x, lim_db=-42):
     a = max(0, a - int(0.02 * SR)); b = min(len(x), b + int(0.08 * SR))
     return x[a:b]
 
+FONTE_V18 = '--v18' in sys.argv                 # voz: narradora original do v18 (padrão a partir do v22) em vez da síntese
+
+def recorte_v18(V, de, prox_de, ult, desde=0.0, lim_db=-40):
+    """Fala do v18 entre o início da primeira palavra e a fala seguinte, sem os silêncios das pontas, com fades curtos;
+    nunca antes do fim do recorte anterior (falas emendadas) e no máximo 1 s depois do início da última palavra.
+    Devolve (áudio, tempo no v18 da primeira amostra) para deslocar os tempos das palavras."""
+    a0 = max(0.0, de - 0.25, desde); b0 = min(prox_de - 0.06, ult + 1.0)
+    x = V[int(a0 * SR):int(b0 * SR)].copy()
+    fr = int(0.01 * SR); e = np.array([np.sqrt(np.mean(x[i:i + fr] ** 2) + 1e-12) for i in range(0, len(x) - fr, fr)])
+    on = np.where(20 * np.log10(e) > lim_db)[0]
+    a, b = (on[0] * fr, (on[-1] + 1) * fr) if len(on) else (0, len(x))
+    a = max(0, a - int(0.03 * SR)); b = min(len(x), b + int(0.12 * SR))
+    x = x[a:b]; fi, fo = int(0.01 * SR), int(0.04 * SR)
+    x[:fi] *= np.linspace(0, 1, fi); x[-fo:] *= np.linspace(1, 0, fo)
+    return x, a0 + a / SR
+
 TENTATIVAS = 3
 CHAVES = {'l10': ['cockpit'], 'l25': ['cockpit'], 'l11': ['erp'], 'l17': ['testes', 'cutover'], 'l20': ['guilherme', 'quintão']}
 
@@ -113,11 +129,22 @@ def cmd_voz():
     os.makedirs(OUT, exist_ok=True)
     base = json.load(open(os.path.join(RAIZ, 'producao', 'dados', 'v19_falas.json')))['falas']
     clipes, falas, t = [], [], INICIO
-    refazer = set(sys.argv[2].split(',')) if len(sys.argv) > 2 else set()
+    refazer = set(a for x in sys.argv[2:] if not x.startswith('--') for a in x.split(','))
     cache = os.path.join(OUT, 'falas'); os.makedirs(cache, exist_ok=True)
-    for f in base:
+    if FONTE_V18:                                 # voz original da narradora do v18: recortes da faixa de voz separada (UVR)
+        voc = [f for f in os.listdir(OUT) if 'Vocals' in f and f.endswith('.flac')]
+        if not voc: raise SystemExit('faixa de voz do v18 não encontrada em ' + OUT)
+        V, sr = sf.read(os.path.join(OUT, voc[0]), dtype='float32'); V = V.mean(1) if V.ndim > 1 else V
+        if sr != SR: V = resample_poly(V, SR, sr).astype(np.float32)
+        fim_ant = 0.0
+    for n, f in enumerate(base):
         arq = os.path.join(cache, f['id'] + '.wav')
-        if os.path.exists(arq) and f['id'] not in refazer:
+        if FONTE_V18:
+            prox = base[n + 1] if n + 1 < len(base) else None
+            x, off = recorte_v18(V, f['de'], prox['de'] if prox else f['ate'] + 1.6, f['palavras'][-1][1], fim_ant)
+            fim_ant = off + len(x) / SR
+            novas = [[w, ts - off] for w, ts in f['palavras']]; ok = 1.0
+        elif os.path.exists(arq) and f['id'] not in refazer:
             x = sf.read(arq, dtype='float32')[0]; novas = palavras(x); ok = nota(f, novas)
         else:                                     # a síntese varia a cada chamada: até TENTATIVAS versões, fica a mais clara no ASR
             txt = f['texto']
@@ -132,7 +159,7 @@ def cmd_voz():
         print(f"{f['id']} {len(x) / SR:5.2f}s  nota={ok:.2f}  {rec[:110]}")
         if f['id'] in PAUSA_ANTES: t += PAUSA_ANTES[f['id']]
         elif falas: t += PAUSA
-        pal = alinhar(f['palavras'], novas)
+        pal = novas if FONTE_V18 else alinhar(f['palavras'], novas)
         falas.append({'id': f['id'], 'texto': f['texto'], 'de': round(t, 3), 'ate': round(t + len(x) / SR, 3), 'palavras': [[w, round(t + ts, 3)] for w, ts in pal]})
         clipes.append((t, x)); t += len(x) / SR
     total = round(t + FIM, 3)
@@ -148,7 +175,7 @@ def cmd_voz():
         de = 0.0 if fid is None else round(por[fid]['de'] + off, 3)
         cenas.append({'id': cid, 'de': de, **({'trans': TRANS[cid]} if cid in TRANS else {})})
     for i, c in enumerate(cenas): c['ate'] = cenas[i + 1]['de'] if i + 1 < len(cenas) else total
-    J = {'total': total, 'voz': 'supertonic3 sid 8 x1.06', 'falas': falas, 'cenas': cenas}
+    J = {'total': total, 'voz': 'narradora do v18 (recortes da voz separada)' if FONTE_V18 else 'supertonic3 sid 8 x1.06', 'falas': falas, 'cenas': cenas}
     json.dump(J, open(os.path.join(AZ, 'v19.json'), 'w'), ensure_ascii=False, indent=1)
     json.dump(J, open(os.path.join(RAIZ, 'producao', 'dados', 'v21_falas.json'), 'w'), ensure_ascii=False, indent=1)
     print('total', total, 's'); print('cenas', [(c['id'], c['de']) for c in cenas])

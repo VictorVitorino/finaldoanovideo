@@ -119,3 +119,18 @@ python3 producao/v21_voz.py voz && python3 producao/v21_voz.py mix
 node render.mjs frames --test v19 --out build/azul/v21 --workers 4
 python3 producao/v21_montar.py             # build/azul/Projeto-do-Ano-AM-TOTVS-v21(.mp4|-leve.mp4), 3:21
 ```
+
+## v22 · narração de volta à voz da narradora do v18
+
+A voz sintética do v21 foi recusada: a voz certa é a da narradora do v18, que veio do vídeo original (gravação, não TTS;
+ver `producao/azul_audio.py`). O v22 recorta cada uma das 30 falas da faixa de voz do v18 separada pelo UVR
+(`build/azul/v21/*Vocals*.flac`), sem os silêncios das pontas e sem repetir trechos entre falas emendadas, e as recoloca
+com as pausas curtas do v21. Os tempos das palavras são os do v18 deslocados, então os índices das cenas não mudam.
+Filme de 170 s (v18) para 156,6 s; palco do v18 desacelerado só 1,10x.
+
+```bash
+cd animacao
+python3 producao/v21_voz.py voz --v18 && python3 producao/v21_voz.py mix
+node render.mjs frames --test v19 --out build/azul/v21 --workers 4
+python3 producao/v21_montar.py
+```

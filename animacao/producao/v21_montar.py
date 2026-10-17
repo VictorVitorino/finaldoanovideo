@@ -35,7 +35,7 @@ def montar(saidas, so_filme):
           f"[f01][f2]xfade=transition=fade:duration={Y}:offset={B - Y}[filme];")
     ins = ['-framerate', '30', '-i', FR, '-i', palco, '-i', MIX]
     if so_filme:
-        fc += f"[2:a]apad,atrim=0:{total:.4f}[af]"; mapa = ['-map', '[filme]', '-map', '[af]']
+        fc += f"[2:a]apad,atrim=0:{total:.4f}[af]"; vl, al = 'filme', 'af'
     else:
         fc += (f"[3:v]trim=0:{INTRO_FIM},setpts=PTS-STARTPTS,fps=30,scale=1920:1080,format=yuv420p[vi];"
                f"[3:v]trim={OUTRO_INI}:{OUTRO_FIM},setpts=PTS-STARTPTS,fps=30,scale=1920:1080,format=yuv420p[vo];"
@@ -43,10 +43,12 @@ def montar(saidas, so_filme):
                f"[2:a]aformat=sample_rates=48000:channel_layouts=stereo,apad,atrim=0:{total:.4f}[af];"
                f"[3:a]atrim={OUTRO_INI}:{OUTRO_FIM},asetpts=PTS-STARTPTS,afade=t=in:d=0.05,aformat=sample_rates=48000:channel_layouts=stereo[ao];"
                f"[vi][ai][filme][af][vo][ao]concat=n=3:v=1:a=1[v][a]")
-        ins += ['-i', V20]; mapa = ['-map', '[v]', '-map', '[a]']
+        ins += ['-i', V20]; vl, al = 'v', 'a'
+    n = len(saidas)                                       # cada rótulo do grafo só pode ir para uma saída: split por saída
+    fc += f";[{vl}]split={n}" + ''.join(f'[v{i}]' for i in range(n)) + f";[{al}]asplit={n}" + ''.join(f'[a{i}]' for i in range(n))
     cmd = ['ffmpeg', '-v', 'error', '-y'] + ins + ['-filter_complex', fc]
-    for saida, crf in saidas:
-        cmd += mapa + ['-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', saida]
+    for i, (saida, crf) in enumerate(saidas):
+        cmd += ['-map', f'[v{i}]', '-map', f'[a{i}]'] + ['-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', saida]
     print('filme', round(total, 2), 's; original', round(A, 2), '-', round(B, 2), 'fator', round(k, 3))
     subprocess.run(cmd, check=True)
     for saida, _ in saidas: print(saida, round(os.path.getsize(saida) / 1e6, 1), 'MB')

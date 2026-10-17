@@ -6,7 +6,7 @@ import { PAGINAS } from './paginas3.js';
 import { CAB, ABERTURA } from './dados.js';
 
 const f = n2;
-const HEAD = 134, PE = H - 118;
+const HEAD = 128, PE = H - 118;
 
 export async function carregarTempos() {
   const T = await (await fetch('./src/carrossel/tempos.json')).json();
@@ -22,7 +22,7 @@ function abertura(tt, B) {
   const fimSobe = B.sobe + 0.75;
   if (tt >= fimSobe) return '';
   const u = ease.inOut(inv(B.sobe, fimSobe, tt));
-  const hp = H + (HEAD - 6 - H) * u;
+  const hp = H + (HEAD - H) * u;
   let s = `<clipPath id="capaClip"><rect x="0" y="0" width="${W}" height="${f(hp)}"/></clipPath><g clip-path="url(#capaClip)">`
     + `<rect x="0" y="0" width="${W}" height="${H}" fill="url(#gNavy)"/>`;
   const kTxt = 1 - ease.out(inv(B.sobe - 0.05, B.sobe + 0.3, tt));

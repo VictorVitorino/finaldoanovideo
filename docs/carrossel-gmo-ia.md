@@ -1,10 +1,10 @@
 # Carrossel "Tecnologia precisa de adoção. Quem faz a adoção é a Gestão da Mudança" (Alvarez & Marsal · Performance · DTS)
 
-Peça de venda para o LinkedIn sobre Gestão da Mudança em projetos de adoção de IA. A tese em uma linha: **tecnologia não se adota sozinha; quem faz a adoção é a Gestão da Mudança; quanto mais cedo ela entra no projeto, mais fácil a adoção e menor o risco.** São 3 páginas com cara de apresentação de consultoria, em dois formatos:
+Peça de venda para o LinkedIn sobre Gestão da Mudança em projetos de adoção de IA. A tese em uma linha: **tecnologia não se adota sozinha; quem faz a adoção é a Gestão da Mudança, porque a IA muda o jeito de trabalhar (de executor operacional a dono do resultado); quanto mais cedo ela entra no projeto, mais fácil a adoção e menor o risco.** São 3 páginas com cara de apresentação de consultoria, em dois formatos:
 
 | Arquivo | Para quê |
 |---|---|
-| [`videos/carrossel-gmo-ia.mp4`](../videos/carrossel-gmo-ia.mp4) | Vídeo 1080×1350 (4:5), ~68 s, 30 fps, **sem som**. Cerca de 22 s por página, para dar tempo de leitura. O gancho abre a página 1 e as páginas trocam com uma cortina diagonal. |
+| [`videos/carrossel-gmo-ia.mp4`](../videos/carrossel-gmo-ia.mp4) | Vídeo 1080×1350 (4:5), 68 s, 30 fps, **sem som**. Página 1 com 24 s (capa incluída), páginas 2 e 3 com 22 s, para dar tempo de leitura. O gancho abre a página 1 e as páginas trocam com uma cortina diagonal. |
 | [`videos/carrossel-gmo-ia.pdf`](../videos/carrossel-gmo-ia.pdf) | Carrossel de documento (3 páginas vetoriais), para o post que o leitor passa com o dedo. |
 | [`videos/carrossel-gmo-ia-capa.jpg`](../videos/carrossel-gmo-ia-capa.jpg) | Capa (miniatura) do vídeo: o quadro do gancho completo, com as diagonais da marca, o teaser "15 de cada 100 trabalhadores usam IA todos os dias" (grade que se preenche) e a assinatura Alvarez & Marsal · PERFORMΛNCE · DTS. |
 
@@ -14,11 +14,11 @@ Peça de venda para o LinkedIn sobre Gestão da Mudança em projetos de adoção
 
 | Página | Mensagem | O que está na tela |
 |---|---|---|
-| **1 · IA versus adoção** | Comprar IA é rápido. Adotar IA é outra história. | Quase 9 em cada 10 organizações já usam IA em alguma função. O gráfico "de cada 100 trabalhadores" (três grades de 100 quadrados que se preenchem): **47** têm IA implantada pela empresa → **30** usam com frequência → **15** usam todos os dias; lacuna de adoção de 32 pontos. Conclusão: implantar não garante uso; a adoção precisa ser construída com as pessoas. |
+| **1 · IA versus adoção** | Comprar IA é rápido. Adotar IA é outra história. | Quase 9 em cada 10 organizações já usam IA em alguma função. O gráfico "de cada 100 trabalhadores" (três grades de 100 quadrados que se preenchem): **47** têm IA implantada pela empresa → **30** usam com frequência → **15** usam todos os dias; lacuna de adoção de 32 pontos. Embaixo, o porquê (ownership): "Implantar não garante uso, porque a IA muda o jeito de trabalhar", a virada **EXECUTOR OPERACIONAL → DONO DO RESULTADO** e "Menos execução, mais revisão, auditoria e análise do que a IA entrega. Mudar mentalidade e perfil é trabalho da Gestão da Mudança." |
 | **2 · Com e sem Gestão da Mudança** | Com Gestão da Mudança, a adoção sobe. Sem ela, o risco é alto. | Gráfico 1: projetos que atingiram os objetivos por eficácia da gestão da mudança (GMO fraca → forte): **13% → 39% → 73% → 88%** (7x). Gráfico 2, o custo de começar tarde: **47%** atingiram os objetivos quando a GMO começou na iniciação × **29%** quando só começou no encerramento. Conclusão: quanto mais cedo a Gestão da Mudança entra, mais fácil a adoção; começar depois do go-live é correr atrás do prejuízo. O dado "85% dizem que deveria começar na iniciação, só 40% começam" ficou na legenda do post. |
-| **3 · O que fazemos** | Gestão da Mudança desde o dia zero. | Linha do tempo em três momentos, com kickoff e go-live nas divisas: a faixa da Gestão da Mudança cobre os três; a da tecnologia, só o meio. Embaixo, o que fazemos em cada momento: **1 · Antes do kickoff, preparar o terreno** (sensibilizar com o porquê, mapear impactos, engajar a liderança como patrocinadora); **2 · Durante o projeto, levar as pessoas junto** (narrativa e comunicação, capacitação por perfil antes do go-live, rede de champions); **3 · Depois do go-live, fazer virar hábito** (apoio no uso, medir a adoção, reforçar e ajustar). Chamada: "Seu projeto de IA já tem data de início. A Gestão da Mudança já começou?" |
+| **3 · O que fazemos** | Gestão da Mudança desde o dia zero. | Linha do tempo em três momentos, com kickoff e go-live nas divisas: a faixa da Gestão da Mudança cobre os três; a da tecnologia, só o meio. Embaixo, o que fazemos em cada momento: **1 · Antes do kickoff, preparar o terreno** (sensibilizar com o porquê, mapear como muda o trabalho de cada perfil, engajar a liderança como patrocinadora); **2 · Durante o projeto, levar as pessoas junto** (redefinir papéis: quem revisa, audita e decide; capacitar para analisar a IA com senso crítico; comunicação contínua e rede de champions); **3 · Depois do go-live, fazer virar hábito** (apoio no uso, medir a adoção pelo uso real e pela qualidade da revisão, reforçar e ajustar). Chamada: "Seu projeto de IA já tem data de início. A Gestão da Mudança já começou?" |
 
-A hierarquia de marca é Alvarez & Marsal → Performance → DTS: no cabeçalho (A&M · PERFORMANCE · DTS), na capa, no CTA ("Fale com o time A&M · Performance + DTS") e no rodapé (lockup PERFORMΛNCE). O carrossel não fala de eficiência operacional nem de EBIT: o assunto é adoção.
+A hierarquia de marca é Alvarez & Marsal → Performance → DTS: no cabeçalho (A&M · PERFORMANCE · DTS), na capa, no CTA ("Fale com o time A&M · Performance + DTS") e no rodapé (lockup PERFORMΛNCE). O cabeçalho é uma barra navy limpa, sem diagonais, sem o indicador de página e sem a faixa tricolor; o progresso fica nos pontos do rodapé. O carrossel não fala de eficiência operacional nem de EBIT: o assunto é adoção.
 
 ## Fontes e verificação
 
@@ -34,6 +34,9 @@ Cada número na tela foi conferido no domínio do autor (página, PDF ou trecho 
 | Leadership. Action. Results. | [alvarezandmarsal.com](https://www.alvarezandmarsal.com/action-leadership-results-am-way) | Mantra da A&M, com pontos. |
 
 **Apoio verificado que não foi para a tela (para a conversa comercial e os comentários):**
+- KPMG e Universidade de Melbourne, [Trust, attitudes and use of AI 2025](https://kpmg.com/xx/en/media/press-releases/2025/04/trust-of-ai-remains-a-critical-challenge.html) (48 mil pessoas, 47 países): "Many rely on AI output without evaluating accuracy (66%) and are making mistakes in their work due to AI (56%)." Seção de empregados; o denominador exato não foi visto, então escreva "trabalhadores", não "usuários de IA". Está na legenda do post.
+- Microsoft, [Work Trend Index 2026](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization) (20 mil usuários de IA, 10 mercados): o papel muda "from generating answers to evaluating, refining, and owning them"; controle de qualidade do que a IA entrega (50%) e pensamento crítico (46%) são as habilidades humanas que mais ganham importância. Base: só quem já usa IA.
+- BCG, [AI at Work 2026](https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools): 72% dizem que as habilidades esperadas deles mudaram; só 36% sentem que receberam capacitação adequada (todos os respondentes).
 - BCG, AI at Work 2025 (10.635 pessoas, 11 países): 79% de quem teve mais de 5 h de treinamento usa IA regularmente, contra 67%; a visão positiva sobre IA sobe de 15% para 55% com apoio forte da liderança; só 36% se sentem adequadamente treinados.
 - BCG, AI at Work 2026 (11.749 pessoas, 14 mercados): uma estratégia clara eleva o impacto da IA em 25 pontos; ferramentas melhores sem estratégia, cerca de 5.
 - Microsoft, Work Trend Index 2026 (20 mil usuários de IA, 10 mercados, inclusive o Brasil): fatores organizacionais (cultura, apoio do gestor, práticas de talento) explicam 67% do impacto da IA; mentalidade e comportamento individuais, 32%. Só 26% veem a liderança alinhada sobre IA.
@@ -48,13 +51,15 @@ Cada número na tela foi conferido no domínio do autor (página, PDF ou trecho 
 ```
 Tecnologia não se adota sozinha. Quem faz a adoção é a Gestão da Mudança.
 
+Porque a IA não muda só a ferramenta: muda o jeito de trabalhar. As pessoas deixam de ser só executoras e passam a ser donas do resultado: revisam, auditam e analisam o que a IA entrega. Hoje, 66% dos trabalhadores usam o resultado da IA sem checar se está certo, e 56% já erraram no trabalho por causa dela (KPMG e Universidade de Melbourne, 2025). Ownership não vem de fábrica.
+
 Quase 9 em cada 10 organizações já usam IA em alguma função (McKinsey, 2026). Mas implantar não garante uso: nos EUA, 47% dos trabalhadores dizem que a empresa integrou IA, 30% usam com frequência e só 15% usam todos os dias (Gallup, maio/2026).
 
 Com gestão da mudança, a adoção sobe. Sem ela, o risco é alto: no benchmark da Prosci, 88% dos projetos com gestão da mudança excelente atingiram os objetivos; com gestão ruim, 13%.
 
 E o momento importa. Quando a gestão da mudança começa na iniciação do projeto, 47% atingem os objetivos; quando só começa no encerramento, 29%. 85% dos praticantes dizem que ela deveria começar na iniciação, mas só 40% começam (Prosci). Começar depois do go-live é correr atrás do prejuízo.
 
-É por isso que, na Alvarez & Marsal, a Gestão da Mudança entra antes do kickoff: preparar o terreno, levar as pessoas junto durante o projeto e fazer a IA virar hábito depois do go-live. Performance e DTS no mesmo plano. Para cada dólar investido em tecnologia de IA, invista o mesmo nas pessoas.
+É por isso que, na Alvarez & Marsal, a Gestão da Mudança entra antes do kickoff: preparar o terreno, redefinir papéis e capacitar as pessoas para analisar a IA com senso crítico durante o projeto, e fazer a IA virar hábito depois do go-live. Performance e DTS no mesmo plano. Para cada dólar investido em tecnologia de IA, invista o mesmo nas pessoas.
 
 Seu projeto de IA já tem data de início. A gestão da mudança já começou?
 
@@ -70,6 +75,7 @@ Seu projeto de IA já tem data de início. A gestão da mudança já começou?
    - "A Prosci comparou com e sem gestão da mudança?" Não: mediu a eficácia (ruim a excelente). Por isso o gráfico diz "GMO fraca" e "GMO forte"; o "sem ela" é a tese do título.
    - "47% é baixo para quem começa cedo." É a taxa que a Prosci mediu; o ponto é a diferença contra 29% quando se começa no fim.
    - "Os dados são dos EUA." Gallup, sim (22.573 trabalhadores); McKinsey e Prosci são globais. O rodapé mostra o recorte.
+   - "De executor a dono do resultado é dado?" Não: é a tese da página 1, sem número na tela. O apoio está acima: Microsoft (o papel muda de gerar respostas para avaliar, refinar e ser dono delas) e KPMG (66% usam o resultado da IA sem checar).
 
 ## Como renderizar
 
@@ -90,7 +96,7 @@ O render pula quadros que já existem: apague `build/carrossel/frames` depois de
 |---|---|
 | Qualquer texto, número ou fonte | `animacao/src/carrossel/dados.js` |
 | Duração das páginas e o instante de cada animação | `animacao/src/carrossel/tempos.json` |
-| Layout de cada página | `animacao/src/carrossel/paginas3.js` |
+| Layout de cada página (inclui a caixa EXECUTOR → DONO DO RESULTADO da página 1) | `animacao/src/carrossel/paginas3.js` |
 | Grades "de cada 100", colunas por eficácia, barras do custo de começar tarde | `animacao/src/carrossel/adocao.js` |
 | Título cinético, cortina e componentes antigos | `animacao/src/carrossel/componentes.js` |
 | Cabeçalho, rodapé, marcas A&M, banner DTS, PERFORMΛNCE, paleta | `animacao/src/carrossel/base.js` |

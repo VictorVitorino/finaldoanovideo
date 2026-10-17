@@ -161,20 +161,16 @@ export function diagonais(x, y, h, u = 1, o = {}) {
 
 // ---------- moldura das páginas ----------
 // Cabeçalho navy com marca A&M, área (DTS · Performance), título da página e paginação.
-export function cabecalho(pag, total, titulo, sub, k = 1) {
+export function cabecalho(pag, total, titulo, sub) {
+  // barra navy limpa: marca A&M, área (Performance · DTS) e título. Sem diagonais, sem paginação, sem faixa tricolor.
   const h = 128;
   let s = `<rect x="0" y="0" width="${W}" height="${h}" fill="${C.navy}"/>`;
-  s += `<clipPath id="cabClip"><rect width="${W}" height="${h}"/></clipPath><g clip-path="url(#cabClip)">${diagonais(760, 0, h, k, { alpha: 0.9 })}</g>`;
   const L = lockupAM(48, 62, 27, '#fff');
   s += L.svg + t('PERFORMANCE · DTS', 48 + 66 * 0.9, 93, { f: 'M', w: 500, s: 15, c: C.blueL, ls: 2 });
   s += `<rect x="${f(48 + L.w + 26)}" y="34" width="2" height="62" fill="#ffffff" opacity=".35"/>`;
   const tx = 48 + L.w + 50;
   s += t(titulo, tx, 63, { f: 'H', w: 700, s: 34, c: '#fff', ls: 1.5 });
   s += t(sub, tx, 94, { f: 'B', w: 500, s: 19, c: C.blueL });
-  // paginação
-  s += `<rect x="${W - 112}" y="44" width="68" height="40" rx="20" fill="#ffffff" fill-opacity=".1" stroke="#fff" stroke-opacity=".35"/>`
-    + t(`${pag}/${total}`, W - 78, 71, { f: 'M', w: 600, s: 17, c: '#fff', a: 'middle' });
-  s += `<rect x="0" y="${h}" width="${W * 0.46}" height="6" fill="${C.orange}"/><rect x="${W * 0.46}" y="${h}" width="${W * 0.33}" height="6" fill="${C.slate}"/><rect x="${W * 0.79}" y="${h}" width="${W * 0.21}" height="6" fill="${C.blueLL}"/>`;
   return s;
 }
 

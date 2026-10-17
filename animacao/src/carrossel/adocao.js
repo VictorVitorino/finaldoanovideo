@@ -75,7 +75,7 @@ export function waffle(o, tt) {
       const x1 = o.x + cw * 0.5, x2 = o.x + cw * (n - 0.5), yb = gy + gw + 96;
       const xm = lerp(x1, x2, k);
       s += `<path d="M${f(x1)},${f(yb - 8)} L${f(x1)},${f(yb)} L${f(xm)},${f(yb)}${k > 0.98 ? ` L${f(x2)},${f(yb - 8)}` : ''}" fill="none" stroke="${C.orange}" stroke-width="3" stroke-linejoin="round"/>`;
-      const txt = o.lacuna.rot, wl = larg(txt, 14, 700, 'M') + 28;
+      const txt = o.lacuna.rot, wl = larg(txt, 14, 700, 'M') + txt.length * 1.5 + 40;
       s += op(fin(tt, a0 + 0.5, 0.4), `<rect x="${f((x1 + x2) / 2 - wl / 2)}" y="${f(yb - 14)}" width="${f(wl)}" height="28" rx="14" fill="${C.orange}"/>` + t(txt, (x1 + x2) / 2, yb + 5, { f: 'M', w: 700, s: 14, c: C.navy, a: 'middle', ls: 1.5 }));
     }
   }

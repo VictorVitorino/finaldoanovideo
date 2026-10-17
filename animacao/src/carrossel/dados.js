@@ -26,7 +26,12 @@ export const P1 = {
     { val: 30, rot: 'usam com frequência', sub: 'algumas vezes por semana ou mais' },
     { val: 15, rot: 'usam todos os dias', sub: 'a IA virou hábito de trabalho' },
   ],
-  conclusao: 'Implantar não garante uso. *A adoção precisa ser construída, com as pessoas.* É isso que a Gestão da Mudança faz.',
+  // o porquê: a IA muda o jeito de trabalhar (de executor a dono do resultado)
+  dono: {
+    abre: 'Implantar não garante uso, porque *a IA muda o jeito de trabalhar:*',
+    de: 'EXECUTOR OPERACIONAL', para: 'DONO DO RESULTADO',
+    texto: 'Menos execução, mais revisão, auditoria e análise do que a IA entrega. *Mudar mentalidade e perfil é trabalho da Gestão da Mudança.*',
+  },
   fontes: 'Gallup, mai/2026 (22.573 trabalhadores, EUA) · McKinsey, The State of AI in 2026',
 };
 
@@ -59,9 +64,9 @@ export const P3 = {
   marcos: ['KICKOFF', 'GO-LIVE'],
   faixas: [{ rot: 'GESTÃO DA MUDANÇA', de: 0, ate: 3 }, { rot: 'TECNOLOGIA', de: 1, ate: 2 }],
   momentos: [
-    { n: 1, quando: 'ANTES DO KICKOFF', titulo: 'Preparar o terreno', itens: ['Sensibilizar: o porquê da mudança, para cada público', 'Mapear impactos por área e perfil', 'Engajar a liderança como patrocinadora'] },
-    { n: 2, quando: 'DURANTE O PROJETO', titulo: 'Levar as pessoas junto', itens: ['Narrativa e comunicação contínuas', 'Capacitação por perfil, antes do go-live', 'Rede de champions nas áreas'] },
-    { n: 3, quando: 'DEPOIS DO GO-LIVE', titulo: 'Fazer virar hábito', itens: ['Apoio no uso e regras claras', 'Medir a adoção: uso real e proficiência', 'Reforçar, reconhecer e ajustar'] },
+    { n: 1, quando: 'ANTES DO KICKOFF', titulo: 'Preparar o terreno', itens: ['Sensibilizar: o porquê da mudança, para cada público', 'Mapear como muda o trabalho de cada perfil', 'Engajar a liderança como patrocinadora'] },
+    { n: 2, quando: 'DURANTE O PROJETO', titulo: 'Levar as pessoas junto', itens: ['Redefinir papéis: quem revisa, audita e decide', 'Capacitar para analisar a IA com senso crítico', 'Comunicação contínua e rede de champions'] },
+    { n: 3, quando: 'DEPOIS DO GO-LIVE', titulo: 'Fazer virar hábito', itens: ['Apoio no uso e regras claras', 'Medir a adoção: uso real e qualidade da revisão', 'Reforçar, reconhecer e ajustar'] },
   ],
   cta: {
     pergunta: 'Seu projeto de IA já tem data de início.', destaque: '*A Gestão da Mudança já começou?*',

@@ -28,6 +28,33 @@ function conclusao(str, x, y, w, tt, a0, o = {}) {
   return b + varredura('vconc' + Math.round(y), x, y, w, h, inv(a0 + 0.6, a0 + 1.6, tt), 10);
 }
 
+// o porquê da página 1, no mesmo estilo da conclusão: a frase, a virada EXECUTOR → DONO DO RESULTADO e o que isso exige
+function caixaDono(D, x, y, w, tt, a0) {
+  const k = ease.out(inv(a0, a0 + 0.5, tt));
+  if (k <= 0) return '';
+  const tl = quebra(D.texto, 21, w - 60, 500, 'B'), lh = 28;
+  const py = y + 60, ph = 50, h = 60 + ph + 22 + tl.length * lh + 12;
+  let b = `<rect x="${f(x)}" y="${f(y)}" width="${f(w * k)}" height="${f(h)}" rx="10" fill="${C.orangeBg}"/>`
+    + `<rect x="${f(x)}" y="${f(y)}" width="6" height="${f(h)}" rx="3" fill="${C.orange}"/>`;
+  b += op(fin(tt, a0 + 0.25, 0.4), tRico(D.abre, x + 30, y + 40, { f: 'B', w: 500, s: 25, c: C.navy, hi: C.orangeD, hw: 700 }));
+  // as duas pílulas e a seta
+  const wDe = larg(D.de, 26, 700, 'H') + D.de.length * 1.2 + 44, wPara = larg(D.para, 26, 800, 'H') + D.para.length * 1.2 + 48;
+  const x1 = x + 30, ax0 = x1 + wDe + 18, ax1 = ax0 + 60, x2 = ax1 + 18;
+  b += op(fin(tt, a0 + 0.9, 0.4), `<rect x="${f(x1)}" y="${py}" width="${f(wDe)}" height="${ph}" rx="25" fill="#fff" stroke="${C.slate}" stroke-opacity=".55" stroke-width="1.5"/>`
+    + t(D.de, x1 + wDe / 2, py + 34, { f: 'H', w: 700, s: 26, c: C.slate, a: 'middle', ls: 1.2 }));
+  const ka = ease.out(inv(a0 + 1.2, a0 + 1.6, tt));
+  if (ka > 0) b += `<path d="M${f(ax0)},${py + ph / 2} L${f(ax0 + (ax1 - ax0) * ka)},${py + ph / 2}" stroke="${C.orange}" stroke-width="4" stroke-linecap="round"/>`
+    + (ka > 0.9 ? `<path d="M${f(ax1 - 12)},${py + ph / 2 - 12} L${f(ax1)},${py + ph / 2} L${f(ax1 - 12)},${py + ph / 2 + 12}" fill="none" stroke="${C.orange}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>` : '');
+  const kp = back(tt, a0 + 1.5, 0.5);
+  if (kp > 0) b += `<g transform="translate(${f(x2 + wPara / 2)} ${py + ph / 2}) scale(${f(kp)}) translate(${f(-wPara / 2)} ${-ph / 2})">`
+    + `<rect x="0" y="0" width="${f(wPara)}" height="${ph}" rx="25" fill="${C.orange}"/>`
+    + t(D.para, wPara / 2, 34, { f: 'H', w: 800, s: 26, c: C.navy, a: 'middle', ls: 1.2 }) + '</g>';
+  tl.forEach((l, i) => {
+    b += op(fin(tt, a0 + 2.1 + i * 0.12, 0.45), tRico(l, x + 30, py + ph + 32 + i * lh, { f: 'B', w: 500, s: 21, c: C.navy, hi: C.orangeD, hw: 700 }));
+  });
+  return b + varredura('vdono', x, y, w, h, inv(a0 + 0.6, a0 + 1.6, tt), 10);
+}
+
 // ---------- página 1 · IA versus adoção ----------
 export function pagina1(tt, B) {
   let s = marcaDagua(1, tt, B.kicker);
@@ -41,7 +68,7 @@ export function pagina1(tt, B) {
     + t(P1.escadaSub, 1032, 478, { f: 'B', w: 500, s: 15, c: C.grey, a: 'end' }));
   s += waffle({ x: 48, y: 500, w: 984, t0: B.grafico, step: 1.0, dot: 22, gap: 6, lacuna: P1.lacuna,
     itens: P1.escada.map((it, i) => ({ ...it, cor: [C.navy, C.slate, C.orange][i] })) }, tt);
-  s += conclusao(P1.conclusao, 48, 1064, 984, tt, B.conclusao, { s: 26 });
+  s += caixaDono(P1.dono, 48, 984, 984, tt, B.conclusao);
   return s;
 }
 

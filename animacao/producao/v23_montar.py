@@ -29,7 +29,7 @@ W, H, FPS, SR = 1920, 1080, 30, 48000
 DESLOC_V = VE.DESLOC_V                                    # vídeo final = v18 + 14,70 s (vídeo)
 TETO = 1.30                                               # aceleração máxima da voz (Rubber Band); acima disso o vídeo estica
 GAP = 0.40                                                # silêncio mínimo entre o fim de uma fala e a âncora da próxima
-INTRO_FIM = 15.0                                          # até aqui (v22) áudio original do carrinho
+INTRO_FIM = 14.85                                         # até aqui (v22) áudio original do carrinho (a voz antiga entra em 14,9 s)
 FADE_V22 = 183.0 - VE.CORTE                               # fade do filme para o preto (v22); daí em diante nada muda
 DUCK_DB, VOZ_PICO = -5.0, 0.60                            # voz 2,5 dB abaixo do primeiro corte: mesmo equilíbrio voz/trilha do vídeo final
 
@@ -136,8 +136,11 @@ def audio(anc, falas, segs, total):
     # instrumental do vídeo final no tempo do v22 (mesmos cortes de áudio do v22), depois esticado por trecho
     Mv22 = np.concatenate([M[int(a * SR):(int(b * SR) if b is not None else len(M))] for a, b in VE.AUDIO])
     out = np.zeros((int(total * SR) + SR, 2), np.float32)
-    out[:int(anc[0] * SR)] = A22[:int(anc[0] * SR)]                                   # abertura do carrinho + capa, intactos
-    cursor = anc[0]
+    # abertura do carrinho intacta até INTRO_FIM; dali até a primeira âncora só a trilha (a voz antiga começava em 14,9 s,
+    # antes do corte do carrinho, e vazaria sob a fala nova); fusão de 60 ms
+    i_c = int(INTRO_FIM * SR); i_a0 = int(anc[0] * SR); xf = int(0.06 * SR)
+    out[:i_c] = A22[:i_c]; out[i_c:i_a0] = Mv22[i_c:i_a0]
+    r = np.linspace(0, 1, xf, dtype=np.float32)[:, None]; out[i_c - xf:i_c] = A22[i_c - xf:i_c] * (1 - r) + Mv22[i_c - xf:i_c] * r
     for a, b, Oa, Ob, k in segs:
         seg = estica_musica(Mv22[int(a * SR):int(b * SR)], SR, k)
         i0 = int(Oa * SR); seg = seg[:int(Ob * SR) - i0]; out[i0:i0 + len(seg)] = seg

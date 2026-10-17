@@ -138,3 +138,26 @@ node render.mjs frames --test v19 --out build/azul/vfr --workers 4 --from 3870 -
 for c in preto branco; do node render.mjs frames --test legenda_$c --out build/azul/vf_legenda/$c --from 2085 --to 2675; done
 python3 producao/vf_editar.py   # build/azul/Projeto-Totvs-Final-do-ano-v22(.mp4|-leve.mp4), 3:26
 ```
+
+## v23 · narração inteira regenerada no ElevenLabs (voz do narrador original)
+
+A voz pedida ("amostra atual v18") é a do narrador do vídeo original. Nenhuma voz do repositório a produz; ela veio do
+ElevenLabs do usuário. Identificação por embedding de locutor (wespeaker) contra as 30 falas do v18: entre as vozes do
+workspace, **Paulo Radames** (`Qrdut83w0Cr152Yb4Xn3`) com `eleven_multilingual_v2` deu 0,92–0,93 (as falas do v18 entre si
+dão 0,84–0,95); Fabio Oliveira 0,85–0,88; as demais < 0,76. Observação: o narrador é masculino; nas notas anteriores ele
+aparecia como "narradora".
+
+| Etapa | Como |
+|---|---|
+| Geração | conector ElevenLabs, flow "Projeto do Ano A&M + TOTVS · narração", 4 tomadas por fala, texto exato das 30 legendas; sessões em `build/azul/v23/sessoes.json` |
+| Escolha | `producao/v23_voz.py baixar` (JSONs do status) e `escolher`: ASR Parakeet em cada tomada, fica a mais fiel ao texto (empate: duração mais próxima da original) → `build/azul/v23/falas/*.wav`, `escolha.json` |
+| Ritmo | as frases longas saem até 1,5× mais lentas que no v18 (Turbo/Flash iguais; v3 mais rápido mas erra "MITs"): aceleração com Rubber Band (pedalboard) até 1,30× e o resto vai para o vídeo |
+| Montagem | `producao/v23_montar.py`: v22 como base; cada fala ancorada onde a voz antiga começava (+0,5 s, para a legenda gravada aparecer 0,3 s antes da voz); trechos esticados só quando a fala não cabe (quadros repetidos); trilha instrumental do vídeo final esticada pelos mesmos fatores, ducking −5 dB sob a voz; carrinho intacto |
+
+Resultado: 209,4 s (v22 tinha 206,9 s; só 4 trechos esticados, no máximo 1,16×).
+
+```bash
+cd animacao
+python3 producao/v23_voz.py baixar <JSONs de creative_get_flow_run_status> && python3 producao/v23_voz.py escolher
+python3 producao/v23_montar.py --plano && python3 producao/v23_montar.py   # build/azul/Projeto-Totvs-Final-do-ano-v23(.mp4|-leve.mp4)
+```

@@ -166,11 +166,11 @@ export function cabecalho(pag, total, titulo, sub, k = 1) {
   let s = `<rect x="0" y="0" width="${W}" height="${h}" fill="${C.navy}"/>`;
   s += `<clipPath id="cabClip"><rect width="${W}" height="${h}"/></clipPath><g clip-path="url(#cabClip)">${diagonais(760, 0, h, k, { alpha: 0.9 })}</g>`;
   const L = lockupAM(48, 62, 27, '#fff');
-  s += L.svg + t('DTS · PERFORMANCE', 48 + 66 * 0.9, 92, { f: 'M', w: 500, s: 13, c: C.blueL, ls: 2 });
+  s += L.svg + t('DTS · PERFORMANCE', 48 + 66 * 0.9, 93, { f: 'M', w: 500, s: 15, c: C.blueL, ls: 2 });
   s += `<rect x="${f(48 + L.w + 26)}" y="34" width="2" height="62" fill="#ffffff" opacity=".35"/>`;
   const tx = 48 + L.w + 50;
-  s += t(titulo, tx, 64, { f: 'H', w: 700, s: 30, c: '#fff', ls: 1.5 });
-  s += t(sub, tx, 92, { f: 'B', w: 500, s: 16, c: C.blueL });
+  s += t(titulo, tx, 63, { f: 'H', w: 700, s: 34, c: '#fff', ls: 1.5 });
+  s += t(sub, tx, 94, { f: 'B', w: 500, s: 19, c: C.blueL });
   // paginação
   s += `<rect x="${W - 112}" y="44" width="68" height="40" rx="20" fill="#ffffff" fill-opacity=".1" stroke="#fff" stroke-opacity=".35"/>`
     + t(`${pag}/${total}`, W - 78, 71, { f: 'M', w: 600, s: 17, c: '#fff', a: 'middle' });
@@ -184,7 +184,7 @@ export function rodape(pag, total, fonte, o = {}) {
   let s = `<rect x="0" y="${y0}" width="${W}" height="118" fill="${o.fundo ?? '#F4F7FB'}"/>`
     + `<path d="M48,${y0} L${W - 48},${y0}" stroke="${C.blueLL}" stroke-width="1.5"/>`;
   if (fonte) {
-    const linhas = quebra('Fonte: ' + fonte, 12.5, 640, 400, 'M');
+    const linhas = quebra('Fonte: ' + fonte, 12.5, 680, 400, 'M');
     linhas.slice(0, 2).forEach((l, i) => { s += t(l, 48, y0 + 44 + i * 17, { f: 'M', w: 400, s: 12.5, c: C.grey }); });
   }
   const P = lockupPerformance(W - 48 - 300, y0 + 58, 30, C.navy);

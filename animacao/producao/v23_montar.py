@@ -24,7 +24,7 @@ import vf_editar as VE                                    # mapa de tempo do v22
 AZ = os.path.join(RAIZ, 'build', 'azul'); V23 = os.path.join(AZ, 'v23')
 V22 = os.path.join(AZ, 'vf_video.mp4')                   # vídeo do v22 (206,27 s, 30 fps, sem áudio)
 V22_AUDIO = os.path.join(AZ, 'vf_audio.wav')             # áudio do v22 (abertura/encerramento do carrinho e trilha+voz antiga)
-INSTR = next(os.path.join(AZ, 'videofinal', f) for f in os.listdir(os.path.join(AZ, 'videofinal')) if 'Instrumental' in f)
+INSTR = os.environ.get('V23_INSTR') or next(os.path.join(AZ, 'videofinal', f) for f in os.listdir(os.path.join(AZ, 'videofinal')) if 'Instrumental' in f)   # trilha sem a voz antiga
 W, H, FPS, SR = 1920, 1080, 30, 48000
 DESLOC_V = VE.DESLOC_V                                    # vídeo final = v18 + 14,70 s (vídeo)
 TETO = 1.30                                               # aceleração máxima da voz (Rubber Band); acima disso o vídeo estica
@@ -175,7 +175,7 @@ def audio(anc, falas, segs, total):
     # ducking: envelope suavizado (120 ms) só na faixa do filme
     ker = np.ones(int(0.12 * SR), np.float32) / int(0.12 * SR); env = np.convolve(env, ker, 'same')
     gd = 10 ** (DUCK_DB / 20); i_b = int(ON * SR)
-    out[i_a0:i_b] *= (1 - env[i_a0:i_b] * (1 - gd))[:, None]
+    out[i_c:i_b] *= (1 - env[i_c:i_b] * (1 - gd))[:, None]   # desde o corte do carrinho: o envelope sobe suave antes da 1ª fala
     out += vozes; out = out[:int(total * SR)]
     pico = np.abs(out).max()
     if pico > 0.98: out *= 0.98 / pico

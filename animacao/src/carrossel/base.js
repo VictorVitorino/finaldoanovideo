@@ -37,14 +37,15 @@ export function tRico(str, x, y, o = {}) {
 
 // quebra de linha por largura (respeita *destaques*)
 export function quebra(str, s, maxW, w = 500, fk = 'B') {
-  const words = str.split(/\s+/);
   const out = [];
-  let cur = '';
-  for (const wd of words) {
-    const test = cur ? cur + ' ' + wd : wd;
-    if (larg(test.replace(/\*/g, ''), s, w, fk) > maxW && cur) { out.push(cur); cur = wd; } else cur = test;
+  for (const par of str.split('\n')) {
+    let cur = '';
+    for (const wd of par.trim().split(/\s+/)) {
+      const test = cur ? cur + ' ' + wd : wd;
+      if (larg(test.replace(/\*/g, ''), s, w, fk) > maxW && cur) { out.push(cur); cur = wd; } else cur = test;
+    }
+    if (cur) out.push(cur);
   }
-  if (cur) out.push(cur);
   // fecha/reabre destaques que atravessam linhas
   let aberto = false;
   return out.map(l => {

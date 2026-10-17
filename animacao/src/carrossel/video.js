@@ -40,9 +40,10 @@ function abertura(tt, B) {
     }
     s += op(kTxt, fundo);
     // selo e linhas do gancho
-    let txt = op(fin(tt, 0.05, 0.5), `<rect x="72" y="452" width="34" height="5" fill="${C.orange}"/>` + t(ABERTURA.selo, 120, 460, { f: 'M', w: 600, s: 17, c: C.blueL, ls: 3 }));
+    let txt = op(fin(tt, -0.5, 0.5), `<rect x="72" y="452" width="34" height="5" fill="${C.orange}"/>` + t(ABERTURA.selo, 120, 460, { f: 'M', w: 600, s: 17, c: C.blueL, ls: 3 }));
     // 4 linhas: as duas últimas (laranja) entram juntas no hook3, com 0,2 s de defasagem
-    const ks = [B.hook1, B.hook2, B.hook3, B.hook3 + 0.2];
+    // a 1ª linha já está na tela no quadro 0 (miniatura do feed antes do autoplay)
+    const ks = [B.hook1 - 0.5, B.hook2, B.hook3, B.hook3 + 0.2];
     const ys = [584, 692, 802, 894], tams = [110, 84, 84, 84];
     ABERTURA.linhas.forEach((l, i) => {
       const k = fin(tt, ks[i], 0.45);

@@ -5,7 +5,7 @@
   {
    "id": "contexto",
    "dur": 16.0,
-   "beats": { "hook1": 0.3, "hook2": 1.15, "hook3": 1.85, "sobe": 3.6, "kicker": 4.05, "titulo": 4.25, "grafico": 5.2, "funil": 8.9, "conclusao": 11.8 }
+   "beats": { "hook1": 0.05, "hook2": 1.15, "hook3": 1.85, "sobe": 3.6, "kicker": 4.05, "titulo": 4.25, "grafico": 5.2, "funil": 8.9, "conclusao": 11.8 }
   },
   {
    "id": "desafio",

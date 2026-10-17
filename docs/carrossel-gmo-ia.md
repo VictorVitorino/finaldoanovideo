@@ -16,9 +16,9 @@ O vídeo funciona sem som, porque o LinkedIn abre o vídeo mudo. A trilha só ac
 
 | Página | Mensagem | Prova na tela |
 |---|---|---|
-| **1 · A nova realidade** | A IA já está na sua empresa. O resultado, ainda não. | Curva McKinsey 2017–2026 (20% → quase 9 em 10) com a linha da IA generativa (33% → 79%), velocidade de adoção (IA generativa 54,6% × internet 30,1% × PC 19,7%), o abismo (80% ganham produtividade, 37% veem EBIT, 6% atribuem ≥ 5% do EBIT à IA) e o Brasil (83% dos profissionais usam, 17% das empresas usam). |
-| **2 · O desafio** | O gargalo não é o algoritmo. São pessoas e processos. | Regra 10-20-70 da BCG e a **matriz de impacto** 5×5 (probabilidade × impacto) com 8 desafios. 6 caem na zona crítica (P × I ≥ 16), e 5 desses 6 são de gente e processo. No vídeo, um foco escurece o resto e acende a zona crítica. |
-| **3 · O que fazemos** | IA só vira resultado quando vira hábito. | A equação **Tecnologia (DTS) × Gestão de Mudanças = Performance** ("é multiplicação: se um lado é zero, o resultado é zero"), o método em 5 etapas com os chips "ataca" que ligam cada etapa aos desafios da matriz, o que medimos, a prova Prosci (13% → 88%, 7x) e a chamada. |
+| **1 · A nova realidade** | A IA já está na sua empresa. O resultado, ainda não. | Curva McKinsey 2017–2026 (20% → quase 9 em 10) com a linha da IA generativa (33% → 79%). Velocidade de adoção: a IA generativa foi mais rápida que PC e internet (54,6% × 30,1% × 19,7% de adultos nos EUA, 3 anos após o lançamento). O abismo: 80% se dizem mais produtivos, 37% relatam contribuição ao EBIT, 6% atribuem à IA ≥ 5% do EBIT com impacto significativo. O Brasil: 83% dos profissionais do conhecimento usam IA, mas só 17% das empresas com 10+ pessoas a adotaram (50% das grandes); a IA chegou pelas pessoas, antes da estratégia. |
+| **2 · O desafio** | O gargalo não é o algoritmo. São pessoas e processos. | Regra 10-20-70 da BCG e a **matriz de impacto** 5×5 (probabilidade × impacto) com 8 desafios. 6 caem na zona crítica (P × I ≥ 16); na nossa leitura, 5 desses 6 são de pessoas e processos. No vídeo, um foco escurece o resto e acende a zona crítica. |
+| **3 · O que fazemos** | IA só vira resultado quando vira hábito. | A equação **Tecnologia (DTS) × Gestão de Mudanças = Performance** ("é multiplicação: se um fator for zero, o resultado é zero"), o método em 5 etapas com os chips "ataca" que ligam cada etapa aos desafios da matriz, o que medimos, a prova Prosci (13% → 88%, 7x) e a chamada. |
 
 DTS, Performance, Tecnologia e Gestão de Mudanças aparecem juntos no cabeçalho (A&M · DTS · PERFORMANCE), na equação da página 3, no CTA e no rodapé (lockup PERFORMΛNCE).
 
@@ -36,34 +36,34 @@ Cada número na tela foi conferido na fonte primária ou no índice de busca res
 | Brasil 17% | Cetic.br, [TIC Empresas 2025](https://cetic.br/pt/noticia/uso-de-inteligencia-artificial-por-empresas-brasileiras-avanca-e-atinge-17-aponta-pesquisa-do-cetic-br/) | Empresas com 10+ pessoas ocupadas (13% em 2024; grandes: 38% → 50%) | Índice de busca cetic.br |
 | 10-20-70 | BCG, Where's the Value in AI? (2024) | **Regra prática de alocação do investimento**, não medição | Extratos literais de páginas BCG |
 | 1 · só 26% veem a liderança alinhada | Microsoft, [Work Trend Index 2026](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization) | 20 mil usuários de IA em 10 mercados (inclui o Brasil) | Página aberta |
-| 2 · fora da elite, só ~1 em 4 redesenhou fluxos | McKinsey, The State of AI in 2026 | Respondentes fora do grupo de high performers. Nos high performers, quase 3 em 4. | Índice de busca mckinsey.com |
-| 3 · 63% sem dados prontos para IA, ou sem saber | Gartner, [fev/2025](https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk) | 248 líderes de gestão de dados (3º tri/2024) | Índice de busca gartner.com |
+| 2 · fora a elite, só ~1 em 4 redesenhou fluxos a fundo | McKinsey, The State of AI in 2026 | Respondentes fora do grupo de high performers. Nos high performers, quase 3 em 4. | Índice de busca mckinsey.com |
+| 3 · 63% sem práticas de dados para IA (ou não sabem) | Gartner, [fev/2025](https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk) | 248 líderes de gestão de dados (3º tri/2024) | Índice de busca gartner.com |
 | 4 · só 36% sentem ter capacitação adequada | BCG, [AI at Work 2026](https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools) | 11.749 profissionais, 14 mercados | Índice de busca bcg.com |
-| 5 · abandono da maioria: 17% → 42% | S&P Global, [VotE AI & ML 2025](https://www.spglobal.com/market-intelligence/en/news-insights/research/ai-experiences-rapid-adoption-but-with-mixed-outcomes-highlights-from-vote-ai-machine-learning) | 1.006 profissionais na América do Norte e na Europa | Índice de busca spglobal.com |
-| 6 · 51% já tiveram consequência negativa | McKinsey, The State of AI 2025 | Respondentes de organizações que usam IA | Índice de busca mckinsey.com |
-| 7 · 41% temem perder o emprego em 10 anos | BCG, [AI at Work 2025](https://www.bcg.com/publications/2025/ai-at-work-momentum-builds-but-gaps-remain) | Média global, mais de 10.600 profissionais | Índice de busca bcg.com |
-| 8 · 1 em 5 organizações violadas: shadow AI | IBM/Ponemon, [Cost of a Data Breach 2025](https://newsroom.ibm.com/2025-07-30-ibm-report-13-of-organizations-reported-breaches-of-ai-models-or-applications,-97-of-which-reported-lacking-proper-ai-access-controls) | 600 organizações **que sofreram violação** | Índice de busca ibm.com |
+| 5 · 42% abandonaram a maioria dos pilotos (eram 17%) | S&P Global, [VotE AI & ML 2025](https://www.spglobal.com/market-intelligence/en/news-insights/research/ai-experiences-rapid-adoption-but-with-mixed-outcomes-highlights-from-vote-ai-machine-learning) | 1.006 profissionais na América do Norte e na Europa | Índice de busca spglobal.com |
+| 6 · 66% usam o resultado da IA sem checar | KPMG/Univ. de Melbourne, [Trust in AI 2025](https://kpmg.com/xx/en/media/press-releases/2025/04/trust-of-ai-remains-a-critical-challenge.html) | Empregados, 48 mil pessoas em 47 países (inclui o Brasil) | Extratos literais do release KPMG |
+| 7 · Medo de demissão: 41% temem perder o emprego em 10 anos | BCG, [AI at Work 2025](https://www.bcg.com/publications/2025/ai-at-work-momentum-builds-but-gaps-remain) | Média global, mais de 10.600 profissionais | Índice de busca bcg.com |
+| 8 · causa de 1 em 5 violações de dados estudadas | IBM/Ponemon, [Cost of a Data Breach 2025](https://newsroom.ibm.com/2025-07-30-ibm-report-13-of-organizations-reported-breaches-of-ai-models-or-applications,-97-of-which-reported-lacking-proper-ai-access-controls) | 600 organizações **que sofreram violação** | Índice de busca ibm.com |
 | 13% · 39% · 73% · 88% e 7x | Prosci, [The Correlation Between Change Management and Project Success](https://www.prosci.com/blog/the-correlation-between-change-management-and-project-success) | Benchmark cumulativo de projetos de mudança em geral; correlação (88 ÷ 13 = 6,8) | Extratos literais de prosci.com |
 | Leadership. Action. Results. | [alvarezandmarsal.com/about-am](https://www.alvarezandmarsal.com/about-am) | Mantra da A&M | Índice de busca alvarezandmarsal.com |
 
-**Posição dos desafios na matriz:** é uma leitura A&M a partir dos dados citados. A **probabilidade** é a frequência do desafio nas pesquisas (5 = ≥ 60%, 4 = 40–59%, 3 = 20–39%). O **impacto** é o efeito na captura de valor (5 = ligado ao EBIT ou à perda do investimento, 4 = custo direto ou queda relevante de adoção, 3 = freia a adoção). **Crítico** = P × I ≥ 16.
+**Posição e natureza dos desafios na matriz:** são leitura A&M a partir dos dados citados (a natureza, pessoas/processos ou tecnologia, define a cor da bolha). A **probabilidade** é a frequência do desafio nas pesquisas (5 = ≥ 60%, 4 = 40–59%, 3 = 20–39%). O **impacto** é o efeito na captura de valor (5 = ligado ao EBIT ou à perda do investimento, 4 = custo direto ou queda relevante de adoção, 3 = freia a adoção). **Crítico** = P × I ≥ 16.
 
 ## Legenda do post
 
 ```
 Comprar IA é fácil. Gerar valor exige gestão de mudanças.
 
-Nenhuma tecnologia foi adotada tão rápido: três anos após o lançamento, 54,6% dos adultos nos EUA já usavam IA generativa. No mesmo ponto, o PC tinha 19,7% e a internet, 30,1% (St. Louis Fed, 2025). Nas empresas, quase 9 em cada 10 respondentes da McKinsey já usam IA em ao menos uma função (2026).
+A IA generativa foi adotada mais rápido que o PC e a internet: três anos após o lançamento, 54,6% dos adultos nos EUA já a usavam. No mesmo ponto, o PC tinha 19,7% e a internet, 30,1% (St. Louis Fed, 2025). Nas empresas, quase 9 em cada 10 respondentes da McKinsey já usam IA em ao menos uma função (2026).
 
-Adotar virou inevitável. Gerar valor, ainda não: 80% dizem que a IA elevou a própria produtividade, 37% relatam contribuição dela no EBIT e só 6% atribuem à IA 5% ou mais do EBIT (McKinsey, The State of AI in 2026).
+Adotar virou inevitável. Gerar valor, ainda não: 80% dizem que a IA os tornou mais produtivos, 37% relatam contribuição dela ao EBIT e só 6% atribuem à IA 5% ou mais do EBIT, com impacto significativo (McKinsey, The State of AI in 2026).
 
-No Brasil, 83% dos profissionais do conhecimento já usam IA no trabalho (Microsoft/LinkedIn, 2024), mas só 17% das empresas com 10 ou mais pessoas usam IA (Cetic.br, 2025). As pessoas chegaram antes da organização.
+No Brasil, 83% dos profissionais do conhecimento já usam IA no trabalho (Microsoft/LinkedIn, 2024), mas só 17% das empresas com 10 ou mais pessoas adotaram IA, 50% entre as grandes (Cetic.br, 2025). A IA chegou pelas pessoas, antes da estratégia.
 
 O gargalo não é o algoritmo. Só 26% dos usuários de IA veem a liderança alinhada sobre o tema (Microsoft, 2026), e só 36% dos profissionais sentem ter recebido capacitação adequada (BCG, 2026).
 
 Por isso, na Alvarez & Marsal, DTS e Performance trabalham juntos: tecnologia, redesenho do trabalho e gestão de mudanças num único plano, do diagnóstico de prontidão à adoção medida no P&L. Para cada dólar investido em tecnologia de IA, invista o mesmo nas pessoas.
 
-Sua empresa já adotou IA. Ela já gera resultado? Vamos conversar.
+Sua empresa já usa IA. Ela já gera resultado? Vamos conversar.
 
 #GestãoDeMudanças #InteligênciaArtificial #TransformaçãoDigital #AlvarezAndMarsal
 ```
@@ -82,11 +82,12 @@ A frase "para cada dólar investido em tecnologia de IA, invista o mesmo nas pes
 ## Antes de publicar
 
 1. **Aprovação interna:** o sócio responsável e a área de marca precisam aprovar o método em 5 etapas, a expressão "diagnóstico de prontidão para IA", a frase "DTS e Performance trabalham juntos" e o uso da marca. Os textos do método descrevem a oferta do time; não são texto institucional publicado.
-2. **Dados de 2026 da McKinsey** (80/37/6, ~1 em 4, quase 9 em 10): foram conferidos pelo índice de busca de mckinsey.com, porque o PDF não abriu neste ambiente. Vale abrir o [relatório](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai) uma vez antes de publicar.
+2. **Dados conferidos só pelo índice de busca** (o site não abriu neste ambiente): McKinsey 2026 (80/37/6, ~1 em 4, quase 9 em 10) e St. Louis Fed (54,6/30,1/19,7). Vale abrir o [relatório McKinsey](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai) e o [artigo do St. Louis Fed](https://www.stlouisfed.org/on-the-economy/2025/nov/state-generative-ai-adoption-2025) uma vez antes de publicar.
 3. **Comentários previsíveis e respostas prontas:**
    - "70% de pessoas e processos é medição?" Não: é a regra prática de alocação de investimento da BCG, e a página diz isso.
    - "O 7x da Prosci é resultado da A&M?" Não: é um benchmark de projetos de mudança em geral (correlação), e o rodapé diz isso.
-   - "83% contra 17% compara bases diferentes?" Sim, de propósito: são pessoas (trabalhadores do conhecimento, 2024) contra empresas (10+ pessoas, 2025), e a tela mostra os anos. É exatamente a tese: as pessoas chegaram antes da organização.
+   - "83% contra 17% compara bases diferentes?" Sim, de propósito: são pessoas (profissionais do conhecimento, 2024) contra empresas (10+ pessoas, 2025; 50% entre as grandes), e a tela mostra os anos e o recorte. É exatamente a tese: a IA chegou pelas pessoas, antes da estratégia.
+4. **Opções que ficaram de fora de propósito:** a revisão sugeriu trocar "A IA É INEVITÁVEL." por "A IA JÁ É PADRÃO."; o gancho ficou como está porque a ideia de inevitabilidade foi pedida no briefing. Também sugeriu uma 4ª página de capa no PDF com o gancho; o PDF ficou em 3 páginas para respeitar o limite pedido (a capa do vídeo já cumpre esse papel).
 
 ## Como renderizar
 

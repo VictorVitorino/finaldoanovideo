@@ -18,6 +18,8 @@ const args = process.argv.slice(2);
 const cmd = args[0];
 const opt = (name, def) => { const i = args.indexOf('--' + name); return i >= 0 ? args[i + 1] : def; };
 fs.mkdirSync(BUILD, { recursive: true });
+// tamanho do quadro e página (padrão: filme 1920x1080 em index.html; o carrossel usa --page carrossel.html --w 1080 --h 1350)
+const VW = +opt('w', 1920), VH = +opt('h', 1080), PAGE = opt('page', 'index.html');
 
 async function loadPlaywright() {
   try { return await import('playwright'); } catch {}
@@ -43,7 +45,7 @@ function serve() {
 async function openPage(pw, url) {
   // Decodificação de imagem síncrona: sem isso os logos podem sair em branco em alguns quadros.
   const browser = await pw.chromium.launch({ args: ['--disable-checker-imaging', '--run-all-compositor-stages-before-draw', '--disable-gpu-rasterization'] });
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+  const page = await browser.newPage({ viewport: { width: VW, height: VH }, deviceScaleFactor: 1 });
   page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.log('[página]', m.text()); });
   page.on('pageerror', e => console.log('[erro na página]', e.message));
   await page.goto(url, { waitUntil: 'networkidle' });
@@ -57,7 +59,7 @@ async function openPage(pw, url) {
 
 async function shot({ page, cdp }, t, quality = 92, png = false) {
   await page.evaluate(t => new Promise(r => { window.renderAt(t); requestAnimationFrame(() => requestAnimationFrame(r)); }), t);
-  const r = await cdp.send('Page.captureScreenshot', png ? { format: 'png', clip: { x: 0, y: 0, width: 1920, height: 1080, scale: 1 } } : { format: 'jpeg', quality, clip: { x: 0, y: 0, width: 1920, height: 1080, scale: 1 } });
+  const r = await cdp.send('Page.captureScreenshot', png ? { format: 'png', clip: { x: 0, y: 0, width: VW, height: VH, scale: 1 } } : { format: 'jpeg', quality, clip: { x: 0, y: 0, width: VW, height: VH, scale: 1 } });
   return Buffer.from(r.data, 'base64');
 }
 
@@ -96,7 +98,7 @@ async function main() {
   const test = opt('test', '');
   const layer = opt('layer', 'full');
   const transparent = layer === 'overlay' || layer === 'etiquetas';
-  const url = `http://localhost:${port}/index.html?mode=render&layer=${layer}${test ? '&test=' + test : ''}`;
+  const url = `http://localhost:${port}/${PAGE}?mode=render&layer=${layer}${test ? '&test=' + test : ''}`;
   try {
     if (cmd === 'stills') {
       const times = opt('t', '0').split(',').map(Number);

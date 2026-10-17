@@ -120,17 +120,21 @@ node render.mjs frames --test v19 --out build/azul/v21 --workers 4
 python3 producao/v21_montar.py             # build/azul/Projeto-do-Ano-AM-TOTVS-v21(.mp4|-leve.mp4), 3:21
 ```
 
-## v22 · narração de volta à voz da narradora do v18
+## v22 · edição direta do vídeo final (release `videofinal`)
 
-A voz sintética do v21 foi recusada: a voz certa é a da narradora do v18, que veio do vídeo original (gravação, não TTS;
-ver `producao/azul_audio.py`). O v22 recorta cada uma das 30 falas da faixa de voz do v18 separada pelo UVR
-(`build/azul/v21/*Vocals*.flac`), sem os silêncios das pontas e sem repetir trechos entre falas emendadas, e as recoloca
-com as pausas curtas do v21. Os tempos das palavras são os do v18 deslocados, então os índices das cenas não mudam.
-Filme de 170 s (v18) para 156,6 s; palco do v18 desacelerado só 1,10x.
+O vídeo final do usuário (`videofinal`, sha256 `2210d627…`) tem um miolo próprio (capa com Hermano Ribeiro, cena
+"Gente que entende do jogo" etc.) que não está neste código. Medições: a narração é a da narradora do v18, intacta, em
++14,20 s; o vídeo das cenas do código está em +14,70 s (quadros idênticos). Por isso o v22 edita os quadros dele:
+
+| O quê | Como |
+|---|---|
+| Voz | mantida (já é a voz da narradora do v18 em todas as falas) |
+| 01:28 · mandala | entra em "TOTVS na solução…" no lugar das linhas de luz; pausas encurtadas (−3,2 s); legendas apagadas com placa limpa e reaplicadas no tempo novo (`legenda_preto`/`legenda_branco`, alfa por diferença) |
+| 02:24 em diante | linha do tempo, cockpit e Rumo a 2027 trocados pelo render atual no tempo do v18 (`build/azul/vfr`): Victor na FUNED, três painéis grandes e centralizados, time lado a lado, foguete com brilho e cabeça grande |
 
 ```bash
-cd animacao
-python3 producao/v21_voz.py voz --v18 && python3 producao/v21_voz.py mix
-node render.mjs frames --test v19 --out build/azul/v21 --workers 4
-python3 producao/v21_montar.py
+cd animacao   # build/azul/v19.json com as falas do v18 e as cenas antigas (ver producao/vf_editar.py)
+node render.mjs frames --test v19 --out build/azul/vfr --workers 4 --from 3870 --to 5103
+for c in preto branco; do node render.mjs frames --test legenda_$c --out build/azul/vf_legenda/$c --from 2085 --to 2675; done
+python3 producao/vf_editar.py   # build/azul/Projeto-Totvs-Final-do-ano-v22(.mp4|-leve.mp4), 3:26
 ```

@@ -28,7 +28,7 @@ function curva(pts, n = 240) {
 // ------------------------------------------------------------------ CENA 11 · LINHA DO TEMPO
 const PROJ = [
   { nome: 'Unimed Brasil', logo: 'unimed', sub: 'Remediação · ERP Protheus', time: ['bruno'], cor: '#2bb673', ico: 'bandeira', x: 230, ny: 515, cima: true },
-  { nome: 'FUNED', logo: 'funed', sub: 'TMO + GMO · ERP Protheus', time: ['jose', 'nara'], cor: '#e0405a', ico: 'frasco', x: 530, ny: 600, cima: false },
+  { nome: 'FUNED', logo: 'funed', sub: 'TMO + GMO · ERP Protheus', time: ['jose', 'victor'], cor: '#e0405a', ico: 'frasco', x: 530, ny: 600, cima: false },
   { nome: 'CAOA', logo: 'caoa', sub: 'Remediação · ERP Protheus', time: ['massao', 'thauany'], cor: '#2f6fe0', ico: 'sol', x: 830, ny: 515, cima: true },
   { nome: 'John Deere Argentina', logo: 'john-deere', sub: 'Remediação · ERP Protheus', time: ['joao', 'mancini', 'jaqueline'], cor: '#2bb673', ico: 'globo', x: 1130, ny: 600, cima: false },
   { nome: 'Hughes', logo: 'hughes', sub: 'TMO + GMO · ERP Protheus', time: ['giovanna', 'pedro'], cor: '#2f6fe0', ico: 'raio', x: 1430, ny: 515, cima: true },
@@ -201,7 +201,7 @@ export function cockpit(L, t, dur) {
   let camx = cxP[2], esc = 1;
   [[1, tGov - 0.1], [0, tIA - 0.1]].forEach(([i, tt]) => { const u = ease.inOut(inv(tt - 0.4, tt + 0.4, t)); camx = lerp(camx, cxP[i], u); });
   const abre = ease.inOut(inv(tTec - 0.3, tTec + 0.8, t));
-  camx = lerp(camx, cxP[1], abre); esc = lerp(1, 0.37, abre);
+  camx = lerp(camx, cxP[1], abre); esc = lerp(1, 0.49, abre);   // visão geral: os três painéis grandes e centrados, acima do rosto do Vinicius
   let v = '';
   // conectores entre painéis
   [[2, 1, tGov - 0.1], [1, 0, tIA - 0.1]].forEach(([a, b, tt]) => {   // da direita para a esquerda, na ordem da narração
@@ -222,7 +222,7 @@ export function cockpit(L, t, dur) {
   // brilho final em "Tecnologia a serviço da qualidade"
   const fin = Math.sin(clamp(inv(tQual - 0.6, tQual + 1.0, t)) * Math.PI);
   if (fin > 0) v += `<rect x="${PX[0] - 40}" y="${PY - 40}" width="${F(PX[2] + PW - PX[0] + 80)}" height="${PH + 80}" rx="40" fill="none" stroke="${COR.ouro}" stroke-width="4" opacity="${F(0.6 * fin)}"/>`;
-  s += g(`translate(${F(lerp(1120, 1215, abre))} ${F(lerp(470, 520, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
+  s += g(`translate(${F(lerp(1120, 960, abre))} ${F(lerp(470, 468, abre))}) scale(${F(esc)}) translate(${F(-camx)} ${F(-(PY + PH / 2))})`, v);
   // Vinicius à esquerda, no padrão 3D, apresentando
   const hv = 400, ev = sobe(L, 0.03, 0.9), cxV = 16 + largPessoa('vinicius', hv) / 2;
   s += g(tr(-foraEsq('vinicius', cxV, hv) * (1 - ev), 0), pessoa('vinicius', cxV, 1110, hv, L, { halo: COR.azul, haloA: 0.12 }));
@@ -250,6 +250,8 @@ function foguete(L) {
   const membro = (d) => `<path d="${d}" stroke="#0b1a38" stroke-width="15" fill="none" stroke-linecap="round"/><path d="${d}" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/>`;
   const fl = 1 + 0.22 * Math.sin(L * 23) + 0.1 * Math.sin(L * 37), wave = Math.sin(L * 5) * 12;
   let r = '';
+  // brilho geral do foguete e das chamas
+  r += `<circle cx="-10" cy="-20" r="150" fill="url(#azLuzOuro)" opacity=".55"/><ellipse cx="-120" cy="0" rx="${F(70 * fl)}" ry="34" fill="#ffb347" opacity=".55" filter="url(#azBrilho)"/>`;
   // chamas
   r += g(`translate(-80 0) scale(${F(fl)} 1)`, `<path d="M0 -16 Q-44 -10 -66 0 Q-44 10 0 16 Z" fill="#f08a2c" ${O}/><path d="M0 -10 Q-28 -6 -42 0 Q-28 6 0 10 Z" fill="#ffd84d"/><path d="M0 -5 Q-13 -3 -20 0 Q-13 3 0 5 Z" fill="#fff"/>`);
   // perna de trás do astronauta e mochila (atrás do corpo do foguete)
@@ -268,8 +270,9 @@ function foguete(L) {
   r += g(`rotate(${F(wave)} -20 -76)`, membro('M-20 -76 L-40 -104') + `<circle cx="-42" cy="-107" r="7" fill="#fff" ${O}/>`);
   r += membro('M2 -74 L26 -46') + `<circle cx="28" cy="-44" r="7" fill="#fff" ${O}/>`;
   r += membro('M-2 -46 L12 -20') + `<circle cx="13" cy="-18" r="7" fill="#fff" ${O}/>`;
-  r += `<circle cx="-9" cy="-106" r="26" fill="#fff" ${O}/><clipPath id="azVisor"><circle cx="-6" cy="-105" r="18"/></clipPath><circle cx="-6" cy="-105" r="18" fill="#1b2a4a" ${O}/>`;
-  r += `<g clip-path="url(#azVisor)">${imagem('antonialli_rosto', -6 - 23, -105 - 24, 46, 46)}</g><circle cx="-6" cy="-105" r="18" fill="none" stroke="#0b1a38" stroke-width="3"/><ellipse cx="-14" cy="-116" rx="5" ry="2.5" fill="#fff" opacity=".8" transform="rotate(-30 -14 -116)"/>`;
+  // cabeça maior que o corpo (chibi): capacete r 44, viseira r 32 com o rosto
+  r += `<circle cx="-9" cy="-128" r="46" fill="#fff" opacity=".35" filter="url(#azBrilhoP)"/><circle cx="-9" cy="-128" r="44" fill="#fff" ${O}/><clipPath id="azVisor"><circle cx="-5" cy="-126" r="32"/></clipPath><circle cx="-5" cy="-126" r="32" fill="#1b2a4a" ${O}/>`;
+  r += `<g clip-path="url(#azVisor)">${imagem('antonialli_rosto', -5 - 40, -126 - 42, 80, 80)}</g><circle cx="-5" cy="-126" r="32" fill="none" stroke="#0b1a38" stroke-width="3"/><ellipse cx="-20" cy="-146" rx="9" ry="4" fill="#fff" opacity=".85" transform="rotate(-30 -20 -146)"/>`;
   return r;
 }
 const MARCOS = [['unimed', 0.03], ['funed', 0.16], ['caoa', 0.30], ['john-deere', 0.44], ['hughes', 0.58], ['libercon', 0.73]];
@@ -323,7 +326,7 @@ export function rumo(L, t, dur) {
     const p = S.ponto(u), a0 = S.ponto(Math.max(0, u - 0.015)), b0 = S.ponto(Math.min(1, u + 0.015));
     const ang = Math.atan2(b0[1] - a0[1], b0[0] - a0[0]) * 180 / Math.PI;
     const bob = (noExt && u >= 1) ? 4 * Math.sin(L * 2.2) : 2.5 * Math.sin(L * 3.1);
-    for (let j = 1; j <= 10; j++) { const q = u - j * 0.012; if (q <= 0) break; const pp = S.ponto(q); gpanel += `<circle cx="${F(pp[0])}" cy="${F(pp[1])}" r="${F(5.5 - j * 0.45)}" fill="${j % 2 ? COR.ouro2 : '#fff'}" opacity="${F(0.55 - j * 0.05)}"/>`; }
+    for (let j = 1; j <= 14; j++) { const q = u - j * 0.011; if (q <= 0) break; const pp = S.ponto(q); gpanel += `<circle cx="${F(pp[0])}" cy="${F(pp[1])}" r="${F(9 - j * 0.55)}" fill="${j % 2 ? COR.ouro2 : '#fff'}" opacity="${F(0.7 - j * 0.045)}" filter="url(#azBrilhoP)"/>`; }
     gpanel += g(`translate(${F(p[0])} ${F(p[1] + bob)}) rotate(${F(ang)}) scale(0.9)`, foguete(L));
   }
   s += op(kp, g(tr(0, 20 * (1 - kp)), gpanel));
@@ -335,6 +338,16 @@ export function rumo(L, t, dur) {
   const chips = [['MAIS PROJETOS', tMaisP, `<path d="M-9 -3 l9 -5 l9 5 l-9 5 Z M-9 2 l9 5 l9 -5" stroke="${COR.ouro2}" stroke-width="2" fill="none" stroke-linejoin="round"/>`], ['MAIS OPORTUNIDADES', tOp, `<path d="M0 -10 l2.5 7 l7 2.5 l-7 2.5 l-2.5 7 l-2.5 -7 l-7 -2.5 l7 -2.5 Z" fill="${COR.ouro2}"/>`], ['MAIS VALOR', tVal, `<path d="M-9 6 l6 -7 l5 4 l7 -9 M4 -6 h5 v5" stroke="${COR.ouro2}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`]];
   chips.forEach(([tx, t0, ico], i) => { const q = ease.back(inv(t0 - 0.15, t0 + 0.35, t)); if (q <= 0) return; const w = larg(tx, 18, 800) + 86 + tx.length * 3; esq += g(`translate(${F(100 + w / 2)} ${F(380 + i * 72)}) scale(${F(q)})`, pilula(tx, 0, 0, { fill: 'rgba(7,17,42,.75)', stroke: COR.ouro, size: 18, ls: 3, icone: ico, cor: '#fff' })); });
   if (sai < 1) s += op(kr * (1 - sai), g(tr(-40 * sai, 0), esq));
+  // o time inteiro, um do lado do outro (duas fileiras de 7), entrando em "juntos"
+  const TIME = ['antonialli', 'bruno', 'giovanna', 'jaqueline', 'jose', 'joao', 'massao', 'mancini', 'monica', 'nara', 'pedro', 'thauany', 'vinicius', 'victor'];
+  const tJuntos = palavra('l28', 3), TL = 104, GAPT = 10, X0T = 100, Y0T = 596;
+  TIME.forEach((id, i) => {
+    const k = ease.back(inv(tJuntos - 0.2 + i * 0.07, tJuntos + 0.25 + i * 0.07, t)); if (k <= 0) return;
+    const col = i % 7, lin = Math.floor(i / 7), x = X0T + col * (TL + GAPT), y = Y0T + lin * (TL + GAPT), cid = 'azTime' + i;
+    s += g(`translate(${F(x + TL / 2)} ${F(y + TL / 2)}) scale(${F(k)})`, `<clipPath id="${cid}"><rect x="${-TL / 2}" y="${-TL / 2}" width="${TL}" height="${TL}" rx="18"/></clipPath><rect x="${-TL / 2 - 2}" y="${-TL / 2 - 2}" width="${TL + 4}" height="${TL + 4}" rx="20" fill="${lin ? COR.azulClaro : COR.ouro2}" opacity=".9"/><g clip-path="url(#${cid})"><rect x="${-TL / 2}" y="${-TL / 2}" width="${TL}" height="${TL}" fill="#13306a"/>${imagem(id + '_rosto', -TL / 2, -TL / 2, TL, TL)}</g>`);
+  });
+  const kT = ease.out(inv(tJuntos - 0.3, tJuntos + 0.3, t));
+  if (kT > 0) s += op(kT, T('UM TIME  ·  A&M + TOTVS', X0T, Y0T - 16, 13, { w: 800, fill: COR.ouro2, anchor: 'start', ls: 4 }));
   if (vem > 0) {
     let j = '';
     const cartao = (id, cx, h) => `<rect x="${F(cx - 110)}" y="-50" width="220" height="100" rx="20" fill="#fff"/>` + logoImg(id, cx, 0, h, 180);

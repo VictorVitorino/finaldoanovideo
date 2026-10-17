@@ -1,0 +1,1646 @@
+{
+ "total": 161.825,
+ "voz": "supertonic3 sid 8 x1.06",
+ "falas": [
+  {
+   "id": "l00",
+   "texto": "Algumas parcerias começam com um projeto.",
+   "de": 0.9,
+   "ate": 3.312,
+   "palavras": [
+    [
+     "Algumas",
+     0.9
+    ],
+    [
+     "parcerias",
+     1.38
+    ],
+    [
+     "começam",
+     1.94
+    ],
+    [
+     "com",
+     2.42
+    ],
+    [
+     "um",
+     2.58
+    ],
+    [
+     "projeto",
+     2.74
+    ]
+   ]
+  },
+  {
+   "id": "l01",
+   "texto": "E se transformam em algo muito maior.",
+   "de": 3.632,
+   "ate": 5.742,
+   "palavras": [
+    [
+     "e",
+     3.632
+    ],
+    [
+     "se",
+     3.872
+    ],
+    [
+     "transformam",
+     4.032
+    ],
+    [
+     "em",
+     4.592
+    ],
+    [
+     "algo",
+     4.752
+    ],
+    [
+     "muito",
+     5.072
+    ],
+    [
+     "maior.",
+     5.232
+    ]
+   ]
+  },
+  {
+   "id": "l02",
+   "texto": "Seis projetos vendidos no primeiro ano.",
+   "de": 6.342,
+   "ate": 8.649,
+   "palavras": [
+    [
+     "Seis",
+     6.422
+    ],
+    [
+     "projetos",
+     6.742
+    ],
+    [
+     "vendidos",
+     7.222
+    ],
+    [
+     "no",
+     7.782
+    ],
+    [
+     "primeiro",
+     7.942
+    ],
+    [
+     "ano,",
+     8.262
+    ]
+   ]
+  },
+  {
+   "id": "l03",
+   "texto": "Vinte profissionais nessa jornada.",
+   "de": 8.969,
+   "ate": 10.921,
+   "palavras": [
+    [
+     "20",
+     9.049
+    ],
+    [
+     "profissionais",
+     9.449
+    ],
+    [
+     "nessa",
+     10.009
+    ],
+    [
+     "jornada.",
+     10.329
+    ]
+   ]
+  },
+  {
+   "id": "l04",
+   "texto": "Dezesseis milhões em collections, somando 2026 e 2027.",
+   "de": 11.241,
+   "ate": 16.733,
+   "palavras": [
+    [
+     "16",
+     11.321
+    ],
+    [
+     "milhões",
+     11.881
+    ],
+    [
+     "em",
+     12.281
+    ],
+    [
+     "collections,",
+     12.441
+    ],
+    [
+     "somando",
+     13.241
+    ],
+    [
+     "2026",
+     13.801
+    ],
+    [
+     "e",
+     15.081
+    ],
+    [
+     "2027.",
+     15.241
+    ]
+   ]
+  },
+  {
+   "id": "l05",
+   "texto": "Doze meses de duração média: projetos de longo prazo, gerando recorrência.",
+   "de": 17.053,
+   "ate": 21.867,
+   "palavras": [
+    [
+     "Doze",
+     17.133
+    ],
+    [
+     "meses",
+     17.613
+    ],
+    [
+     "de",
+     17.933
+    ],
+    [
+     "duração",
+     18.013
+    ],
+    [
+     "média.",
+     18.493
+    ],
+    [
+     "Projetos",
+     19.133
+    ],
+    [
+     "de",
+     19.613
+    ],
+    [
+     "longo",
+     19.773
+    ],
+    [
+     "prazo,",
+     20.093
+    ],
+    [
+     "gerando",
+     20.493
+    ],
+    [
+     "recorrência.",
+     20.973
+    ]
+   ]
+  },
+  {
+   "id": "l06",
+   "texto": "Cross-sell com especializações: melhoria de processos, reforma tributária e muito mais.",
+   "de": 22.187,
+   "ate": 28.083,
+   "palavras": [
+    [
+     "Croc",
+     22.187
+    ],
+    [
+     "Cell",
+     22.587
+    ],
+    [
+     "com",
+     22.907
+    ],
+    [
+     "especializações.",
+     23.147
+    ],
+    [
+     "Melhoria",
+     24.347
+    ],
+    [
+     "de",
+     24.987
+    ],
+    [
+     "processos,",
+     25.147
+    ],
+    [
+     "reforma",
+     25.947
+    ],
+    [
+     "tributária",
+     26.507
+    ],
+    [
+     "e",
+     27.147
+    ],
+    [
+     "muito",
+     27.307
+    ],
+    [
+     "mais.",
+     27.627
+    ]
+   ]
+  },
+  {
+   "id": "l07",
+   "texto": "Gestão integrada na implantação de soluções do ecossistema TOTVS.",
+   "de": 28.403,
+   "ate": 32.487,
+   "palavras": [
+    [
+     "Gestão",
+     28.483
+    ],
+    [
+     "integrada",
+     28.963
+    ],
+    [
+     "na",
+     29.443
+    ],
+    [
+     "implantação",
+     29.683
+    ],
+    [
+     "de",
+     30.243
+    ],
+    [
+     "soluções",
+     30.403
+    ],
+    [
+     "do",
+     30.883
+    ],
+    [
+     "ecossistema",
+     31.043
+    ],
+    [
+     "TOFS.",
+     31.683
+    ]
+   ]
+  },
+  {
+   "id": "l08",
+   "texto": "Qualidade e eficiência das MITs: métodos e skills aplicados à revisão e à validação dos documentos de implantação.",
+   "de": 32.807,
+   "ate": 40.507,
+   "palavras": [
+    [
+     "Qualidade",
+     32.807
+    ],
+    [
+     "e",
+     33.367
+    ],
+    [
+     "eficiência",
+     33.527
+    ],
+    [
+     "das",
+     34.087
+    ],
+    [
+     "MITS,",
+     34.247
+    ],
+    [
+     "métodos",
+     35.047
+    ],
+    [
+     "skills",
+     35.767
+    ],
+    [
+     "aplicados",
+     36.327
+    ],
+    [
+     "à",
+     36.887
+    ],
+    [
+     "revisão",
+     37.047
+    ],
+    [
+     "e",
+     37.767
+    ],
+    [
+     "à",
+     37.927
+    ],
+    [
+     "validação",
+     38.087
+    ],
+    [
+     "dos",
+     38.727
+    ],
+    [
+     "documentos",
+     38.887
+    ],
+    [
+     "de",
+     39.527
+    ],
+    [
+     "implantação.",
+     39.687
+    ]
+   ]
+  },
+  {
+   "id": "l09",
+   "texto": "Testes integrados com Xray: ferramentas para gestão, execução e rastreabilidade dos testes.",
+   "de": 40.827,
+   "ate": 47.146,
+   "palavras": [
+    [
+     "Testes",
+     40.827
+    ],
+    [
+     "integrados",
+     41.307
+    ],
+    [
+     "com",
+     41.867
+    ],
+    [
+     "o",
+     42.107
+    ],
+    [
+     "SHIE:",
+     42.107
+    ],
+    [
+     "Ferramentas",
+     42.987
+    ],
+    [
+     "para",
+     43.707
+    ],
+    [
+     "Gestão,",
+     43.947
+    ],
+    [
+     "Execução",
+     44.507
+    ],
+    [
+     "e",
+     45.067
+    ],
+    [
+     "rastreabilidade",
+     45.227
+    ],
+    [
+     "dos",
+     46.267
+    ],
+    [
+     "testes.",
+     46.427
+    ]
+   ]
+  },
+  {
+   "id": "l10",
+   "texto": "E um cockpit executivo para a gestão do portfólio de projetos, com apoio do Delivery Center.",
+   "de": 47.466,
+   "ate": 53.18,
+   "palavras": [
+    [
+     "E",
+     47.466
+    ],
+    [
+     "um",
+     47.626
+    ],
+    [
+     "cookite",
+     47.706
+    ],
+    [
+     "executivo",
+     48.346
+    ],
+    [
+     "para",
+     48.986
+    ],
+    [
+     "a",
+     49.146
+    ],
+    [
+     "gestão",
+     49.226
+    ],
+    [
+     "do",
+     49.546
+    ],
+    [
+     "portfólio",
+     49.706
+    ],
+    [
+     "de",
+     50.426
+    ],
+    [
+     "projetos,",
+     50.586
+    ],
+    [
+     "com",
+     51.306
+    ],
+    [
+     "o",
+     51.426
+    ],
+    [
+     "apoio",
+     51.546
+    ],
+    [
+     "do",
+     51.866
+    ],
+    [
+     "Delivery",
+     52.026
+    ],
+    [
+     "Center.",
+     52.586
+    ]
+   ]
+  },
+  {
+   "id": "l11",
+   "texto": "Quem já viveu uma implantação de ERP conhece a complexidade.",
+   "de": 54.48,
+   "ate": 58.581,
+   "palavras": [
+    [
+     "Quem",
+     54.48
+    ],
+    [
+     "já",
+     54.72
+    ],
+    [
+     "viveu",
+     54.88
+    ],
+    [
+     "uma",
+     55.28
+    ],
+    [
+     "implantação",
+     55.44
+    ],
+    [
+     "de",
+     55.92
+    ],
+    [
+     "ERP",
+     56.16
+    ],
+    [
+     "conhece",
+     57.12
+    ],
+    [
+     "a",
+     57.6
+    ],
+    [
+     "complexidade.",
+     57.68
+    ]
+   ]
+  },
+  {
+   "id": "l12",
+   "texto": "Processos, pessoas, integrações, prazos e riscos precisam avançar juntos.",
+   "de": 58.901,
+   "ate": 63.571,
+   "palavras": [
+    [
+     "Processos,",
+     58.901
+    ],
+    [
+     "pessoas,",
+     59.701
+    ],
+    [
+     "integrações,",
+     60.181
+    ],
+    [
+     "prazos",
+     60.981
+    ],
+    [
+     "e",
+     61.541
+    ],
+    [
+     "riscos",
+     61.621
+    ],
+    [
+     "precisam",
+     62.101
+    ],
+    [
+     "avançar",
+     62.501
+    ],
+    [
+     "juntos.",
+     62.981
+    ]
+   ]
+  },
+  {
+   "id": "l13",
+   "texto": "E para saber lidar com essa complexidade, é hora de chamar quem entende do jogo.",
+   "de": 64.071,
+   "ate": 68.751,
+   "palavras": [
+    [
+     "E",
+     64.071
+    ],
+    [
+     "para",
+     64.231
+    ],
+    [
+     "saber",
+     64.471
+    ],
+    [
+     "lidar",
+     64.791
+    ],
+    [
+     "com",
+     65.191
+    ],
+    [
+     "essa",
+     65.351
+    ],
+    [
+     "complexidade,",
+     65.591
+    ],
+    [
+     "é",
+     66.551
+    ],
+    [
+     "hora",
+     66.711
+    ],
+    [
+     "de",
+     66.951
+    ],
+    [
+     "chamar",
+     67.031
+    ],
+    [
+     "quem",
+     67.431
+    ],
+    [
+     "entende",
+     67.751
+    ],
+    [
+     "do",
+     68.151
+    ],
+    [
+     "jogo.",
+     68.311
+    ]
+   ]
+  },
+  {
+   "id": "l14",
+   "texto": "TOTVS na solução. A&M na gestão da transformação.",
+   "de": 69.101,
+   "ate": 72.679,
+   "palavras": [
+    [
+     "Totos",
+     69.261
+    ],
+    [
+     "na",
+     69.741
+    ],
+    [
+     "Solução.",
+     69.901
+    ],
+    [
+     "A",
+     70.461
+    ],
+    [
+     "IM",
+     70.621
+    ],
+    [
+     "na",
+     71.101
+    ],
+    [
+     "gestão",
+     71.261
+    ],
+    [
+     "da",
+     71.661
+    ],
+    [
+     "transformação.",
+     71.821
+    ]
+   ]
+  },
+  {
+   "id": "l15",
+   "texto": "Competências complementares, unidas para fazer acontecer.",
+   "de": 72.999,
+   "ate": 76.501,
+   "palavras": [
+    [
+     "Competências",
+     73.159
+    ],
+    [
+     "complementares,",
+     73.879
+    ],
+    [
+     "unidas",
+     74.759
+    ],
+    [
+     "para",
+     75.319
+    ],
+    [
+     "fazer",
+     75.479
+    ],
+    [
+     "acontecer.",
+     75.799
+    ]
+   ]
+  },
+  {
+   "id": "l16",
+   "texto": "Com a Alvarez & Marsal à frente do Programa de Transformação, nossa metodologia exclusiva de TMO conecta pessoas, processos e tecnologia em um único time.",
+   "de": 76.851,
+   "ate": 87.226,
+   "palavras": [
+    [
+     "Com",
+     76.851
+    ],
+    [
+     "a",
+     77.011
+    ],
+    [
+     "Álvares",
+     77.091
+    ],
+    [
+     "e",
+     77.651
+    ],
+    [
+     "Marsal",
+     77.811
+    ],
+    [
+     "à",
+     78.371
+    ],
+    [
+     "frente",
+     78.531
+    ],
+    [
+     "do",
+     78.851
+    ],
+    [
+     "programa",
+     79.011
+    ],
+    [
+     "de",
+     79.491
+    ],
+    [
+     "transformação,",
+     79.651
+    ],
+    [
+     "nossa",
+     80.611
+    ],
+    [
+     "metodologia",
+     80.931
+    ],
+    [
+     "exclusiva",
+     81.811
+    ],
+    [
+     "de",
+     82.371
+    ],
+    [
+     "TMO",
+     82.531
+    ],
+    [
+     "Conecta",
+     83.491
+    ],
+    [
+     "Pessoas,",
+     84.051
+    ],
+    [
+     "Processos",
+     84.691
+    ],
+    [
+     "e",
+     85.251
+    ],
+    [
+     "Tecnologia",
+     85.411
+    ],
+    [
+     "em",
+     86.051
+    ],
+    [
+     "um",
+     86.211
+    ],
+    [
+     "único",
+     86.371
+    ],
+    [
+     "time.",
+     86.621
+    ]
+   ]
+  },
+  {
+   "id": "l17",
+   "texto": "Planejamento e mobilização. Desenho e preparação. Desenvolvimento e configuração. Testes e validações. Cutover e prontidão. Estabilização e operação assistida.",
+   "de": 87.626,
+   "ate": 98.137,
+   "palavras": [
+    [
+     "Planejamento",
+     87.626
+    ],
+    [
+     "e",
+     88.346
+    ],
+    [
+     "mobilização,",
+     88.506
+    ],
+    [
+     "desenho",
+     89.306
+    ],
+    [
+     "e",
+     90.026
+    ],
+    [
+     "preparação.",
+     90.186
+    ],
+    [
+     "Desenvolvimento",
+     91.226
+    ],
+    [
+     "e",
+     92.026
+    ],
+    [
+     "configuração.",
+     92.186
+    ],
+    [
+     "Testes",
+     92.986
+    ],
+    [
+     "e",
+     93.466
+    ],
+    [
+     "validações.",
+     93.626
+    ],
+    [
+     "Cotovir",
+     94.266
+    ],
+    [
+     "e",
+     95.306
+    ],
+    [
+     "prontidão.",
+     95.386
+    ],
+    [
+     "Estabilização",
+     96.026
+    ],
+    [
+     "e",
+     96.746
+    ],
+    [
+     "operação",
+     96.986
+    ],
+    [
+     "assistida.",
+     97.466
+    ]
+   ]
+  },
+  {
+   "id": "l18",
+   "texto": "Com metodologias integradas e papéis complementares, conduzimos a implantação e a remediação das soluções TOTVS, da definição dos processos à gestão da mudança.",
+   "de": 98.587,
+   "ate": 109.189,
+   "palavras": [
+    [
+     "Com",
+     98.587
+    ],
+    [
+     "metodologias",
+     98.827
+    ],
+    [
+     "integradas",
+     99.627
+    ],
+    [
+     "e",
+     100.267
+    ],
+    [
+     "papéis",
+     100.427
+    ],
+    [
+     "complementares.",
+     100.907
+    ],
+    [
+     "Conduzimos",
+     102.107
+    ],
+    [
+     "a",
+     102.827
+    ],
+    [
+     "implantação",
+     102.987
+    ],
+    [
+     "e",
+     103.627
+    ],
+    [
+     "a",
+     103.787
+    ],
+    [
+     "remediação",
+     103.947
+    ],
+    [
+     "das",
+     104.587
+    ],
+    [
+     "soluções",
+     104.747
+    ],
+    [
+     "TOFs,",
+     105.387
+    ],
+    [
+     "da",
+     106.107
+    ],
+    [
+     "definição",
+     106.347
+    ],
+    [
+     "dos",
+     106.907
+    ],
+    [
+     "processos",
+     107.147
+    ],
+    [
+     "à",
+     107.707
+    ],
+    [
+     "gestão",
+     107.867
+    ],
+    [
+     "da",
+     108.267
+    ],
+    [
+     "mudança.",
+     108.427
+    ]
+   ]
+  },
+  {
+   "id": "l19",
+   "texto": "Tudo isso para entregar mais qualidade, previsibilidade e resultados reais para o negócio.",
+   "de": 109.789,
+   "ate": 115.179,
+   "palavras": [
+    [
+     "Tudo",
+     109.789
+    ],
+    [
+     "isso",
+     110.109
+    ],
+    [
+     "para",
+     110.349
+    ],
+    [
+     "entregar",
+     110.589
+    ],
+    [
+     "mais",
+     111.069
+    ],
+    [
+     "qualidade,",
+     111.309
+    ],
+    [
+     "previsibilidade",
+     112.109
+    ],
+    [
+     "e",
+     112.989
+    ],
+    [
+     "resultados",
+     113.229
+    ],
+    [
+     "reais",
+     113.789
+    ],
+    [
+     "para",
+     114.269
+    ],
+    [
+     "o",
+     114.429
+    ],
+    [
+     "negócio.",
+     114.509
+    ]
+   ]
+  },
+  {
+   "id": "l20",
+   "texto": "Com Fabio Quintão e Guilherme Antonialli na liderança da parceria,",
+   "de": 115.779,
+   "ate": 119.984,
+   "palavras": [
+    [
+     "Com",
+     115.779
+    ],
+    [
+     "Fábio",
+     115.939
+    ],
+    [
+     "Quintão",
+     116.339
+    ],
+    [
+     "e",
+     116.739
+    ],
+    [
+     "Guilherme",
+     116.819
+    ],
+    [
+     "Antônio",
+     117.539
+    ],
+    [
+     "na",
+     118.339
+    ],
+    [
+     "liderança",
+     118.499
+    ],
+    [
+     "da",
+     118.979
+    ],
+    [
+     "parceria,",
+     119.139
+    ]
+   ]
+  },
+  {
+   "id": "l21",
+   "texto": "e com uma equipe tão fazedora e experiente que cada pessoa literalmente vestiu a camisa do seu cliente.",
+   "de": 120.304,
+   "ate": 126.836,
+   "palavras": [
+    [
+     "e",
+     120.304
+    ],
+    [
+     "com",
+     120.624
+    ],
+    [
+     "uma",
+     120.864
+    ],
+    [
+     "equipe",
+     121.024
+    ],
+    [
+     "tão",
+     121.424
+    ],
+    [
+     "fazedora",
+     121.664
+    ],
+    [
+     "e",
+     122.304
+    ],
+    [
+     "experiente",
+     122.464
+    ],
+    [
+     "que",
+     123.184
+    ],
+    [
+     "cada",
+     123.424
+    ],
+    [
+     "pessoa",
+     123.744
+    ],
+    [
+     "literalmente",
+     124.144
+    ],
+    [
+     "vestiu",
+     124.784
+    ],
+    [
+     "a",
+     125.424
+    ],
+    [
+     "camisa",
+     125.504
+    ],
+    [
+     "do",
+     125.904
+    ],
+    [
+     "seu",
+     126.064
+    ],
+    [
+     "cliente.",
+     126.224
+    ]
+   ]
+  },
+  {
+   "id": "l22",
+   "texto": "Tudo começou na Unimed Brasil.",
+   "de": 127.436,
+   "ate": 129.157,
+   "palavras": [
+    [
+     "Tudo",
+     127.436
+    ],
+    [
+     "começou",
+     127.676
+    ],
+    [
+     "na",
+     127.916
+    ],
+    [
+     "Unimed",
+     128.076
+    ],
+    [
+     "Brasil.",
+     128.716
+    ]
+   ]
+  },
+  {
+   "id": "l23",
+   "texto": "Depois vieram FUNED, CAOA e John Deere, na Argentina.",
+   "de": 129.477,
+   "ate": 132.976,
+   "palavras": [
+    [
+     "Depois",
+     129.477
+    ],
+    [
+     "vieram",
+     129.797
+    ],
+    [
+     "FUNED,",
+     130.197
+    ],
+    [
+     "CAOA",
+     130.917
+    ],
+    [
+     "e",
+     131.317
+    ],
+    [
+     "John",
+     131.397
+    ],
+    [
+     "Deere",
+     131.717
+    ],
+    [
+     "na",
+     132.197
+    ],
+    [
+     "Argentina.",
+     132.357
+    ]
+   ]
+  },
+  {
+   "id": "l24",
+   "texto": "Hughes e Libercon ampliaram essa jornada. Seis projetos, uma parceria em evolução.",
+   "de": 133.296,
+   "ate": 138.655,
+   "palavras": [
+    [
+     "Hughes",
+     133.296
+    ],
+    [
+     "e",
+     133.776
+    ],
+    [
+     "Libercom",
+     133.856
+    ],
+    [
+     "ampliaram",
+     134.416
+    ],
+    [
+     "essa",
+     135.056
+    ],
+    [
+     "jornada.",
+     135.296
+    ],
+    [
+     "Seis",
+     136.016
+    ],
+    [
+     "projetos,",
+     136.416
+    ],
+    [
+     "uma",
+     137.056
+    ],
+    [
+     "parceria",
+     137.376
+    ],
+    [
+     "em",
+     137.856
+    ],
+    [
+     "evolução.",
+     138.016
+    ]
+   ]
+  },
+  {
+   "id": "l25",
+   "texto": "Vieram o cockpit executivo e a governança dos testes integrados.",
+   "de": 139.155,
+   "ate": 142.924,
+   "palavras": [
+    [
+     "Vieram",
+     139.155
+    ],
+    [
+     "o",
+     139.635
+    ],
+    [
+     "cockpit",
+     139.715
+    ],
+    [
+     "executivo",
+     140.195
+    ],
+    [
+     "e",
+     140.755
+    ],
+    [
+     "a",
+     140.835
+    ],
+    [
+     "governança",
+     140.915
+    ],
+    [
+     "dos",
+     141.475
+    ],
+    [
+     "testes",
+     141.635
+    ],
+    [
+     "integrados.",
+     142.195
+    ]
+   ]
+  },
+  {
+   "id": "l26",
+   "texto": "A inteligência artificial entrou nos métodos e nas skills.",
+   "de": 143.244,
+   "ate": 146.609,
+   "palavras": [
+    [
+     "A",
+     143.244
+    ],
+    [
+     "inteligência",
+     143.404
+    ],
+    [
+     "artificial",
+     144.044
+    ],
+    [
+     "entrou",
+     144.684
+    ],
+    [
+     "nos",
+     145.084
+    ],
+    [
+     "métodos",
+     145.244
+    ],
+    [
+     "e",
+     145.644
+    ],
+    [
+     "nas",
+     145.804
+    ],
+    [
+     "skills.",
+     146.044
+    ]
+   ]
+  },
+  {
+   "id": "l27",
+   "texto": "Tecnologia a serviço da qualidade.",
+   "de": 146.929,
+   "ate": 148.801,
+   "palavras": [
+    [
+     "Tecnologia",
+     146.929
+    ],
+    [
+     "A",
+     147.569
+    ],
+    [
+     "serviço",
+     147.649
+    ],
+    [
+     "da",
+     148.049
+    ],
+    [
+     "qualidade.",
+     148.209
+    ]
+   ]
+  },
+  {
+   "id": "l28",
+   "texto": "Rumo a 2027, seguimos juntos: mais projetos, oportunidades e valor.",
+   "de": 149.401,
+   "ate": 155.016,
+   "palavras": [
+    [
+     "Rumo",
+     149.401
+    ],
+    [
+     "2027,",
+     149.961
+    ],
+    [
+     "seguimos",
+     151.241
+    ],
+    [
+     "juntos,",
+     151.801
+    ],
+    [
+     "mais",
+     152.441
+    ],
+    [
+     "projetos,",
+     152.761
+    ],
+    [
+     "oportunidades",
+     153.641
+    ],
+    [
+     "e",
+     154.361
+    ],
+    [
+     "valor.",
+     154.521
+    ]
+   ]
+  },
+  {
+   "id": "l29",
+   "texto": "Em 2027, essa parceria fica ainda mais forte.",
+   "de": 155.336,
+   "ate": 159.325,
+   "palavras": [
+    [
+     "Em",
+     155.336
+    ],
+    [
+     "2027,",
+     155.576
+    ],
+    [
+     "essa",
+     157.336
+    ],
+    [
+     "parceria",
+     157.576
+    ],
+    [
+     "fica",
+     158.136
+    ],
+    [
+     "ainda",
+     158.456
+    ],
+    [
+     "mais",
+     158.616
+    ],
+    [
+     "forte.",
+     158.776
+    ]
+   ]
+  }
+ ],
+ "cenas": [
+  {
+   "id": "capa",
+   "de": 0.0,
+   "ate": 5.862
+  },
+  {
+   "id": "dashboard",
+   "de": 5.862,
+   "trans": 1.2,
+   "ate": 54.18
+  },
+  {
+   "id": "erp",
+   "de": 54.18,
+   "trans": 1.0,
+   "ate": 63.641
+  },
+  {
+   "id": "farol",
+   "de": 63.641,
+   "ate": 69.541
+  },
+  {
+   "id": "uniao",
+   "de": 69.541,
+   "ate": 72.649
+  },
+  {
+   "id": "papeis",
+   "de": 72.649,
+   "ate": 87.176
+  },
+  {
+   "id": "metodologia",
+   "de": 87.176,
+   "ate": 109.289
+  },
+  {
+   "id": "tmo",
+   "de": 109.289,
+   "ate": 115.279
+  },
+  {
+   "id": "original",
+   "de": 115.279,
+   "ate": 126.836
+  },
+  {
+   "id": "linha",
+   "de": 126.836,
+   "ate": 138.835
+  },
+  {
+   "id": "cockpit",
+   "de": 138.835,
+   "ate": 148.701
+  },
+  {
+   "id": "rumo",
+   "de": 148.701,
+   "ate": 161.825
+  }
+ ]
+}

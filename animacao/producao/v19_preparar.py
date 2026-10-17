@@ -83,6 +83,10 @@ def main(out):
     arr[..., 3] = (arr[..., 3] * fade[:, None]).astype('uint8')
     Image.fromarray(arr).save(os.path.join(img, 'vinicius.png'), optimize=True)
     meta['vinicius'] = {'nome': 'Vinicius de Sousa', 'w': arr.shape[1], 'h': H, 'cx': arr.shape[1] // 2}
+    # Victor (foto real enviada no chat; fica fora do git em build/azul/fontes): avatar 220x220 pelo quadrado do topo
+    vf = Image.open(os.path.join(RAIZ, 'build', 'azul', 'fontes', 'victor-vitorino.png')).convert('RGBA'); Wv, Hv = vf.size; sq = min(Wv, Hv)
+    vf.crop(((Wv - sq) // 2, 0, (Wv - sq) // 2 + sq, sq)).resize((220, 220), Image.LANCZOS).save(os.path.join(img, 'victor_rosto.png'))
+    meta['victor'] = {'nome': 'Victor Vitorino', 'w': Wv, 'h': Hv, 'cx': Wv // 2}
     for n in ['alvarez-marsal', 'totvs']:
         arr = np.array(Image.open(os.path.join(LOGOS, n + '.png')).convert('RGBA'))
         arr[..., :3] = 255

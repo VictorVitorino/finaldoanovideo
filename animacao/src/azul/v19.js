@@ -6,24 +6,18 @@ import * as A from './v19a.js';
 import * as C2 from './v19b.js';
 import * as C3 from './v19c.js';
 
-export const CENAS = [
-  { id: 'capa', de: 0.0, ate: 7.6, f: A.capa },
-  { id: 'dashboard', de: 7.6, ate: 53.6, f: A.dashboard, trans: 1.2 },   // tempo com o painel montado; transição longa para o ERP
-  { id: 'erp', de: 53.6, ate: 64.47, f: A.erp, trans: 1.0 },
-  { id: 'farol', de: 64.47, ate: 71.1, f: A.farol },   // +1 s para ler as frases da A&M
-  { id: 'uniao', de: 71.1, ate: 80.0, f: A.uniao },
-  { id: 'papeis', de: 80.0, ate: 90.0, f: C2.papeis },
-  { id: 'metodologia', de: 90.0, ate: 112.6, f: C2.metodologia },
-  { id: 'tmo', de: 112.6, ate: 119.7, f: C2.tmo },        // vai até 119,7: a montagem dissolve o TMO no trecho original (119,2–119,7)
-  { id: 'original', de: 119.7, ate: 127.3, f: null },
-  { id: 'linha', de: 127.3, ate: 143.13, f: C3.linha },   // começa 0,8 s antes: a montagem dissolve o trecho original na linha do tempo
-  { id: 'cockpit', de: 143.13, ate: 156.0, f: C3.cockpit },
-  { id: 'rumo', de: 156.0, ate: 170.067, f: C3.rumo },
-];
-export const MARCAS = CENAS.map(c => c.de).slice(1);
+const FUNCS = { capa: A.capa, dashboard: A.dashboard, erp: A.erp, farol: A.farol, uniao: A.uniao, papeis: C2.papeis, metodologia: C2.metodologia, tmo: C2.tmo, original: null, linha: C3.linha, cockpit: C3.cockpit, rumo: C3.rumo };
+// cenas por tempo absoluto, lidas de build/azul/v19.json (producao/v21_voz.py: limites relativos às falas)
+export let CENAS = [];
+export let MARCAS = [];
 const TRANS = 0.45;
 
-export async function carregarFilme() { return B.carregar(); }
+export async function carregarFilme() {
+  const J = await B.carregar();
+  CENAS = J.cenas.map(c => ({ id: c.id, de: c.de, ate: c.ate, f: FUNCS[c.id] ?? null, ...(c.trans ? { trans: c.trans } : {}) }));
+  MARCAS = CENAS.map(c => c.de).slice(1);
+  return J;
+}
 
 function cena(c, t) {
   if (!c.f) return `<rect width="1920" height="1080" fill="#0a1630"/>`;
@@ -42,9 +36,11 @@ export function quadro(t) {
     s += op(u, cena(prox, t));   // dissolve puro: sem zoom, para que personagens que continuam na cena seguinte não dupliquem
   }
   s += B.chrome(t, { marcas: MARCAS });
-  // o trecho original já traz a própria legenda: a nossa some antes do dissolve (118,9 s) e volta depois dele (128,1 s)
-  if (t < 118.9 || t >= 128.1) s += B.legenda(t, c.id === 'erp' || c.id === 'cockpit' ? { cx: 1150 } : {});   // com personagem grande à esquerda, a legenda fica sob o painel
+  // a legenda some durante o trecho original (ele já traz a própria legenda), do dissolve de entrada ao de saída
+  const org = CENAS.find(x => x.id === 'original');
+  if (!org || t < org.de - 0.8 || t >= org.ate + 0.8) s += B.legenda(t, c.id === 'erp' || c.id === 'cockpit' ? { cx: 1150 } : {});   // com personagem grande à esquerda, a legenda fica sob o painel
   // escurece no fim do filme (o v18 fecha em preto)
-  if (t > 169.1) s += `<rect width="1920" height="1080" fill="#000" opacity="${B.F(clamp((t - 169.1) / 0.75))}"/>`;
+  const tF = B.J.total - 0.97;
+  if (t > tF) s += `<rect width="1920" height="1080" fill="#000" opacity="${B.F(clamp((t - tF) / 0.75))}"/>`;
   return s;
 }

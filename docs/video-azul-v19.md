@@ -95,3 +95,27 @@ python3 producao/v20_pernas.py testar        # antes/depois dos quadros-âncora 
 python3 producao/v20_pernas.py rodar         # build/azul/v20in/fix/
 python3 producao/v20_montar.py               # build/azul/Projeto-Totvs-Final-do-ano-v20-pernas(.mp4|-leve.mp4)
 ```
+
+> Resultado reprovado na revisão ("ficou muito ruim"): o v21 parte do v20 original, sem a remoção.
+
+## v21 · voz única, filme mais curto e ajustes
+
+O v21 mantém a abertura e o encerramento do carrinho do v20 e troca o miolo pelo filme azul refeito:
+
+| O quê | Onde |
+|---|---|
+| Narração inteira na voz "Narrador" (Supertonic 3, voz 8, 1,06x), mesmas 30 falas; até 3 sínteses por fala, fica a mais clara no ASR (Parakeet), com palavras-chave para nomes e termos | `animacao/producao/v21_voz.py voz [l10,l25]` |
+| Pausas curtas, cenas re-sincronizadas pelos tempos das palavras (índices antigos preservados); filme de 170 s para ~162 s | `PAUSA_ANTES`, `CENAS` em `v21_voz.py` → `build/azul/v19.json` e `producao/dados/v21_falas.json` |
+| Trilha: instrumental do v18 (UVR Kim_Vocal_2) com ducking sob a voz | `animacao/producao/v21_voz.py mix` |
+| Mandala entra já em "Competências complementares" (sem desenho lento) | `CENAS` (`papeis` em `l15`), `src/azul/v19b.js` |
+| Linha do tempo: FUNED com José e Victor (foto fora do git, em `build/azul/fontes/`) | `src/azul/v19c.js`, `producao/v19_preparar.py` |
+| Cockpit: visão geral dos três painéis maior e centralizada acima do Vinicius | `src/azul/v19c.js` (`cockpit`) |
+| Rumo a 2027: time inteiro lado a lado (2×7) no espaço livre; foguete com brilho, rastro luminoso e astronauta de cabeça grande | `src/azul/v19c.js` (`rumo`, `foguete`) |
+| Montagem: v20 0–15,0 s + filme + v20 185,1–210,1 s; palco do v18 (119,4–128,1 s) desacelerado por igual com `minterpolate`; áudio de cada bloco com a duração exata do vídeo | `animacao/producao/v21_montar.py` |
+
+```bash
+cd animacao
+python3 producao/v21_voz.py voz && python3 producao/v21_voz.py mix
+node render.mjs frames --test v19 --out build/azul/v21 --workers 4
+python3 producao/v21_montar.py             # build/azul/Projeto-do-Ano-AM-TOTVS-v21(.mp4|-leve.mp4)
+```

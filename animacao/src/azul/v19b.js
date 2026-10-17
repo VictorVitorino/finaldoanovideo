@@ -38,7 +38,7 @@ export function papeis(L, t, dur) {
   // mandala: dois anéis que se entrelaçam (TOTVS azul, A&M dourado), lente estreita só com o título da atuação conjunta,
   // itens de cada lado com folga das bordas, e os cinco itens da atuação conjunta numa fileira de chips embaixo
   const cxE = 770, cxD = 1150, cy = 520, R = 290, cxM = (cxE + cxD) / 2;
-  const draw = ease.inOut(inv(0.15, 1.2, L));
+  const draw = ease.out(inv(0.0, 0.35, L));   // a mandala já vem pronta: tudo entra nos primeiros 0,5 s
   const lens = ease.out(inv(tMet - 0.2, tMet + 0.6, t));
   const time = ease.out(inv(tTime - 0.5, tTime + 0.2, t));
   const pulso = 0.5 + 0.5 * Math.sin(L * 2.2);
@@ -53,7 +53,7 @@ export function papeis(L, t, dur) {
   v += op(draw, `<path d="M${F(cxD - R)} ${cy} A${R} ${R} 0 0 1 ${F(cxD)} ${F(cy - R)}" fill="none" stroke="${COR.ouro2}" stroke-width="3" opacity=".9"/><path d="M${F(cxE)} ${F(cy + R)} A${R} ${R} 0 0 0 ${F(cxE + R)} ${cy}" fill="none" stroke="${COR.azulClaro}" stroke-width="3" opacity=".9"/>`);
   if (lens > 0) v += op(lens, `<g clip-path="url(#azLensE)"><circle cx="${cxD}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g><g clip-path="url(#azLensD)"><circle cx="${cxE}" cy="${cy}" r="${R}" fill="none" stroke="${COR.ciano}" stroke-width="3"/></g>`);
   // logos grandes nas laterais, fora dos anéis, com a descrição de cada lado
-  const kl = sobe(L, 0.8, 0.5), kd = sobe(L, tProg - 0.2 - (t - L), 0.6);
+  const kl = sobe(L, 0.1, 0.35), kd = sobe(L, 0.15, 0.35);
   const LX = 290, RXl = 1630, LY = 290;
   v += op(kl, g(`translate(${LX} ${LY}) scale(${F(lerp(0.9, 1, kl))}) translate(${-LX} ${-LY})`, logoPilula('logo-totvs', LX, LY, 190, 64, 1)));
   v += op(kd, g(`translate(${RXl} ${LY}) scale(${F(lerp(0.9, 1, kd))}) translate(${-RXl} ${-LY})`, logoPilula('logo-alvarez-marsal', RXl, LY, 190, 64, 1)));
@@ -68,8 +68,8 @@ export function papeis(L, t, dur) {
     return revela(k, lado < 0 ? 'E' : 'D', 300, 60, r, lado < 0 ? x - 24 : x - 276, y - 30);
   };
   const OFF = [48, 16, 0, 0, 16, 48];
-  ESQ.forEach(([ico, l1, l2], i) => { const k = sobe(L, 0.55 + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxE - R + 74 + OFF[i], 355 + i * 66, k, -1, COR.azulClaro); });
-  DIR.forEach(([ico, l1, l2], i) => { const k = sobe(L, tAM - 0.1 - (t - L) + i * 0.12, 0.5); if (k > 0) v += item(ico, l1, l2, cxD + R - 74 - OFF[i], 355 + i * 66, k, 1, COR.ouro2); });
+  ESQ.forEach(([ico, l1, l2], i) => { const k = sobe(L, 0.12 + i * 0.05, 0.3); if (k > 0) v += item(ico, l1, l2, cxE - R + 74 + OFF[i], 355 + i * 66, k, -1, COR.azulClaro); });
+  DIR.forEach(([ico, l1, l2], i) => { const k = sobe(L, 0.16 + i * 0.05, 0.3); if (k > 0) v += item(ico, l1, l2, cxD + R - 74 - OFF[i], 355 + i * 66, k, 1, COR.ouro2); });
   // lente: só o título da atuação conjunta (elo, duas linhas) e o subtítulo
   if (lens > 0) {
     const cab = g(`translate(${F(cxM)} ${F(cy - 78)}) scale(1.25)`, glifo('elo', '#fff', 1.1))

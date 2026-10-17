@@ -17,7 +17,7 @@ export async function carregar(nomesImg) {
   Object.assign(META, await (await fetch('build/azul/img/meta.json')).json());
   J = await (await fetch('build/azul/v19.json')).json();
   const base = ['totvs_boy', 'am_boy', 'antonialli_lider', 'vinicius', 'alvarez-marsal-branco', 'totvs-branco', ...(nomesImg ?? [])];
-  const rostos = Object.keys(META).filter(k => META[k].nome && !k.endsWith('_rosto') && ['bruno', 'giovanna', 'antonialli', 'jaqueline', 'jose', 'joao', 'massao', 'mancini', 'monica', 'nara', 'pedro', 'thauany', 'vinicius'].includes(k)).map(k => k + '_rosto');
+  const rostos = Object.keys(META).filter(k => META[k].nome && !k.endsWith('_rosto') && ['bruno', 'giovanna', 'antonialli', 'jaqueline', 'jose', 'joao', 'massao', 'mancini', 'monica', 'nara', 'pedro', 'thauany', 'vinicius', 'victor'].includes(k)).map(k => k + '_rosto');
   await Promise.all([...new Set([...base, ...rostos])].map(async n => { try { IMG[n] = await dataUrl(`build/azul/img/${n}.png`); } catch (e) { console.warn(String(e)); } }));
   for (const n of ['unimed', 'funed', 'caoa', 'john-deere', 'hughes', 'libercon', 'alvarez-marsal', 'totvs']) IMG['logo-' + n] = await dataUrl(`assets/logos/${n}.png`);
   const tam = await Promise.all(Object.keys(IMG).map(k => new Promise(ok => { const im = new Image(); im.onload = () => ok([k, im.naturalWidth, im.naturalHeight]); im.onerror = () => ok([k, 1, 1]); im.src = IMG[k]; })));

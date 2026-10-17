@@ -1,5 +1,5 @@
 """Monta o v21 = abertura do carrinho (v20 0–15,0 s) + filme azul novo (quadros build/azul/v21/f%05d.jpg, trecho original
-do v18 encaixado no slot da cena 'original', áudio build/azul/v21/mix.wav) + encerramento do carrinho (v20 a partir de 187,53 s).
+do v18 encaixado no slot da cena 'original', áudio build/azul/v21/mix.wav) + encerramento do carrinho (v20 a partir de 185,1 s).
 Áudio da abertura e do encerramento vem do próprio v20 (a abertura some em 0,25 s antes do corte, para não vazar a voz antiga);
 cada bloco de áudio tem exatamente a duração do bloco de vídeo, então a sincronia não escorrega nas junções. O trecho do palco
 é desacelerado de forma uniforme até caber no slot, com interpolação de movimento (minterpolate) para não engasgar.
@@ -33,24 +33,30 @@ def montar(saidas, so_filme):
           f"[0:v]trim={B - Y},setpts=PTS-STARTPTS,format=yuv420p[f2];"
           f"[f0][f1]xfade=transition=fade:duration={X}:offset={A}[f01];"
           f"[f01][f2]xfade=transition=fade:duration={Y}:offset={B - Y}[filme];")
-    ins = ['-framerate', '30', '-i', FR, '-i', palco, '-i', MIX]
-    if so_filme:
-        fc += f"[2:a]apad,atrim=0:{total:.4f}[af]"; vl, al = 'filme', 'af'
-    else:
-        fc += (f"[3:v]trim=0:{INTRO_FIM},setpts=PTS-STARTPTS,fps=30,scale=1920:1080,format=yuv420p[vi];"
-               f"[3:v]trim={OUTRO_INI}:{OUTRO_FIM},setpts=PTS-STARTPTS,fps=30,scale=1920:1080,format=yuv420p[vo];"
-               f"[3:a]atrim=0:{INTRO_FIM},asetpts=PTS-STARTPTS,afade=t=out:st={INTRO_FIM - 0.42}:d=0.25,aformat=sample_rates=48000:channel_layouts=stereo[ai];"
-               f"[2:a]aformat=sample_rates=48000:channel_layouts=stereo,apad,atrim=0:{total:.4f}[af];"
-               f"[3:a]atrim={OUTRO_INI}:{OUTRO_FIM},asetpts=PTS-STARTPTS,afade=t=in:d=0.05,aformat=sample_rates=48000:channel_layouts=stereo[ao];"
-               f"[vi][ai][filme][af][vo][ao]concat=n=3:v=1:a=1[v][a]")
-        ins += ['-i', V20]; vl, al = 'v', 'a'
-    n = len(saidas)                                       # cada rótulo do grafo só pode ir para uma saída: split por saída
-    fc += f";[{vl}]split={n}" + ''.join(f'[v{i}]' for i in range(n)) + f";[{al}]asplit={n}" + ''.join(f'[a{i}]' for i in range(n))
-    cmd = ['ffmpeg', '-v', 'error', '-y'] + ins + ['-filter_complex', fc]
-    for i, (saida, crf) in enumerate(saidas):
-        cmd += ['-map', f'[v{i}]', '-map', f'[a{i}]'] + ['-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', saida]
+    # por partes (um grafo único com o v20 usado duas vezes enfileira quadros demais e estoura a memória):
+    # abertura, filme e encerramento codificados com os mesmos parâmetros e concatenados sem recodificar
+    partes = os.path.join(AZ, 'v21', 'partes'); os.makedirs(partes, exist_ok=True)
+    cod = ['-c:v', 'libx264', '-preset', 'slow', '-crf', str(saidas[0][1]), '-pix_fmt', 'yuv420p', '-r', '30', '-video_track_timescale', '15360',
+           '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2']
+    ff = lambda *a: subprocess.run(['ffmpeg', '-v', 'error', '-y', *a], check=True)
     print('filme', round(total, 2), 's; original', round(A, 2), '-', round(B, 2), 'fator', round(k, 3))
-    subprocess.run(cmd, check=True)
+    filme = os.path.join(partes, 'filme.mp4')
+    ff('-framerate', '30', '-i', FR, '-i', palco, '-i', MIX, '-filter_complex', fc + f"[2:a]apad,atrim=0:{total:.4f}[af]",
+       '-map', '[filme]', '-map', '[af]', *cod, filme)
+    if so_filme:
+        lista = [filme]
+    else:
+        intro, outro = os.path.join(partes, 'abertura.mp4'), os.path.join(partes, 'encerramento.mp4')
+        ff('-i', V20, '-vf', 'fps=30,scale=1920:1080,format=yuv420p', '-af', f'afade=t=out:st={INTRO_FIM - 0.42}:d=0.25',
+           '-t', str(INTRO_FIM), '-frames:v', str(round(INTRO_FIM * 30)), *cod, intro)
+        ff('-ss', str(OUTRO_INI), '-i', V20, '-vf', 'fps=30,scale=1920:1080,format=yuv420p', '-af', 'afade=t=in:d=0.05',
+           '-t', str(OUTRO_FIM - OUTRO_INI), *cod, outro)
+        lista = [intro, filme, outro]
+    txt = os.path.join(partes, 'lista.txt'); open(txt, 'w').write(''.join(f"file '{x}'\n" for x in lista))
+    mestre, crf0 = saidas[0]
+    ff('-f', 'concat', '-safe', '0', '-i', txt, '-c', 'copy', '-movflags', '+faststart', mestre)
+    for saida, crf in saidas[1:]:
+        ff('-i', mestre, '-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', saida)
     for saida, _ in saidas: print(saida, round(os.path.getsize(saida) / 1e6, 1), 'MB')
 
 

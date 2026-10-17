@@ -108,7 +108,7 @@ export function curvasAdocao(o, tt) {
   let s = op(kG, `<path d="M${f(o.x)},${f(Y(0))} L${f(o.x + o.w)},${f(Y(0))}" stroke="${C.blueL}" stroke-width="1.6"/>`
     + `<path d="M${f(o.x)},${f(Y(0))} L${f(o.x)},${f(o.y)}" stroke="${C.blueL}" stroke-width="1.6"/>`
     + t('ADOÇÃO', o.x - 10, o.y + 12, { f: 'M', w: 600, s: 12.5, c: C.grey, a: 'end', ls: 1.5 })
-    + t('TEMPO DO PROJETO →', o.x + o.w, Y(0) + 26, { f: 'M', w: 600, s: 12.5, c: C.grey, a: 'end', ls: 1.5 }));
+    + t('TEMPO DO PROJETO →', o.x + o.w, Y(0) + 24, { f: 'M', w: 600, s: 12.5, c: C.grey, a: 'end', ls: 1.5 }));
   if (o.golive != null) {
     s += op(kG, `<path d="M${f(X(o.golive))},${f(o.y)} L${f(X(o.golive))},${f(Y(0))}" stroke="${C.slate}" stroke-width="1.5" stroke-dasharray="4 5"/>`
       + t('GO-LIVE', X(o.golive), o.y - 8, { f: 'M', w: 700, s: 12.5, c: C.slate, a: 'middle', ls: 1.5 }));
@@ -128,10 +128,11 @@ export function curvasAdocao(o, tt) {
     s += `<path d="${d}" fill="none" stroke="${cv.cor}" stroke-width="${cv.larg ?? 5}" stroke-linecap="round"${cv.tracejado ? ' stroke-dasharray="9 8"' : ''} pathLength="${f(per)}" stroke-dasharray="${cv.tracejado ? '9 8' : f(per)}" stroke-dashoffset="${f(cv.tracejado ? 0 : per * (1 - u))}" opacity="${f(cv.tracejado ? u : 1)}"/>`;
     const last = P[P.length - 1];
     const kr = fin(tt, a0 + 1.6, 0.4);
-    s += op(kr, `<rect x="${f(last[0] + 10)}" y="${f(last[1] - 15)}" width="${f(larg(cv.rot, 14, 700) + 20)}" height="28" rx="14" fill="${cv.cor}"/>`
+    const lw = larg(cv.rot, 14, 700) + 20;
+    s += op(kr, `<rect x="${f(last[0] + 10)}" y="${f(last[1] - 15)}" width="${f(lw)}" height="28" rx="14" fill="${cv.cor}"/>`
       + t(cv.rot, last[0] + 20, last[1] + 5, { f: 'B', w: 700, s: 14, c: cv.txt ?? '#fff' }));
   });
-  if (o.nota) s += op(fin(tt, o.t0 + 2.4, 0.4), t(o.nota, o.x, Y(0) + 26, { f: 'M', w: 400, s: 12, c: C.greyL }));
+  if (o.nota) s += op(fin(tt, o.t0 + 2.4, 0.4), t(o.nota, o.x, Y(0) + 48, { f: 'B', w: 500, s: 13, c: C.grey }));
   return s;
 }
 

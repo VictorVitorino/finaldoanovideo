@@ -33,8 +33,16 @@ export const P2 = {
   destaque: { num: '7x', rot: 'MAIS CHANCE' },
   tempoTitulo: 'O custo de começar tarde',
   tempoSub: 'Resultado do projeto conforme o momento em que a gestão da mudança entrou',
-  // preenchido com os dados verificados da Prosci (ver docs); ordem: do mais cedo ao mais tarde
+  // barras por momento de início (só se a série da Prosci for verificada); senão, as curvas ilustrativas abaixo
   tempo: [],
+  // curvas ilustrativas de adoção ao longo do projeto (forma ilustrativa; a direção é a da Prosci:
+  // quanto mais cedo a gestão da mudança começa, maior a chance de atingir os objetivos; 97% recomendam começar na iniciação ou no planejamento)
+  curvas: [
+    { rot: 'GMO desde o início', cor: '#F78C16', txt: '#002B49', pts: [[0, 0.04], [0.15, 0.14], [0.3, 0.3], [0.45, 0.5], [0.6, 0.7], [0.75, 0.84], [0.9, 0.9], [1, 0.92]] },
+    { rot: 'GMO só no go-live', cor: '#5E8AB4', pts: [[0, 0.02], [0.2, 0.04], [0.4, 0.07], [0.6, 0.12], [0.7, 0.26], [0.8, 0.42], [0.9, 0.52], [1, 0.58]] },
+    { rot: 'Sem GMO', cor: '#C0392B', tracejado: true, pts: [[0, 0.02], [0.3, 0.04], [0.6, 0.08], [0.7, 0.16], [0.8, 0.22], [0.9, 0.25], [1, 0.26]] },
+  ],
+  tempoNota: 'Curvas ilustrativas. Direção conforme a Prosci: 97% dos praticantes recomendam começar na iniciação ou no planejamento.',
   conclusao: '*Quanto mais cedo a Gestão da Mudança entra, mais fácil a adoção.* Começar depois do go-live é correr atrás da resistência.',
   fontes: 'Prosci, Best Practices in Change Management (benchmark; correlação)',
 };

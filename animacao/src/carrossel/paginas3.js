@@ -57,7 +57,7 @@ export function pagina2(tt, B) {
     s += barrasTempo({ x: 48, y: ty + 22, w: 984, hBar: 36, gap: 14, rotW: 300, t0: B.tempo, step: 0.4, max: 100, suf: P2.tempoSuf ?? '%',
       itens: P2.tempo.map((it, i) => ({ ...it, cor: [C.navy, C.blue, C.orangeL, '#C0392B'][i] })) }, tt);
   } else {
-    s += curvasAdocao({ x: 110, y: ty + 40, w: 880, h: 190, t0: B.tempo, golive: 0.6, nota: P2.tempoNota, curvas: P2.curvas ?? [] }, tt);
+    s += curvasAdocao({ x: 110, y: ty + 40, w: 760, h: 180, t0: B.tempo, golive: 0.65, nota: P2.tempoNota, curvas: P2.curvas ?? [] }, tt);
   }
   s += conclusao(P2.conclusao, 48, 1086, 984, tt, B.conclusao, { s: 21 });
   return s;

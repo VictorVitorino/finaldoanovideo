@@ -10,7 +10,7 @@ necessário (quadros repetidos, nunca pulados). Antes disso, falas mais lentas q
 Áudio: carrinho (abertura e encerramento) intacto do v22; no filme, a trilha instrumental do vídeo final (UVR) esticada
 pelos mesmos fatores do vídeo, com ducking leve sob a voz nova, e a voz no nível da narração original.
 
-Uso: python3 producao/v23_montar.py            → build/azul/Projeto-Totvs-Final-do-ano-v23(.mp4|-leve.mp4)
+Uso: python3 producao/v23_montar.py [--so-audio]   → build/azul/Projeto-Totvs-Final-do-ano-v23(.mp4|-leve.mp4) (--so-audio reaproveita o vídeo)
      python3 producao/v23_montar.py --plano    → só imprime âncoras, fatores e duração final
 """
 import json, os, subprocess, sys
@@ -31,7 +31,7 @@ TETO = 1.30                                               # aceleração máxima
 GAP = 0.40                                                # silêncio mínimo entre o fim de uma fala e a âncora da próxima
 INTRO_FIM = 15.0                                          # até aqui (v22) áudio original do carrinho
 FADE_V22 = 183.0 - VE.CORTE                               # fade do filme para o preto (v22); daí em diante nada muda
-DUCK_DB, VOZ_PICO = -5.0, 0.80
+DUCK_DB, VOZ_PICO = -5.0, 0.60                            # voz 2,5 dB abaixo do primeiro corte: mesmo equilíbrio voz/trilha do vídeo final
 
 FALAS = json.load(open(os.path.join(RAIZ, 'producao', 'dados', 'v19_falas.json')))['falas']
 
@@ -93,7 +93,7 @@ def estica_musica(x, sr, k):
     return pedalboard.time_stretch(np.ascontiguousarray(x.T), sr, stretch_factor=1.0 / k).T
 
 
-def main(so_plano=False):
+def main(so_plano=False, so_audio=False):
     anc, falas, segs, fim_filme = plano()
     dur22 = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', V22], capture_output=True, text=True).stdout)
     inv, dir_, total = mapa_saida(segs, dur22)
@@ -102,11 +102,21 @@ def main(so_plano=False):
     for fl, sg in zip(falas, segs):
         print(f"{fl['id']} âncora v22 {fl['a']:7.2f} → saída {fl['O']:7.2f}  voz {fl['dur']:5.2f}s ÷{fl['s']:.2f} = {fl['d']:5.2f}s  trecho ×{sg[4]:.3f}")
     if so_plano: return
-    os.makedirs(V23, exist_ok=True)
-    # ---- vídeo: quadros do v22 repetidos conforme o mapa (nunca pulados)
+    os.makedirs(V23, exist_ok=True); vid = os.path.join(V23, 'video.mp4')
+    if not so_audio: video(inv, total, dur22, vid)
+    audio(anc, falas, segs, total)
+    for nome, crf in [('Projeto-Totvs-Final-do-ano-v23.mp4', None), ('Projeto-Totvs-Final-do-ano-v23-leve.mp4', 27)]:
+        v = ['-c:v', 'copy'] if crf is None else ['-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf), '-pix_fmt', 'yuv420p']
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', vid, '-i', os.path.join(V23, 'audio.wav'), '-map', '0:v', '-map', '1:a', *v, '-c:a', 'aac', '-b:a', '192k',
+                        '-shortest', '-movflags', '+faststart', os.path.join(AZ, nome)], check=True)
+        print(nome, round(os.path.getsize(os.path.join(AZ, nome)) / 1e6, 1), 'MB')
+    json.dump({'total': total, 'falas': falas, 'segs': segs}, open(os.path.join(V23, 'plano.json'), 'w'), indent=1)
+
+
+def video(inv, total, dur22, vid):
+    """Quadros do v22 repetidos conforme o mapa (nunca pulados)."""
     n_out = round(total * FPS)
     dec = subprocess.Popen(['ffmpeg', '-v', 'error', '-i', V22, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE)
-    vid = os.path.join(V23, 'video.mp4')
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
                             '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-pix_fmt', 'yuv420p', vid], stdin=subprocess.PIPE)
     atual, quadro = -1, None
@@ -118,7 +128,9 @@ def main(so_plano=False):
             quadro = b; atual += 1
         enc.stdin.write(quadro)
     enc.stdin.close(); enc.wait(); dec.kill()
-    # ---- áudio
+
+
+def audio(anc, falas, segs, total):
     A22, sr = sf.read(V22_AUDIO, dtype='float32'); assert sr == SR
     M, srm = sf.read(INSTR, dtype='float32'); M = resample_poly(M, SR, srm, axis=0).astype(np.float32) if srm != SR else M
     # instrumental do vídeo final no tempo do v22 (mesmos cortes de áudio do v22), depois esticado por trecho
@@ -145,14 +157,8 @@ def main(so_plano=False):
     out += vozes; out = out[:int(total * SR)]
     pico = np.abs(out).max();
     if pico > 0.98: out *= 0.98 / pico
-    aud = os.path.join(V23, 'audio.wav'); sf.write(aud, out, SR)
-    for nome, crf in [('Projeto-Totvs-Final-do-ano-v23.mp4', None), ('Projeto-Totvs-Final-do-ano-v23-leve.mp4', 27)]:
-        v = ['-c:v', 'copy'] if crf is None else ['-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf), '-pix_fmt', 'yuv420p']
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', vid, '-i', aud, '-map', '0:v', '-map', '1:a', *v, '-c:a', 'aac', '-b:a', '192k',
-                        '-shortest', '-movflags', '+faststart', os.path.join(AZ, nome)], check=True)
-        print(nome, round(os.path.getsize(os.path.join(AZ, nome)) / 1e6, 1), 'MB')
-    json.dump({'total': total, 'falas': falas, 'segs': segs}, open(os.path.join(V23, 'plano.json'), 'w'), indent=1)
+    sf.write(os.path.join(V23, 'audio.wav'), out, SR)
 
 
 if __name__ == '__main__':
-    main('--plano' in sys.argv)
+    main('--plano' in sys.argv, '--so-audio' in sys.argv)

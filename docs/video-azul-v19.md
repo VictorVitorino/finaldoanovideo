@@ -153,6 +153,7 @@ aparecia como "narradora".
 | Escolha | `producao/v23_voz.py baixar` (JSONs do status) e `escolher`: ASR Parakeet em cada tomada, fica a mais fiel ao texto (empate: duração mais próxima da original) → `build/azul/v23/falas/*.wav`, `escolha.json` |
 | Ritmo | as frases longas saem até 1,5× mais lentas que no v18 (Turbo/Flash iguais; v3 mais rápido mas erra "MITs"): aceleração com Rubber Band (pedalboard) até 1,30× e o resto vai para o vídeo |
 | Montagem | `producao/v23_montar.py`: v22 como base; cada fala ancorada onde a voz antiga começava (+0,5 s, para a legenda gravada aparecer 0,3 s antes da voz); trechos esticados só quando a fala não cabe (quadros repetidos); trilha instrumental do vídeo final esticada pelos mesmos fatores, ducking −5 dB sob a voz; carrinho intacto |
+| Trilha sem a voz antiga | a separação Kim_Vocal_2 deixava a narração original na "instrumental" só 13 dB abaixo da nova (ASR transcrevia tudo; energia explicada pela voz antiga −5 dB). Refeita com **UVR-MDX-NET-Inst_HQ_4** (`build/azul/videofinal/sep_insthq4/`, passada por `V23_INSTR=…`): ASR não reconhece nada, energia da voz antiga −25 dB em relação à trilha (Kim em duas passadas: −18 dB). Mix final: voz antiga ≤ −19 dB (média −24 dB) nas janelas em que ela falava |
 
 Resultado: 209,2 s (v22 tinha 206,9 s; só 4 trechos esticados, no máximo 1,14×). Conferências no arquivo final: entradas
 das falas dentro de ±0,3 s do plano (ASR), encerramento do carrinho alinhado à imagem (correlação, 0 ms), voz+trilha no

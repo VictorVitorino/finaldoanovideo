@@ -154,7 +154,11 @@ aparecia como "narradora".
 | Ritmo | as frases longas saem até 1,5× mais lentas que no v18 (Turbo/Flash iguais; v3 mais rápido mas erra "MITs"): aceleração com Rubber Band (pedalboard) até 1,30× e o resto vai para o vídeo |
 | Montagem | `producao/v23_montar.py`: v22 como base; cada fala ancorada onde a voz antiga começava (+0,5 s, para a legenda gravada aparecer 0,3 s antes da voz); trechos esticados só quando a fala não cabe (quadros repetidos); trilha instrumental do vídeo final esticada pelos mesmos fatores, ducking −5 dB sob a voz; carrinho intacto |
 
-Resultado: 209,4 s (v22 tinha 206,9 s; só 4 trechos esticados, no máximo 1,16×).
+Resultado: 209,2 s (v22 tinha 206,9 s; só 4 trechos esticados, no máximo 1,14×). Conferências no arquivo final: entradas
+das falas dentro de ±0,3 s do plano (ASR), encerramento do carrinho alinhado à imagem (correlação, 0 ms), voz+trilha no
+mesmo nível do v22 (±1 dB). Revisão independente do script (3 lentes) apontou e foram corrigidos: vazamento de 0,2 s da voz
+antiga antes da primeira fala (áudio do carrinho agora só até 14,85 s), encerramento 120 ms adiantado (o áudio do v22 perdeu
+40 ms em cada emenda cruzada), emendas da trilha sem fusão e ganho por pico fala a fala (agora ganho único por RMS).
 
 ```bash
 cd animacao

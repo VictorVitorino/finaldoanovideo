@@ -30,7 +30,7 @@ function abertura(tt, B) {
     for (let gx = 0; gx <= W; gx += 54) for (let gy = 180; gy <= H; gy += 54) fundo += `<circle cx="${gx}" cy="${gy}" r="1.6" fill="#fff" opacity=".09"/>`;
     const uc = ease.inOut(inv(0.1, 3.2, tt));
     const pts = [];
-    for (let i = 0; i <= 60 * uc; i++) { const x = i / 60; pts.push([60 + x * (W - 120), H - 170 - Math.pow(x, 3.2) * (H - 520)]); }
+    for (let i = 0; i <= 60 * uc; i++) { const x = i / 60; pts.push([60 + x * (W - 120), H - 170 - Math.pow(x, 4.5) * (H - 520)]); }
     if (pts.length > 1) {
       const d = pts.map((p, i) => `${i ? 'L' : 'M'}${f(p[0])},${f(p[1])}`).join(' ');
       fundo += `<path d="${d} L${f(pts[pts.length - 1][0])},${H - 170} L60,${H - 170}Z" fill="${C.orange}" opacity=".07"/>`;
@@ -41,12 +41,13 @@ function abertura(tt, B) {
     s += op(kTxt, fundo);
     // selo e linhas do gancho
     let txt = op(fin(tt, 0.05, 0.5), `<rect x="72" y="452" width="34" height="5" fill="${C.orange}"/>` + t(ABERTURA.selo, 120, 460, { f: 'M', w: 600, s: 17, c: C.blueL, ls: 3 }));
-    const ks = [B.hook1, B.hook2, B.hook3];
+    // 4 linhas: as duas últimas (laranja) entram juntas no hook3, com 0,2 s de defasagem
+    const ks = [B.hook1, B.hook2, B.hook3, B.hook3 + 0.2];
+    const ys = [584, 692, 802, 894], tams = [110, 84, 84, 84];
     ABERTURA.linhas.forEach((l, i) => {
       const k = fin(tt, ks[i], 0.45);
       if (k <= 0) return;
-      const sz = i === 0 ? 112 : 92, y = 590 + i * 112 + (i ? 16 : 0);
-      txt += `<g opacity="${f(clamp(k))}" transform="translate(${f((1 - k) * -40)} 0)">${tRico(l, 70, y, { f: 'H', w: 800, s: sz, c: '#fff', hi: C.orange, ls: 0.5 })}</g>`;
+      txt += `<g opacity="${f(clamp(k))}" transform="translate(${f((1 - k) * -40)} 0)">${tRico(l, 70, ys[i], { f: 'H', w: 800, s: tams[i], c: '#fff', hi: C.orange, ls: 0.5 })}</g>`;
     });
     s += op(kTxt, `<g transform="translate(0 ${f(-(1 - kTxt) * 120)})">${txt}</g>`);
   }

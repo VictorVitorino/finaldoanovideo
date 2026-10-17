@@ -4,18 +4,18 @@
  "paginas": [
   {
    "id": "contexto",
-   "dur": 16.5,
-   "beats": { "hook1": 0.35, "hook2": 1.2, "hook3": 1.85, "sobe": 3.3, "kicker": 3.75, "titulo": 3.95, "grafico": 5.0, "funil": 8.4, "conclusao": 11.8 }
+   "dur": 16.0,
+   "beats": { "hook1": 0.3, "hook2": 1.15, "hook3": 1.85, "sobe": 3.6, "kicker": 4.05, "titulo": 4.25, "grafico": 5.2, "funil": 8.9, "conclusao": 11.8 }
   },
   {
    "id": "desafio",
-   "dur": 16.0,
-   "beats": { "kicker": 0.3, "titulo": 0.5, "barra": 1.7, "matriz": 3.7, "foco": 10.2, "focoFim": 12.0, "conclusao": 12.3 }
+   "dur": 15.5,
+   "beats": { "kicker": 0.3, "titulo": 0.5, "barra": 1.6, "matriz": 3.4, "foco": 8.6, "focoFim": 10.6, "conclusao": 10.9 }
   },
   {
    "id": "solucao",
-   "dur": 17.0,
-   "beats": { "kicker": 0.3, "titulo": 0.5, "equacao": 1.7, "etapas": 4.2, "kpis": 7.6, "selo": 9.5, "cta": 10.7, "final": 12.6 }
+   "dur": 16.5,
+   "beats": { "kicker": 0.3, "titulo": 0.5, "equacao": 1.5, "etapas": 3.8, "kpis": 6.9, "selo": 8.3, "cta": 10.4, "final": 11.6 }
   }
  ]
 }

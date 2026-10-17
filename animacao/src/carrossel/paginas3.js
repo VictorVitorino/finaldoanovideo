@@ -1,8 +1,8 @@
 // As 3 páginas do carrossel. Cada função desenha o miolo da página (entre o cabeçalho e o rodapé)
 // no tempo local tt (s), seguindo os beats B de tempos.json. modo.estatico = true desenha o estado
 // final sem pulsos (PDF).
-import { W, C, t, tRico, kicker, quebra, op, fin, clamp, inv, ease, n2, varredura } from './base.js';
-import { titulo, graficoLinha, faixaNumeros, funil, matriz, legendaMatriz, barraEmpilhada, etapas, indicadores, equacao, selo } from './componentes.js';
+import { W, C, t, tRico, kicker, quebra, op, fin, inv, ease, n2, varredura } from './base.js';
+import { titulo, graficoLinha, faixaNumeros, abismo, matriz, legendaMatriz, barraEmpilhada, etapas, indicadores, equacao, prova } from './componentes.js';
 import { P1, P2, P3 } from './dados.js';
 
 const f = n2;
@@ -10,48 +10,50 @@ const f = n2;
 // rótulo de bloco em mono laranja-escuro
 const rotulo = (str, x, y, tt, a0) => op(fin(tt, a0, 0.4), t(str.toUpperCase(), x, y, { f: 'M', w: 600, s: 14, c: C.orangeD, ls: 2 }));
 
+// número grande da página ao fundo, no canto superior direito do miolo
+const marcaDagua = (i, tt, a0) => op(fin(tt, a0, 0.8), t(`0${i}`, 1036, 330, { f: 'H', w: 800, s: 210, c: '#F2F5F9', a: 'end', ls: -2 }));
+
 // "so what": faixa com barra laranja à esquerda e texto em navy
 function conclusao(str, x, y, w, tt, a0, o = {}) {
-  const s = o.s ?? 23, lh = s * 1.36;
+  const s = o.s ?? 22, lh = s * 1.36;
   const linhas = quebra(str, s, w - 56, 500, 'B');
-  const h = linhas.length * lh + 34;
+  const h = linhas.length * lh + 30;
   const k = ease.out(inv(a0, a0 + 0.5, tt));
   if (k <= 0) return '';
   let b = `<rect x="${f(x)}" y="${f(y)}" width="${f(w * k)}" height="${f(h)}" rx="10" fill="${o.fundo ?? C.orangeBg}"/>`
     + `<rect x="${f(x)}" y="${f(y)}" width="6" height="${f(h)}" rx="3" fill="${C.orange}"/>`;
   linhas.forEach((l, i) => {
-    b += op(fin(tt, a0 + 0.25 + i * 0.1, 0.4), tRico(l, x + 30, y + 17 + s * 0.98 + i * lh, { f: 'B', w: 500, s, c: C.navy, hi: C.orangeD, hw: 700 }));
+    b += op(fin(tt, a0 + 0.25 + i * 0.1, 0.4), tRico(l, x + 30, y + 15 + s * 0.98 + i * lh, { f: 'B', w: 500, s, c: C.navy, hi: C.orangeD, hw: 700 }));
   });
   return b + varredura('vconc' + Math.round(y), x, y, w, h, inv(a0 + 0.6, a0 + 1.6, tt), 10);
 }
-
-// número grande da página ao fundo, no canto superior direito do miolo
-export const marcaDagua = (i, tt = 99, a0 = 0) => op(fin(tt, a0, 0.8), t(`0${i}`, 1036, 330, { f: 'H', w: 800, s: 210, c: '#F2F5F9', a: 'end', ls: -2 }));
 
 // ---------- página 1 · contexto ----------
 export function pagina1(tt, B) {
   let s = marcaDagua(1, tt, B.kicker);
   s += op(fin(tt, B.kicker, 0.4), kicker(P1.kicker, 48, 190));
-  s += titulo(P1.titulo, 48, 258, tt, B.titulo, { s: 70, lh: 68 });
-  // gráfico
-  const gy = 378;
-  s += rotulo(P1.grafico.titulo, 48, gy, tt, B.grafico - 0.5);
-  const [sa, sb] = P1.grafico.series;
+  s += titulo(P1.titulo, 48, 258, tt, B.titulo, { s: 66, lh: 68 });
+  // gráfico de adoção
+  const gy = 378, G = P1.grafico;
+  s += rotulo(G.titulo, 48, gy, tt, B.grafico - 0.5);
+  const [sa, sb] = G.series;
+  const anos = Array.from({ length: G.x1 - G.x0 + 1 }, (_, i) => G.x0 + i);
   s += graficoLinha({
-    x: 96, y: gy + 76, w: 800, h: 300, x0: P1.grafico.x0, x1: P1.grafico.x1, yMax: 100, t0: B.grafico, dur: 2.4, pilulaH: 42, pilulaW: 92,
+    x: 96, y: gy + 76, w: 800, h: 280, x0: G.x0, x1: G.x1, yMax: 100, t0: B.grafico, dur: 2.4, pilulaH: 42, pilulaW: 92, anosEixo: anos,
     series: [
       { ...sa, cor: C.navy, legX: 48, legY: gy + 38, areaOp: 0.08 },
-      { ...sb, cor: C.orange, legX: 330, legY: gy + 38, atraso: 1.3, area: false, corRot: C.orangeD, rotDy: 30 },
+      { ...sb, cor: C.orange, legX: 300, legY: gy + 38, atraso: 1.3, area: false, corRot: C.orangeD, rotDy: 30 },
     ],
   }, tt);
-  s += faixaNumeros({ x: 112, y: gy + 80, w: 560, h: 86, t0: B.grafico + 2.6, max: 60,
-    titulo: P1.velocidade.titulo, itens: P1.velocidade.itens.map((it, i) => ({ ...it, cor: [C.orange, C.slate, C.blueL][i] })) }, tt);
-  // funil
-  const fy = 822;
-  s += rotulo(P1.funilTitulo, 48, fy, tt, B.funil - 0.35);
-  s += funil({ x: 48, y: fy + 22, w: 500, hBar: 54, gap: 22, minW: 34, rotX: 590, rotS: 21, t0: B.funil, step: 0.8,
-    itens: P1.funil.map((it, i) => ({ ...it, cor: [C.navy, C.slate, C.orange][i] })) }, tt);
-  s += conclusao(P1.conclusao, 48, 1090, 984, tt, B.conclusao);
+  s += faixaNumeros({ x: 112, y: gy + 80, w: 560, h: 86, t0: B.grafico + 2.6, titulo: P1.faixa.titulo, semBarra: P1.faixa.semBarra,
+    itens: P1.faixa.itens.map((it, i) => ({ ...it, cor: it.cor ?? [C.orange, C.slate, C.blueL][i] })) }, tt);
+  // o abismo
+  const fy = 808;
+  s += op(fin(tt, B.funil - 0.35, 0.4), tRico(P1.abismoTitulo, 48, fy, { f: 'B', w: 700, s: 20, c: C.navy, hi: C.orangeD })
+    + t(P1.abismoNota, 1032, fy, { f: 'M', w: 400, s: 11.5, c: C.greyL, a: 'end' }));
+  s += abismo({ x: 48, y: fy + 20, w: 984, hBar: 44, gap: 18, numW: 100, t0: B.funil, step: 0.6,
+    itens: P1.abismo.map((it, i) => ({ ...it, cor: [C.navy, C.slate, C.orange][i] })) }, tt);
+  s += conclusao(P1.conclusao, 48, 1100, 984, tt, B.conclusao);
   return s;
 }
 
@@ -59,27 +61,34 @@ export function pagina1(tt, B) {
 export function pagina2(tt, B, modo = {}) {
   let s = marcaDagua(2, tt, B.kicker);
   s += op(fin(tt, B.kicker, 0.4), kicker(P2.kicker, 48, 190));
-  s += titulo(P2.titulo, 48, 258, tt, B.titulo, { s: 66, lh: 68 });
+  s += titulo(P2.titulo, 48, 258, tt, B.titulo, { s: 64, lh: 68 });
   // regra 10-20-70
   const ry = 378;
   s += rotulo(P2.regra.rotulo, 48, ry, tt, B.barra - 0.4);
-  s += barraEmpilhada({ x: 48, y: ry + 18, w: 984, h: 58, t0: B.barra,
+  s += barraEmpilhada({ x: 48, y: ry + 16, w: 984, h: 54, t0: B.barra, nota: P2.regra.nota,
     partes: P2.regra.partes.map((p, i) => ({ ...p, cor: [C.blueL, C.slate, C.orange][i], corTxt: i === 0 ? C.navy : '#fff' })) }, tt);
   // matriz + legenda
-  const my = 532;
+  const my = 526;
   s += rotulo(P2.matrizTitulo, 48, my, tt, B.matriz - 0.4);
-  const M = { x: 100, y: my + 56, size: 420, itens: P2.desafios, t0: B.matriz, step: 0.42, r: 21, fimPulso: modo.estatico ? -1 : 1e9 };
+  s += op(fin(tt, B.matriz - 0.2, 0.4), t(P2.matrizEscala, 48, my + 22, { f: 'B', w: 500, s: 13, c: C.grey }));
+  const nat = Object.fromEntries(P2.desafios.map(d => [d.n, d.nat]));
+  const M = { x: 110, y: my + 76, size: 410, itens: P2.desafios, t0: B.matriz, step: 0.4, r: 20, rTrio: 16.5, fimPulso: modo.estatico ? -1 : 1e9 };
   s += matriz(M, tt);
-  s += legendaMatriz({ x: 568, y: my + 46, w: 464, itens: P2.desafios, t0: B.matriz, step: 0.42, gap: 12 }, tt).svg;
+  s += legendaMatriz({ x: 572, y: my + 82, w: 460, itens: P2.desafios, t0: B.matriz, step: 0.4, gap: 12 }, tt).svg;
+  // chave de cores da legenda
+  s += op(fin(tt, B.matriz + 1.2, 0.4), `<circle cx="586" cy="${my + 50}" r="7" fill="${C.navy}"/>` + t('gente e processo', 600, my + 55, { f: 'B', w: 600, s: 13, c: C.slate })
+    + `<circle cx="736" cy="${my + 50}" r="7" fill="#fff" stroke="${C.blue}" stroke-width="2"/>` + t('tecnologia', 750, my + 55, { f: 'B', w: 600, s: 13, c: C.slate })
+    + `<rect x="846" y="${my + 46}" width="8" height="8" rx="2" fill="${C.orangeD}" transform="rotate(45 850 ${my + 50})"/>` + t('crítico', 862, my + 55, { f: 'B', w: 600, s: 13, c: C.slate }));
+  void nat;
   // foco na zona crítica (só no vídeo)
   if (!modo.estatico) {
     const k = Math.min(ease.out(inv(B.foco, B.foco + 0.5, tt)), 1 - ease.out(inv(B.focoFim - 0.4, B.focoFim, tt)));
     if (k > 0) {
-      const cs = (M.size - 20) / 5, x0 = M.x + 2 * (cs + 5) - 8, y0 = M.y - 46, w = M.size - 2 * (cs + 5) + 16, h = 3 * (cs + 5) + 50;
-      s += `<path d="M0,140 L${W},140 L${W},1230 L0,1230Z M${f(x0)},${f(y0)} L${f(x0 + w)},${f(y0)} L${f(x0 + w)},${f(y0 + h)} L${f(x0)},${f(y0 + h)}Z" fill="${C.dark}" fill-rule="evenodd" opacity="${f(0.55 * k)}"/>`;
+      const cs = (M.size - 20) / 5, x0 = M.x + 3 * (cs + 5) - 9, y0 = M.y - 44, w = 2 * (cs + 5) + 14, h = 2 * (cs + 5) + 50;
+      s += `<path d="M0,140 L${W},140 L${W},1230 L0,1230Z M${f(x0)},${f(y0)} L${f(x0 + w)},${f(y0)} L${f(x0 + w)},${f(y0 + h)} L${f(x0)},${f(y0 + h)}Z" fill="${C.dark}" fill-rule="evenodd" opacity="${f(0.5 * k)}"/>`;
     }
   }
-  s += conclusao(P2.conclusao, 48, 1100, 984, tt, B.conclusao);
+  s += conclusao(P2.conclusao, 48, 1104, 984, tt, B.conclusao);
   return s;
 }
 
@@ -89,34 +98,39 @@ export function pagina3(tt, B) {
   s += op(fin(tt, B.kicker, 0.4), kicker(P3.kicker, 48, 190));
   s += titulo(P3.titulo, 48, 258, tt, B.titulo, { s: 66, lh: 68 });
   // equação
-  s += equacao({ x: 48, y: 370, w: 984, h: 92, t0: B.equacao, ops: ['×', '='],
+  s += equacao({ x: 48, y: 368, w: 984, h: 88, t0: B.equacao, ops: ['×', '='],
     termos: [
       { ...P3.equacao[0], cor: C.navy, s: 34 },
       { ...P3.equacao[1], cor: C.navy3, s: 29 },
       { ...P3.equacao[2], cor: C.orange, subCor: '#fff', s: 34, brilho: true },
     ] }, tt);
+  s += op(fin(tt, B.equacao + 1.5, 0.45), tRico(P3.equacaoNota, 540, 490, { f: 'B', w: 500, s: 18, c: C.slate, hi: C.orangeD, a: 'middle' }));
   // método
-  s += rotulo('Nosso método · gestão de mudanças para adoção de IA', 48, 512, tt, B.etapas - 0.4);
-  s += etapas({ x: 48, y: 530, w: 984, h: 100, t0: B.etapas, step: 0.42, itens: P3.etapas }, tt);
+  const nat = Object.fromEntries((P2.desafios ?? []).map(d => [d.n, d.nat]));
+  s += rotulo(P3.metodoTitulo, 48, 534, tt, B.etapas - 0.4);
+  s += etapas({ x: 48, y: 550, w: 984, h: 96, t0: B.etapas, step: 0.42, itens: P3.etapas, nat }, tt);
   // indicadores
-  s += rotulo(P3.kpisTitulo, 48, 792, tt, B.kpis - 0.3);
-  s += indicadores({ x: 48, y: 810, w: 984, h: 82, t0: B.kpis, step: 0.18, itens: P3.kpis }, tt);
+  s += rotulo(P3.kpisTitulo, 48, 780, tt, B.kpis - 0.3);
+  s += indicadores({ x: 48, y: 796, w: 984, h: 66, gap: 12, t0: B.kpis, step: 0.16, itens: P3.kpis }, tt);
   // prova (7x) + CTA
-  const by = 928;
-  s += selo(150, by + 132, 100, P3.selo.num, P3.selo.linhas, tt, B.selo);
-  const cx = 290, cw = 1032 - cx, ch = 262;
+  const by = 890, bh = 300;
+  const Pv = P3.prova;
+  s += prova({ x: 48, y: by, w: 240, h: bh, num: Pv.num, rot: Pv.rot, barras: Pv.barras, eixo: Pv.eixo, nota: Pv.nota, t0: B.selo }, tt);
+  const cx = 306, cw = 1032 - cx;
   const k = ease.out(inv(B.cta, B.cta + 0.55, tt));
   if (k > 0) {
-    let b = `<rect x="${cx}" y="${by}" width="${cw}" height="${ch}" rx="14" fill="${C.navy}"/>`
-      + `<clipPath id="ctaClip"><rect x="${cx}" y="${by}" width="${cw}" height="${ch}" rx="14"/></clipPath>`
-      + `<g clip-path="url(#ctaClip)"><path d="M${cx + cw - 150},${by + ch} L${cx + cw - 40},${by}" stroke="${C.slate}" stroke-width="30"/><path d="M${cx + cw - 196},${by + ch} L${cx + cw - 86},${by}" stroke="${C.orange}" stroke-width="2.4"/></g>`;
-    b += op(fin(tt, B.cta + 0.2, 0.4), t(P3.cta.pergunta, cx + 34, by + 62, { f: 'H', w: 700, s: 40, c: '#fff', ls: 0.3 }));
-    b += op(fin(tt, B.cta + 0.5, 0.4), tRico(P3.cta.destaque, cx + 34, by + 112, { f: 'H', w: 800, s: 48, c: '#fff', hi: C.orange, ls: 0.3 }));
-    b += op(fin(tt, B.final, 0.45), `<rect x="${cx + 34}" y="${by + 146}" width="${cw - 68}" height="1.5" fill="#fff" opacity=".25"/>`
-      + t(P3.cta.acao, cx + 34, by + 190, { f: 'B', w: 700, s: 22, c: '#fff' })
-      + t(P3.cta.lema, cx + 34, by + 226, { f: 'M', w: 500, s: 15, c: C.orangeL, ls: 1.5 }));
-    s += `<g opacity="${f(clamp(k * 1.4))}" transform="translate(${f((1 - k) * 40)} 0)">${b}</g>`;
-    s += varredura('vcta', cx, by, cw, ch, inv(B.final + 0.2, B.final + 1.3, tt), 14);
+    const Q = P3.cta;
+    let b = `<rect x="${cx}" y="${by}" width="${cw}" height="${bh}" rx="14" fill="${C.navy}"/>`
+      + `<clipPath id="ctaClip"><rect x="${cx}" y="${by}" width="${cw}" height="${bh}" rx="14"/></clipPath>`
+      + `<g clip-path="url(#ctaClip)"><path d="M${cx + cw - 150},${by + bh} L${cx + cw - 30},${by}" stroke="${C.slate}" stroke-width="30"/><path d="M${cx + cw - 198},${by + bh} L${cx + cw - 78},${by}" stroke="${C.orange}" stroke-width="2.4"/></g>`;
+    b += op(fin(tt, B.cta + 0.2, 0.4), t(Q.pergunta, cx + 34, by + 64, { f: 'H', w: 700, s: 40, c: '#fff', ls: 0.3 }));
+    b += op(fin(tt, B.cta + 0.5, 0.4), tRico(Q.destaque, cx + 34, by + 118, { f: 'H', w: 800, s: 50, c: '#fff', hi: C.orange, ls: 0.3 }));
+    b += op(fin(tt, B.final, 0.45), `<rect x="${cx + 34}" y="${by + 152}" width="${cw - 230}" height="1.5" fill="#fff" opacity=".25"/>`
+      + t(Q.acao, cx + 34, by + 194, { f: 'B', w: 700, s: 21, c: '#fff' })
+      + t(Q.acao2, cx + 34, by + 226, { f: 'B', w: 500, s: 18, c: C.blueLL })
+      + t(Q.lema, cx + 34, by + 268, { f: 'M', w: 500, s: 15, c: C.orangeL, ls: 1.5 }));
+    s += `<g opacity="${f(Math.min(1, k * 1.4))}" transform="translate(${f((1 - k) * 40)} 0)">${b}</g>`;
+    s += varredura('vcta', cx, by, cw, bh, inv(B.final + 0.2, B.final + 1.3, tt), 14);
   }
   return s;
 }

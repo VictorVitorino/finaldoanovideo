@@ -110,15 +110,17 @@ def efeitos(T, buf):
     add(buf, impacto(0.2), a + B['hook1'])
     add(buf, pop(660, 0.1), a + B['hook2'])
     add(buf, impacto(0.24), a + B['hook3'])
-    add(buf, sino(0.07, 86), a + B['hook3'] + 0.05)
+    add(buf, sino(0.07, 86), a + B['hook3'] + 0.25)
     add(buf, whoosh(0.6, 0.12, 3), a + B['sobe'] - 0.1)
     add(buf, tique(0.05), a + B['titulo'])
     add(buf, tique(0.05), a + B['titulo'] + 0.16)
     add(buf, riser(2.2, 0.035, 7), a + B['grafico'])              # a linha sendo desenhada
     add(buf, pop(990, 0.12), a + B['grafico'] + 2.2)               # rótulo 88%
     add(buf, pop(880, 0.1), a + B['grafico'] + 1.3 + 2.2)          # rótulo da IA generativa
-    for i, f0 in enumerate((740, 620, 520)):                       # funil: o tom desce com o valor
-        add(buf, pop(f0, 0.12), a + B['funil'] + i * 0.8)
+    add(buf, pop(760, 0.07), a + B['grafico'] + 2.6)               # faixa de números
+    for i, f0 in enumerate((740, 620, 520)):                       # abismo: o tom desce com o valor
+        add(buf, pop(f0, 0.12), a + B['funil'] + i * 0.6)
+    add(buf, riser(0.6, 0.03, 13), a + B['funil'] + 3 * 0.6 + 0.3)  # colchete "o abismo"
     add(buf, sino(0.05, 81), a + B['conclusao'] + 0.2)
 
     dc = T['cortina']
@@ -133,8 +135,8 @@ def efeitos(T, buf):
     for d in range(9):                                             # células da matriz em onda
         add(buf, tique(0.025), a + B['matriz'] + d * 0.06)
     add(buf, riser(0.8, 0.03, 11), a + B['matriz'] + 0.8)          # contorno da zona crítica
-    for idx in range(7):                                           # bolhas dos desafios
-        add(buf, pop(560 + idx * 45, 0.09), a + B['matriz'] + 1.2 + idx * 0.42)
+    for idx in range(8):                                           # bolhas dos desafios
+        add(buf, pop(560 + idx * 40, 0.09), a + B['matriz'] + 1.2 + idx * 0.4)
     add(buf, impacto(0.18), a + B['foco'])
     add(buf, sino(0.05, 81), a + B['conclusao'] + 0.2)
 
@@ -145,9 +147,11 @@ def efeitos(T, buf):
         add(buf, pop(f0, 0.12), a + B['equacao'] + i * 0.45)
     for i in range(5):
         add(buf, tique(0.045), a + B['etapas'] + i * 0.42)
-    for i in range(4):
-        add(buf, pop(700 + i * 60, 0.08), a + B['kpis'] + i * 0.18)
-    add(buf, carimbo(0.22), a + B['selo'] + 0.3)
+    for i in range(5):
+        add(buf, pop(700 + i * 50, 0.08), a + B['kpis'] + i * 0.16)
+    for i in range(4):                                             # colunas da Prosci
+        add(buf, pop(520 + i * 90, 0.08), a + B['selo'] + 0.25 + i * 0.22)
+    add(buf, carimbo(0.22), a + B['selo'] + 1.5)                   # 7x
     add(buf, whoosh(0.5, 0.1, 21), a + B['cta'] - 0.1)
     add(buf, sino(0.08, 86), a + B['final'])
 

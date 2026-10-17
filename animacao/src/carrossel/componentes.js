@@ -122,12 +122,12 @@ export function graficoLinha(o, tt) {
   return s;
 }
 
-// faixa compacta de números lado a lado, com barrinha proporcional sob cada um
-// (ex.: velocidade de adoção IA generativa × internet × PC). o: { x, y, w, h, titulo, itens: [{ rot, val, cor, dec }], t0, max }
+// faixa compacta de números lado a lado, com barrinha proporcional sob cada um.
+// o: { x, y, w, h, titulo, itens: [{ rot, val, dec, pre, suf, cor, max }], t0, max, semBarra }
 export function faixaNumeros(o, tt) {
   const k = fin(tt, o.t0, 0.45);
   if (k <= 0) return '';
-  const n = o.itens.length, pad = 16, cw = (o.w - pad * 2) / n, max = o.max ?? 100;
+  const n = o.itens.length, pad = 16, cw = (o.w - pad * 2) / n;
   let s = `<rect x="${f(o.x)}" y="${f(o.y)}" width="${f(o.w)}" height="${f(o.h)}" rx="10" fill="#fff" stroke="${C.blueLL}" stroke-width="1.5" filter="url(#fSombra)"/>`
     + tRico(o.titulo, o.x + pad, o.y + 24, { f: 'B', w: 700, s: 14.5, c: C.navy, hi: C.orangeD });
   o.itens.forEach((it, i) => {
@@ -135,78 +135,56 @@ export function faixaNumeros(o, tt) {
     const u = ease.out(inv(a0, a0 + 0.7, tt));
     const x = o.x + pad + i * cw;
     const cor = it.cor ?? C.navy;
-    const num = contaNum(it.val, u, it.dec ?? 0) + (it.suf ?? '%');
-    const wn = larg(contaNum(it.val, 1, it.dec ?? 0) + (it.suf ?? '%'), 30, 800, 'H');
-    s += op(clamp(u * 2), t(num, x, o.y + 60, { f: 'H', w: 800, s: 30, c: cor })
-      + t(it.rot, x + wn + 8, o.y + 59, { f: 'B', w: i === 0 ? 700 : 500, s: 13, c: i === 0 ? C.navy : C.slate }));
-    const bw = cw - 18;
+    const fmt = q => (it.pre ?? '') + contaNum(it.val, q, it.dec ?? 0) + (it.suf ?? '%');
+    const wn = larg(fmt(1), 30, 800, 'H');
+    s += op(clamp(u * 2), t(fmt(u), x, o.y + 60, { f: 'H', w: 800, s: 30, c: cor })
+      + t(it.rot, x + wn + 7, o.y + 59, { f: 'B', w: i === 0 ? 700 : 500, s: 13, c: i === 0 ? C.navy : C.slate }));
+    if (o.semBarra) return;
+    const bw = cw - 18, max = it.max ?? o.max ?? 100;
     s += `<rect x="${f(x)}" y="${f(o.y + o.h - 17)}" width="${f(bw)}" height="6" rx="3" fill="${C.blueBg}"/>`;
     if (u > 0) s += `<rect x="${f(x)}" y="${f(o.y + o.h - 17)}" width="${f(Math.max(6, (it.val / max) * bw * u))}" height="6" rx="3" fill="${cor}"/>`;
   });
   return `<g opacity="${f(clamp(k))}" transform="translate(0 ${f((1 - k) * 14)})">${s}</g>`;
 }
 
-// ---------- funil ----------
-// Barras centradas, largura proporcional ao valor, ligadas por trapézios claros (forma de funil).
-// o: { x, y, w, hBar, gap, itens: [{ val, rot, sub, cor, fonte }], t0, step }
-export function funil(o, tt) {
-  const cx = o.x + o.w / 2, hB = o.hBar ?? 64, gap = o.gap ?? 34;
+// ---------- o abismo ----------
+// Barras sobre a mesma base (perguntas distintas, não etapas de funil): número à esquerda,
+// barra proporcional e rótulo logo depois da ponta. Um colchete laranja marca a distância entre
+// a maior e a menor barra. o: { x, y, w, hBar, gap, itens: [{ val, rot, cor }], t0, step, numW, rotChave }
+export function abismo(o, tt) {
+  const hB = o.hBar ?? 46, gap = o.gap ?? 22, numW = o.numW ?? 104, x0 = o.x + numW, wMax = o.w - numW;
   let s = '';
-  const larguraDe = v => Math.max(o.minW ?? 36, (v / 100) * o.w);
+  const ponta = v => x0 + (v / 100) * wMax;
   o.itens.forEach((it, i) => {
-    const a0 = o.t0 + i * (o.step ?? 0.75);
+    const a0 = o.t0 + i * (o.step ?? 0.55);
     const u = ease.out(inv(a0, a0 + 0.7, tt));
     if (u <= 0) return;
-    const y = o.y + i * (hB + gap);
-    const wB = larguraDe(it.val);
-    // trapézio de ligação com a barra anterior
-    if (i > 0) {
-      const wA = larguraDe(o.itens[i - 1].val), yA = y - gap;
-      s += op(u, `<path d="M${f(cx - wA / 2)},${f(yA)} L${f(cx + wA / 2)},${f(yA)} L${f(cx + wB / 2)},${f(y)} L${f(cx - wB / 2)},${f(y)}Z" fill="${C.blueBg}"/>`);
-    }
-    const wv = wB * u;
-    s += `<rect x="${f(cx - wv / 2)}" y="${f(y)}" width="${f(wv)}" height="${hB}" rx="8" fill="${it.cor ?? C.navy}"/>`;
-    // número
-    const num = contaNum(it.val, inv(a0, a0 + 0.9, tt), it.dec ?? 0) + (it.suf ?? '%');
-    const dentro = wB > 170;
-    s += op(clamp(u * 1.6), t(num, dentro ? cx : cx - wB / 2 - 16, y + hB * 0.74, { f: 'H', w: 800, s: hB * 0.78, c: dentro ? '#fff' : it.cor ?? C.navy, a: dentro ? 'middle' : 'end' }));
-    // rótulos numa coluna fixa à direita do funil
-    const lx = o.rotX ?? o.x + o.w + 28;
-    const kr = fin(tt, a0 + 0.3, 0.4);
-    let rb = `<path d="M${f(cx + wB / 2 + 8)},${f(y + hB / 2)} L${f(lx - 10)},${f(y + hB / 2)}" stroke="${C.blueLL}" stroke-width="1.5" stroke-dasharray="2 4"/>`
-      + tRico(it.rot, lx, y + hB * 0.44, { f: 'B', w: 700, s: o.rotS ?? 21, c: C.navy, hi: it.cor ?? C.navy });
-    if (it.sub) rb += t(it.sub, lx, y + hB * 0.44 + 23, { f: 'B', w: 500, s: 15, c: C.grey });
-    s += op(kr, rb);
+    const y = o.y + i * (hB + gap), cor = it.cor ?? C.navy;
+    s += `<rect x="${f(x0)}" y="${f(y)}" width="${f(wMax)}" height="${hB}" rx="6" fill="${C.blueBg}"/>`;
+    s += `<rect x="${f(x0)}" y="${f(y)}" width="${f(Math.max(8, (ponta(it.val) - x0) * u))}" height="${hB}" rx="6" fill="${cor}"/>`;
+    s += op(clamp(u * 1.6), t(contaNum(it.val, inv(a0, a0 + 0.9, tt)) + '%', x0 - 14, y + hB * 0.8, { f: 'H', w: 800, s: hB * 1.0, c: cor, a: 'end' }));
+    const kr = fin(tt, a0 + 0.35, 0.4);
+    const lx = ponta(it.val) + 14, cabe = lx + larg(it.rot.replace(/\*/g, ''), 18, 700, 'B') < o.x + o.w + 4;
+    s += op(kr, tRico(it.rot, cabe ? lx : x0 + 16, y + hB * 0.64, { f: 'B', w: 700, s: 18, c: cabe ? C.navy : '#fff', hi: C.orangeD }));
   });
-  return s;
-}
-
-// barras horizontais alinhadas à esquerda, com rótulo acima e valor no fim
-// o: { x, y, w, itens: [{ val, rot, cor }], hBar, gap, t0, step, max }
-export function barras(o, tt) {
-  const hB = o.hBar ?? 30, gap = o.gap ?? 56, max = o.max ?? 100;
-  let s = '';
-  o.itens.forEach((it, i) => {
-    const a0 = o.t0 + i * (o.step ?? 0.35);
-    const u = ease.out(inv(a0, a0 + 0.8, tt));
-    if (u <= 0) return;
-    const y = o.y + i * gap;
-    s += op(clamp(u * 2), t(it.rot, o.x, y - 9, { f: 'B', w: 600, s: 17, c: C.slate }));
-    s += `<rect x="${f(o.x)}" y="${f(y)}" width="${f(o.w)}" height="${hB}" rx="${hB / 2}" fill="${C.blueBg}"/>`;
-    const wv = (it.val / max) * o.w * u;
-    s += `<rect x="${f(o.x)}" y="${f(y)}" width="${f(Math.max(hB, wv))}" height="${hB}" rx="${hB / 2}" fill="${it.cor ?? C.navy}"/>`;
-    s += op(clamp(u * 2), t(contaNum(it.val, u) + (it.suf ?? '%'), o.x + Math.max(hB, wv) - 12, y + hB * 0.74, { f: 'H', w: 800, s: hB * 0.82, c: '#fff', a: 'end' }));
-  });
+  // colchete "o abismo" entre a ponta da maior e a da menor barra
+  const kc = ease.out(inv(o.t0 + o.itens.length * (o.step ?? 0.55) + 0.3, o.t0 + o.itens.length * (o.step ?? 0.55) + 0.9, tt));
+  if (kc > 0) {
+    const vals = o.itens.map(it => it.val), a = ponta(Math.min(...vals)), b = ponta(Math.max(...vals));
+    const yb = o.y + o.itens.length * (hB + gap) - gap + 16, bb = lerp(a, b, kc);
+    s += `<path d="M${f(a)},${f(yb - 8)} L${f(a)},${f(yb)} L${f(bb)},${f(yb)}${kc > 0.98 ? ` L${f(b)},${f(yb - 8)}` : ''}" fill="none" stroke="${C.orange}" stroke-width="3" stroke-linejoin="round"/>`;
+    s += op(fin(tt, o.t0 + o.itens.length * (o.step ?? 0.55) + 0.7, 0.4), `<rect x="${f((a + b) / 2 - 62)}" y="${f(yb - 2)}" width="124" height="26" rx="13" fill="${C.orange}"/>` + t(o.rotChave ?? 'O ABISMO', (a + b) / 2, yb + 16, { f: 'M', w: 700, s: 13, c: '#fff', a: 'middle', ls: 2 }));
+  }
   return s;
 }
 
 // ---------- matriz de impacto ----------
-// 5 x 5: x = probabilidade (1..5), y = impacto (1..5). Células coloridas pela severidade (p + i),
-// bolhas numeradas para cada desafio e contorno da zona crítica.
-// o: { x, y, size, itens: [{ n, nome, p, i }], t0, limiarCritico }
+// 5 x 5: x = probabilidade (1..5), y = impacto (1..5). Células coloridas pela severidade (P × I),
+// bolhas numeradas por desafio (navy = gente ou processo, branca = tecnologia) e contorno da zona
+// crítica (P × I >= limiar). o: { x, y, size, itens: [{ n, nome, nat, p, i }], t0, step, r, limiar }
 export function corCalor(p, i) {
-  const h = (p + i - 2) / 8; // 0..1
-  const stops = [[0, [238, 243, 248]], [0.38, [214, 227, 239]], [0.55, [253, 228, 198]], [0.75, [249, 178, 96]], [1, [247, 140, 22]]];
+  const h = (p * i - 1) / 24; // 0..1
+  const stops = [[0, [238, 243, 248]], [0.2, [220, 231, 242]], [0.4, [251, 236, 216]], [0.62, [249, 190, 122]], [1, [247, 140, 22]]];
   for (let k = 0; k < stops.length - 1; k++) {
     const [a, ca] = stops[k], [b, cb] = stops[k + 1];
     if (h <= b) {
@@ -216,91 +194,88 @@ export function corCalor(p, i) {
   }
   return 'rgb(247,140,22)';
 }
+const ehCritico = (it, lim) => it.p * it.i >= lim;
+const corNat = nat => (nat === 'tecnologia' ? { fill: '#fff', txt: C.navy, stroke: C.blue } : { fill: C.navy, txt: '#fff', stroke: C.navy });
 
 export function matriz(o, tt) {
-  const n = 5, g = 5, cs = (o.size - g * (n - 1)) / n;
+  const n = 5, g = 5, cs = (o.size - g * (n - 1)) / n, lim = o.limiar ?? 16;
   const cx = p => o.x + (p - 1) * (cs + g), cy = i => o.y + (n - i) * (cs + g);
-  const lim = o.limiarCritico ?? 8;
   let s = '';
   // células (onda diagonal do canto inferior esquerdo)
   for (let p = 1; p <= n; p++) for (let i = 1; i <= n; i++) {
-    const a0 = o.t0 + (p + i - 2) * 0.06;
-    const k = back(tt, a0, 0.4);
+    const k = back(tt, o.t0 + (p + i - 2) * 0.06, 0.4);
     if (k <= 0) continue;
     const x = cx(p) + cs / 2, y = cy(i) + cs / 2;
     s += `<g transform="translate(${f(x)} ${f(y)}) scale(${f(k)})"><rect x="${f(-cs / 2)}" y="${f(-cs / 2)}" width="${f(cs)}" height="${f(cs)}" rx="6" fill="${corCalor(p, i)}"/></g>`;
   }
-  // eixos
+  // eixos com escala 1..5
   const kE = fin(tt, o.t0 + 0.3, 0.5);
   const yb = o.y + o.size;
-  s += op(kE,
-    `<path d="M${f(o.x)},${f(yb + 16)} L${f(o.x + o.size)},${f(yb + 16)}" stroke="${C.navy}" stroke-width="2"/><path d="M${f(o.x + o.size - 9)},${f(yb + 10)} L${f(o.x + o.size)},${f(yb + 16)} L${f(o.x + o.size - 9)},${f(yb + 22)}" fill="none" stroke="${C.navy}" stroke-width="2"/>`
-    + t('PROBABILIDADE', o.x, yb + 44, { f: 'M', w: 600, s: 14, c: C.navy, ls: 2 })
-    + t('alta →', o.x + o.size, yb + 44, { f: 'M', w: 500, s: 13, c: C.grey, a: 'end' })
-    + `<path d="M${f(o.x - 16)},${f(yb)} L${f(o.x - 16)},${f(o.y)}" stroke="${C.navy}" stroke-width="2"/><path d="M${f(o.x - 22)},${f(o.y + 9)} L${f(o.x - 16)},${f(o.y)} L${f(o.x - 10)},${f(o.y + 9)}" fill="none" stroke="${C.navy}" stroke-width="2"/>`
-    + `<g transform="translate(${f(o.x - 30)} ${f(yb)}) rotate(-90)">${t('IMPACTO NO RESULTADO', 0, 0, { f: 'M', w: 600, s: 14, c: C.navy, ls: 2 })}${t('alto →', o.size, 0, { f: 'M', w: 500, s: 13, c: C.grey, a: 'end' })}</g>`);
-  // zona crítica: contorno em escada das células com p + i >= lim
+  let eixos = `<path d="M${f(o.x)},${f(yb + 14)} L${f(o.x + o.size)},${f(yb + 14)}" stroke="${C.navy}" stroke-width="2"/><path d="M${f(o.x + o.size - 9)},${f(yb + 8)} L${f(o.x + o.size)},${f(yb + 14)} L${f(o.x + o.size - 9)},${f(yb + 20)}" fill="none" stroke="${C.navy}" stroke-width="2"/>`
+    + t('PROBABILIDADE', o.x, yb + 56, { f: 'M', w: 600, s: 13.5, c: C.navy, ls: 2 })
+    + `<path d="M${f(o.x - 14)},${f(yb)} L${f(o.x - 14)},${f(o.y)}" stroke="${C.navy}" stroke-width="2"/><path d="M${f(o.x - 20)},${f(o.y + 9)} L${f(o.x - 14)},${f(o.y)} L${f(o.x - 8)},${f(o.y + 9)}" fill="none" stroke="${C.navy}" stroke-width="2"/>`
+    + `<g transform="translate(${f(o.x - 44)} ${f(yb)}) rotate(-90)">${t('IMPACTO NO RESULTADO', 0, 0, { f: 'M', w: 600, s: 13.5, c: C.navy, ls: 2 })}</g>`;
+  for (let q = 1; q <= n; q++) {
+    eixos += t(String(q), cx(q) + cs / 2, yb + 34, { f: 'M', w: 500, s: 12.5, c: C.grey, a: 'middle' })
+      + t(String(q), o.x - 26, cy(q) + cs / 2 + 4, { f: 'M', w: 500, s: 12.5, c: C.grey, a: 'middle' });
+  }
+  s += op(kE, eixos);
+  // zona crítica: contorno em escada das células com P × I >= lim
   const kZ = ease.out(inv(o.t0 + 0.9, o.t0 + 1.6, tt));
   if (kZ > 0) {
-    let d = '';
-    // percorre a fronteira: para cada coluna p, a célula mais baixa crítica tem i = max(1, lim - p)
-    const pts = [];
-    for (let p = 1; p <= n; p++) {
-      const iMin = Math.max(1, lim - p);
-      if (iMin > n) continue;
-      pts.push([cx(p) - g / 2, cy(iMin) + cs + g / 2], [cx(p) + cs + g / 2, cy(iMin) + cs + g / 2]);
-    }
-    if (pts.length) {
+    const col = [];
+    for (let p = 1; p <= n; p++) { let iMin = 0; for (let i = n; i >= 1; i--) if (p * i >= lim) iMin = i; if (iMin) col.push([p, iMin]); }
+    if (col.length) {
       const topo = o.y - g / 2, dir = o.x + o.size + g / 2;
-      // degraus: entre colunas sobe na vertical
-      d = `M${f(pts[0][0])},${f(topo)}`;
-      for (let k = 0; k < pts.length; k += 2) d += ` L${f(pts[k][0])},${f(pts[k][1])} L${f(pts[k + 1][0])},${f(pts[k + 1][1])}`;
+      let d = `M${f(cx(col[0][0]) - g / 2)},${f(topo)}`;
+      for (const [p, iMin] of col) d += ` L${f(cx(p) - g / 2)},${f(cy(iMin) + cs + g / 2)} L${f(cx(p) + cs + g / 2)},${f(cy(iMin) + cs + g / 2)}`;
       d += ` L${f(dir)},${f(topo)}Z`;
       const per = 2 * o.size * 1.6;
       s += `<path d="${d}" fill="none" stroke="${C.orangeD}" stroke-width="3" stroke-dasharray="${f(per)}" stroke-dashoffset="${f(per * (1 - kZ))}" stroke-linejoin="round"/>`;
-      s += op(fin(tt, o.t0 + 1.4, 0.4), `<rect x="${f(dir - 150)}" y="${f(topo - 38)}" width="150" height="28" rx="14" fill="${C.orangeD}"/>` + t('ZONA CRÍTICA', dir - 75, topo - 19, { f: 'M', w: 700, s: 13, c: '#fff', a: 'middle', ls: 1.5 }));
+      s += op(fin(tt, o.t0 + 1.4, 0.4), `<rect x="${f(dir - 146)}" y="${f(topo - 36)}" width="146" height="27" rx="13.5" fill="${C.orangeD}"/>` + t('ZONA CRÍTICA', dir - 73, topo - 18, { f: 'M', w: 700, s: 12.5, c: '#fff', a: 'middle', ls: 1.5 }));
     }
   }
-  // bolhas
+  // bolhas (até 3 por célula)
   const porCelula = {};
   o.itens.forEach(it => { const k = it.p + ',' + it.i; (porCelula[k] = porCelula[k] ?? []).push(it); });
   o.itens.forEach((it, idx) => {
     const lista = porCelula[it.p + ',' + it.i], j = lista.indexOf(it), m = lista.length;
-    const off = m === 1 ? [0, 0] : m === 2 ? [[-cs * 0.2, -cs * 0.12], [cs * 0.2, cs * 0.12]][j] : [Math.cos(j / m * 6.283) * cs * 0.24, Math.sin(j / m * 6.283) * cs * 0.24];
-    const bx = cx(it.p) + cs / 2 + off[0] + (it.dx ?? 0), by = cy(it.i) + cs / 2 + off[1] + (it.dy ?? 0);
+    const R = m >= 3 ? cs * 0.26 : cs * 0.2;
+    const off = m === 1 ? [0, 0] : m === 2 ? [[-R, -R * 0.55], [R, R * 0.55]][j] : [Math.cos(-Math.PI / 2 + (j / m) * 6.283) * R, Math.sin(-Math.PI / 2 + (j / m) * 6.283) * R + 3];
+    const bx = cx(it.p) + cs / 2 + off[0], by = cy(it.i) + cs / 2 + off[1];
     const a0 = o.t0 + 1.2 + idx * (o.step ?? 0.32);
     const k = back(tt, a0, 0.45);
     if (k <= 0) return;
-    const crit = it.p + it.i >= lim;
-    const r = o.r ?? 23;
+    const r = m >= 3 ? (o.rTrio ?? 17) : (o.r ?? 21), cn = corNat(it.nat);
     let b = '';
-    if (crit && o.pulso !== false) {
+    if (ehCritico(it, lim) && tt > a0 + 0.5 && tt < (o.fimPulso ?? 1e9)) {
       const ph = ((tt - a0) % 1.6) / 1.6;
-      if (tt > a0 + 0.5 && tt < (o.fimPulso ?? 1e9)) b += `<circle r="${f(r + 4 + ph * 16)}" fill="none" stroke="${C.orangeD}" stroke-width="2" opacity="${f(0.7 * (1 - ph))}"/>`;
+      b += `<circle r="${f(r + 3 + ph * 14)}" fill="none" stroke="${C.orangeD}" stroke-width="2" opacity="${f(0.7 * (1 - ph))}"/>`;
     }
-    b += `<circle r="${r}" fill="${crit ? C.navy : '#fff'}" stroke="${C.navy}" stroke-width="2.5" filter="url(#fSombra)"/>`
-      + t(String(it.n), 0, 9, { f: 'H', w: 800, s: 26, c: crit ? '#fff' : C.navy, a: 'middle' });
+    b += `<circle r="${r}" fill="${cn.fill}" stroke="${cn.stroke}" stroke-width="2.5" filter="url(#fSombra)"/>`
+      + t(String(it.n), 0, r * 0.42, { f: 'H', w: 800, s: r * 1.2, c: cn.txt, a: 'middle' });
     s += `<g transform="translate(${f(bx)} ${f(by)}) scale(${f(k)})">${b}</g>`;
   });
   return s;
 }
 
-// lista da legenda da matriz: número, nome, evidência e fonte
+// legenda da matriz: número, nome e evidência (com fonte) por desafio
 // o: { x, y, w, itens, t0, step, gap, lim }
 export function legendaMatriz(o, tt) {
   let s = '', y = o.y;
-  const lim = o.lim ?? 8;
   o.itens.forEach((it, idx) => {
     const a0 = o.t0 + 1.2 + idx * (o.step ?? 0.32);
     const k = fin(tt, a0 + 0.1, 0.45);
-    const crit = it.p + it.i >= lim;
-    const linhas = quebra(it.dado, 15, o.w - 52, 500, 'B');
-    let b = `<circle cx="${f(o.x + 17)}" cy="${f(y + 1)}" r="16" fill="${crit ? C.navy : '#fff'}" stroke="${C.navy}" stroke-width="2"/>`
-      + t(String(it.n), o.x + 17, y + 8, { f: 'H', w: 800, s: 20, c: crit ? '#fff' : C.navy, a: 'middle' })
-      + t(it.nome, o.x + 46, y + 7, { f: 'B', w: 700, s: 19, c: C.navy });
-    linhas.forEach((l, i) => { b += tRico(l, o.x + 46, y + 30 + i * 19, { f: 'B', w: 500, s: 15, c: C.grey, hi: C.orangeD, hw: 700 }); });
+    const cn = corNat(it.nat), crit = ehCritico(it, o.lim ?? 16);
+    const linhas = quebra(it.dado, 14, o.w - 44, 500, 'B');
+    let b = `<circle cx="${f(o.x + 14)}" cy="${f(y - 5)}" r="13.5" fill="${cn.fill}" stroke="${cn.stroke}" stroke-width="2"/>`
+      + t(String(it.n), o.x + 14, y + 1.5, { f: 'H', w: 800, s: 17, c: cn.txt, a: 'middle' })
+      + t(it.nome, o.x + 38, y + 1, { f: 'B', w: 700, s: 17, c: C.navy })
+      + (it.fonte ? t(it.fonte, o.x + o.w, y, { f: 'M', w: 500, s: 11.5, c: C.greyL, a: 'end' }) : '');
+    if (crit) b += `<rect x="${f(o.x + 38 + larg(it.nome, 17, 700, 'B') + 8)}" y="${f(y - 11)}" width="8" height="8" rx="2" fill="${C.orangeD}" transform="rotate(45 ${f(o.x + 38 + larg(it.nome, 17, 700, 'B') + 12)} ${f(y - 7)})"/>`;
+    linhas.forEach((l, i) => { b += tRico(l, o.x + 38, y + 21 + i * 17.5, { f: 'B', w: 500, s: 14, c: C.grey, hi: C.orangeD, hw: 700 }); });
     s += sobe(k, b, 12);
-    y += 30 + linhas.length * 19 + (o.gap ?? 14);
+    y += 23 + linhas.length * 17.5 + (o.gap ?? 12);
   });
   return { svg: s, y };
 }
@@ -321,11 +296,13 @@ export function barraEmpilhada(o, tt) {
     }
     x += w;
   });
+  if (o.nota) s += op(fin(tt, o.t0 + 1.2, 0.4), t(o.nota, o.x + o.w, o.y + o.h + 22, { f: 'M', w: 400, s: 12, c: C.greyL, a: 'end' }));
   return s;
 }
 
 // ---------- método em etapas (chevrons) ----------
-// o: { x, y, w, h, itens: [{ n, titulo: [l1, l2], itens: [...] }], t0, step, corAtiva }
+// Cada etapa: número, título em 2 linhas, chips com os desafios da matriz que ela ataca e o entregável.
+// o: { x, y, w, h, itens: [{ n, titulo: [l1, l2], ataca: [n...], itens: [...] }], nat: { n: nat }, t0, step }
 export function etapas(o, tt) {
   const bico = 22, m = o.itens.length, pw = (o.w - bico) / m;
   let s = '';
@@ -333,21 +310,29 @@ export function etapas(o, tt) {
     const a0 = o.t0 + i * (o.step ?? 0.4);
     const k = ease.out(inv(a0, a0 + 0.5, tt));
     if (k <= 0) return;
-    const x = o.x + i * pw, dx = (1 - k) * 60;
+    const x = o.x + i * pw, dx = (1 - k) * 60, tx = x + (i ? bico + 12 : 16);
     const ult = i === m - 1;
     const cor = ult ? C.orange : i % 2 ? C.navy3 : C.navy;
-    const d = `M${f(x + (i ? 0 : 0))},${f(o.y)} L${f(x + pw - 4)},${f(o.y)} L${f(x + pw - 4 + bico)},${f(o.y + o.h / 2)} L${f(x + pw - 4)},${f(o.y + o.h)} L${f(x)},${f(o.y + o.h)}${i ? ` L${f(x + bico)},${f(o.y + o.h / 2)}` : ''}Z`;
-    let b = `<path d="${d}" fill="${cor}"/>`
-      + t(`0${it.n}`, x + (i ? bico + 12 : 16), o.y + 30, { f: 'M', w: 700, s: 14, c: ult ? C.navy : C.orangeL, ls: 1 });
-    it.titulo.forEach((l, j) => { b += t(l, x + (i ? bico + 12 : 16), o.y + 60 + j * 25, { f: 'H', w: 700, s: 25, c: '#fff', ls: 0.3 }); });
-    // entregáveis abaixo
-    let yy = o.y + o.h + 30;
+    const d = `M${f(x)},${f(o.y)} L${f(x + pw - 4)},${f(o.y)} L${f(x + pw - 4 + bico)},${f(o.y + o.h / 2)} L${f(x + pw - 4)},${f(o.y + o.h)} L${f(x)},${f(o.y + o.h)}${i ? ` L${f(x + bico)},${f(o.y + o.h / 2)}` : ''}Z`;
+    let b = `<path d="${d}" fill="${cor}"/>` + t(`0${it.n}`, tx, o.y + 28, { f: 'M', w: 700, s: 13.5, c: ult ? C.navy : C.orangeL, ls: 1 });
+    it.titulo.forEach((l, j) => { b += t(l, tx, o.y + 57 + j * 24, { f: 'H', w: 700, s: 24, c: '#fff', ls: 0.3 }); });
+    // chips "ataca"
+    const kc = fin(tt, a0 + 0.3, 0.35);
+    let cb = t('ATACA', x + 4, o.y + o.h + 31, { f: 'M', w: 600, s: 11, c: C.grey, ls: 1.5 });
+    (it.ataca ?? []).forEach((nn, q) => {
+      const cxp = x + 62 + q * 27, cyp = o.y + o.h + 27;
+      const tec = (o.nat ?? {})[nn] === 'tecnologia';
+      cb += `<circle cx="${f(cxp)}" cy="${f(cyp)}" r="11.5" fill="${tec ? '#fff' : C.navy}" stroke="${tec ? C.blue : C.navy}" stroke-width="2"/>`
+        + t(String(nn), cxp, cyp + 5, { f: 'H', w: 800, s: 15, c: tec ? C.navy : '#fff', a: 'middle' });
+    });
+    b += op(kc, cb);
+    // entregável
+    let yy = o.y + o.h + 66;
     (it.itens ?? []).forEach((e, j) => {
-      const linhas = quebra(e, 14.5, pw - 26, 500, 'B');
-      const kk = fin(tt, a0 + 0.25 + j * 0.12, 0.35);
-      let eb = `<circle cx="${f(x + 8)}" cy="${f(yy - 5)}" r="3" fill="${C.orange}"/>`;
-      linhas.forEach((l, q) => { eb += t(l, x + 18, yy + q * 18, { f: 'B', w: 500, s: 14.5, c: C.slate }); });
-      b += op(kk, eb);
+      const linhas = quebra(e, 14.5, pw - 22, 500, 'B');
+      let eb = `<rect x="${f(x + 4)}" y="${f(yy - 15)}" width="3" height="${f(linhas.length * 18 + 2)}" rx="1.5" fill="${C.orange}"/>`;
+      linhas.forEach((l, q) => { eb += t(l, x + 15, yy + q * 18, { f: 'B', w: 500, s: 14.5, c: C.slate }); });
+      b += op(fin(tt, a0 + 0.4 + j * 0.12, 0.35), eb);
       yy += linhas.length * 18 + 10;
     });
     s += `<g opacity="${f(clamp(k * 1.5))}" transform="translate(${f(dx)} 0)">${b}</g>`;
@@ -356,7 +341,7 @@ export function etapas(o, tt) {
 }
 
 // ---------- indicadores (o que medimos) ----------
-// o: { x, y, w, h, itens: [{ ico, rot, sub }], t0, step }
+// o: { x, y, w, h, itens: [{ ico, rot, sub }], t0, step, gap }
 export function indicadores(o, tt) {
   const m = o.itens.length, gap = o.gap ?? 14, cw = (o.w - gap * (m - 1)) / m;
   let s = '';
@@ -364,15 +349,15 @@ export function indicadores(o, tt) {
     const a0 = o.t0 + i * (o.step ?? 0.18);
     const k = back(tt, a0, 0.45);
     if (k <= 0) return;
-    const x = o.x + i * (cw + gap);
+    const x = o.x + i * (cw + gap), cyi = o.y + o.h / 2;
     let b = `<rect x="${f(x)}" y="${f(o.y)}" width="${f(cw)}" height="${o.h}" rx="12" fill="#fff" stroke="${C.blueLL}" stroke-width="1.5"/>`
       + `<rect x="${f(x)}" y="${f(o.y)}" width="5" height="${o.h}" rx="2.5" fill="${C.orange}"/>`
-      + `<circle cx="${f(x + 36)}" cy="${f(o.y + o.h / 2)}" r="21" fill="${C.blueBg}"/>` + ico(it.ico, x + 36, o.y + o.h / 2, 1.15, C.navy, 2.2);
-    const linhas = quebra(it.rot, 17, cw - 76, 700, 'B');
-    const y0 = o.y + o.h / 2 - (linhas.length - 1) * 10 + (it.sub ? -4 : 6);
-    linhas.forEach((l, q) => { b += t(l, x + 66, y0 + q * 20, { f: 'B', w: 700, s: 17, c: C.navy }); });
-    if (it.sub) b += t(it.sub, x + 66, y0 + linhas.length * 20 + 2, { f: 'B', w: 500, s: 13.5, c: C.grey });
-    s += `<g transform="translate(${f(x + cw / 2)} ${f(o.y + o.h / 2)}) scale(${f(k)}) translate(${f(-(x + cw / 2))} ${f(-(o.y + o.h / 2))})">${b}</g>`;
+      + `<circle cx="${f(x + 32)}" cy="${f(cyi)}" r="19" fill="${C.blueBg}"/>` + ico(it.ico, x + 32, cyi, 1.05, C.navy, 2.2);
+    const linhas = quebra(it.rot, 15.5, cw - 66, 700, 'B');
+    const y0 = cyi - (linhas.length - 1) * 9 + (it.sub ? -4 : 5.5);
+    linhas.forEach((l, q) => { b += t(l, x + 58, y0 + q * 18, { f: 'B', w: 700, s: 15.5, c: C.navy }); });
+    if (it.sub) b += t(it.sub, x + 58, y0 + linhas.length * 18 + 2, { f: 'B', w: 500, s: 13, c: C.grey });
+    s += `<g transform="translate(${f(x + cw / 2)} ${f(cyi)}) scale(${f(k)}) translate(${f(-(x + cw / 2))} ${f(-cyi)})">${b}</g>`;
   });
   return s;
 }
@@ -403,15 +388,34 @@ export function equacao(o, tt) {
   return s;
 }
 
-// selo circular com número grande (ex.: 7x)
-export function selo(x, y, r, num, linhas, tt, t0, o = {}) {
-  const k = back(tt, t0, 0.55);
+// ---------- prova: 7x + gradiente da Prosci ----------
+// Cartão com o múltiplo em destaque e 4 colunas (% de projetos que atingiram os objetivos por qualidade
+// da gestão de mudanças). o: { x, y, w, h, num, rot, barras: [{ v, rot }], eixo, nota, t0 }
+export function prova(o, tt) {
+  const k = ease.out(inv(o.t0, o.t0 + 0.5, tt));
   if (k <= 0) return '';
-  const rot = (1 - k) * -25;
-  let b = `<circle r="${r}" fill="${o.cor ?? C.orange}"/><circle r="${r - 7}" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 5" opacity=".8"/>`
-    + t(num, 0, r * 0.12, { f: 'H', w: 800, s: r * 0.8, c: '#fff', a: 'middle' });
-  linhas.forEach((l, i) => { b += t(l, 0, r * 0.4 + i * 15, { f: 'M', w: 600, s: 11.5, c: '#fff', a: 'middle', ls: 0.8 }); });
-  return `<g transform="translate(${f(x)} ${f(y)}) rotate(${f(rot)}) scale(${f(k)})">${b}</g>`;
+  let s = `<rect x="${f(o.x)}" y="${f(o.y)}" width="${f(o.w)}" height="${f(o.h)}" rx="14" fill="#fff" stroke="${C.blueLL}" stroke-width="1.5" filter="url(#fSombra)"/>`
+    + `<rect x="${f(o.x)}" y="${f(o.y)}" width="${f(o.w)}" height="6" rx="3" fill="${C.orange}"/>`;
+  const kn = back(tt, o.t0 + 1.5, 0.5);
+  if (kn > 0) s += `<g transform="translate(${f(o.x + 20)} ${f(o.y + 66)}) scale(${f(kn)})">${t(o.num, 0, 0, { f: 'H', w: 800, s: 64, c: C.orange })}</g>`;
+  const wn = larg(o.num, 64, 800, 'H');
+  quebra(o.rot, 13.5, o.w - wn - 40, 600, 'B').forEach((l, i) => { s += op(fin(tt, o.t0 + 1.7, 0.4), t(l, o.x + 30 + wn, o.y + 40 + i * 16.5, { f: 'B', w: 600, s: 13.5, c: C.navy })); });
+  // colunas
+  const n = o.barras.length, base = o.y + o.h - 62, hMax = o.h - 172, bw = 30;
+  const passo = (o.w - 40) / n;
+  o.barras.forEach((b, i) => {
+    const a0 = o.t0 + 0.25 + i * 0.22;
+    const u = ease.out(inv(a0, a0 + 0.6, tt));
+    const cxb = o.x + 20 + passo * (i + 0.5), h = (b.v / 100) * hMax * u;
+    const cor = i === n - 1 ? C.orange : [C.blueLL, C.blueL, C.blue][i] ?? C.navy;
+    s += `<rect x="${f(cxb - bw / 2)}" y="${f(base - h)}" width="${bw}" height="${f(Math.max(0, h))}" rx="4" fill="${cor}"/>`;
+    if (u > 0) s += t(contaNum(b.v, u) + '%', cxb, base - h - 7, { f: 'H', w: 800, s: 17, c: i === n - 1 ? C.orangeD : C.navy, a: 'middle' });
+    s += t(b.rot, cxb, base + 17, { f: 'B', w: 500, s: 11.5, c: C.slate, a: 'middle' });
+  });
+  s += `<path d="M${f(o.x + 16)},${f(base)} L${f(o.x + o.w - 16)},${f(base)}" stroke="${C.blueL}" stroke-width="1.5"/>`;
+  s += t(o.eixo.toUpperCase(), o.x + o.w / 2, base + 36, { f: 'M', w: 600, s: 9.5, c: C.grey, a: 'middle', ls: 0.6 });
+  s += t(o.nota, o.x + o.w / 2, base + 52, { f: 'M', w: 400, s: 10, c: C.greyL, a: 'middle' });
+  return `<g opacity="${f(clamp(k * 1.4))}" transform="translate(0 ${f((1 - k) * 20)})">${s}</g>`;
 }
 
 // transição entre páginas: faixas diagonais (laranja + ardósia + navy) atravessam a área (x0, y0, w, h).

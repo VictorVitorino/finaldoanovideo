@@ -182,8 +182,9 @@ export function rodape(pag, total, fonte, o = {}) {
   const y0 = H - 118;
   let s = `<rect x="0" y="${y0}" width="${W}" height="118" fill="${o.fundo ?? '#F4F7FB'}"/>`
     + `<path d="M48,${y0} L${W - 48},${y0}" stroke="${C.blueLL}" stroke-width="1.5"/>`;
-  const linhas = quebra(fonte, 13.5, 560, 400, 'M');
-  linhas.slice(0, 4).forEach((l, i) => { s += t(l, 48, y0 + 30 + i * 19, { f: 'M', w: 400, s: 13.5, c: C.grey }); });
+  const linhas = quebra(fonte, 11.5, 640, 400, 'M');
+  if (linhas.length > 6) console.warn('fontes do rodapé com', linhas.length, 'linhas (máx. 6):', fonte.slice(0, 60));
+  linhas.slice(0, 6).forEach((l, i) => { s += t(l, 48, y0 + 24 + i * 15.5, { f: 'M', w: 400, s: 11.5, c: C.grey }); });
   const P = lockupPerformance(W - 48 - 300, y0 + 58, 30, C.navy);
   s += `<g transform="translate(${f(300 - P.w)} 0)">${P.svg}</g>`;
   // bolinhas de página: a ativa é larga e enche com o progresso da página (o.prog 0..1)

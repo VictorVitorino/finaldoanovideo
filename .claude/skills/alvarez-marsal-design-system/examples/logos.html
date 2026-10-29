@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A&amp;M · Logos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../components/am-components.css">
+<link rel="stylesheet" href="../components/am-slide.css">
+<style>
+  body { padding: 40px; background: var(--gray-20); }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  h1 { font-family: var(--font-light); font-weight: 300; font-size: 36px; margin: 0 0 6px; color: var(--navy-100); }
+  .lede { font-size: 18px; color: var(--navy-80); margin: 0 0 32px; }
+  h2 { font-family: var(--font-cond); font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--navy-100); margin: 36px 0 12px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-100); }
+  .cell { min-height: 170px; display: grid; place-items: center; padding: 28px; position: relative; }
+  .cell.light { background: var(--white); } .cell.dark { background: var(--navy-100); }
+  .cell code { position: absolute; left: 12px; bottom: 10px; font-size: 12px; color: var(--navy-80); }
+  .cell.dark code { color: var(--navy-20); }
+  .cell img { max-width: 100%; }
+  .order { display: flex; align-items: center; gap: 24px; padding: 28px; background: var(--white); border: 1px solid var(--gray-100); }
+  .order.dark { background: var(--navy-100); color: var(--white); }
+  .order .am-lockup-sep { height: 40px; width: 1px; background: currentColor; opacity: .35; }
+  ul { margin: 0; padding-left: 18px; font-size: 16px; line-height: 1.6; color: var(--navy-100); }
+</style></head>
+<body><div class="wrap">
+  <h1>Logos: Alvarez &amp; Marsal, Performance e DTS</h1>
+  <p class="lede">Arquivos em <code>assets/logos/</code>. Versão de cor ou navy sobre fundo claro; versão branca sobre navy. Regras completas em <code>references/logos.md</code>.</p>
+
+  <h2>Ordem de assinatura: Alvarez &amp; Marsal, depois Performance, depois DTS</h2>
+  <div class="order">
+    <img style="height:24px" src="../assets/logos/alvarez-marsal/am-nome-navy.png" alt="Alvarez &amp; Marsal"><span class="am-lockup-sep"></span>
+    <img style="height:48px" src="../assets/logos/performance/performance-navy.png" alt="A&amp;M Performance"><span class="am-lockup-sep"></span>
+    <img style="height:26px" src="../assets/logos/dts/dts-navy.png" alt="DTS">
+  </div>
+  <div class="order dark" style="margin-top:12px">
+    <img style="height:24px" src="../assets/logos/alvarez-marsal/am-nome-branco.png" alt="Alvarez &amp; Marsal"><span class="am-lockup-sep"></span>
+    <img style="height:48px" src="../assets/logos/performance/performance-branco.png" alt="A&amp;M Performance"><span class="am-lockup-sep"></span>
+    <img style="height:26px" src="../assets/logos/dts/dts-branco.png" alt="DTS">
+  </div>
+
+  <h2>Alvarez &amp; Marsal</h2>
+  <div class="grid">
+    <div class="cell light"><img style="height:130px" src="../assets/logos/alvarez-marsal/am-logo-vertical-cor.png" alt=""><code>am-logo-vertical-cor.png</code></div>
+    <div class="cell dark"><img style="height:130px" src="../assets/logos/alvarez-marsal/am-logo-vertical-branco.png" alt=""><code>am-logo-vertical-branco.png</code></div>
+    <div class="cell light"><img style="height:26px" src="../assets/logos/alvarez-marsal/am-nome-navy.png" alt=""><code>am-nome-navy.png</code></div>
+    <div class="cell dark"><img style="height:26px" src="../assets/logos/alvarez-marsal/am-nome-branco.png" alt=""><code>am-nome-branco.png</code></div>
+    <div class="cell light"><img style="height:100px" src="../assets/logos/alvarez-marsal/am-simbolo-am-cor.png" alt=""><code>am-simbolo-am-cor.png · logo da capa</code></div>
+    <div class="cell dark"><img style="height:100px" src="../assets/logos/alvarez-marsal/am-simbolo-am-branco.png" alt=""><code>am-simbolo-am-branco.png · logo da capa</code></div>
+    <div class="cell light"><img style="height:90px" src="../assets/logos/alvarez-marsal/am-simbolo-cor.png" alt=""><code>am-simbolo-cor.png</code></div>
+    <div class="cell dark"><img style="height:90px" src="../assets/logos/alvarez-marsal/am-simbolo-branco.png" alt=""><code>am-simbolo-branco.png</code></div>
+  </div>
+
+  <h2>Performance</h2>
+  <div class="grid">
+    <div class="cell light"><img style="height:44px" src="../assets/logos/performance/performance-navy.png" alt=""><code>performance-navy.png</code></div>
+    <div class="cell dark"><img style="height:44px" src="../assets/logos/performance/performance-branco.png" alt=""><code>performance-branco.png</code></div>
+  </div>
+
+  <h2>DTS · Digital &amp; Technology Services</h2>
+  <div class="grid">
+    <div class="cell light"><img style="height:56px" src="../assets/logos/dts/dts-navy.png" alt=""><code>dts-navy.png</code></div>
+    <div class="cell dark"><img style="height:56px" src="../assets/logos/dts/dts-branco.png" alt=""><code>dts-branco.png</code></div>
+  </div>
+
+  <h2>Grafismos</h2>
+  <div class="grid">
+    <div class="cell dark" style="grid-column:1/-1;padding:0"><img style="width:100%" src="../assets/grafismos/capa-linhas.svg" alt=""><code>grafismos/capa-linhas.svg · capa e divisória</code></div>
+    <div class="cell light"><img style="height:150px" src="../assets/grafismos/diagonais.png" alt=""><code>grafismos/diagonais.png · peças DTS</code></div>
+    <div class="cell light" style="background:var(--gray-20)"><img style="height:150px" src="../assets/grafismos/diagonais.png" alt=""><code>grafismos/diagonais.png · sobre cinza-20</code></div>
+  </div>
+
+  <h2>Não fazer</h2>
+  <ul>
+    <li>Não redesenhar, recolorir à mão, esticar, girar ou aplicar sombra nas marcas.</li>
+    <li>Não usar a versão navy sobre fundo escuro nem a branca sobre fundo claro.</li>
+    <li>Não colocar o símbolo A&amp;M (sozinho ou no logo vertical) ao lado do lockup Performance, que já o contém. Na assinatura, use o nome Alvarez &amp; Marsal.</li>
+    <li>Não colocar grafismo em slides de conteúdo nem no cabeçalho de cada página.</li>
+    <li>Não colocar logo de cliente no modelo; ele só entra quando o projeto pedir, no espaço abaixo do subtítulo da capa.</li>
+  </ul>
+</div></body></html>

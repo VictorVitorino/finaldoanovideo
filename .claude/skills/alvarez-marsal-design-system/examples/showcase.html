@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alvarez &amp; Marsal — Showcase</title>
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../components/am-components.css">
+<style>
+  
+  .cover { position: relative; width: 960px; height: 336px; overflow: hidden; background: var(--surface); }
+  .cover svg { position: absolute; inset: 0; }
+  .deep { fill: var(--surface-inverse); }
+  .gray { fill: var(--gray-100); }
+  .tint { fill: var(--gray-40); }
+  .blue { fill: var(--blue-100); }
+  .accent { fill: var(--accent); }
+  .name { position: absolute; left: 48px; bottom: 40px; max-width: 440px; }
+  .name h1 { margin: 0; font-family: var(--font-light); font-weight: 300; font-size: 80px; line-height: .95; color: var(--ink); letter-spacing: -0.01em; }
+  .name p { margin: 16px 0 0; font-family: var(--font-cond); font-size: 14px; color: var(--ink-muted); }
+
+body { padding: 32px; background: var(--gray-20); }
+.bar { display:flex; justify-content:space-between; align-items:center; max-width:1000px; margin:0 auto 24px; }
+.sc { max-width:1000px; margin:0 auto 32px; }
+.sc h3 { color: var(--ink); margin:0 0 8px; }
+.frame { background: var(--surface); border:1px solid var(--line); overflow:auto; }
+</style></head>
+<body>
+<div class="bar"><span class="title-sm" style="color:var(--ink)">Alvarez &amp; Marsal · Design System</span>
+<nav class="body-sm" style="display:flex;gap:16px"><a class="am-btn am-btn-text" href="logos.html">Logos</a><a class="am-btn am-btn-text" href="capa-divisoria.html">Capa e divisória</a><a class="am-btn am-btn-text" href="slide-padrao.html">Slide padrão</a></nav>
+<button class="am-btn am-btn-secondary" onclick="var r=document.documentElement;r.dataset.theme=r.dataset.theme==='navy'?'light':'navy'">Alternar tema Claro/Navy</button></div>
+<section class="sc"><h3 class="subtitle-sm">Capa</h3><div class="frame">
+<div class="cover">
+  <svg viewBox="0 0 960 336" width="960" height="336" aria-hidden="true">
+    <!--
+      blocks: surface-inverse (navy-100), gray-100, blue-100, gray-40 as 64px (space-16) tiles; accent (orange-100) in one tile + the strip's 5% band
+      arrangement: six flush 2×2 quads (the brand's "combinações de cores" plate) at a space-4 gap, plus the "proporções" strip (45/40/10/5) bleeding off the right
+      pattern: geometric/modular — the palette is published as square two-by-two combinations and a proportion bar, so the cover is built from exactly those
+      scales: tiles space-16, gaps space-4, strip height space-6, corners radius-none (square system)
+    -->
+    <!-- row 1 -->
+    <rect class="deep" x="528" y="24" width="64" height="64"/><rect class="gray" x="592" y="24" width="64" height="64"/>
+    <rect class="blue" x="528" y="88" width="64" height="64"/><rect class="tint" x="592" y="88" width="64" height="64"/>
+
+    <rect class="tint" x="672" y="24" width="64" height="64"/><rect class="deep" x="736" y="24" width="64" height="64"/>
+    <rect class="deep" x="672" y="88" width="64" height="64"/><rect class="blue" x="736" y="88" width="64" height="64"/>
+
+    <rect class="deep" x="816" y="24" width="64" height="64"/><rect class="accent" x="880" y="24" width="64" height="64"/>
+    <rect class="blue" x="816" y="88" width="64" height="64"/><rect class="gray" x="880" y="88" width="64" height="64"/>
+    <!-- row 2 -->
+    <rect class="blue" x="528" y="168" width="64" height="64"/><rect class="tint" x="592" y="168" width="64" height="64"/>
+    <rect class="deep" x="528" y="232" width="64" height="64"/><rect class="gray" x="592" y="232" width="64" height="64"/>
+
+    <rect class="gray" x="672" y="168" width="64" height="64"/><rect class="deep" x="736" y="168" width="64" height="64"/>
+    <rect class="tint" x="672" y="232" width="64" height="64"/><rect class="deep" x="736" y="232" width="64" height="64"/>
+
+    <rect class="deep" x="816" y="168" width="64" height="64"/><rect class="blue" x="880" y="168" width="64" height="64"/>
+    <rect class="gray" x="816" y="232" width="64" height="64"/><rect class="tint" x="880" y="232" width="64" height="64"/>
+    <!-- proportion strip: navy 45 / gray 40 / blue 10 / orange 5 of 480 -->
+    <rect class="deep" x="480" y="312" width="216" height="24"/>
+    <rect class="gray" x="696" y="312" width="192" height="24"/>
+    <rect class="blue" x="888" y="312" width="48" height="24"/>
+    <rect class="accent" x="936" y="312" width="24" height="24"/>
+  </svg>
+  <div class="name">
+    <h1>Alvarez &amp;<br>Marsal</h1>
+    <p>Leadership. Action. Results.</p>
+  </div>
+</div>
+</div></section><section class="sc"><h3 class="subtitle-sm">Cabeçalho de seção</h3><div class="frame">
+<header class="am-section">
+  <div class="am-section-eyebrow">02 · Diagnóstico</div>
+  <h2 class="am-section-title">Capital de giro libera R$ 42 mi em 90 dias</h2>
+  <hr class="am-section-rule">
+  <p class="am-section-lede">Três alavancas — fornecedores, estoque e recebíveis — respondem por todo o ganho de caixa.</p>
+</header>
+<header class="am-section am-section-inverse">
+  <div class="am-section-eyebrow">03 · Plano de ação</div>
+  <h2 class="am-section-title">Os próximos 100 dias</h2>
+  <hr class="am-section-rule">
+  <p class="am-section-lede">Governança semanal, metas por responsável e marcos de caixa.</p>
+</header>
+</div></section><section class="sc"><h3 class="subtitle-sm">Cartão KPI</h3><div class="frame">
+<div class="am-row" style="align-items:stretch">
+  <div class="am-kpi"><div class="am-kpi-label">Receita LTM</div><div class="am-kpi-value">R$ 1,2 bi</div><div class="am-kpi-delta"><b>+8,4%</b> vs. 2025</div></div>
+  <div class="am-kpi am-kpi-highlight"><div class="am-kpi-label">Caixa liberado</div><div class="am-kpi-value">R$ 42 mi</div><div class="am-kpi-delta"><b>90 dias</b> de execução</div></div>
+  <div class="am-kpi"><div class="am-kpi-label">Margem EBITDA</div><div class="am-kpi-value">14,2%</div><div class="am-kpi-delta"><b>+2,1 p.p.</b> vs. orçamento</div></div>
+</div>
+</div></section><section class="sc"><h3 class="subtitle-sm">Tabela de dados</h3><div class="frame">
+<div class="am-stack">
+<table class="am-table">
+  <thead><tr><th>Iniciativa</th><th>Responsável</th><th class="num">Impacto (R$ mi)</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>Renegociação de fornecedores</td><td>Compras</td><td class="num">18,0</td><td><span class="am-badge am-badge-positive">No prazo</span></td></tr>
+    <tr class="is-selected"><td>Redução de estoque</td><td>Operações</td><td class="num">15,5</td><td><span class="am-badge am-badge-attention">Em risco</span></td></tr>
+    <tr><td>Prazo de recebimento</td><td>Financeiro</td><td class="num">8,5</td><td><span class="am-badge">Em análise</span></td></tr>
+  </tbody>
+  <tfoot><tr><td>Total</td><td></td><td class="num">42,0</td><td></td></tr></tfoot>
+</table>
+</div>
+</div></section><section class="sc"><h3 class="subtitle-sm">Alerta</h3><div class="frame">
+<div class="am-stack">
+  <div class="am-alert am-alert-info"><div><strong>Premissa de cenário</strong><p>Projeções consideram Selic média de 10,5% em 2027.</p></div></div>
+  <div class="am-alert am-alert-positive"><div><strong>Meta atingida</strong><p>Redução de custos de 12% confirmada no fechamento de setembro.</p></div></div>
+  <div class="am-alert am-alert-attention"><div><strong>Covenant próximo do limite</strong><p>Dívida líquida/EBITDA em 3,4x frente ao teto de 3,5x.</p></div></div>
+  <div class="am-alert am-alert-negative"><div><strong>Caixa abaixo do mínimo</strong><p>Saldo projetado negativo na semana 7 sem a renegociação.</p></div></div>
+</div>
+</div></section><section class="sc"><h3 class="subtitle-sm">Badge</h3><div class="frame">
+<div class="am-row">
+  <span class="am-badge">Em análise</span>
+  <span class="am-badge am-badge-positive">No prazo</span>
+  <span class="am-badge am-badge-attention">Em risco</span>
+  <span class="am-badge am-badge-negative">Atrasado</span>
+</div>
+</div></section><section class="sc"><h3 class="subtitle-sm">Botão</h3><div class="frame">
+<div class="am-row">
+  <button class="am-btn">Aprovar plano</button>
+  <button class="am-btn am-btn-secondary">Exportar relatório</button>
+  <button class="am-btn am-btn-text">Ver metodologia</button>
+  <button class="am-btn" disabled>Enviar</button>
+</div>
+</div></section>
+</body></html>

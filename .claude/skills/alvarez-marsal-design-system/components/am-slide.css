@@ -1,0 +1,138 @@
+/* Alvarez & Marsal — padrão de slide de conteúdo (16:9, 1600×900) e marcas.
+   Tirado do slide de referência em references/img/slide-padrao-referencia.png.
+   Use junto com tokens.css. Todos os valores vêm dos tokens. */
+
+/* ---------- Marcas (logos oficiais em assets/logos) ---------- */
+.am-logo { display: block; height: auto; }
+.am-logo-am-nome { height: 17px; width: auto; }            /* topo direito do slide */
+/* Performance e DTS com a mesma altura de caixa-alta (~23px); o DTS nunca maior que o Performance */
+.am-logo-performance { height: 48px; width: auto; }       /* arquivo nativo: 49px de altura */
+.am-logo-dts { height: 26px; width: auto; }
+.am-lockup .am-logo-am-nome { height: 24px; }
+.am-logo-am-vertical { height: 120px; width: auto; }       /* capa, contracapa */
+
+/* Assinatura: Alvarez & Marsal, depois Performance, depois DTS, separados por fio */
+.am-lockup { display: inline-flex; align-items: center; gap: var(--space-6); }
+.am-lockup-sep { width: 1px; align-self: stretch; background: currentColor; opacity: .35; }
+
+/* ---------- Faixa de topo (cabeçalho de documento/relatório) ---------- */
+.am-topbar { position: relative; height: 60px; box-sizing: border-box; background: var(--navy-100); border-top: 10px solid var(--orange-100);
+  display: flex; align-items: center; justify-content: flex-end; padding: 0 var(--space-6); overflow: hidden; }
+.am-topbar .am-logo-am-nome { height: 21px; }
+.am-topbar-diag { position: absolute; right: 300px; bottom: 0; height: 46px; width: 46px; }
+
+/* ---------- Canvas do slide ---------- */
+.am-slide { position: relative; width: 1600px; height: 900px; box-sizing: border-box; padding: 24px 80px 0;
+  background: var(--white); color: var(--navy-100); font-family: var(--font-cond); overflow: hidden; }
+.am-slide *, .am-slide *::before, .am-slide *::after { box-sizing: border-box; }
+
+/* topo: número da seção + etiqueta do capítulo à esquerda, nome A&M à direita */
+.am-slide-top { display: flex; align-items: center; gap: 18px; height: 40px; }
+.am-slide-top .am-logo-am-nome { margin-left: auto; margin-top: 10px; }
+.am-section-num { width: 40px; height: 40px; border-radius: var(--radius-pill); background: var(--navy-100); color: var(--white);
+  display: grid; place-items: center; font-family: var(--font-cond); font-weight: 700; font-size: 22px; letter-spacing: .02em; }
+.am-chapter { display: inline-flex; align-items: center; gap: 10px; height: 28px; padding: 0 14px; border-radius: var(--radius-pill);
+  background: var(--orange-20); color: var(--navy-100); font-family: var(--font-light); font-size: 15px; }
+.am-chapter::before { content: ""; width: 7px; height: 7px; border-radius: var(--radius-pill); background: var(--orange-100); }
+
+/* título com duas partes separadas por fio, e o lede em azul com a palavra-chave em navy negrito */
+.am-slide-title { margin: 26px 0 0; font-family: var(--font-light); font-weight: 300; font-size: 46px; line-height: 1.1; color: var(--navy-100); }
+.am-slide-title .sep { display: inline-block; width: 2px; height: .9em; margin: 0 14px; vertical-align: -0.1em; background: var(--gray-100); }
+.am-slide-lede { margin: 14px 0 0; max-width: 1380px; font-family: var(--font-cond); font-size: 23px; line-height: 1.12; color: var(--blue-100); }
+.am-slide-lede b { color: var(--navy-100); font-weight: 700; }
+
+/* grade de conteúdo */
+.am-slide-body { position: absolute; left: 80px; right: 80px; top: 238px; bottom: 44px; display: grid; gap: 16px; align-content: start; }
+
+/* ---------- Painel (fundo cinza-20, cantos de 8px) ---------- */
+.am-panel { background: var(--gray-20); border-radius: var(--radius-md); padding: 14px 18px 16px; display: flex; flex-direction: column; }
+.am-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 24px; }
+.am-panel-title { margin: 0; font-family: var(--font-cond); font-weight: 700; font-size: 16px; letter-spacing: .08em; text-transform: uppercase; color: var(--navy-100); }
+.am-flag { display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border: 1.5px solid var(--orange-100); border-radius: var(--radius-xs);
+  font-family: var(--font-cond); font-weight: 700; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--orange-dark); background: var(--white); }
+
+/* ---------- Matriz com escala de pontos ---------- */
+.am-matrix { width: 100%; table-layout: fixed; border-collapse: collapse; font-family: var(--font-cond); color: var(--navy-100); margin-top: 0; }
+.am-matrix th:last-child, .am-matrix td:last-child { text-align: left; padding-left: 16px; }
+.am-matrix th { font-weight: 700; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--navy-80); text-align: center;
+  padding: 8px 4px; border-bottom: 2px solid var(--navy-100); }
+.am-matrix th:first-child { text-align: left; }
+.am-matrix td { height: 48.5px; text-align: center; border-bottom: 1px solid var(--gray-80); font-size: 15px; }
+.am-matrix td:first-child { text-align: left; font-weight: 700; }
+.am-matrix tr:last-child td { border-bottom: 0; }
+.am-matrix .num { font-family: var(--font-light); font-size: 22px; font-weight: 700; color: var(--navy-100); }
+.am-matrix .num.is-risk { color: var(--orange-100); }
+.am-dot { display: inline-block; vertical-align: middle; border-radius: var(--radius-pill); }
+.am-dot-ref  { width: 20px; height: 20px; background: var(--navy-100); }
+.am-dot-prof { width: 16px; height: 16px; background: var(--blue-100); }
+.am-dot-form { width: 16px; height: 16px; border: 2px solid var(--navy-40); }
+.am-dot-none { width: 4px; height: 4px; background: var(--gray-100); }
+.am-legend { display: flex; align-items: center; gap: 28px; margin-top: 10px; font-size: 14px; color: var(--navy-80); }
+.am-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.am-legend em { margin-left: auto; font-size: 13.5px; }
+
+/* ---------- Etiqueta de risco (pílula) ---------- */
+.am-risk { display: inline-grid; place-items: center; width: 92px; height: 22px; border-radius: var(--radius-pill);
+  font-family: var(--font-cond); font-weight: 700; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+.am-risk-alto  { background: var(--orange-dark); color: var(--white); }
+.am-risk-medio { background: var(--orange-40); color: var(--navy-100); }
+.am-risk-baixo { background: var(--blue-20); color: var(--navy-100); }
+
+/* ---------- Trilha em chevrons (do mais claro ao navy) ---------- */
+.am-chevrons { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 10px; }
+.am-chevrons > div { height: 42px; display: grid; place-items: center; font-family: var(--font-cond); font-weight: 700; font-size: 15px;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%, 22px 50%); margin-right: -14px; }
+.am-chevrons > div:last-child { margin-right: 0; }
+.am-chevrons > div:first-child { clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%); }
+.am-chevrons .s1 { background: var(--blue-40); color: var(--navy-100); }
+.am-chevrons .s2 { background: var(--blue-100); color: var(--white); }
+.am-chevrons .s3 { background: var(--navy-100); color: var(--white); }
+.am-chevron-notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 9px; font-size: 14px; line-height: 1.25; color: var(--navy-80); }
+.am-note { margin: auto 0 0; padding-top: 18px; font-style: italic; font-size: 14px; color: var(--navy-100); }
+
+/* ---------- Métrica (cartão branco dentro do painel) ---------- */
+.am-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
+.am-metric { background: var(--white); border: 1px solid var(--line-soft); border-radius: var(--radius-md); padding: 8px 12px 18px; }
+.am-metric-value { font-family: var(--font-light); font-weight: 300; font-size: 40px; line-height: 1.1; color: var(--orange-100); }
+.am-metric-value.is-navy { color: var(--navy-100); }
+.am-metric-label { margin-top: 6px; font-family: var(--font-cond); font-weight: 700; font-size: 14px; line-height: 1.25; color: var(--navy-100); }
+
+/* ---------- Bloco numerado de etapa (1, 2, 3) ---------- */
+.am-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.am-step { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 15px; padding: 12px 18px 14px 16px;
+  background: var(--gray-20); border-radius: var(--radius-md); }
+.am-step-num { font-family: var(--font-light); font-weight: 300; font-size: 76px; line-height: 1; color: var(--blue-100); }
+.am-step h4 { margin: 20px 0 5px; font-family: var(--font-cond); font-weight: 700; font-size: 19px; color: var(--navy-100); }
+.am-step ul { list-style: none; margin: 0; padding: 0; font-size: 14px; line-height: 1.45; color: var(--navy-80); }
+.am-step li::before { content: "✓"; color: var(--orange-100); margin-right: 10px; }
+.am-step-out { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--gray-100);
+  font-size: 14px; font-weight: 700; color: var(--navy-100); }
+.am-step-out small { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--blue-100); }
+.am-step-out i { width: 13px; height: 13px; border-radius: var(--radius-pill); border: 2px solid currentColor; box-shadow: inset 0 0 0 2px var(--gray-20), inset 0 0 0 6px currentColor; color: var(--navy-100); }
+/* a última etapa fecha a história em navy */
+.am-step.is-final { background: var(--navy-100); }
+.am-step.is-final .am-step-num { color: var(--orange-100); }
+.am-step.is-final h4, .am-step.is-final .am-step-out { color: var(--white); }
+.am-step.is-final ul { color: var(--navy-20); }
+.am-step.is-final .am-step-out { border-top-color: var(--navy-80); }
+.am-step.is-final .am-step-out small { color: var(--orange-100); }
+.am-step.is-final .am-step-out i { color: var(--orange-100); box-shadow: inset 0 0 0 2px var(--navy-100), inset 0 0 0 6px var(--orange-100); }
+
+/* número da página */
+.am-page-num { position: absolute; right: 80px; bottom: 16px; font-family: var(--font-cond); font-size: 14px; color: var(--navy-80); }
+
+/* ---------- Capa e divisória (padrão da capa oficial A&M) ---------- */
+/* navy liso; símbolo com "A&M" empilhado no alto à esquerda; título e subtítulo em Light branco;
+   data no pé; as linhas brancas da marca à direita (assets/grafismos/capa-linhas.svg). Sem logo de cliente. */
+.am-cover { position: relative; width: 1600px; height: 900px; box-sizing: border-box; background: var(--navy-100); color: var(--white); overflow: hidden; }
+.am-cover-linhas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.am-cover-logo { position: absolute; left: 68px; top: 30px; height: 145px; width: auto; }
+.am-cover-title { position: absolute; left: 62px; top: 272px; width: 940px; margin: 0; font-family: var(--font-light); font-weight: 300; font-size: 44px; line-height: 1.14; }
+.am-cover-sub { position: absolute; left: 62px; top: 560px; width: 940px; margin: 0; font-family: var(--font-light); font-weight: 300; font-size: 37px; line-height: 1.2; }
+.am-cover-date { position: absolute; left: 62px; bottom: 56px; font-family: var(--font-cond); font-size: 22px; }
+.am-cover-num { position: absolute; right: 62px; bottom: 16px; font-family: var(--font-cond); font-size: 12px; }
+/* assinatura opcional das práticas (Performance → DTS; o A&M já está no alto) no lugar onde a capa oficial leva o logo do cliente */
+.am-cover-foot { position: absolute; left: 62px; top: 670px; display: flex; align-items: center; gap: var(--space-6); }
+.am-cover-foot .am-lockup-sep { width: 1px; height: 44px; background: var(--white); opacity: .35; }
+/* divisória: mesma base, número do capítulo em sobretítulo e título único */
+.am-cover-eyebrow { position: absolute; left: 62px; top: 236px; font-family: var(--font-cond); font-weight: 700; font-size: 16px; letter-spacing: .2em; text-transform: uppercase; color: var(--blue-40); }

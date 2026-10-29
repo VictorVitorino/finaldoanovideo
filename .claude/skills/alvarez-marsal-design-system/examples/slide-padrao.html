@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=1600">
+<title>A&amp;M · Slide padrão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../components/am-slide.css">
+<style>body { margin: 0; background: var(--gray-40); } .am-slide { margin: 0 auto; }</style>
+</head>
+<body>
+<!-- Slide de conteúdo no padrão A&M (1600×900). Estrutura copiada de references/img/slide-padrao-referencia.png;
+     troque só o conteúdo. Topo: número da seção + capítulo + nome A&M. Título em duas partes + lede. Painéis + etapas. -->
+<section class="am-slide">
+  <div class="am-slide-top">
+    <div class="am-section-num">07</div>
+    <div class="am-chapter">Padronização e evolução dos processos de suporte</div>
+    <img class="am-logo am-logo-am-nome" src="../assets/logos/alvarez-marsal/am-nome-navy.png" alt="Alvarez &amp; Marsal">
+  </div>
+
+  <h1 class="am-slide-title">Capacitação e conhecimento<span class="sep"></span>Informações e mecanismos</h1>
+  <p class="am-slide-lede">A <b>matriz de conhecimentos críticos</b> revela onde a operação depende de uma única pessoa; trilhas, sucessão e metas de cobertura orientam a redução desse risco.</p>
+
+  <div class="am-slide-body" style="grid-template-columns: 833px 1fr;">
+    <!-- matriz -->
+    <div class="am-panel" style="grid-row: 1;">
+      <div class="am-panel-head"><h3 class="am-panel-title">Matriz de conhecimentos críticos</h3><span class="am-flag">Ilustrativo</span></div>
+      <table class="am-matrix">
+        <colgroup><col style="width:265px"><col style="width:53px"><col style="width:53px"><col style="width:53px"><col style="width:53px"><col style="width:53px"><col style="width:53px"><col style="width:92px"><col></colgroup>
+        <thead><tr><th>Domínio de conhecimento</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th><th>Detentores</th><th>Risco</th></tr></thead>
+        <tbody>
+          <tr><td>Modelos de planejamento</td><td><i class="am-dot am-dot-ref"></i></td><td><i class="am-dot am-dot-form"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-prof"></i></td><td><i class="am-dot am-dot-none"></i></td><td class="num">2</td><td><span class="am-risk am-risk-medio">Médio</span></td></tr>
+          <tr><td>Modelos de análise</td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-ref"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-form"></i></td><td class="num is-risk">1</td><td><span class="am-risk am-risk-alto">Alto</span></td></tr>
+          <tr><td>Métodos de otimização</td><td><i class="am-dot am-dot-ref"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-form"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-none"></i></td><td class="num is-risk">1</td><td><span class="am-risk am-risk-alto">Alto</span></td></tr>
+          <tr><td>Arquitetura e código-fonte</td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-prof"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-ref"></i></td><td><i class="am-dot am-dot-prof"></i></td><td><i class="am-dot am-dot-none"></i></td><td class="num">3</td><td><span class="am-risk am-risk-baixo">Baixo</span></td></tr>
+          <tr><td>Bases de dados e integrações</td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-ref"></i></td><td><i class="am-dot am-dot-prof"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-none"></i></td><td class="num">2</td><td><span class="am-risk am-risk-medio">Médio</span></td></tr>
+          <tr><td>Suporte à operação e aos usuários</td><td><i class="am-dot am-dot-prof"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-prof"></i></td><td><i class="am-dot am-dot-none"></i></td><td><i class="am-dot am-dot-prof"></i></td><td><i class="am-dot am-dot-ref"></i></td><td class="num">4</td><td><span class="am-risk am-risk-baixo">Baixo</span></td></tr>
+        </tbody>
+      </table>
+      <div class="am-legend"><span><i class="am-dot am-dot-ref" style="width:16px;height:16px"></i>Referência</span><span><i class="am-dot am-dot-prof" style="width:14px;height:14px"></i>Proficiente</span><span><i class="am-dot am-dot-form" style="width:16px;height:16px"></i>Em formação</span><em>Detentores = profissionais nos níveis proficiente ou referência · P1 a P6: profissionais</em></div>
+    </div>
+
+    <!-- trilha + metas -->
+    <div style="grid-row: 1; display: grid; grid-template-rows: 1fr auto; gap: 18px;">
+      <div class="am-panel">
+        <div class="am-panel-head"><h3 class="am-panel-title">Trilha de proficiência</h3></div>
+        <div class="am-chevrons"><div class="s1">Em formação</div><div class="s2">Proficiente</div><div class="s3">Referência</div></div>
+        <div class="am-chevron-notes"><span>Executa com apoio; trilha básica e shadowing</span><span>Atua com autonomia; participa de revisões cruzadas</span><span>Revisa, ensina e registra; sucessor-chave</span></div>
+        <p class="am-note">Trilhas técnicas, funcionais e de operação e sustentação, por ferramenta, comunidade e função.</p>
+      </div>
+      <div class="am-panel">
+        <div class="am-panel-head"><h3 class="am-panel-title">Metas de cobertura</h3><span class="am-flag">Referência</span></div>
+        <div class="am-metrics">
+          <div class="am-metric"><div class="am-metric-value">100%</div><div class="am-metric-label">Conhecimentos críticos com ≥ 2 detentores</div></div>
+          <div class="am-metric"><div class="am-metric-value">100%</div><div class="am-metric-label">Posições críticas com sucessor definido</div></div>
+          <div class="am-metric"><div class="am-metric-value is-navy">≥ 90%</div><div class="am-metric-label">Ferramentas com documentação atualizada</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- etapas -->
+    <div class="am-steps" style="grid-column: 1 / -1;">
+      <div class="am-step"><div class="am-step-num">1</div><div><h4>Proteger o conhecimento crítico</h4><ul><li>Repositório técnico centralizado</li><li>Mapa de conhecimentos críticos por ferramenta</li><li>Documentação e manual das ferramentas</li></ul><div class="am-step-out"><i></i><small>Saída</small>Conhecimento crítico identificado e registrado</div></div></div>
+      <div class="am-step"><div class="am-step-num">2</div><div><h4>Distribuir e capacitar</h4><ul><li>Trilhas de capacitação por comunidade</li><li>Protocolos de transferência e revisões cruzadas</li><li>Avaliação de desempenho adaptada</li></ul><div class="am-step-out"><i></i><small>Saída</small>Cada conhecimento crítico com mais de um detentor</div></div></div>
+      <div class="am-step is-final"><div class="am-step-num">3</div><div><h4>Garantir a continuidade</h4><ul><li>Planos de sucessão para posições críticas</li><li>Fóruns, comunidades de prática e lições aprendidas</li><li>Cobertura de sucessão e riscos de dependência medidos</li></ul><div class="am-step-out"><i></i><small>Saída</small>Nenhuma saída compromete as ferramentas</div></div></div>
+    </div>
+  </div>
+
+  <div class="am-page-num">54</div>
+</section>
+</body></html>

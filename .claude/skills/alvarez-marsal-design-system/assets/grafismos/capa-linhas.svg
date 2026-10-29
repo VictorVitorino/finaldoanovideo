@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" fill="none">
+  <!-- Linhas da capa oficial A&M (sobre navy): diagonal branca grossa e o traço fino em forma de "A". -->
+  <path d="M1025 900 L1550 0" stroke="#FFFFFF" stroke-width="7"/>
+  <path d="M903 900 L1134 487 L1134 900" stroke="#CCD5DB" stroke-width="2" stroke-linejoin="miter"/>
+</svg>

@@ -1,8 +1,9 @@
 """Vídeo "Mapa de Perfil Cognitivo · Mapa de Adoção" (LinkedIn, 1080x1350): narração, trilha e efeitos.
 
-  python3 producao/mapa_audio.py [--take doug2]
+  python3 producao/mapa_audio.py [--take doug2v]
 
-Entrada:  audio/mapa/<take>.mp3         narração do ElevenLabs (voz "Doug - Warm", eleven_v4)
+Entrada:  audio/mapa/<take>.mp3         narração do ElevenLabs (voz "Doug - Warm", eleven_v4). A take doug2v é a doug2 com a
+                                        assinatura final trocada por "Victor Vitorino. Consultor de Change Management." (assinatura1.mp3)
           audio/mapa/<take>.words.json  tempo de cada palavra (eleven_scribe_v1)
 Saídas:   build/mapa/trilha.wav   -> narração + música + efeitos, mixados
           src/mapa/tempos.json    -> palavras no tempo final, início de cada cena, legendas e marcas
@@ -20,10 +21,10 @@ from dts60_audio import (SR, decode, encode_wav, ponto_de_corte, add, nota, mtof
                          riser, impacto, tique)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ALVO = 88.0      # duração desejada (s); o teto do pedido é 90 s
-TETO = 89.6
+ALVO = 89.6      # duração desejada (s); o teto do pedido é 90 s
+TETO = 89.9
 
-# Roteiro em frases: (cena que a frase abre, nº de palavras). Total = 170 palavras.
+# Roteiro em frases: (cena que a frase abre, nº de palavras). Total = 173 palavras.
 FRASES = [
     ('gancho', 17),    # Duas pessoas. A mesma ferramenta. O mesmo treinamento. Uma delas adota. A outra volta para a planilha.
     ('porque', 13),    # Não é má vontade. É perfil: como cada pessoa percebe, avalia e decide.
@@ -35,12 +36,13 @@ FRASES = [
     ('vivo', 30),      # Mas o mapa precisa estar vivo. Posição é momento, não rótulo: pessoas avançam, travam, recuam. A cada onda, medimos de novo e ajustamos o plano, antes e depois do go-live.
     ('pergunta', 10),  # No seu projeto, você sabe onde cada pessoa está hoje?
     ('fecho', 9),      # Adoção não se impõe. Se constrói. Pessoa por pessoa.
-    (None, 6),         # Gestão da Mudança. Alvarez and Marsal.
+    (None, 3),         # Gestão da Mudança.
+    (None, 6),         # Victor Vitorino. Consultor de Change Management.
 ]
 # respiro planejado DEPOIS de cada frase (s), antes do ajuste fino para fechar em ALVO
-RESPIRO = [1.0, 0.85, 1.5, 1.0, 1.15, 1.35, 1.0, 1.25, 0.9, 0.75]
+RESPIRO = [1.0, 0.85, 1.5, 1.0, 1.15, 1.35, 1.0, 1.25, 0.9, 0.75, 0.6]
 ABERTURA = 0.9   # antes da primeira palavra (a capa já está na tela)
-FINAL = 3.0      # segura o quadro final depois da última palavra
+FINAL = 2.5      # segura o quadro final depois da última palavra
 ORDEM = ['gancho', 'porque', 'titulo', 'perfil', 'regua', 'mapa', 'acoes', 'vivo', 'pergunta', 'fecho']
 # fração do respiro anterior que ainda pertence à cena que termina (o resto já é a cena nova)
 CORTE = {'porque': 0.5, 'titulo': 0.45, 'perfil': 0.62, 'regua': 0.5, 'mapa': 0.5, 'acoes': 0.55, 'vivo': 0.5, 'pergunta': 0.6, 'fecho': 0.5}
@@ -51,10 +53,10 @@ EXIBE = {'and': '&'}
 LEGENDAS = [(0, 1), (2, 7), (8, 10), (11, 16), (17, 20), (21, 22), (23, 29), (30, 37), (38, 43), (44, 46), (47, 48),
             (49, 51), (52, 54), (55, 62), (63, 68), (69, 73), (74, 79), (80, 85), (86, 91), (92, 97), (98, 102),
             (103, 106), (107, 110), (111, 114), (115, 120), (121, 125), (126, 129), (130, 135), (136, 139), (140, 144),
-            (145, 147), (148, 154), (155, 158), (159, 160), (161, 163), (164, 166), (167, 169)]
+            (145, 147), (148, 154), (155, 158), (159, 160), (161, 163), (164, 166), (167, 168), (169, 172)]
 DESTAQUE = [10, 16, 22, 26, 27, 29, 34, 35, 36, 37, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 57, 69, 71, 72, 73,
             74, 75, 76, 77, 79, 89, 90, 91, 101, 102, 103, 107, 111, 120, 123, 125, 127, 128, 129, 132, 139, 140, 142, 144,
-            154, 158, 160, 161, 162, 163, 167, 168, 169]
+            154, 158, 160, 161, 162, 163, 167, 168, 171, 172]
 
 # Marcas: índice da palavra que dispara cada evento da animação (as cenas leem estas chaves em T.marcas)
 MARCAS = {
@@ -68,7 +70,8 @@ MARCAS = {
     'vivo': 120, 'momento': 123, 'rotulo': 125, 'avancam': 127, 'travam': 128, 'recuam': 129,
     'onda': 132, 'medimos': 133, 'plano': 139, 'antes': 140, 'depois': 142, 'golive': 144,
     'seu_projeto': 147, 'voce_sabe': 148, 'hoje2': 154,
-    'adocao': 155, 'impoe': 158, 'constroi': 160, 'pessoa_por_pessoa': 161, 'gestao': 164, 'alvarez': 167, 'marsal': 169,
+    'adocao': 155, 'impoe': 158, 'constroi': 160, 'pessoa_por_pessoa': 161, 'gestao': 164, 'victor': 167, 'consultor': 169, 'management': 172,
+    'alvarez': 167, 'marsal': 172,   # nomes antigos das marcas, mantidos para as cenas: agora apontam para a assinatura
 }
 
 
@@ -105,7 +108,7 @@ def musica(T, drop, fim):
 
 
 def main():
-    take = 'doug2'
+    take = 'doug2v'
     if '--take' in sys.argv:
         take = sys.argv[sys.argv.index('--take') + 1]
     pal = json.load(open(os.path.join(ROOT, f'audio/mapa/{take}.words.json')))['words']
@@ -255,6 +258,7 @@ def main():
         fx(pop(620 + 120 * j, 0.09), wa(161 + j), 'pop')
     fx(sino(0.1, 84), wa(164) - 0.05, 'sino')
     fx(sino(0.11, 91), wa(167) - 0.02, 'sino')
+    fx(pop(700, 0.07), wa(169) - 0.02, 'pop')
 
     pico = np.max(np.abs(buf))
     buf *= 0.89 / pico

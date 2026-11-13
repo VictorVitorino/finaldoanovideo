@@ -45,7 +45,7 @@ const ST = 70, TY1 = 346, TY2 = 428;               // título (Light)
 const FY = 460;                                    // fio laranja
 const SF = 42, FR1 = 540, FR2 = 596;               // frase-síntese
 const SLAB = 30, LAB = 678;                        // rótulo da prática
-const SCTA = 26, CTA = 736;                        // chamada
+const SCTA = 26, CTA = 742;                        // assinatura pessoal (linha de base do nome)
 
 // escala (sx, sy) em torno de (x, y)
 const esm = (x, y, sx, sy, body, r = 0) => `<g transform="translate(${f(x)} ${f(y)})${r ? ` rotate(${f(r)})` : ''} scale(${f(sx)} ${f(sy)}) translate(${f(-x)} ${f(-y)})">${body}</g>`;
@@ -111,7 +111,8 @@ export function desenhar(t, ctx) {
   const tSe = wa(iC - 1) - 0.06, tCons = m('constroi') - 0.06;   // "Se" e "constrói."
   const tP = [0, 1, 2].map(i => wa(iP + i) - 0.06);              // "Pessoa" "por" "pessoa."
   const tA2 = m('gestao') - 0.55, tGes = m('gestao') - 0.08;      // ato 2 (a tipografia sai antes, para o cartão já estar montado na fala)
-  const tAlv = m('alvarez') - 0.05;
+  const tAlv = m('alvarez') - 0.05;                               // a assinatura pessoal ("Victor Vitorino…")
+  const TT = ctx.TOTAL;                                           // os instantes do quadro final são relativos ao fim do vídeo
   const tBar = i => tCons + 0.12 + i * 0.13;                      // cada barra cresce, da esquerda para a direita
   const tPin = i => tP[0] + 0.02 + i * 0.115, DQ = 0.22;         // cada pino cai (DQ = duração da queda)
   const tLin0 = tPin(0) + DQ, tLin1 = tPin(NB - 1) + DQ;         // a linha acompanha os pousos
@@ -122,7 +123,7 @@ export function desenhar(t, ctx) {
   const [q1x, q1y] = tremor(t, tImp, 0.3, 8), [q2x, q2y] = tremor(t, tBate, 0.36, 14);
   const soco = (t > tImp ? 0.028 * Math.exp(-(t - tImp) * 8) : 0) + (t > tBate ? 0.042 * Math.exp(-(t - tBate) * 8) : 0);
   const zAto1 = 0.035 * ease.inOut(inv(tSe, tLin1, t)) * (1 - ease.inOut(inv(tA2 - 0.05, tA2 + 0.6, t)));
-  const zFinal = 0.012 * ease.inOut(inv(84.4, 87.9, t));         // empurrão lento e mínimo no quadro final
+  const zFinal = 0.012 * ease.inOut(inv(TT - 3.2, TT - 0.1, t));         // empurrão lento e mínimo no quadro final
 
   // ================= GRÁFICO: grade, planta, barras, linha e pinos =================
   let e = '';
@@ -199,7 +200,7 @@ export function desenhar(t, ctx) {
       const d = PL.map(([x, y], i) => (i ? 'L' : 'M') + f(x) + ',' + f(y)).join(' ');
       let l = tracar(d, u, { c: C.white, sw: 4.5 });
       if (u < 1) { const [x, y] = aoLongo(PL, u); l += `<circle cx="${f(x)}" cy="${f(y)}" r="13" fill="#fff" opacity=".3"/><circle cx="${f(x)}" cy="${f(y)}" r="6" fill="#fff"/>`; }
-      for (const tp of [tLin1 + 0.08, tGes + 0.55, tAlv + 0.05, 85.35, 86.85]) {
+      for (const tp of [tLin1 + 0.08, tGes + 0.55, tAlv + 0.05, TT - 2.2, TT - 0.9]) {
         const up = inv(tp, tp + 1.05, t);
         if (up <= 0 || up >= 1) continue;
         const ue = ease.inOut(up), [x, y] = aoLongo(PL, ue), o = Math.sin(Math.PI * up);
@@ -306,7 +307,7 @@ export function desenhar(t, ctx) {
           const kk = back(t, tq + 0.22 + i * 0.16, 0.38), x = TRX(ui), y = TRY(ui);
           if (kk > 0.001) c += pop(kk, x, y, `<circle cx="${f(x)}" cy="${f(y)}" r="${f(10.5 + i * 1.4)}" fill="${NIVEIS[i].cor === C.navy ? 'url(#fe-nv)' : NIVEIS[i].cor}" stroke="${C.white}" stroke-width="3"/>`);
         });
-        for (const tpl of [tq + 1.15, tAlv + 0.65, 86.15]) {
+        for (const tpl of [tq + 1.15, tAlv + 0.65, TT - 1.6]) {
           const up = inv(tpl, tpl + 1.1, t);
           if (up <= 0 || up >= 1) continue;
           const ue = ease.inOut(up), o = Math.sin(Math.PI * up);
@@ -323,7 +324,7 @@ export function desenhar(t, ctx) {
     c += sobeMasc('fe-t1', TY1, ST, ease.out5(inv(tT, tT + 0.55, t)), txt('Mapa de Perfil Cognitivo', MG, TY1, { f: 'L', s: ST, c: C.white, ls: -0.8 }));
     c += sobeMasc('fe-t2', TY2, ST, ease.out5(inv(tT + 0.1, tT + 0.65, t)), txt('Mapa de Adoção', MG, TY2, { f: 'L', s: ST, c: C.orange, ls: -0.8 }));
     c += lustro('fe-lt', txt('Mapa de Adoção', MG, TY2, { f: 'L', s: ST, ls: -0.8 }), MG, MG + larg('Mapa de Adoção', ST, { f: 'L', ls: -0.8 }), TY2, ST,
-      Math.max(ease.inOut(inv(tAlv + 1.0, tAlv + 1.8, t)), t > 86.5 ? ease.inOut(inv(86.6, 87.4, t)) : 0), 0.5);
+      Math.max(ease.inOut(inv(tAlv + 1.0, tAlv + 1.8, t)), t > TT - 1.5 ? ease.inOut(inv(TT - 1.4, TT - 0.6, t)) : 0), 0.5);
     c += fio(MG, FY, inv(tT + 0.5, tT + 1.0, t), 110, 6);
     // rótulo da prática, em 'gestao'
     {
@@ -337,12 +338,15 @@ export function desenhar(t, ctx) {
     const tF = tGes - 0.16;                                       // sobe em cascata logo depois do título, antes do rótulo
     c += sobe(fin(t, tF, 0.45), txt('Adoção não se impõe.', MG, FR1, { f: 'L', s: SF, c: C.white }), 24);
     c += sobe(fin(t, tF + 0.1, 0.45), txt('Se constrói, pessoa por pessoa.', MG, FR2, { f: 'L', s: SF, c: C.orange }), 24);
-    // chamada com seta laranja (a seta fica dando um toque para a direita)
+    // assinatura pessoal, na fala "Victor Vitorino. Consultor de Change Management.": monograma + nome + papel
     {
-      const str = 'Fale com o time de Gestão da Mudança.', k = fin(t, tAlv + 0.3, 0.45);
-      c += sobe(k, txt(str, MG, CTA, { s: SCTA, c: C.navy20 }), 14);
-      const ua = inv(tAlv + 0.5, tAlv + 0.9, t);
-      c += icone('setaDir', MG + larg(str, SCTA) + 30 + (ua >= 1 ? Math.max(0, Math.sin(t * 2.6)) * 6 : 0), CTA - 9, 26, { c: C.orange, sw: 3, u: ua });
+      const kM = back(t, tAlv, 0.5), cxm = MG + 34, cym = CTA + 10;
+      if (kM > 0.001) {
+        c += pop(kM, cxm, cym, `<circle cx="${cxm}" cy="${cym}" r="34" fill="${C.orange}"/>` + txt('VV', cxm, cym + 11, { w: 700, s: 30, c: C.navy, a: 'middle', ls: 0.5 }));
+        c += onda(cxm, cym, t - tAlv - 0.1, { c: C.orange, r0: 34, r1: 30, sw: 3, d: 0.6 });
+      }
+      c += sobeMasc('fe-vn', CTA + 4, 40, ease.out5(inv(tAlv + 0.08, tAlv + 0.5, t)), txt('Victor Vitorino', MG + 86, CTA + 4, { w: 700, s: 38, c: C.white }));
+      c += desliza(fin(t, m('consultor') - 0.08, 0.45), txt('Consultor de Change Management', MG + 86, CTA + 38, { s: 26, c: C.navy20 }), -22);
     }
   }
 

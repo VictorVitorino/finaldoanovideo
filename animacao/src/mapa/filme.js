@@ -1,5 +1,5 @@
 // Vídeo "Mapa de Perfil Cognitivo · Mapa de Adoção" (LinkedIn, 1080 x 1350, até 90 s).
-// Monta as cenas de src/mapa/cenas/*.js e desenha por cima a interface comum: selo "Mapa de Adoção",
+// Monta as cenas de src/mapa/cenas/*.js e desenha por cima a interface comum: marca pessoal (Victor Vitorino · Change Management),
 // etiqueta do capítulo, legenda karaokê (o vídeo toca mudo no feed) e o fio de progresso. Sem logos.
 //
 // Tempos: src/mapa/tempos.json (gerado por producao/mapa_audio.py a partir da narração do ElevenLabs).
@@ -24,9 +24,12 @@ export function buildFilme(T, CENAS) {
   // ---------- interface (sem logo e sem logotipo: só as cores) ----------
   function topo(t, id) {
     const mod = CENAS[id], esc = escuro(id);
-    // selo do vídeo no topo esquerdo: um pino e o nome do mapa
+    // marca pessoal no topo esquerdo: pino laranja + nome + papel
+    const nome = 'VICTOR VITORINO', wn = larg(nome, 21, { w: 700, ls: 2.4 });
     let s = `<g transform="translate(${MG} ${Z.topo + 2})"><path d="M14,36 C9,27 0,21 0,12 A14,14 0 1 1 28,12 C28,21 19,27 14,36Z" fill="${C.orange}"/><circle cx="14" cy="13" r="5.500" fill="${esc ? C.navy : C.white}"/></g>`
-      + txt('MAPA DE ADOÇÃO', MG + 42, Z.topo + 28, { w: 700, s: 21, ls: 2.4, c: esc ? C.white : C.navy });
+      + txt(nome, MG + 42, Z.topo + 28, { w: 700, s: 21, ls: 2.4, c: esc ? C.white : C.navy })
+      + `<rect x="${f(MG + 42 + wn + 10)}" y="${Z.topo + 10}" width="1.500" height="22" fill="${esc ? C.white : C.navy}" opacity=".4"/>`
+      + txt('CHANGE MANAGEMENT', MG + 42 + wn + 24, Z.topo + 28, { w: 400, s: 21, ls: 2.4, c: esc ? C.navy20 : C.navy80 });
     if (mod.CHIP) {
       const e = etiqueta(mod.CHIP, 0, 0, { escuro: esc, s: 21 });
       const k = fin(t, CN[id] + 0.1, 0.45);

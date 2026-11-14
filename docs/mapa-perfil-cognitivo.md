@@ -1,6 +1,6 @@
 # Vídeo "Mapa de Perfil Cognitivo · Mapa de Adoção"
 
-Post de LinkedIn sobre Gestão da Mudança (Change Management), em motion graphics com efeitos de After Effects: telas, ícones, um mapa de trilha e um dashboard com gráficos. **Não tem logo de empresa, logotipo nem personagens: usa só as cores da paleta e a marca pessoal "Victor Vitorino · Consultor de Change Management"** (fixa no topo e em destaque no cartão final). O vídeo conta e **constrói na tela** o Mapa de Perfil Cognitivo: cinco sinais lidos em cada pessoa mostram em que marca da régua de adoção ela está hoje; juntando as posições por área nasce o Mapa de Adoção do projeto; e o mapa precisa ficar vivo, porque posição é momento, não rótulo.
+Post de LinkedIn sobre Gestão da Mudança (Change Management), em motion graphics limpo: telas, ícones, um mapa de trilha e um dashboard com gráficos, com poucos elementos por cena, fundo liso e um foco por vez. **Não tem logo de empresa, logotipo nem personagens: usa só as cores da paleta e a marca pessoal "Victor Vitorino · Consultor de Change Management"** (fixa no topo e em destaque no cartão final). O vídeo conta e **constrói na tela** o Mapa de Perfil Cognitivo: cinco sinais lidos em cada pessoa mostram em que marca da régua de adoção ela está hoje; juntando as posições por área nasce o Mapa de Adoção do projeto; e o mapa precisa ficar vivo, porque posição é momento, não rótulo.
 
 | Arquivo | Para quê |
 |---|---|
@@ -13,16 +13,16 @@ A narração é do ElevenLabs (voz **Doug – Warm, Confident, Conversational**,
 
 | Tempo | Cena | Narração | O que a tela constrói |
 |---|---|---|---|
-| 0:00–0:10 | Gancho | Duas pessoas. A mesma ferramenta. O mesmo treinamento. Uma delas adota. A outra volta para a planilha. | Duas telas lado a lado recebem a mesma ferramenta e o mesmo treinamento; a tela da Pessoa A ganha vida, a da Pessoa B é coberta pela planilha. |
-| 0:10–0:16 | O porquê | Não é má vontade. É perfil: como cada pessoa percebe, avalia e decide. | A etiqueta "má vontade" cai; um fluxo de três nós: percebe, avalia, decide. "Não é teste psicológico." |
-| 0:16–0:20 | Título | Por isso existe o Mapa de Perfil Cognitivo. | Um mapa se desdobra e um pino crava nele. |
-| 0:20–0:32 | 01 · O perfil | Em cada pessoa, mapeamos cinco sinais: clareza do porquê, fluência digital, autonomia para aprender, segurança para errar, e o valor que ela vê na mudança. | O radar da Pessoa B é construído: cada sinal acende um eixo. |
+| 0:00–0:10 | Gancho | Duas pessoas. A mesma ferramenta. O mesmo treinamento. Uma delas adota. A outra volta para a planilha. | Duas telas lado a lado recebem a mesma ferramenta e o mesmo treinamento; na tela da Pessoa A o uso sobe a 92%; na da Pessoa B a planilha cobre a ferramenta e o uso fica em 0%. |
+| 0:10–0:16 | O porquê | Não é má vontade. É perfil: como cada pessoa percebe, avalia e decide. | A etiqueta "má vontade" é riscada e some; três cartões ligados à pessoa: percebe, avalia, decide. "Não é teste psicológico." |
+| 0:16–0:20 | Título | Por isso existe o Mapa de Perfil Cognitivo. | O cartão do mapa assenta, a estrada se desenha e um pino crava nela. |
+| 0:20–0:32 | 01 · O perfil | Em cada pessoa, mapeamos cinco sinais: clareza do porquê, fluência digital, autonomia para aprender, segurança para errar, e o valor que ela vê na mudança. | O radar da Pessoa B é construído: cada sinal acende um eixo e aparece no cartão de baixo. |
 | 0:32–0:42 | 02 · A régua | Esses sinais mostram onde ela está hoje na régua de adoção: resiste, observa, experimenta, adota, ou multiplica. | A régua vira a estrada do mapa, com cinco estações; o pino da Pessoa B para em Observa e o da Pessoa A em Adota. |
-| 0:42–0:47 | 03 · O mapa | Junte as posições, área por área, e nasce o Mapa de Adoção. | Os pinos das 25 pessoas chovem no mapa de trilha, área por área. |
-| 0:47–0:58 | 04 · A ação | Com ele, a Gestão da Mudança deixa de ser receita única. Escuta para quem resiste. Prática para quem experimenta. Palco para quem multiplica. | O mapa vira um dashboard (indicadores e mapa de calor áreas × régua); a receita única dá lugar a uma ação por marca. |
-| 0:58–1:13 | 05 · O mapa vivo | Mas o mapa precisa estar vivo. Posição é momento, não rótulo: pessoas avançam, travam, recuam. A cada onda, medimos de novo e ajustamos o plano, antes e depois do go-live. | Dashboard ao vivo: a cada onda o mapa de calor, a rosca e a linha do índice de adoção mudam; o plano é ajustado; o foguete do go-live decola. |
-| 1:13–1:17 | Pergunta | No seu projeto, você sabe onde cada pessoa está hoje? | Tipografia grande; uma lupa transforma os "?" em pinos no mapa. |
-| 1:16–1:28 | Fecho | Adoção não se impõe. Se constrói. Pessoa por pessoa. Gestão da Mudança. | Pinos sobem uma escada nas cores da régua; cartão final: "Mapa de Perfil Cognitivo · Mapa de Adoção", "Gestão da Mudança \| Change Management" e, depois da última palavra, a marca "Victor Vitorino · Consultor de Change Management" (só na imagem). |
+| 0:42–0:47 | 03 · O mapa | Junte as posições, área por área, e nasce o Mapa de Adoção. | Os pinos das 25 pessoas aparecem no mapa de trilha, área por área. |
+| 0:47–0:58 | 04 · A ação | Com ele, a Gestão da Mudança deixa de ser receita única. Escuta para quem resiste. Prática para quem experimenta. Palco para quem multiplica. | Dashboard com três indicadores e o mapa de calor áreas × régua; a receita única é riscada e dá lugar a uma ação por marca. |
+| 0:58–1:13 | 05 · O mapa vivo | Mas o mapa precisa estar vivo. Posição é momento, não rótulo: pessoas avançam, travam, recuam. A cada onda, medimos de novo e ajustamos o plano, antes e depois do go-live. | Dashboard ao vivo: a cada onda o mapa de calor, o índice de adoção e a linha de tendência mudam; o plano é ajustado; o marco do go-live acende. |
+| 1:13–1:17 | Pergunta | No seu projeto, você sabe onde cada pessoa está hoje? | Tipografia grande; os pinos com "?" ganham cor e vão para a sua marca no mapa. |
+| 1:16–1:28 | Fecho | Adoção não se impõe. Se constrói. Pessoa por pessoa. Gestão da Mudança. | Uma escada de barras nas cores da régua, com um pino em cada barra; cartão final: "Mapa de Perfil Cognitivo · Mapa de Adoção", "Gestão da Mudança \| Change Management" e, depois da última palavra, a marca "Victor Vitorino · Consultor de Change Management" (só na imagem). |
 
 A voz termina em "Gestão da Mudança." **A marca pessoal é só visual**: não há nome de pessoa nem de empresa na narração. A take `doug2s` é a `doug2` cortada depois dessa frase; a `doug2` original, que terminava em "Alvarez and Marsal", continua na pasta.
 
@@ -57,7 +57,7 @@ No seu projeto, você sabe onde cada pessoa está hoje?
 
 Adoção não se impõe. Se constrói, pessoa por pessoa.
 
-#GestãoDaMudança #ChangeManagement #AdoçãoDeTecnologia #TransformaçãoDigital #AlvarezAndMarsal
+#GestãoDaMudança #ChangeManagement #AdoçãoDeTecnologia #TransformaçãoDigital
 ```
 
 ## Antes de publicar
@@ -73,8 +73,8 @@ cd animacao
 npm install
 python3 producao/mapa_audio.py --take doug2s     # trilha (build/mapa/trilha.wav) e tempos (src/mapa/tempos.json)
 node render.mjs stills --page mapa.html --w 1080 --h 1350 --test filme --t 3,25,40,46,55,70,86 --out build/mapa/stills
-node render.mjs frames --page mapa.html --w 1080 --h 1350 --test filme --out build/mapa/frames --workers 4
-node render.mjs encode --frames build/mapa/frames --audio build/mapa/trilha.wav --out ../videos/mapa-perfil-cognitivo.mp4
+node render.mjs frames --page mapa.html --w 1080 --h 1350 --test filme --out build/mapa/frames --workers 3
+ffmpeg -y -framerate 30 -i build/mapa/frames/f%05d.jpg -i build/mapa/trilha.wav -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -movflags +faststart -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k -shortest ../videos/mapa-perfil-cognitivo.mp4
 ```
 
 O render pula quadros que já existem: apague `build/mapa/frames` depois de mudar algo. Para trabalhar em uma cena só, use `--test uma-<id>` (por exemplo `uma-perfil`). Para ver os componentes, use `--test prancha --t 0.5,1.5,2.5,3.5,4.5,5.5`.
@@ -86,10 +86,10 @@ Para trocar a voz, coloque `<take>.mp3` e `<take>.words.json` em `animacao/audio
 | Quero mudar… | Arquivo |
 |---|---|
 | Sinais, marcas da régua, ações, áreas e pessoas | `animacao/src/mapa/modelo.js` |
-| Respiros entre frases, legenda, efeitos sonoros e trilha | `animacao/producao/mapa_audio.py` |
+| Respiros entre frases, legenda, efeitos sonoros (poucos e baixos) e trilha | `animacao/producao/mapa_audio.py` |
 | Uma cena | `animacao/src/mapa/cenas/<id>.js` |
 | Interface comum (selo do vídeo, etiqueta do capítulo, legenda, progresso) | `animacao/src/mapa/filme.js` |
-| Fundos, câmera, efeitos e o mapa de trilha | `animacao/src/mapa/ludico.js` |
-| Componentes do dashboard (mapa de calor, rosca, tendência, indicadores) | `animacao/src/mapa/painelUI.js` |
+| Fundos, mapa de trilha e os efeitos (hoje desligados: partículas, faíscas, confete, rastros, brilho) | `animacao/src/mapa/ludico.js` |
+| Componentes do dashboard (mapa de calor, tendência, indicadores) | `animacao/src/mapa/painelUI.js` |
 | Paleta, texto, movimento, ícones e marcas | `animacao/src/mapa/base.js` |
 | Direção de arte e contrato das cenas | `animacao/src/mapa/DIRECAO.md` |

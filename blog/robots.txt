@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_src/
+Disallow: /painel/
+Sitemap: https://change-management-world.vercel.app/sitemap.xml

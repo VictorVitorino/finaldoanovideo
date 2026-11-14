@@ -11,6 +11,11 @@ passos:
   - Traduza cada regra em um comportamento esperado por papel
   - Desenhe o caminho fácil para fazer o certo
   - Acompanhe exceções e uso real, não só a publicação da norma
+relacionados:
+  - letramento-em-ia-segue-obrigatorio-na-ue-mas-sem-nivel
+  - isaca-so-38-das-organizacoes-tem-politica-formal-e
+  - reino-unido-31-dos-usuarios-de-ia-generativa-a-usam-sem-o
+  - ai-act-regras-de-alto-risco-ficam-para-dezembro-de-2027-e
 ---
 Governança de TI define quem decide o quê sobre tecnologia: prioridades, investimentos, riscos, dados e, cada vez mais, o uso de inteligência artificial. No papel, é um conjunto de comitês, políticas e fluxos. Na prática, é comportamento.
 

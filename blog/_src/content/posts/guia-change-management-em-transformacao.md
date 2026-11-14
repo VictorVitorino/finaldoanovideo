@@ -11,6 +11,11 @@ passos:
   - Gerencie a carteira de mudanças, não projeto a projeto
   - Faça do gestor direto o principal canal
   - Meça adoção e valor, não só marcos de projeto
+relacionados:
+  - funcionarios-absorvem-ate-duas-grandes-mudancas-por-ano
+  - kpmg-empresas-gerenciam-em-media-3-5-iniciativas-de
+  - bcg-so-uma-em-cada-quatro-transformacoes-captura-valor-de
+  - reorganizacao-88-dos-lideres-confiam-so-36-dos-funcionarios
 ---
 Uma transformação reúne várias iniciativas que mudam, ao mesmo tempo, estratégia, estrutura, processos e tecnologia. Cada projeto faz o seu plano de mudança. Quem recebe todos é a mesma pessoa, na mesma semana.
 

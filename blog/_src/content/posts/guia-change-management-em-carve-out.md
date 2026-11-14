@@ -11,6 +11,11 @@ passos:
   - Trate três públicos: quem vai, quem fica e quem recebe
   - Planeje por marcos: anúncio, Dia 1 e saída do TSA
   - Meça a prontidão da operação, não só as entregas do projeto
+relacionados:
+  - deloitte-tsa-e-retencao-de-talentos-persistem-como-desafios
+  - bcg-ve-20-3-pontos-a-mais-de-retorno-em-carve-out-com
+  - pwc-desinvestimento-e-transformacao-e-muda-o-risco-da
+  - bain-cerca-de-40-dos-grandes-spin-offs-destroem-valor-em
 ---
 Um carve-out separa uma parte da empresa para vender, cindir ou abrir capital. Para quem está dentro, é uma mudança com data marcada por um contrato, não pela prontidão das pessoas. E quase tudo muda ao mesmo tempo: empresa, sistemas, processos, benefícios e, muitas vezes, a liderança.
 

@@ -42,6 +42,10 @@ function gera() {
     grava('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${base}/${u}</loc></url>`).join('\n')}\n</urlset>\n`);
     grava('robots.txt', `User-agent: *\nAllow: /\nDisallow: /_src/\nSitemap: ${base}/sitemap.xml\n`);
   }
+  // referências a posts que não existem (início e "para ler junto")
+  const existe = s => posts.some(p => p.slug === s);
+  for (const s of [...(d.home.destaques || []), ...(d.home.praticas || []), ...(d.home.numeros || []).map(n => n.slug), cfg.edicao.capa]) if (!existe(s)) console.log('aviso: home.json ou site.config.json cita um post que não existe: ' + s);
+  for (const p of posts) for (const s of p.relacionados || []) if (!existe(s)) console.log(`aviso: ${p.slug} cita em "relacionados" um post que não existe: ${s}`);
   const tipos = posts.reduce((a, p) => (a[p.tipo] = (a[p.tipo] || 0) + 1, a), {});
   console.log(`blog gerado: ${posts.length} posts (${Object.entries(tipos).map(([k, v]) => `${v} ${k}`).join(', ')}), ${d.eventos.length} eventos, ${d.videos.length} vídeos`);
   if (!cfg.url) console.log('aviso: "url" vazio em site.config.json (sem sitemap e sem og:url absoluto)');

@@ -11,6 +11,10 @@ passos:
   - Avalie a capacidade de adoção junto com finanças e tecnologia
   - Transforme achados de cultura em premissas do plano de valor
   - Chegue ao fechamento com o plano dos primeiros 100 dias
+relacionados:
+  - pwc-so-16-avaliam-lideranca-e-talento-antes-de-assinar-o
+  - mercer-74-avaliam-cultura-na-diligencia-mas-a-pratica-segue
+  - kpmg-lideranca-e-cultura-desalinhadas-sao-o-risco-mais
 ---
 Em uma aquisição, boa parte do valor prometido depende de pessoas fazendo algo diferente depois do fechamento: usar um novo sistema, seguir um novo processo, responder a uma nova liderança. A diligência é o momento de perguntar se isso é realista, e quanto custa.
 

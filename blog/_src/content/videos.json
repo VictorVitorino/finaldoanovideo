@@ -5,5 +5,26 @@
     "arquivo": "assets/video/mapa-perfil-cognitivo.mp4",
     "poster": "assets/img/mapa-perfil-cognitivo-capa.jpg",
     "post": "mapa-de-perfil-cognitivo"
+  },
+  {
+    "titulo": "BCG: por que a transformação com IA trava no meio do caminho",
+    "canal": "Boston Consulting Group (canal no YouTube)",
+    "data": "2026-08-12",
+    "url": "https://www.youtube.com/watch?v=4XsPelZIvhk",
+    "resumo": "Em vídeo curto, a BCG explica por que transformações com IA perdem força depois da largada. Duas sócias da consultoria indicam três movimentos para o CEO recuperar o ritmo."
+  },
+  {
+    "titulo": "MIT SMR: o que líderes queriam ter sabido antes sobre agentes de IA",
+    "canal": "MIT Sloan Management Review",
+    "data": "2026-06-11",
+    "url": "https://sloanreview.mit.edu/video/agentic-ai-what-leaders-wish-they-knew-sooner/",
+    "resumo": "Vídeo de 11 minutos da MIT Sloan Management Review reúne lições de líderes de tecnologia e de negócios sobre pessoas e agentes de IA trabalhando juntos. A conclusão da revista: o tema é de gestão, mais do que de tecnologia."
+  },
+  {
+    "titulo": "Prosci e AT&T: como tratar a resistência na implantação do Copilot",
+    "canal": "Prosci (canal no YouTube)",
+    "data": "2026-07-02",
+    "url": "https://www.youtube.com/watch?v=mE4YIJcdYQA",
+    "resumo": "Trecho de webinar da Prosci com AT&T e Microsoft mostra como foi tratada a resistência na implantação do Microsoft 365 Copilot na AT&T. A lição central: nem toda objeção cabe ao time de mudança responder."
   }
 ]

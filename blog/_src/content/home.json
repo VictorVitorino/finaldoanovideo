@@ -1,41 +1,41 @@
 {
   "destaques": [
-    "bain-cerca-de-40-dos-grandes-spin-offs-destroem-valor-em-tres-anos",
-    "bcg-ve-20-3-pontos-a-mais-de-retorno-em-carve-out-com-transformacao",
-    "deloitte-tsa-e-retencao-de-talentos-persistem-como-desafios-apos-o-fecha"
+    "prosci-vontade-de-usar-ia-e-igual-em-empresas-que-avancam-e",
+    "reorganizacao-88-dos-lideres-confiam-so-36-dos-funcionarios",
+    "pwc-so-16-avaliam-lideranca-e-talento-antes-de-assinar-o"
   ],
   "numeros": [
     {
-      "valor": "27%",
-      "descricao": "dos trabalhadores citam fadiga como limite à produtividade",
-      "fonte": "PwC",
-      "slug": "bain-cerca-de-40-dos-grandes-spin-offs-destroem-valor-em-tres-anos"
+      "valor": "23%",
+      "descricao": "dos líderes consideram a força de trabalho totalmente pronta para aproveitar a IA",
+      "fonte": "Kyndryl",
+      "slug": "kyndryl-so-23-dos-lideres-veem-a-forca-de-trabalho-pronta"
     },
     {
-      "valor": "60%",
-      "descricao": "dos executivos admitem dificuldade para executar transformações",
-      "fonte": "KPMG",
-      "slug": "bcg-ve-20-3-pontos-a-mais-de-retorno-em-carve-out-com-transformacao"
+      "valor": "67%",
+      "descricao": "do impacto relatado da IA está associado a fatores da organização, como cultura e apoio do gestor",
+      "fonte": "Microsoft",
+      "slug": "work-trend-index-organizacao-pesa-mais-que-o-individuo-no"
     },
     {
-      "valor": "1.800",
-      "descricao": "teste de número com milhar",
-      "fonte": "Teste",
-      "slug": "deloitte-tsa-e-retencao-de-talentos-persistem-como-desafios-apos-o-fecha"
+      "valor": "66%",
+      "descricao": "dos usuários regulares de IA na linha de frente recebem pouca ou nenhuma orientação sobre o tempo que economizam",
+      "fonte": "BCG",
+      "slug": "bcg-clareza-estrategica-eleva-o-impacto-da-ia-em-25-pontos"
     },
     {
-      "valor": "2,5x",
-      "descricao": "teste de número decimal",
-      "fonte": "Teste",
-      "slug": "estudo-no-mit-smr-o-que-cansa-nao-e-a-mudanca-e-a-dissonancia"
+      "valor": "25%",
+      "descricao": "das empresas dizem transformar profundamente o negócio com IA, embora 81% relatem decisões mais rápidas",
+      "fonte": "Deloitte",
+      "slug": "deloitte-81-decidem-mais-rapido-com-ia-mas-so-25"
     }
   ],
   "praticas": [
-    "estudo-no-mit-smr-o-que-cansa-nao-e-a-mudanca-e-a-dissonancia",
-    "kpmg-60-dos-executivos-admitem-dificuldade-para-executar-transformacoes",
-    "kpmg-chama-2026-de-ano-do-carve-out-e-aponta-os-riscos-de-execucao",
-    "prosci-lista-cinco-decisoes-para-o-orcamento-de-mudanca-de-2027",
-    "pwc-27-dos-trabalhadores-citam-fadiga-como-limite-a-produtividade",
-    "pwc-desinvestimento-e-transformacao-e-muda-o-risco-da-empresa-que-fica"
+    "kaiya-2-0-assistente-da-prosci-ganha-memoria-e-le-projetos",
+    "prosci-cerca-de-48-dos-profissionais-de-mudanca-dizem-usar",
+    "deloitte-medir-adocao-de-ia-por-login-esconde-quem-nao",
+    "microsoft-detalha-como-conduz-a-mudanca-na-adocao-interna",
+    "ai-act-inferir-emocoes-de-funcionarios-com-ia-e-pratica",
+    "accenture-uso-diario-de-ia-cresce-mas-so-15-redesenham"
   ]
 }

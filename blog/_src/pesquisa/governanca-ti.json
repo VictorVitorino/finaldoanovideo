@@ -1,0 +1,182 @@
+{
+  "tema": "governanca-ti",
+  "verificado_em": "2026-11-14",
+  "itens": [
+    {
+      "titulo": "AI Act: regras de alto risco ficam para dezembro de 2027 e agosto de 2028",
+      "olho": "AI Act europeu",
+      "resumo": "O pacote de simplificação do AI Act, o AI Omnibus, entrou em vigor em julho de 2026 e adiou as regras de alto risco para 2 de dezembro de 2027 e 2 de agosto de 2028. Proibições, letramento em IA, regras para modelos de uso geral e fiscalização continuam valendo.",
+      "corpo": "A União Europeia mudou o calendário do AI Act. O pacote de simplificação conhecido como AI Omnibus foi proposto pela Comissão Europeia em 19 de novembro de 2025 e teve acordo político em 7 de maio de 2026. A página da Comissão sobre o AI Act registra a entrada em vigor em 27 de julho de 2026.\n\nAs regras para sistemas de alto risco em áreas como biometria, infraestrutura crítica, educação, emprego, migração, asilo e controle de fronteiras passam a valer em 2 de dezembro de 2027. Para sistemas integrados a produtos, como elevadores e brinquedos, a data é 2 de agosto de 2028. A Comissão afirma que assim as regras valerão quando as empresas tiverem ferramentas de apoio, como normas técnicas.\n\nO restante do calendário segue de pé. Proibições e letramento em IA valem desde 2 de fevereiro de 2025. As obrigações para modelos de uso geral, desde 2 de agosto de 2025. Desde 2 de agosto de 2026, o AI Office e as autoridades dos Estados-membros respondem pela implementação, pela supervisão e pela aplicação da lei. O Omnibus também criou uma nona prática proibida, a de sistemas que geram conteúdo sexual ou íntimo não consentido, com efeito em dezembro de 2026.\n\nPara as pessoas, o essencial não mudou. Ferramentas de RH, como a triagem de currículos, continuam na lista de usos de alto risco. Quem usa esses sistemas terá de entregar a supervisão humana a pessoas com competência, treinamento e autoridade, como prevê o artigo 26 do AI Act.",
+      "por_que_importa": "O adiamento dá prazo, não dispensa. Use o tempo para mapear onde a empresa usa IA em decisões sobre pessoas e para definir e treinar quem fará a supervisão humana.",
+      "fonte_nome": "Comissão Europeia, página \"AI Act\" (Shaping Europe's digital future)",
+      "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-10-19 (última atualização indicada na página)",
+      "regiao": "Europa",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "2 de dezembro de 2027",
+          "descricao": "Nova data de aplicação das regras para sistemas de IA de alto risco em áreas sensíveis (Anexo III), após o AI Omnibus",
+          "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+        },
+        {
+          "valor": "2 de agosto de 2028",
+          "descricao": "Nova data para sistemas de alto risco integrados a produtos regulados (Anexo I)",
+          "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+        },
+        {
+          "valor": "dezembro de 2026",
+          "descricao": "Início da nona prática proibida do AI Act, criada pelo AI Omnibus: sistemas que geram conteúdo sexual ou íntimo não consentido",
+          "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página AI Act da Comissão Europeia (última atualização em 19 de outubro de 2026) e conferi uma a uma as datas de 19/11/2025, 7/5/2026, 2/12/2027, 2/8/2028, 2/2/2025, 2/8/2025 e 2/8/2026, a nona proibição e o exemplo de triagem de currículos; a redação do artigo 26 foi lida em artificialintelligenceact.eu. O dia 27 de julho saiu do resumo e dos dados e ficou no corpo atribuído à página, porque o Q&A de letramento da mesma Comissão fala em meados de julho."
+    },
+    {
+      "titulo": "Letramento em IA segue obrigatório na UE, mas sem nível específico exigido",
+      "olho": "Letramento em IA",
+      "resumo": "O Digital Omnibus alterou o artigo 4 do AI Act: empresas que fornecem ou usam sistemas de IA continuam obrigadas a adotar medidas de letramento para quem opera esses sistemas, mas sem nível específico exigido. A fiscalização cabe às autoridades nacionais desde 2 de agosto de 2026.",
+      "corpo": "O artigo 4 do AI Act, que trata do letramento em IA, foi alterado pelo Digital Omnibus, e a Comissão Europeia atualizou seu documento de perguntas e respostas. A obrigação continua para fornecedores e para quem usa sistemas de IA, mas a lei deixou de exigir um nível específico, ou \"suficiente\", de conhecimento, segundo a Comissão.\n\nA proposta original, de 19 de novembro de 2025, ia além: transferia o dever de promover o letramento para os Estados-membros e para a Comissão. O texto final manteve as empresas como responsáveis. A Comissão publicará exemplos práticos de conformidade e o AI Board adotará recomendações com objetivos comuns.\n\nA obrigação vale desde 2 de fevereiro de 2025. A supervisão, a cargo das autoridades de vigilância de mercado de cada país, vale desde 2 de agosto de 2026. Não há exigência de certificado, de medir o conhecimento dos funcionários nem de criar uma estrutura específica de governança, como um responsável por IA. A empresa pode manter um registro interno das ações. O público inclui funcionários e terceiros que operam IA em nome da organização, como prestadores de serviço.\n\nA Comissão avisa que apenas pedir à equipe que leia as instruções de uso pode ser ineficaz. Até quem usa o ChatGPT para redigir anúncios ou traduzir textos deve ser informado sobre riscos como a alucinação. No alto risco, o treinamento de quem faz a supervisão humana permanece obrigatório.",
+      "por_que_importa": "Letramento em IA é obrigação fiscalizável para quem fornece ou usa IA na UE, mesmo sem formato único de treinamento. Monte trilhas por público e por risco, inclua terceiros e guarde o registro do que foi feito.",
+      "fonte_nome": "Comissão Europeia, \"AI Literacy - Questions & Answers\"",
+      "fonte_url": "https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-10-20 (última atualização indicada na página)",
+      "regiao": "Europa",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "2 de fevereiro de 2025",
+          "descricao": "Data desde a qual a obrigação de letramento em IA do artigo 4 se aplica a fornecedores e usuários de sistemas de IA",
+          "fonte_url": "https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers"
+        },
+        {
+          "valor": "2 de agosto de 2026",
+          "descricao": "Data a partir da qual as autoridades nacionais de vigilância de mercado supervisionam e aplicam o artigo 4",
+          "fonte_url": "https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o Q&A de letramento em IA da Comissão Europeia (última atualização em 20 de outubro de 2026) e conferi a nova redação do artigo 4, a proposta de 19/11/2025, as datas de 2/2/2025 e 2/8/2026 e as respostas sobre certificado, medição, estrutura de governança, terceiros, instruções de uso e ChatGPT; ajustei o título para \"nível específico\" e troquei \"treinamento obrigatório\" por \"letramento\", porque a página diz que não há treinamento obrigatório nem formato único."
+    },
+    {
+      "titulo": "UE publica primeira norma harmonizada do AI Act, para gestão da qualidade",
+      "olho": "Normas de IA",
+      "resumo": "A Comissão Europeia anunciou em 19 de outubro de 2026 a publicação da referência à EN 18286:2026, norma de gestão da qualidade para fornecedores de IA de alto risco. Ela dá presunção de conformidade com os requisitos do artigo 17 que cobre e foi desenhada para se somar à ISO/IEC 42001, não para substituí-la.",
+      "corpo": "A Comissão Europeia publicou no Jornal Oficial da União Europeia a referência à primeira norma harmonizada de apoio ao AI Act. É a EN 18286:2026, norma de sistema de gestão da qualidade para fins regulatórios do AI Act, elaborada por CEN e CENELEC. O anúncio da Comissão é de 19 de outubro de 2026 e a publicação se deu pela Decisão de Execução (UE) 2026/2274.\n\nO fornecedor de sistemas de IA de alto risco que implementa a norma passa a ter presunção de conformidade com os requisitos do artigo 17 cobertos por ela. Segundo a Comissão, é a única norma de gestão da qualidade em IA com esse efeito. O uso de normas continua voluntário.\n\nA EN 18286 foi construída em torno do ciclo de vida do sistema de IA, e não da organização. Foi pensada para se somar a padrões já adotados, como ISO/IEC 42001, ISO 9001 ou ISO 13485, sem substituí-los. Em outro documento, a Comissão explica que a ISO/IEC 42001 ajuda a montar um sistema de gestão de IA, mas tem objetivos e definições que não estão alinhados ao sistema de gestão da qualidade exigido pelo AI Act.\n\nO artigo 17 não trata só de tecnologia. Ele pede, entre outros pontos, uma estrutura de responsabilização que defina as atribuições da direção e das demais equipes. Outras normas harmonizadas devem vir na sequência.",
+      "por_que_importa": "Ter a ISO/IEC 42001 não dá, sozinho, presunção de conformidade com o AI Act. Quem fornece IA de alto risco para a Europa precisa revisar papéis e responsabilidades no sistema de gestão, e isso é trabalho de mudança organizacional.",
+      "fonte_nome": "Comissão Europeia, \"First harmonised standard supporting the AI Act published in the Official Journal\"",
+      "fonte_url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-10-19",
+      "regiao": "Europa",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "EN 18286:2026",
+          "descricao": "Primeira norma harmonizada com referência publicada no Jornal Oficial da UE para o AI Act; cobre o sistema de gestão da qualidade do artigo 17",
+          "fonte_url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal"
+        },
+        {
+          "valor": "10 áreas",
+          "descricao": "Áreas em que a Comissão pediu normas a CEN e CENELEC, entre elas gestão de riscos, supervisão humana e gestão da qualidade",
+          "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/ai-act-standardisation"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o anúncio da Comissão Europeia (publicado em 19 de outubro de 2026) e conferi EN 18286:2026, CEN e CENELEC, a Decisão de Execução (UE) 2026/2274, a presunção de conformidade e a relação com ISO/IEC 42001, ISO 9001 e ISO 13485; as dez áreas e o caráter voluntário estão na página de padronização da Comissão, a frase sobre a ISO/IEC 42001 no FAQ \"Understanding the standardisation of the AI Act\" e a estrutura de responsabilização no artigo 17, lido em artificialintelligenceact.eu. Suavizei a frase sobre certificação ISO/IEC 42001, que ia além da fonte."
+    },
+    {
+      "titulo": "ISACA: só 38% das organizações têm política formal e abrangente de IA",
+      "olho": "Governança de IA",
+      "resumo": "Pesquisa global da ISACA com mais de 3.400 profissionais mostra que 90% acreditam que os funcionários usam IA, mas só 38% relatam política formal e abrangente. Mais da metade não sabe quanto tempo levaria para interromper um sistema de IA em um incidente de segurança.",
+      "corpo": "A ISACA divulgou em 5 de maio de 2026 a edição deste ano da AI Pulse Poll, pesquisa global com mais de 3.400 profissionais de auditoria de TI, governança, cibersegurança, privacidade e tecnologias emergentes. O retrato é de uso disseminado e governança atrasada.\n\nEntre os respondentes, 90% acreditam que os funcionários usam IA em sua organização. Só 38% dizem haver uma política formal e abrangente de IA, contra 28% em 2025. Outros 30% relatam uma política limitada e 25% não têm política ativa. O treinamento avançou, mas segue restrito: 33% afirmam que a organização treina todos os funcionários em IA, ante 22% no ano anterior.\n\nA resposta a incidentes é o ponto mais frágil. Mais da metade, 56%, não sabe quanto tempo levaria para interromper um sistema de IA em um incidente de segurança. E 39% não sabem se existe um processo documentado para desligar ou sobrepor um sistema quando algo dá errado. Apenas 38% confiam que o conselho entende os riscos de IA e age sobre eles.\n\nSobre retorno, 22% dizem que o ROI da IA atingiu ou superou as expectativas. Para Keith Bloomfield-DeWeese, gerente sênior de desenvolvimento de produtos de IA da ISACA, esse resultado depende de investimento contínuo em pessoas, processos e estruturas de governança.",
+      "por_que_importa": "Política escrita não basta se só um terço das organizações treina todos os funcionários em IA. Trate política, treinamento e plano de parada de sistemas como um só programa de mudança, com donos definidos.",
+      "fonte_nome": "ISACA, comunicado \"AI Use Accelerates, While Governance and ROI Lag, Says New ISACA Research\" (2026 AI Pulse Poll)",
+      "fonte_url": "https://www.isaca.org/about-us/newsroom/press-releases/2026/ai-use-accelerates-while-governance-and-roi-lag-says-new-isaca-research",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-05-05",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "38%",
+          "descricao": "Organizações com política formal e abrangente de IA (28% em 2025), segundo mais de 3.400 profissionais de confiança digital ouvidos pela ISACA",
+          "fonte_url": "https://www.isaca.org/about-us/newsroom/press-releases/2026/ai-use-accelerates-while-governance-and-roi-lag-says-new-isaca-research"
+        },
+        {
+          "valor": "33%",
+          "descricao": "Respondentes cujas organizações treinam todos os funcionários em IA (22% em 2025)",
+          "fonte_url": "https://www.isaca.org/about-us/newsroom/press-releases/2026/ai-use-accelerates-while-governance-and-roi-lag-says-new-isaca-research"
+        },
+        {
+          "valor": "56%",
+          "descricao": "Respondentes que não sabem quanto tempo levaria para interromper um sistema de IA em um incidente de segurança",
+          "fonte_url": "https://www.isaca.org/about-us/newsroom/press-releases/2026/ai-use-accelerates-while-governance-and-roi-lag-says-new-isaca-research"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o comunicado da ISACA (publicado em 5 de maio de 2026) e conferi um a um 3.400, 90%, 38% e 28%, 30%, 25%, 33% e 22%, 56%, 39%, 38% sobre o conselho e 22% de ROI, além do cargo e da fala de Keith Bloomfield-DeWeese; troquei \"dois terços não treinam\" por \"só um terço treina\", que é o que o comunicado sustenta."
+    },
+    {
+      "titulo": "Reino Unido: 31% dos usuários de IA generativa a usam sem o empregador saber",
+      "olho": "Shadow AI",
+      "resumo": "Pesquisa da Deloitte com 25 mil trabalhadores britânicos, feita entre maio e junho de 2026, mostra que quase um terço dos usuários de IA generativa a usa no trabalho sem conhecimento do empregador. No setor financeiro, onde ferramentas internas são mais comuns, as assinaturas pagas do próprio bolso não caíram.",
+      "corpo": "Um em cada três usuários de IA generativa no trabalho, 31%, usa a tecnologia sem que o empregador saiba. O dado é da GenAI Workforce Survey 2026, da Deloitte no Reino Unido, feita com 25 mil trabalhadores britânicos e com coleta entre maio e junho de 2026. É um retrato amplo do chamado shadow AI.\n\nA pesquisa mostra que 63% da força de trabalho do país já usou IA generativa e 12% usam todos os dias. Entre os usuários, 46% recorrem a ferramentas gratuitas no trabalho e 17% pagam do próprio bolso. A Deloitte estima esse gasto em cerca de 1 bilhão de libras por ano.\n\nO grupo que mais deve preocupar os responsáveis por cibersegurança, segundo o estudo, pode ser o dos 22% que acreditam que o empregador aprovaria o uso se soubesse. Eles descumprem a regra e tendem a ser descuidados com os dados. Entre quem paga a própria ferramenta ou usa uma possivelmente não aprovada, 21% dizem que ela supera a da empresa e 16% acreditam que melhora suas chances de promoção.\n\nOferecer ferramenta interna não resolve sozinho. No setor financeiro, bancário e de seguros, 28% usam ferramentas internas, contra 17% na média do país, e ainda assim 19% dos usuários pagam pela própria. A Deloitte conclui que a saída não é simplesmente endurecer as regras, e sim ajudar as pessoas a entender o que é uso responsável.",
+      "por_que_importa": "Shadow AI é sintoma de demanda não atendida, não só de indisciplina. Antes de proibir, descubra por que as pessoas preferem a ferramenta de fora e trabalhe comportamento, comunicação e oferta ao mesmo tempo.",
+      "fonte_nome": "Deloitte UK, \"What we do in the AI shadows\" (GenAI Workforce Survey 2026)",
+      "fonte_url": "https://www.deloitte.com/uk/en/issues/generative-ai/genai-workforce-survey-shadow-ai.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-09-15",
+      "regiao": "Europa",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "31%",
+          "descricao": "Usuários de IA generativa no trabalho, no Reino Unido, que usam a tecnologia sem o empregador saber (pesquisa com 25 mil trabalhadores, maio e junho de 2026)",
+          "fonte_url": "https://www.deloitte.com/uk/en/issues/generative-ai/genai-workforce-survey-shadow-ai.html"
+        },
+        {
+          "valor": "17%",
+          "descricao": "Usuários de IA generativa que pagam pelas próprias ferramentas para usar no trabalho",
+          "fonte_url": "https://www.deloitte.com/uk/en/issues/generative-ai/genai-workforce-survey-shadow-ai.html"
+        },
+        {
+          "valor": "46%",
+          "descricao": "Usuários de IA generativa que usam ferramentas gratuitas no trabalho",
+          "fonte_url": "https://www.deloitte.com/uk/en/issues/generative-ai/genai-workforce-survey-shadow-ai.html"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página da Deloitte UK (data de publicação de 15 de setembro de 2026 nos metadados) e conferi um a um 25 mil, maio e junho de 2026, 31%, 63%, 12%, 46%, 17%, 1 bilhão de libras, 22%, 21%, 16%, 28% contra 17% e 19%; troquei \"patrão\" por \"empregador\" no título e limitei ao setor financeiro a frase do resumo sobre ferramentas internas, que a página não generaliza."
+    },
+    {
+      "titulo": "Marco legal da IA segue sem parecer na Câmara; ANPD já é agência reguladora",
+      "olho": "Regulação no Brasil",
+      "resumo": "O PL 2338/2023 continua aguardando o parecer do relator na Comissão Especial da Câmara, com 45 proposições apensadas. Enquanto isso, a Lei nº 15.352/2026 transformou a ANPD em agência reguladora, e a IA está entre as prioridades de fiscalização da agência.",
+      "corpo": "O Brasil chega a novembro de 2026 sem lei geral de IA. O PL 2338/2023, aprovado pelo Plenário do Senado em dezembro de 2024, continua na Comissão Especial da Câmara dos Deputados. A ficha de tramitação, consultada em 14 de novembro de 2026, registra a situação \"Aguardando Parecer do(a) Relator(a)\". O relator é o deputado Aguinaldo Ribeiro (PP-PB), designado em 20 de maio de 2025.\n\nO projeto ganhou volume. A ficha lista 45 proposições apensadas, entre elas o PL 6237/2025, do Poder Executivo, que institui o Sistema Nacional para Desenvolvimento, Regulação e Governança de Inteligência Artificial (SIA). O texto do governo designa a ANPD como autoridade competente, com a tarefa de editar normas gerais e de regular setores que não têm regulador próprio.\n\nA ANPD mudou de patamar. A Lei nº 15.352/2026, sancionada em 25 de fevereiro, transforma a autoridade em agência reguladora e cria carreira própria. Segundo o Ministério da Justiça e Segurança Pública, serão abertas 200 vagas de especialista por concurso. IA e tecnologias emergentes estão entre os quatro temas prioritários de fiscalização da agência para 2026 e 2027.\n\nO texto vindo do Senado indica o que virá para as pessoas: supervisão humana em sistemas de alto risco, por gente capaz de compreender, interpretar, decidir e intervir, e diretrizes para programas de treinamento e capacitação contínua dos trabalhadores.",
+      "por_que_importa": "A lei não saiu, mas o regulador já existe e a direção do texto é conhecida. Vale antecipar inventário de usos de IA, papéis de supervisão humana e plano de capacitação, em vez de esperar a votação.",
+      "fonte_nome": "Câmara dos Deputados, ficha de tramitação do PL 2338/2023 (com apoio dos textos do PL 2338/2023 e do PL 6237/2025 e de páginas do Senado, do MJSP e da ANPD)",
+      "fonte_url": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2487262",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "sem data na página (última ação legislativa registrada: 13/11/2026)",
+      "regiao": "Brasil",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "45",
+          "descricao": "Proposições apensadas ao PL 2338/2023 na Câmara, conforme a ficha de tramitação consultada em 14/11/2026",
+          "fonte_url": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2487262"
+        },
+        {
+          "valor": "200 vagas",
+          "descricao": "Vagas de especialista a serem abertas por concurso na ANPD, após a Lei nº 15.352/2026, segundo o Ministério da Justiça e Segurança Pública",
+          "fonte_url": "https://www.gov.br/mj/pt-br/assuntos/noticias/sancionado-projeto-que-fortalece-a-anpd-e-fixa-inicio-da-vigencia-do-eca-digital"
+        },
+        {
+          "valor": "4 temas",
+          "descricao": "Temas prioritários de fiscalização da ANPD no biênio 2026-2027, um deles IA e tecnologias emergentes no tratamento de dados pessoais",
+          "fonte_url": "https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-publica-mapa-de-temas-prioritarios-para-o-bienio-2026-2027-e-atualiza-agenda-regulatoria-2025-2026"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a ficha do PL 2338/2023 na Câmara em 14 de novembro de 2026 e conferi a situação, os 45 apensados, o relator designado em 20/5/2025 e a última ação em 13/11/2026; li o texto do projeto (artigos 8º e 58), o texto e a exposição de motivos do PL 6237/2025, a página do Senado (aprovação em Plenário em 10/12/2024), a notícia do MJSP sobre a Lei nº 15.352/2026 e as 200 vagas e a notícia da ANPD sobre os quatro temas. Cortei a atribuição ao Ministério da Gestão e o \"vício de iniciativa\", que não encontrei em página aberta, e troquei \"fim de 2026\" por \"novembro de 2026\"."
+    }
+  ]
+}

@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "titulo": "ISACA 2026 Virtual Conference",
+    "inicio": "2026-12-01",
+    "quando": "1º a 3 de dezembro de 2026",
+    "local": "On-line, um dia para cada região",
+    "url": "https://www.isaca.org/training-and-events/conferences/isaca-virtual-conference",
+    "resumo": "Conferência virtual da ISACA sobre governança, risco e confiança digital, com um dia dedicado a cada região: Américas; Europa, Oriente Médio e África; e Ásia-Pacífico.",
+    "regiao": "Global"
+  },
+  {
+    "titulo": "Webinar da Prosci: seis fatores que decidem se a mudança crítica se sustenta",
+    "inicio": "2026-12-09",
+    "quando": "9 de dezembro de 2026, 10h",
+    "local": "On-line, 60 minutos",
+    "url": "https://www.prosci.com/resources/webinars",
+    "resumo": "Webinar on-line de 60 minutos da Prosci sobre os fatores que decidem se uma mudança crítica dá resultado. Interessa a profissionais de Gestão da Mudança e a líderes com várias iniciativas em paralelo.",
+    "regiao": "Global"
+  },
+  {
+    "titulo": "ISACA 2027 North America Conference",
+    "inicio": "2027-05-05",
+    "quando": "5 a 7 de maio de 2027",
+    "local": "Chicago, Estados Unidos, com opção de participação virtual",
+    "url": "https://www.isaca.org/training-and-events/conferences/isaca-north-america-conference",
+    "resumo": "Conferência norte-americana da ISACA, associação global de profissionais de sistemas e tecnologia da informação. Tem participação presencial em Chicago ou virtual e trata de confiança digital.",
+    "regiao": "América do Norte"
+  }
+]

@@ -9,8 +9,11 @@ const SRC = dirname(fileURLToPath(import.meta.url)), PESQ = join(SRC, 'pesquisa'
 const DATA = process.argv[2] || new Date().toISOString().slice(0, 10);
 const TEMA = { 'ia-adocao': 'ia', 'ia-pratica': 'ia', 'mundo-cm': 'mundo', transformacao: 'transformacao', 'carve-out': 'carve-out', 'due-diligence': 'due-diligence', 'governanca-ti': 'governanca-ti', 'brasil-latam': 'brasil' };
 const ORDEM = ['ia-adocao', 'transformacao', 'governanca-ti', 'carve-out', 'ia-pratica', 'due-diligence', 'mundo-cm', 'brasil-latam'];
-const slug = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 72).replace(/-$/, '');
+// endereço curto, sem cortar palavra no meio (até 60 caracteres)
+const slug = s => { const t = s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); return t.length <= 60 ? t : t.slice(0, 60).replace(/-[^-]*$/, ''); };
 const linha = s => String(s ?? '').replace(/\s+/g, ' ').trim();
+// primeira informação de um campo (corta observações entre parênteses e frases seguintes)
+const curto = s => linha(s).split(/\s*[.;(]/)[0].trim();
 // a data da fonte só entra quando começa por AAAA-MM ou AAAA-MM-DD; observações ficam de fora
 const dataFonte = s => { const m = /^(\d{4}-\d{2}(?:-\d{2})?)/.exec(linha(s)); return m ? m[1] : ''; };
 
@@ -23,7 +26,7 @@ for (const arq of readdirSync(PESQ).filter(f => f.endsWith('.json'))) {
     if (tema === 'eventos-videos') {
       const d0 = (it.dados || [])[0] || {};
       if (/v[ií]deo/i.test(it.olho)) videos.push({ titulo: linha(it.titulo), canal: linha(it.fonte_nome), data: dataFonte(it.data_publicacao), url: it.fonte_url, resumo: linha(it.resumo) });
-      else eventos.push({ titulo: linha(it.titulo), inicio: dataFonte(it.data_publicacao), quando: linha(d0.valor), local: linha(d0.descricao), url: it.fonte_url, resumo: linha(it.resumo), regiao: linha(it.regiao) });
+      else eventos.push({ titulo: linha(it.titulo), inicio: dataFonte(it.data_publicacao), quando: curto(d0.valor), local: curto(d0.descricao), url: it.fonte_url, resumo: linha(it.resumo), regiao: linha(it.regiao) });
       return;
     }
     if (!TEMA[tema]) return;
@@ -33,6 +36,8 @@ for (const arq of readdirSync(PESQ).filter(f => f.endsWith('.json'))) {
     writeFileSync(join(POSTS, s + '.md'), md); n++;
   });
 }
+const manuais = join(SRC, 'content', 'eventos-manuais.json');
+if (existsSync(manuais)) eventos.push(...JSON.parse(readFileSync(manuais, 'utf8')));
 const hoje = DATA;
 eventos.sort((a, b) => a.inicio.localeCompare(b.inicio));
 writeFileSync(join(SRC, 'content', 'eventos.json'), JSON.stringify(eventos.filter(e => e.inicio >= hoje), null, 2) + '\n');

@@ -541,3 +541,11 @@ a.evento:hover { transform: translateY(-3px); box-shadow: var(--sombra); border-
   .ticker-faixa { overflow-x: auto; }
 }
 .dado strong.dado-longo { font-size: 1.55rem; letter-spacing: -.02em; line-height: 1.1; }
+.juntos { margin-top: 2.4em !important; padding-top: 18px; border-top: 1.5px solid var(--tinta); }
+.juntos h2 { display: flex; align-items: center; gap: 9px; font-family: var(--txt); font-size: .74rem !important; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 6px !important; color: var(--cinza); }
+.juntos ul { display: block !important; }
+.juntos li { padding: 13px 0 !important; border-bottom: 1px solid var(--linha); display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.juntos li::before { display: none; }
+.juntos a { font-family: var(--tit); font-size: 1.14rem; line-height: 1.3; color: var(--tinta) !important; text-decoration: none !important; }
+.juntos a:hover { color: var(--azul) !important; }
+.juntos span { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--cinza); white-space: nowrap; }

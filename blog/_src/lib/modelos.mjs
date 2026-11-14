@@ -249,6 +249,7 @@ export function post({ cfg, p, posts }) {
   const t = tema(p), d = data(p.data);
   const dados = (p.dados || []).map(l => l.split('|').map(s => s.trim()));
   const relacionados = posts.filter(x => x.slug !== p.slug && x.tema === p.tema).slice(0, 3);
+  const juntos = (p.relacionados || []).map(sl => posts.find(x => x.slug === sl)).filter(Boolean);
   const outros = relacionados.length < 3 ? posts.filter(x => x.slug !== p.slug && x.tema !== p.tema && x.tipo !== 'capa').slice(0, 3 - relacionados.length) : [];
   const corpo = `<article class="artigo">
   <header class="art-cab${p.video ? ' art-cab--video' : ''}">
@@ -267,6 +268,7 @@ export function post({ cfg, p, posts }) {
   <div class="art-grade">
     <div class="art-corpo prosa">
       ${p.html}
+      ${juntos.length ? `<aside class="juntos"><h2>${icone('lista')}Para ler junto</h2><ul>${juntos.map(x => `<li><a href="${urlPost(raiz, x)}">${esc(x.titulo)}</a><span>${esc(fonteCurta(x))}</span></li>`).join('')}</ul></aside>` : ''}
       ${p.por_que_importa ? `<aside class="importa"><h2>${icone('lampada')}Por que importa para quem faz gestão da mudança</h2><p>${esc(p.por_que_importa)}</p></aside>` : ''}
       ${p.fonte_url ? `<aside class="fonte-caixa"><h2>${icone('link')}Fonte</h2><p><a href="${esc(p.fonte_url)}" target="_blank" rel="noopener">${esc(p.fonte_nome)}${icone('setaFora')}</a>${p.fonte_data ? `<span>Publicado em ${esc(data(p.fonte_data).longa)}</span>` : ''}${p.fonte_tipo ? `<span>Fonte ${esc(p.fonte_tipo)}</span>` : ''}${p.verificacao ? `<span>Conferência: ${esc(p.verificacao)}</span>` : ''}</p><small>Texto original do blog a partir da fonte citada. Os números valem para o recorte da pesquisa; confira o material completo antes de usar em decisão.</small></aside>` : ''}
     </div>

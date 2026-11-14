@@ -6,7 +6,7 @@
   "autor": "Victor Vitorino",
   "papel": "Consultor especialista em Change Management",
   "url": "",
-  "linkedin": "",
+  "linkedin": "https://www.linkedin.com/in/victor-vitorino-7222b26a",
   "idioma": "pt-BR",
   "edicao": {
     "numero": 1,
@@ -15,7 +15,7 @@
     "capa": "mapa-de-perfil-cognitivo"
   },
   "downloads": {
-    "supabase_url": "",
-    "supabase_chave": ""
+    "supabase_url": "https://itlahpnqpszvjyexlkrn.supabase.co",
+    "supabase_chave": "sb_publishable_9BQcWtDRrPwLXaSMdbTdRQ_Scak_uEz"
   }
 }

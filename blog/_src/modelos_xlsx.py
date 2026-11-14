@@ -330,7 +330,164 @@ def treinamentos():
     wb.save(os.path.join(SAIDA, 'plano-de-treinamentos.xlsx'))
 
 
+def adkar():
+    wb = Workbook(); ws = wb.active; ws.title = 'Avaliação ADKAR'
+    cabecalho(ws, 'Avaliação ADKAR e mapa de resistência', 'Notas de 1 a 5 por grupo. O ponto de barreira é o primeiro elemento, na ordem, com nota 3 ou menor. ADKAR é marca registrada da Prosci.', 11)
+    cols = ['Grupo impactado', 'Área', 'Pessoas', 'Consciência', 'Desejo', 'Conhecimento', 'Habilidade', 'Reforço', 'Ponto de barreira', 'Nível de resistência', 'Ação recomendada']
+    larg = [30, 18, 10, 13, 13, 14, 13, 13, 20, 18, 58]
+    for j, (c, w) in enumerate(zip(cols, larg)):
+        th(ws.cell(4, 1 + j), c, AZ if j >= 8 else AZP); ws.column_dimensions[L(1 + j)].width = w
+    ws.row_dimensions[4].height = 34
+    dv = DataValidation(type='whole', operator='between', formula1='1', formula2='5'); dv.error = 'Use um número de 1 a 5'; ws.add_data_validation(dv)
+    ex = [('Analistas de contas a pagar', 'Financeiro', 18, 4, 2, 2, 2, 1), ('Supervisores de loja', 'Operações', 42, 3, 3, 2, 2, 2), ('Vendas internas', 'Comercial', 25, 5, 4, 4, 2, 2), ('Compradores', 'Suprimentos', 12, 5, 5, 4, 4, 3), ('Atendimento', 'Operações', 60, 2, 2, 1, 1, 1), ('Controladoria', 'Financeiro', 9, 5, 4, 5, 4, 4)]
+    n = 30
+    for i in range(n):
+        r = 5 + i
+        v = ex[i] if i < len(ex) else ('', '', None, None, None, None, None, None)
+        for j, val in enumerate(v):
+            c = ws.cell(r, 1 + j, val); c.border = borda; c.alignment = esq if j < 2 else centro
+            if j >= 3: dv.add(c)
+        pb = ws.cell(r, 9, f'=IF(COUNT(D{r}:H{r})<5,"",IF(D{r}<=3,"Consciência",IF(E{r}<=3,"Desejo",IF(F{r}<=3,"Conhecimento",IF(G{r}<=3,"Habilidade",IF(H{r}<=3,"Reforço","Sem barreira"))))))')
+        nv = ws.cell(r, 10, f'=IF(I{r}="","",IF(OR(I{r}="Consciência",I{r}="Desejo"),"Alta",IF(OR(I{r}="Conhecimento",I{r}="Habilidade"),"Média","Baixa")))')
+        ac = ws.cell(r, 11, f'=IF(I{r}="","",IF(I{r}="Consciência","Patrocinador explica por que mudar e o risco de não mudar",IF(I{r}="Desejo","Gestor direto conversa sobre perdas, ganhos e o que muda para cada um",IF(I{r}="Conhecimento","Capacitação no processo e na ferramenta, perto do uso",IF(I{r}="Habilidade","Prática guiada, apoio no posto de trabalho e tempo para aprender",IF(I{r}="Reforço","Reconhecer, medir o uso e tirar atritos da rotina","Manter o reforço e usar o grupo como exemplo"))))))')
+        for c in (pb, nv, ac): c.border = borda; c.alignment = esq
+        pb.font = Font(bold=True, color=AZP)
+        ws.row_dimensions[r].height = 24
+    fim = 4 + n
+    ws.conditional_formatting.add(f'D5:H{fim}', ColorScaleRule(start_type='num', start_value=1, start_color='98A2B3', mid_type='num', mid_value=3, mid_color='FFFFFF', end_type='num', end_value=5, end_color='5B8DF5'))
+    ws.conditional_formatting.add(f'J5:J{fim}', CellIsRule(operator='equal', formula=['"Alta"'], fill=fill(AZP), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'J5:J{fim}', CellIsRule(operator='equal', formula=['"Média"'], fill=fill(AZ), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'J5:J{fim}', CellIsRule(operator='equal', formula=['"Baixa"'], fill=fill(CZC)))
+    rodape(ws, fim + 2, 11); ws.freeze_panes = 'D5'
+    # painel
+    d = wb.create_sheet('Mapa de resistência')
+    cabecalho(d, 'Mapa de resistência', 'Onde a mudança trava: grupos e pessoas por ponto de barreira. Atualiza sozinho a partir da aba "Avaliação ADKAR".', 6)
+    for j, w in enumerate([24, 14, 14, 16, 4, 30]): d.column_dimensions[L(1 + j)].width = w
+    for j, c in enumerate(['Ponto de barreira', 'Grupos', 'Pessoas', '% das pessoas']): th(d.cell(4, 1 + j), c)
+    A = "'Avaliação ADKAR'"
+    for i, b in enumerate(['Consciência', 'Desejo', 'Conhecimento', 'Habilidade', 'Reforço', 'Sem barreira']):
+        r = 5 + i
+        d.cell(r, 1, b).border = borda
+        d.cell(r, 2, f'=COUNTIF({A}!I5:I{fim},A{r})').border = borda
+        d.cell(r, 3, f'=SUMIF({A}!I5:I{fim},A{r},{A}!C5:C{fim})').border = borda
+        x = d.cell(r, 4, f'=IF(SUM($C$5:$C$10)=0,0,C{r}/SUM($C$5:$C$10))'); x.number_format = '0%'; x.border = borda
+        for j in (2, 3, 4): d.cell(r, j).alignment = centro
+    th(d.cell(12, 1), 'Média por elemento')
+    th(d.cell(12, 2), 'Nota média')
+    for i, (nome, col) in enumerate(zip(['Consciência', 'Desejo', 'Conhecimento', 'Habilidade', 'Reforço'], 'DEFGH')):
+        r = 13 + i
+        d.cell(r, 1, nome).border = borda
+        m = d.cell(r, 2, f'=IFERROR(AVERAGE({A}!{col}5:{col}{fim}),0)'); m.number_format = '0.0'; m.border = borda; m.alignment = centro
+    th(d.cell(4, 6), 'Indicadores', AZ)
+    for i, (rot, f, fmt) in enumerate([('Grupos avaliados', f'=COUNTA({A}!A5:A{fim})', '0'), ('Pessoas impactadas', f'=SUM({A}!C5:C{fim})', '0'), ('Pessoas com resistência alta', f'=SUMIF({A}!J5:J{fim},"Alta",{A}!C5:C{fim})', '0'), ('% com resistência alta', f'=IF(SUM({A}!C5:C{fim})=0,0,SUMIF({A}!J5:J{fim},"Alta",{A}!C5:C{fim})/SUM({A}!C5:C{fim}))', '0%')]):
+        r = 5 + i * 2
+        d.cell(r, 6, rot).font = Font(size=10, color=CZ)
+        k = d.cell(r + 1, 6, f); k.font = Font(name='Georgia', size=22, color=AZP); k.number_format = fmt; k.alignment = Alignment(horizontal='left')
+    ch = BarChart(); ch.type = 'bar'; ch.title = 'Pessoas por ponto de barreira'; ch.height = 8.5; ch.width = 17; ch.legend = None
+    ch.add_data(Reference(d, min_col=3, min_row=4, max_row=10), titles_from_data=True); ch.set_categories(Reference(d, min_col=1, min_row=5, max_row=10))
+    ch.series[0].graphicalProperties.solidFill = AZ; ch.x_axis.delete = False; ch.y_axis.delete = False
+    d.add_chart(ch, 'A20')
+    c2 = BarChart(); c2.type = 'col'; c2.title = 'Nota média por elemento do ADKAR'; c2.height = 8.5; c2.width = 15; c2.legend = None
+    c2.add_data(Reference(d, min_col=2, min_row=12, max_row=17), titles_from_data=True); c2.set_categories(Reference(d, min_col=1, min_row=13, max_row=17))
+    c2.series[0].graphicalProperties.solidFill = AZP; c2.y_axis.scaling.min = 0; c2.y_axis.scaling.max = 5; c2.x_axis.delete = False; c2.y_axis.delete = False
+    d.add_chart(c2, 'F20')
+    como_usar(wb, 'Avaliação ADKAR e mapa de resistência', [
+        ('Para que serve', 'Achar em que elemento do ADKAR cada grupo está travado e escolher a ação certa para destravar.'),
+        ('Como preencher', 'Uma linha por grupo impactado. Informe o número de pessoas e dê nota de 1 a 5 para cada elemento: Consciência, Desejo, Conhecimento, Habilidade e Reforço.'),
+        ('Ponto de barreira', 'É o primeiro elemento, na ordem do modelo, com nota 3 ou menor. Não é a menor nota: os elementos são sequenciais, e não adianta treinar quem ainda não decidiu participar.'),
+        ('Nível de resistência', 'Alta quando a barreira é Consciência ou Desejo (a pessoa ainda não quer mudar). Média quando é Conhecimento ou Habilidade (quer, mas não consegue). Baixa quando é Reforço ou não há barreira. É uma leitura deste modelo, para priorizar o esforço.'),
+        ('Mapa de resistência', 'A segunda aba soma grupos e pessoas por barreira, calcula a nota média de cada elemento e mostra os gráficos. Atualiza sozinha.'),
+        ('Cuidado', 'Avalie por grupo, com base em pesquisa curta, conversa com gestores e dados de uso. É retrato do momento, não rótulo.'),
+    ])
+    wb.save(os.path.join(SAIDA, 'avaliacao-adkar-mapa-de-resistencia.xlsx'))
+
+
+def impactos():
+    wb = Workbook(); ws = wb.active; ws.title = 'Lista de impactos'
+    cabecalho(ws, 'Lista de impactos da mudança', 'Uma linha por impacto. Grau de 1 (baixo) a 5 (muito alto). O dashboard na segunda aba se atualiza sozinho.', 10)
+    cols = ['Processo ou atividade', 'Área', 'Grupo impactado', 'Tipo de impacto', 'O que muda', 'Grau (1-5)', 'Pessoas', 'Classificação', 'Ação de mudança', 'Responsável']
+    larg = [30, 16, 24, 16, 46, 11, 10, 15, 44, 20]
+    for j, (c, w) in enumerate(zip(cols, larg)):
+        th(ws.cell(4, 1 + j), c, AZ if j == 7 else AZP); ws.column_dimensions[L(1 + j)].width = w
+    ws.row_dimensions[4].height = 34
+    AREAS = ['Financeiro', 'Operações', 'Comercial', 'Suprimentos', 'TI', 'RH']; TIPOS = ['Processo', 'Sistema', 'Papel', 'Competência', 'Estrutura', 'Indicador']
+    da = DataValidation(type='list', formula1='"' + ','.join(AREAS) + '"', allow_blank=True); dt = DataValidation(type='list', formula1='"' + ','.join(TIPOS) + '"', allow_blank=True)
+    dg = DataValidation(type='whole', operator='between', formula1='1', formula2='5')
+    for v in (da, dt, dg): ws.add_data_validation(v)
+    ex = [('Lançamento de notas fiscais', 'Financeiro', 'Analistas de contas a pagar', 'Sistema', 'Lançamento passa a ser feito no novo sistema, com validação automática', 4, 18, 'Prática guiada e apoio no posto na primeira semana'),
+          ('Aprovação de pagamentos', 'Financeiro', 'Coordenadores', 'Papel', 'Aprovação sai do e-mail e passa a ter alçadas no sistema', 3, 6, 'Comunicar novas alçadas e treinar aprovadores'),
+          ('Pedido de compra', 'Suprimentos', 'Compradores', 'Processo', 'Requisição obrigatória antes do pedido', 5, 12, 'Patrocinador explica o porquê; gestores acompanham exceções'),
+          ('Reposição de loja', 'Operações', 'Supervisores de loja', 'Indicador', 'Meta de ruptura passa a ser acompanhada por loja, toda semana', 4, 42, 'Roteiro de conversa para gestores e painel semanal'),
+          ('Cadastro de clientes', 'Comercial', 'Vendas internas', 'Sistema', 'Cadastro único, com campos obrigatórios', 2, 25, 'Guia rápido e vídeo curto'),
+          ('Atendimento ao cliente', 'Operações', 'Atendimento', 'Competência', 'Atendente passa a resolver casos que antes escalava', 5, 60, 'Trilha de capacitação e mentoria entre pares'),
+          ('Fechamento mensal', 'Financeiro', 'Controladoria', 'Processo', 'Calendário de fechamento reduzido em dois dias', 3, 9, 'Ensaio do fechamento antes da virada'),
+          ('Suporte a usuários', 'TI', 'Service desk', 'Estrutura', 'Novo modelo de suporte com apoio reforçado após o go-live', 3, 8, 'Treinar a equipe e combinar critérios de saída')]
+    n = 60
+    for i in range(n):
+        r = 5 + i
+        v = ex[i] if i < len(ex) else ('', '', '', '', '', None, None, '')
+        vals = list(v[:7]) + [None, v[7], '']
+        for j, val in enumerate(vals):
+            if j == 7: continue
+            c = ws.cell(r, 1 + j, val); c.border = borda; c.alignment = centro if j in (5, 6) else esq
+        da.add(ws.cell(r, 2)); dt.add(ws.cell(r, 4)); dg.add(ws.cell(r, 6))
+        k = ws.cell(r, 8, f'=IF(F{r}="","",IF(F{r}>=4,"Alto",IF(F{r}=3,"Médio","Baixo")))'); k.border = borda; k.alignment = centro
+        ws.row_dimensions[r].height = 30
+    fim = 4 + n
+    ws.conditional_formatting.add(f'H5:H{fim}', CellIsRule(operator='equal', formula=['"Alto"'], fill=fill(AZP), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'H5:H{fim}', CellIsRule(operator='equal', formula=['"Médio"'], fill=fill(AZ), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'H5:H{fim}', CellIsRule(operator='equal', formula=['"Baixo"'], fill=fill(CZC)))
+    ws.conditional_formatting.add(f'F5:F{fim}', ColorScaleRule(start_type='num', start_value=1, start_color='FFFFFF', end_type='num', end_value=5, end_color='9DBDFF'))
+    rodape(ws, fim + 2, 10); ws.freeze_panes = 'B5'
+    d = wb.create_sheet('Dashboard'); I = "'Lista de impactos'"
+    cabecalho(d, 'Dashboard de impactos', 'Indicadores, impactos por área e por tipo, e mapa de calor área x tipo. Atualiza sozinho a partir da lista.', 9)
+    d.column_dimensions['A'].width = 20
+    for j in range(2, 10): d.column_dimensions[L(j)].width = 14
+    kp = [('Impactos mapeados', f'=COUNTA({I}!A5:A{fim})', '0'), ('Impactos altos', f'=COUNTIF({I}!H5:H{fim},"Alto")', '0'), ('Pessoas impactadas', f'=SUM({I}!G5:G{fim})', '0'), ('Grau médio', f'=IFERROR(AVERAGE({I}!F5:F{fim}),0)', '0.0')]
+    for i, (rot, f, fmt) in enumerate(kp):
+        col = 1 + i * 2
+        d.merge_cells(start_row=4, start_column=col, end_row=4, end_column=col + 1); d.merge_cells(start_row=5, start_column=col, end_row=5, end_column=col + 1)
+        a = d.cell(4, col, rot); a.font = Font(size=10, bold=True, color=CZ); a.fill = fill(CZC); d.cell(4, col + 1).fill = fill(CZC)
+        k = d.cell(5, col, f); k.font = Font(name='Georgia', size=26, color=AZP); k.number_format = fmt; k.alignment = Alignment(horizontal='left'); k.fill = fill(CZC); d.cell(5, col + 1).fill = fill(CZC)
+    d.row_dimensions[5].height = 42
+    for j, c in enumerate(['Área', 'Impactos', 'Altos', 'Pessoas', 'Grau médio']): th(d.cell(8, 1 + j), c)
+    for i, a in enumerate(AREAS):
+        r = 9 + i
+        d.cell(r, 1, a).border = borda
+        fs = [f'=COUNTIF({I}!B5:B{fim},A{r})', f'=COUNTIFS({I}!B5:B{fim},A{r},{I}!H5:H{fim},"Alto")', f'=SUMIF({I}!B5:B{fim},A{r},{I}!G5:G{fim})', f'=IFERROR(AVERAGEIF({I}!B5:B{fim},A{r},{I}!F5:F{fim}),0)']
+        for j, f in enumerate(fs):
+            c = d.cell(r, 2 + j, f); c.border = borda; c.alignment = centro
+            if j == 3: c.number_format = '0.0'
+    th(d.cell(8, 7), 'Tipo'); th(d.cell(8, 8), 'Impactos')
+    for i, t in enumerate(TIPOS):
+        r = 9 + i
+        d.cell(r, 7, t).border = borda
+        c = d.cell(r, 8, f'=COUNTIF({I}!D5:D{fim},G{r})'); c.border = borda; c.alignment = centro
+    th(d.cell(17, 1), 'Mapa de calor: área x tipo')
+    for j, t in enumerate(TIPOS): th(d.cell(17, 2 + j), t)
+    for i, a in enumerate(AREAS):
+        r = 18 + i
+        d.cell(r, 1, a).border = borda
+        for j in range(len(TIPOS)):
+            c = d.cell(r, 2 + j, f'=COUNTIFS({I}!B5:B{fim},$A{r},{I}!D5:D{fim},{L(2 + j)}$17)'); c.border = borda; c.alignment = centro
+    d.conditional_formatting.add('B18:G23', ColorScaleRule(start_type='num', start_value=0, start_color='FFFFFF', end_type='max', end_color='2F6FED'))
+    ch = BarChart(); ch.type = 'bar'; ch.title = 'Pessoas impactadas por área'; ch.height = 8; ch.width = 16; ch.legend = None
+    ch.add_data(Reference(d, min_col=4, min_row=8, max_row=14), titles_from_data=True); ch.set_categories(Reference(d, min_col=1, min_row=9, max_row=14))
+    ch.series[0].graphicalProperties.solidFill = AZ; ch.x_axis.delete = False; ch.y_axis.delete = False; d.add_chart(ch, 'A26')
+    c2 = BarChart(); c2.type = 'col'; c2.title = 'Impactos por tipo'; c2.height = 8; c2.width = 15; c2.legend = None
+    c2.add_data(Reference(d, min_col=8, min_row=8, max_row=14), titles_from_data=True); c2.set_categories(Reference(d, min_col=7, min_row=9, max_row=14))
+    c2.series[0].graphicalProperties.solidFill = AZP; c2.x_axis.delete = False; c2.y_axis.delete = False; d.add_chart(c2, 'F26')
+    como_usar(wb, 'Lista de impactos com dashboard', [
+        ('Para que serve', 'Registrar o que muda para cada grupo e enxergar onde a mudança pesa mais, para dimensionar comunicação, capacitação e apoio.'),
+        ('Como preencher', 'Uma linha por impacto: processo, área, grupo, tipo, o que muda, grau de 1 a 5 e número de pessoas. A classificação (alto, médio, baixo) é calculada.'),
+        ('Áreas e tipos', 'As listas de área e de tipo alimentam o dashboard. Para trocar, altere as listas na aba Dashboard (colunas A e G) e a validação de dados na lista.'),
+        ('Dashboard', 'Indicadores, tabela por área, tabela por tipo, mapa de calor área x tipo e dois gráficos. Tudo atualiza sozinho.'),
+        ('Como ler', 'Área com muitos impactos altos e muitas pessoas pede plano próprio e gestores preparados antes das equipes. Impacto de papel e de competência costuma gerar mais resistência do que impacto só de sistema.'),
+    ])
+    wb.save(os.path.join(SAIDA, 'lista-de-impactos-dashboard.xlsx'))
+
+
 if __name__ == '__main__':
     os.makedirs(SAIDA, exist_ok=True)
-    raci(); influencia(); adocao(); diagnostico(); riscos(); treinamentos()
+    raci(); influencia(); adocao(); diagnostico(); riscos(); treinamentos(); adkar(); impactos()
     print('modelos gerados em', os.path.normpath(SAIDA))

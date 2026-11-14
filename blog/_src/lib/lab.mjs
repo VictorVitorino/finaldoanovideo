@@ -84,7 +84,7 @@ export function labInicio({ cfg, nPerguntas }) {
   <span class="olho">Laboratório</span><h1>Teste, monte e baixe</h1><p class="lab-lead">Um diagnóstico para saber em que nível de Change Management você está e três instrumentos para montar no navegador e levar para o projeto.</p></div></header>
 <section class="sec sec--lab-pg"><div class="sec-in">
   <div class="lab-cartoes">${FERRAMENTAS.map((f, i) => `<a class="lab-cartao revela" style="--i:${i}" href="${f.slug}/"><span class="lab-cartao-arte">${PREVIAS[f.id](['a', 'b', 'c', 'b'][i])}</span><span class="lab-cartao-txt"><small>${esc(f.olho)}${f.id === 'diagnostico' && nPerguntas ? ' · ' + nPerguntas + ' perguntas' : ''}</small><b>${esc(f.nome)}</b><em>${esc(f.frase)}</em><span class="link-seta">${esc(f.acao)}${icone('seta')}</span></span></a>`).join('')}</div>
-  <div class="lab-modelos revela"><h2>Modelos para baixar</h2><p>Mapa de adoção, formulário de diagnóstico, mapa de riscos, plano de treinamentos, matriz RACI e mapa de influência, em Excel.</p>
+  <div class="lab-modelos revela"><h2>Modelos para baixar</h2><p>Kit de slides em PowerPoint e planilhas em Excel: avaliação ADKAR com mapa de resistência, lista de impactos com dashboard, mapa de adoção, mapa de riscos e mais.</p>
     <a class="btn btn--p" href="${raiz}modelos/">Ver os modelos${icone('seta')}</a></div>
 </div></section>`;
   return pagina({ cfg, raiz, titulo: 'Laboratório', descricao: 'Diagnóstico de nível em Change Management e ferramentas interativas: matriz RACI, mapa de influência e matriz de adoção.', corpo, caminho: 'lab/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', ativo: 'lab' });
@@ -163,9 +163,9 @@ export function paginaModelos({ cfg, modelos }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
   <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Modelos</span></nav>
-  <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Planilhas em Excel com fórmulas, conferências e instruções de uso. Para baixar, informe nome e e-mail uma única vez.</p></div></header>
+  <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Slides em PowerPoint e planilhas em Excel com fórmulas, dashboards e instruções de uso. Para baixar, informe nome e e-mail uma única vez.</p></div></header>
 <section class="sec sec--lab-pg"><div class="sec-in" data-modelos>
-  <div class="mod-grade">${modelos.map((m, i) => `<article class="mod revela" style="--i:${i}" id="${esc(m.id)}"><div class="mod-arte">${PREVIAS[m.previa](['a', 'b', 'c'][i % 3])}</div><div class="mod-txt"><small>${esc(m.olho)} · Excel</small><h2>${esc(m.nome)}</h2><p>${esc(m.frase)}</p><button type="button" class="btn btn--p btn--peq" data-baixar="${esc(m.id)}" data-arquivo="${esc(m.arquivo)}" data-nome="${esc(m.nome)}">${icone('setaBaixo')}<span>Baixar modelo</span></button></div></article>`).join('')}</div>
+  <div class="mod-grade">${modelos.map((m, i) => `<article class="mod revela" style="--i:${i}" id="${esc(m.id)}"><div class="mod-arte">${PREVIAS[m.previa](['a', 'b', 'c'][i % 3])}</div><div class="mod-txt"><small>${esc(m.olho)} · ${esc(m.formato || 'Excel')}</small><h2>${esc(m.nome)}</h2><p>${esc(m.frase)}</p><button type="button" class="btn btn--p btn--peq" data-baixar="${esc(m.id)}" data-arquivo="${esc(m.arquivo)}" data-nome="${esc(m.nome)}">${icone('setaBaixo')}<span>Baixar modelo</span></button></div></article>`).join('')}</div>
   <p class="lab-nota">${icone('escudo')}Seu nome e e-mail são usados só para registrar o download. Não são repassados a terceiros.</p>
   <dialog class="portao" data-portao aria-labelledby="portao-t">
     <form method="dialog" class="portao-in" data-form novalidate>
@@ -181,7 +181,7 @@ export function paginaModelos({ cfg, modelos }) {
   </dialog>
 </div>
 <noscript><div class="sec-in"><p class="lab-aviso">O download com cadastro precisa de JavaScript ligado no navegador.</p></div></noscript></section>`;
-  return pagina({ cfg, raiz, titulo: 'Modelos para baixar', descricao: 'Modelos em Excel para gestão da mudança: mapa de adoção, formulário de diagnóstico, mapa de riscos, plano de treinamentos, matriz RACI e mapa de influência.', corpo, caminho: 'modelos/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', scripts: ['assets/js/cfg.js', 'assets/js/modelos.js'], ativo: 'lab' });
+  return pagina({ cfg, raiz, titulo: 'Modelos para baixar', descricao: 'Modelos em PowerPoint e Excel para gestão da mudança: kit de slides, avaliação ADKAR com mapa de resistência, lista de impactos com dashboard, mapa de adoção, mapa de riscos e mais.', corpo, caminho: 'modelos/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', scripts: ['assets/js/cfg.js', 'assets/js/modelos.js'], ativo: 'lab' });
 }
 
 export function paginaPainel({ cfg }) {

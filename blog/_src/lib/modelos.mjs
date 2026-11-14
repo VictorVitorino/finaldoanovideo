@@ -98,7 +98,7 @@ export const titSecao = (id, olho, tit, sub, extra = '') => `<header class="sec-
   <div><span class="olho">${olho}</span><h2 id="${id}-t">${tit}</h2>${sub ? `<p>${sub}</p>` : ''}</div>${extra}</header>`;
 
 // ---------- início ----------
-export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '' }) {
+export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', estante }) {
   const raiz = '';
   const capaP = posts.find(p => p.slug === cfg.edicao.capa) || posts[0];
   const reportagens = posts.filter(p => p.tipo === 'reportagem');
@@ -224,6 +224,12 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '' }) 
   </div>
 </section>`;
 
+  const blocoEstante = estante && estante.itens.length ? `<section class="sec sec--estante" id="estante" aria-labelledby="estante-t">
+  <div class="sec-in">
+    ${titSecao('estante', 'Sugestões', esc(estante.titulo), esc(estante.nota))}
+    <ol class="estante">${estante.itens.map((b, i) => `<li class="livro revela" style="--i:${Math.min(i, 7)}"><span class="livro-n">${String(i + 1).padStart(2, '0')}</span><span class="livro-txt"><small>${esc(b.tipo)}</small><b>${esc(b.titulo)}</b><i>${esc(b.autor)}</i><em>${esc(b.porque)}</em></span></li>`).join('')}</ol>
+  </div>
+</section>` : '';
   const sobre = `<section class="sec sec--sobre" id="sobre" aria-labelledby="sobre-t">
   <div class="sec-in">
     <div class="sobre">
@@ -243,7 +249,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '' }) 
   </div>
 </section>`;
 
-  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + blocoCapa + atalhos + radar + ia + blocoGuias + lab + blocoVideos + blocoEventos + blocoMes + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio' });
+  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + blocoCapa + atalhos + radar + ia + blocoGuias + lab + blocoVideos + blocoEventos + blocoMes + blocoEstante + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio' });
 }
 
 // ---------- página de post ----------

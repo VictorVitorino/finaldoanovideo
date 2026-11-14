@@ -1,0 +1,54 @@
+{
+  "titulo": "O que eu leio e recomendo",
+  "nota": "Livros que voltam à minha mesa quando o assunto é mudança.",
+  "itens": [
+    {
+      "titulo": "Leading Change",
+      "autor": "John P. Kotter",
+      "tipo": "Livro",
+      "porque": "Os oito passos e o papel da liderança em mobilizar a organização."
+    },
+    {
+      "titulo": "ADKAR: A Model for Change in Business, Government and Our Community",
+      "autor": "Jeffrey M. Hiatt",
+      "tipo": "Livro",
+      "porque": "A mudança vista pela pessoa: do porquê ao reforço."
+    },
+    {
+      "titulo": "Managing Transitions",
+      "autor": "William Bridges",
+      "tipo": "Livro",
+      "porque": "Mudança é situacional; transição é o que acontece por dentro."
+    },
+    {
+      "titulo": "Switch: How to Change Things When Change Is Hard",
+      "autor": "Chip Heath e Dan Heath",
+      "tipo": "Livro",
+      "porque": "Razão, emoção e caminho, em linguagem direta."
+    },
+    {
+      "titulo": "The Fearless Organization",
+      "autor": "Amy C. Edmondson",
+      "tipo": "Livro",
+      "porque": "Segurança psicológica como condição para aprender e adotar."
+    },
+    {
+      "titulo": "Diffusion of Innovations",
+      "autor": "Everett M. Rogers",
+      "tipo": "Livro",
+      "porque": "Por que algumas ideias se espalham e quem puxa a adoção."
+    },
+    {
+      "titulo": "HCMBOK: o fator humano na liderança de projetos",
+      "autor": "Vicente Gonçalves e Carla Campos",
+      "tipo": "Livro",
+      "porque": "Gestão de mudanças integrada às fases do projeto, com olhar brasileiro."
+    },
+    {
+      "titulo": "Nudge",
+      "autor": "Richard H. Thaler e Cass R. Sunstein",
+      "tipo": "Livro",
+      "porque": "Como o desenho das escolhas torna o comportamento certo o mais fácil."
+    }
+  ]
+}

@@ -34,7 +34,7 @@ function gera() {
   const d = carrega(), { cfg, posts } = d;
   for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
   const nPerguntas = d.dominios.reduce((a, x) => a + x.perguntas.length, 0);
-  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas) }));
+  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas), estante: existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null }));
   // Laboratório
   grava('lab/index.html', labInicio({ cfg, nPerguntas }));
   grava('modelos/index.html', paginaModelos({ cfg, modelos: json('modelos.json') }));

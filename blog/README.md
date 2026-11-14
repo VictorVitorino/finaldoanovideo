@@ -39,12 +39,14 @@ Fica em `lab/` e tem cinco páginas. Tudo roda no navegador de quem acessa; nada
 
 ## Modelos para baixar e painel de downloads
 
-- `modelos/`: seis modelos em Excel (mapa de adoção, formulário de diagnóstico, mapa de riscos, plano editorial de treinamentos, matriz RACI e mapa de influência). Para baixar, a pessoa informa nome e e-mail uma vez e concorda com o registro; os downloads seguintes são em um clique.
+- `modelos/`: nove artefatos. Em PowerPoint: kit de slides de gestão da mudança (11 slides editáveis). Em Excel: avaliação ADKAR com mapa de resistência, lista de impactos com dashboard, mapa de adoção, formulário de diagnóstico, mapa de riscos, plano editorial de treinamentos, matriz RACI e mapa de influência. Para baixar, a pessoa informa nome e e-mail uma vez e concorda com o registro; os downloads seguintes são em um clique.
 - `painel/`: área restrita do autor, com total de downloads, e-mails diferentes, downloads por modelo, por e-mail e o registro completo, com filtro e exportação em CSV.
 - O registro fica no Supabase. A estrutura está em `blog/_src/supabase/001_downloads.sql`: quem visita só consegue inserir; ler exige login e o e-mail estar na tabela `painel_admins`.
 - Para ligar: preencha `downloads.supabase_url` e `downloads.supabase_chave` (chave publicável) em `blog/_src/site.config.json` e gere o site. Sem isso, os arquivos baixam, mas nada é registrado.
 - Limite conhecido: os arquivos `.xlsx` são públicos em `assets/modelos/`. O cadastro registra quem baixa pelo site, mas não impede quem tiver o endereço direto do arquivo.
-- Catálogo dos modelos: `blog/_src/content/modelos.json`. Planilhas: `python3 blog/_src/modelos_xlsx.py`.
+- Catálogo dos modelos: `blog/_src/content/modelos.json`. Planilhas: `python3 blog/_src/modelos_xlsx.py`. Slides: `python3 blog/_src/modelos_pptx.py`.
+- Sugestões de leitura da página inicial: `blog/_src/content/estante.json`.
+- Banco em uso: projeto Supabase `change-management-world`. O usuário do painel é criado em Authentication, no Supabase.
 
 ## Como publicar um post novo
 

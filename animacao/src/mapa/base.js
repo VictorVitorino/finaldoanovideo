@@ -99,37 +99,23 @@ export function tracar(d, u, o = {}) {
 export const conta = (valor, u, dec = 0) => (valor * ease.out(clamp(u))).toFixed(dec).replace('.', ',');
 // tremor curto (dx, dy) a partir de t0
 export function tremor(t, t0, d = 0.35, amp = 10) {
-  const u = inv(t0, t0 + d, t);
-  if (u <= 0 || u >= 1) return [0, 0];
-  const k = (1 - u) * amp;
-  return [Math.sin(t * 90) * k, Math.cos(t * 70) * k * 0.6];
+  return [0, 0];   // versão limpa: sem tremor
 }
 // anel de onda de choque que cresce e some (idade em s)
 export function onda(x, y, idade, o = {}) {
-  const d = o.d ?? 0.7, u = idade / d;
+  // versão limpa: um único anel fino e discreto, só para marcar o foco
+  const d = o.d ?? 0.6, u = idade / d;
   if (u <= 0 || u >= 1) return '';
-  const r = (o.r0 ?? 10) + (o.r1 ?? 90) * ease.out(u);
-  return `<circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}" fill="none" stroke="${o.c ?? C.orange}" stroke-width="${f((o.sw ?? 5) * (1 - u) + 0.5)}" opacity="${f(1 - u)}"/>`;
+  const r = (o.r0 ?? 10) + Math.min(o.r1 ?? 60, 60) * ease.out(u);
+  return `<circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}" fill="none" stroke="${o.c ?? C.orange}" stroke-width="${f(2.5 * (1 - u) + 0.5)}" opacity="${f(0.55 * (1 - u))}"/>`;
 }
 // faíscas que saem de (x, y)
 export function particulas(seed, x, y, idade, o = {}) {
-  const d = o.d ?? 0.7, u = idade / d;
-  if (u <= 0 || u >= 1) return '';
-  const R = rng(seed), n = o.n ?? 10;
-  let s = '';
-  for (let i = 0; i < n; i++) {
-    const a = R() * Math.PI * 2, v = (o.v ?? 90) * (0.5 + R());
-    const px = x + Math.cos(a) * v * ease.out(u), py = y + Math.sin(a) * v * ease.out(u) + 60 * u * u;
-    s += `<circle cx="${f(px)}" cy="${f(py)}" r="${f((o.r ?? 5) * (1 - u) * (0.6 + R() * 0.8))}" fill="${(o.cores ?? [C.orange, C.blue, C.navy40])[i % 3]}"/>`;
-  }
-  return s;
+  return '';   // versão limpa: sem partículas
 }
 // brilho que varre um retângulo arredondado
 export function varredura(id, x, y, w, h, u, r = 8, cor = '#ffffff') {
-  if (u <= 0 || u >= 1) return '';
-  const cx = x - 120 + (w + 240) * u;
-  return `<clipPath id="${id}"><rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" rx="${r}"/></clipPath>`
-    + `<g clip-path="url(#${id})"><path d="M${f(cx - 50)},${f(y + h + 10)} L${f(cx + 10)},${f(y - 10)} L${f(cx + 70)},${f(y - 10)} L${f(cx + 10)},${f(y + h + 10)}Z" fill="${cor}" opacity=".35"/></g>`;
+  return '';   // versão limpa: sem varredura de brilho
 }
 
 // ---------- fundos ----------

@@ -204,59 +204,38 @@ def main():
         add(buf, x, t)
         sfx.append({'t': round(t, 3), 's': nome})
 
+    # Trilha limpa: poucos efeitos, baixos, só nos momentos que a imagem marca.
     # cortes entre cenas (menos o título, que tem riser + impacto)
     for i, cid in enumerate(ORDEM[1:]):
         if cid in ('titulo',):
             continue
-        fx(whoosh(0.45, 0.085, seed=i + 3), cenas[cid] - 0.24, 'whoosh')
-    # gancho: as duas pessoas, a ferramenta, o desvio para a planilha
-    fx(pop(660, 0.1), wa(0) - 0.02, 'pop')
-    fx(pop(760, 0.1), wa(1) - 0.3, 'pop')
-    fx(pop(880, 0.1), wa(4) - 0.05, 'pop')
-    fx(pop(990, 0.1), wa(7) - 0.05, 'pop')
-    fx(sino(0.07, 91), wa(10) - 0.02, 'sino')
-    fx(whoosh(0.5, 0.09, seed=21), wa(13) - 0.1, 'whoosh')
-    fx(pop(420, 0.13), wa(16) + 0.1, 'pop')
+        fx(whoosh(0.45, 0.05, seed=i + 3), cenas[cid] - 0.24, 'whoosh')
+    # gancho: uma adota, a outra volta para a planilha
+    fx(sino(0.05, 91), wa(10) - 0.02, 'sino')
+    fx(pop(420, 0.08), wa(16) + 0.1, 'pop')
     # porquê: três verbos
     for j, m in enumerate(('percebe', 'avalia', 'decide')):
-        fx(pop(700 + 90 * j, 0.1), wa(MARCAS[m]), 'pop')
+        fx(pop(700 + 90 * j, 0.06), wa(MARCAS[m]), 'pop')
     # título: riser + impacto no "Mapa"
-    fx(riser(1.2, 0.07, 5), wa(34) - 1.2, 'riser')
-    fx(impacto(0.22), wa(34) - 0.02, 'impacto')
-    fx(sino(0.09, 84), wa(37) + 0.05, 'sino')
+    fx(riser(1.2, 0.045, 5), wa(34) - 1.2, 'riser')
+    fx(impacto(0.14), wa(34) - 0.02, 'impacto')
     # perfil: cada sinal acende um eixo do radar
     for j in range(5):
-        fx(pop(620 + 70 * j, 0.11), wa(MARCAS[f'sinal{j + 1}']) - 0.02, 'pop')
-        fx(tique(0.05), wa(MARCAS[f'sinal{j + 1}']) + 0.22, 'tique')
-    fx(sino(0.06, 88), wb(62) + 0.15, 'sino')
-    # régua: marcas e o pino que cai
+        fx(pop(620 + 70 * j, 0.06), wa(MARCAS[f'sinal{j + 1}']) - 0.02, 'pop')
+    # régua: cada marca nasce na estrada
     for j in range(5):
-        fx(tique(0.07), wa(MARCAS[f'nivel{j + 1}']) - 0.02, 'tique')
-        fx(pop(560 + 80 * j, 0.09), wa(MARCAS[f'nivel{j + 1}']) + 0.08, 'pop')
-    # mapa: pinos caindo área por área
-    t0, t1 = wa(80), wb(91) + resp[5] * 0.4
-    for j in range(22):
-        fx(pop(520 + 40 * (j % 7), 0.055), t0 + (t1 - t0) * (j / 22) ** 0.9, 'pino')
-    fx(sino(0.08, 86), wa(89) + 0.05, 'sino')
+        fx(pop(560 + 80 * j, 0.055), wa(MARCAS[f'nivel{j + 1}']) + 0.04, 'pop')
+    # mapa: um sino quando o mapa nasce
+    fx(sino(0.06, 86), wa(89) + 0.05, 'sino')
     # ações
     for j, m in enumerate(('escuta', 'pratica', 'palco')):
-        fx(pop(640 + 110 * j, 0.12), wa(MARCAS[m]) - 0.02, 'pop')
-    # vivo: avançam / travam / recuam, ondas e go-live
-    fx(pop(900, 0.11), wa(127), 'pop')
-    fx(pop(500, 0.12), wa(128), 'pop')
-    fx(pop(380, 0.13), wa(129), 'pop')
-    fx(whoosh(0.6, 0.08, seed=31), wa(132) - 0.15, 'whoosh')
-    fx(tique(0.07), wa(133), 'tique')
-    fx(whoosh(0.5, 0.07, seed=33), wa(137), 'whoosh')
-    fx(sino(0.07, 91), wa(144) + 0.02, 'sino')
+        fx(pop(640 + 110 * j, 0.07), wa(MARCAS[m]) - 0.02, 'pop')
+    # vivo: go-live
+    fx(sino(0.06, 91), wa(144) + 0.02, 'sino')
     # pergunta e fecho
-    fx(impacto(0.14), wa(155) - 0.02, 'impacto')
-    fx(pop(700, 0.08), wa(159), 'pop')
-    for j in range(3):
-        fx(pop(620 + 120 * j, 0.09), wa(161 + j), 'pop')
-    fx(sino(0.1, 84), wa(164) - 0.05, 'sino')
-    fx(sino(0.11, 91), wb(166) + 0.4, 'sino')     # a marca pessoal entra na imagem, depois da última palavra
-    fx(pop(700, 0.07), wb(166) + 0.9, 'pop')
+    fx(impacto(0.09), wa(155) - 0.02, 'impacto')
+    fx(sino(0.08, 84), wa(164) - 0.05, 'sino')
+    fx(sino(0.08, 91), wb(166) + 0.4, 'sino')     # a marca pessoal entra na imagem, depois da última palavra
 
     pico = np.max(np.abs(buf))
     buf *= 0.89 / pico

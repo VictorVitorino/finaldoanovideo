@@ -24,39 +24,19 @@ export function instalarDefs(defs) {
     + `<linearGradient id="g-tela" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D3A5C"/><stop offset="1" stop-color="#002B49"/></linearGradient>`;
 }
 export const sombra = (body, leve) => `<g filter="url(#fx-sombra${leve ? '-leve' : ''})">${body}</g>`;
-export const brilho = body => `<g filter="url(#fx-glow)">${body}</g>`;
+export const brilho = body => body;   // versão limpa: sem halo de brilho
 
 // ---------- fundos vivos ----------
 // claro: céu azul bem leve, grade de pontos e formas da paleta flutuando em paralaxe
 export function fundoVivo(t, o = {}) {
-  let s = `<rect width="${W}" height="${H}" fill="url(#g-ceu)"/>`;
-  let pts = '';
-  for (let y = 60; y < H; y += 54) for (let x = 36; x < W; x += 54) pts += `M${x},${y}h.01`;
-  s += `<path d="${pts}" stroke="${C.navy20}" stroke-width="3.2" stroke-linecap="round" opacity=".55"/>`;
-  const R = rng(o.seed ?? 7);
-  const cores = [C.blue20, C.orange20, C.blue40, C.gray40, C.orange40];
-  for (let i = 0; i < (o.n ?? 9); i++) {
-    const bx = R() * W, by = R() * H, r = 26 + R() * 70, v = 6 + R() * 14, ph = R() * 6.28, tipo = i % 3;
-    const x = bx + Math.sin(t * 0.25 + ph) * v * 2, y = by + Math.cos(t * 0.2 + ph) * v * 2.4, a = (t * (6 + R() * 10) + ph * 40) % 360;
-    const cor = cores[i % cores.length];
-    if (tipo === 0) s += `<circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}" fill="${cor}" opacity=".55"/>`;
-    else if (tipo === 1) s += `<rect x="${f(x - r * 0.7)}" y="${f(y - r * 0.7)}" width="${f(r * 1.4)}" height="${f(r * 1.4)}" rx="${f(r * 0.3)}" fill="none" stroke="${cor}" stroke-width="7" opacity=".7" transform="rotate(${f(a)} ${f(x)} ${f(y)})"/>`;
-    else s += `<path d="M${f(x - r)},${f(y)} q${f(r / 2)},${f(-r * 0.6)} ${f(r)},0 t${f(r)},0" fill="none" stroke="${cor}" stroke-width="7" stroke-linecap="round" opacity=".8"/>`;
-  }
-  return s;
+  // versão limpa: fundo claro liso, com um degradê bem leve e nada flutuando
+  return `<rect width="${W}" height="${H}" fill="url(#g-ceu)"/>`;
 }
 // noite: navy em degradê com luzes azul e laranja que respiram, poeira subindo e uma grade em perspectiva sutil
 export function fundoNoite(t, o = {}) {
-  let s = `<rect width="${W}" height="${H}" fill="url(#g-noite)"/>`;
-  s += `<circle cx="${f(W * 0.82 + Math.sin(t * 0.3) * 40)}" cy="${f(H * 0.2 + Math.cos(t * 0.25) * 30)}" r="${f(430 + Math.sin(t * 0.5) * 30)}" fill="url(#g-azul)" opacity="${o.luz ?? 0.75}"/>`;
-  s += `<circle cx="${f(W * 0.1 + Math.cos(t * 0.22) * 50)}" cy="${f(H * 0.86 + Math.sin(t * 0.3) * 30)}" r="${f(380 + Math.cos(t * 0.4) * 30)}" fill="url(#g-laranja)" opacity="${(o.luz ?? 0.75) * 0.5}"/>`;
-  const R = rng(o.seed ?? 3);
-  for (let i = 0; i < (o.n ?? 46); i++) {
-    const x = R() * W, y0 = R() * H, v = 12 + R() * 30, r = 1.2 + R() * 2.6, ph = R() * 6.28;
-    const y = ((y0 - t * v) % H + H) % H;
-    s += `<circle cx="${f(x + Math.sin(t * 0.8 + ph) * 10)}" cy="${f(y)}" r="${f(r)}" fill="#fff" opacity="${f(0.12 + 0.3 * (0.5 + 0.5 * Math.sin(t * 2 + ph)))}"/>`;
-  }
-  return s;
+  // versão limpa: navy em degradê, com uma única luz azul bem suave; sem poeira
+  return `<rect width="${W}" height="${H}" fill="url(#g-noite)"/>`
+    + `<circle cx="${f(W * 0.82)}" cy="${f(H * 0.18)}" r="460" fill="url(#g-azul)" opacity="${f(0.38 * (o.luz ?? 1))}"/>`;
 }
 
 // ---------- câmera e efeitos ----------
@@ -67,43 +47,15 @@ export function camera(body, o = {}) {
 }
 // confete nas cores da paleta, caindo a partir de t0
 export function confete(t, t0, o = {}) {
-  const age = t - t0;
-  if (age <= 0 || age > (o.d ?? 3.2)) return '';
-  const R = rng(o.seed ?? 11), n = o.n ?? 70, cores = [C.orange, C.blue, C.blue40, C.orange40, C.white, C.navy40];
-  const [x0, y0, x1] = o.area ?? [0, -40, W];
-  let s = '';
-  for (let i = 0; i < n; i++) {
-    const x = x0 + R() * (x1 - x0), vy = 320 + R() * 420, vx = (R() - 0.5) * 160, d = R() * 0.5, rot = R() * 360, w = 10 + R() * 12;
-    const a = age - d;
-    if (a <= 0) continue;
-    const px = x + vx * a + Math.sin(a * 5 + i) * 18, py = y0 + vy * a + 120 * a * a;
-    if (py > H + 30) continue;
-    s += `<rect x="${f(-w / 2)}" y="${f(-w * 0.3)}" width="${f(w)}" height="${f(w * 0.6)}" rx="2" fill="${cores[i % cores.length]}" transform="translate(${f(px)} ${f(py)}) rotate(${f(rot + a * 300)})"/>`;
-  }
-  return opa(clamp(((o.d ?? 3.2) - age) / 0.6), s);
+  return '';   // versão limpa: sem confete
 }
 // estrelinhas de brilho em volta de (x, y)
 export function faiscas(x, y, t, o = {}) {
-  const R = rng(o.seed ?? 5), n = o.n ?? 6, raio = o.raio ?? 70;
-  let s = '';
-  for (let i = 0; i < n; i++) {
-    const a = R() * 6.28, d = raio * (0.6 + R() * 0.6), ph = R() * 6.28, k = Math.max(0, Math.sin(t * (2 + R() * 2) + ph));
-    const px = x + Math.cos(a) * d, py = y + Math.sin(a) * d, r = (o.r ?? 9) * k;
-    if (r < 0.5) continue;
-    s += `<path d="M${f(px)},${f(py - r)} Q${f(px)},${f(py)} ${f(px + r)},${f(py)} Q${f(px)},${f(py)} ${f(px)},${f(py + r)} Q${f(px)},${f(py)} ${f(px - r)},${f(py)} Q${f(px)},${f(py)} ${f(px)},${f(py - r)}Z" fill="${o.cor ?? C.orange}"/>`;
-  }
-  return s;
+  return '';   // versão limpa: sem faíscas
 }
 // linhas de velocidade horizontais (para entradas rápidas). u = 0..1
 export function velocidade(x, y, w, h, u, o = {}) {
-  if (u <= 0 || u >= 1) return '';
-  const R = rng(o.seed ?? 2);
-  let s = '';
-  for (let i = 0; i < (o.n ?? 9); i++) {
-    const yy = y + R() * h, l = 60 + R() * 180, xx = x + (w + l) * ((u + R()) % 1) - l;
-    s += `<rect x="${f(xx)}" y="${f(yy)}" width="${f(l)}" height="${f(3 + R() * 4)}" rx="3" fill="${o.cor ?? C.blue40}" opacity="${f(0.7 * Math.sin(u * Math.PI))}"/>`;
-  }
-  return s;
+  return '';   // versão limpa: sem linhas de velocidade
 }
 // balão de fala/pensamento com seta para baixo. (x, y) = ponta da seta
 export function balao(x, y, w, h, corpo, o = {}) {
@@ -176,16 +128,8 @@ export function mapaTrilha(g, o = {}) {
     const cx = g.x + g.w / 2, cy = g.y + g.h / 2;
     const ilha = `<path d="M${f(g.x - 10)},${f(g.y + g.h * 0.62)} C${f(g.x - 30)},${f(g.y + g.h * 0.2)} ${f(g.x + g.w * 0.2)},${f(g.y - 10)} ${f(g.x + g.w * 0.52)},${f(g.y + g.h * 0.03)} C${f(g.x + g.w * 0.8)},${f(g.y - 30)} ${f(g.x + g.w + 26)},${f(g.y + g.h * 0.1)} ${f(g.x + g.w + 14)},${f(g.y + g.h * 0.46)} C${f(g.x + g.w + 30)},${f(g.y + g.h * 0.8)} ${f(g.x + g.w * 0.86)},${f(g.y + g.h + 16)} ${f(g.x + g.w * 0.5)},${f(g.y + g.h + 4)} C${f(g.x + g.w * 0.2)},${f(g.y + g.h + 20)} ${f(g.x + 6)},${f(g.y + g.h + 4)} ${f(g.x - 10)},${f(g.y + g.h * 0.62)}Z"`;
     s += pop(0.86 + 0.14 * k, cx, cy, opa(k, `${ilha} fill="${C.blue40}" opacity=".5" transform="translate(0 14)"/>` + `${ilha} fill="url(#g-terra)" stroke="${C.white}" stroke-width="6"/>`));
-    // relevo: curvas de nível (mapa topográfico) e uma malha fina de coordenadas
-    let dec = '';
-    [0.84, 0.66, 0.48, 0.3].forEach((e, i) => {
-      dec += `<g transform="translate(${f(cx + (i % 2 ? 26 : -18))} ${f(cy + (i % 2 ? -14 : 20))}) scale(${e}) translate(${f(-cx)} ${f(-cy)})">${ilha} fill="none" stroke="${C.blue40}" stroke-width="${f(2.2 / e)}" stroke-dasharray="${i % 2 ? '2 10' : 'none'}" opacity=".75"/></g>`;
-    });
-    let malha = '';
-    for (let i = 1; i < 6; i++) malha += `M${f(g.x + g.w * i / 6)},${f(g.y + 20)} V${f(g.y + g.h - 20)} `;
-    for (let i = 1; i < 5; i++) malha += `M${f(g.x + 20)},${f(g.y + g.h * i / 5)} H${f(g.x + g.w - 20)} `;
-    dec += `<path d="${malha}" stroke="${C.white}" stroke-width="1.5" opacity=".55"/>`;
-    s += opa(k, dec);
+    // relevo: uma única curva de nível, bem leve (versão limpa)
+    s += opa(k * 0.7, `<g transform="translate(${f(cx)} ${f(cy)}) scale(0.7) translate(${f(-cx)} ${f(-cy)})">${ilha} fill="none" stroke="${C.blue40}" stroke-width="3" opacity=".6"/></g>`);
   }
   // estrada
   const ue = ease.inOut(clamp(u));

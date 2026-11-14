@@ -69,7 +69,7 @@
     };
     const escolhe = (t, rola) => {
       tema = t; limite = PASSO;
-      filtros.forEach(b => { const on = b.dataset.tema === t; b.classList.toggle('ativo', on); b.setAttribute('aria-pressed', String(on)); if (on) b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: calmo ? 'auto' : 'smooth' }); });
+      filtros.forEach(b => { const on = b.dataset.tema === t; b.classList.toggle('ativo', on); b.setAttribute('aria-pressed', String(on)); if (on && b.parentElement.scrollWidth > b.parentElement.clientWidth) b.parentElement.scrollTo({ left: b.offsetLeft - (b.parentElement.clientWidth - b.offsetWidth) / 2, behavior: calmo ? 'auto' : 'smooth' }); });
       aplica();
       if (rola) $('#radar').scrollIntoView({ behavior: calmo ? 'auto' : 'smooth' });
     };

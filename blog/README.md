@@ -131,3 +131,7 @@ blog/
 cd blog && python3 -m http.server 8765
 # abra http://127.0.0.1:8765
 ```
+
+## Camada de motion
+
+`assets/css/motion.css` e `assets/js/motion.js` entram em todas as páginas e são só enfeite: vinheta de abertura na página inicial (uma vez por visita), formas em movimento na abertura (canvas que reage ao ponteiro), grifo desenhado e letras em onda no título, palavras dos títulos de seção que sobem de trás de uma máscara, capas que entram em cortina, cartões com inclinação 3D e brilho, formas que acompanham a rolagem, barra de progresso e transição entre páginas. Com "reduzir movimento" ligado no sistema, tudo isso fica desligado.

@@ -44,7 +44,8 @@ ${artigo ? `<meta property="article:published_time" content="${esc(artigo.data)}
 <link rel="preload" href="${raiz}assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${raiz}assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${raiz}assets/css/site.css">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="${raiz}assets/css/motion.css">
+<script>document.documentElement.classList.add('js')${caminho === '' ? ";try{if(!sessionStorage.getItem('cmw-vinheta')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('vinheta')}catch(e){}" : ''}</script>
 </head>
 <body class="${classe}">
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -71,7 +72,8 @@ ${corpo}
     <p class="rodape-fim">© ${new Date().getFullYear()} ${esc(cfg.autor)} · ${esc(cfg.papel)}</p>
   </div>
 </footer>
-<script src="${raiz}assets/js/site.js" defer></script>${scripts.map(sc => `\n<script src="${raiz}${sc}" defer></script>`).join('')}
+<script src="${raiz}assets/js/site.js" defer></script>
+<script src="${raiz}assets/js/motion.js" defer></script>${scripts.map(sc => `\n<script src="${raiz}${sc}" defer></script>`).join('')}
 </body>
 </html>`;
 }

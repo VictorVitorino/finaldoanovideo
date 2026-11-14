@@ -1,21 +1,49 @@
-// Cena "titulo" (16,42–20,41 s): "Por isso existe o Mapa de Perfil Cognitivo."
-// Versão limpa: três blocos e nada mais. "Por isso existe" (com a fala), o título em duas linhas e o subtítulo;
-// embaixo, UM visual: o mapa em cartão. O cartão sobe e assenta, a estrada se desenha, cada uma das cinco estações
-// acende quando a estrada chega nela e, em 'cognitivo', o pino laranja crava na estrada: perfil vira posição.
-// Depois que entra, tudo fica parado; o único detalhe vivo é o tracejado da estrada.
+// Cena "titulo" (16,41–20,40 s): "Por isso existe o Mapa de Perfil Cognitivo." · versão 16:9, esquema A (duas colunas).
+// Versão limpa: três blocos e nada mais. À esquerda, centrados na vertical: "Por isso existe" (com a fala), o título
+// em duas linhas e o subtítulo. À direita, UM visual: o mapa em cartão. O cartão sobe e assenta, a estrada se desenha,
+// cada uma das cinco estações acende quando a estrada chega nela e, em 'cognitivo', o pino laranja crava na estrada:
+// perfil vira posição. Depois que entra, tudo fica parado; o único detalhe vivo é o tracejado da estrada.
 // Sem logo, sem personagens, sem câmera e sem clarões: só as cores da paleta.
-import { W, MG, C, txt, larg, fin, sobe, pop, opa, onda, clamp, lerp, inv, ease, n2 } from '../base.js';
+import { W, MG, C, txt, larg, fin, sobe, opa, onda, clamp, lerp, inv, ease, n2 } from '../base.js';
 import { geoTrilha, mapaTrilha, pinoMapa, fundoNoite } from '../ludico.js';
 
 const f = n2;
 export const FUNDO = 'navy';
 export const LEGENDA = false;
 
-// ---------- tipografia (tudo alinhado na margem de 72 px) ----------
-const KS = 30, KY = 204;                                  // "Por isso existe"
-const TS = 100, TLS = -1.8, Y1 = 312, Y2 = 422;           // título (Light), duas linhas
+// ---------- o mapa em cartão (coluna da direita: x 860–1824, y 150–900) ----------
+const PX = 860, PY = 150, PW = W - MG - PX, PH = 750, RC = 26;
+const BD = 16;                                             // moldura branca
+const AX = PX + BD, AY = PY + BD, AW = PW - 2 * BD, AH = PH - 2 * BD;   // área impressa
+const KM = 1.2;                                            // o mapa de trilha é desenhado menor e ampliado: estações grandes
+const GH = 540;                                            // altura do mapa na geometria própria
+const GW = 840;                                            // largura do mapa na geometria própria (a estrada entra e sai pelas bordas do cartão)
+const G = geoTrilha(0, 0, GW, GH);
+// conteúdo do mapa na vertical: do topo da bandeira mais alta (0,18·GH − 101) à borda de baixo da estrada (0,93·GH + 35)
+const FOLGA = AH - KM * (0.75 * GH + 136);                 // sobra vertical dentro da área impressa
+const GX = AX + AW / 2 - KM * 0.475 * GW;                  // as estações (0,15 a 0,80 da largura) ficam centradas no cartão
+const GY = AY + FOLGA * 0.6 - KM * (0.18 * GH - 101);      // um pouco mais de respiro em cima (bandeira) do que embaixo
+const loc = ([gx, gy]) => [GX + KM * gx, GY + KM * gy];
+const UPIN = lerp(G.uEst[0], G.uEst[1], 0.52);             // onde o pino crava: na estrada, entre Resiste e Observa (trecho livre)
+const PIN = loc(G.em(UPIN));
+const PS = 2.2;                                            // tamanho do pino (proporcional às estações ampliadas)
+const QUEDA = 130;                                         // altura de onde o pino desce
+
+const CLIP = `<clipPath id="tt-area"><rect x="${AX}" y="${AY}" width="${AW}" height="${AH}" rx="12"/></clipPath>`;
+// papel: uma sombra só (desfocada), a moldura branca e o terreno liso
+const PAPEL = `<g filter="url(#fx-blur)"><rect x="${PX + 8}" y="${PY + 30}" width="${PW - 16}" height="${PH}" rx="${RC}" fill="#00101C" opacity=".5"/></g>`
+  + `<rect x="${PX}" y="${PY}" width="${PW}" height="${PH}" rx="${RC}" fill="${C.white}"/>`
+  + `<rect x="${AX}" y="${AY}" width="${AW}" height="${AH}" rx="12" fill="url(#g-terra)"/>`;
+
+// ---------- tipografia (coluna da esquerda: nasce na margem de 96 px e fica centrada na altura do cartão) ----------
+const KS = 34;                                            // "Por isso existe"
+const TS = 100, TLS = -1.8;                               // título (Light), duas linhas: "Perfil Cognitivo" vai de 90 a ~770
+const SS = 34;                                            // subtítulo
+const D1 = 110, D2 = 114, D3 = 82;                        // passos entre as linhas de base
+const BLOCO = 24 + D1 + D2 + D3 + 9;                      // do topo das maiúsculas da 1ª linha ao pé da última
+const KY = Math.round(PY + PH / 2 - BLOCO / 2 + 24);      // linha de base de "Por isso existe"
+const Y1 = KY + D1, Y2 = Y1 + D2, SY = Y2 + D3;
 const TX = MG - 6;                                        // alinhamento óptico: a haste do M e do P cai na margem
-const SS = 32, SY = 498;                                  // subtítulo
 const ESP_K = larg('a a', KS) - 2 * larg('a', KS);
 const ESP_S = larg('a a', SS) - 2 * larg('a', SS);
 const SUB = (() => {
@@ -26,24 +54,6 @@ const SUB = (() => {
 })();
 // posição de cada palavra do título (mesmo espaçamento entre letras da linha inteira)
 const xPal = (antes) => TX + larg(antes, TS, { f: 'L' }) + TLS * antes.length;
-
-// ---------- o mapa em cartão ----------
-const PW = W - 2 * MG, PH = 660, PX = MG, PY = 592, RC = 22;   // cartão: 72..1008 × 592..1252
-const BD = 14;                                             // moldura branca
-const AX = PX + BD, AY = PY + BD, AW = PW - 2 * BD, AH = PH - 2 * BD;   // área impressa
-const KM = 0.85;                                           // o mapa de trilha é desenhado grande e reduzido para o cartão
-const G = geoTrilha(0, 0, AW / KM, 700);
-const GX = AX, GY = AY + (AH - 700 * KM) / 2 + 6;
-const loc = ([gx, gy]) => [GX + KM * gx, GY + KM * gy];
-const UPIN = lerp(G.uEst[0], G.uEst[1], 0.52);             // onde o pino crava: na estrada, entre Resiste e Observa (trecho livre)
-const PIN = loc(G.em(UPIN));
-const PS = 1.6;                                           // tamanho do pino
-
-const CLIP = `<clipPath id="tt-area"><rect x="${AX}" y="${AY}" width="${AW}" height="${AH}" rx="10"/></clipPath>`;
-// papel: uma sombra só (desfocada), a moldura branca e o terreno liso
-const PAPEL = `<g filter="url(#fx-blur)"><rect x="${PX + 8}" y="${PY + 30}" width="${PW - 16}" height="${PH}" rx="${RC}" fill="#00101C" opacity=".5"/></g>`
-  + `<rect x="${PX}" y="${PY}" width="${PW}" height="${PH}" rx="${RC}" fill="${C.white}"/>`
-  + `<rect x="${AX}" y="${AY}" width="${AW}" height="${AH}" rx="10" fill="url(#g-terra)"/>`;
 
 export function desenhar(t, ctx) {
   const { t0, m, wa, T } = ctx;
@@ -62,19 +72,19 @@ export function desenhar(t, ctx) {
   {
     let x = MG;
     ['Por', 'isso', 'existe'].forEach((p, i) => {
-      s += sobe(fin(t, wa(iPor + i) - 0.07, 0.3), txt(p, x, KY, { s: KS, c: C.navy20 }), 14);
+      s += sobe(fin(t, wa(iPor + i) - 0.07, 0.3), txt(p, x, KY, { s: KS, c: C.navy20 }), 16);
       x += larg(p, KS) + ESP_K;
     });
   }
 
   // ---------- título: cada palavra entra com a fala (fade + subida curta) ----------
   {
-    const pal = (str, x, y, cor, ti) => sobe(fin(t, ti, 0.4), txt(str, x, y, { f: 'L', s: TS, c: cor, ls: TLS }), 22);
+    const pal = (str, x, y, cor, ti) => sobe(fin(t, ti, 0.4), txt(str, x, y, { f: 'L', s: TS, c: cor, ls: TLS }), 24);
     s += pal('Mapa', TX, Y1, C.white, tTit)
       + pal('de', xPal('Mapa '), Y1, C.white, wa(iMapa + 1) - 0.06)
       + pal('Perfil', TX, Y2, C.orange, wa(iMapa + 2) - 0.07)
       + pal('Cognitivo', xPal('Perfil '), Y2, C.orange, wa(iMapa + 3) - 0.07);
-    s += sobe(fin(t, tSub, 0.45), SUB, 16);
+    s += sobe(fin(t, tSub, 0.45), SUB, 18);
   }
 
   // ---------- o mapa em cartão ----------
@@ -94,12 +104,15 @@ export function desenhar(t, ctx) {
     if (t > tQ) {
       const [px, py] = PIN;
       const u = inv(tQ, tPouso, t), e = ease.in(u);
-      mp += onda(px, py, aP, { c: C.orange, r0: 16, r1: 44, d: 0.6 });
+      mp += onda(px, py, aP, { c: C.orange, r0: 22, r1: 60, d: 0.6 });
       // ao cravar: um aperto curto e pronto
       const am = aP < 0 ? 0 : 0.07 * Math.sin(Math.PI * inv(0, 0.16, aP));
-      mp += opa(clamp(u * 3), `<g transform="translate(${f(px)} ${f(py - 96 * (1 - e))}) scale(${f(1 + am * 0.6)} ${f(1 - am)})">${pinoMapa(0, 0, { cor: C.orange, s: PS })}</g>`);
+      // a sombra do pino fica no chão, no ponto do pouso, enquanto ele desce (o 'hop' do kit separa o pino da sombra);
+      // no quadro grande, a sombra descendo junto com o pino ficava solta no ar
+      const hop = QUEDA * (1 - e) / (1.9 * PS);
+      mp += opa(clamp(u * 3), `<g transform="translate(${f(px)} ${f(py - 0.9 * PS * hop)}) scale(${f(1 + am * 0.6)} ${f(1 - am)})">${pinoMapa(0, 0, { cor: C.orange, s: PS, hop })}</g>`);
     }
-    s += sobe(kC, mp, 36);
+    s += sobe(kC, mp, 44);
   }
 
   return s;

@@ -1,13 +1,15 @@
 // Cena "pergunta" (72,46–76,48 s): "No seu projeto, você sabe onde cada pessoa está hoje?"
-// Versão limpa. Dois blocos e nada mais:
-//   1. a PERGUNTA em Light grande, quatro linhas à esquerda; cada palavra entra no instante da fala (fade + subida
-//      curta) e só "hoje?" fica em laranja (o foco do fim da cena);
-//   2. embaixo, o mapa de trilha noturno: a estrada, as cinco estações ainda apagadas e 25 pinos cinza com "?".
+// Versão limpa, 16:9 (1920 x 1080), esquema A · duas colunas. Dois blocos e nada mais:
+//   1. à esquerda (x 96–900), a PERGUNTA em Light 112 px, quatro linhas centradas na vertical; cada palavra entra no
+//      instante da fala (fade + subida curta) e só "hoje?" fica em laranja (o foco do fim da cena);
+//   2. à direita (x 900–1920), o mapa de trilha noturno ocupando a altura toda do palco: a estrada entra pela base,
+//      sobe em zigue-zague e sai pela borda direita; as cinco estações ainda apagadas e 25 pinos cinza com "?".
 //      Em 'voce_sabe' os pinos ganham a cor da sua marca em cascata, da esquerda para a direita, e deslizam até a
 //      estação mais próxima, que acende. Depois disso tudo fica parado.
+//      O mapa é desenhado numa geometria local (LW x LA) e ampliado K vezes: "?" dos pinos com 33 px no quadro.
 // Sem câmera, sem contador, sem feixe de leitura, sem halos, rastros ou anéis. O único detalhe vivo é o tracejado da
 // estrada, bem lento. Sem personagens: pessoas são pinos.
-import { W, MG, C, txt, larg, fin, opa, pop, icone, clamp, lerp, inv, ease, n2, rng } from '../base.js';
+import { MG, C, txt, larg, fin, opa, pop, icone, clamp, lerp, inv, ease, n2, rng } from '../base.js';
 import { NIVEIS, contagem } from '../modelo.js';
 import { fundoNoite, geoTrilha } from '../ludico.js';
 
@@ -16,7 +18,7 @@ export const FUNDO = 'navy';
 export const LEGENDA = false;
 
 // ---------- tipografia ----------
-const TS = 100, TLS = -2, LH = 114, TY = 256;              // Light 100 px, quatro linhas (bases 256/370/484/598)
+const TS = 112, TLS = -2.2, LH = 136, TY = 412;            // Light 112 px, quatro linhas (bases 412/548/684/820)
 // cada linha: palavras [texto, índice em tempos.palavras, destaque]
 const LINHAS = [
   [['No', 145], ['seu', 146], ['projeto,', 147]],
@@ -32,19 +34,24 @@ const CINZA = mix(C.navy80, C.navy40, 0.3);                // pino sem leitura: 
 const APAGADA = '#0B3554';                                 // estação ainda sem leitura
 
 // ---------- mapa de trilha (apoio) ----------
-const G = geoTrilha(0, 700, 1080, 590);                    // a estrada sangra pelas duas laterais
-const PS = 0.74;                                           // escala dos pinos ("?" com 24 px)
-const RE = 42;                                             // raio das estações
+// geometria local do mapa; no quadro vira translate(MX MY) scale(K): x 880–1840, y 138–1093 (a estrada entra pela
+// base e sai pela borda direita)
+const K = 1.4, MX = 880, MY = 138, LW = 686, LA = 682;
+const G = geoTrilha(0, 0, LW, LA);
+const X0 = 80, X1 = 650, Y0 = 78, Y1 = 636;                // área onde os pinos nascem (ponta do pino, coordenadas locais)
+const PS = 0.74;                                           // escala local dos pinos ("?" com 32 x 0,74 x K = 33 px no quadro)
+const RE = 42;                                             // raio local das estações (59 px no quadro)
 const CONT = contagem(2);                                  // pessoas por marca hoje (onda 3): [1, 4, 6, 9, 5]
 const CASC = 1.1;                                          // duração da cascata de cor (s), da esquerda para a direita
 // lugares em volta de cada estação: um arco limpo de pinos (até 6), mais um segundo arco por fora quando há mais gente,
 // sempre do lado livre da estrada. DIR = direção do centro do arco (rad). Devolve a ponta de cada pino.
-const DIR = [-2.1, -1.57, -0.44, -2.7, -1.92];
+const DIR = [-2.1, -1.8, -0.36, -2.7, -2.08];
+const PASSO = [0.46, 0.46, 0.46, 0.46, 0.42];              // abertura entre pinos do arco de dentro (a 5ª estação fica entre dois trechos da estrada)
 const CAB = 31;                                            // altura do centro da cabeça do pino acima da ponta
 function vagas(n, q) {
   const [ex, ey] = G.est(n), dentro = q <= 6 ? q : 5, out = [];
   const arco = (m, raio, passo) => { for (let j = 0; j < m; j++) { const a = DIR[n] + (j - (m - 1) / 2) * passo; out.push([ex + Math.cos(a) * raio, ey + Math.sin(a) * raio + CAB]); } };
-  arco(dentro, 98, 0.46);
+  arco(dentro, 98, PASSO[n]);
   arco(q - dentro, 160, 0.3);
   return out;
 }
@@ -53,13 +60,13 @@ function vagas(n, q) {
 const PINOS = (() => {
   const R = rng(4107), ps = [];
   for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
-    let x = 100 + (c + 0.5 + (R() - 0.5) * 0.62 + (r % 2 ? 0.2 : -0.2)) * 176;
-    let y = 790 + (r + 0.5 + (R() - 0.5) * 0.6) * 94;
+    let x = X0 + (c + 0.5 + (R() - 0.5) * 0.62 + (r % 2 ? 0.2 : -0.2)) * (X1 - X0) / 5;
+    let y = Y0 + (r + 0.5 + (R() - 0.5) * 0.6) * (Y1 - Y0) / 5;
     for (let i = 0; i < 5; i++) {                           // afasta das estações
       const [ex, ey] = G.est(i), dx = x - ex, dy = y - CAB - ey, d = Math.hypot(dx, dy);
-      if (d < 74) { x = ex + dx / (d || 1) * 78; y = ey + CAB + dy / (d || 1) * 78; }
+      if (d < 84) { x = ex + dx / (d || 1) * 88; y = ey + CAB + dy / (d || 1) * 88; }
     }
-    ps.push({ x: clamp(x, 92, 988), y: clamp(y, 790, 1262) });
+    ps.push({ x: clamp(x, X0, X1), y: clamp(y, Y0, Y1) });
   }
   // os 25 lugares (marca + ponta do pino) e o casamento pino -> lugar: começa na ordem e troca pares enquanto a soma
   // dos quadrados das distâncias diminuir (determinístico)
@@ -75,7 +82,7 @@ const PINOS = (() => {
   ps.forEach((p, i) => Object.assign(p, lug[de[i]]));
   ps.forEach(p => {
     p.dur = clamp(0.4 + Math.hypot(p.vx - p.x, p.vy - p.y) / 1600, 0.42, 0.55);
-    p.ts = CASC * inv(92, 988, p.x);                        // atraso na cascata: ganha cor em ts, sai em ts + 0,08
+    p.ts = CASC * inv(X0, X1, p.x);                        // atraso na cascata: ganha cor em ts, sai em ts + 0,08
     p.tp = p.ts + 0.08 + p.dur;                             // pousa em tp
   });
   return ps;
@@ -84,7 +91,7 @@ const POUSO = NIVEIS.map((_, n) => Math.min(...PINOS.filter(p => p.n === n).map(
 // estrada inteira, com um trecho a mais de cada lado para sair do quadro
 const ESTRADA = (() => {
   const [x0, y0, a0] = G.em(0), [x1, y1, a1] = G.em(1);
-  return u => `M${f(x0 - Math.cos(a0) * 90)},${f(y0 - Math.sin(a0) * 90)} L` + G.d(0, u).slice(1) + (u >= 1 ? `L${f(x1 + Math.cos(a1) * 90)},${f(y1 + Math.sin(a1) * 90)}` : '');
+  return u => `M${f(x0 - Math.cos(a0) * 170)},${f(y0 - Math.sin(a0) * 170)} L` + G.d(0, u).slice(1) + (u >= 1 ? `L${f(x1 + Math.cos(a1) * 90)},${f(y1 + Math.sin(a1) * 90)}` : '');
 })();
 
 // pino (gota) com a ponta em (x, y). k = entrada; q = quanto do "?" ainda aparece (1 = sem leitura, 0 = localizado)
@@ -125,7 +132,7 @@ export function desenhar(t, ctx) {
   // ---------- pinos: ganham cor em cascata e vão para a estação ----------
   mapa += PINOS.map(p => {
     const cor = NIVEIS[p.n].cor;
-    const kIn = fin(t, t0 + 0.15 + 0.2 * (p.x / W), 0.3);
+    const kIn = fin(t, t0 + 0.15 + 0.2 * (p.x / LW), 0.3);
     const kc = fin(t, tA + p.ts, 0.2), e = ease.inOut(inv(tA + p.ts + 0.08, tA + p.tp, t));
     const y = lerp(p.y, p.vy, e);
     return { y, svg: pino(lerp(p.x, p.vx, e), y, { k: kIn, cor: mix(CINZA, cor, kc), borda: mix(C.navy40, C.white, kc), q: 1 - kc }) };
@@ -144,5 +151,5 @@ export function desenhar(t, ctx) {
     });
   });
 
-  return fundoNoite(t, { seed: 21 }) + mapa + texto;
+  return fundoNoite(t, { seed: 21 }) + `<g transform="translate(${MX} ${MY}) scale(${K})">${mapa}</g>` + texto;
 }

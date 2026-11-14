@@ -1,5 +1,6 @@
 // Cena "fecho" (76,5–88,0 s): "Adoção não se impõe. Se constrói. Pessoa por pessoa. Gestão da Mudança."
 // Versão limpa: fundo liso, sem câmera, sem brilhos. Sem logo, sem nome de empresa e sem personagens.
+// Composição 16:9 em duas colunas (esquema A): texto à esquerda (x 96–960) e a escada à direita (x 1040–1824, base em y 930).
 // ATO 1 (até ~81,7): a tipografia entra palavra a palavra, já no lugar ("impõe." é riscada em laranja). Em "Se constrói."
 // a negação recua para 45%, a frase laranja sobe e as dez barras da escada crescem da esquerda para a direita, nas cores
 // da régua (duas por marca). Em "Pessoa por pessoa." um pino pousa sobre cada barra, em cascata curta.
@@ -13,32 +14,35 @@ const f = n2;
 export const FUNDO = 'navy';
 export const LEGENDA = false;
 
-// ---------- ato 1: tipografia ----------
-const S1 = 100, LS = -1.5, Y1 = 272, Y2 = 384;     // "Adoção não" / "se impõe." (Light)
-const S3 = 148, Y3 = 560;                          // "Se constrói." (laranja)
-const S4 = 72, Y4 = 708;                           // "Pessoa por pessoa."
+// ---------- ato 1: tipografia (coluna esquerda, centrada na vertical em relação à escada) ----------
+const S1 = 104, LS = -1.5, Y1 = 366, Y2 = 480;     // "Adoção não" / "se impõe." (Light)
+const S3 = 154, Y3 = 666;                          // "Se constrói." (laranja)
+const S4 = 76, Y4 = 800;                           // "Pessoa por pessoa."
 const wL = (str, s, ls = LS) => larg(str, s, { f: 'L' }) + ls * str.length;
 const tL = (str, x, y, s, c, ls = LS) => txt(str, x, y, { f: 'L', s, c, ls });
 
-// ---------- escada: dez barras nas cores da régua (duas por marca), um pino em cada ----------
-const NB = 10, YB = 1250, GAP = 14, BW = (W - 2 * MG - (NB - 1) * GAP) / NB;
-const bx = i => MG + i * (BW + GAP), cxB = i => bx(i) + BW / 2;
-const hB = i => 90 + i * 30;
+// ---------- escada (coluna direita): dez barras nas cores da régua (duas por marca), um pino em cada ----------
+const EX0 = 1040, EX1 = W - MG;                    // a escada nasce na guia da coluna e termina na margem direita
+const NB = 10, YB = 930, GAP = 14, BW = (EX1 - EX0 - (NB - 1) * GAP) / NB;
+const bx = i => EX0 + i * (BW + GAP), cxB = i => bx(i) + BW / 2;
+const hB = i => 130 + i * 62;                      // 130 a 688 px: com o pino, a barra mais alta chega a y = 170
 const topo = i => YB - hB(i);
-const SPIN = 0.8;                                  // escala dos pinos
+const SPIN = 1.1;                                  // escala dos pinos
+const SNOME = 30;                                  // nomes das marcas sob a escada
 // barra com o topo arredondado; h = altura atual
-const dBarra = (i, h, r = 9) => {
+const dBarra = (i, h, r = 10) => {
   const x = bx(i), y = YB - h, rr = Math.min(r, h / 2);
   return `M${f(x)},${YB} V${f(y + rr)} Q${f(x)},${f(y)} ${f(x + rr)},${f(y)} H${f(x + BW - rr)} Q${f(x + BW)},${f(y)} ${f(x + BW)},${f(y + rr)} V${YB}Z`;
 };
 
-// ---------- ato 2: cartão final ----------
-const PIN = { x: MG + 35, y: 244, k: 1.5 };        // ponta do pino-emblema (a borda esquerda alinha na margem)
-const ST = 70, TY1 = 338, TY2 = 420;               // título (Light)
-const FY = 452;                                    // fio laranja
-const SF = 42, FR1 = 530, FR2 = 586;               // frase-síntese
-const SLAB = 30, LAB = 664;                        // rótulo da prática
-const CTA = 744;                                   // marca pessoal (o bloco ocupa de 720 a 789; a escada começa em 837)
+// ---------- ato 2: cartão final (coluna esquerda, de y = 170 a y = 930, a mesma altura da escada) ----------
+const PIN = { x: MG + 37, y: 272, k: 1.6 };        // ponta do pino-emblema (a borda esquerda alinha na margem)
+const ST = 77, TY1 = 372, TY2 = 460;               // título (Light): a linha mais longa termina em x = 959
+const FY = 498;                                    // fio laranja
+const SF = 46, FR1 = 586, FR2 = 646;               // frase-síntese
+const SLAB = 36, LAB = 734;                        // rótulo da prática
+const RM = 52, CYM = 878;                          // marca pessoal: disco de 826 a 930 (83 px livres acima; a base alinha com a da escada)
+const SNM = 60, SPP = 38;                          // "Victor Vitorino" e "Consultor de Change Management"
 
 // overshoot contido (~4%)
 const backS = u => 1 + 2 * Math.pow(u - 1, 3) + Math.pow(u - 1, 2);
@@ -67,13 +71,13 @@ export function desenhar(t, ctx) {
   let e = '';
   {
     const u = ease.out(inv(t0 + 0.12, t0 + 0.8, t));
-    if (u > 0) e += `<rect x="${MG}" y="${YB}" width="${f((W - 2 * MG) * u)}" height="3" rx="1.5" fill="#fff" opacity=".42"/>`;
+    if (u > 0) e += `<rect x="${EX0}" y="${YB}" width="${f((EX1 - EX0) * u)}" height="3" rx="1.5" fill="#fff" opacity=".42"/>`;
   }
   // nomes das marcas sob cada par de barras (acendem quando o par começa a subir)
   NIVEIS.forEach((nv, j) => {
     const k = fin(t, t0 + 0.4 + j * 0.07, 0.45), on = fin(t, tBar(2 * j), 0.4);
     const xc = (cxB(2 * j) + cxB(2 * j + 1)) / 2;
-    e += sobe(k, txt(nv.rot, xc, YB + 46, { w: 700, s: 24, c: C.white, a: 'middle', o: lerp(0.45, 0.95, on) }), 12);
+    e += sobe(k, txt(nv.rot, xc, YB + 50, { w: 700, s: SNOME, c: C.white, a: 'middle', o: lerp(0.45, 0.95, on) }), 12);
   });
   e += `<linearGradient id="fe-nv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.navy80}"/><stop offset="1" stop-color="${C.navy}"/></linearGradient>`;
   for (let i = 0; i < NB; i++) {
@@ -128,24 +132,24 @@ export function desenhar(t, ctx) {
     const tT = tA2 + 0.22;
     c += sobeMasc('fe-t1', TY1, ST, ease.out5(inv(tT, tT + 0.55, t)), txt('Mapa de Perfil Cognitivo', MG, TY1, { f: 'L', s: ST, c: C.white, ls: -0.8 }));
     c += sobeMasc('fe-t2', TY2, ST, ease.out5(inv(tT + 0.1, tT + 0.65, t)), txt('Mapa de Adoção', MG, TY2, { f: 'L', s: ST, c: C.orange, ls: -0.8 }));
-    c += fio(MG, FY, inv(tT + 0.5, tT + 1.0, t), 110, 6);
+    c += fio(MG, FY, inv(tT + 0.5, tT + 1.0, t), 120, 6);
     // frase-síntese (sobe logo depois do título, antes do rótulo)
     const tF = tGes - 0.16;
     c += sobe(fin(t, tF, 0.45), txt('Adoção não se impõe.', MG, FR1, { f: 'L', s: SF, c: C.navy20 }), 20);
     c += sobe(fin(t, tF + 0.1, 0.45), txt('Se constrói, pessoa por pessoa.', MG, FR2, { f: 'L', s: SF, c: C.white }), 20);
     // rótulo da prática, em 'gestao'
     {
-      const A = 'Gestão da Mudança', B = 'Change Management', xf = MG + larg(A, SLAB, { w: 700 }) + 20;
+      const A = 'Gestão da Mudança', B = 'Change Management', xf = MG + larg(A, SLAB, { w: 700 }) + 22;
       c += sobe(fin(t, tGes - 0.02, 0.45), txt(A, MG, LAB, { w: 700, s: SLAB, c: C.white })
-        + `<rect x="${f(xf - 1)}" y="${LAB - 25}" width="2" height="30" fill="${C.navy40}"/>`
-        + txt(B, xf + 20, LAB, { w: 700, s: SLAB, c: C.white }), 20);
+        + `<rect x="${f(xf - 1)}" y="${LAB - 29}" width="2" height="35" fill="${C.navy40}"/>`
+        + txt(B, xf + 22, LAB, { w: 700, s: SLAB, c: C.white }), 20);
     }
     // marca pessoal (não é falada): monograma + nome + papel
     {
-      const cxm = MG + 42, cym = CTA + 12, u = inv(tAlv, tAlv + 0.45, t);
-      if (u > 0) c += opa(clamp(u * 6), esm(lerp(0.5, 1, backS(u)), cxm, cym, `<circle cx="${cxm}" cy="${cym}" r="42" fill="${C.orange}"/>` + txt('VV', cxm, cym + 13, { w: 700, s: 36, c: C.navy, a: 'middle', ls: 0.5 })));
-      c += sobe(fin(t, tAlv + 0.1, 0.45), txt('Victor Vitorino', MG + 104, CTA + 6, { w: 700, s: 46, c: C.white }), 16);
-      c += sobe(fin(t, tAlv + 0.22, 0.45), txt('Consultor de Change Management', MG + 104, CTA + 44, { s: 30, c: C.navy20 }), 16);
+      const cxm = MG + RM, xt = MG + 2 * RM + 28, u = inv(tAlv, tAlv + 0.45, t);
+      if (u > 0) c += opa(clamp(u * 6), esm(lerp(0.5, 1, backS(u)), cxm, CYM, `<circle cx="${cxm}" cy="${CYM}" r="${RM}" fill="${C.orange}"/>` + txt('VV', cxm, CYM + 16, { w: 700, s: 44, c: C.navy, a: 'middle', ls: 0.5 })));
+      c += sobe(fin(t, tAlv + 0.1, 0.45), txt('Victor Vitorino', xt, CYM - 5, { w: 700, s: SNM, c: C.white }), 16);
+      c += sobe(fin(t, tAlv + 0.22, 0.45), txt('Consultor de Change Management', xt, CYM + 43, { s: SPP, c: C.navy20 }), 16);
     }
   }
 

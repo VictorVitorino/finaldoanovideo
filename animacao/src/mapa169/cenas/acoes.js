@@ -1,7 +1,9 @@
-// Cena "acoes" (47,22–57,99 s), navy: "Com ele, a Gestão da Mudança deixa de ser receita única. Escuta para quem
+// Cena "acoes" (47,18–57,95 s), navy: "Com ele, a Gestão da Mudança deixa de ser receita única. Escuta para quem
 // resiste. Prática para quem experimenta. Palco para quem multiplica."
-// Versão limpa. Três blocos por momento: título, DASHBOARD (três indicadores + mapa de calor áreas x régua) e um
-// cartão de apoio, mais a salvaguarda em uma linha.
+// Versão limpa, 16:9, esquema A (duas colunas).
+// ESQUERDA (x 96–736): título em três linhas, o cartão de apoio que troca no lugar e a salvaguarda em duas linhas.
+// DIREITA (x 816–1824, y 150–900): a janela do DASHBOARD (três indicadores + mapa de calor áreas x régua) e, sob as
+// colunas, a linha dos chips de ação.
 // 1. A janela entra (fade + subida curta), os indicadores contam (20%, 25, 4) e o mapa de calor entra em cascata.
 // 2. Entra o cartão "RECEITA ÚNICA"; em 'receita' ele é riscado em laranja e some.
 // 3. Em 'escuta', 'pratica' e 'palco' o cursor clica no cabeçalho da coluna (Resiste, Experimenta, Multiplica):
@@ -9,7 +11,7 @@
 //    Cada ação já dita vira um chip sob a sua coluna.
 // 4. No fim o foco volta para o mapa todo e os cinco chips (Escuta, Exemplo, Prática, Reforço, Palco) ficam lado a lado.
 // Sem câmera, sem brilhos, sem rastros; nada se mexe depois de entrar. Sem personagens: pessoas são números nas células.
-import { W, MG, C, txt, tRico, larg, fin, fout, back, sobe, mover, pop, opa, tracar, conta, selo, icone, titulo, inv, ease, n2 } from '../base.js';
+import { MG, C, txt, tRico, larg, fin, fout, back, sobe, mover, pop, opa, tracar, conta, selo, icone, titulo, inv, ease, n2 } from '../base.js';
 import { NIVEIS } from '../modelo.js';
 import { fundoNoite } from '../ludico.js';
 import { janela, geoCalor, calor, cursor } from '../painelUI.js';
@@ -19,15 +21,26 @@ export const FUNDO = 'navy';
 export const CHIP = '04 · A ação';
 export const LEGENDA = true;
 
-// ---------- geometria (margem lateral de 72 px) ----------
-const WIN = { x: MG, y: 340, w: W - 2 * MG, h: 524 };             // janela do dashboard
-const KP = { x: WIN.x + 24, y: 414, w: WIN.w - 48, h: 100, gap: 16 };   // linha dos três indicadores
-const GC = geoCalor(WIN.x + 24, 532, WIN.w - 48, 312, { rotW: 130, cab: 46 });   // mapa de calor
-const colX = n => GC.x + GC.rotW + GC.cw * n;
-const SLOT = { y: 892, h: 50, w: GC.cw - 8 };                     // chips de ação, um sob cada coluna
-const slotX = i => colX(i) + 4;
-const CARD = { x: MG, y: 972, w: W - 2 * MG, h: 128 };            // cartão de apoio (receita única e ação da vez)
-const YPE = 1156;                                                 // salvaguarda, em uma linha
+// ---------- geometria 16:9 (esquema A) ----------
+// coluna de texto: x 96–736
+const COL = { x: MG, w: 640 };
+const YTIT = 250, LH = 72 * 1.12;                                 // título em três linhas (Light 72)
+const CARD = { x: COL.x, y: 524, w: COL.w, h: 200 };              // cartão de apoio (receita única e ação da vez)
+const YPE = [858, 894];                                           // salvaguarda, em duas linhas (28 px)
+// coluna do visual: x 816–1824, y 150–900
+const WIN = { x: 816, y: 150, w: 1008, h: 676 };                  // janela do dashboard
+const KW = 1.25;                                                  // escala da moldura: título da janela 24 -> 30 px
+const BAR = 58 * KW, PAD = 20;                                    // barra de título e respiro interno (px finais)
+const KP = { x: WIN.x + PAD, y: WIN.y + BAR + 22, w: WIN.w - 2 * PAD, h: 116, gap: 20 };   // linha dos três indicadores
+// mapa de calor: desenhado em geometria menor e ampliado KH vezes (cabeçalhos 19 -> 26,2 px; áreas 22 -> 30,4; números 28 -> 38,6)
+const KH = 1.38;
+// (o calor() recua rótulos e células 4 px da própria caixa: a caixa cresce 4 px x KH de cada lado para tudo alinhar com os indicadores)
+const HEAT = { x: WIN.x + PAD - 4 * KH, y: KP.y + KP.h + 20, w: WIN.w - 2 * PAD + 8 * KH, h: 426 };
+const GC = geoCalor(0, 0, HEAT.w / KH, HEAT.h / KH, { rotW: 126, cab: 46 });
+const colX = n => HEAT.x + KH * (GC.rotW + GC.cw * n);            // x final da coluna n
+const CWF = KH * GC.cw;                                           // largura final de uma coluna
+const SLOT = { y: 844, h: 56, w: CWF - 8 * KH };                      // chips de ação, um sob cada coluna
+const slotX = i => colX(i) + 4 * KH;
 const SEQ = [0, 2, 4];                                            // marcas que a fala chama: Resiste, Experimenta, Multiplica
 const TELA = '#0F3A5B';                                           // fundo sólido do cartão sobre o navy
 const VEU = '#06304F';                                            // véu que recua as colunas fora de foco
@@ -37,32 +50,33 @@ const TIT = 'Mapa de Adoção · Onda 1';
 // ---------- indicador: só rótulo e número ----------
 function indicador(x, y, w, h, rot, valor, k) {
   if (k <= 0.001) return '';
-  return sobe(k, `<rect x="${f(x)}" y="${y}" width="${f(w)}" height="${h}" rx="14" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>`
-    + txt(rot.toUpperCase(), x + 20, y + 34, { w: 700, s: 22, ls: 1.2, c: C.blue40 })
-    + txt(valor, x + 20, y + h - 16, { f: 'L', w: 400, s: 46, c: C.white }), 14);
+  return sobe(k, `<rect x="${f(x)}" y="${y}" width="${f(w)}" height="${h}" rx="16" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>`
+    + txt(rot.toUpperCase(), x + 24, y + 40, { w: 700, s: 26, ls: 1.2, c: C.blue40 })
+    + txt(valor, x + 24, y + h - 16, { f: 'L', w: 400, s: 56, c: C.white }), 14);
 }
 
 // ---------- cartão "receita única": ícone, duas linhas e o risco ----------
+const CIR = { dx: 88, r: 52 }, TXC = 172, SN = 44, SD = 30;      // disco do ícone, início do texto, corpo do nome e da definição
 function receita(t, tX) {
-  const { x, y, w, h } = CARD, cy = y + h / 2, tx = x + 146, wt = larg('RECEITA ÚNICA', 34, { w: 700, ls: 1.5 });
-  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="18" fill="${C.gray20}"/>`
-    + `<circle cx="${x + 78}" cy="${cy}" r="40" fill="${C.blue20}"/>` + icone('capelo', x + 78, cy, 50, { c: C.navy, sw: 3.4 })
-    + txt('RECEITA ÚNICA', tx, cy - 4, { w: 700, s: 34, ls: 1.5, c: C.navy })
-    + txt('o mesmo treinamento para todos', tx, cy + 32, { s: 26, c: C.navy80 })
-    + tracar(`M${tx - 10},${cy - 16} L${f(tx + wt + 10)},${cy - 16}`, ease.out(inv(tX, tX + 0.35, t)), { c: C.orange, sw: 5 });
+  const { x, y, w, h } = CARD, cy = y + h / 2, tx = x + TXC, wt = larg('RECEITA ÚNICA', SN, { w: 700, ls: 1.5 });
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="22" fill="${C.gray20}"/>`
+    + `<circle cx="${x + CIR.dx}" cy="${cy}" r="${CIR.r}" fill="${C.blue20}"/>` + icone('capelo', x + CIR.dx, cy, 64, { c: C.navy, sw: 3.4 })
+    + txt('RECEITA ÚNICA', tx, y + 88, { w: 700, s: SN, ls: 1.5, c: C.navy })
+    + txt('o mesmo treinamento para todos', tx, y + 136, { s: SD, c: C.navy80 })
+    + tracar(`M${tx - 12},${y + 73} L${f(tx + wt + 12)},${y + 73}`, ease.out(inv(tX, tX + 0.35, t)), { c: C.orange, sw: 6 });
 }
 
 // ---------- cartão da ação da vez: "Resiste -> Escuta" + o que fazer ----------
 function cartaoAcao(i) {
-  const n = NIVEIS[i], { x, y, w, h } = CARD, cy = y + h / 2, S = 34, tx = x + 146;
-  const w1 = larg(n.rot, S, { w: 700 }), ax = tx + w1 + 16, ay = y + 46;
-  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="18" fill="${TELA}" stroke="rgba(255,255,255,.22)" stroke-width="2"/>`
-    + `<circle cx="${x + 78}" cy="${cy}" r="40" fill="${n.cor}"${n.cor === C.navy ? ` stroke="${C.blue40}" stroke-width="2.5"` : ''}/>`
-    + icone(n.icAcao, x + 78, cy, 48, { c: n.tx, sw: 3.4 })
-    + txt(n.rot, tx, y + 58, { w: 700, s: S, c: C.white })
-    + `<path d="M${f(ax)},${ay} L${f(ax + 36)},${ay} M${f(ax + 24)},${ay - 11} L${f(ax + 36)},${ay} L${f(ax + 24)},${ay + 11}" fill="none" stroke="${C.blue40}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`
-    + txt(n.acao, ax + 54, y + 58, { w: 700, s: S, c: C.orange })
-    + txt(n.acaoDef, tx, y + 98, { s: 26, c: C.blue40 });
+  const n = NIVEIS[i], { x, y, w, h } = CARD, cy = y + h / 2, tx = x + TXC;
+  const w1 = larg(n.rot, SN, { w: 700 }), ax = tx + w1 + 18, ay = y + 73;
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="22" fill="${TELA}" stroke="rgba(255,255,255,.22)" stroke-width="2"/>`
+    + `<circle cx="${x + CIR.dx}" cy="${cy}" r="${CIR.r}" fill="${n.cor}"${n.cor === C.navy ? ` stroke="${C.blue40}" stroke-width="2.5"` : ''}/>`
+    + icone(n.icAcao, x + CIR.dx, cy, 62, { c: n.tx, sw: 3.4 })
+    + txt(n.rot, tx, y + 88, { w: 700, s: SN, c: C.white })
+    + `<path d="M${f(ax)},${ay} L${f(ax + 42)},${ay} M${f(ax + 28)},${ay - 13} L${f(ax + 42)},${ay} L${f(ax + 28)},${ay + 13}" fill="none" stroke="${C.blue40}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>`
+    + txt(n.acao, ax + 62, y + 88, { w: 700, s: SN, c: C.orange })
+    + txt(n.acaoDef, tx, y + 136, { s: SD, c: C.blue40 });
 }
 
 // ---------- chip de ação (pílula na cor da marca) ----------
@@ -71,7 +85,7 @@ function chip(i, k) {
   const n = NIVEIS[i], x = slotX(i), cx = x + SLOT.w / 2, cy = SLOT.y + SLOT.h / 2;
   return opa(Math.min(1, k * 1.6), pop(0.85 + 0.15 * k, cx, cy,
     `<rect x="${f(x)}" y="${SLOT.y}" width="${f(SLOT.w)}" height="${SLOT.h}" rx="${SLOT.h / 2}" fill="${n.cor}"${n.cor === C.navy ? ` stroke="${C.blue40}" stroke-width="2.5"` : ''}/>`
-    + txt(n.acao, cx, cy + 9, { w: 700, s: 26, c: n.tx, a: 'middle' })));
+    + txt(n.acao, cx, cy + 10, { w: 700, s: 28, c: n.tx, a: 'middle' })));
 }
 
 export function desenhar(t, ctx) {
@@ -90,10 +104,11 @@ export function desenhar(t, ctx) {
   const sel = [fin(t, tA[0], 0.25) * fout(t, tA[1], 0.25), 0, fin(t, tA[1], 0.25) * fout(t, tA[2], 0.25), 0, fin(t, tA[2], 0.25) * fout(t, tAll, 0.3)];
 
   // ---------- janela do dashboard ----------
-  let win = janela(WIN.x, WIN.y, WIN.w, WIN.h, { titulo: TIT }).svg;
+  // moldura ampliada KW vezes (título 30 px); o conteúdo é desenhado em px finais
+  let win = mover(WIN.x, WIN.y, janela(0, 0, WIN.w / KW, WIN.h / KW, { titulo: TIT }).svg, 0, KW);
   {
-    const esc = 1.58, ws = (larg('ILUSTRATIVO', 14, { w: 700, ls: 2.4 }) + 22) * esc;
-    win += mover(WIN.x + WIN.w - 22 - ws, WIN.y + (58 - 26 * esc) / 2, selo('Ilustrativo', 0, 0), 0, esc);
+    const esc = 1.9, ws = (larg('ILUSTRATIVO', 14, { w: 700, ls: 2.4 }) + 22) * esc;      // selo: 14 -> 26,6 px
+    win += mover(WIN.x + WIN.w - PAD - ws, WIN.y + (BAR - 26 * esc) / 2, selo('Ilustrativo', 0, 0), 0, esc);
   }
   // indicadores (recuam enquanto uma coluna está em foco)
   {
@@ -107,25 +122,31 @@ export function desenhar(t, ctx) {
     itens.forEach(([rot, valor], i) => { ks += indicador(KP.x + i * (kw + KP.gap), KP.y, kw, KP.h, rot, valor, fin(t, t0 + 0.4 + i * 0.08, 0.4)); });
     win += opa(1 - 0.5 * emFoco, ks);
   }
-  // mapa de calor
+  // mapa de calor (geometria menor, ampliada KH vezes; véu e contorno na mesma geometria)
   {
     const uC = inv(tCal, tCal + 1.0, t);
-    if (uC > 0) win += calor(GC, { onda: 0, u: uC });
+    let h = '';
+    if (uC > 0) h += calor(GC, { onda: 0, u: uC });
     for (let n = 0; n < 5; n++) {
+      const x = GC.rotW + GC.cw * n;
       // véu sobre as colunas fora de foco
       const v = 0.6 * emFoco * (1 - sel[n]);
-      if (v > 0.004) win += `<rect x="${f(colX(n))}" y="${GC.y - 3}" width="${f(GC.cw + 0.5)}" height="${GC.h + 2}" fill="${VEU}" opacity="${f(v)}"/>`;
+      if (v > 0.004) h += `<rect x="${f(x)}" y="-2" width="${f(GC.cw + 0.4)}" height="${f(GC.h + 1.5)}" fill="${VEU}" opacity="${f(v)}"/>`;
       // contorno simples na coluna em foco
-      if (sel[n] > 0.004) win += `<rect x="${f(colX(n))}" y="${GC.y - 4}" width="${f(GC.cw)}" height="${GC.h + 4}" rx="13" fill="none" stroke="${C.white}" stroke-width="3" opacity="${f(sel[n])}"/>`;
+      if (sel[n] > 0.004) h += `<rect x="${f(x)}" y="-3" width="${f(GC.cw)}" height="${f(GC.h + 3)}" rx="10" fill="none" stroke="${C.white}" stroke-width="2.4" opacity="${f(sel[n])}"/>`;
     }
+    if (h) win += mover(HEAT.x, HEAT.y, h, 0, KH);
   }
 
   let s = fundoNoite(t);
-  s += titulo(['Cada marca pede', 'uma *ação diferente*'], MG, 196, t, t0 + 0.15, { escuro: true });
+  s += titulo(['Cada marca', 'pede uma *ação*', '*diferente*'], COL.x, YTIT, t, t0 + 0.15, { escuro: true, lh: LH });
   s += sobe(fin(t, tW, 0.45), win, 24);
 
   // ---------- salvaguarda ----------
-  s += sobe(fin(t, tR + 0.2, 0.4), tRico('*Quem age:* patrocinador, gestores diretos e rede de multiplicadores.', MG, YPE, { s: 24, c: C.navy20, hi: C.white, hw: 700 }), 12);
+  {
+    const o = { s: 28, c: C.navy20, hi: C.white, hw: 700 };
+    s += sobe(fin(t, tR + 0.2, 0.4), tRico('*Quem age:* patrocinador, gestores diretos', COL.x, YPE[0], o) + tRico('e rede de multiplicadores.', COL.x, YPE[1], o), 12);
+  }
 
   // ---------- receita única: entra, é riscada e some ----------
   if (t >= tR && t < tT + 0.4) {
@@ -150,8 +171,8 @@ export function desenhar(t, ctx) {
   tClk.forEach((tc, j) => {
     const oc = fin(t, tc - 0.45, 0.2) * fout(t, tc + 0.5, 0.25);
     if (oc <= 0.001) return;
-    const x = colX(SEQ[j]) + GC.cw / 2 + 38, y = GC.y + 32, e = 1 - ease.out(inv(tc - 0.45, tc - 0.04, t)), u = inv(tc, tc + 0.4, t);
-    s += opa(oc, cursor(x + 30 * e, y + 48 * e, { clique: u < 1 ? u : 0, s: 1.1 }));
+    const x = colX(SEQ[j]) + CWF / 2 + 30, y = HEAT.y + 44, e = 1 - ease.out(inv(tc - 0.45, tc - 0.04, t)), u = inv(tc, tc + 0.4, t);
+    s += opa(oc, cursor(x + 14 * e, y + 56 * e, { clique: u < 1 ? u : 0, s: 1.5 }));
   });
   return s;
 }

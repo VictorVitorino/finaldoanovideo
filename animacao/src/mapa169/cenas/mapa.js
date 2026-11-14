@@ -1,9 +1,10 @@
-// Cena "mapa" (41,96–47,22 s): "Junte as posições, área por área, e nasce o Mapa de Adoção."
-// Versão limpa. O mapa de trilha da cena anterior fica parado e completo, sem câmera. Os pinos das Pessoas A e B
+// Cena "mapa" (41,92–47,18 s): "Junte as posições, área por área, e nasce o Mapa de Adoção."
+// Versão limpa, composta para 16:9 (esquema B: título em uma linha e o mapa de trilha na largura toda).
+// O mapa de trilha da cena anterior fica parado e completo, sem câmera. Os pinos das Pessoas A e B
 // já estão no lugar (assentam uma vez, antes da primeira leva). De 'junte' até pouco antes de 'nasce', as outras
 // 23 pessoas aparecem em quatro levas, ÁREA POR ÁREA: uma única etiqueta no canto do palco diz o nome da área da
 // vez e as áreas que já entraram recuam (um foco por vez). Em 'nasce' a etiqueta sai, o mapa inteiro volta a 100%
-// e "Mapa de Adoção" sobe para a 2ª linha do título, com o fio laranja se desenhando até 'mapa_adocao'.
+// e "Mapa de Adoção" entra na continuação da linha do título, com o fio laranja se desenhando até 'mapa_adocao'.
 // O placar conta as pessoas e as áreas e termina em "25 pessoas · 4 áreas · 5 marcas", com o selo ILUSTRATIVO.
 // Único detalhe vivo: o tracejado da estrada.
 // Salvaguardas no pé do palco: "Leitura agregada por área." e
@@ -17,30 +18,40 @@ export const FUNDO = 'claro';
 export const CHIP = '03 · O mapa';
 export const LEGENDA = true;
 
-// ---------- geometria (a mesma da cena anterior) ----------
-const G = geoTrilha(72, 350, 936, 760);
-const TY = 196, TS = 62, TY2 = TY + TS * 1.12;           // linhas de base do título
-const SP = 0.62;                                         // escala dos pinos (a do kit)
-const SH = 0.8;                                          // escala final dos pinos A e B
+// ---------- geometria ----------
+// O mapa é desenhado numa geometria lógica de 1280 x 470 e ampliado 1,35x: ocupa x 96–1824, y 250–884 do quadro
+// (a mesma conta da cena anterior, "regua", para o corte casar). Estações, estrada e os 25 pinos vivem nesse grupo.
+const G = geoTrilha(0, 0, 1280, 470);
+const MAPA = { x: MG, y: 250, k: 1.35 };
+const X1 = W - MG;                                       // margem direita (1824)
+const TY = 200, TS = 72;                                 // título: uma linha, Light 72 px
+const T1 = 'Área por área, nasce o', T2 = 'Mapa de Adoção';
+const SP = 0.62;                                         // escala dos pinos (a do kit); no quadro, 0,84
+const SH = 0.8;                                          // escala final dos pinos A e B; no quadro, 1,08
 const GOTA = 'M0,0 C-7,-12 -22,-24 -22,-42 A22,22 0 1 1 22,-42 C22,-24 7,-12 0,0Z';
 const PASSO = 0.065;                                     // intervalo entre as pessoas de uma leva
 const RECUO = 0.5;                                       // quanto as áreas que já entraram recuam
-const LBL = { x: MG, y: 338, h: 50, s: 26 };             // etiqueta da área da vez (canto superior esquerdo do palco)
-const LW = AREAS.map(n => larg(n, LBL.s, { w: 700 }) + 66);
-const BAR = { y: 1048, h: 66 };                          // placar
-const PE = { y: 1134, h: 36 };                           // faixa das salvaguardas
+const LBL = { x: MG, y: 262, h: 56, s: 30 };             // etiqueta da área da vez (canto superior esquerdo do palco)
+const BAR = { y: 808, h: 76 };                           // placar (canto inferior direito do mapa, fora da ilha)
+const KS = 1.9;                                          // ampliação do selo do kit (14 px -> 26,6 px)
+const PE = { y: 882, h: 40, s: 26 };                     // faixa das salvaguardas (linha de base em y ≈ 911)
 
-// onde cada pessoa fica (onda 1): os mesmos lugares de pinosTrilha
-const POS = {};
-for (let n = 0; n < 5; n++) {
-  const cel = PESSOAS.filter(p => p.niv[0] === n);
-  cel.forEach((p, j) => { POS[p.id] = G.vaga(n, j, cel.length); });
-}
-// ajustes finos desta cena: nenhum pino fica em cima de uma bandeira, no meio da pista, na beira da ilha ou
-// encostado no anel das Pessoas A e B
-const AJUSTE = { 2: [238, 846], 3: [389, 867], 6: [160, 852], 10: [902, 722], 11: [388, 604], 12: [554, 772], 15: [361, 826], 16: [758, 430], 23: [292, 902] };
-for (const id of Object.keys(AJUSTE)) POS[id] = AJUSTE[id];
-const PB0 = G.em(0.20);                                  // onde a Pessoa B parou na cena anterior (na estrada, antes de Observa)
+// onde cada pessoa fica (onda 1), em coordenadas lógicas do mapa. Lugares compostos para o mapa largo: nenhum pino
+// fica em cima de uma bandeira, de um rótulo, no meio da pista, na beira da ilha ou encostado no anel de A e B.
+const PA = G.vaga(3, 0, 4);                              // Pessoa A: ao lado de Adota (onde a cena anterior a deixou)
+const PB0 = G.em(0.20);                                  // Pessoa B: onde parou na cena anterior (na estrada, antes de Observa)
+const POS = {
+  // Resiste (6): arco à esquerda da estação e duas pessoas depois da bandeira
+  6: [84, 372], 7: [112, 334], 2: [152, 310], 19: [186, 298], 18: [284, 344], 23: [326, 334],
+  // Observa (8): B sai da estrada; três acima, à esquerda da bandeira; duas entre as pistas; duas abaixo da pista
+  1: [436, 320], 3: [486, 318], 8: [520, 292], 9: [558, 286], 12: [676, 305], 15: [722, 304], 20: [536, 446], 21: [590, 446],
+  // Experimenta (6): grupo à direita da estação
+  4: [1114, 232], 5: [1160, 238], 10: [1136, 286], 13: [1182, 292], 17: [1108, 338], 22: [1154, 344],
+  // Adota (4): A e um arco que sobe à esquerda da estação
+  0: PA, 11: [514, 150], 14: [548, 116], 24: [590, 102],
+  // Multiplica (1)
+  16: [1102, 144],
+};
 // ordem de entrada em cada área: da estação Resiste para a Multiplica (o sentido da estrada). A e B já estão no mapa.
 const FILA = AREAS.map((_, a) => PESSOAS.filter(p => p.area === a && !p.heroi).sort((p, q) => p.niv[0] - q.niv[0] || p.id - q.id));
 const ORDEM = {};
@@ -53,7 +64,7 @@ function pino(x, y, cor, k) {
     + pinoMapa(x, y, { cor, s: SP, k });
 }
 // pinos das Pessoas A e B: o desenho do kit (gota + anel navy), com a letra sempre legível. s vai de 1 (como na
-// cena anterior) a SH; a cabeça branca cresce um pouco para a letra caber
+// cena anterior) a SH; a cabeça branca cresce um pouco para a letra caber. A letra tem 22 px lógicos (30 px no quadro)
 function pinoHeroi(x, y, o) {
   const s = o.s, cy = y - 42 * s, u = inv(1, SH, s);
   return `<ellipse cx="${f(x)}" cy="${f(y)}" rx="${f(13 * s)}" ry="${f(5 * s)}" fill="${C.navy}" opacity=".22"/>`
@@ -63,8 +74,27 @@ function pinoHeroi(x, y, o) {
     + txt(o.letra, x, cy + 7.8, { w: 700, s: 22, c: C.navy, a: 'middle' });
 }
 
+// medidas de texto (as fontes só existem depois de carregadas: mede uma vez, no primeiro quadro)
+let MED = null;
+function medidas() {
+  if (MED) return MED;
+  const SN = 48, SL = 28;
+  MED = {
+    LW: AREAS.map(n => larg(n, LBL.s, { w: 700 }) + 48 + 30),
+    x2: MG + larg(T1 + ' ' + T2, TS, { f: 'L' }) - larg(T2, TS, { f: 'L' }),
+    SN, SL,
+    wn: ['25', '4', '5'].map(v => larg(v, SN, { f: 'L', w: 400 })),
+    wl: ['pessoas', 'áreas', 'marcas'].map(r => larg(r, SL)),
+    wSelo: (larg('ILUSTRATIVO', 14, { w: 700, ls: 2.4 }) + 22) * KS,
+    w1: larg('Leitura agregada por área.', PE.s, { w: 700 }),
+    w2: larg('Retrato do momento, neste projeto. Não é avaliação de desempenho.', PE.s),
+  };
+  return MED;
+}
+
 export function desenhar(t, ctx) {
   const { t0, m } = ctx;
+  const M = medidas();
   const tJ = m('junte'), tA = m('area'), tN = m('nasce') - 0.08;
   // 1ª pessoa de cada leva: Financeiro em 'junte', Comercial em 'área', as outras duas no meio do caminho
   const dL = (tA - tJ) / 2, LAND = [tJ, tJ + dL, tA, tA + dL];
@@ -78,12 +108,12 @@ export function desenhar(t, ctx) {
 
   let s = fundoVivo(t);
 
-  // ---------- o mapa: parado e completo. Só o tracejado da estrada corre ----------
-  s += mapaTrilha(G, { u: 1, uEst: [0, 0, 0, 0, 0], t });
-  s += mapaTrilha(G, { terreno: false, u: 0, uEst: [1, 1, 1, 1, 1], t: 0 });
-
-  // ---------- os pinos: A e B no lugar desde o início; os outros 23 aparecem área por área ----------
+  // ---------- o mapa (grupo ampliado): parado e completo. Só o tracejado da estrada corre ----------
   {
+    let g = mapaTrilha(G, { u: 1, uEst: [0, 0, 0, 0, 0], t });
+    g += mapaTrilha(G, { terreno: false, u: 0, uEst: [1, 1, 1, 1, 1], t: 0 });
+
+    // os pinos: A e B no lugar desde o início; os outros 23 aparecem área por área
     const itens = [];
     for (const p of PESSOAS) {
       const [x, y] = POS[p.id], cor = NIVEIS[p.niv[0]].cor;
@@ -101,13 +131,15 @@ export function desenhar(t, ctx) {
       itens.push({ y, svg: opa(o, pino(x, y, cor, 0.6 + 0.4 * back(t, a, 0.34))) });
     }
     itens.sort((a, b) => a.y - b.y);
-    s += itens.map(i => i.svg).join('');
+    g += itens.map(i => i.svg).join('');
+    s += `<g transform="translate(${MAPA.x} ${MAPA.y}) scale(${MAPA.k})">${g}</g>`;
   }
 
   // ---------- etiqueta: uma só, com o nome da área da vez ----------
   {
     const kIn = fin(t, tPop(0), 0.35), k = Math.min(kIn, fout(t, tN - 0.22, 0.32));
     if (k > 0.001) {
+      const LW = M.LW;
       let i = 0;
       for (let j = 1; j < AREAS.length; j++) if (t >= tPop(j)) i = j;
       const u = i ? inv(tPop(i), tPop(i) + 0.26, t) : 1;
@@ -115,50 +147,48 @@ export function desenhar(t, ctx) {
       const w = i ? lerp(LW[i - 1], LW[i], ease.inOut(LW[i] > LW[i - 1] ? clamp(u * 2) : clamp(u * 2 - 1))) : LW[0];
       const cy = LBL.y + LBL.h / 2, yb = cy + LBL.s * 0.35;
       const b = pilula(LBL.x, LBL.y, w, LBL.h, C.navy)
-        + `<circle cx="${f(LBL.x + 24)}" cy="${f(cy)}" r="6" fill="${C.orange}"/>`
-        + (i ? opa(1 - clamp(u * 2), txt(AREAS[i - 1], LBL.x + 42, yb, { w: 700, s: LBL.s, c: C.white })) : '')
-        + opa(clamp(u * 2 - 1), txt(AREAS[i], LBL.x + 42, yb, { w: 700, s: LBL.s, c: C.white }));
+        + `<circle cx="${f(LBL.x + 28)}" cy="${f(cy)}" r="7" fill="${C.orange}"/>`
+        + (i ? opa(1 - clamp(u * 2), txt(AREAS[i - 1], LBL.x + 48, yb, { w: 700, s: LBL.s, c: C.white })) : '')
+        + opa(clamp(u * 2 - 1), txt(AREAS[i], LBL.x + 48, yb, { w: 700, s: LBL.s, c: C.white }));
       s += `<g opacity="${f(k)}" transform="translate(0 ${f((1 - kIn) * 12)})">${b}</g>`;
     }
   }
 
-  // ---------- título: a 1ª linha entra com a cena; "Mapa de Adoção" sobe em 'nasce' ----------
-  s += titulo(['Área por área, nasce o'], MG, TY, t, t0 + 0.15);
-  s += titulo(['*Mapa de Adoção*'], MG, TY2, t, tN);
+  // ---------- título em uma linha: a 1ª parte entra com a cena; "Mapa de Adoção" entra em 'nasce' ----------
+  s += titulo([T1], MG, TY, t, t0 + 0.15, { s: TS });
+  s += titulo(['*' + T2 + '*'], M.x2, TY, t, tN, { s: TS });
 
-  // ---------- placar: conta as pessoas e as áreas; termina em 25 · 4 · 5 ----------
+  // ---------- placar: conta as pessoas e as áreas; termina em 25 · 4 · 5. O selo fica logo acima ----------
   {
     const k = fin(t, t0 + 0.3, 0.45);
     if (k > 0.001) {
-      const SN = 44, SL = 24, GAP = 9, SEP = 44, ch = BAR.h, y0 = BAR.y, cy = y0 + ch / 2, yb = cy + 15.5;
-      const itens = [[nP, 'pessoas', '25'], [nA, nA > 1 ? 'áreas' : 'área', '4'], [5, 'marcas', '5']];
-      const wn = itens.map(it => larg(it[2], SN, { f: 'L', w: 400 })), wl = ['pessoas', 'áreas', 'marcas'].map(r => larg(r, SL));
-      const wSelo = larg('ILUSTRATIVO', 14, { w: 700, ls: 2.4 }) + 22;
-      const cw = 36 + wn.reduce((p, q) => p + q, 0) + wl.reduce((p, q) => p + q, 0) + GAP * 3 + SEP * 2 + 32 + wSelo + 26;
-      const x0 = (W - cw) / 2;
-      let corpo = '', x = x0 + 36;
+      const { SN, SL, wn, wl, wSelo } = M, GAP = 10, SEP = 48, PAD = 38, ch = BAR.h, y0 = BAR.y, cy = y0 + ch / 2, yb = cy + 17;
+      const itens = [[nP, 'pessoas'], [nA, nA > 1 ? 'áreas' : 'área'], [5, 'marcas']];
+      const cw = PAD * 2 + wn.reduce((p, q) => p + q, 0) + wl.reduce((p, q) => p + q, 0) + GAP * 3 + SEP * 2;
+      const x0 = X1 - cw;
+      let corpo = '', x = x0 + PAD;
       itens.forEach(([v, r], i) => {
         corpo += txt(String(v), x + wn[i], yb, { f: 'L', w: 400, s: SN, c: C.navy, a: 'end' })
           + txt(r, x + wn[i] + GAP, yb - 2, { s: SL, c: C.navy80 });
         x += wn[i] + GAP + wl[i];
-        if (i < 2) { corpo += `<path d="M${f(x + SEP / 2)},${f(cy - 15)} v30" stroke="${C.navy20}" stroke-width="2" stroke-linecap="round"/>`; x += SEP; }
+        if (i < 2) { corpo += `<path d="M${f(x + SEP / 2)},${f(cy - 17)} v34" stroke="${C.navy20}" stroke-width="2" stroke-linecap="round"/>`; x += SEP; }
       });
-      corpo += selo('Ilustrativo', x + 32, cy - 13);
-      const cartao = sombra(`<rect x="${f(x0)}" y="${y0}" width="${f(cw)}" height="${ch}" rx="${ch / 2}" fill="${C.white}" stroke="${C.navy20}" stroke-width="1.5"/>`, true) + corpo;
+      const cartao = sombra(`<rect x="${f(x0)}" y="${y0}" width="${f(cw)}" height="${ch}" rx="${ch / 2}" fill="${C.white}" stroke="${C.navy20}" stroke-width="1.5"/>`, true) + corpo
+        + `<g transform="translate(${f(X1 - wSelo)} ${f(y0 - 14 - 26 * KS)}) scale(${KS})">${selo('Ilustrativo', 0, 0)}</g>`;
       s += `<g opacity="${f(k)}" transform="translate(0 ${f((1 - k) * 16)})">${cartao}</g>`;
     }
   }
 
-  // ---------- salvaguardas no pé do palco ----------
+  // ---------- salvaguardas no pé do palco, alinhadas à margem esquerda ----------
   {
     const k = fin(t, t0 + 0.42, 0.45);
     if (k > 0.001) {
       const f1 = 'Leitura agregada por área.', f2 = 'Retrato do momento, neste projeto. Não é avaliação de desempenho.';
-      const SZ = 22, w1 = larg(f1, SZ, { w: 700 }), w2 = larg(f2, SZ), gap = 28, w = w1 + gap + w2 + 44, x0 = (W - w) / 2, yb = PE.y + 25.5;
+      const { w1, w2 } = M, gap = 32, pad = 24, w = w1 + gap + w2 + pad * 2, x0 = MG, yb = PE.y + PE.h / 2 + PE.s * 0.35;
       s += `<g opacity="${f(k)}" transform="translate(0 ${f((1 - k) * 12)})"><rect x="${f(x0)}" y="${PE.y}" width="${f(w)}" height="${PE.h}" rx="${PE.h / 2}" fill="#fff" opacity=".88"/>`
-        + txt(f1, x0 + 22, yb, { w: 700, s: SZ, c: C.navy80 })
-        + `<path d="M${f(x0 + 22 + w1 + gap / 2)},${PE.y + 9} v18" stroke="${C.navy40}" stroke-width="1.5"/>`
-        + txt(f2, x0 + 22 + w1 + gap, yb, { s: SZ, c: C.navy80 }) + `</g>`;
+        + txt(f1, x0 + pad, yb, { w: 700, s: PE.s, c: C.navy80 })
+        + `<path d="M${f(x0 + pad + w1 + gap / 2)},${PE.y + 10} v20" stroke="${C.navy40}" stroke-width="1.5"/>`
+        + txt(f2, x0 + pad + w1 + gap, yb, { s: PE.s, c: C.navy80 }) + `</g>`;
     }
   }
   return s;

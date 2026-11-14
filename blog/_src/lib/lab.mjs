@@ -54,7 +54,7 @@ export function secaoLab(raiz, nPerguntas) {
   const [d, ...resto] = FERRAMENTAS;
   return `<section class="sec sec--lab" id="lab" aria-labelledby="lab-t">
   <div class="sec-in">
-    ${titSecao('lab', 'Laboratório', 'Teste, monte e baixe', 'Ferramentas interativas para medir o seu nível e montar os instrumentos do dia a dia da gestão da mudança.', `<a class="link-seta revela" href="${raiz}lab/">Abrir o Laboratório${icone('seta')}</a>`)}
+    ${titSecao('lab', 'Laboratório', 'Teste, monte e baixe', 'Ferramentas interativas para medir o seu nível e montar os instrumentos do dia a dia da gestão da mudança.', `<span class="sec-links revela"><a class="link-seta" href="${raiz}modelos/">Baixar modelos${icone('seta')}</a><a class="link-seta" href="${raiz}lab/">Abrir o Laboratório${icone('seta')}</a></span>`)}
     <div class="lab-grade">
       <a class="lab-destaque revela" href="${raiz}lab/${d.slug}/">
         <div class="lab-destaque-arte">${PREVIAS.diagnostico('a')}</div>
@@ -70,7 +70,7 @@ const cab = (raiz, f, extra = '') => `<header class="lab-cab"><div class="sec-in
   <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>${esc(f.nome)}</span></nav>
   <span class="olho">${esc(f.olho)}</span><h1>${esc(f.titulo || f.nome)}</h1><p class="lab-lead">${esc(f.lead || f.frase)}</p>${extra}</div></header>`;
 const semJs = `<noscript><p class="lab-aviso">Esta ferramenta precisa de JavaScript ligado no navegador. Os modelos em Excel podem ser baixados sem ele, na página do Laboratório.</p></noscript>`;
-const barra = (botoes, modelo, raiz) => `<div class="lab-barra" role="toolbar" aria-label="Ações">${botoes}${modelo ? `<a class="btn btn--s btn--peq" href="${raiz}assets/modelos/${modelo}" download>${icone('copia')}Baixar modelo em Excel</a>` : ''}</div>`;
+const barra = (botoes, modelo, raiz) => `<div class="lab-barra" role="toolbar" aria-label="Ações">${botoes}${modelo ? `<a class="btn btn--s btn--peq" href="${raiz}modelos/#${modelo.replace('.xlsx', '')}">${icone('copia')}Baixar modelo em Excel</a>` : ''}</div>`;
 const bt = (acao, ic, txt, cls = 'btn--s') => `<button type="button" class="btn ${cls} btn--peq" data-acao="${acao}">${icone(ic)}<span>${txt}</span></button>`;
 const privacidade = `<p class="lab-nota">${icone('escudo')}Tudo o que você preenche fica só no seu navegador. Nada é enviado nem guardado pelo blog.</p>`;
 const outras = (raiz, atual) => `<section class="sec sec--rel"><div class="sec-in"><header class="sec-cab"><div><span class="olho">Laboratório</span><h2>Outras ferramentas</h2></div><a class="link-seta" href="${raiz}lab/">Ver todas${icone('seta')}</a></header>
@@ -84,8 +84,8 @@ export function labInicio({ cfg, nPerguntas }) {
   <span class="olho">Laboratório</span><h1>Teste, monte e baixe</h1><p class="lab-lead">Um diagnóstico para saber em que nível de Change Management você está e três instrumentos para montar no navegador e levar para o projeto.</p></div></header>
 <section class="sec sec--lab-pg"><div class="sec-in">
   <div class="lab-cartoes">${FERRAMENTAS.map((f, i) => `<a class="lab-cartao revela" style="--i:${i}" href="${f.slug}/"><span class="lab-cartao-arte">${PREVIAS[f.id](['a', 'b', 'c', 'b'][i])}</span><span class="lab-cartao-txt"><small>${esc(f.olho)}${f.id === 'diagnostico' && nPerguntas ? ' · ' + nPerguntas + ' perguntas' : ''}</small><b>${esc(f.nome)}</b><em>${esc(f.frase)}</em><span class="link-seta">${esc(f.acao)}${icone('seta')}</span></span></a>`).join('')}</div>
-  <div class="lab-modelos revela"><h2>Modelos para baixar</h2><p>Planilhas em Excel, prontas para adaptar ao seu projeto.</p>
-    <ul>${MODELOS.map(([a, t, d]) => `<li><a href="${raiz}assets/modelos/${a}" download><span><b>${esc(t)}</b><small>${esc(d)}</small></span><i>.xlsx</i>${icone('setaBaixo')}</a></li>`).join('')}</ul></div>
+  <div class="lab-modelos revela"><h2>Modelos para baixar</h2><p>Mapa de adoção, formulário de diagnóstico, mapa de riscos, plano de treinamentos, matriz RACI e mapa de influência, em Excel.</p>
+    <a class="btn btn--p" href="${raiz}modelos/">Ver os modelos${icone('seta')}</a></div>
 </div></section>`;
   return pagina({ cfg, raiz, titulo: 'Laboratório', descricao: 'Diagnóstico de nível em Change Management e ferramentas interativas: matriz RACI, mapa de influência e matriz de adoção.', corpo, caminho: 'lab/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', ativo: 'lab' });
 }
@@ -156,4 +156,43 @@ export function labAdocao({ cfg }) {
   <div class="lab-como"><h2>A régua e a ação de cada marca</h2><ul><li><b>Resiste → Escuta:</b> ouvir o motivo e ajustar a mensagem.</li><li><b>Observa → Exemplo:</b> mostrar funcionando, com gente parecida.</li><li><b>Experimenta → Prática:</b> tempo protegido e apoio por perto.</li><li><b>Adota → Reforço:</b> reconhecer e tirar atritos da rotina.</li><li><b>Multiplica → Palco:</b> dar voz e formar a rede.</li><li><b>Leitura agregada:</b> retrato do momento por área, não avaliação de desempenho. Veja a <a href="../../posts/mapa-de-perfil-cognitivo/">capa sobre o Mapa de Perfil Cognitivo</a>.</li></ul></div>
 </div></section>${outras('../../', 'adocao')}`;
   return pg(cfg, f, corpo);
+}
+
+// ---------- modelos para baixar (com cadastro) e painel do autor ----------
+export function paginaModelos({ cfg, modelos }) {
+  const raiz = '../';
+  const corpo = `<header class="lab-cab"><div class="sec-in">
+  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Modelos</span></nav>
+  <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Planilhas em Excel com fórmulas, conferências e instruções de uso. Para baixar, informe nome e e-mail uma única vez.</p></div></header>
+<section class="sec sec--lab-pg"><div class="sec-in" data-modelos>
+  <div class="mod-grade">${modelos.map((m, i) => `<article class="mod revela" style="--i:${i}" id="${esc(m.id)}"><div class="mod-arte">${PREVIAS[m.previa](['a', 'b', 'c'][i % 3])}</div><div class="mod-txt"><small>${esc(m.olho)} · Excel</small><h2>${esc(m.nome)}</h2><p>${esc(m.frase)}</p><button type="button" class="btn btn--p btn--peq" data-baixar="${esc(m.id)}" data-arquivo="${esc(m.arquivo)}" data-nome="${esc(m.nome)}">${icone('setaBaixo')}<span>Baixar modelo</span></button></div></article>`).join('')}</div>
+  <p class="lab-nota">${icone('escudo')}Seu nome e e-mail são usados só para registrar o download. Não são repassados a terceiros.</p>
+  <dialog class="portao" data-portao aria-labelledby="portao-t">
+    <form method="dialog" class="portao-in" data-form novalidate>
+      <button type="button" class="m-x portao-x" data-fechar aria-label="Fechar">×</button>
+      <span class="olho">Download</span><h2 id="portao-t" data-titulo>Baixar modelo</h2><p>Informe seus dados uma vez. Nos próximos downloads, basta um clique.</p>
+      <label class="campo"><span>Nome</span><input type="text" name="nome" required minlength="2" maxlength="120" autocomplete="name"></label>
+      <label class="campo"><span>E-mail</span><input type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email"></label>
+      <label class="campo"><span>Empresa (opcional)</span><input type="text" name="empresa" maxlength="120" autocomplete="organization"></label>
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo com o registro do meu nome e e-mail para liberar o download.</span></label>
+      <p class="portao-erro" data-erro role="alert" hidden></p>
+      <button type="submit" class="btn btn--p">${icone('setaBaixo')}<span>Baixar agora</span></button>
+    </form>
+  </dialog>
+</div>
+<noscript><div class="sec-in"><p class="lab-aviso">O download com cadastro precisa de JavaScript ligado no navegador.</p></div></noscript></section>`;
+  return pagina({ cfg, raiz, titulo: 'Modelos para baixar', descricao: 'Modelos em Excel para gestão da mudança: mapa de adoção, formulário de diagnóstico, mapa de riscos, plano de treinamentos, matriz RACI e mapa de influência.', corpo, caminho: 'modelos/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', scripts: ['assets/js/cfg.js', 'assets/js/modelos.js'], ativo: 'lab' });
+}
+
+export function paginaPainel({ cfg }) {
+  const raiz = '../';
+  const corpo = `<section class="sec sec--lab-pg"><div class="sec-in" data-painel>
+  <span class="olho">Painel do autor</span><h1 class="arq-tit" style="text-transform:none">Downloads dos modelos</h1>
+  <form class="painel-login" data-login><p class="arq-sub">Área restrita. Entre com o e-mail e a senha de administrador.</p>
+    <label class="campo"><span>E-mail</span><input type="email" name="email" required autocomplete="username"></label>
+    <label class="campo"><span>Senha</span><input type="password" name="senha" required autocomplete="current-password"></label>
+    <p class="portao-erro" data-erro role="alert" hidden></p><button type="submit" class="btn btn--p">Entrar</button></form>
+  <div data-dados hidden></div>
+</div></section>`;
+  return pagina({ cfg, raiz, titulo: 'Painel', descricao: 'Área restrita.', corpo, caminho: 'painel/', classe: 'pg-lab', scripts: ['assets/js/cfg.js', 'assets/js/modelos.js'] }).replace('<meta name="author"', '<meta name="robots" content="noindex, nofollow">\n<meta name="author"');
 }

@@ -13,5 +13,9 @@
     "rotulo": "Edição 01",
     "periodo": "14 de novembro de 2026",
     "capa": "mapa-de-perfil-cognitivo"
+  },
+  "downloads": {
+    "supabase_url": "",
+    "supabase_chave": ""
   }
 }

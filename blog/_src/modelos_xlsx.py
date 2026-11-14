@@ -217,7 +217,120 @@ def adocao():
     wb.save(os.path.join(SAIDA, 'matriz-de-adocao.xlsx'))
 
 
+def diagnostico():
+    wb = Workbook(); ws = wb.active; ws.title = 'Formulário'
+    cabecalho(ws, 'Formulário de diagnóstico de prontidão', 'Uma linha por pessoa ou grupo. Notas de 1 (discordo totalmente) a 5 (concordo totalmente) para cada afirmação.', 9)
+    cols = ['Pessoa ou grupo', 'Área', 'Entendo por que a mudança existe', 'Tenho facilidade com a nova ferramenta', 'Consigo aprender sem depender de alguém', 'Sinto que posso testar e errar', 'Vejo ganho para o meu trabalho', 'Média', 'Leitura sugerida']
+    larg = [26, 20, 20, 20, 20, 20, 20, 10, 34]
+    for j, (c, w) in enumerate(zip(cols, larg)):
+        th(ws.cell(4, 1 + j), c, AZ if j > 6 else AZP); ws.column_dimensions[L(1 + j)].width = w
+    ws.row_dimensions[4].height = 48
+    dv = DataValidation(type='whole', operator='between', formula1='1', formula2='5'); dv.error = 'Use um número de 1 a 5'; ws.add_data_validation(dv)
+    ex = [('Analistas de contas a pagar', 'Financeiro', 4, 3, 2, 2, 3), ('Supervisores de loja', 'Operações', 3, 2, 3, 2, 2), ('Equipe de vendas internas', 'Comercial', 5, 4, 4, 3, 4)]
+    n = 40
+    for i in range(n):
+        r = 5 + i
+        v = ex[i] if i < len(ex) else ('', '', None, None, None, None, None)
+        for j, val in enumerate(v):
+            c = ws.cell(r, 1 + j, val); c.border = borda; c.alignment = esq if j < 2 else centro
+            if j >= 2: dv.add(c)
+        m = ws.cell(r, 8, f'=IF(COUNT(C{r}:G{r})=0,"",AVERAGE(C{r}:G{r}))'); m.number_format = '0.0'; m.border = borda; m.alignment = centro; m.font = Font(bold=True, color=AZP)
+        e = ws.cell(r, 9, f'=IF(H{r}="","",IF(H{r}<2,"Resiste: escuta",IF(H{r}<3,"Observa: exemplo",IF(H{r}<4,"Experimenta: prática",IF(H{r}<4.6,"Adota: reforço","Multiplica: palco")))))'); e.border = borda; e.alignment = esq
+        ws.row_dimensions[r].height = 22
+    ws.conditional_formatting.add(f'C5:G{4 + n}', ColorScaleRule(start_type='num', start_value=1, start_color=CZC, end_type='num', end_value=5, end_color='9DBDFF'))
+    rodape(ws, 6 + n, 9); ws.freeze_panes = 'C5'
+    como_usar(wb, 'Formulário de diagnóstico de prontidão', [
+        ('Para que serve', 'Ler cinco sinais em cada pessoa ou grupo do projeto e sugerir em que marca da régua de adoção ela está hoje.'),
+        ('Os cinco sinais', 'Clareza do porquê, fluência digital, autonomia para aprender, segurança para errar e valor que a pessoa vê na mudança. São sinais do momento, ligados ao projeto, não traços de personalidade.'),
+        ('Como aplicar', 'Use como roteiro de pesquisa curta ou de conversa com os gestores. Combine com dados de uso. Prefira registrar por grupo, não por indivíduo.'),
+        ('Leitura sugerida', 'A média indica uma marca provável e a ação que mais ajuda. É ponto de partida para conversa, não diagnóstico fechado. Ajuste os cortes à sua realidade.'),
+        ('Cuidado', 'Não é teste psicológico nem avaliação de desempenho. Explique para que serve, guarde com acesso restrito e use leitura agregada.'),
+    ])
+    wb.save(os.path.join(SAIDA, 'formulario-de-diagnostico.xlsx'))
+
+
+def riscos():
+    wb = Workbook(); ws = wb.active; ws.title = 'Mapa de riscos'
+    cabecalho(ws, 'Mapa de riscos da mudança', 'Probabilidade e impacto de 1 a 5. A exposição é o produto dos dois; a prioridade segue a exposição.', 10)
+    cols = ['Risco', 'Categoria', 'Grupo afetado', 'Probabilidade (1-5)', 'Impacto (1-5)', 'Exposição', 'Prioridade', 'Resposta', 'Responsável', 'Prazo']
+    larg = [44, 18, 22, 14, 12, 12, 14, 44, 20, 14]
+    for j, (c, w) in enumerate(zip(cols, larg)):
+        th(ws.cell(4, 1 + j), c, AZ if j in (5, 6) else AZP); ws.column_dimensions[L(1 + j)].width = w
+    ws.row_dimensions[4].height = 34
+    dv = DataValidation(type='whole', operator='between', formula1='1', formula2='5'); ws.add_data_validation(dv)
+    dc = DataValidation(type='list', formula1='"Patrocínio,Resistência,Capacitação,Comunicação,Sobrecarga,Solução,Operação"', allow_blank=True); ws.add_data_validation(dc)
+    ex = [('Patrocinador deixa de participar depois do lançamento', 'Patrocínio', 'Todas as áreas', 3, 5, 'Agenda fixa do patrocinador até a estabilização e dados de adoção na reunião de resultados'),
+          ('Gestores diretos não repassam as mensagens', 'Comunicação', 'Operações', 4, 4, 'Preparar os gestores antes das equipes e dar roteiro de conversa'),
+          ('Treinamento distante do uso real', 'Capacitação', 'Usuários finais', 3, 4, 'Prática perto do go-live e apoio no posto de trabalho'),
+          ('Várias mudanças na mesma área no mesmo trimestre', 'Sobrecarga', 'Financeiro', 4, 3, 'Mapa de carga e decisão de sequência com a liderança'),
+          ('Retorno às planilhas depois do período de apoio', 'Resistência', 'Vendas', 3, 3, 'Reforço pelos supervisores e uso nos indicadores da rotina')]
+    n = 30
+    for i in range(n):
+        r = 5 + i
+        v = ex[i] if i < len(ex) else ('', '', '', None, None, '')
+        vals = [v[0], v[1], v[2], v[3], v[4]]
+        for j, val in enumerate(vals):
+            c = ws.cell(r, 1 + j, val); c.border = borda; c.alignment = esq if j < 3 else centro
+        dc.add(ws.cell(r, 2)); dv.add(ws.cell(r, 4)); dv.add(ws.cell(r, 5))
+        x = ws.cell(r, 6, f'=IF(OR(D{r}="",E{r}=""),"",D{r}*E{r})'); x.border = borda; x.alignment = centro; x.font = Font(bold=True)
+        pr = ws.cell(r, 7, f'=IF(F{r}="","",IF(F{r}>=15,"Alta",IF(F{r}>=8,"Média","Baixa")))'); pr.border = borda; pr.alignment = centro
+        for j, val in ((8, v[5]), (9, ''), (10, '')):
+            c = ws.cell(r, j, val); c.border = borda; c.alignment = esq
+        ws.row_dimensions[r].height = 30
+    ws.conditional_formatting.add(f'G5:G{4 + n}', CellIsRule(operator='equal', formula=['"Alta"'], fill=fill(AZP), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'G5:G{4 + n}', CellIsRule(operator='equal', formula=['"Média"'], fill=fill(AZ), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'G5:G{4 + n}', CellIsRule(operator='equal', formula=['"Baixa"'], fill=fill(CZC)))
+    ws.conditional_formatting.add(f'F5:F{4 + n}', ColorScaleRule(start_type='num', start_value=1, start_color='FFFFFF', end_type='num', end_value=25, end_color='9DBDFF'))
+    rodape(ws, 6 + n, 10); ws.freeze_panes = 'B5'
+    como_usar(wb, 'Mapa de riscos da mudança', [
+        ('Para que serve', 'Registrar o que pode impedir a adoção, priorizar e combinar resposta, responsável e prazo.'),
+        ('Como preencher', 'Descreva o risco como causa e efeito. Dê nota de 1 a 5 para probabilidade e para impacto na adoção. A exposição e a prioridade são calculadas.'),
+        ('Categorias', 'Patrocínio, resistência, capacitação, comunicação, sobrecarga, solução e operação. Troque pelas do seu projeto.'),
+        ('Como ler', 'Alta (15 ou mais): ação imediata e acompanhamento no comitê. Média (8 a 14): plano de resposta com dono. Baixa: monitorar.'),
+        ('Ritmo', 'Revise a cada marco do projeto e depois do go-live. Risco de mudança muda de lugar ao longo do caminho.'),
+    ])
+    wb.save(os.path.join(SAIDA, 'mapa-de-riscos.xlsx'))
+
+
+def treinamentos():
+    wb = Workbook(); ws = wb.active; ws.title = 'Plano de treinamentos'
+    cabecalho(ws, 'Plano editorial de treinamentos', 'Quem aprende o quê, em que formato, quando e como se confirma que aprendeu.', 11)
+    cols = ['Público', 'Tema', 'Objetivo: o que a pessoa passa a fazer', 'Formato', 'Data', 'Duração', 'Responsável', 'Material', 'Como medir', 'Status', 'Observações']
+    larg = [24, 28, 40, 18, 13, 11, 20, 24, 26, 16, 30]
+    for j, (c, w) in enumerate(zip(cols, larg)):
+        th(ws.cell(4, 1 + j), c); ws.column_dimensions[L(1 + j)].width = w
+    ws.row_dimensions[4].height = 34
+    df = DataValidation(type='list', formula1='"Presencial,Ao vivo on-line,Vídeo curto,Prática guiada,Guia rápido,Apoio no posto"', allow_blank=True); ws.add_data_validation(df)
+    dm = DataValidation(type='list', formula1='"Reação,Aprendizagem,Comportamento,Resultado"', allow_blank=True); ws.add_data_validation(dm)
+    ds = DataValidation(type='list', formula1='"A planejar,Em preparo,Agendado,Realizado,Adiado"', allow_blank=True); ws.add_data_validation(ds)
+    ex = [('Gestores diretos', 'O que muda e como conduzir a equipe', 'Explicar a mudança e tratar dúvidas da equipe', 'Ao vivo on-line', '3 semanas antes do go-live', '90 min', 'Gestão da mudança', 'Roteiro de conversa', 'Comportamento', 'Agendado'),
+          ('Usuários-chave', 'Processo novo de ponta a ponta', 'Executar o processo e apoiar os colegas', 'Prática guiada', '2 semanas antes', '4 h', 'Líder do processo', 'Ambiente de treino', 'Aprendizagem', 'Em preparo'),
+          ('Usuários finais', 'Tarefas do dia a dia no novo sistema', 'Realizar as tarefas mais frequentes sem ajuda', 'Prática guiada', 'Semana do go-live', '2 h', 'Multiplicadores', 'Guia rápido', 'Comportamento', 'A planejar'),
+          ('Todos', 'Dúvidas frequentes da primeira semana', 'Resolver os erros mais comuns', 'Vídeo curto', 'Semana 1 após o go-live', '5 min', 'Gestão da mudança', 'Vídeos e guia', 'Reação', 'A planejar')]
+    n = 40
+    for i in range(n):
+        r = 5 + i
+        v = ex[i] if i < len(ex) else ('',) * 10
+        for j in range(11):
+            c = ws.cell(r, 1 + j, v[j] if j < len(v) else ''); c.border = borda; c.alignment = esq
+        df.add(ws.cell(r, 4)); dm.add(ws.cell(r, 9)); ds.add(ws.cell(r, 10))
+        ws.row_dimensions[r].height = 30
+    ws.conditional_formatting.add(f'J5:J{4 + n}', CellIsRule(operator='equal', formula=['"Realizado"'], fill=fill(AZP), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'J5:J{4 + n}', CellIsRule(operator='equal', formula=['"Agendado"'], fill=fill(AZ), font=Font(color='FFFFFF', bold=True)))
+    ws.conditional_formatting.add(f'J5:J{4 + n}', CellIsRule(operator='equal', formula=['"Em preparo"'], fill=fill('C9DAFB')))
+    ws.conditional_formatting.add(f'J5:J{4 + n}', CellIsRule(operator='equal', formula=['"Adiado"'], fill=fill(CZC)))
+    rodape(ws, 6 + n, 11); ws.freeze_panes = 'C5'
+    como_usar(wb, 'Plano editorial de treinamentos', [
+        ('Para que serve', 'Organizar a capacitação como uma pauta: cada público recebe o conteúdo certo, no formato certo, perto do momento de usar.'),
+        ('Como preencher', 'Uma linha por ação de capacitação. Escreva o objetivo como comportamento: o que a pessoa passa a fazer depois.'),
+        ('Momento', 'Treinar longe do uso faz o conteúdo se perder. Aproxime a prática do go-live e planeje apoio no posto de trabalho nas primeiras semanas.'),
+        ('Como medir', 'Reação (gostou), aprendizagem (sabe), comportamento (faz no trabalho) e resultado (efeito no negócio). Presença e satisfação não provam adoção.'),
+        ('Ordem', 'Prepare primeiro os gestores diretos e os usuários-chave. Eles sustentam a mudança quando o projeto sai.'),
+    ])
+    wb.save(os.path.join(SAIDA, 'plano-de-treinamentos.xlsx'))
+
+
 if __name__ == '__main__':
     os.makedirs(SAIDA, exist_ok=True)
-    raci(); influencia(); adocao()
+    raci(); influencia(); adocao(); diagnostico(); riscos(); treinamentos()
     print('modelos gerados em', os.path.normpath(SAIDA))

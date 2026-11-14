@@ -1,0 +1,8 @@
+[
+  { "id": "matriz-de-adocao", "arquivo": "matriz-de-adocao.xlsx", "nome": "Mapa de adoção", "olho": "Adoção", "previa": "adocao", "frase": "Pessoas de cada área na régua de adoção, com índice, gráfico e a ação de cada marca." },
+  { "id": "formulario-de-diagnostico", "arquivo": "formulario-de-diagnostico.xlsx", "nome": "Formulário de diagnóstico de prontidão", "olho": "Diagnóstico", "previa": "diagnostico", "frase": "Cinco sinais por pessoa ou grupo, com média e leitura sugerida da marca de adoção." },
+  { "id": "mapa-de-riscos", "arquivo": "mapa-de-riscos.xlsx", "nome": "Mapa de riscos da mudança", "olho": "Riscos", "previa": "influencia", "frase": "Probabilidade, impacto, exposição e prioridade calculadas, com resposta, responsável e prazo." },
+  { "id": "plano-de-treinamentos", "arquivo": "plano-de-treinamentos.xlsx", "nome": "Plano editorial de treinamentos", "olho": "Capacitação", "previa": "raci", "frase": "A pauta da capacitação: público, tema, objetivo, formato, data e como medir." },
+  { "id": "matriz-raci", "arquivo": "matriz-raci.xlsx", "nome": "Matriz RACI da mudança", "olho": "Papéis", "previa": "raci", "frase": "Papéis por entrega, com conferência automática de quem aprova e carga por papel." },
+  { "id": "mapa-de-influencia", "arquivo": "mapa-de-influencia.xlsx", "nome": "Mapa de influência de stakeholders", "olho": "Stakeholders", "previa": "influencia", "frase": "Influência e apoio de cada stakeholder, com estratégia sugerida e gráfico de dispersão." }
+]

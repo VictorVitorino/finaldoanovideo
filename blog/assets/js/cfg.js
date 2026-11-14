@@ -1,0 +1,2 @@
+// Gerado por blog/_src/build.mjs a partir de site.config.json ("downloads"). A chave é a publicável do Supabase: pode ficar no site.
+window.CMW_CFG = {"url":"","chave":"","modelos":[{"id":"matriz-de-adocao","nome":"Mapa de adoção"},{"id":"formulario-de-diagnostico","nome":"Formulário de diagnóstico de prontidão"},{"id":"mapa-de-riscos","nome":"Mapa de riscos da mudança"},{"id":"plano-de-treinamentos","nome":"Plano editorial de treinamentos"},{"id":"matriz-raci","nome":"Matriz RACI da mudança"},{"id":"mapa-de-influencia","nome":"Mapa de influência de stakeholders"}]};

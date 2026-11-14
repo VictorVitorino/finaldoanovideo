@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { frontMatter, markdown, minutos } from './lib/md.mjs';
 import { marca } from './lib/ilustra.mjs';
 import { inicio, post, mes, naoAchou, TEMAS } from './lib/modelos.mjs';
-import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS } from './lib/lab.mjs';
+import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
 
 const SRC = dirname(fileURLToPath(import.meta.url)), SAIDA = join(SRC, '..'), CONT = join(SRC, 'content');
 const json = f => JSON.parse(readFileSync(join(CONT, f), 'utf8'));
@@ -32,11 +32,16 @@ export function carrega() {
 
 function gera() {
   const d = carrega(), { cfg, posts } = d;
-  for (const dir of ['posts', 'mes', 'lab']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
+  for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
   const nPerguntas = d.dominios.reduce((a, x) => a + x.perguntas.length, 0);
   grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas) }));
   // Laboratório
   grava('lab/index.html', labInicio({ cfg, nPerguntas }));
+  grava('modelos/index.html', paginaModelos({ cfg, modelos: json('modelos.json') }));
+  grava('painel/index.html', paginaPainel({ cfg }));
+  const dl = cfg.downloads || {};
+  grava('assets/js/cfg.js', `// Gerado por blog/_src/build.mjs a partir de site.config.json ("downloads"). A chave é a publicável do Supabase: pode ficar no site.\nwindow.CMW_CFG = ${JSON.stringify({ url: dl.supabase_url || '', chave: dl.supabase_chave || '', modelos: json('modelos.json').map(m => ({ id: m.id, nome: m.nome })) })};\n`);
+  if (!dl.supabase_url) console.log('aviso: "downloads" sem Supabase em site.config.json (os downloads funcionam, mas não são registrados)');
   grava('lab/matriz-raci/index.html', labRaci({ cfg }));
   grava('lab/mapa-de-influencia/index.html', labInfluencia({ cfg }));
   grava('lab/matriz-de-adocao/index.html', labAdocao({ cfg }));
@@ -54,9 +59,9 @@ function gera() {
   grava('assets/img/favicon.svg', marca().replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--azul\)/g, '#2450E6').replace(/var\(--ceu\)/g, '#8EC5FF'));
   if (cfg.url) {
     const base = cfg.url.replace(/\/$/, '');
-    const urls = ['', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`)];
+    const urls = ['', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/'];
     grava('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${base}/${u}</loc></url>`).join('\n')}\n</urlset>\n`);
-    grava('robots.txt', `User-agent: *\nAllow: /\nDisallow: /_src/\nSitemap: ${base}/sitemap.xml\n`);
+    grava('robots.txt', `User-agent: *\nAllow: /\nDisallow: /_src/\nDisallow: /painel/\nSitemap: ${base}/sitemap.xml\n`);
   }
   // referências a posts que não existem (início e "para ler junto")
   const existe = s => posts.some(p => p.slug === s);

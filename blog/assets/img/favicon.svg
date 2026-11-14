@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="marca " viewBox="0 0 48 48" aria-hidden="true">
+  <circle cx="24" cy="24" r="14.5" fill="var(--azul-p)"/>
+  <g fill="none" stroke="#fff" stroke-width="1.4" opacity=".9"><ellipse class="marca-meridiano" cx="24" cy="24" rx="6.2" ry="14.5"/><path d="M9.5 24h29M12 17h24M12 31h24" opacity=".6"/></g>
+  <g class="marca-orbita"><ellipse cx="24" cy="24" rx="21.5" ry="8.5" fill="none" stroke="#2450E6" stroke-width="1.6" transform="rotate(-24 24 24)"/><circle cx="43.6" cy="15.3" r="3.1" fill="#2450E6"/></g></svg>

@@ -25,7 +25,10 @@ const MX = MG, MY = 250, MK = 1.35;
 const G = geoTrilha(0, 0, 1280, 470);
 const noMapa = corpo => `<g transform="translate(${MX} ${MY}) scale(${MK})">${corpo}</g>`;
 const AVISO = 'Retrato do momento, neste projeto. Não é avaliação de desempenho.';
-const AY = 905;                                                  // salvaguarda: uma linha de 26 px na margem esquerda, no pé do palco
+// salvaguarda: uma linha de 26 px na margem esquerda, no pé do palco. A linha passa pela beira da ilha, então vai
+// sobre uma faixa clara (a mesma faixa, na mesma posição, da cena "mapa": y 882–922, linha de base em y ≈ 911)
+const PE = { y: 882, h: 40, s: 26, pad: 24 };
+const AW = larg(AVISO, PE.s);
 const NA = nivelDe(HEROIS.A.sinais);                             // Adota (3); a Pessoa B fica em Observa (1)
 
 // rótulo de cada estação (a mesma conta de mapaTrilha), para o fundo opaco de quem recua
@@ -36,10 +39,12 @@ const ROT = NIVEIS.map((n, i) => {
 
 // percurso de cada pino (coordenadas lógicas do mapa): nasce em U0 e anda até U1. O pino A deixa a estrada em U1 e
 // dá um passo para o lado da estação Adota; o pino B para na estrada, logo antes de Observa. São os mesmos lugares
-// dos pinos na cena "mapa": G.vaga(3, 0, 4) e G.em(0.20).
+// dos pinos na cena "mapa": ao lado de Adota e G.em(0.20).
 // UBM (onde o pino B freia) fica depois do rótulo de Resiste, que neste formato se apoia na estrada.
 const UA0 = 0.075, UA1 = 0.62, UB0 = 0.02, UBM = 0.186, UB1 = 0.20;
-const PA = G.vaga(NA, 0, 4);                                     // ao lado de Adota
+// ao lado de Adota: o lugar G.vaga(3, 0, 4), um passo (24 px lógicos) mais para fora. Neste mapa largo a vaga fica
+// perto demais da estação e o anel do pino (escala 1) cobria a borda do disco de Adota
+const PA0 = G.vaga(NA, 0, 4), PA = [PA0[0] - 24, PA0[1]];
 
 // perfil de velocidade em trapézio: acelera, cruza em velocidade constante, freia
 const trap = (p, a = 0.12) => (p <= 0 ? 0 : p >= 1 ? 1 : p < a ? p * p / (2 * a * (1 - a)) : p > 1 - a ? 1 - (1 - p) * (1 - p) / (2 * a * (1 - a)) : (p - a / 2) / (1 - a));
@@ -130,7 +135,8 @@ export function desenhar(t, ctx) {
   // ---------- título (uma linha), cartão-legenda e salvaguarda, em coordenadas do quadro ----------
   s += titulo(['Onde cada pessoa está *hoje* na régua de adoção'], MG, TY, t, t0 + 0.15);
   s += cartaoLegenda(t, T);
-  // a linha cruza a beira da ilha: ganha um contorno claro por baixo das letras (texto de mapa), sem caixa
-  s += sobe(fin(t, tHoje + 0.12, 0.45), txt(AVISO, MG, AY, { s: 26, c: C.navy80 }).replace('<text ', `<text paint-order="stroke" stroke="${C.white}" stroke-width="7" stroke-linejoin="round" `), 14);
+  s += sobe(fin(t, tHoje + 0.12, 0.45),
+    `<rect x="${MG - PE.pad}" y="${PE.y}" width="${f(AW + PE.pad * 2)}" height="${PE.h}" rx="${PE.h / 2}" fill="#fff" opacity=".88"/>`
+    + txt(AVISO, MG, PE.y + PE.h / 2 + PE.s * 0.35, { s: PE.s, c: C.navy80 }), 14);
   return s;
 }

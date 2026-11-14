@@ -9,7 +9,7 @@
 //      O mapa é desenhado numa geometria local (LW x LA) e ampliado K vezes: "?" dos pinos com 33 px no quadro.
 // Sem câmera, sem contador, sem feixe de leitura, sem halos, rastros ou anéis. O único detalhe vivo é o tracejado da
 // estrada, bem lento. Sem personagens: pessoas são pinos.
-import { MG, C, txt, larg, fin, opa, pop, icone, clamp, lerp, inv, ease, n2, rng } from '../base.js';
+import { H, MG, C, txt, larg, fin, opa, pop, icone, clamp, lerp, inv, ease, n2, rng } from '../base.js';
 import { NIVEIS, contagem } from '../modelo.js';
 import { fundoNoite, geoTrilha } from '../ludico.js';
 
@@ -34,39 +34,78 @@ const CINZA = mix(C.navy80, C.navy40, 0.3);                // pino sem leitura: 
 const APAGADA = '#0B3554';                                 // estação ainda sem leitura
 
 // ---------- mapa de trilha (apoio) ----------
-// geometria local do mapa; no quadro vira translate(MX MY) scale(K): x 880–1840, y 138–1093 (a estrada entra pela
-// base e sai pela borda direita)
-const K = 1.4, MX = 880, MY = 138, LW = 686, LA = 682;
+// geometria local do mapa; no quadro vira translate(MX MY) scale(K): x 880–1840, y 156–1111 (a estrada entra pela
+// base e sai pela borda direita, abaixo da faixa da marca; estações e pinos ficam em y 158–1018, centrados no palco)
+const K = 1.4, MX = 880, MY = 156, LW = 686, LA = 682;
 const G = geoTrilha(0, 0, LW, LA);
 const X0 = 80, X1 = 650, Y0 = 78, Y1 = 636;                // área onde os pinos nascem (ponta do pino, coordenadas locais)
 const PS = 0.74;                                           // escala local dos pinos ("?" com 32 x 0,74 x K = 33 px no quadro)
 const RE = 42;                                             // raio local das estações (59 px no quadro)
 const CONT = contagem(2);                                  // pessoas por marca hoje (onda 3): [1, 4, 6, 9, 5]
+const EXT0 = 170, EXT1 = 90;                               // pontas da estrada que saem do quadro (base e borda direita)
 const CASC = 1.1;                                          // duração da cascata de cor (s), da esquerda para a direita
 // lugares em volta de cada estação: um arco limpo de pinos (até 6), mais um segundo arco por fora quando há mais gente,
 // sempre do lado livre da estrada. DIR = direção do centro do arco (rad). Devolve a ponta de cada pino.
-const DIR = [-2.1, -1.8, -0.36, -2.7, -2.08];
-const PASSO = [0.46, 0.46, 0.46, 0.46, 0.42];              // abertura entre pinos do arco de dentro (a 5ª estação fica entre dois trechos da estrada)
+// O passo entre vizinhos acompanha a forma da gota (mais alta do que larga): DX lado a lado, DY um acima do outro,
+// para nenhum pino encostar no vizinho nos trechos em que o arco fica na vertical (folga de ~8 px no quadro).
+const DIR = [-2.1, -1.9, 0, -2.7, -2.1];
+const RAIO = [104, 166];                                   // raio dos dois arcos (centro da estação -> cabeça do pino)
+const DX = 44, DY = 57;                                    // distância entre cabeças vizinhas (a gota tem 35 x 49)
 const CAB = 31;                                            // altura do centro da cabeça do pino acima da ponta
+const FOLGA = 13;                                          // folga mínima entre um pino "?" e a borda da estrada (18 px no quadro)
 function vagas(n, q) {
   const [ex, ey] = G.est(n), dentro = q <= 6 ? q : 5, out = [];
-  const arco = (m, raio, passo) => { for (let j = 0; j < m; j++) { const a = DIR[n] + (j - (m - 1) / 2) * passo; out.push([ex + Math.cos(a) * raio, ey + Math.sin(a) * raio + CAB]); } };
-  arco(dentro, 98, PASSO[n]);
-  arco(q - dentro, 160, 0.3);
+  const arco = (m, raio) => {
+    if (m < 1) return;
+    const passo = a => {                                   // abertura até o vizinho, a partir do ângulo a
+      let d = 0.4;
+      for (let i = 0; i < 8; i++) { const tg = a + d / 2 + Math.PI / 2; d = 2 * Math.asin(Math.min(1, Math.max(DX, DY * Math.abs(Math.sin(tg))) / (2 * raio))); }
+      return d;
+    };
+    let a0 = DIR[n], as = [a0];
+    for (let volta = 0; volta < 12; volta++) {             // centra o arco em DIR
+      as = [a0];
+      for (let j = 1; j < m; j++) as.push(as[j - 1] + passo(as[j - 1]));
+      a0 += DIR[n] - (as[0] + as[m - 1]) / 2;
+    }
+    as.forEach(a => out.push([ex + Math.cos(a) * raio, ey + Math.sin(a) * raio + CAB]));
+  };
+  arco(dentro, RAIO[0]);
+  arco(q - dentro, RAIO[1]);
   return out;
 }
-// pinos: espalhados numa grade 5 x 5 com ruído (x, y = ponta do pino), longe das estações; cada um vai para um lugar
-// perto dele (trajetos curtos, ninguém cruza o mapa inteiro)
+// eixo da estrada em amostras (com as pontas) e a gota como círculos (altura acima da ponta, raio): servem para medir
+// a folga entre um pino e a borda da estrada
+const EIXO = (() => {
+  const [x0, y0, a0] = G.em(0), [x1, y1, a1] = G.em(1), e = [];
+  for (let d = EXT0; d > 0; d -= 6) e.push([x0 - Math.cos(a0) * d, y0 - Math.sin(a0) * d]);
+  for (let i = 0; i <= 300; i++) e.push(G.em(i / 300));
+  for (let d = 6; d <= EXT1; d += 6) e.push([x1 + Math.cos(a1) * d, y1 + Math.sin(a1) * d]);
+  return e;
+})();
+const GOTA = [[42, 23.75], [27, 14.5], [17, 9], [9, 5], [3, 2]].map(([h, r]) => [h * PS, r * PS]);
+function folgaEstrada(x, y) {
+  let m = 1e9;
+  for (const [h, r] of GOTA) for (const e of EIXO) m = Math.min(m, Math.hypot(x - e[0], y - h - e[1]) - r - 21);
+  return m;
+}
+// pinos: espalhados numa grade 5 x 5 com ruído (x, y = ponta do pino), fora da estrada e longe das estações; cada um
+// vai para um lugar perto dele (trajetos curtos, ninguém cruza o mapa inteiro)
 const PINOS = (() => {
   const R = rng(4107), ps = [];
   for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
     let x = X0 + (c + 0.5 + (R() - 0.5) * 0.62 + (r % 2 ? 0.2 : -0.2)) * (X1 - X0) / 5;
     let y = Y0 + (r + 0.5 + (R() - 0.5) * 0.6) * (Y1 - Y0) / 5;
-    for (let i = 0; i < 5; i++) {                           // afasta das estações
-      const [ex, ey] = G.est(i), dx = x - ex, dy = y - CAB - ey, d = Math.hypot(dx, dy);
-      if (d < 84) { x = ex + dx / (d || 1) * 88; y = ey + CAB + dy / (d || 1) * 88; }
+    x = clamp(x, X0, X1); y = clamp(y, Y0, Y1);
+    // o mapa fica limpo: nenhum pino nasce cortando a estrada nem encostado numa estação. Procura, em anéis cada vez
+    // maiores em volta do ponto sorteado, o lugar livre mais próximo (determinístico)
+    const livre = (px, py) => px >= X0 && px <= X1 && py >= Y0 && py <= Y1 && folgaEstrada(px, py) >= FOLGA
+      && [0, 1, 2, 3, 4].every(i => { const [ex, ey] = G.est(i); return Math.hypot(px - ex, py - CAB - ey) >= 88; });
+    busca: for (let raio = 0; raio <= 150; raio += 5) for (let j = 0; j < (raio ? 24 : 1); j++) {
+      const a = j * Math.PI / 12, px = x + Math.cos(a) * raio, py = y + Math.sin(a) * raio;
+      if (livre(px, py)) { x = px; y = py; break busca; }
     }
-    ps.push({ x: clamp(x, X0, X1), y: clamp(y, Y0, Y1) });
+    ps.push({ x, y });
   }
   // os 25 lugares (marca + ponta do pino) e o casamento pino -> lugar: começa na ordem e troca pares enquanto a soma
   // dos quadrados das distâncias diminuir (determinístico)
@@ -88,10 +127,23 @@ const PINOS = (() => {
   return ps;
 })();
 const POUSO = NIVEIS.map((_, n) => Math.min(...PINOS.filter(p => p.n === n).map(p => p.tp)));   // 1º pino de cada estação
-// estrada inteira, com um trecho a mais de cada lado para sair do quadro
+// estrada inteira, com um trecho a mais de cada lado para sair do quadro (EXT0 antes do início, EXT1 depois do fim).
+// v = 0..1 percorre o conjunto todo num traço só: a ponta entra pela base e segue até sumir pela borda direita,
+// sem trecho aparecendo de uma vez.
 const ESTRADA = (() => {
-  const [x0, y0, a0] = G.em(0), [x1, y1, a1] = G.em(1);
-  return u => `M${f(x0 - Math.cos(a0) * 170)},${f(y0 - Math.sin(a0) * 170)} L` + G.d(0, u).slice(1) + (u >= 1 ? `L${f(x1 + Math.cos(a1) * 90)},${f(y1 + Math.sin(a1) * 90)}` : '');
+  const [x0, y0, a0] = G.em(0), [x1, y1, a1] = G.em(1), TOT = EXT0 + G.L + EXT1;
+  return v => {
+    const s = clamp(v) * TOT, r = EXT0 - Math.min(EXT0, s);
+    let d = `M${f(x0 - Math.cos(a0) * EXT0)},${f(y0 - Math.sin(a0) * EXT0)} L${f(x0 - Math.cos(a0) * r)},${f(y0 - Math.sin(a0) * r)} `;
+    if (s > EXT0) d += 'L' + G.d(0, Math.min(1, (s - EXT0) / G.L)).slice(1);
+    if (s > EXT0 + G.L) { const e = s - EXT0 - G.L; d += `L${f(x1 + Math.cos(a1) * e)},${f(y1 + Math.sin(a1) * e)}`; }
+    return d;
+  };
+})();
+// fração do traço que fica abaixo da base do quadro: o desenho começa dela, com a ponta já na borda (nada aparece de uma vez)
+const V0 = (() => {
+  const [, y0, a0] = G.em(0), fora = ((H + 32 - MY) / K - y0) / Math.max(0.2, -Math.sin(a0));
+  return clamp((EXT0 - fora) / (EXT0 + G.L + EXT1));
 })();
 
 // pino (gota) com a ponta em (x, y). k = entrada; q = quanto do "?" ainda aparece (1 = sem leitura, 0 = localizado)
@@ -111,7 +163,7 @@ export function desenhar(t, ctx) {
   let mapa = '';
   const uE = ease.inOut(inv(t0 + 0.1, t0 + 0.6, t));
   if (uE > 0) {
-    const d = ESTRADA(uE);
+    const d = ESTRADA(lerp(V0, 1, uE));
     mapa += `<path d="${d}" fill="none" stroke="${C.blue80}" stroke-opacity=".5" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>`
       + `<path d="${d}" fill="none" stroke="${C.navy}" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>`
       + `<path d="${d}" fill="none" stroke="${C.blue20}" stroke-opacity=".8" stroke-width="3" stroke-dasharray="16 16" stroke-dashoffset="${f(-t * 14)}" stroke-linecap="round"/>`;

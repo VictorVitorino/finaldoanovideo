@@ -24,7 +24,7 @@ export const LEGENDA = true;
 const G = geoTrilha(0, 0, 1280, 470);
 const MAPA = { x: MG, y: 250, k: 1.35 };
 const X1 = W - MG;                                       // margem direita (1824)
-const TY = 200, TS = 72;                                 // título: uma linha, Light 72 px
+const TY = 188, TS = 72;                                 // título: uma linha, Light 72 px
 const T1 = 'Área por área, nasce o', T2 = 'Mapa de Adoção';
 const SP = 0.62;                                         // escala dos pinos (a do kit); no quadro, 0,84
 const SH = 0.8;                                          // escala final dos pinos A e B; no quadro, 1,08
@@ -34,20 +34,20 @@ const RECUO = 0.5;                                       // quanto as áreas que
 const LBL = { x: MG, y: 262, h: 56, s: 30 };             // etiqueta da área da vez (canto superior esquerdo do palco)
 const BAR = { y: 808, h: 76 };                           // placar (canto inferior direito do mapa, fora da ilha)
 const KS = 1.9;                                          // ampliação do selo do kit (14 px -> 26,6 px)
-const PE = { y: 882, h: 40, s: 26 };                     // faixa das salvaguardas (linha de base em y ≈ 911)
+const PE = { y: 911, s: 26 };                            // salvaguardas: faixa clara em y 882–922 e linha de base em y 911, as mesmas da cena "regua"
 
 // onde cada pessoa fica (onda 1), em coordenadas lógicas do mapa. Lugares compostos para o mapa largo: nenhum pino
 // fica em cima de uma bandeira, de um rótulo, no meio da pista, na beira da ilha ou encostado no anel de A e B.
-const PA0 = G.vaga(3, 0, 4);                             // Pessoa A: ao lado de Adota (onde a cena anterior a deixou)
-const PA = [PA0[0] - 14, PA0[1]];                        // ao assentar, dá um passo curto para o anel não encostar na estação
+const PA0 = [G.vaga(3, 0, 4)[0] - 24, G.vaga(3, 0, 4)[1]];   // Pessoa A: ao lado de Adota, um passo para fora (onde a cena anterior a deixou)
+const PA = PA0;                                          // fica onde chegou: o anel já não encosta na estação
 const PB0 = G.em(0.20);                                  // Pessoa B: onde parou na cena anterior (na estrada, antes de Observa)
 const POS = {
   // Resiste (6): arco à esquerda da estação e duas pessoas depois da bandeira
   6: [84, 372], 7: [112, 334], 2: [152, 310], 19: [186, 298], 18: [284, 344], 23: [326, 334],
   // Observa (8): B sai da estrada; três acima, à esquerda da bandeira; duas entre as pistas; duas abaixo da pista
   1: [436, 320], 3: [486, 318], 8: [520, 292], 9: [558, 286], 12: [676, 305], 15: [722, 304], 20: [536, 446], 21: [590, 446],
-  // Experimenta (6): grupo à direita da estação
-  4: [1114, 232], 5: [1160, 238], 10: [1136, 286], 13: [1182, 292], 17: [1108, 338], 22: [1154, 344],
+  // Experimenta (6): grupo à direita da estação, em duas fileiras de três (deixa o selo e o placar respirarem)
+  4: [1124, 232], 5: [1170, 238], 10: [1216, 232], 13: [1146, 290], 17: [1192, 296], 22: [1238, 290],
   // Adota (4): A e um arco que sobe à esquerda da estação
   0: PA, 11: [478, 160], 14: [508, 120], 24: [550, 100],
   // Multiplica (1)
@@ -84,7 +84,6 @@ const MED = {
   wl: ['pessoas', 'áreas', 'marcas'].map(r => larg(r, SL)),
   wSelo: (larg('ILUSTRATIVO', 14, { w: 700, ls: 2.4 }) + 22) * KS,
   w1: larg('Leitura agregada por área.', PE.s, { w: 700 }),
-  w2: larg('Retrato do momento, neste projeto. Não é avaliação de desempenho.', PE.s),
 };
 
 export function desenhar(t, ctx) {
@@ -175,15 +174,19 @@ export function desenhar(t, ctx) {
   }
 
   // ---------- salvaguardas no pé do palco, alinhadas à margem esquerda ----------
+  // a linha cruza a beira da ilha: fica sobre uma faixa clara arredondada, a mesma da cena anterior
   {
     const k = fin(t, t0 + 0.42, 0.45);
     if (k > 0.001) {
       const f1 = 'Leitura agregada por área.', f2 = 'Retrato do momento, neste projeto. Não é avaliação de desempenho.';
-      const { w1, w2 } = M, gap = 32, pad = 24, w = w1 + gap + w2 + pad * 2, x0 = MG - pad, yb = PE.y + PE.h / 2 + PE.s * 0.35;
-      s += `<g opacity="${f(k)}" transform="translate(0 ${f((1 - k) * 12)})"><rect x="${f(x0)}" y="${PE.y}" width="${f(w)}" height="${PE.h}" rx="${PE.h / 2}" fill="#fff" opacity=".88"/>`
-        + txt(f1, x0 + pad, yb, { w: 700, s: PE.s, c: C.navy80 })
-        + `<path d="M${f(x0 + pad + w1 + gap / 2)},${PE.y + 10} v20" stroke="${C.navy40}" stroke-width="1.5"/>`
-        + txt(f2, x0 + pad + w1 + gap, yb, { s: PE.s, c: C.navy80 }) + `</g>`;
+      const { w1 } = M, gap = 32;
+      const wt = w1 + gap + larg(f2, PE.s);
+      s += `<g opacity="${f(k)}" transform="translate(0 ${f((1 - k) * 12)})">`
+        + `<rect x="${MG - 24}" y="${PE.y - 29}" width="${f(wt + 48)}" height="40" rx="20" fill="#fff" opacity=".88"/>`
+        + txt(f1, MG, PE.y, { w: 700, s: PE.s, c: C.navy80 })
+        + txt(f2, MG + w1 + gap, PE.y, { s: PE.s, c: C.navy80 })
+        + `<path d="M${f(MG + w1 + gap / 2)},${PE.y - 19} v22" stroke="${C.navy40}" stroke-width="1.5"/>`
+        + `</g>`;
     }
   }
   return s;

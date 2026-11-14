@@ -9,7 +9,7 @@
 //   3. A janela do dashboard em duas metades: à esquerda o MAPA DE CALOR (áreas x régua); à direita um cartão com o
 //      ÍNDICE DE ADOÇÃO em número grande, em cima, e a LINHA por onda com o marco GO-LIVE, embaixo.
 // As colunas do mapa de calor ficam estreitas no quadro horizontal; por isso o cabeçalho de cada marca da régua é uma
-// faixa vertical na cor da marca, com o nome girado (28 px), e as células ficam quase quadradas.
+// faixa vertical na cor da marca, com o nome girado (30 px), e as células ficam quase quadradas.
 // Roteiro: a janela sobe e monta; em 'vivo' o indicador acende; em "Posição" entra o aviso; em avançam / travam / recuam
 // uma etiqueta marca uma célula do mapa de calor; em 'medimos' o cursor clica em "Onda 2" e o mapa, o índice (20% -> 32%)
 // e a linha mudam; em 'plano' o aviso vira "Plano de mudança ajustado"; em 'antes' o cursor clica em "Onda 3"
@@ -43,7 +43,7 @@ const JX = WX + PAD, JY = Math.round(WY + BAR + 27), JW = WW - 2 * PAD, JH = WY 
 const TITULO_J = 'Mapa de Adoção';
 const SELO_K = 1.9, SELO_X = WX + 112 * KJ + larg(TITULO_J, 24, { w: 700 }) * KJ + 20;   // selo ampliado: texto de 14 -> 26,6 px
 const ABAS = ['Onda 1', 'Onda 2', 'Onda 3'];
-const TABS = 26, TABH = 46;
+const TABS = 26, TABH = 50;                                // abas com a mesma altura do selo (49,4 px)
 const TAB = (() => {                                       // abas desenhadas na cena (texto de 26 px)
   let ax = WX + WW - PAD;                                 // a última aba termina na guia direita da área útil
   const out = [];
@@ -55,11 +55,13 @@ const TAB = (() => {                                       // abas desenhadas na
   }
   return out;
 })();
-// duas metades: mapa de calor (636 px) e cartão do índice (384 px), com 28 px entre elas
-const GW = 636, GAP = 28;
-const AS = 28, HS = 28, NS = 40;                                               // corpo: áreas, marcas da régua e números
-const GC = geoCalor(JX, JY, GW, JH, { rotW: 162, cab: 174 });                  // células de 94,8 x 112 px
-const IC = { x: JX + GW + GAP, y: JY, w: JW - GW - GAP, h: JH - 4 };           // cartão do índice: número em cima, linha embaixo; base na base das células
+// duas metades: mapa de calor (644 px visíveis) e cartão do índice (376 px), com 28 px entre elas.
+// As células do kit têm 4 px de recuo: a geometria ganha 4 px à direita e embaixo para a última coluna terminar em
+// JX + 644 e a última linha em JY + JH (as quatro folgas internas da janela ficam com 28 px).
+const GW = 648, GAP = 28;
+const AS = 30, HS = 30, NS = 40;                                               // corpo: áreas, marcas da régua e números
+const GC = geoCalor(JX, JY, GW, JH + 4, { rotW: 168, cab: 184 });              // células de 88 x 102,5 px (visíveis)
+const IC = { x: JX + GW - 4 + GAP, y: JY, w: JW - GW + 4 - GAP, h: JH };       // cartão do índice: número em cima, linha embaixo; base na base das células
 const NUM = { s: 132, y: IC.y + 190 };                                         // número grande (linha de base)
 const CH = { x: IC.x + 20, w: IC.w - 40 };                                     // área da linha dentro do cartão
 const GOY = IC.y + 264, GOH = 44;                                              // pílula GO-LIVE (centro e altura)
@@ -108,13 +110,13 @@ function mapaCalor(ond, u) {
   });
   return s;
 }
-// etiqueta do movimento: a própria célula vira a etiqueta (ícone em cima, palavra embaixo), 6 px maior que a célula
+// etiqueta do movimento: a própria célula vira a etiqueta (ícone em cima, palavra embaixo), 7 px maior que a célula
 function etiq(ex, k) {
   if (k <= 0.001) return '';
-  const [x0, y0, cw, rh] = GC.cel(...ex.cel), [cx, cy] = GC.centro(...ex.cel), e = 6;
+  const [x0, y0, cw, rh] = GC.cel(...ex.cel), [cx, cy] = GC.centro(...ex.cel), e = 7;
   const b = `<rect x="${f(x0 + 4 - e)}" y="${f(y0 + 4 - e)}" width="${f(cw - 8 + 2 * e)}" height="${f(rh - 8 + 2 * e)}" rx="14" fill="${ex.cor}" stroke="${C.white}" stroke-width="3.5"/>`
     + icone(ex.ic, cx, cy - 20, 38, { c: ex.tx, sw: 3.2 })
-    + txt(ex.rot, cx, cy + 35, { w: 700, s: 28, c: ex.tx, a: 'middle' });
+    + txt(ex.rot, cx, cy + 35, { w: 700, s: 30, c: ex.tx, a: 'middle' });
   return opa(clamp(k * 1.5), pop(0.8 + 0.2 * k, cx, cy, b));
 }
 // cartão do índice: número grande em cima e linha por onda embaixo.
@@ -187,7 +189,7 @@ export function desenhar(t, ctx) {
   let cena = '';
   {
     const k = fin(t, t0 + 0.55, 0.45), on = fin(t, tVivo, 0.35);
-    const sz = 28, wT = larg('AO VIVO', sz, { w: 700, ls: 2 }), h = 56, w = 26 + 20 + 14 + wT + 28, x0 = TX0, y0 = LY, cy = y0 + h / 2;
+    const sz = 30, wT = larg('AO VIVO', sz, { w: 700, ls: 2 }), h = 56, w = 26 + 20 + 14 + wT + 28, x0 = TX0, y0 = LY, cy = y0 + h / 2;
     // único detalhe vivo da cena: o ponto pisca devagar
     const pisca = 1 - 0.5 * on * (0.5 - 0.5 * Math.cos((t - tVivo) * Math.PI * 2 / 1.5));
     const b = `<rect x="${f(x0)}" y="${y0}" width="${f(w)}" height="${h}" rx="${h / 2}" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>`
@@ -267,8 +269,9 @@ export function desenhar(t, ctx) {
   [tC1, tC2].forEach((tc, j) => {
     const o = fin(t, tc - 0.55, 0.2) * fout(t, tc + 0.5, 0.3);
     if (o <= 0.001) return;
-    // a ponta do cursor pousa logo abaixo do texto da aba (não cobre o rótulo) e chega por baixo, por dentro da janela
-    const tb = TAB[j + 1], P1 = [tb.cx + 18, tb.cy + 14], P0 = [P1[0] - 12, P1[1] + 84];
+    // a ponta do cursor pousa na base da pílula, abaixo da linha de base do texto (não cobre o rótulo). Chega por baixo
+    // e pela direita, num trajeto curto por dentro da janela, sem passar por cima do rótulo "ÍNDICE DE ADOÇÃO"
+    const tb = TAB[j + 1], P1 = [tb.cx + 18, tb.cy + 21], P0 = [Math.min(P1[0] + 80, WX + WW - PAD - 40), P1[1] + 40];
     const [x, y] = kf(t, [[tc - 0.55, P0], [tc - 0.08, P1]]);
     cena += opa(o, cursor(x, y, { clique: inv(tc, tc + 0.45, t), s: 1.4 }));
   });

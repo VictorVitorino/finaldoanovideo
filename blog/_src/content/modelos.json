@@ -9,6 +9,33 @@
     "frase": "Onze slides editáveis: mudança em uma página, impactos, stakeholders, RACI, ADKAR, mapa de adoção, riscos, status e próximos passos."
   },
   {
+    "id": "apresentacao-kickoff-da-mudanca",
+    "arquivo": "apresentacao-kickoff-da-mudanca.pptx",
+    "nome": "Apresentação de kickoff da mudança",
+    "olho": "Apresentação",
+    "previa": "adocao",
+    "formato": "PowerPoint",
+    "frase": "Sete slides para lançar a mudança: o porquê, de e para, o que muda para cada grupo, jornada até o go-live, rede de apoio e o que se pede de cada um."
+  },
+  {
+    "id": "relatorio-executivo-de-adocao",
+    "arquivo": "relatorio-executivo-de-adocao.pptx",
+    "nome": "Relatório executivo de adoção",
+    "olho": "Apresentação",
+    "previa": "diagnostico",
+    "formato": "PowerPoint",
+    "frase": "Seis slides para o comitê: adoção em uma tela, avanço por área, causas pela leitura ADKAR, decisões necessárias e compromissos do próximo ciclo."
+  },
+  {
+    "id": "workshop-com-patrocinadores",
+    "arquivo": "workshop-com-patrocinadores.pptx",
+    "nome": "Workshop com patrocinadores",
+    "olho": "Apresentação",
+    "previa": "influencia",
+    "formato": "PowerPoint",
+    "frase": "Roteiro de 90 minutos em oito slides: o papel de quem patrocina, exercício de stakeholders e os compromissos de cada líder para 30 dias."
+  },
+  {
     "id": "avaliacao-adkar-mapa-de-resistencia",
     "arquivo": "avaliacao-adkar-mapa-de-resistencia.xlsx",
     "nome": "Avaliação ADKAR com mapa de resistência",

@@ -3,9 +3,10 @@
 //   1. à esquerda (x 96–900), a PERGUNTA em Light 112 px, quatro linhas centradas na vertical; cada palavra entra no
 //      instante da fala (fade + subida curta) e só "hoje?" fica em laranja (o foco do fim da cena);
 //   2. à direita (x 900–1920), o mapa de trilha noturno ocupando a altura toda do palco: a estrada entra pela base,
-//      sobe em zigue-zague e sai pela borda direita; as cinco estações ainda apagadas e 25 pinos cinza com "?".
-//      Em 'voce_sabe' os pinos ganham a cor da sua marca em cascata, da esquerda para a direita, e deslizam até a
-//      estação mais próxima, que acende. Depois disso tudo fica parado.
+//      sobe em zigue-zague e sai pela borda direita; as cinco estações ainda apagadas e 25 pinos cinza com "?"
+//      espalhados fora da pista. Em 'voce_sabe' os pinos ganham a cor da sua marca em cascata, da esquerda para a
+//      direita, e deslizam até a estação mais próxima, que acende; pousam em leque, sem encostar um no outro nem
+//      na estrada. Depois disso tudo fica parado.
 //      O mapa é desenhado numa geometria local (LW x LA) e ampliado K vezes: "?" dos pinos com 33 px no quadro.
 // Sem câmera, sem contador, sem feixe de leitura, sem halos, rastros ou anéis. O único detalhe vivo é o tracejado da
 // estrada, bem lento. Sem personagens: pessoas são pinos.
@@ -83,7 +84,7 @@ const EIXO = (() => {
   for (let d = 6; d <= EXT1; d += 6) e.push([x1 + Math.cos(a1) * d, y1 + Math.sin(a1) * d]);
   return e;
 })();
-const GOTA = [[42, 23.75], [27, 14.5], [17, 9], [9, 5], [3, 2]].map(([h, r]) => [h * PS, r * PS]);
+const GOTA = [[42, 23.75], [30, 19], [20, 13], [10, 7], [3, 3.5]].map(([h, r]) => [h * PS, r * PS]);
 function folgaEstrada(x, y) {
   let m = 1e9;
   for (const [h, r] of GOTA) for (const e of EIXO) m = Math.min(m, Math.hypot(x - e[0], y - h - e[1]) - r - 21);

@@ -4,8 +4,12 @@ Post de LinkedIn sobre Gestão da Mudança (Change Management), em motion graphi
 
 | Arquivo | Para quê |
 |---|---|
-| [`videos/mapa-perfil-cognitivo.mp4`](../videos/mapa-perfil-cognitivo.mp4) | Vídeo 1080 × 1350 (4:5), 88 s, 30 fps, com narração, trilha e legenda queimada (o feed toca mudo). |
-| [`videos/mapa-perfil-cognitivo-capa.jpg`](../videos/mapa-perfil-cognitivo-capa.jpg) | Capa (miniatura) do vídeo. |
+| [`videos/mapa-perfil-cognitivo-16x9.mp4`](../videos/mapa-perfil-cognitivo-16x9.mp4) | **Versão 16:9** (1920 × 1080), 88 s, 30 fps, com narração, trilha e legenda queimada (o feed toca mudo). |
+| [`videos/mapa-perfil-cognitivo-16x9-capa.jpg`](../videos/mapa-perfil-cognitivo-16x9-capa.jpg) | Capa (miniatura) da versão 16:9. |
+| [`videos/mapa-perfil-cognitivo.mp4`](../videos/mapa-perfil-cognitivo.mp4) | Versão 4:5 (1080 × 1350), mesma narração e mesmos tempos. Ocupa mais tela no feed do celular. |
+| [`videos/mapa-perfil-cognitivo-capa.jpg`](../videos/mapa-perfil-cognitivo-capa.jpg) | Capa da versão 4:5. |
+
+As duas versões contam a mesma história com a mesma trilha. O 4:5 fica em `animacao/src/mapa/` e o 16:9 em `animacao/src/mapa169/` (as cenas foram recompostas para o quadro horizontal: texto à esquerda e visual à direita, ou o mapa em largura total). Os tempos (`src/mapa/tempos.json`) são compartilhados.
 
 ## Roteiro e tempos
 
@@ -63,10 +67,12 @@ Adoção não se impõe. Se constrói, pessoa por pessoa.
 ## Antes de publicar
 
 1. **Método.** Confirme com o time os cinco sinais, as cinco marcas da régua, as ações e as fontes de leitura ("pesquisa curta, conversa com gestores e dados de uso"). São uma proposta para o vídeo.
-2. **Marca.** A marca na tela é "Victor Vitorino · Consultor de Change Management". Para trocar o texto, edite o topo em `animacao/src/mapa/filme.js` e o cartão final em `animacao/src/mapa/cenas/fecho.js`.
+2. **Marca.** A marca na tela é "Victor Vitorino · Consultor de Change Management". Para trocar o texto, edite o topo em `filme.js` e o cartão final em `cenas/fecho.js`, nas duas pastas (`animacao/src/mapa/` e `animacao/src/mapa169/`).
 3. **Voz.** Ouça a narração inteira uma vez, com atenção a "go-live" e "Cognitivo". A conferência aqui foi por transcrição automática, não por ouvido.
 
 ## Como gerar de novo
+
+Versão 4:5:
 
 ```bash
 cd animacao
@@ -75,6 +81,13 @@ python3 producao/mapa_audio.py --take doug2s     # trilha (build/mapa/trilha.wav
 node render.mjs stills --page mapa.html --w 1080 --h 1350 --test filme --t 3,25,40,46,55,70,86 --out build/mapa/stills
 node render.mjs frames --page mapa.html --w 1080 --h 1350 --test filme --out build/mapa/frames --workers 3
 ffmpeg -y -framerate 30 -i build/mapa/frames/f%05d.jpg -i build/mapa/trilha.wav -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -movflags +faststart -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k -shortest ../videos/mapa-perfil-cognitivo.mp4
+```
+
+Versão 16:9 (usa a mesma trilha e os mesmos tempos):
+
+```bash
+node render.mjs frames --page mapa169.html --w 1920 --h 1080 --test filme --out build/mapa169/frames --workers 3
+ffmpeg -y -framerate 30 -i build/mapa169/frames/f%05d.jpg -i build/mapa/trilha.wav -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -movflags +faststart -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k -shortest ../videos/mapa-perfil-cognitivo-16x9.mp4
 ```
 
 O render pula quadros que já existem: apague `build/mapa/frames` depois de mudar algo. Para trabalhar em uma cena só, use `--test uma-<id>` (por exemplo `uma-perfil`). Para ver os componentes, use `--test prancha --t 0.5,1.5,2.5,3.5,4.5,5.5`.
@@ -87,7 +100,7 @@ Para trocar a voz, coloque `<take>.mp3` e `<take>.words.json` em `animacao/audio
 |---|---|
 | Sinais, marcas da régua, ações, áreas e pessoas | `animacao/src/mapa/modelo.js` |
 | Respiros entre frases, legenda, efeitos sonoros (poucos e baixos) e trilha | `animacao/producao/mapa_audio.py` |
-| Uma cena | `animacao/src/mapa/cenas/<id>.js` |
+| Uma cena | `animacao/src/mapa/cenas/<id>.js` (4:5) e `animacao/src/mapa169/cenas/<id>.js` (16:9) |
 | Interface comum (selo do vídeo, etiqueta do capítulo, legenda, progresso) | `animacao/src/mapa/filme.js` |
 | Fundos, mapa de trilha e os efeitos (hoje desligados: partículas, faíscas, confete, rastros, brilho) | `animacao/src/mapa/ludico.js` |
 | Componentes do dashboard (mapa de calor, tendência, indicadores) | `animacao/src/mapa/painelUI.js` |

@@ -4,6 +4,9 @@
 // Em "adota" as barras da Pessoa A crescem e o uso dela conta até 92%. Em "volta para a planilha" a planilha antiga
 // cobre a ferramenta na tela da Pessoa B, que fica com uso zero. O foco troca de tela só por opacidade.
 // O título e as duas telas já estão no quadro em t = 0 (no feed o vídeo aparece mudo e parado no primeiro quadro).
+// Composição 16:9, esquema A (duas colunas): título em 3 linhas à esquerda, centrado na altura das telas; as duas telas
+// lado a lado à direita, até a margem (x = 1824), com as etiquetas de resultado logo abaixo. Tudo desenhado direto em
+// pixels do quadro: nenhum texto abaixo de 26 px.
 import {
   W, MG, C, txt, tRico, larg, fin, back, opa, sobe, icone, disco, pilula, clamp, lerp, inv, ease, n2,
 } from '../base.js';
@@ -15,22 +18,24 @@ export const LEGENDA = true;
 
 const f = n2;
 
-// ---------- geometria ----------
-const TIT = { y: 222, s: 62, lh: 69 };                 // título: 3 linhas
-const WW = 440, WH = 616, WY = 440;                    // as duas telas (janelas claras)
-const XA = MG, XB = W - MG - WW;                       // 72 e 568
-const CAB = 84;                                        // cabeçalho com a pessoa
+// ---------- geometria (quadro 1920 x 1080) ----------
+const WW = 456, WH = 650, WY = 150, VAO = 24;          // as duas telas (janelas claras): y 150–800
+const XB = W - MG - WW, XA = XB - VAO - WW;            // 888 e 1368: a tela B encosta na margem direita (1824)
+// título: 3 linhas em Light 72 px na coluna da esquerda (tinta em x 96–824), centradas na altura das telas (y 475)
+const TIT = { s: 72, lh: 84 };
+TIT.y = WY + WH / 2 - TIT.lh + Math.round(TIT.s * 0.36);   // linha de base da 1ª linha (a do meio fica no centro óptico)
+const CAB = 88;                                        // cabeçalho com a pessoa
 // coordenadas locais da janela (0..WW, 0..WH)
-const AP = { x: 24, y: 108, w: 392, h: 264 };          // a "nova ferramenta": título e um gráfico de barras
-const BAR = { x: 60, w: 48, passo: 68, base: 344, max: 150 };
-const TOCO = [34, 46, 38, 52, 42];                     // barras antes de alguém usar (iguais nas duas telas)
+const AP = { x: 20, y: 108, w: 416, h: 282 };          // a "nova ferramenta": título e um gráfico de barras
+const BAR = { x: 59, w: 50, passo: 72, base: 364, max: 158 };
+const TOCO = [36, 48, 40, 54, 44];                     // barras antes de alguém usar (iguais nas duas telas)
 const ALVO = [0.5, 0.68, 0.6, 0.84, 1];                // barras da Pessoa A depois de "adota"
-const SL = { x: 24, y: 388, w: 392, h: 68 };           // selo do treinamento
-const MD = { x: 24, y: 472, w: 392, h: 120 };          // medidor "uso diário"
-const PL = { x: 16, y: 158, w: 408, tit: 44, cab: 32, lin: 34, n: 4, rw: 36 };   // planilha (só na tela B): cobre o gráfico, 8 px mais larga de cada lado
+const SL = { x: 20, y: 406, w: 416, h: 72 };           // selo do treinamento
+const MD = { x: 20, y: 494, w: 416, h: 136 };          // medidor "uso diário"
+const PL = { x: 12, y: 164, w: 432, tit: 48, cab: 36, lin: 35, n: 4, rw: 40 };   // planilha (só na tela B): cobre o gráfico, 8 px mais larga de cada lado
 PL.h = PL.tit + PL.cab + PL.lin * PL.n;
 PL.cw = (PL.w - PL.rw) / 4;
-const ETQ = { y: 1088, h: 58 };                        // etiquetas "Adota" / "Volta para a planilha"
+const ETQ = { y: WY + WH + 24, h: 64 };                // etiquetas "Adota" / "Volta para a planilha": y 824–888
 
 const ret = (x, y, w, h, rx, attr) => `<rect x="${f(x)}" y="${f(y)}" width="${f(Math.max(0, w))}" height="${f(Math.max(0, h))}" rx="${rx}" ${attr}/>`;
 const checkPath = (cx, cy, k) => `M${f(cx - 5.5 * k)},${f(cy + 0.5 * k)} l${f(3.8 * k)},${f(3.8 * k)} l${f(7.2 * k)},${f(-8 * k)}`;
@@ -46,7 +51,7 @@ function entra(t, a, cx, cy, body, d = 0.42) {
 // a nova ferramenta: um cartão com o nome e um gráfico de barras. Idêntico nas duas telas. uB = crescimento das barras
 function ferramenta(uB) {
   let s = ret(AP.x, AP.y, AP.w, AP.h, 14, `fill="${C.gray20}" stroke="${C.line}" stroke-width="1.5"`)
-    + txt('Nova ferramenta', AP.x + 20, AP.y + 42, { w: 700, s: 26, c: C.navy });
+    + txt('Nova ferramenta', AP.x + 20, AP.y + 44, { w: 700, s: 30, c: C.navy });
   for (let i = 0; i < 5; i++) {
     const u = uB[i], hh = TOCO[i] + (ALVO[i] * BAR.max - TOCO[i]) * u, bx = BAR.x + i * BAR.passo;
     s += ret(bx, BAR.base - hh, BAR.w, hh, 6, `fill="${C.blue40}"`);
@@ -59,20 +64,20 @@ function ferramenta(uB) {
 function selo(uChk) {
   const cy = SL.y + SL.h / 2;
   return ret(SL.x, SL.y, SL.w, SL.h, 14, `fill="${C.white}" stroke="${C.navy}" stroke-width="2"`)
-    + disco('capelo', SL.x + 40, cy, 22, { fundo: C.navy, c: C.white, sw: 2.6 })
-    + txt('Treinamento concluído', SL.x + 76, cy + 9, { w: 700, s: 25, c: C.navy })
-    + `<circle cx="${SL.x + SL.w - 36}" cy="${cy}" r="15" fill="${C.blue}"/>`
-    + (uChk > 0 ? `<path d="${checkPath(SL.x + SL.w - 37, cy, 1)}" fill="none" stroke="${C.white}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="${f(1 - uChk)}"/>` : '');
+    + disco('capelo', SL.x + 37, cy, 23, { fundo: C.navy, c: C.white, sw: 2.6 })
+    + txt('Treinamento concluído', SL.x + 70, cy + 10.5, { w: 700, s: 30, c: C.navy })
+    + `<circle cx="${SL.x + SL.w - 33}" cy="${cy}" r="16" fill="${C.blue}"/>`
+    + (uChk > 0 ? `<path d="${checkPath(SL.x + SL.w - 34, cy, 1.07)}" fill="none" stroke="${C.white}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="${f(1 - uChk)}"/>` : '');
 }
 
 // medidor "uso diário": o número que conta e a barra de nível (v em %)
 function medidor(v) {
   const tw = MD.w - 40;
   return ret(MD.x, MD.y, MD.w, MD.h, 14, `fill="${C.gray20}" stroke="${C.line}" stroke-width="1.5"`)
-    + txt('USO DIÁRIO', MD.x + 20, MD.y + 56, { w: 700, s: 22, ls: 1.4, c: C.navy80 })
-    + txt(Math.round(v) + '%', MD.x + MD.w - 20, MD.y + 66, { f: 'L', w: 400, s: 56, c: C.navy, a: 'end' })
-    + ret(MD.x + 20, MD.y + 86, tw, 14, 7, `fill="${C.gray}"`)
-    + (v > 0.5 ? ret(MD.x + 20, MD.y + 86, Math.max(14, tw * v / 100), 14, 7, `fill="${C.blue}"`) : '');
+    + txt('USO DIÁRIO', MD.x + 20, MD.y + 63, { w: 700, s: 30, ls: 1.4, c: C.navy80 })
+    + txt(Math.round(v) + '%', MD.x + MD.w - 20, MD.y + 72, { f: 'L', w: 400, s: 62, c: C.navy, a: 'end' })
+    + ret(MD.x + 20, MD.y + 94, tw, 16, 8, `fill="${C.gray}"`)
+    + (v > 0.5 ? ret(MD.x + 20, MD.y + 94, Math.max(16, tw * v / 100), 16, 8, `fill="${C.blue}"`) : '');
 }
 
 // planilha antiga: barra de título cinza, cantos retos, grade e a primeira linha em laranja-20
@@ -81,16 +86,16 @@ function planilha() {
   const gy = y + tit + cab;
   let s = ret(x, y, w, h, 4, `fill="${C.white}"`)
     + `<path d="M${x},${y + tit} V${y + 4} a4,4 0 0 1 4,-4 H${x + w - 4} a4,4 0 0 1 4,4 V${y + tit}Z" fill="${C.gray}"/>`
-    + icone('planilha', x + 26, y + tit / 2, 24, { c: C.navy, sw: 2.4 })
-    + txt('controle_v7_FINAL.xls', x + 48, y + 30, { w: 700, s: 22, c: C.navy });
+    + icone('planilha', x + 28, y + tit / 2, 26, { c: C.navy, sw: 2.4 })
+    + txt('controle_v7_FINAL.xls', x + 52, y + 33, { w: 700, s: 26, c: C.navy });
   s += ret(x, y + tit, w, cab, 0, `fill="${C.gray40}"`) + ret(x, gy, rw, lin * n, 0, `fill="${C.gray40}"`)
     + ret(x + rw, gy, w - rw, lin, 0, `fill="${C.orange20}"`);
-  ['A', 'B', 'C', 'D'].forEach((l, c) => { s += txt(l, x + rw + cw * (c + 0.5), y + tit + 24, { w: 700, s: 22, c: C.navy80, a: 'middle' }); });
-  for (let r = 0; r < n; r++) s += txt(String(r + 1), x + rw / 2, gy + lin * r + 25, { s: 22, c: C.navy80, a: 'middle' });
+  ['A', 'B', 'C', 'D'].forEach((l, c) => { s += txt(l, x + rw + cw * (c + 0.5), y + tit + 27, { w: 700, s: 26, c: C.navy80, a: 'middle' }); });
+  for (let r = 0; r < n; r++) s += txt(String(r + 1), x + rw / 2, gy + lin * r + 27, { s: 26, c: C.navy80, a: 'middle' });
   const larguras = [[0.7, 0.55, 0.6, 0.5], [0.8, 0.45, 0.5, 0.62], [0.62, 0.5, 0.42, 0.7], [0.74, 0.58, 0.56, 0.48]];
   for (let r = 0; r < n; r++) for (let c = 0; c < 4; c++) {
-    const cx = x + rw + cw * c, cy = gy + lin * r, lw = larguras[r][c] * (cw - 24);
-    s += ret(c === 0 ? cx + 12 : cx + cw - 12 - lw, cy + lin / 2 - 5, lw, 10, 5, `fill="${r === 0 ? C.navy80 : C.navy40}"`);
+    const cx = x + rw + cw * c, cy = gy + lin * r, lw = larguras[r][c] * (cw - 28);
+    s += ret(c === 0 ? cx + 14 : cx + cw - 14 - lw, cy + lin / 2 - 5.5, lw, 11, 5.5, `fill="${r === 0 ? C.navy80 : C.navy40}"`);
   }
   let grade = '';
   for (let c = 0; c <= 4; c++) grade += `M${f(x + rw + cw * c)},${y + tit} V${y + h} `;
@@ -100,10 +105,10 @@ function planilha() {
 
 // etiqueta de resultado sob a tela
 function etiquetaRes(str, cx, fill, tinta, ic) {
-  const s = 28, wt = larg(str, s, { w: 700 }), w = wt + 88, x0 = cx - w / 2, cy = ETQ.y + ETQ.h / 2;
+  const s = 30, wt = larg(str, s, { w: 700 }), w = wt + 98, x0 = cx - w / 2, cy = ETQ.y + ETQ.h / 2;
   return pilula(x0, ETQ.y, w, ETQ.h, fill)
-    + `<circle cx="${f(x0 + 31)}" cy="${cy}" r="18" fill="${C.white}"/>` + ic(x0 + 31, cy)
-    + txt(str, x0 + 60, cy + s * 0.35, { w: 700, s, c: tinta });
+    + `<circle cx="${f(x0 + 34)}" cy="${cy}" r="20" fill="${C.white}"/>` + ic(x0 + 34, cy)
+    + txt(str, x0 + 66, cy + s * 0.35, { w: 700, s, c: tinta });
 }
 
 export function desenhar(t, ctx) {
@@ -124,9 +129,10 @@ export function desenhar(t, ctx) {
   const focoA = 1 - 0.55 * eB * (1 - eF), focoB = 1 - 0.55 * eA * (1 - eB);
 
   // ---------- fundo e título (as três linhas sempre acesas) ----------
+  // x = MG - 7: compensa o recuo lateral do M e do R em Light 72 px, para a tinta nascer na margem (x = 96), como o pino da marca
   let s = fundoNoite(t);
   ['Mesma ferramenta.', 'Mesmo treinamento.', '*Resultados diferentes.*'].forEach((ln, i) => {
-    s += tRico(ln, MG - 3, TIT.y + i * TIT.lh, { f: 'L', s: TIT.s, c: C.white, hi: C.orange });
+    s += tRico(ln, MG - 7, TIT.y + i * TIT.lh, { f: 'L', s: TIT.s, c: C.white, hi: C.orange });
   });
 
   // ---------- uma tela (reta e parada) ----------
@@ -136,17 +142,17 @@ export function desenhar(t, ctx) {
       + `<path d="M1,${CAB} V22 a21,21 0 0 1 21,-21 H${WW - 22} a21,21 0 0 1 21,21 V${CAB}Z" fill="${C.gray20}"/>`
       + `<path d="M0,${CAB} H${WW}" stroke="${C.gray}" stroke-width="2"/>`;
     // cabeçalho: avatar neutro que ganha a cor da pessoa em "duas"
-    const ax = 54, ay = CAB / 2;
-    b += avatar(ax, ay, { r: 28, cor: C.gray, c: C.navy80, sw: 2.8 })
-      + opa(fin(t, tAv + at, 0.45), avatar(ax, ay, { r: 28, cor: h.cor, c: A ? C.white : C.navy, sw: 2.8 }))
-      + txt(h.nome, 98, ay + 10, { w: 700, s: 28, c: C.navy });
+    const ax = 49, ay = CAB / 2;   // a borda esquerda do avatar alinha com a dos cartões (x = 20)
+    b += avatar(ax, ay, { r: 29, cor: C.gray, c: C.navy80, sw: 2.8 })
+      + opa(fin(t, tAv + at, 0.45), avatar(ax, ay, { r: 29, cor: h.cor, c: A ? C.white : C.navy, sw: 2.8 }))
+      + txt(h.nome, 95, ay + 11, { w: 700, s: 32, c: C.navy });
 
     // enquanto a tela está vazia, a pessoa aparece grande no miolo (parada); sai quando a ferramenta chega
     const some = 1 - fin(t, tApp + at - 0.32, 0.3);
     if (some > 0.001) {
-      const gx = WW / 2, gy = CAB + (WH - CAB) / 2 - 10;
-      b += opa(some, avatar(gx, gy, { r: 92, cor: C.gray20, c: C.navy40, sw: 3 })
-        + opa(fin(t, tAv + at, 0.45), avatar(gx, gy, { r: 92, cor: h.cor, c: A ? C.white : C.navy, sw: 3 })));
+      const gx = WW / 2, gy = CAB + (WH - CAB) / 2 - 6;
+      b += opa(some, avatar(gx, gy, { r: 108, cor: C.gray20, c: C.navy40, sw: 3 })
+        + opa(fin(t, tAv + at, 0.45), avatar(gx, gy, { r: 108, cor: h.cor, c: A ? C.white : C.navy, sw: 3 })));
     }
 
     // a ferramenta, o selo e o medidor: uma peça por batida da fala, iguais nas duas telas
@@ -168,8 +174,8 @@ export function desenhar(t, ctx) {
   // ---------- etiquetas de resultado ----------
   const cxA = XA + WW / 2, cxB = XB + WW / 2, eyc = ETQ.y + ETQ.h / 2;
   s += opa(focoA, entra(t, tVida + 0.24, cxA, eyc, etiquetaRes('Adota', cxA, C.blue, C.white,
-    (x, y) => `<path d="${checkPath(x - 1, y, 1.15)}" fill="none" stroke="${C.blue}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>`)));
+    (x, y) => `<path d="${checkPath(x - 1, y, 1.28)}" fill="none" stroke="${C.blue}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`)));
   s += entra(t, mPla + 0.06, cxB, eyc, etiquetaRes('Volta para a planilha', cxB, C.orange80, C.navy,
-    (x, y) => icone('planilha', x, y, 22, { c: C.navy, sw: 2.4 })));
+    (x, y) => icone('planilha', x, y, 24, { c: C.navy, sw: 2.4 })));
   return s;
 }

@@ -12,27 +12,34 @@
   const LARGURA = 560, AGUA = 300, POR_METRO = 16;   // medidas do desenho (ilustra.mjs)
   let zonas = [];
   try { zonas = JSON.parse(caixa.dataset.zonas || '[]'); } catch { /* sem zonas: só a profundidade */ }
-  let p = 0, curso = 0, zonaAtual = -1, usou = false, inercia = 0, suprime = false;
+  let p = 0, curso = 0, escala = 1, alturaJanela = 0, zonaAtual = -1, metrosAtual = -1, fundoAtual = null, usou = false, inercia = 0, suprime = false, pedido = 0, alvo = null;
 
+  // escreve na tela: medidas vêm guardadas (mede), e texto só muda quando o valor muda
   const aplica = (v, suave) => {
     p = Math.min(1, Math.max(0, v));
     mundo.classList.toggle('suave', !!suave && !calmo); sonda.classList.toggle('suave', !!suave && !calmo);
     mundo.style.setProperty('--y', (p * curso).toFixed(1));
     sonda.style.setProperty('--p', p.toFixed(4));
-    const escala = mundo.offsetWidth / LARGURA || 1, centro = (p * curso + janela.clientHeight / 2) / escala, m = Math.max(0, Math.round((centro - AGUA) / POR_METRO));
-    metros.textContent = m + ' m';
+    const centro = (p * curso + alturaJanela / 2) / escala, m = Math.max(0, Math.round((centro - AGUA) / POR_METRO));
     const i = Math.max(0, zonas.findIndex(z => p <= z.ate + 1e-6)), z = zonas[i];
-    pega.setAttribute('aria-valuenow', Math.round(p * 100));
-    pega.setAttribute('aria-valuetext', (z ? z.nome + ', ' : '') + m + ' metros');
+    if (m !== metrosAtual || i !== zonaAtual) {
+      metrosAtual = m; metros.textContent = m + ' m';
+      pega.setAttribute('aria-valuenow', Math.round(p * 100));
+      pega.setAttribute('aria-valuetext', (z ? z.nome + ', ' : '') + m + ' metros');
+    }
     if (z && i !== zonaAtual) {
       zonaAtual = i; zona.querySelector('b').textContent = z.nome; zona.querySelector('span').textContent = z.frase;
       zona.classList.remove('troca'); void zona.offsetWidth; zona.classList.add('troca');
     }
-    const fundo = p > 0.97;
-    sonda.classList.toggle('fundo', fundo); botao.classList.toggle('subir', fundo);
-    botao.querySelector('span').textContent = fundo ? 'Voltar à superfície' : p > 0.05 ? 'Descer mais' : 'Mergulhar';
+    const fundo = p > 0.97 ? 2 : p > 0.05 ? 1 : 0;
+    if (fundo !== fundoAtual) {
+      fundoAtual = fundo; sonda.classList.toggle('fundo', fundo === 2); botao.classList.toggle('subir', fundo === 2);
+      botao.querySelector('span').textContent = ['Mergulhar', 'Descer mais', 'Voltar à superfície'][fundo];
+    }
   };
-  const mede = () => { curso = Math.max(0, mundo.offsetHeight - janela.clientHeight); aplica(p, false); };
+  // durante o arraste, no máximo uma atualização por quadro
+  const pede = v => { alvo = v; if (!pedido) pedido = requestAnimationFrame(() => { pedido = 0; aplica(alvo, false); }); };
+  const mede = () => { alturaJanela = janela.clientHeight; escala = mundo.offsetWidth / LARGURA || 1; curso = Math.max(0, mundo.offsetHeight - alturaJanela); aplica(p, false); };
   const marcaUso = () => { usou = true; cancelAnimationFrame(inercia); };
 
   // arrastar a cena (mouse e caneta; no toque, o gesto vertical continua rolando a página)
@@ -45,7 +52,7 @@
     if (!arr || !curso) return;
     const dy = e.clientY - arr.y;
     if (!arr.moveu) { if (Math.abs(dy) < 5) return; arr.moveu = true; janela.classList.add('pegando'); }
-    aplica(arr.p0 - dy / curso, false);
+    pede(arr.p0 - dy / curso);
     const dt = e.timeStamp - arr.t;
     if (dt > 0) { arr.v = (e.clientY - arr.uy) / dt; arr.uy = e.clientY; arr.t = e.timeStamp; }
   });
@@ -62,7 +69,7 @@
   // um clique na água solta bolhas
   janela.addEventListener('click', e => {
     if (calmo || e.target.closest('a, button, .sonda')) return;
-    const r = janela.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, escala = mundo.offsetWidth / LARGURA || 1;
+    const r = janela.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
     if ((y + p * curso) / escala < AGUA + 8) return;   // acima da linha d'água não há bolha
     for (let i = 0; i < 7; i++) {
       const b = document.createElement('i'), t = 4 + Math.random() * 10;
@@ -75,16 +82,17 @@
   janela.addEventListener('scroll', () => { janela.scrollTop = 0; });   // o foco em um ponto não pode rolar a janela por conta própria
 
   // sonda: arrastar a alça, clicar no trilho e teclado
-  const deSonda = (y, folga = 22) => { const r = sonda.getBoundingClientRect(); return (y - r.top - folga) / (r.height - 72); };
+  let caixaSonda = null;
+  const deSonda = (y, folga = 22) => { const r = caixaSonda || sonda.getBoundingClientRect(); return (y - r.top - folga) / (r.height - 72); };
   sonda.addEventListener('pointerdown', e => {
     if (e.button) return;
-    e.preventDefault(); marcaUso();
+    e.preventDefault(); marcaUso(); caixaSonda = sonda.getBoundingClientRect();
     const naAlca = e.target.closest('.sonda-pega'), folga = naAlca ? e.clientY - pega.getBoundingClientRect().top : 22;
     if (!naAlca) aplica(deSonda(e.clientY), true);
     pega.classList.add('pegando');
     try { pega.setPointerCapture(e.pointerId); } catch { /* segue sem captura */ }
-    const move = ev => aplica(deSonda(ev.clientY, folga), false);
-    const solta = () => { pega.classList.remove('pegando'); pega.removeEventListener('pointermove', move); pega.removeEventListener('pointerup', solta); pega.removeEventListener('pointercancel', solta); };
+    const move = ev => pede(deSonda(ev.clientY, folga));
+    const solta = () => { caixaSonda = null; pega.classList.remove('pegando'); pega.removeEventListener('pointermove', move); pega.removeEventListener('pointerup', solta); pega.removeEventListener('pointercancel', solta); };
     pega.addEventListener('pointermove', move); pega.addEventListener('pointerup', solta); pega.addEventListener('pointercancel', solta);
   });
   pega.addEventListener('keydown', e => {
@@ -103,7 +111,8 @@
 
   // os pontos surgem quando entram na janela; fora da tela, a animação da cena descansa
   if ('IntersectionObserver' in window) {
-    const ve = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visto'); ve.unobserve(en.target); } }), { root: janela, threshold: 0.6 });
+    // "visto" marca a primeira aparição; "na-janela" liga o pulso só nos pontos que estão dentro da janela
+    const ve = new IntersectionObserver(es => es.forEach(en => { en.target.classList.toggle('na-janela', en.isIntersecting); if (en.isIntersecting) en.target.classList.add('visto'); }), { root: janela, threshold: 0.6 });
     caixa.querySelectorAll('.cena-fundo li').forEach(li => ve.observe(li));
     new IntersectionObserver(es => {
       caixa.classList.toggle('fora', !es[0].isIntersecting);

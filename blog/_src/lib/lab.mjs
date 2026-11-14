@@ -49,19 +49,13 @@ export const FERRAMENTAS = [
 ];
 const MODELOS = [['matriz-raci.xlsx', 'Matriz RACI da mudança', 'Com conferência automática do A e carga por papel'], ['mapa-de-influencia.xlsx', 'Mapa de influência de stakeholders', 'Com estratégia sugerida e gráfico de dispersão'], ['matriz-de-adocao.xlsx', 'Matriz de adoção', 'Com índice de adoção e gráfico por área']];
 
-// bloco do Laboratório na página inicial
-export function secaoLab(raiz, nPerguntas) {
-  const [d, ...resto] = FERRAMENTAS;
+// bloco do Laboratório na página inicial: as quatro ferramentas em uma linha, sem enfeite
+const CURTA = { diagnostico: 'Descubra o seu nível e o que estudar.', raci: 'Quem aprova, quem executa, quem é consultado.', influencia: 'Arraste cada stakeholder no mapa.', adocao: 'As pessoas na régua, área por área.' };
+export function secaoLab(raiz, nPerguntas, nModelos) {
   return `<section class="sec sec--lab" id="lab" aria-labelledby="lab-t">
   <div class="sec-in">
-    ${titSecao('lab', 'Laboratório', 'Teste, monte e baixe', 'Ferramentas interativas para medir o seu nível e montar os instrumentos do dia a dia da gestão da mudança.', `<span class="sec-links revela"><a class="link-seta" href="${raiz}modelos/">Baixar modelos${icone('seta')}</a><a class="link-seta" href="${raiz}lab/">Abrir o Laboratório${icone('seta')}</a></span>`)}
-    <div class="lab-grade">
-      <a class="lab-destaque revela" href="${raiz}lab/${d.slug}/">
-        <div class="lab-destaque-arte">${PREVIAS.diagnostico('a')}</div>
-        <div class="lab-destaque-txt"><span class="chip chip--claro">${icone('bussola')}${nPerguntas ? nPerguntas + ' perguntas · ' : ''}6 domínios</span><h3>Em que nível de Change Management você está?</h3><p>${esc(d.frase)}</p><span class="btn btn--claro">${esc(d.acao)}${icone('seta')}</span></div>
-      </a>
-      <div class="lab-lista">${resto.map((f, i) => `<a class="lab-item revela" style="--i:${i + 1}" href="${raiz}lab/${f.slug}/"><span class="lab-item-arte">${PREVIAS[f.id]()}</span><span class="lab-item-txt"><small>${esc(f.olho)}</small><b>${esc(f.nome)}</b><em>${esc(f.frase)}</em></span>${icone('seta')}</a>`).join('')}</div>
-    </div>
+    ${titSecao('lab', 'Laboratório', 'Teste, monte e baixe', 'Um diagnóstico de nível e três instrumentos para montar no navegador.', `<a class="link-seta" href="${raiz}modelos/">${nModelos ? nModelos + ' modelos' : 'Modelos'} para baixar${icone('seta')}</a>`)}
+    <div class="ferramentas">${FERRAMENTAS.map((f, i) => `<a class="ferramenta revela" style="--i:${i}" href="${raiz}lab/${f.slug}/"><small>${esc(f.olho)}${f.id === 'diagnostico' && nPerguntas ? ' · ' + nPerguntas + ' perguntas' : ''}</small><b>${esc(f.nome)}</b><span>${esc(CURTA[f.id] || f.frase)}</span><em>${esc(f.acao)}${icone('seta')}</em></a>`).join('')}</div>
   </div>
 </section>`;
 }

@@ -402,12 +402,13 @@ a.evento:hover { transform: translateY(-3px); box-shadow: var(--sombra); border-
 .js .capa.viva .c-desenha--b { animation-delay: .5s; }
 .js .capa.viva .c-desenha--c { animation-delay: .9s; }
 .c-halo { transform-origin: center; opacity: 0; }
-.capa.viva .c-halo { animation: halo 3s ease-out var(--d, 0s) infinite; }
+/* pulsos e foco contínuos só no destaque do post e no cartão sob o ponteiro: nos demais, o desenho descansa */
+.art-arte .capa.viva .c-halo, .erro-arte .capa.viva .c-halo, :is(.cartao, .lab-cartao, .lab-destaque, .lab-item, .mod):hover .capa.viva .c-halo { animation: halo 3s ease-out var(--d, 0s) infinite; }
 .c-sobe { transform-origin: bottom; }
 .js .capa .c-sobe { transform: scaleY(0); }
 .js .capa.viva .c-sobe { animation: cresce 1s var(--ease) var(--d, 0s) forwards; }
 .js .capa.viva .c-separa { animation: separa 1.6s var(--ease) .3s forwards; }
-.capa.viva .c-foco { animation: foco 9s ease-in-out infinite alternate; }
+.art-arte .capa.viva .c-foco, .erro-arte .capa.viva .c-foco, :is(.cartao, .lab-cartao, .lab-destaque, .lab-item, .mod):hover .capa.viva .c-foco { animation: foco 9s ease-in-out infinite alternate; }
 
 /* ---------- entrada ao rolar ---------- */
 .js .revela { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform 1s var(--ease); transition-delay: calc(var(--i, 0) * 70ms); }

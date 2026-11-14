@@ -1,6 +1,6 @@
 // Change Management World · camada de interação (sem dependências).
 // Busca do site, leitura rápida em folha lateral, lista "para ler depois", leitura em voz alta, barra de leitura dos posts,
-// régua de adoção, estante de livros, manchetes arrastáveis, profundímetro da página inicial e detalhes de interface.
+// régua de adoção, estante de livros e detalhes de interface.
 (() => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches, fino = matchMedia('(pointer: fine)').matches;
@@ -113,7 +113,7 @@
   // ---------- para ler depois e lidos ----------
   let salvos = guarda.ler('salvos', []).filter(s => POST.has(s));
   const lidos = new Set(guarda.ler('lidos', []));
-  const cartoes = $$('.cartao[data-slug], .guia[data-slug]');
+  const cartoes = $$('.cartao[data-slug], .guia[data-slug], .manchete[data-slug]');
   for (const c of cartoes) {
     const s = c.dataset.slug, t = esc((POST.get(s) || {}).t || '');
     c.appendChild(cria('div', 'cartao-acoes', `<button type="button" class="acao" data-ler-rapido aria-label="Leitura rápida: ${t}" data-dica="Leitura rápida">${ic('olho')}</button><button type="button" class="acao" data-salvar="${esc(s)}" aria-pressed="false" aria-label="Guardar para ler depois: ${t}" data-dica="Guardar">${ic('marcador')}</button>`));
@@ -449,70 +449,12 @@
     }
   }
 
-  // ---------- manchetes: correm sozinhas e aceitam ser arrastadas ----------
-  const tk = $('[data-ticker] .ticker-trilho');
-  if (tk && !calmo) {
-    const faixa = tk.parentElement, caixa = tk.closest('[data-ticker]');
-    let x = 0, meio = 0, parado = false, arr = null, v = 0, moveu = false, na_tela = true, ult = performance.now();
-    const mede = () => { meio = tk.scrollWidth / 2; };
-    tk.style.animation = 'none'; mede(); addEventListener('resize', mede);
-    const quadro = agora => {
-      const dt = Math.min(48, agora - ult); ult = agora;
-      if (na_tela && meio) {
-        if (!arr) { if (Math.abs(v) > 0.02) { x += v * dt; v *= 0.94; } else if (!parado) x -= meio / 110000 * dt; }
-        if (x <= -meio) x += meio; else if (x > 0) x -= meio;
-        tk.style.transform = `translate3d(${x.toFixed(1)}px,0,0)`;
-      }
-      requestAnimationFrame(quadro);
-    };
-    caixa.addEventListener('pointerenter', () => { parado = true; }); caixa.addEventListener('pointerleave', () => { parado = false; });
-    caixa.addEventListener('focusin', () => { parado = true; }); caixa.addEventListener('focusout', () => { parado = false; });
-    faixa.style.touchAction = 'pan-y';
-    faixa.addEventListener('pointerdown', e => { if (e.button) return; arr = { x0: e.clientX, ux: e.clientX, ut: e.timeStamp }; moveu = false; v = 0; });
-    addEventListener('pointermove', e => {
-      if (!arr) return;
-      if (!moveu && Math.abs(e.clientX - arr.x0) < 5) return;
-      moveu = true; x += e.clientX - arr.ux;
-      const dt = e.timeStamp - arr.ut; if (dt > 0) v = (e.clientX - arr.ux) / dt;
-      arr.ux = e.clientX; arr.ut = e.timeStamp;
-    });
-    const solta = () => { arr = null; };
-    addEventListener('pointerup', solta); addEventListener('pointercancel', solta);
-    faixa.addEventListener('click', e => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
-    faixa.addEventListener('dragstart', e => e.preventDefault());
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => { na_tela = es[0].isIntersecting; }).observe(caixa);
-    requestAnimationFrame(quadro);
-  }
-
   // ---------- radar: grade ou lista ----------
   const gradeRadar = $('[data-grade]'), visoes = $$('[data-visao]');
   if (gradeRadar && visoes.length) {
     const poe = v => { gradeRadar.classList.toggle('grade--lista', v === 'lista'); visoes.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.visao === v))); };
     visoes.forEach(b => b.addEventListener('click', () => { poe(b.dataset.visao); guarda.por('visao', b.dataset.visao); }));
     poe(guarda.ler('visao', 'grade'));
-  }
-
-  // ---------- página inicial: profundímetro (mapa das seções, em telas largas) ----------
-  if (noInicio && 'IntersectionObserver' in window) {
-    const NOMES = { capa: 'Capa da semana', radar: 'Radar mundial', ia: 'IA & Mudança', guias: 'Guias de campo', lab: 'Laboratório', videos: 'Vídeos', eventos: 'Eventos', mes: 'Posts do mês', estante: 'Sugestões', sobre: 'Quem escreve' };
-    const secs = $$('main > section[id]').filter(s => NOMES[s.id]);
-    if (secs.length > 2) {
-      const fun = cria('nav', 'fundura', `<ol>${secs.map(s => `<li><a href="#${s.id}"><i></i><span>${NOMES[s.id]}</span></a></li>`).join('')}</ol><span class="fundura-m" aria-hidden="true">0 m</span>`);
-      fun.setAttribute('aria-label', 'Seções desta página');
-      document.body.appendChild(fun);
-      const links = $$('a', fun), m = $('.fundura-m', fun), ab = $('.abertura'), rod = $('.rodape');
-      const espia = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle('aqui', a.hash === '#' + en.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
-      secs.forEach(s => espia.observe(s));
-      let marcado = false;
-      const rola = () => {
-        marcado = false;
-        const max = document.documentElement.scrollHeight - innerHeight, fim = rod ? rod.getBoundingClientRect().top < innerHeight * 0.7 : false;
-        fun.classList.toggle('visivel', (!ab || ab.getBoundingClientRect().bottom < innerHeight * 0.45) && !fim);
-        m.textContent = Math.round(limita(max > 0 ? scrollY / max : 0) * 60) + ' m';
-      };
-      addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(rola); } }, { passive: true });
-      rola();
-    }
   }
 
   // ---------- páginas de post: barra de leitura, sumário e citação ----------
@@ -593,10 +535,12 @@
   if (fino && !calmo) {
     const cur = cria('div', 'cursor', `<span>${ic('mao')}<b></b></span>`); cur.setAttribute('aria-hidden', 'true'); document.body.appendChild(cur);
     const rot = $('b', cur); let ligado = false;
+    let px = 0, py = 0, pedido = false;
+    const move = () => { pedido = false; cur.style.transform = `translate3d(${px}px,${py}px,0)`; };
     document.addEventListener('pointermove', e => {
       const z = e.target.closest && e.target.closest('[data-cursor]');
       const vale = z && !z.dataset.cursorVisto && !e.buttons && !e.target.closest('a, button, input, [role="slider"]');
-      if (vale) { cur.style.setProperty('--cx', e.clientX + 'px'); cur.style.setProperty('--cy', e.clientY + 'px'); if (rot.textContent !== z.dataset.cursor) rot.textContent = z.dataset.cursor; }
+      if (vale) { px = e.clientX; py = e.clientY; if (!pedido) { pedido = true; requestAnimationFrame(move); } if (rot.textContent !== z.dataset.cursor) rot.textContent = z.dataset.cursor; }
       if (!!vale !== ligado) { ligado = !!vale; cur.classList.toggle('on', ligado); }
     }, { passive: true });
     // depois do primeiro arraste, a dica daquela área não aparece mais

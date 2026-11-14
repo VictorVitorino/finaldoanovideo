@@ -28,6 +28,11 @@
     }
   } else itens.forEach(el => el.classList.add('visto'));
   if (calmo) $$('animateMotion').forEach(a => a.remove());
+  // seções fora da tela descansam: as animações contínuas só rodam no que está à vista (regra .fora no CSS)
+  if ('IntersectionObserver' in window && !calmo) {
+    const descanso = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('fora', !e.isIntersecting)), { rootMargin: '120px 0px' });
+    $$('main > section, .rodape').forEach(s => descanso.observe(s));
+  }
 
   // navegação: marca a seção em que a pessoa está
   const links = $$('[data-nav] a').filter(a => a.hash && $(a.hash));

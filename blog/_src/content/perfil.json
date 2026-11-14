@@ -1,11 +1,18 @@
 {
   "nome": "Victor Vitorino",
   "iniciais": "VV",
-  "papel": "Consultor especialista em Change Management",
+  "papel": "Líder de Transformação · especialista em Change Management",
   "bio": [
-    "Trabalho com gestão da mudança em projetos de transformação: do desenho da estratégia de adoção ao dia em que a operação passa a usar o que foi entregue.",
-    "Este blog é o meu radar: reúno o que está mudando na gestão da mudança pelo mundo, com fonte, e traduzo em algo que dá para aplicar na segunda-feira."
+    "Lidero programas de transformação na interseção entre tecnologia, processos e arquitetura funcional de soluções. Meu trabalho é fazer o investimento digital virar adoção, eficiência operacional e valor para o negócio.",
+    "Conecto estratégia corporativa, implementação de sistemas e mudança de comportamento, em programas orientados por dados, governança e resultados que se medem. Neste blog, registro o que fica abaixo da superfície da gestão da mudança."
   ],
-  "gosto": ["IA aplicada à adoção", "Mapas e dashboards", "Motion design", "Contar mudança em vídeo", "Projetos de transformação"],
-  "fun_fact": "Prefiro explicar uma mudança com um mapa animado de 88 segundos do que com 40 slides."
+  "gosto": [
+    "IA aplicada à adoção",
+    "Mapas e dashboards",
+    "Motion design",
+    "Contar mudança em vídeo",
+    "Projetos de transformação"
+  ],
+  "fun_fact": "Prefiro explicar uma mudança com um mapa animado de 88 segundos do que com 40 slides.",
+  "foto": "assets/img/victor-vitorino.jpg"
 }

@@ -79,39 +79,43 @@ export function iceberg({ recorte, id = 'ice' } = {}) {
       + pol([m1, d1, d2], `fill="#BCD0FA" opacity="${op(0.7)}"`) + pol([m1, d2, m2], `fill="#BCD0FA" opacity="${op(0.56)}"`);
   }
   const contorno = [...ESQ.map((x, i) => [x, NIV[i]]), ...DIR.map((x, i) => [x, NIV[i]]).reverse().slice(1)];
+  const gelo = `<g>${massa}${pol(contorno, 'fill="none" stroke="#fff" stroke-opacity=".34" stroke-width="1.2" stroke-linejoin="round"')}<path d="M${MEIO.map((x, i) => `${x} ${NIV[i] + DES[i]}`).join('L')}" fill="none" stroke="#fff" stroke-opacity=".2"/></g><g stroke="#0A2463" stroke-opacity=".1" stroke-width=".8" stroke-linejoin="round">${ponta}</g>`;
+  const barco = `<path d="M452 ${agua - 4}h44l-7 11h-30z" fill="#fff"/><path d="M474 ${agua - 4}v-34" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M476 ${agua - 36}l16 26h-16z" fill="#9DBDFF"/><path d="M472 ${agua - 32}l-12 22h12z" fill="#fff" opacity=".85"/>`;
   // ondas: período de 140, três telas de largura para o laço
   const onda = y => `M-280 ${y}${Array.from({ length: 16 }, (_, k) => (k ? 't70 0' : 'q35 -9 70 0')).join('')}`;
-  const raios = [[104, 26, 70, 96], [226, 34, 240, 110], [352, 22, 322, 84], [462, 30, 488, 104]].map(([x, w, x2, w2], k) => `<path class="raio" style="--d:${(k * -2.1).toFixed(1)}s" d="M${x} ${agua}L${x2 - w2 / 2} ${agua + 640}h${w2}L${x + w} ${agua}Z" fill="url(#${id}-raio)"/>`).join('');
-  const bolhas = Array.from({ length: 16 }, (_, k) => { const x = 30 + r() * 500, y = 520 + r() * 900, rr = 2 + r() * 5; return `<g class="bolha" style="--d:${(-r() * 14).toFixed(1)}s;--t:${(9 + r() * 9).toFixed(1)}s;--x:${((r() - 0.5) * 34).toFixed(0)}px"><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${rr.toFixed(1)}" fill="#fff" fill-opacity=".07" stroke="#fff" stroke-opacity=".5" stroke-width=".9"/><circle cx="${(x - rr * 0.35).toFixed(1)}" cy="${(y - rr * 0.35).toFixed(1)}" r="${(rr * 0.22).toFixed(1)}" fill="#fff" fill-opacity=".7"/></g>`; }).join('');
-  const plancton = Array.from({ length: 46 }, () => `<circle class="plancton" style="--d:${(-r() * 6).toFixed(1)}s" cx="${(r() * L).toFixed(0)}" cy="${(agua + 40 + r() * (A - agua - 60)).toFixed(0)}" r="${(0.6 + r() * 1.1).toFixed(1)}"/>`).join('');
-  const peixe = (y, d, t, s) => `<g transform="translate(0 ${y}) scale(${s})"><g class="peixe" style="--d:${d}s;--t:${t}s"><path d="M0 0c7-6 17-6 24 0-7 6-17 6-24 0zM24 0l7-5v10z"/></g></g>`;
+  const ondaTras = `<path d="${onda(agua - 5)}V${agua + 30}H-280Z" fill="#5E8DF0" opacity=".5"/>`;
+  const ondaFrente = `<path d="${onda(agua)}V${agua + 26}H-280Z" fill="#2A66E0"/><path d="${onda(agua)}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6" stroke-linecap="round"/>`;
+  const raios = [[104, 26, 70, 96], [226, 34, 240, 110], [352, 22, 322, 84], [462, 30, 488, 104]].map(([x, w, x2, w2]) => `<path d="M${x} ${agua}L${x2 - w2 / 2} ${agua + 640}h${w2}L${x + w} ${agua}Z" fill="url(#${id}-raio)"/>`);
+  const bolhas = Array.from({ length: 16 }, () => ({ x: 30 + r() * 500, y: 520 + r() * 900, rr: 2 + r() * 5, d: -r() * 14, t: 9 + r() * 9, dx: (r() - 0.5) * 34 }));
+  const plancton = Array.from({ length: 46 }, () => `<circle cx="${(r() * L).toFixed(0)}" cy="${(agua + 40 + r() * (A - agua - 60)).toFixed(0)}" r="${(0.6 + r() * 1.1).toFixed(1)}"/>`);
+  const PEIXE = '<path d="M0 6c7-6 17-6 24 0-7 6-17 6-24 0zM24 6l7-5v10z"/>', peixes = [[690, -3, 38, 1], [735, -9, 44, 0.7], [1080, -20, 52, 0.85]];
   const escala = [1, 2, 3, 4, 5, 6].map(k => { const y = agua + k * 160; return `<path d="M0 ${y}h16" stroke="#fff" stroke-opacity=".4"/><text x="22" y="${y + 4}">${k * 10} m</text>`; }).join('');
-  return `<svg class="cena" viewBox="${recorte ? recorte.join(' ') : `0 0 ${L} ${A}`}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <defs>
+  const defs = `<defs>
     <linearGradient id="${id}-ceu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0A2463"/><stop offset="1" stop-color="#16409C"/></linearGradient>
     <linearGradient id="${id}-mar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A66E0"/><stop offset=".16" stop-color="#1A4CBD"/><stop offset=".42" stop-color="#0F3590"/><stop offset=".72" stop-color="#0A2463"/><stop offset="1" stop-color="#060F2E"/></linearGradient>
     <linearGradient id="${id}-raio" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
     <radialGradient id="${id}-halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9DBDFF" stop-opacity=".5"/><stop offset="1" stop-color="#9DBDFF" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="${L}" height="${agua + 6}" fill="url(#${id}-ceu)"/>
-  <circle cx="290" cy="170" r="210" fill="url(#${id}-halo)"/>
-  <g class="cena-linhas" stroke="#fff" stroke-opacity=".07">${[60, 120, 180, 240].map(y => `<path d="M0 ${y}H${L}"/>`).join('')}</g>
-  <path class="onda onda--tras" d="${onda(agua - 5)}V${agua + 30}H-280Z" fill="#5E8DF0" opacity=".5"/>
-  <rect y="${agua}" width="${L}" height="${A - agua}" fill="url(#${id}-mar)"/>
-  <g class="raios">${raios}</g>
-  <g class="plancton-g" fill="#fff">${plancton}</g>
-  <g class="peixes" fill="#fff" opacity=".34">${peixe(690, -3, 38, 1)}${peixe(735, -9, 44, 0.7)}${peixe(1080, -20, 52, 0.85)}</g>
-  <g class="gelo">
-    <g class="gelo-massa">${massa}${pol(contorno, 'fill="none" stroke="#fff" stroke-opacity=".34" stroke-width="1.2" stroke-linejoin="round"')}
-      <path d="M${MEIO.map((x, i) => `${x} ${NIV[i] + DES[i]}`).join('L')}" fill="none" stroke="#fff" stroke-opacity=".2"/></g>
-    <g class="gelo-ponta" stroke="#0A2463" stroke-opacity=".1" stroke-width=".8" stroke-linejoin="round">${ponta}</g>
-  </g>
-  <g class="barco"><path d="M452 ${agua - 4}h44l-7 11h-30z" fill="#fff"/><path d="M474 ${agua - 4}v-34" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M476 ${agua - 36}l16 26h-16z" fill="#9DBDFF"/><path d="M472 ${agua - 32}l-12 22h12z" fill="#fff" opacity=".85"/></g>
-  <path class="onda onda--frente" d="${onda(agua)}V${agua + 26}H-280Z" fill="#2A66E0"/>
-  <path class="onda onda--brilho" d="${onda(agua)}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6" stroke-linecap="round"/>
-  <g class="bolhas">${bolhas}</g>
-  <g class="cena-escala" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#fff" fill-opacity=".5">${escala}</g>
-  </svg>`;
+  </defs>`;
+  const ceu = `<rect width="${L}" height="${agua + 6}" fill="url(#${id}-ceu)"/><circle cx="290" cy="170" r="210" fill="url(#${id}-halo)"/><g stroke="#fff" stroke-opacity=".07">${[60, 120, 180, 240].map(y => `<path d="M0 ${y}H${L}"/>`).join('')}</g>`;
+  const mar = `<rect y="${agua}" width="${L}" height="${A - agua}" fill="url(#${id}-mar)"/><g font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#fff" fill-opacity=".5">${escala}</g>`;
+  // imagem parada (compartilhamento): tudo em um SVG só, recortado
+  if (recorte) return `<svg class="cena" viewBox="${recorte.join(' ')}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${defs}${ceu}${ondaTras}${mar}<g>${raios.join('')}</g><g fill="#fff" opacity=".5">${plancton.join('')}</g>${gelo}${barco}${ondaFrente}</svg>`;
+  // cena viva: o que não se move fica em um SVG só; cada parte animada é uma camada do tamanho exato dela,
+  // movida só por posição e opacidade (ux.css), sem redesenho a cada quadro
+  const pc = (v, total) => (v / total * 100).toFixed(3);
+  const caixa = (cls, [x, y, w, h], corpo, estilo = '') => `<svg class="cena-p ${cls}" viewBox="${x} ${y} ${w} ${h}" style="left:${pc(x, L)}%;top:${pc(y, A)}%;width:${pc(w, L)}%;height:${pc(h, A)}%;${estilo}">${corpo}</svg>`;
+  const RAIOS = [[104, 26, 70, 96], [226, 34, 240, 110], [352, 22, 322, 84], [462, 30, 488, 104]];
+  return `<div class="cena" aria-hidden="true">
+  <svg class="cena-c" viewBox="0 0 ${L} ${A}">${defs}${ceu}${mar}<g fill="#fff" opacity=".5">${plancton.filter((_, n) => n % 3).join('')}</g></svg>
+  ${caixa('cena-onda cena-onda--tras', [0, agua - 16, L, 16], ondaTras)}
+  ${RAIOS.map(([x, w, x2, w2], k) => { const a = Math.min(x, x2 - w2 / 2), b = Math.max(x + w, x2 + w2 / 2); return caixa('cena-raio', [a, agua, b - a, 640], raios[k], `--d:${(k * -2.1).toFixed(1)}s`); }).join('')}
+  <svg class="cena-c cena-plancton" viewBox="0 0 ${L} ${A}"><g fill="#fff">${plancton.filter((_, n) => n % 3 === 0).join('')}</g></svg>
+  ${peixes.map(([y, d, t, s]) => `<i class="peixe" style="top:${pc(y, A)}%;--l:${(31 * s / L * 100).toFixed(2)}cqw;--d:${d}s;--t:${t}s"><svg viewBox="0 0 31 12">${PEIXE}</svg></i>`).join('')}
+  <svg class="cena-c cena-gelo" viewBox="0 0 ${L} ${A}">${gelo}</svg>
+  ${caixa('cena-barco', [450, agua - 40, 48, 48], barco)}
+  ${caixa('cena-onda cena-onda--frente', [0, agua - 14, L, 42], ondaFrente)}
+  ${bolhas.map(b => `<i class="bolha" style="left:${pc(b.x, L)}%;top:${pc(b.y, A)}%;--r:${(b.rr * 2 / L * 100).toFixed(2)}cqw;--x:${(b.dx / L * 100).toFixed(2)}cqw;--d:${b.d.toFixed(1)}s;--t:${b.t.toFixed(1)}s"></i>`).join('')}
+  </div>`;
 }
 
 // ---------- capas por tema (400 x 240): arte de dados em traço fino ----------

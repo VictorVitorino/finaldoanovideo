@@ -6,7 +6,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { frontMatter, markdown, minutos } from './lib/md.mjs';
 import { marca } from './lib/ilustra.mjs';
-import { inicio, post, mes, naoAchou, TEMAS } from './lib/modelos.mjs';
+import { inicio, post, mes, naoAchou, paginaRadar, TEMAS } from './lib/modelos.mjs';
 import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, PREVIAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
 
 const SRC = dirname(fileURLToPath(import.meta.url)), SAIDA = join(SRC, '..'), CONT = join(SRC, 'content');
@@ -32,13 +32,15 @@ export function carrega() {
 
 function gera() {
   const d = carrega(), { cfg, posts } = d;
+  d.perfil.temFoto = !!d.perfil.foto && existsSync(join(SAIDA, d.perfil.foto));   // sem o arquivo da foto, o perfil mostra as iniciais
   const capaPost = posts.find(p => p.slug === cfg.edicao.capa);
   if (capaPost) cfg.capaMenu = { slug: capaPost.slug, titulo: capaPost.titulo };
-  for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
+  cfg.mesAtual = posts.map(p => p.data.slice(0, 7)).sort().pop();   // mês mais recente, para o link "Posts do mês"
+  for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel', 'radar']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
   const nPerguntas = d.dominios.reduce((a, x) => a + x.perguntas.length, 0);
   const mods = json('modelos.json');
-  const vitrine = { perguntas: nPerguntas, arteDiagnostico: PREVIAS.diagnostico('a'), modelos: mods.length, ppt: mods.filter(m => m.formato === 'PowerPoint').length, xls: mods.filter(m => m.formato === 'Excel').length };
-  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas), estante: existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null, vitrine }));
+  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas, mods.length), estante: existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null }));
+  grava('radar/index.html', paginaRadar({ cfg, posts }));
   // Laboratório
   grava('lab/index.html', labInicio({ cfg, nPerguntas }));
   grava('modelos/index.html', paginaModelos({ cfg, modelos: json('modelos.json') }));
@@ -62,7 +64,7 @@ function gera() {
     posts: posts.map(p => ({ s: p.slug, t: p.titulo, r: curto(p.resumo), tp: p.tipo, tm: p.tema, tn: TEMAS[p.tema].nome, f: String(p.fonte_nome || '').split(/[,(|]/)[0].trim(), g: p.regiao || '', m: p.min })),
     lab: FERRAMENTAS.map(f => ({ t: f.nome, d: curto(f.frase, 110), u: `lab/${f.slug}/` })),
     modelos: json('modelos.json').map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
-    secoes: [['Radar mundial', '#radar'], ['IA & Mudança', '#ia'], ['Guias de campo', '#guias'], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Vídeos', '#videos'], ['Eventos', '#eventos'], ['Posts do mês', '#mes'], ['Sugestões de leitura', '#estante'], ['Quem escreve', '#sobre']].map(([t, u]) => ({ t, u: u[0] === '#' ? 'index.html' + u : u })),
+    secoes: [['Radar mundial', 'radar/'], ['IA & Mudança', '#ia'], ['Guias de campo', '#guias'], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Agenda e vídeos', '#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Sugestões de leitura', '#estante'], ['Quem escreve', '#sobre']].map(([t, u]) => ({ t, u: u[0] === '#' ? 'index.html' + u : u })),
   };
   grava('assets/js/dados.js', `// Gerado por blog/_src/build.mjs. Não edite à mão.\nwindow.CMW_DADOS = ${JSON.stringify(dados)};\n`);
   const porMes = {};
@@ -72,7 +74,7 @@ function gera() {
   grava('assets/img/favicon.svg', marca().replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--azul-p\)/g, '#0A2463').replace(/var\(--azul\)/g, '#2F6FED'));
   if (cfg.url) {
     const base = cfg.url.replace(/\/$/, '');
-    const urls = ['', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/'];
+    const urls = ['', 'radar/', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/'];
     grava('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${base}/${u}</loc></url>`).join('\n')}\n</urlset>\n`);
     grava('robots.txt', `User-agent: *\nAllow: /\nDisallow: /_src/\nDisallow: /painel/\nSitemap: ${base}/sitemap.xml\n`);
   }

@@ -146,7 +146,7 @@
 
   // ---------- cartões: inclinação 3D e brilho sob o ponteiro ----------
   if (fino) {
-    $$('.cartao, .guia, .lab-cartao, .mod').forEach(el => {
+    $$('.cartao, .guia, .lab-cartao, .mod, .vit').forEach(el => {
       el.classList.add('inclina');
       el.addEventListener('pointermove', e => {
         const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;

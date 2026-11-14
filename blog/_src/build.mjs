@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { frontMatter, markdown, minutos } from './lib/md.mjs';
 import { marca } from './lib/ilustra.mjs';
 import { inicio, post, mes, naoAchou, TEMAS } from './lib/modelos.mjs';
-import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
+import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, PREVIAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
 
 const SRC = dirname(fileURLToPath(import.meta.url)), SAIDA = join(SRC, '..'), CONT = join(SRC, 'content');
 const json = f => JSON.parse(readFileSync(join(CONT, f), 'utf8'));
@@ -36,7 +36,9 @@ function gera() {
   if (capaPost) cfg.capaMenu = { slug: capaPost.slug, titulo: capaPost.titulo };
   for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
   const nPerguntas = d.dominios.reduce((a, x) => a + x.perguntas.length, 0);
-  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas), estante: existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null }));
+  const mods = json('modelos.json');
+  const vitrine = { perguntas: nPerguntas, arteDiagnostico: PREVIAS.diagnostico('a'), modelos: mods.length, ppt: mods.filter(m => m.formato === 'PowerPoint').length, xls: mods.filter(m => m.formato === 'Excel').length };
+  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas), estante: existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null, vitrine }));
   // Laboratório
   grava('lab/index.html', labInicio({ cfg, nPerguntas }));
   grava('modelos/index.html', paginaModelos({ cfg, modelos: json('modelos.json') }));

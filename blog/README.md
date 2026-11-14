@@ -8,7 +8,7 @@ Blog de notícias sobre Gestão da Mudança (Change Management), de Victor Vitor
 
 | Bloco | O que mostra |
 |---|---|
-| Abertura | Chamada "Gestão da mudança, além do raso", edição, o iceberg interativo (arraste para mergulhar; cada ponto abaixo d'água abre uma reportagem) e a faixa "Radar" com as manchetes, que também pode ser arrastada. |
+| Abertura | Chamada "Gestão da mudança, além do raso", edição, o iceberg interativo (arraste para mergulhar; cada ponto abaixo d'água abre uma reportagem), a vitrine com quatro entradas (capa da semana, diagnóstico de nível, modelos para baixar e números do radar) e a faixa "Radar" com as manchetes, que também pode ser arrastada. |
 | Capa da semana | A reportagem principal (com vídeo, se houver), três destaques da edição e a régua de adoção, em que se arrasta a pessoa de "resiste" a "multiplica". |
 | Temas | Atalhos que filtram o radar por tema. |
 | Radar mundial | Todas as reportagens, com filtro por tema, busca e visão em grade ou em lista. Cada cartão tem leitura rápida e "guardar para ler depois". Cada reportagem cita e linka a fonte. |

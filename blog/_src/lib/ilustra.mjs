@@ -106,6 +106,7 @@ export function iceberg({ recorte, id = 'ice' } = {}) {
       <path d="M${MEIO.map((x, i) => `${x} ${NIV[i] + DES[i]}`).join('L')}" fill="none" stroke="#fff" stroke-opacity=".2"/></g>
     <g class="gelo-ponta" stroke="#0A2463" stroke-opacity=".1" stroke-width=".8" stroke-linejoin="round">${ponta}</g>
   </g>
+  <g class="barco"><path d="M452 ${agua - 4}h44l-7 11h-30z" fill="#fff"/><path d="M474 ${agua - 4}v-34" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M476 ${agua - 36}l16 26h-16z" fill="#9DBDFF"/><path d="M472 ${agua - 32}l-12 22h12z" fill="#fff" opacity=".85"/></g>
   <path class="onda onda--frente" d="${onda(agua)}V${agua + 26}H-280Z" fill="#2A66E0"/>
   <path class="onda onda--brilho" d="${onda(agua)}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6" stroke-linecap="round"/>
   <g class="bolhas">${bolhas}</g>

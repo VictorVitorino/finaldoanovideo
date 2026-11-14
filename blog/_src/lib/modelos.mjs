@@ -130,7 +130,7 @@ const regua = (r, raiz) => !r ? '' : `<div class="regua revela" data-regua data-
     </div>`;
 
 // ---------- início ----------
-export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', estante }) {
+export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', estante, vitrine = {} }) {
   const raiz = '';
   const capaP = posts.find(p => p.slug === cfg.edicao.capa) || posts[0];
   const reportagens = posts.filter(p => p.tipo === 'reportagem');
@@ -146,14 +146,14 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
   const linhaTit = l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>');
   const pct = (v, total) => (v / total * 100).toFixed(2) + '%';
   const pontos = (ice.fundo || []).map(h => ({ ...h, p: posts.find(p => p.slug === h.slug) })).filter(h => h.p);
+  const tituloCapa = capaP.titulo.split(/:\s+/).map((s, i) => i ? s[0].toUpperCase() + s.slice(1) : s);
   const abertura = `<section class="abertura" aria-labelledby="ab-t">
   <div class="abertura-in">
     <div class="abertura-txt">
       <span class="selo revela">${esc(cfg.edicao.rotulo)} <i></i> ${esc(cfg.edicao.periodo)}</span>
       <h1 id="ab-t" class="mega">${ab.titulo.map(l => `<span class="mega-l"><span>${linhaTit(l)}</span></span>`).join('')}</h1>
       <p class="abertura-lead revela">${esc(ab.lead)}</p>
-      <div class="abertura-acoes revela"><a class="btn btn--p" href="#capa">Ver a capa da semana${icone('seta')}</a><a class="btn btn--s" href="#radar">Abrir o radar</a></div>
-      <dl class="abertura-fatos revela"><div><dt data-conta="${reportagens.length}">${reportagens.length}</dt><dd>reportagens com fonte</dd></div><div><dt data-conta="${fontes.size}">${fontes.size}</dt><dd>organizações de origem</dd></div><div><dt data-conta="${guias.length}">${guias.length}</dt><dd>guias de campo</dd></div></dl>
+      <div class="abertura-acoes revela"><a class="btn btn--p" href="#radar">Mergulhar no radar${icone('seta')}</a><a class="btn btn--s btn--busca" href="#radar" data-abrir-busca>${icone('busca')}Buscar no blog<kbd>Ctrl K</kbd></a></div>
     </div>
     <div class="mergulho revela" data-mergulho data-zonas="${esc(JSON.stringify(ice.zonas || []))}">
       <div class="cena-janela" data-cursor="${esc(ice.dica || 'Arraste para mergulhar')}">
@@ -167,6 +167,24 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
         <div class="sonda so-js" data-sonda><span class="sonda-trilho" aria-hidden="true"><i></i></span><button class="sonda-pega" type="button" role="slider" aria-orientation="vertical" aria-label="Profundidade do mergulho" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Superfície">${icone('setaBaixo')}</button><output class="sonda-m" aria-hidden="true">0 m</output></div>
         <button class="cena-botao so-js" type="button" data-mergulhar><span>Mergulhar</span>${icone('setaBaixo')}</button>
       </div>
+    </div>
+    <div class="vitrine">
+      <a class="vit vit--capa revela" style="--i:0" href="${urlPost(raiz, capaP)}" data-ler="${esc(capaP.slug)}">
+        <span class="vit-arte">${capaP.poster ? `<img src="${raiz}${esc(capaP.poster)}" alt="" width="112" height="112" decoding="async">` : capa(capaP.tema, capaP.slug)}${capaP.video ? `<i class="vit-play">${icone('play')}</i>` : ''}</span>
+        <span class="vit-txt"><small>${icone('faisca')}Capa da semana</small><b>${esc(tituloCapa[0])}</b><em>${esc(tituloCapa[1] || `${capaP.min} min de leitura${capaP.video ? ' · com vídeo' : ''}`)}</em></span>
+      </a>
+      ${vitrine.perguntas ? `<a class="vit vit--lab revela" style="--i:1" href="${raiz}lab/diagnostico/">
+        <span class="vit-arte">${vitrine.arteDiagnostico || ''}</span>
+        <span class="vit-txt"><small>${icone('bussola')}Laboratório</small><b>Teste o seu nível</b><em>${vitrine.perguntas} perguntas, relatório na hora</em></span>
+      </a>` : ''}
+      ${vitrine.modelos ? `<a class="vit vit--modelos revela" style="--i:2" href="${raiz}modelos/">
+        <span class="vit-arte vit-docs" aria-hidden="true"><i>XLS</i><i>PPT</i></span>
+        <span class="vit-txt"><small>${icone('grade')}Modelos</small><b>${vitrine.modelos} modelos para baixar</b><em>${vitrine.ppt} em PowerPoint · ${vitrine.xls} em Excel</em></span>
+      </a>` : ''}
+      <a class="vit vit--radar revela" style="--i:3" href="#radar">
+        <dl class="abertura-fatos"><div><dt data-conta="${reportagens.length}">${reportagens.length}</dt><dd>reportagens</dd></div><div><dt data-conta="${fontes.size}">${fontes.size}</dt><dd>organizações</dd></div><div><dt data-conta="${guias.length}">${guias.length}</dt><dd>guias</dd></div></dl>
+        <span class="vit-txt"><small>${icone('globo')}Radar mundial</small><em>Tudo com a fonte original${icone('seta')}</em></span>
+      </a>
     </div>
   </div>
   <div class="ticker" aria-label="Manchetes do radar" data-ticker data-cursor="Arraste"><span class="ticker-rot"><i></i>Radar</span><div class="ticker-faixa"><div class="ticker-trilho">${ticker}${ticker}</div></div></div>

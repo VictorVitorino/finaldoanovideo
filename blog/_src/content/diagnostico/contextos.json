@@ -1,0 +1,82 @@
+{
+  "dominio": "contextos",
+  "nome": "Contextos: IA, transformação e M&A",
+  "validacao": "Escrita por um autor e resolvida às cegas por dois examinadores independentes, que chegaram ao gabarito sem conhecê-lo. Seleção e revisão final do editor.",
+  "perguntas": [
+    {
+      "id": "contextos-01",
+      "enunciado": "Uma seguradora proíbe, por política, o uso de ferramentas públicas de IA generativa. Um levantamento mostra que boa parte dos analistas as utiliza mesmo assim, para resumir documentos e redigir respostas a clientes; nas entrevistas, eles dizem conhecer a proibição e os riscos. A área de segurança já bloqueou o envio de dados sensíveis, e a empresa contratou uma ferramenta corporativa aprovada, que quase ninguém usa porque exige abrir chamado para liberar o acesso. O que a gestão da mudança deve propor primeiro para que o uso passe a ocorrer dentro das regras?",
+      "alternativas": [
+        "Republicar a política com a assinatura do presidente e exigir aceite formal de todos os analistas, deixando explícitas as sanções previstas.",
+        "Lançar uma campanha de conscientização sobre os riscos de vazamento de dados, com casos reais e mensagens recorrentes dos diretores.",
+        "Mapear as tarefas em que os analistas recorrem à IA e liberar a ferramenta aprovada por padrão para esses usos, com regras simples de uso.",
+        "Aplicar um treinamento obrigatório sobre a política de IA e condicionar o acesso aos sistemas à aprovação em uma avaliação final."
+      ],
+      "correta": 2,
+      "explicacao": "O comportamento indesejado é hoje o caminho mais fácil para resolver um trabalho real: a ferramenta aprovada existe, mas tem atrito. A arquitetura de escolha recomenda tornar o comportamento desejado a opção padrão e de menor esforço antes de insistir em convencimento. A campanha de riscos é a mais tentadora, mas os analistas já conhecem a proibição e os riscos; o que falta não é informação, e sim uma alternativa segura tão prática quanto a proibida.",
+      "referencia": "Nudge e arquitetura de escolha (Thaler e Sunstein): opção padrão e redução de atrito",
+      "estudar": "Nudge e arquitetura de escolha na adoção",
+      "dificuldade": "média"
+    },
+    {
+      "id": "contextos-02",
+      "enunciado": "Uma operadora de telecom implanta agentes de IA que resolvem sozinhos parte dos atendimentos. A pesquisa de prontidão mostra que os atendentes entendem por que a empresa está mudando, e a presença nos treinamentos foi alta. Ainda assim, o uso do novo fluxo é baixo e muitos chamados são desviados para o processo antigo. Nas rodas de conversa, a pergunta que se repete é \"o que vai acontecer com a minha função?\", enquanto a comunicação oficial fala apenas em ganho de produtividade. Pelo Modelo ADKAR, qual é a melhor leitura e a ação correspondente?",
+      "alternativas": [
+        "A barreira está no Desejo: patrocinador e gestores diretos precisam tratar com franqueza o impacto sobre funções e carreiras, inclusive o que ainda não foi decidido.",
+        "A barreira está na Habilidade: é preciso ampliar a prática assistida no novo fluxo, com acompanhamento em campo e tempo protegido para o aprendizado.",
+        "A barreira está no Reforço: é preciso incluir metas individuais de uso dos agentes na avaliação e reconhecer publicamente quem mais utiliza o novo fluxo.",
+        "A barreira está na Consciência: é preciso repetir, por mais canais, as razões de negócio da mudança e os ganhos de produtividade esperados pela empresa."
+      ],
+      "correta": 0,
+      "explicacao": "No ADKAR, o ponto de barreira é o primeiro elemento fraco na sequência. A Consciência está atendida; o que trava é a decisão pessoal de apoiar a mudança, bloqueada pela incerteza sobre o próprio futuro, e isso é Desejo. Ampliar a prática é a alternativa mais tentadora, porque o sintoma visível é o uso baixo, mas treinar quem teme ser substituído não remove a causa; metas de uso cobram o comportamento sem resolver a motivação.",
+      "referencia": "Modelo ADKAR (Prosci): ponto de barreira e papéis do patrocinador e do gestor direto",
+      "estudar": "Ponto de barreira no Modelo ADKAR",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "contextos-04",
+      "enunciado": "Uma unidade de negócio foi vendida, e o Dia 1 ocorreu sem incidentes: novo empregador, nova marca, novos crachás. Os sistemas, a folha de pagamento e o suporte de TI continuam sendo prestados pela antiga controladora, sob um acordo de serviços de transição (TSA) de doze meses. Com o argumento de que \"nada mudou para o usuário\", o comitê propõe desmobilizar a equipe de gestão da mudança. Qual é a melhor leitura?",
+      "alternativas": [
+        "A desmobilização é adequada: o TSA existe justamente para garantir a continuidade, e a mudança relevante para as pessoas se encerrou com o Dia 1.",
+        "O Dia 1 mudou o vínculo e a identidade; a troca de sistemas e processos virá na saída do TSA, que pede plano de mudança próprio, como uma segunda virada.",
+        "A equipe deve ser mantida, mas dedicada a quem permaneceu na antiga controladora, pois os transferidos já concluíram a sua transição no Dia 1.",
+        "A equipe deve ser reduzida às comunicações institucionais de boas-vindas, já que a saída do TSA é um tema técnico, sob responsabilidade da área de TI."
+      ],
+      "correta": 1,
+      "explicacao": "O TSA adia, mas não elimina, a mudança operacional: ao fim do acordo, os usuários trocam de sistemas, processos e fornecedores, com prazo contratual e pouca margem para erro. Além disso, pelo modelo de Bridges, a transição psicológica de quem foi transferido não termina na data do evento. A alternativa da continuidade é tentadora porque descreve corretamente a função do TSA, mas confunde estabilidade temporária com mudança concluída.",
+      "referencia": "Boa prática de separação de negócios (Dia 1 e saída do TSA como marcos distintos) combinada com o Modelo de Transições de William Bridges",
+      "estudar": "Dia 1, TSA e transições de Bridges",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "contextos-05",
+      "enunciado": "Um grupo avalia a compra de uma empresa familiar. As diligências financeira, jurídica e de tecnologia não apontaram impedimentos. A tese de valor depende de migrar a adquirida para os processos e sistemas do comprador em doze meses. O que a gestão da mudança deve recomendar ainda durante a due diligence?",
+      "alternativas": [
+        "Deixar o diagnóstico de cultura para depois do fechamento, quando houver acesso pleno às pessoas e for possível aplicar uma pesquisa completa.",
+        "Antecipar o desenho detalhado do plano de comunicação do Dia 1, pois é ele que determina a receptividade dos empregados à integração.",
+        "Avaliar cultura, estilo de liderança e histórico de mudanças da adquirida e refletir os riscos no prazo, no custo e no plano de integração.",
+        "Tomar como base os valores declarados pela diretoria da adquirida nas entrevistas, que já retratam como a empresa decide e trabalha no dia a dia."
+      ],
+      "correta": 2,
+      "explicacao": "Se o valor do negócio depende de pessoas adotarem novos processos em prazo curto, a capacidade de mudança da adquirida é premissa da tese e deve ser testada antes de fechar. O 7-S lembra que os elementos soft (valores compartilhados, estilo, pessoas e habilidades) pesam tanto quanto estratégia, estrutura e sistemas. Adiar o diagnóstico parece prudente por causa do acesso limitado, mas depois do fechamento o preço e o prazo já estão contratados; mesmo com dados parciais, a avaliação precisa informar a decisão.",
+      "referencia": "McKinsey 7-S (Peters e Waterman): elementos hard e soft aplicados à due diligence",
+      "estudar": "Cultura e capacidade de mudança na due diligence",
+      "dificuldade": "média"
+    },
+    {
+      "id": "contextos-07",
+      "enunciado": "A nova política de gestão de acessos exige que cada gestor revise, a cada trimestre, os acessos de sua equipe aos sistemas. A política foi comunicada, os gestores foram treinados e, na pesquisa, dizem entender o risco e saber fazer a revisão. Mesmo assim, poucos a concluem: a tela exige dezenas de cliques por pessoa, os diretores não revisam os acessos de suas próprias equipes e ninguém acompanha quem cumpre. O CIO propõe um novo ciclo de treinamento. Pelo Influence Model, qual é a melhor recomendação?",
+      "alternativas": [
+        "Fazer os diretores revisarem primeiro e de forma visível, simplificar a revisão na ferramenta e incluí-la nos indicadores acompanhados pela gestão.",
+        "Realizar o novo ciclo de treinamento, agora prático e por área, pois a baixa conclusão indica que a habilidade dos gestores ainda não se consolidou.",
+        "Relançar a comunicação da política com foco nos riscos de acessos indevidos, para aprofundar a compreensão e a convicção dos gestores sobre o tema.",
+        "Bloquear automaticamente os acessos das equipes cujo gestor não concluir a revisão no prazo, para que a consequência garanta o cumprimento da política."
+      ],
+      "correta": 0,
+      "explicacao": "O Influence Model aponta quatro alavancas: exemplo da liderança, compreensão e convicção, desenvolvimento de habilidades e reforço por mecanismos formais. No caso, compreensão e habilidades estão atendidas; faltam o exemplo dos diretores e processos e acompanhamento que sustentem o comportamento. O bloqueio automático é tentador por ser um mecanismo formal, mas age sozinho, recai sobre as equipes e não sobre o gestor omisso, e mantém tanto a contradição do exemplo quanto o atrito da ferramenta.",
+      "referencia": "Influence Model da McKinsey: exemplo da liderança, compreensão e convicção, habilidades e mecanismos formais",
+      "estudar": "Influence Model aplicado a políticas de TI",
+      "dificuldade": "difícil"
+    }
+  ]
+}

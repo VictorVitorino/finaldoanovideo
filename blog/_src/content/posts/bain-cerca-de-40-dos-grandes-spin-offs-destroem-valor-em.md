@@ -6,7 +6,7 @@ tipo: reportagem
 tema: carve-out
 ordem: 143
 olho: Cisões em números
-resumo: Estudo da Bain com 305 grandes spin-offs globais mostra retorno médio de 5,6% em três anos, abaixo dos cerca de 9% do S&P 500, e destruição de valor em cerca de 40% dos casos. Entre os que criaram valor, cerca de 90% melhoraram receita, margem ou ambas.
+resumo: Estudo da Bain com 305 grandes spin-offs globais mostra retorno médio de 5,6% em três anos, abaixo dos cerca de 9% do S&P 500, e destruição de valor em cerca de 40% dos casos. Entre os listados nos EUA que criaram valor, cerca de 90% melhoraram receita, margem ou ambas.
 regiao: Global
 fonte_nome: Bain & Company, Four Proven Ways to Create Value, Any Value, from a Corporate Spin-Off
 fonte_url: https://www.bain.com/insights/four-proven-ways-to-create-value-any-value-from-a-corporate-spin-off/

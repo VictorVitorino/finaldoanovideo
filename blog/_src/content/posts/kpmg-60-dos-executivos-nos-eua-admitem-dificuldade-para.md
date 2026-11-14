@@ -1,9 +1,9 @@
 ---
-titulo: KPMG: 60% dos executivos admitem dificuldade para executar transformações
-slug: kpmg-60-dos-executivos-admitem-dificuldade-para-executar
+titulo: KPMG: 60% dos executivos nos EUA admitem dificuldade para executar boas ideias
+slug: kpmg-60-dos-executivos-nos-eua-admitem-dificuldade-para
 data: 2026-11-14
 tipo: reportagem
-tema: mundo
+tema: transformacao
 ordem: 136
 olho: Saturação e execução
 resumo: Relatório da KPMG dos Estados Unidos, divulgado em 18 de fevereiro de 2026, ouviu 400 executivos e analisou mais de 1.800 companhias abertas. A maioria avança com as transformações, mas admite falha na execução e risco de esgotamento das equipes.

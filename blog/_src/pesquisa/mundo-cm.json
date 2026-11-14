@@ -96,7 +96,7 @@
       "checagem": "Lida na fonte: abri o artigo no blog da Prosci (publicado em 5/11/2026, atualizado em 12/11/2026) e conferi as cinco decisões, os pares 88% e 13% e 73% e 29% e a fala de Laura McGann; abri também a página do Best Practices, que cita a 12ª edição e foi atualizada em 4/11/2026, troquei \"a mais recente\" por \"segue citando\" e acrescentei a ressalva de que a fonte vende os serviços que recomenda."
     },
     {
-      "titulo": "KPMG: 60% dos executivos admitem dificuldade para executar transformações",
+      "titulo": "KPMG: 60% dos executivos nos EUA admitem dificuldade para executar boas ideias",
       "olho": "Saturação e execução",
       "resumo": "Relatório da KPMG dos Estados Unidos, divulgado em 18 de fevereiro de 2026, ouviu 400 executivos e analisou mais de 1.800 companhias abertas. A maioria avança com as transformações, mas admite falha na execução e risco de esgotamento das equipes.",
       "corpo": "A KPMG dos Estados Unidos divulgou em 18 de fevereiro de 2026 o relatório Winners don't wait, sobre transformação em períodos de volatilidade. A base é uma pesquisa com 400 executivos de empresas americanas com receita anual a partir de US$ 1 bilhão, feita em junho de 2025, somada à análise do desempenho de mais de 1.800 companhias abertas.\n\nA maioria não freou: 65% dizem estar avançando ativamente com as transformações e só 17% relatam pausa ou redução. Mesmo assim, um em cada três executivos acredita que os concorrentes estão desacelerando.\n\nO gargalo é a execução. Segundo a pesquisa, 60% admitem que a empresa tem boas ideias, mas dificuldade para executá-las. Entre os custos listados está a perda de ritmo, que gera fadiga organizacional e corrói o apoio a mudanças futuras.\n\nO relatório também afirma que 76% dos empregados participam de três ou mais frentes de transformação ao mesmo tempo e trata o esgotamento como preocupação real. Esse dado aparece com nota de referência, sem detalhamento de amostra no texto. Já a prioridade dada à requalificação de talentos críticos deve subir de 34% para 40% das empresas, segundo o comunicado.",
@@ -124,7 +124,8 @@
         }
       ],
       "tipo_fonte": "primária",
-      "checagem": "Lida na fonte: abri o comunicado da KPMG US (datado de 18/2/2026 no texto; o metadado da página traz 16/2) e o PDF do relatório e conferi os 400 executivos, as mais de 1.800 companhias, 60%, 65%, 17%, um em cada três, 76% com nota de referência, 34% para 40% e, no PDF, a pesquisa de junho de 2025 com empresas de receita a partir de US$ 1 bilhão; troquei \"acelera\" por \"avança\" no resumo e \"risco real\" por \"preocupação real\"."
+      "checagem": "Lida na fonte: abri o comunicado da KPMG US (datado de 18/2/2026 no texto; o metadado da página traz 16/2) e o PDF do relatório e conferi os 400 executivos, as mais de 1.800 companhias, 60%, 65%, 17%, um em cada três, 76% com nota de referência, 34% para 40% e, no PDF, a pesquisa de junho de 2025 com empresas de receita a partir de US$ 1 bilhão; troquei \"acelera\" por \"avança\" no resumo e \"risco real\" por \"preocupação real\".",
+      "tema_blog": "transformacao"
     }
   ]
 }

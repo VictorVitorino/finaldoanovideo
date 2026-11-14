@@ -21,7 +21,7 @@ dados:
   - 69% | Trabalhadores que vivem mudança significativa por IA e dizem que a carga de trabalho aumentou, em pesquisa de pulso sobre mudança da Deloitte (fevereiro de 2026) citada no artigo; 43% apontam falta de tempo como maior barreira | https://www.deloitte.com/us/en/insights/topics/talent/ai-adoption-to-ai-adaptation.html
   - 793 | Participantes do experimento em uma multinacional de tecnologia que comparou a abordagem da Cognician à comunicação tradicional de mudança, segundo o artigo, com base em material da Cognician | https://www.deloitte.com/us/en/insights/topics/talent/ai-adoption-to-ai-adaptation.html
 ---
-Em artigo publicado em 9 de julho de 2026 na Deloitte Insights, seis profissionais da firma defendem que a Gestão da Mudança pare de medir IA apenas por uso. O argumento: quando a adoção entra na avaliação de desempenho, o número de usuários ativos tende a subir, mas o trabalhador pode cumprir o mínimo e seguir trabalhando como antes.
+Em artigo publicado em 9 de julho de 2026 na Deloitte Insights, seis profissionais da firma defendem que a gestão da mudança pare de medir IA apenas por uso. O argumento: quando a adoção entra na avaliação de desempenho, o número de usuários ativos tende a subir, mas o trabalhador pode cumprir o mínimo e seguir trabalhando como antes.
 
 Os números citados vêm da própria Deloitte. Segundo o artigo, com base no relatório State of AI in the Enterprise 2026, menos de 60% dos trabalhadores com acesso usam IA no fluxo diário e 84% das organizações não redesenharam cargos ou fluxos. Em pesquisa de pulso sobre mudança da firma, de fevereiro de 2026, entre trabalhadores que vivem mudança significativa por IA, 69% dizem que a carga aumentou e 43% apontam a falta de tempo como maior barreira.
 

@@ -2,7 +2,7 @@
   "nome": "Change Management World",
   "nome_curto": "CM World",
   "lema": "Inovações em Change Management pelo mundo",
-  "descricao": "Notícias, pesquisas e guias de campo sobre Gestão da Mudança: IA, transformação, carve-out, due diligence e governança de TI. Por Victor Vitorino.",
+  "descricao": "Notícias, pesquisas e guias de campo sobre gestão da mudança: IA, transformação, carve-out, due diligence e governança de TI. Por Victor Vitorino.",
   "autor": "Victor Vitorino",
   "papel": "Consultor especialista em Change Management",
   "url": "",
@@ -11,7 +11,7 @@
   "edicao": {
     "numero": 1,
     "rotulo": "Edição 01",
-    "periodo": "novembro de 2026",
+    "periodo": "14 de novembro de 2026",
     "capa": "mapa-de-perfil-cognitivo"
   }
 }

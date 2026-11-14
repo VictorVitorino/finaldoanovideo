@@ -1,0 +1,82 @@
+{
+  "dominio": "modelos",
+  "nome": "Modelos e fundamentos",
+  "validacao": "Escrita por um autor e resolvida às cegas por dois examinadores independentes, que chegaram ao gabarito sem conhecê-lo. Seleção e revisão final do editor.",
+  "perguntas": [
+    {
+      "id": "modelos-02",
+      "enunciado": "A seis semanas do go-live de um novo modelo de atendimento, a avaliação ADKAR de uma central com 200 pessoas, em notas de 1 a 5, mostra: Consciência (Awareness) 4, Desejo (Desire) 2, Conhecimento (Knowledge) 2, Habilidade (Ability) 2 e Reforço (Reinforcement) 1. Pressionado pelo prazo, o PMO propõe antecipar o treinamento. Qual é a melhor leitura?",
+      "alternativas": [
+        "O ponto de barreira é o Desejo, o primeiro elemento fraco da sequência; antes de treinar, patrocinador e gestores diretos precisam trabalhar os motivos de cada grupo para aderir.",
+        "O ponto de barreira é o Reforço, que tem a menor nota; a prioridade é definir desde já os mecanismos de reconhecimento e de cobrança que valerão depois do go-live.",
+        "O ponto de barreira é o Conhecimento, o único que o prazo permite resolver; antecipar o treinamento eleva as notas seguintes, e o desejo tende a vir com o uso do novo modelo.",
+        "Não há ponto de barreira único: com quatro elementos fracos, o plano deve atacar os quatro em paralelo, com a mesma intensidade, até a data prevista para o go-live."
+      ],
+      "correta": 0,
+      "explicacao": "Os elementos do ADKAR são sequenciais, e o ponto de barreira é o primeiro elemento fraco na ordem, não o de menor nota. Conhecimento, Habilidade e Reforço baixos são esperados enquanto o Desejo não foi construído, e treinar quem ainda não decidiu participar tende a não se converter em adoção. A alternativa do Reforço atrai por ter a nota mais baixa, mas esse elemento só faz sentido depois que a mudança já está sendo praticada.",
+      "referencia": "Modelo ADKAR e metodologia Prosci (ponto de barreira)",
+      "estudar": "Sequência do ADKAR e ponto de barreira",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "modelos-03",
+      "enunciado": "Duas áreas foram fundidas: nova estrutura, novo sistema e novo endereço entraram no prazo. Três meses depois, a produtividade caiu, as pessoas repetem que \"no nosso jeito antigo funcionava\" e o diretor insiste que \"a mudança já foi concluída\". Pelo modelo de Transições de William Bridges, qual é a melhor leitura?",
+      "alternativas": [
+        "As pessoas já estão no novo começo e sentem falta de um marco; o passo indicado é um evento de lançamento que celebre a nova identidade da área unificada.",
+        "A zona neutra se prolongou por falta de ritmo; o passo indicado é acelerar o cronograma para encurtar o período de incerteza e de baixa produtividade.",
+        "A transição se inicia pelo novo começo; o passo indicado é reapresentar a visão e os benefícios até que as referências ao modelo antigo desapareçam.",
+        "A mudança, que é situacional, ocorreu; a transição, que é psicológica, não. O passo indicado é reconhecer o que cada grupo perdeu e ajudar a encerrar o antigo."
+      ],
+      "correta": 3,
+      "explicacao": "Bridges separa a mudança (o evento externo: estrutura, sistema, endereço) da transição (o processo interno pelo qual as pessoas se desligam do antigo e se ligam ao novo). A transição começa por um fim, e a nostalgia do \"jeito antigo\" indica perdas que não foram reconhecidas. Acelerar o cronograma parece gestão firme, mas Bridges trata a zona neutra como etapa que precisa ser atravessada com apoio, não comprimida, e ela nem começa de fato enquanto o fim não foi elaborado.",
+      "referencia": "Modelo de Transições de William Bridges (Managing Transitions)",
+      "estudar": "Bridges: diferença entre mudança e transição",
+      "dificuldade": "média"
+    },
+    {
+      "id": "modelos-04",
+      "enunciado": "Uma indústria redefiniu a estratégia, reorganizou-se em unidades de negócio e implantou um novo ERP. Um ano depois, os diretores continuam centralizando decisões, faltam competências analíticas nas unidades e predomina a crença de que \"cada área cuida do seu\". O CEO cogita um novo redesenho organizacional. Pelo McKinsey 7-S, qual é a melhor leitura?",
+      "alternativas": [
+        "Como os valores compartilhados ficam no centro do modelo, o 7-S prescreve mudar primeiro a cultura e só depois mexer em estratégia, estrutura e sistemas, nessa ordem.",
+        "Os elementos hard (estratégia, estrutura, sistemas) mudaram, mas os soft (estilo, habilidades, pessoas, valores compartilhados) seguem desalinhados; é esse desalinhamento que precisa ser tratado.",
+        "O 7-S estabelece que a estrutura decorre da estratégia; se o resultado não veio, a estrutura foi mal desenhada, e um novo redesenho organizacional é o passo coerente.",
+        "Estilo, habilidades e pessoas são elementos hard, pois dependem de políticas formais de RH; a correção é rever cargos, descrições de função e o organograma das unidades."
+      ],
+      "correta": 1,
+      "explicacao": "O 7-S trata a organização como sete elementos interdependentes: três hard (estratégia, estrutura, sistemas) e quatro soft (valores compartilhados, habilidades, estilo, pessoas). A empresa mexeu apenas nos hard, e os sintomas do caso são de estilo de liderança, habilidades e valores compartilhados; outro redesenho repetiria o erro. A alternativa da cultura primeiro é tentadora porque os valores compartilhados ficam no centro do diagrama, mas o modelo é de alinhamento e não prescreve uma ordem de intervenção.",
+      "referencia": "McKinsey 7-S Framework (Peters, Waterman e colegas, McKinsey)",
+      "estudar": "McKinsey 7-S: elementos hard e soft",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "modelos-05",
+      "enunciado": "Um banco quer que seus gestores passem a dar feedback contínuo. O programa teve uma campanha do CEO explicando o porquê e uma trilha de capacitação bem avaliada pelos participantes. Seis meses depois, a prática não se espalhou: os diretores não dão feedback às próprias equipes e a avaliação de desempenho segue anual, baseada apenas em metas numéricas. Pelo Influence Model da McKinsey, quais alavancas ficaram descobertas?",
+      "alternativas": [
+        "Compreensão e convicção, e desenvolvimento de talentos e habilidades: faltou explicar o porquê da mudança e capacitar os gestores para a nova prática.",
+        "Exemplo da liderança, e compreensão e convicção: os diretores não praticam o feedback, e a campanha do CEO não foi suficiente para convencer os gestores.",
+        "Desenvolvimento de talentos e habilidades, e mecanismos formais: a capacitação não gerou prática, e a avaliação de desempenho segue no formato antigo.",
+        "Exemplo da liderança (role modeling) e reforço por mecanismos formais: os diretores não praticam o feedback, e os sistemas de gestão premiam o padrão antigo."
+      ],
+      "correta": 3,
+      "explicacao": "O Influence Model tem quatro alavancas: exemplo da liderança (role modeling), compreensão e convicção, desenvolvimento de talentos e habilidades, e reforço por mecanismos formais. A campanha do CEO cobriu a compreensão e a trilha cobriu as habilidades; o caso mostra diretores que não dão o exemplo e uma avaliação de desempenho que contradiz o comportamento pedido. As alternativas que culpam a campanha ou a capacitação atraem porque a prática não se espalhou, mas o enunciado não traz evidência de falha nessas duas frentes.",
+      "referencia": "Influence Model da McKinsey (quatro alavancas da mudança de comportamento)",
+      "estudar": "Influence Model da McKinsey: as quatro alavancas",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "modelos-06",
+      "enunciado": "Em um programa de transformação, o patrocinador pede para \"aplicar Kotter\", o PMO pede para \"aplicar o HCMBOK\" e o RH pede para \"aplicar ADKAR\". A consultora de gestão da mudança precisa explicar ao comitê como os três referenciais se relacionam antes de montar o plano. Qual é a melhor leitura?",
+      "alternativas": [
+        "Respondem a perguntas diferentes e podem ser combinados: Kotter orienta as ações da liderança na organização, o HCMBOK organiza as atividades de mudança pelas fases do projeto e ADKAR descreve os resultados de cada indivíduo.",
+        "São três modelos de etapas para a organização e, por isso, se sobrepõem: o mais seguro é escolher um deles, descartar os outros dois e padronizar toda a linguagem do programa em torno do referencial escolhido.",
+        "Kotter e ADKAR descrevem a jornada do indivíduo, e o HCMBOK descreve a da organização: basta combinar o HCMBOK com um dos outros dois, conforme a preferência do patrocinador e a cultura da empresa.",
+        "Kotter e o HCMBOK organizam o trabalho pelas fases do projeto, e ADKAR o organiza pelas ações da liderança: ADKAR deve ficar com o patrocinador, e os outros dois referenciais, sob a gestão do PMO."
+      ],
+      "correta": 0,
+      "explicacao": "Os três têm lógicas de organização distintas. Os 8 passos de Kotter descrevem o que a liderança faz para mobilizar a organização; o HCMBOK, corpo de conhecimento do HUCMI, distribui as atividades de gestão de mudanças ao longo das fases do projeto e se integra à gestão de projetos; ADKAR é um modelo de mudança individual, usado para diagnosticar em que elemento cada pessoa ou grupo está travado. Escolher um só parece disciplina de método, mas parte da premissa errada de que os três são modelos de etapas da organização.",
+      "referencia": "8 passos de Kotter (Leading Change); HCMBOK (HUCMI); Modelo ADKAR (Prosci)",
+      "estudar": "Quando usar Kotter, HCMBOK e ADKAR",
+      "dificuldade": "difícil"
+    }
+  ]
+}

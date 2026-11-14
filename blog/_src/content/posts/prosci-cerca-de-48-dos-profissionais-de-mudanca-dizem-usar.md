@@ -6,7 +6,7 @@ tipo: reportagem
 tema: ia
 ordem: 114
 olho: Pesquisa com praticantes
-resumo: Estudo da Prosci com mais de 200 profissionais de Gestão da Mudança indica que cerca de 48% usam ferramentas de IA na prática, sobretudo em comunicação e criação de conteúdo. Medo, governança e privacidade aparecem entre as preocupações. A página foi atualizada em outubro de 2026, mas não informa quando a pesquisa foi feita.
+resumo: Estudo da Prosci com mais de 200 profissionais de gestão da mudança indica que cerca de 48% usam ferramentas de IA na prática, sobretudo em comunicação e criação de conteúdo. Medo, governança e privacidade aparecem entre as preocupações. A página foi atualizada em outubro de 2026, mas não informa quando a pesquisa foi feita.
 regiao: Global
 fonte_nome: Prosci, AI for Change Management (blog)
 fonte_url: https://www.prosci.com/blog/ai-change-management
@@ -19,9 +19,9 @@ origem: apuracao
 dados:
   - 48% | Parcela aproximada dos profissionais de mudança que usam ferramentas de IA na prática, em estudo da Prosci com mais de 200 praticantes (data de coleta não informada na página) | https://www.prosci.com/blog/ai-change-management
   - 30% | Apoio à comunicação, uso de IA mais citado por profissionais de mudança na pesquisa da Prosci, seguido de criação de conteúdo (22%) e estratégia e planejamento (20%) | https://www.prosci.com/blog/why-your-organization-needs-ai-for-change-management
-  - 22% | Participantes do estudo da Prosci que apontaram governança e conformidade como preocupação com IA na Gestão da Mudança; 13% citaram segurança e privacidade | https://www.prosci.com/blog/ai-change-management
+  - 22% | Participantes do estudo da Prosci que apontaram governança e conformidade como preocupação com IA na gestão da mudança; 13% citaram segurança e privacidade | https://www.prosci.com/blog/ai-change-management
 ---
-A Prosci atualizou em 5 de outubro de 2026 o artigo em que resume seu estudo Artificial Intelligence and Change Management. Com base em mais de 200 profissionais de mudança, cerca de 48% disseram usar ferramentas de IA na prática de Gestão da Mudança.
+A Prosci atualizou em 5 de outubro de 2026 o artigo em que resume seu estudo Artificial Intelligence and Change Management. Com base em mais de 200 profissionais de mudança, cerca de 48% disseram usar ferramentas de IA na prática de gestão da mudança.
 
 Há uma ressalva de data. A página não informa quando a pesquisa foi a campo. O mesmo estudo é citado em outro artigo da empresa, publicado em março de 2025 segundo os metadados da página e atualizado em agosto de 2026. O número deve ser lido como um retrato sem data, não como medição de 2026.
 

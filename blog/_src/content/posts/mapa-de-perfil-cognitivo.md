@@ -39,7 +39,7 @@ Juntando as posições, área por área, nasce o **Mapa de Adoção** do projeto
 
 ## Uma ação para cada marca
 
-Com o mapa na mão, a Gestão da Mudança deixa de ser receita única:
+Com o mapa na mão, a gestão da mudança deixa de ser receita única:
 
 1. **Escuta** para quem resiste: ouvir o motivo e ajustar a mensagem.
 2. **Exemplo** para quem observa: mostrar funcionando, com gente parecida.

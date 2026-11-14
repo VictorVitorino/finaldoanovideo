@@ -28,3 +28,5 @@ A IA entregou velocidade: 81% relatam decisões e execução mais rápidas. Só 
 Os números de redesenho mostram a profundidade do problema. 60% redesenharam cargos em torno da IA em grau ao menos moderado, mas só 15% descrevem a mudança como extensa ou completa. Também 15% relatam mudança significativa na autoridade de decisão. Segundo o relatório, pede-se às pessoas que trabalhem de outro jeito sem lhes dar poder para agir de outro jeito.
 
 A autonomia cresce mais rápido que a responsabilização. 40% permitem que a IA execute decisões ou ações sem aprovação humana, ao menos em grau moderado, e 23% dizem que não está claro quem responde por um resultado negativo. Ganhos de receita com IA são relatados por 28% das empresas, ante 20% no relatório de janeiro.
+
+Uma ressalva de leitura: a edição anterior do mesmo relatório, com campo em agosto e setembro de 2025 e 3.235 líderes, usava outras perguntas e outra amostra. Os números das duas edições não são diretamente comparáveis.

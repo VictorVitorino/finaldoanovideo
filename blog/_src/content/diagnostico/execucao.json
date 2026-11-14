@@ -1,0 +1,82 @@
+{
+  "dominio": "execucao",
+  "nome": "Comunicação e capacitação",
+  "validacao": "Escrita por um autor e resolvida às cegas por dois examinadores independentes, que chegaram ao gabarito sem conhecê-lo. Seleção e revisão final do editor.",
+  "perguntas": [
+    {
+      "id": "execucao-01",
+      "enunciado": "Em um programa de centralização de serviços financeiros, todos os comunicados saem da caixa \"Equipe do Projeto\". Na pesquisa de pulso, os colaboradores dizem que não sabem por que a empresa decidiu mudar nem o que muda na rotina da sua equipe. Segundo a pesquisa de melhores práticas da Prosci sobre emissores preferidos, como redistribuir essas duas mensagens?",
+      "alternativas": [
+        "O patrocinador executivo comunica as duas mensagens em vídeo, para garantir versão única e o peso da alta direção.",
+        "O patrocinador executivo comunica as razões de negócio; o gestor imediato comunica o impacto na rotina da equipe.",
+        "O gerente do projeto comunica as razões de negócio; a área de RH comunica o impacto na rotina de cada equipe.",
+        "O gestor imediato comunica as duas mensagens, por ser a fonte mais próxima e mais confiável para o colaborador."
+      ],
+      "correta": 1,
+      "explicacao": "A pesquisa da Prosci mostra dois emissores preferidos: a liderança sênior para as mensagens de negócio (por que mudar, alinhamento com a estratégia) e o gestor imediato para o impacto pessoal (o que muda no meu trabalho). Concentrar tudo no patrocinador é tentador pela versão única, mas ele não consegue traduzir a mudança para a rotina de cada equipe. Cabe à equipe de mudança preparar os dois emissores, não falar no lugar deles.",
+      "referencia": "Pesquisa Best Practices in Change Management, Prosci (emissores preferidos das mensagens de mudança)",
+      "estudar": "Emissores preferidos no plano de comunicação",
+      "dificuldade": "média"
+    },
+    {
+      "id": "execucao-02",
+      "enunciado": "Depois do treinamento de um novo CRM, a equipe de mudança apresenta ao patrocinador presença de 96% dos convocados, nota de satisfação 4,6 em 5 e média 8,5 na prova final. O patrocinador pergunta se os vendedores estão, de fato, trabalhando de outro jeito. Pelo modelo de Kirkpatrick, que evidência responde a essa pergunta?",
+      "alternativas": [
+        "A comparação entre as notas do pré-teste e do pós-teste, que mostra o ganho de conhecimento de cada turma.",
+        "A intenção de recomendar o treinamento a colegas, apurada na avaliação aplicada ao final de cada turma.",
+        "O aumento da taxa de conversão de vendas no trimestre seguinte, apurado pela controladoria comercial.",
+        "O registro de oportunidades no CRM e a observação dos gestores em campo, semanas depois do treinamento."
+      ],
+      "correta": 3,
+      "explicacao": "A pergunta do patrocinador é sobre o nível 3 de Kirkpatrick (Comportamento): a aplicação no trabalho, medida por observação e dados de uso algum tempo depois do treinamento. Satisfação e intenção de recomendar são nível 1 (Reação); ganho entre pré e pós-teste é nível 2 (Aprendizagem). A taxa de conversão é a alternativa mais tentadora, mas é nível 4 (Resultados): pode subir ou cair por outros fatores e não mostra se o comportamento mudou.",
+      "referencia": "Modelo de avaliação de treinamento em quatro níveis, de Donald Kirkpatrick",
+      "estudar": "Quatro níveis de Kirkpatrick na capacitação",
+      "dificuldade": "média"
+    },
+    {
+      "id": "execucao-05",
+      "enunciado": "Na matriz RACI do plano de mudança, a atividade \"aprovar comunicados às áreas impactadas\" tem dois A (o gerente de mudança e a diretora de comunicação) e oito áreas como C. Cada comunicado leva três semanas para sair e, quando há divergência entre as áreas, ninguém decide. Qual ajuste resolve a causa do problema?",
+      "alternativas": [
+        "Manter a matriz e fixar prazo de 48 horas para cada área consultada responder, com aprovação tácita em caso de silêncio.",
+        "Transformar as oito áreas consultadas em R, para que todas participem da redação e resolvam as divergências na origem.",
+        "Manter os dois A, já que ambos respondem pelo conteúdo, e criar um comitê semanal para arbitrar divergências entre as áreas.",
+        "Definir um único A com a palavra final, manter como C apenas quem precisa opinar antes da publicação e passar as demais áreas para I."
+      ],
+      "correta": 3,
+      "explicacao": "A RACI pede um único A por atividade, justamente para que exista alguém com a palavra final; com dois A, a divergência fica sem dono. C é consulta de mão dupla antes da entrega e deve ficar restrita a quem realmente altera o conteúdo; quem só precisa saber é I. O prazo de 48 horas é tentador porque reduz o tempo de ciclo, mas mantém o excesso de consultados e não resolve quem decide quando as áreas discordam.",
+      "referencia": "Matriz RACI (matriz de atribuição de responsabilidades, descrita no Guia PMBOK, PMI)",
+      "estudar": "RACI: um único A e uso do C",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "execucao-06",
+      "enunciado": "Para o rollout de um novo modelo de atendimento em 40 agências, os gerentes indicaram como multiplicadores os funcionários que melhor dominam o sistema. Dois meses depois, eles respondem bem às dúvidas técnicas, mas os colegas não os procuram para falar da mudança e a resistência nas agências segue igual. Que critério de seleção faltou?",
+      "alternativas": [
+        "Senioridade hierárquica, para que os multiplicadores tenham autoridade formal para cobrar dos colegas a adesão ao novo modelo.",
+        "Credibilidade e influência entre os pares, como têm os líderes de opinião, com tempo de dedicação combinado com o gestor.",
+        "Disponibilidade de agenda, para que os multiplicadores possam atuar em tempo integral no projeto até o fim do rollout.",
+        "Entusiasmo declarado pela mudança, para que os multiplicadores sejam voluntários já convencidos dos benefícios do modelo."
+      ],
+      "correta": 1,
+      "explicacao": "Domínio técnico forma bons usuários-chave, mas a rede de mudança existe para influenciar atitudes, e isso depende de quem os pares ouvem. Rogers mostra que a adoção se espalha por líderes de opinião, cuja influência é informal e vem da credibilidade no grupo, não do cargo. O entusiasta é a alternativa mais tentadora, mas quem adere primeiro nem sempre é referência para os colegas; sem influência entre pares, o entusiasmo não se propaga.",
+      "referencia": "Difusão de Inovações, de Everett Rogers (líderes de opinião); Influence Model da McKinsey (exemplo de pessoas de referência)",
+      "estudar": "Seleção e papel da rede de multiplicadores",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "execucao-07",
+      "enunciado": "Seis semanas após o go-live de um ERP, os chamados caíram e o projeto quer encerrar o hypercare na data prevista. O primeiro fechamento mensal foi feito inteiro no sistema e dentro do prazo. No segundo, as equipes de contas a pagar voltaram às planilhas paralelas, com autorização dos supervisores, \"para ganhar tempo\". Qual é a melhor decisão sobre o hypercare?",
+      "alternativas": [
+        "Encerrar o hypercare na data, pois a queda dos chamados indica estabilização, e encaminhar o uso das planilhas à auditoria interna.",
+        "Prorrogar o hypercare por mais um ciclo, com plantonistas ao lado das equipes durante o fechamento para tirar dúvidas de operação.",
+        "Condicionar o encerramento a indicadores de uso real e agir com os supervisores para retirar a planilha e sustentar o processo no sistema.",
+        "Reaplicar o treinamento prático de fechamento antes do próximo ciclo e encerrar o hypercare quando todos forem reaprovados."
+      ],
+      "correta": 2,
+      "explicacao": "Queda de chamados não prova adoção: quem volta à planilha também deixa de abrir chamado, então o critério de saída precisa ser uso real do processo. As equipes já demonstraram Conhecimento e Habilidade no primeiro fechamento; a recaída foi autorizada pela liderança direta, o que caracteriza lacuna de Reforço no ADKAR. Prorrogar com plantonistas é a alternativa mais tentadora, mas trata uma dificuldade de operação que os dados não mostram e deixa intacto o que sustenta o retrocesso.",
+      "referencia": "Modelo ADKAR (Reinforcement) e Prosci 3-Phase Process, Fase 3 – Sustain Outcomes (Prosci)",
+      "estudar": "Critérios de saída do hypercare e reforço",
+      "dificuldade": "muito difícil"
+    }
+  ]
+}

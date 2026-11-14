@@ -10,7 +10,7 @@ resumo: Estudo da Transaction Advisors com a Mercer compara 2026 e 2024 e mostra
 regiao: Global
 fonte_nome: Mercer e Transaction Advisors, The say-versus-do divide in M&A: 2026 versus 2024
 fonte_url: https://www.mercer.com/insights/people-strategy/mergers-and-acquisitions/rethinking-human-capital-the-untapped-driver-of-m-and-a-revenue/
-fonte_data: 
+fonte_nota: 2026 (ano da edição; a página não informa dia e mês)
 fonte_tipo: primária
 verificacao: lida na fonte
 checagem: Lida na fonte: abri a página da Mercer com o leitor e conferi o título, a parceria com a Transaction Advisors, o perfil dos respondentes e os percentuais 65% contra 54%, 74%, 56%, 23% e 39%. A página não traz data de publicação, tamanho da amostra nem países cobertos; o ano vem do título do estudo e a região é a da edição global do site.

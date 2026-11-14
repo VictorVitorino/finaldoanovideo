@@ -1,0 +1,82 @@
+{
+  "dominio": "estrategia",
+  "nome": "Estratégia e patrocínio",
+  "validacao": "Escrita por um autor e resolvida às cegas por dois examinadores independentes, que chegaram ao gabarito sem conhecê-lo. Seleção e revisão final do editor.",
+  "perguntas": [
+    {
+      "id": "estrategia-02",
+      "enunciado": "Um banco entregou a nova plataforma de crédito no prazo, no orçamento e com o escopo previsto. O caso de negócio prometia reduzir o tempo de análise, o que depende de os analistas passarem a trabalhar de outro jeito. O comitê pede indicadores para acompanhar essa parte do retorno. Qual conjunto mede o que o comitê quer saber?",
+      "alternativas": [
+        "Prazo, custo e escopo do projeto, porque uma entrega dentro do planejado é a evidência mais confiável de que os benefícios previstos serão capturados.",
+        "Quantidade de comunicados enviados, horas de treinamento realizadas e presença nos eventos, porque mostram o esforço de mudança aplicado sobre o público.",
+        "Nota de satisfação com o treinamento e avaliação de reação dos participantes, porque quem aprova a capacitação tende a adotar a nova plataforma.",
+        "Velocidade de adoção, utilização final e proficiência: quão rápido, em que proporção e com que qualidade os analistas passaram a trabalhar do novo jeito."
+      ],
+      "correta": 3,
+      "explicacao": "A parte do retorno que depende de pessoas se mede por três fatores descritos pela Prosci: velocidade de adoção, utilização final e proficiência. Eles ligam a gestão da mudança ao caso de negócio. Contar comunicados e horas de treinamento é tentador porque o dado é fácil de obter, mas mede atividade, não resultado. Já a avaliação de reação corresponde apenas ao primeiro nível de Kirkpatrick e não mostra mudança de comportamento no trabalho.",
+      "referencia": "Fatores do lado humano do retorno do investimento (velocidade de adoção, utilização final e proficiência), metodologia Prosci; níveis de avaliação de Kirkpatrick",
+      "estudar": "Definição de sucesso: adoção, utilização e proficiência",
+      "dificuldade": "média"
+    },
+    {
+      "id": "estrategia-03",
+      "enunciado": "Uma indústria aprovou a implantação de um novo sistema de planejamento de produção e o projeto está na iniciação. O gerente do projeto propõe trazer a gestão da mudança só perto do go-live, quando houver solução desenhada para comunicar e treinar. Argumenta que, antes disso, não há o que fazer. Qual é a melhor resposta?",
+      "alternativas": [
+        "Começar já: avaliar patrocínio, grupos impactados e prontidão, dimensionar o esforço e integrar o plano de mudança ao do projeto, refinando os impactos conforme o desenho evolui.",
+        "Esperar o desenho da solução ser fechado, porque uma avaliação de impacto feita antes disso gera retrabalho e passa aos envolvidos informações que ainda vão mudar bastante.",
+        "Começar na fase de testes, quando os usuários-chave já conhecem a solução e podem atuar como multiplicadores do treinamento e da comunicação junto aos colegas de área.",
+        "Começar já, mas com uma campanha ampla de comunicação dos benefícios do sistema, para criar expectativa positiva antes que as resistências apareçam nas áreas de produção."
+      ],
+      "correta": 0,
+      "explicacao": "Os referenciais consagrados colocam a gestão da mudança desde a iniciação do projeto. O trabalho inicial (patrocínio, razão da mudança, grupos impactados, prontidão e dimensionamento do esforço) não depende do desenho detalhado, e a avaliação de impacto é refinada à medida que a solução amadurece. Esperar o desenho fechar parece prudente, mas reduz a gestão da mudança a comunicação e treinamento e perde a chance de influenciar o plano e o desenho. A campanha de benefícios, sem diagnóstico, comunica antes de saber o que muda para cada grupo.",
+      "referencia": "Processo de 3 fases da Prosci (Preparar a Abordagem) e pesquisa Best Practices in Change Management; Standard for Change Management da ACMP (avaliação de impacto e de prontidão organizacional); HCMBOK do HUCMI (gestão de mudanças integrada às fases do projeto)",
+      "estudar": "Integração entre gestão de projetos e mudança",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "estrategia-04",
+      "enunciado": "Um CRM foi lançado com o patrocinador muito presente. Nas primeiras semanas, os vendedores, já treinados, registraram as oportunidades corretamente. Depois do go-live, o patrocinador passou a se dedicar a outra iniciativa, o tema saiu das reuniões de resultado e, dois meses depois, as planilhas paralelas voltaram. O que fazer primeiro?",
+      "alternativas": [
+        "Reaplicar o treinamento para toda a força de vendas, porque a queda de uso indica que o conteúdo não foi assimilado na primeira rodada de capacitação.",
+        "Relançar a campanha de comunicação sobre os benefícios do CRM, porque a equipe de vendas perdeu de vista o motivo que justificou a mudança.",
+        "Levar os dados de adoção ao patrocinador e trazê-lo de volta para, com os gestores, cobrar, reconhecer e acompanhar o uso na rotina de resultados.",
+        "Pedir à TI o bloqueio das planilhas paralelas, porque eliminar a alternativa antiga é o modo mais rápido de garantir o uso do novo sistema."
+      ],
+      "correta": 2,
+      "explicacao": "Os vendedores já demonstraram conhecimento e habilidade ao usar o sistema corretamente no início. O que faltou foi o reforço, último elemento do Modelo ADKAR, e a presença do patrocinador durante todo o ciclo, não só até o lançamento. Kotter descreve o mesmo erro como declarar vitória cedo demais. Retreinar é a resposta mais comum e a mais tentadora, mas trata uma lacuna de conhecimento que o caso mostra não existir.",
+      "referencia": "Modelo ADKAR (Reforço) e fase Sustentar Resultados do processo de 3 fases da Prosci; 8 passos de Kotter (não declarar vitória cedo demais, ancorar a mudança na cultura)",
+      "estudar": "Reforço e sustentação da mudança pós-go-live",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "estrategia-05",
+      "enunciado": "Uma empresa vai centralizar atividades financeiras em um centro de serviços compartilhados. O presidente é o patrocinador e fala do projeto com entusiasmo. Dois diretores de unidades de negócio, cujas equipes perdem atividades, dizem aos seus times que \"é melhor esperar para ver\". Os gerentes dessas unidades seguem os diretores. Qual é a melhor ação?",
+      "alternativas": [
+        "Aumentar a frequência das mensagens do presidente a todos os empregados, para que a voz do patrocinador principal se sobreponha à dos dois diretores nas unidades.",
+        "Contornar os diretores e formar uma rede de agentes de mudança com gerentes e analistas das unidades de negócio, construindo a adesão de baixo para cima.",
+        "Levar o caso ao comitê do projeto e atrelar metas individuais dos diretores ao cronograma, de modo a garantir o cumprimento das entregas de cada unidade.",
+        "Preparar o presidente para conversar diretamente com os dois diretores, entender as objeções e recompor a coalizão de patrocínio antes de insistir com as equipes."
+      ],
+      "correta": 3,
+      "explicacao": "O problema está na coalizão de patrocínio, não no volume de comunicação. As pessoas observam o líder da própria área, e cabe ao patrocinador principal mobilizar os demais líderes para que legitimem a mudança em suas unidades. Aumentar as mensagens do presidente é tentador porque ele deve mesmo comunicar diretamente, mas a mensagem do topo perde força quando a liderança imediata sinaliza o contrário. Atrelar metas pode vir depois; como primeira ação, compra obediência ao cronograma sem tratar as objeções.",
+      "referencia": "Papéis do patrocinador (construir a coalizão de patrocínio), metodologia Prosci; coalizão orientadora, 8 passos de Kotter",
+      "estudar": "Coalizão de patrocínio e alinhamento da liderança",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "estrategia-06",
+      "enunciado": "A área de operações recebe no mesmo trimestre um novo ERP, uma reestruturação, um novo modelo de avaliação de desempenho e um programa de segurança. Cada projeto tem um bom plano de mudança, mas os gestores relatam sobrecarga e a adoção cai em todos. O escritório de transformação pergunta o que fazer. Qual é a melhor recomendação?",
+      "alternativas": [
+        "Reforçar o plano de mudança de cada um dos quatro projetos com mais comunicação, mais treinamento e mais agentes de mudança dedicados à área de operações.",
+        "Mapear todas as mudanças por grupo impactado e período, comparar com a capacidade da área e levar à liderança a decisão de priorizar, sequenciar ou adiar iniciativas.",
+        "Unificar os comunicados dos quatro projetos em um calendário único de mensagens, para que a área de operações receba informações coordenadas e sem repetição.",
+        "Pedir a cada gestor de operações que defina a ordem de prioridade das quatro iniciativas em sua equipe, já que é ele quem conhece melhor a carga de trabalho local."
+      ],
+      "correta": 1,
+      "explicacao": "O quadro é de saturação: a soma das mudanças supera a capacidade de absorção do grupo, e isso não se resolve dentro de um projeto isolado. A resposta está no nível da carteira, com visão consolidada do impacto por grupo e decisão da liderança sobre prioridade e sequência. O calendário único de comunicados é uma boa prática e por isso tenta, mas coordena as mensagens sem reduzir a carga real de mudança. Deixar a prioridade para cada gestor cria prioridades conflitantes entre equipes e transfere a ele uma decisão que é da liderança.",
+      "referencia": "Saturação de mudanças e gestão da carteira de mudanças, metodologia Prosci",
+      "estudar": "Saturação e gestão da carteira de mudanças",
+      "dificuldade": "difícil"
+    }
+  ]
+}

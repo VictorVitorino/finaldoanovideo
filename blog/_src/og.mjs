@@ -6,13 +6,15 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { carrega } from './build.mjs';
 import { cartaoOG } from './lib/modelos.mjs';
+import { PREVIAS } from './lib/lab.mjs';
 
 const { chromium } = createRequire(import.meta.url)('playwright');
 const SRC = dirname(fileURLToPath(import.meta.url)), BLOG = join(SRC, '..'), TMP = join(BLOG, '_og'), SAIDA = join(BLOG, 'assets', 'img', 'og');
 const { cfg, posts } = carrega(), so = process.argv.slice(2);
 mkdirSync(TMP, { recursive: true }); mkdirSync(SAIDA, { recursive: true });
 const b = await chromium.launch(), pg = await b.newPage({ viewport: { width: 1200, height: 627 }, deviceScaleFactor: 1 });
-const itens = [{ slug: 'inicio', p: null }, ...posts.map(p => ({ slug: p.slug, p }))].filter(i => !so.length || so.includes(i.slug));
+const LAB = [['lab', 'Laboratório: teste, monte e baixe', 'diagnostico'], ['lab-diagnostico', 'Em que nível de Change Management você está?', 'diagnostico'], ['lab-raci', 'Matriz RACI da mudança', 'raci'], ['lab-influencia', 'Mapa de influência de stakeholders', 'influencia'], ['lab-adocao', 'Matriz de adoção', 'adocao']];
+const itens = [{ slug: 'inicio', p: null }, ...posts.map(p => ({ slug: p.slug, p })), ...LAB.map(([slug, titulo, arte]) => ({ slug, p: { titulo, tipo: 'lab', tema: 'mundo', slug, arte: PREVIAS[arte]('a') } }))].filter(i => !so.length || so.includes(i.slug));
 for (const { slug, p } of itens) {
   const html = join(TMP, slug + '.html');
   writeFileSync(html, cartaoOG({ cfg, p }));

@@ -31,7 +31,7 @@ Um modelo de governança pede que pessoas acostumadas a decidir sozinhas passem 
 
 ## Cinco movimentos
 
-1. **Comece pelos direitos de decisão.** Quem decide, quem é consultado e em que prazo. Clareza aqui evita metade dos conflitos.
+1. **Comece pelos direitos de decisão.** Quem decide, quem é consultado e em que prazo. Clareza aqui evita boa parte dos conflitos.
 2. **Traduza regras em comportamentos.** Para cada política, escreva o que muda na prática para cada papel: o que fazer, o que parar de fazer e a quem recorrer.
 3. **Desenhe o caminho fácil.** Via rápida para pedidos de baixo risco, modelos prontos e catálogo de soluções aprovadas. Fazer o certo precisa dar menos trabalho do que contornar.
 4. **Forme quem decide e quem usa.** Letramento em dados e em IA para gestores e equipes, com exemplos do próprio trabalho.

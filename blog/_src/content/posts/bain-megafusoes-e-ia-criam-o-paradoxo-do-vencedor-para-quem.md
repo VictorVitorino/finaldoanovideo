@@ -27,4 +27,4 @@ O alerta é o que a consultoria chama de "paradoxo do vencedor": conduzir uma in
 
 Entre as seis perguntas propostas aos compradores, uma trata de pessoas: os líderes estão preparados para apoiar as equipes nessa disrupção? A Bain pede líderes que deem o tom, tolerem erros e respondam à dúvida que os empregados mais querem ver esclarecida, o que a mudança significa para cada um.
 
-Segundo a Bain, programas de integração de ponta já usam IA para identificar e confirmar sinergias de custo duas a três vezes mais rápido. A consultoria afirma ainda que planos e checklists gerados por IA liberam o escritório de integração para apoiar a Gestão da Mudança.
+Segundo a Bain, programas de integração de ponta já usam IA para identificar e confirmar sinergias de custo duas a três vezes mais rápido. A consultoria afirma ainda que planos e checklists gerados por IA liberam o escritório de integração para apoiar a gestão da mudança.

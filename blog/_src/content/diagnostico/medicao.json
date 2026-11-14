@@ -1,0 +1,82 @@
+{
+  "dominio": "medicao",
+  "nome": "Medição e sustentação",
+  "validacao": "Escrita por um autor e resolvida às cegas por dois examinadores independentes, que chegaram ao gabarito sem conhecê-lo. Seleção e revisão final do editor.",
+  "perguntas": [
+    {
+      "id": "medicao-02",
+      "enunciado": "Seis meses após o go-live de um CRM, quase todos os vendedores impactados usam o sistema, e a adesão aconteceu dentro do prazo planejado. O sistema funciona conforme especificado. Porém, os cadastros chegam incompletos, as previsões de venda saem erradas e o retrabalho da área de planejamento é alto. Pelos três fatores humanos com que a Prosci mede a adoção, o que esse quadro indica?",
+      "alternativas": [
+        "Problema de velocidade de adoção: as pessoas demoraram mais que o previsto para trabalhar do novo jeito.",
+        "Problema de utilização final: uma parcela relevante do público impactado ainda não aderiu à mudança.",
+        "Adoção concluída: com prazo e uso dentro da meta, o que resta é um tema técnico a cargo da equipe de TI.",
+        "Problema de proficiência: as pessoas usam o sistema, mas ainda não executam o processo com a qualidade esperada."
+      ],
+      "correta": 3,
+      "explicacao": "A Prosci mede o lado humano do resultado por três fatores: velocidade de adoção (quão rápido), utilização final (quantos) e proficiência (quão bem). No caso, prazo e uso estão dentro do esperado; o que falha é a qualidade da execução, ou seja, a proficiência. Declarar a adoção concluída é tentador, mas uso sem qualidade não entrega o benefício previsto, e o enunciado afasta a hipótese de falha do sistema.",
+      "referencia": "Prosci: fatores humanos do resultado (velocidade de adoção, utilização final e proficiência)",
+      "estudar": "Velocidade de adoção, utilização final e proficiência",
+      "dificuldade": "média"
+    },
+    {
+      "id": "medicao-03",
+      "enunciado": "Um novo processo de requisição de compras teve uso alto no primeiro mês, com a equipe do projeto acompanhando de perto. No terceiro mês, o uso caiu pela metade. As pessoas sabem operar o processo e o fizeram corretamente no início; porém, os gestores continuam aprovando pedidos por e-mail e cobrando a planilha antiga na reunião semanal. Qual é a melhor leitura e a resposta mais adequada?",
+      "alternativas": [
+        "Lacuna de Reforço: alinhar a rotina e as metas dos gestores ao novo processo e encerrar o caminho antigo.",
+        "Lacuna de Conhecimento: aplicar uma reciclagem de treinamento para todos os usuários do novo processo.",
+        "Lacuna de Consciência: relançar a campanha de comunicação com os motivos de negócio da mudança.",
+        "Lacuna de Habilidade: oferecer coaching individual e suporte no posto de trabalho até o uso estabilizar."
+      ],
+      "correta": 0,
+      "explicacao": "O grupo já demonstrou Conhecimento e Habilidade ao executar o processo corretamente no primeiro mês; o que falta é Reforço, o último elemento do ADKAR. Enquanto a rotina dos gestores mantiver vivo o caminho antigo, o comportamento anterior retorna, o que Lewin descreve como a falta do \"recongelar\". Reciclar o treinamento é a reação mais comum e a menos eficaz aqui, porque trata uma lacuna que os fatos do caso não mostram.",
+      "referencia": "Modelo ADKAR (Prosci), elemento Reforço; modelo de três etapas de Kurt Lewin (descongelar, mudar, recongelar)",
+      "estudar": "Reforço no ADKAR e mecanismos formais de sustentação",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "medicao-04",
+      "enunciado": "O painel de adoção de um novo ERP mostra que quase todos os usuários fazem login toda semana, e o comitê do projeto considera a adoção concluída. No entanto, o fechamento contábil leva o mesmo número de dias de antes, e a controladoria mantém planilhas paralelas para conferir os lançamentos. Qual é a melhor leitura?",
+      "alternativas": [
+        "A adoção está concluída; o prazo de fechamento é um problema de desenho do sistema, a ser tratado pela equipe técnica.",
+        "O login é um bom indicador, mas pede mais detalhe: medir também o tempo de sessão de cada usuário dentro do sistema.",
+        "Login mede acesso, não adoção: falta medir se o processo é executado no ERP, de ponta a ponta, sem controle paralelo.",
+        "O dado de sistema é insuficiente: aplicar uma pesquisa de pulso para os usuários declararem quanto utilizam o ERP."
+      ],
+      "correta": 2,
+      "explicacao": "Login registra presença no sistema, não a execução do novo processo; as planilhas paralelas mostram que o trabalho real ainda acontece fora dele. O indicador útil é o que captura o comportamento que gera o benefício: transações concluídas no ERP e qualidade da execução, ou seja, utilização e proficiência. Detalhar o login por tempo de sessão é tentador, mas continua medindo acesso; já a pesquisa traz percepção declarada, não comportamento observado.",
+      "referencia": "Prosci: medição do desempenho individual (utilização final e proficiência); modelo de Kirkpatrick (nível 3, comportamento)",
+      "estudar": "Métricas de uso real versus métricas de acesso",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "medicao-05",
+      "enunciado": "Um programa de centralização de compras só gera a economia prevista no business case se cerca de 300 compradores e requisitantes passarem a trabalhar pelo novo processo. Antes de aprovar o orçamento de gestão da mudança, o CFO pede uma demonstração do valor da disciplina para este programa. Qual abordagem sustenta melhor o caso?",
+      "alternativas": [
+        "Assumir metas de entrega do plano: cobertura de treinamento, comunicações realizadas e satisfação medida ao fim de cada evento.",
+        "Comparar com um projeto anterior da empresa, feito sem gestão da mudança, e atribuir à disciplina a diferença de resultado.",
+        "Apresentar a pesquisa de prontidão, usando a parcela de pessoas resistentes como prova de que o investimento é necessário.",
+        "Estimar a parcela do benefício que depende de adoção e uso, e mostrar como velocidade, utilização e proficiência a afetam."
+      ],
+      "correta": 3,
+      "explicacao": "O valor da gestão da mudança fica demonstrado quando se liga o benefício do projeto ao comportamento das pessoas: a parte da economia que só existe se elas adotarem e usarem o novo processo, e que varia conforme a velocidade de adoção, a utilização final e a proficiência. Metas de entrega do plano são tentadoras por serem fáceis de controlar, mas medem atividade, não resultado. A comparação com outro projeto não isola o efeito da disciplina, pois os dois projetos diferem em muitos outros fatores.",
+      "referencia": "Prosci: retorno da gestão da mudança e parcela dos benefícios do projeto dependente de adoção e uso",
+      "estudar": "Benefícios do projeto dependentes de adoção e uso",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "medicao-06",
+      "enunciado": "Um projeto de novo modelo de atendimento será encerrado 30 dias após o go-live, e a equipe de gestão da mudança será desmobilizada. O uso está em alta, mas os benefícios só devem aparecer em alguns meses, e ninguém na operação acompanha os indicadores de adoção. Qual medida mais protege a sustentação desta mudança depois do encerramento?",
+      "alternativas": [
+        "Prorrogar a equipe de gestão da mudança por mais seis meses, mantendo com ela o acompanhamento dos indicadores de adoção.",
+        "Transferir formalmente os indicadores de adoção e as ações de reforço aos gestores da operação, com responsáveis definidos.",
+        "Registrar as lições aprendidas em relatório final, arquivado no PMO para consulta das equipes dos próximos projetos.",
+        "Estender o suporte técnico intensivo do pós-go-live, com a equipe de TI de plantão para atender as dúvidas dos usuários."
+      ],
+      "correta": 1,
+      "explicacao": "A sustentação pertence a quem gere a operação: sem dono para os indicadores e para as ações de reforço, a mudança perde acompanhamento no momento em que o projeto termina. Por isso a fase final do processo da Prosci inclui ativar a sustentação e transferir a propriedade, e o Standard da ACMP trata a conclusão do esforço como etapa própria. Prorrogar a equipe do projeto é tentador, mas apenas adia o problema e mantém a operação sem responsabilidade pelo resultado; lições aprendidas ajudam os próximos projetos, não este.",
+      "referencia": "Processo de 3 Fases da Prosci (Fase 3, Sustentar Resultados: ativar a sustentação e transferir a propriedade); Standard for Change Management da ACMP (conclusão do esforço de gestão da mudança)",
+      "estudar": "Transferência da sustentação para a operação",
+      "dificuldade": "difícil"
+    }
+  ]
+}

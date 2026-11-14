@@ -7,7 +7,7 @@ export const TEMAS = {
   mundo: { nome: 'Mundo da profissão', ic: 'globo', frase: 'Normas, pesquisas e tendências' },
   transformacao: { nome: 'Transformação', ic: 'ciclo', frase: 'O que faz dar certo' },
   'carve-out': { nome: 'Carve-out', ic: 'tesoura', frase: 'Separar sem perder gente' },
-  'due-diligence': { nome: 'Due diligence', ic: 'lupa', frase: 'Pessoas antes do preço' },
+  'due-diligence': { nome: 'Due diligence e M&A', ic: 'lupa', frase: 'Pessoas antes do preço' },
   'governanca-ti': { nome: 'Governança de TI', ic: 'escudo', frase: 'Regra que vira hábito' },
   adocao: { nome: 'Adoção', ic: 'rota', frase: 'Da ferramenta ao uso' },
   brasil: { nome: 'Brasil & LatAm', ic: 'bussola', frase: 'O que acontece por aqui' },
@@ -17,12 +17,12 @@ const tema = p => TEMAS[p.tema] || TEMAS.mundo;
 const urlPost = (raiz, p) => `${raiz}posts/${p.slug}/`;
 
 // ---------- esqueleto ----------
-export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imagem, tipo = 'website', classe = '', artigo }) {
+export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imagem, tipo = 'website', classe = '', artigo, scripts = [], ativo = '' }) {
   const tituloCompleto = titulo ? `${titulo} · ${cfg.nome}` : `${cfg.nome} · ${cfg.lema}`;
   const abs = cfg.url ? cfg.url.replace(/\/$/, '') + '/' + caminho : '';
   const og = imagem ? (cfg.url ? cfg.url.replace(/\/$/, '') + '/' + imagem : raiz + imagem) : '';
-  const nav = [['#radar', 'Radar'], ['#ia', 'IA & Mudança'], ['#guias', 'Guias'], ['#videos', 'Vídeos'], ['#eventos', 'Eventos'], ['#mes', 'Posts do mês'], ['#sobre', 'Sobre']]
-    .map(([h, t]) => `<a href="${raiz ? raiz + 'index.html' : ''}${h}">${t}</a>`).join('');
+  const nav = [['#radar', 'Radar'], ['#ia', 'IA & Mudança'], ['#guias', 'Guias'], ['lab/', 'Laboratório'], ['#videos', 'Vídeos'], ['#eventos', 'Eventos'], ['#mes', 'Posts do mês'], ['#sobre', 'Sobre']]
+    .map(([h, t]) => h[0] === '#' ? `<a href="${raiz ? raiz + 'index.html' : ''}${h}">${t}</a>` : `<a href="${raiz}${h}"${ativo === 'lab' ? ' class="aqui" aria-current="page"' : ''}>${t}</a>`).join('');
   return `<!doctype html>
 <html lang="${cfg.idioma}">
 <head>
@@ -67,11 +67,11 @@ ${corpo}
   <div class="rodape-in">
     <div class="rodape-marca">${marca()}<div><strong>${esc(cfg.nome)}</strong><span>${esc(cfg.lema)}</span></div></div>
     <nav class="rodape-nav" aria-label="Rodapé">${nav}</nav>
-    <p class="rodape-nota">Curadoria e textos de ${esc(cfg.autor)}. Cada reportagem cita e linka a fonte original; os números valem para o recorte de cada pesquisa. Os guias de campo são a visão do autor.</p>
+    <p class="rodape-nota">Curadoria e textos de ${esc(cfg.autor)}. Cada reportagem cita a fonte original, com link; os números valem para o recorte de cada pesquisa. Os guias de campo são a visão do autor.</p>
     <p class="rodape-fim">© ${new Date().getFullYear()} ${esc(cfg.autor)} · ${esc(cfg.papel)}</p>
   </div>
 </footer>
-<script src="${raiz}assets/js/site.js" defer></script>
+<script src="${raiz}assets/js/site.js" defer></script>${scripts.map(sc => `\n<script src="${raiz}${sc}" defer></script>`).join('')}
 </body>
 </html>`;
 }
@@ -81,22 +81,24 @@ const chipTema = p => `<span class="chip chip--tema">${icone(tema(p).ic)}${esc(t
 const fonteCurta = p => String(p.fonte_nome || '').split(/[,(|]/)[0].trim();
 const fonteLinha = p => p.fonte_nome ? `<span class="fonte">${esc(fonteCurta(p))}${p.fonte_data ? ' · ' + esc(data(p.fonte_data).curta) : ''}</span>` : `<span class="fonte">${esc(TIPOS[p.tipo] || '')}</span>`;
 
+// chamada do cartão: a primeira frase do resumo, inteira
+const chamada = r => { const m = /^(.{40,190}?[.!?])(\s|$)/.exec(r); return m ? m[1] : r.length > 190 ? r.slice(0, 188).replace(/\s+\S*$/, '') + '…' : r; };
 export function cartao(p, raiz, o = {}) {
   return `<article class="cartao revela${o.cls ? ' ' + o.cls : ''}" data-tema="${esc(p.tema)}" data-busca="${esc((p.titulo + ' ' + p.resumo + ' ' + (p.fonte_nome || '') + ' ' + tema(p).nome + ' ' + (p.regiao || '')).toLowerCase())}">
   <a class="cartao-capa" href="${urlPost(raiz, p)}" tabindex="-1" aria-hidden="true">${capa(p.tema, p.slug)}</a>
   <div class="cartao-corpo">
     <div class="cartao-meta">${chipTema(p)}${p.regiao ? `<span class="regiao">${icone('pino')}${esc(p.regiao)}</span>` : ''}</div>
     <h3><a href="${urlPost(raiz, p)}">${esc(p.titulo)}</a></h3>
-    <p>${esc(p.resumo)}</p>
+    <p>${esc(chamada(p.resumo))}</p>
     <div class="cartao-pe">${fonteLinha(p)}<span class="ler">${icone('relogio')}${p.min} min</span></div>
   </div>
 </article>`;
 }
-const titSecao = (id, olho, tit, sub, extra = '') => `<header class="sec-cab revela">
+export const titSecao = (id, olho, tit, sub, extra = '') => `<header class="sec-cab revela">
   <div><span class="olho">${olho}</span><h2 id="${id}-t">${tit}</h2>${sub ? `<p>${sub}</p>` : ''}</div>${extra}</header>`;
 
 // ---------- início ----------
-export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
+export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '' }) {
   const raiz = '';
   const capaP = posts.find(p => p.slug === cfg.edicao.capa) || posts[0];
   const reportagens = posts.filter(p => p.tipo === 'reportagem');
@@ -107,7 +109,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
   const ticker = reportagens.slice(0, 12).map(p => `<a href="${urlPost(raiz, p)}"><b>${esc(p.olho || tema(p).nome)}</b>${esc(p.titulo)}</a>`).join('');
 
   // organizações de origem: conta pela primeira palavra do nome, para "PwC", "PwC US" e "PwC Brasil" valerem uma só
-  const fontes = new Set(reportagens.map(p => fonteCurta(p).split(/[\s|]/)[0].replace(/^Boston$/, 'BCG').toLowerCase()).filter(Boolean));
+  const fontes = new Set(reportagens.map(p => fonteCurta(p).split(/[\s|]/)[0].replace(/^Boston$/, 'BCG').replace(/^Agência$/, 'Câmara').toLowerCase()).filter(Boolean));
   const rotulos = [['ia', 3, 13], ['carve-out', 73, 5], ['governanca-ti', 80, 47], ['transformacao', 63, 88], ['due-diligence', 2, 79], ['adocao', -3, 45]].filter(([k]) => posts.some(p => p.tema === k));
   const abertura = `<section class="abertura" aria-labelledby="ab-t">
   <div class="abertura-in">
@@ -120,7 +122,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
     </div>
     <div class="abertura-globo" data-paralaxe>
       ${globo()}
-      ${rotulos.map(([k, x, y], i) => `<a class="g-rotulo" style="--x:${x}%;--y:${y}%;--i:${i}" href="#radar" data-filtrar="${k}"><i></i>${esc(TEMAS[k].nome)}</a>`).join('')}
+      ${rotulos.map(([k, x, y], i) => `<a class="g-rotulo" style="--x:${x}%;--y:${y}%;--i:${i}" ${usados.has(k) ? `href="#radar" data-filtrar="${k}"` : 'href="#capa"'}><i></i>${esc(TEMAS[k].nome)}</a>`).join('')}
     </div>
   </div>
   <div class="ticker" aria-label="Manchetes do radar"><span class="ticker-rot"><i></i>Radar</span><div class="ticker-faixa"><div class="ticker-trilho">${ticker}${ticker}</div></div></div>
@@ -135,7 +137,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
           <span class="chip chip--capa">${icone('faisca')}Capa da semana</span>
           <h2 id="capa-t"><a href="${urlPost(raiz, capaP)}">${esc(capaP.titulo)}</a></h2>
           <p>${esc(capaP.resumo)}</p>
-          <div class="capa-pe"><a class="btn btn--p" href="${urlPost(raiz, capaP)}">Ler a reportagem${icone('seta')}</a><span class="ler">${icone('relogio')}${capaP.min} min · ${esc(data(capaP.data).longa)}</span></div>
+          <div class="capa-pe"><a class="btn btn--p" href="${urlPost(raiz, capaP)}">Ler a matéria de capa${icone('seta')}</a><span class="ler">${icone('relogio')}${capaP.min} min · ${esc(data(capaP.data).longa)}</span></div>
         </div>
       </article>
       <div class="capa-lado">
@@ -148,7 +150,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
 
   const atalhos = `<section class="sec sec--atalhos" aria-label="Temas">
   <div class="sec-in"><div class="atalhos">
-    ${Object.entries(TEMAS).filter(([k]) => posts.some(p => p.tema === k)).map(([k, t], i) => `<a class="atalho revela" style="--i:${i}" href="#radar" data-filtrar="${k}"><span class="atalho-ic">${icone(t.ic)}</span><span><b>${esc(t.nome)}</b><small>${esc(t.frase)}</small></span><em>${posts.filter(p => p.tema === k).length}</em></a>`).join('')}
+    ${Object.entries(TEMAS).filter(([k]) => posts.some(p => p.tema === k)).map(([k, t], i) => `<a class="atalho revela" style="--i:${i}" ${usados.has(k) ? `href="#radar" data-filtrar="${k}"` : 'href="#capa"'}><span class="atalho-ic">${icone(t.ic)}</span><span><b>${esc(t.nome)}</b><small>${esc(t.frase)}</small></span><em>${usados.has(k) ? reportagens.filter(p => p.tema === k).length : 'capa'}</em></a>`).join('')}
   </div></div>
 </section>`;
 
@@ -157,7 +159,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
     ${titSecao('radar', 'Radar mundial', 'O que está acontecendo em Change Management', 'Pesquisas, normas e movimentos do mercado, com a fonte original em cada reportagem.')}
     <div class="filtros revela" role="group" aria-label="Filtrar reportagens">
       <div class="chips" data-chips><button type="button" class="filtro ativo" data-tema="">Tudo <i>${reportagens.length}</i></button>${temasRadar.map(k => `<button type="button" class="filtro" data-tema="${k}">${icone(TEMAS[k].ic)}${esc(TEMAS[k].nome)} <i>${reportagens.filter(p => p.tema === k).length}</i></button>`).join('')}</div>
-      <label class="busca">${icone('busca')}<span class="vis-oculto">Buscar no radar</span><input type="search" placeholder="Buscar: IA, Gartner, carve-out…" data-busca-campo autocomplete="off"></label>
+      <label class="busca">${icone('busca')}<span class="vis-oculto">Buscar no radar</span><input type="search" placeholder="Buscar: IA, Prosci, carve-out…" data-busca-campo autocomplete="off"></label>
     </div>
     <div class="grade grade--radar" data-grade>${reportagens.map(p => cartao(p, raiz)).join('\n')}</div>
     <p class="vazio" data-vazio hidden>Nada no radar com esse filtro. Tente outro tema ou outra palavra.</p>
@@ -174,7 +176,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
       <div class="ia-arte revela" aria-hidden="true">${capa('ia', 'secao-ia', { variante: 'b' })}</div>
     </div>
     <div class="nums">${stats}</div>
-    ${praticas.length ? `<h3 class="sub revela">Na prática</h3><div class="praticas">${praticas.map((p, i) => `<a class="pratica revela" style="--i:${i}" href="${urlPost(raiz, p)}"><span class="pratica-n">${String(i + 1).padStart(2, '0')}</span><span><b>${esc(p.titulo)}</b><small>${esc(fonteCurta(p))}</small></span>${icone('seta')}</a>`).join('')}</div>` : ''}
+    ${praticas.length ? `<h3 class="sub revela">Para quem conduz a adoção de IA</h3><div class="praticas">${praticas.map((p, i) => `<a class="pratica revela" style="--i:${i}" href="${urlPost(raiz, p)}"><span class="pratica-n">${String(i + 1).padStart(2, '0')}</span><span><b>${esc(p.titulo)}</b><small>${esc(fonteCurta(p))}</small></span>${icone('seta')}</a>`).join('')}</div>` : ''}
   </div>
 </section>`;
 
@@ -194,7 +196,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
   <div class="sec-in">
     ${titSecao('videos', 'Vídeos', 'Para ver e mostrar ao time', 'Os vídeos do blog e uma seleção do que vale assistir sobre mudança e IA.')}
     <div class="videos">
-      <div class="video-destaque revela">${proprios.slice(0, 1).map(v => `<div class="video-quadro"><video controls preload="none" playsinline poster="${raiz}${esc(v.poster)}"><source src="${raiz}${esc(v.arquivo)}" type="video/mp4"></video></div><div class="video-info"><span class="chip chip--capa">${icone('video')}Do blog</span><h3>${esc(v.titulo)}</h3><p>${esc(v.resumo)}</p>${v.post ? `<a class="link-seta" href="${raiz}posts/${esc(v.post)}/">Ler a reportagem${icone('seta')}</a>` : ''}</div>`).join('')}</div>
+      <div class="video-destaque revela">${proprios.slice(0, 1).map(v => `<div class="video-quadro"><video controls preload="none" playsinline poster="${raiz}${esc(v.poster)}"><source src="${raiz}${esc(v.arquivo)}" type="video/mp4"></video></div><div class="video-info"><span class="chip chip--capa">${icone('video')}Do blog</span><h3>${esc(v.titulo)}</h3><p>${esc(v.resumo)}</p>${v.post ? `<a class="link-seta" href="${raiz}posts/${esc(v.post)}/">Ler a matéria de capa${icone('seta')}</a>` : ''}</div>`).join('')}</div>
       <div class="video-lista">${externos.map((v, i) => `<a class="video-item revela" style="--i:${i}" href="${esc(v.url)}" target="_blank" rel="noopener"><span class="video-play">${icone('play')}</span><span><b>${esc(v.titulo)}</b><small>${esc(String(v.canal).split(/[,(|]/)[0].trim())}${v.data ? ' · ' + esc(data(v.data).curta) : ''}</small><em>${esc(v.resumo)}</em></span>${icone('setaFora')}</a>`).join('')}${externos.length ? '' : '<p class="nota revela">A seleção de vídeos externos entra nas próximas edições.</p>'}</div>
     </div>
   </div>
@@ -202,11 +204,11 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
 
   const blocoEventos = `<section class="sec sec--eventos" id="eventos" aria-labelledby="eventos-t">
   <div class="sec-in">
-    ${titSecao('eventos', 'Eventos', 'Na agenda', 'Encontros de gestão da mudança, transformação e futuro do trabalho. A agenda cresce a cada edição.')}
+    ${titSecao('eventos', 'Eventos', 'Na agenda', 'Conferências e webinars de gestão da mudança, governança e confiança digital. A agenda cresce a cada edição.')}
     <div class="eventos">${eventos.map((e, i) => { const d = data(e.inicio); return `<a class="evento revela" style="--i:${i}" href="${esc(e.url)}" target="_blank" rel="noopener">
       <span class="evento-data"><b>${d.dia ?? ''}</b><i>${esc(d.mes3 || '')}</i><small>${d.ano || ''}</small></span>
       <span class="evento-txt"><b>${esc(e.titulo)}</b><em><span>${icone('agenda')}${esc(e.quando)}</span><span>${icone('pino')}${esc(e.local)}</span></em><small>${esc(e.resumo)}</small></span>${icone('setaFora')}</a>`; }).join('')}
-      <div class="evento evento--vago revela"><span class="evento-data">${icone('agenda')}</span><span class="evento-txt"><b>Conhece um evento que deveria estar aqui?</b><small>A agenda está em construção. Indique eventos de Change Management pelo LinkedIn.</small></span></div>
+      <div class="evento evento--vago revela"><span class="evento-data">${icone('agenda')}</span><span class="evento-txt"><b>Conhece um evento que deveria estar aqui?</b><small>A agenda está em construção e ganha novos eventos a cada edição.${cfg.linkedin ? ` <a href="${esc(cfg.linkedin)}" target="_blank" rel="noopener">Indique pelo LinkedIn</a>.` : ''}</small></span></div>
     </div>
   </div>
 </section>`;
@@ -241,7 +243,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
   </div>
 </section>`;
 
-  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + blocoCapa + atalhos + radar + ia + blocoGuias + blocoVideos + blocoEventos + blocoMes + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio' });
+  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + blocoCapa + atalhos + radar + ia + blocoGuias + lab + blocoVideos + blocoEventos + blocoMes + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio' });
 }
 
 // ---------- página de post ----------
@@ -271,7 +273,7 @@ export function post({ cfg, p, posts }) {
       ${p.html}
       ${juntos.length ? `<aside class="juntos"><h2>${icone('lista')}Para ler junto</h2><ul>${juntos.map(x => `<li><a href="${urlPost(raiz, x)}">${esc(x.titulo)}</a><span>${esc(fonteCurta(x))}</span></li>`).join('')}</ul></aside>` : ''}
       ${p.por_que_importa ? `<aside class="importa"><h2>${icone('lampada')}Por que importa para quem faz gestão da mudança</h2><p>${esc(p.por_que_importa)}</p></aside>` : ''}
-      ${p.fonte_url ? `<aside class="fonte-caixa"><h2>${icone('link')}Fonte</h2><p><a href="${esc(p.fonte_url)}" target="_blank" rel="noopener">${esc(p.fonte_nome)}${icone('setaFora')}</a>${p.fonte_data ? `<span>Publicado em ${esc(data(p.fonte_data).longa)}</span>` : ''}${p.fonte_tipo ? `<span>Fonte ${esc(p.fonte_tipo)}</span>` : ''}${p.verificacao ? `<span>Conferência: ${esc(p.verificacao)}</span>` : ''}</p><small>Texto original do blog a partir da fonte citada. Os números valem para o recorte da pesquisa; confira o material completo antes de usar em decisão.</small></aside>` : ''}
+      ${p.fonte_url ? `<aside class="fonte-caixa"><h2>${icone('link')}Fonte</h2><p><a href="${esc(p.fonte_url)}" target="_blank" rel="noopener">${esc(p.fonte_nome)}${icone('setaFora')}</a>${p.fonte_data ? `<span>Publicado em ${esc(data(p.fonte_data).longa)}</span>` : p.fonte_nota ? `<span>${esc(p.fonte_nota[0].toUpperCase() + p.fonte_nota.slice(1))}</span>` : ''}${p.fonte_tipo ? `<span>Fonte ${esc(p.fonte_tipo)}</span>` : ''}${p.verificacao ? `<span>Conferência: ${esc(p.verificacao)}</span>` : ''}</p><small>Texto original do blog a partir da fonte citada. Os números valem para o recorte da pesquisa; confira o material completo antes de usar em decisão.</small></aside>` : ''}
     </div>
     <aside class="art-lado">
       ${dados.length ? `<div class="lado-caixa"><h2>Em números</h2>${dados.map(([v, desc]) => `<div class="dado"><strong${v.length > 9 ? ' class="dado-longo"' : ''}>${esc(v)}</strong><span>${esc(desc || '')}</span></div>`).join('')}</div>` : ''}
@@ -308,9 +310,9 @@ export function cartaoOG({ cfg, p }) {
   const t = p ? tema(p) : null;
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../assets/css/site.css"><style>html,body{margin:0;width:1200px;height:627px;overflow:hidden}</style></head>
 <body><div class="og">
-  <div class="og-arte">${p ? capa(p.tema, p.slug, { variante: 'a' }) : `<div class="og-globo">${globo()}</div>`}</div>
+  <div class="og-arte">${p && p.arte ? p.arte : p ? capa(p.tema, p.slug, { variante: 'a' }) : `<div class="og-globo">${globo()}</div>`}</div>
   <div class="og-txt"><div class="og-marca">${marca()}<span>Change Management <i>World</i></span></div>
-    <div><span class="og-chip">${esc(p ? (p.tipo === 'guia' ? 'Guia de campo' : p.tipo === 'capa' ? 'Capa da semana' : t.nome) : cfg.edicao.rotulo)}</span><h1 class="${p && p.titulo.length > 70 ? 'og-menor' : ''}">${esc(p ? p.titulo : cfg.lema)}</h1></div>
+    <div><span class="og-chip">${esc(p ? (p.tipo === 'lab' ? 'Laboratório' : p.tipo === 'guia' ? 'Guia de campo' : p.tipo === 'capa' ? 'Capa da semana' : t.nome) : cfg.edicao.rotulo)}</span><h1 class="${p && p.titulo.length > 70 ? 'og-menor' : ''}">${esc(p ? p.titulo : cfg.lema)}</h1></div>
     <p>${esc(cfg.autor)} · ${esc(cfg.papel)}</p></div>
 </div></body></html>`;
 }

@@ -19,12 +19,12 @@ origem: apuracao
 dados:
   - 4 fases | Estratégia de adoção de agentes que a Microsoft diz seguir internamente, inspirada no modelo ADKAR da Prosci | https://www.microsoft.com/insidetrack/blog/becoming-a-frontier-firm-a-guide-for-deploying-ai-agents-based-on-our-experience-at-microsoft/
   - 5 módulos | Trilha de capacitação AI Agent Launchpad, usada pela Microsoft para ensinar funcionários a descobrir, usar e criar agentes | https://www.microsoft.com/insidetrack/blog/becoming-a-frontier-firm-a-guide-for-deploying-ai-agents-based-on-our-experience-at-microsoft/
-  - 5 etapas | Processo formal de Gestão da Mudança para desenvolvedores profissionais de agentes, da adoção do produto à escuta e ao feedback | https://www.microsoft.com/insidetrack/blog/becoming-a-frontier-firm-a-guide-for-deploying-ai-agents-based-on-our-experience-at-microsoft/
+  - 5 etapas | Processo formal de gestão da mudança para desenvolvedores profissionais de agentes, da adoção do produto à escuta e ao feedback | https://www.microsoft.com/insidetrack/blog/becoming-a-frontier-firm-a-guide-for-deploying-ai-agents-based-on-our-experience-at-microsoft/
 ---
-A Microsoft Digital, área de TI interna da empresa, publicou em 16 de abril de 2026, com atualização em 27 de agosto, um guia sobre como implantou agentes de IA para os próprios funcionários. O capítulo de adoção é, na prática, um caso de Gestão da Mudança.
+A Microsoft Digital, área de TI interna da empresa, publicou em 16 de abril de 2026, com atualização em 27 de agosto, um guia sobre como implantou agentes de IA para os próprios funcionários. O capítulo de adoção é, na prática, um caso de gestão da mudança.
 
 A empresa diz seguir uma estratégia em quatro fases inspirada no modelo ADKAR, da Prosci. A adoção é organizada por coortes, divididas por área interna, como jurídico e vendas, e por região. Em cada coorte são identificados gestores de mudança, patrocinadores e champions. A comunicação inicial buscou reduzir o medo e fixar normas de uso responsável.
 
-Entre as práticas descritas estão o AI Agent Launchpad, trilha de cinco módulos com sessões ao vivo, gamificação e badges, uma comunidade de champions voltada a quem cria agentes e mini desafios combinados com os gestores. Para desenvolvedores profissionais há um processo em cinco etapas, que termina em escuta: telemetria, feedback e retorno aos usuários sobre o que mudou.
+Entre as práticas descritas estão o AI Agent Launchpad, trilha de cinco módulos com sessões ao vivo, gamificação e badges, uma comunidade de champions voltada a quem cria agentes e minidesafios combinados com os gestores. Para desenvolvedores profissionais há um processo em cinco etapas, que termina em escuta: telemetria, feedback e retorno aos usuários sobre o que mudou.
 
 O guia admite que agentes pedem um caminho de adoção separado do Copilot, porque o funcionário precisa escolher quais agentes usar e quais criar. A recomendação é definir indicadores antes da implantação, como uso de funcionalidades, adoção por cenário e sentimento dos funcionários.

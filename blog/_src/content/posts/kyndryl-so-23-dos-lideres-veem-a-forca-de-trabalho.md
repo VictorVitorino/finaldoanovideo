@@ -1,6 +1,6 @@
 ---
-titulo: Kyndryl: só 23% dos líderes veem a força de trabalho pronta para a IA
-slug: kyndryl-so-23-dos-lideres-veem-a-forca-de-trabalho-pronta
+titulo: Kyndryl: só 23% dos líderes veem a força de trabalho totalmente pronta para a IA
+slug: kyndryl-so-23-dos-lideres-veem-a-forca-de-trabalho
 data: 2026-11-14
 tipo: reportagem
 tema: ia

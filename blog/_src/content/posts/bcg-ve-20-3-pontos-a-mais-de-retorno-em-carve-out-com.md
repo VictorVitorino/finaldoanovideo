@@ -14,7 +14,7 @@ fonte_data: 2026-10-28
 fonte_tipo: primária
 verificacao: lida na fonte
 checagem: Lida na fonte: abri o artigo no site do BCG e conferi o título, a data (28 de outubro de 2026), os 20,3 pontos percentuais em 24 meses, a afirmação sobre a RemainCo, as três camadas, o trecho sobre cultura e o escritório de transformação e separação; o texto não traz o tamanho da amostra, e isso está dito no item.
-por_que_importa: A Gestão da Mudança precisa cobrir as duas empresas, não só a NewCo: a RemainCo também muda de estratégia, estrutura e cultura. Cultura-alvo e narrativa de mudança devem entrar no plano antes do Dia 1, junto com as decisões de TSA e de organização.
+por_que_importa: A gestão da mudança precisa cobrir as duas empresas, não só a NewCo: a RemainCo também muda de estratégia, estrutura e cultura. Cultura-alvo e narrativa de mudança devem entrar no plano antes do Dia 1, junto com as decisões de TSA e de organização.
 origem: apuracao
 dados:
   - 20,3 p.p. | Vantagem em retorno total ao acionista, em 24 meses, das empresas que combinaram carve-out com transformação ampla sobre as que seguiram a separação convencional, segundo o BCG. A página não informa o tamanho da amostra. | https://www.bcg.com/publications/2026/carve-out-strategy-both-companies

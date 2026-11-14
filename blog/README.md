@@ -14,10 +14,28 @@ Blog de notícias sobre Gestão da Mudança (Change Management), de Victor Vitor
 | Radar mundial | Todas as reportagens, com filtro por tema e busca. Cada uma cita e linka a fonte. |
 | IA & Mudança | Números das pesquisas e reportagens sobre uso de IA na prática. |
 | Guias de campo | Como fazer Change Management em carve-out, due diligence, transformação e governança de TI. |
+| Laboratório | Diagnóstico de nível e ferramentas interativas (RACI, mapa de influência, matriz de adoção). |
 | Vídeos | O vídeo do blog e uma seleção externa. |
 | Eventos | Agenda (estrutura pronta; cresce a cada edição). |
 | Posts do mês | Lista enxuta do que saiu, por mês, com página própria em `mes/AAAA-MM/`. |
 | Quem escreve | Perfil, o que gosto e fun fact. |
+
+## Laboratório (área interativa)
+
+Fica em `lab/` e tem cinco páginas. Tudo roda no navegador de quem acessa; nada é enviado nem guardado pelo blog.
+
+| Página | O que faz |
+|---|---|
+| `lab/diagnostico/` | Diagnóstico de nível em Change Management: 30 perguntas em 6 domínios (modo completo) ou 12 sorteadas (modo rápido). Gera relatório com nível, radar por domínio, o que estudar, desafios do dia a dia, plano de 30 dias e gabarito comentado. O relatório pode ser salvo em PDF. |
+| `lab/matriz-raci/` | Monta a matriz RACI (ou RASCI) com conferência automática de A e R e carga por papel. Exporta CSV e PDF. |
+| `lab/mapa-de-influencia/` | Stakeholders arrastáveis em influência x apoio, com estratégia por quadrante. Exporta imagem e CSV. |
+| `lab/matriz-de-adocao/` | Pessoas por área na régua de adoção, com índice, gráfico e ação prioritária. Exporta imagem, CSV e PDF. |
+| `lab/` | Entrada do Laboratório e os modelos em Excel (`assets/modelos/*.xlsx`). |
+
+- Perguntas: `blog/_src/content/diagnostico/<dominio>.json` (enunciado, 4 alternativas, índice da correta, explicação, referência e tema de estudo). Cada pergunta foi escrita por um autor e resolvida às cegas por dois examinadores independentes antes de entrar.
+- Textos do relatório (níveis, o que estudar, leituras do blog): `blog/_src/content/diagnostico-relatorio.json`.
+- Modelos em Excel: `python3 blog/_src/modelos_xlsx.py` gera os três arquivos de novo.
+- Lógica das ferramentas: `blog/assets/js/lab.js`. Páginas: `blog/_src/lib/lab.mjs`.
 
 ## Como publicar um post novo
 

@@ -5,8 +5,8 @@
     {
       "titulo": "AI Act: regras de alto risco ficam para dezembro de 2027 e agosto de 2028",
       "olho": "AI Act europeu",
-      "resumo": "O pacote de simplificação do AI Act, o AI Omnibus, entrou em vigor em julho de 2026 e adiou as regras de alto risco para 2 de dezembro de 2027 e 2 de agosto de 2028. Proibições, letramento em IA, regras para modelos de uso geral e fiscalização continuam valendo.",
-      "corpo": "A União Europeia mudou o calendário do AI Act. O pacote de simplificação conhecido como AI Omnibus foi proposto pela Comissão Europeia em 19 de novembro de 2025 e teve acordo político em 7 de maio de 2026. A página da Comissão sobre o AI Act registra a entrada em vigor em 27 de julho de 2026.\n\nAs regras para sistemas de alto risco em áreas como biometria, infraestrutura crítica, educação, emprego, migração, asilo e controle de fronteiras passam a valer em 2 de dezembro de 2027. Para sistemas integrados a produtos, como elevadores e brinquedos, a data é 2 de agosto de 2028. A Comissão afirma que assim as regras valerão quando as empresas tiverem ferramentas de apoio, como normas técnicas.\n\nO restante do calendário segue de pé. Proibições e letramento em IA valem desde 2 de fevereiro de 2025. As obrigações para modelos de uso geral, desde 2 de agosto de 2025. Desde 2 de agosto de 2026, o AI Office e as autoridades dos Estados-membros respondem pela implementação, pela supervisão e pela aplicação da lei. O Omnibus também criou uma nona prática proibida, a de sistemas que geram conteúdo sexual ou íntimo não consentido, com efeito em dezembro de 2026.\n\nPara as pessoas, o essencial não mudou. Ferramentas de RH, como a triagem de currículos, continuam na lista de usos de alto risco. Quem usa esses sistemas terá de entregar a supervisão humana a pessoas com competência, treinamento e autoridade, como prevê o artigo 26 do AI Act.",
+      "resumo": "O pacote de simplificação do AI Act, o Digital Omnibus, entrou em vigor em julho de 2026 e adiou as regras de alto risco para 2 de dezembro de 2027 e 2 de agosto de 2028. Proibições, letramento em IA, regras para modelos de uso geral e fiscalização continuam valendo.",
+      "corpo": "A União Europeia mudou o calendário do AI Act. O pacote de simplificação conhecido como Digital Omnibus foi proposto pela Comissão Europeia em 19 de novembro de 2025 e teve acordo político em 7 de maio de 2026. A página da Comissão sobre o AI Act registra a entrada em vigor em 27 de julho de 2026.\n\nAs regras para sistemas de alto risco em áreas como biometria, infraestrutura crítica, educação, emprego, migração, asilo e controle de fronteiras passam a valer em 2 de dezembro de 2027. Para sistemas integrados a produtos, como elevadores e brinquedos, a data é 2 de agosto de 2028. A Comissão afirma que assim as regras valerão quando as empresas tiverem ferramentas de apoio, como normas técnicas.\n\nO restante do calendário segue de pé. Proibições e letramento em IA valem desde 2 de fevereiro de 2025. As obrigações para modelos de uso geral, desde 2 de agosto de 2025. Desde 2 de agosto de 2026, o AI Office e as autoridades dos Estados-membros respondem pela implementação, pela supervisão e pela aplicação da lei. O Omnibus também criou uma nona prática proibida, a de sistemas que geram conteúdo sexual ou íntimo não consentido, com efeito em dezembro de 2026.\n\nPara as pessoas, o essencial não mudou. Ferramentas de RH, como a triagem de currículos, continuam na lista de usos de alto risco. Quem usa esses sistemas terá de entregar a supervisão humana a pessoas com competência, treinamento e autoridade, como prevê o artigo 26 do AI Act.",
       "por_que_importa": "O adiamento dá prazo, não dispensa. Use o tempo para mapear onde a empresa usa IA em decisões sobre pessoas e para definir e treinar quem fará a supervisão humana.",
       "fonte_nome": "Comissão Europeia, página \"AI Act\" (Shaping Europe's digital future)",
       "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
@@ -17,7 +17,7 @@
       "dados": [
         {
           "valor": "2 de dezembro de 2027",
-          "descricao": "Nova data de aplicação das regras para sistemas de IA de alto risco em áreas sensíveis (Anexo III), após o AI Omnibus",
+          "descricao": "Nova data de aplicação das regras para sistemas de IA de alto risco em áreas sensíveis (Anexo III), após o Digital Omnibus",
           "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
         },
         {
@@ -27,7 +27,7 @@
         },
         {
           "valor": "dezembro de 2026",
-          "descricao": "Início da nona prática proibida do AI Act, criada pelo AI Omnibus: sistemas que geram conteúdo sexual ou íntimo não consentido",
+          "descricao": "Início da nona prática proibida do AI Act, criada pelo Digital Omnibus: sistemas que geram conteúdo sexual ou íntimo não consentido",
           "fonte_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
         }
       ],
@@ -176,7 +176,8 @@
           "fonte_url": "https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-publica-mapa-de-temas-prioritarios-para-o-bienio-2026-2027-e-atualiza-agenda-regulatoria-2025-2026"
         }
       ],
-      "checagem": "Lida na fonte: abri a ficha do PL 2338/2023 na Câmara em 14 de novembro de 2026 e conferi a situação, os 45 apensados, o relator designado em 20/5/2025 e a última ação em 13/11/2026; li o texto do projeto (artigos 8º e 58), o texto e a exposição de motivos do PL 6237/2025, a página do Senado (aprovação em Plenário em 10/12/2024), a notícia do MJSP sobre a Lei nº 15.352/2026 e as 200 vagas e a notícia da ANPD sobre os quatro temas. Cortei a atribuição ao Ministério da Gestão e o \"vício de iniciativa\", que não encontrei em página aberta, e troquei \"fim de 2026\" por \"novembro de 2026\"."
+      "checagem": "Lida na fonte: abri a ficha do PL 2338/2023 na Câmara em 14 de novembro de 2026 e conferi a situação, os 45 apensados, o relator designado em 20/5/2025 e a última ação em 13/11/2026; li o texto do projeto (artigos 8º e 58), o texto e a exposição de motivos do PL 6237/2025, a página do Senado (aprovação em Plenário em 10/12/2024), a notícia do MJSP sobre a Lei nº 15.352/2026 e as 200 vagas e a notícia da ANPD sobre os quatro temas. Cortei a atribuição ao Ministério da Gestão e o \"vício de iniciativa\", que não encontrei em página aberta, e troquei \"fim de 2026\" por \"novembro de 2026\".",
+      "tema_blog": "brasil"
     }
   ]
 }

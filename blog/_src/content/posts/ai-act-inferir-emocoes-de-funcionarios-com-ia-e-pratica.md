@@ -3,14 +3,14 @@ titulo: AI Act: inferir emoções de funcionários com IA é prática proibida n
 slug: ai-act-inferir-emocoes-de-funcionarios-com-ia-e-pratica
 data: 2026-11-14
 tipo: reportagem
-tema: ia
+tema: governanca-ti
 ordem: 144
 olho: Riscos e privacidade
 resumo: A lei europeia de IA proíbe desde fevereiro de 2025 o uso de sistemas para inferir emoções de pessoas no trabalho, salvo por razões médicas ou de segurança. Monitorar e avaliar comportamento de trabalhadores com IA entra na lista de alto risco, com regras previstas para dezembro de 2027.
 regiao: Europa
-fonte_nome: Regulamento (UE) 2024/1689 (AI Act), artigo 5, consultado no AI Act Explorer (Future of Life Institute); Comissão Europeia
+fonte_nome: AI Act, artigo 5 (Regulamento (UE) 2024/1689), no AI Act Explorer; Comissão Europeia
 fonte_url: https://artificialintelligenceact.eu/article/5/
-fonte_data: 2024-07-12
+fonte_nota: regulamento publicado em 12 de julho de 2024; páginas consultadas em 14 de novembro de 2026
 fonte_tipo: primária
 verificacao: lida na fonte
 checagem: Lida na fonte: conferi no AI Act Explorer o artigo 5, a definição 39 do artigo 3, o considerando 18, o item 4(b) do Anexo III, o artigo 26 e a redação alterada do artigo 4; nas perguntas e respostas da Comissão Europeia (atualizadas em 20 out 2026), as datas de 2 fev 2025 e 2 dez 2027 e a entrada em vigor do Digital Omnibus; e, na página da Comissão sobre as diretrizes de práticas proibidas (4 fev 2025), que elas não são vinculantes. Corrigi a frase sobre letramento em IA, que o Omnibus abrandou, e acrescentei a data de vigência do Omnibus.

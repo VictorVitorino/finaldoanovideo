@@ -1,0 +1,71 @@
+{
+  "niveis": [
+    {
+      "min": 0, "nome": "Em formação",
+      "resumo": "Você já circula pelo vocabulário da gestão da mudança. Falta consolidar a base dos modelos e a prática de diagnóstico para sair da execução de tarefas.",
+      "desafios": ["Ser visto como quem cuida só de comunicação e treinamento.", "Entrar tarde no projeto e receber as decisões já tomadas.", "Não ter argumentos para negociar tempo, patrocínio e orçamento."]
+    },
+    {
+      "min": 40, "nome": "Praticante",
+      "resumo": "Você aplica os fundamentos com segurança. O próximo passo é diagnosticar com mais precisão e medir resultado, não só atividade.",
+      "desafios": ["Tratar toda resistência do mesmo jeito, sem achar a causa.", "Reportar pessoas treinadas e comunicados enviados em vez de adoção.", "Depender de um patrocinador pouco presente depois do lançamento."]
+    },
+    {
+      "min": 65, "nome": "Avançado",
+      "resumo": "Você escolhe o modelo certo para cada situação e sustenta decisões com dados. O desafio passa a ser escala e influência.",
+      "desafios": ["Gerir a carga de várias mudanças sobre as mesmas pessoas.", "Levar a gestão da mudança para a mesa que decide a transformação.", "Adaptar o método a contextos como carve-out, fusões e adoção de IA."]
+    },
+    {
+      "min": 85, "nome": "Referência",
+      "resumo": "Domínio consistente em todos os domínios. Daqui em diante, o seu ganho está em multiplicar: formar pessoas e criar capacidade de mudança na organização.",
+      "desafios": ["Formar outros profissionais e criar capacidade interna de mudança.", "Provar o valor da gestão da mudança em linguagem de negócio.", "Manter o método vivo diante da IA e de novas formas de trabalho."]
+    }
+  ],
+  "dominios": {
+    "modelos": {
+      "nome": "Modelos e fundamentos",
+      "curto": "Modelos",
+      "descricao": "O que cada modelo explica e quando usar.",
+      "estudar": ["ADKAR: os cinco elementos e o ponto de barreira", "Os 8 passos de Kotter e quando eles ajudam", "Transições de Bridges: mudança não é transição", "McKinsey 7-S e Influence Model", "Standard da ACMP e HCMBOK: como organizam o trabalho"],
+      "ler": ["mapa-de-perfil-cognitivo", "guia-change-management-em-transformacao"]
+    },
+    "estrategia": {
+      "nome": "Estratégia e patrocínio",
+      "curto": "Estratégia",
+      "descricao": "Patrocínio, impacto, prontidão e integração com o projeto.",
+      "estudar": ["Patrocinador ativo, visível e em coalizão", "Avaliação de impacto e de prontidão", "Gestão de projetos e gestão da mudança: como se integram", "Carteira de mudanças e saturação", "Definição de sucesso: adoção, uso e proficiência"],
+      "ler": ["guia-change-management-em-transformacao", "funcionarios-absorvem-ate-duas-grandes-mudancas-por-ano", "conselhos-apoiam-a-transformacao-mas-so-26-estao-muito"]
+    },
+    "pessoas": {
+      "nome": "Stakeholders e resistência",
+      "curto": "Pessoas",
+      "descricao": "Quem influencia, quem resiste e por quê.",
+      "estudar": ["Mapa de stakeholders: influência e apoio", "Causas de resistência e como diagnosticar", "O gestor direto como principal canal", "Segurança psicológica", "Perda e transição: Bridges e Kübler-Ross"],
+      "ler": ["mapa-de-perfil-cognitivo", "reorganizacao-88-dos-lideres-confiam-so-36-dos-funcionarios"],
+      "ferramenta": "mapa-de-influencia"
+    },
+    "execucao": {
+      "nome": "Comunicação e capacitação",
+      "curto": "Execução",
+      "descricao": "Mensagens, treinamento, rede e papéis.",
+      "estudar": ["Plano de comunicação: o emissor certo para cada mensagem", "Capacitação perto do uso e apoio no posto de trabalho", "Avaliação de treinamento: modelo de Kirkpatrick", "Rede de multiplicadores", "Matriz RACI para as entregas da mudança"],
+      "ler": ["guia-change-management-em-carve-out", "microsoft-detalha-como-conduz-a-mudanca-na-adocao-interna"],
+      "ferramenta": "matriz-raci"
+    },
+    "medicao": {
+      "nome": "Medição e sustentação",
+      "curto": "Medição",
+      "descricao": "Adoção, reforço e benefícios.",
+      "estudar": ["Indicadores de adoção: velocidade, utilização e proficiência", "Indicador de atividade e indicador de resultado", "Reforço e sustentação depois do go-live", "Realização de benefícios", "Pesquisas de pulso e dados de uso: limites"],
+      "ler": ["deloitte-medir-adocao-de-ia-por-login-esconde-quem-nao", "mapa-de-perfil-cognitivo"],
+      "ferramenta": "matriz-de-adocao"
+    },
+    "contextos": {
+      "nome": "Contextos: IA, transformação e M&A",
+      "curto": "Contextos",
+      "descricao": "Carve-out, due diligence, governança de TI e IA.",
+      "estudar": ["Adoção de IA: letramento, uso seguro e redesenho do trabalho", "Carve-out: Dia 1 e saída do TSA", "Due diligence de pessoas e de cultura", "Governança de TI como mudança de comportamento", "Transformação com várias frentes ao mesmo tempo"],
+      "ler": ["guia-change-management-em-carve-out", "guia-change-management-em-due-diligence", "guia-change-management-em-governanca-de-ti", "prosci-vontade-de-usar-ia-e-igual-em-empresas-que-avancam-e"]
+    }
+  }
+}

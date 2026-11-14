@@ -14,7 +14,7 @@ fonte_data: 2026-06-15
 fonte_tipo: primária
 verificacao: lida na fonte
 checagem: Lida na fonte: abri os slides de lançamento (data de 15 de junho de 2026, amostra, período e gráfico H9) e o resumo executivo, onde conferi um a um 17%, 13%, 93.475, 10% e 15%, 38% e 50%, 68%, 22% e 38%, 80%, 76%, 54% e 4.174; cortei a menção a apoio de MCTI, MDIC, IBGE e Ipea e a frase de que é a medição mais ampla do setor privado, que não estão nos documentos.
-por_que_importa: Use este número como linha de base realista: fora das grandes empresas, a IA ainda é usada por uma minoria. Como a maioria das que usam compra solução pronta, o esforço de Gestão da Mudança está na adoção e no redesenho do trabalho, não no desenvolvimento.
+por_que_importa: Use este número como linha de base realista: fora das grandes empresas, a IA ainda é usada por uma minoria. Como a maioria das que usam compra solução pronta, o esforço de gestão da mudança está na adoção e no redesenho do trabalho, não no desenvolvimento.
 origem: apuracao
 dados:
   - 17% | das empresas brasileiras com dez ou mais pessoas ocupadas usaram aplicações de IA em 2025 (13% em 2024); 4.174 empresas entrevistadas entre fev/2025 e jan/2026 | https://www.cetic.br/media/docs/publicacoes/2/pt-br/20260831091252/TIC_EMPRESAS_2025_PT_RE.pdf

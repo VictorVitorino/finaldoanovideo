@@ -1,0 +1,82 @@
+{
+  "dominio": "pessoas",
+  "nome": "Stakeholders e resistência",
+  "validacao": "Escrita por um autor e resolvida às cegas por dois examinadores independentes, que chegaram ao gabarito sem conhecê-lo. Seleção e revisão final do editor.",
+  "perguntas": [
+    {
+      "id": "pessoas-01",
+      "enunciado": "Em um projeto de terceirização do atendimento, a diretora jurídica pode vetar o contrato com o fornecedor, mas a mudança não altera a rotina da área dela e ela não demonstra interesse pelo projeto. Pela matriz poder x interesse, atribuída a Mendelow, qual é a estratégia adequada para essa stakeholder?",
+      "alternativas": [
+        "Gerenciar de perto: envolvê-la nas decisões do dia a dia e em todos os fóruns de trabalho do projeto.",
+        "Manter satisfeita: atender às exigências dela com interações objetivas e pontuais, sem sobrecarregá-la de detalhes.",
+        "Manter informada: incluí-la nos comunicados gerais e nos boletins periódicos enviados a toda a empresa.",
+        "Monitorar: acompanhar à distância, com esforço mínimo, e só acioná-la se ela mesma procurar o projeto."
+      ],
+      "correta": 1,
+      "explicacao": "Alto poder com baixo interesse corresponde ao quadrante \"manter satisfeito\": o projeto precisa atender às exigências de quem pode barrá-lo, sem consumir a agenda dessa pessoa com detalhes que não lhe interessam. \"Gerenciar de perto\" é a estratégia para quem combina alto poder e alto interesse; aplicada aqui, tende a gerar desgaste. \"Manter informada\" serve a quem tem interesse e pouco poder, e comunicados gerais não bastam para quem tem poder de veto.",
+      "referencia": "Matriz poder x interesse, de Aubrey Mendelow",
+      "estudar": "Estratégias por quadrante na matriz de Mendelow",
+      "dificuldade": "média"
+    },
+    {
+      "id": "pessoas-04",
+      "enunciado": "Um gerente regional respeitado pelos pares, cuja área é a mais impactada pelo novo modelo de operação, não faz objeções nas reuniões do comitê. Porém não repassa os comunicados à equipe e ainda não liberou ninguém para o treinamento. O que a equipe de gestão da mudança deve fazer primeiro?",
+      "alternativas": [
+        "Buscar uma conversa individual para entender a causa da posição dele, o que entende do porquê e o que percebe perder, e então definir a ação com o patrocinador.",
+        "Pedir ao patrocinador que cobre a adesão dele diante do comitê na próxima reunião, para sinalizar a prioridade do projeto.",
+        "Direcionar os comunicados e os agentes de mudança diretamente à equipe dele, contornando o gargalo criado pelo gerente.",
+        "Registrar o risco no plano e aguardar o go-live, quando o uso obrigatório do novo modelo tende a resolver o impasse."
+      ],
+      "correta": 0,
+      "explicacao": "Silêncio em comitê não é concordância, e resistência se trata pela causa raiz, não pelo sintoma: a primeira ação é ouvir e entender a objeção, em conversa individual. Acionar o patrocinador é correto, mas depois do diagnóstico; uma cobrança pública sem saber a causa tende a transformar resistência passiva em oposição. Contornar o gerente também falha, porque o gestor direto é o canal em que a equipe mais confia para saber o que a mudança significa para ela.",
+      "referencia": "Metodologia Prosci: gestão da resistência e papéis do patrocinador e do gestor de pessoas",
+      "estudar": "Diagnóstico de causa raiz da resistência gerencial",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "pessoas-05",
+      "enunciado": "Uma distribuidora implantou a aprovação de pedidos por aplicativo móvel. Os vendedores das rotas rurais continuam aprovando por telefone e dizem que o aplicativo \"não funciona na estrada\". O líder do projeto classifica o grupo como resistente e pede reforço na comunicação dos benefícios. Qual é a melhor leitura?",
+      "alternativas": [
+        "É barreira de Desejo: os gestores diretos devem conduzir conversas individuais sobre os ganhos pessoais de usar o aplicativo.",
+        "É lacuna de Conhecimento: o treinamento deve reforçar o passo a passo da aprovação para o grupo das rotas rurais.",
+        "É oposição de um grupo de baixo poder: basta mantê-lo informado e seguir o cronograma sem alterar a solução.",
+        "A objeção pode ser informação válida sobre o desenho da solução: verificar em campo, ajustar ou explicar a decisão e dar retorno ao grupo."
+      ],
+      "correta": 3,
+      "explicacao": "A objeção é específica e verificável (uso sem conexão), o que a distingue de uma recusa genérica: antes de rotular como resistência, é preciso checar se o grupo está apontando uma falha real do desenho. Tratar a objeção como dado melhora a solução e preserva a disposição das pessoas de falar; rotulá-la como resistência ensina o grupo a se calar. Reforçar benefícios (leitura de Desejo) é a resposta mais tentadora, mas não resolve um obstáculo operacional e desgasta a credibilidade do projeto.",
+      "referencia": "\"Decoding Resistance to Change\", de Jeffrey Ford e Laurie Ford (Harvard Business Review); segurança psicológica, de Amy Edmondson",
+      "estudar": "Resistência como feedback sobre a solução",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "pessoas-06",
+      "enunciado": "Para a rede de agentes de mudança de um novo ERP em doze fábricas, o projeto pode indicar apenas um nome por unidade. Em uma delas há quatro candidatos. Pela teoria da difusão de inovações de Everett Rogers, qual deles tende a influenciar mais a adoção pelos colegas?",
+      "alternativas": [
+        "O analista mais entusiasta de tecnologia, primeiro a testar qualquer novidade, visto pelos colegas como alguém fora do padrão do grupo.",
+        "A supervisora a quem os pares costumam pedir opinião antes de aderir a novidades, favorável ao ERP, porém criteriosa.",
+        "O coordenador com mais tempo livre na agenda, neutro em relação ao ERP e pouco conectado ao pessoal da operação.",
+        "O analista recém-contratado, sem apego ao sistema antigo e com experiência anterior no mesmo ERP em outra empresa."
+      ],
+      "correta": 1,
+      "explicacao": "Para Rogers, a liderança de opinião concentra-se nos adotantes iniciais: pessoas integradas ao grupo, cuja avaliação os pares consultam antes de decidir. Os inovadores, embora entusiastas, costumam estar distantes das normas do grupo e por isso influenciam pouco os colegas. O recém-contratado tem conhecimento técnico, mas ainda não tem a credibilidade junto aos pares, que é o que faz a adoção se espalhar.",
+      "referencia": "Difusão de Inovações, de Everett Rogers (curva de adoção e líderes de opinião)",
+      "estudar": "Líderes de opinião e adotantes iniciais em Rogers",
+      "dificuldade": "difícil"
+    },
+    {
+      "id": "pessoas-07",
+      "enunciado": "Em uma transformação de processos, a diretora cobra a adoção com metas claras e ranking semanal por área. Nos comitês, todos os gestores reportam status verde; os dados de uso do sistema mostram queda e, em pesquisa anônima, as equipes relatam erros recorrentes que ninguém leva às reuniões. No último comitê, o único gestor que trouxe um problema foi questionado sobre sua competência diante dos pares. Pelo trabalho de Amy Edmondson, qual é a melhor leitura e resposta?",
+      "alternativas": [
+        "A exigência está alta demais: suspender metas e ranking por um ciclo para reduzir a pressão e recuperar a confiança das equipes.",
+        "Falta responsabilização: auditar os reports e aplicar consequências a quem informar status incompatível com os dados de uso.",
+        "Há exigência alta com baixa segurança psicológica: manter as metas e mudar a forma como a liderança convida e responde a más notícias.",
+        "É resistência passiva dos gestores: mapear os opositores e tratá-los um a um, com apoio direto da diretora patrocinadora."
+      ],
+      "correta": 2,
+      "explicacao": "Edmondson trata segurança psicológica e padrão de desempenho como dimensões distintas: exigência alta com baixa segurança produz a zona de ansiedade, em que as pessoas escondem problemas, e o status verde é sintoma disso. A saída não é baixar a régua, e sim manter o padrão e mudar o comportamento da liderança: enquadrar o trabalho como aprendizado, convidar ativamente a participação e responder de forma produtiva a quem traz más notícias. Suspender metas é a alternativa mais tentadora, mas confunde segurança psicológica com menor exigência; aumentar a punição aprofunda o silêncio.",
+      "referencia": "Segurança psicológica, de Amy Edmondson (The Fearless Organization)",
+      "estudar": "Segurança psicológica x padrão de desempenho (Edmondson)",
+      "dificuldade": "muito difícil"
+    }
+  ]
+}

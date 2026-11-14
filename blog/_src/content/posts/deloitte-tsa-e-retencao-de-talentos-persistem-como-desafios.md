@@ -17,7 +17,7 @@ checagem: Lida na fonte: abri o PDF do relatório no site da Deloitte e conferi 
 por_que_importa: O plano de mudança não termina no Dia 1: saída de TSA e retenção de pessoas precisam de dono, marcos e comunicação próprios no pós-fechamento. Vale antecipar a comunicação interna, com clientes e com fornecedores, que os próprios vendedores dizem ter começado tarde.
 origem: apuracao
 dados:
-  - 11% | Parcela dos vendedores que resolve por completo os custos remanescentes (stranded costs), embora muitos os identifiquem durante o negócio. Pesquisa Deloitte e Potloc com 1.500 executivos, outubro de 2025. | https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf
+  - 11% | Parcela dos vendedores que resolve por completo os custos remanescentes (custos remanescentes), embora muitos os identifiquem durante o negócio. Pesquisa Deloitte e Potloc com 1.500 executivos, outubro de 2025. | https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf
   - 3º e 4º lugar | Posição de retenção de talentos e moral entre os desafios que persistem após o fechamento: 3º para compradores (n=559) e 4º para vendedores (n=962), atrás de TSAs no caso dos vendedores. | https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf
   - 1.500 executivos | Amostra da pesquisa, feita em outubro de 2025 com empresas e fundos de private equity com receita acima de US$ 500 milhões; cargos de diretor sênior para cima. | https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf
 ---

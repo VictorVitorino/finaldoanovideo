@@ -6,7 +6,7 @@ tipo: reportagem
 tema: governanca-ti
 ordem: 102
 olho: AI Act europeu
-resumo: O pacote de simplificação do AI Act, o AI Omnibus, entrou em vigor em julho de 2026 e adiou as regras de alto risco para 2 de dezembro de 2027 e 2 de agosto de 2028. Proibições, letramento em IA, regras para modelos de uso geral e fiscalização continuam valendo.
+resumo: O pacote de simplificação do AI Act, o Digital Omnibus, entrou em vigor em julho de 2026 e adiou as regras de alto risco para 2 de dezembro de 2027 e 2 de agosto de 2028. Proibições, letramento em IA, regras para modelos de uso geral e fiscalização continuam valendo.
 regiao: Europa
 fonte_nome: Comissão Europeia, página "AI Act" (Shaping Europe's digital future)
 fonte_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
@@ -17,11 +17,11 @@ checagem: Lida na fonte: abri a página AI Act da Comissão Europeia (última at
 por_que_importa: O adiamento dá prazo, não dispensa. Use o tempo para mapear onde a empresa usa IA em decisões sobre pessoas e para definir e treinar quem fará a supervisão humana.
 origem: apuracao
 dados:
-  - 2 de dezembro de 2027 | Nova data de aplicação das regras para sistemas de IA de alto risco em áreas sensíveis (Anexo III), após o AI Omnibus | https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+  - 2 de dezembro de 2027 | Nova data de aplicação das regras para sistemas de IA de alto risco em áreas sensíveis (Anexo III), após o Digital Omnibus | https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
   - 2 de agosto de 2028 | Nova data para sistemas de alto risco integrados a produtos regulados (Anexo I) | https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
-  - dezembro de 2026 | Início da nona prática proibida do AI Act, criada pelo AI Omnibus: sistemas que geram conteúdo sexual ou íntimo não consentido | https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+  - dezembro de 2026 | Início da nona prática proibida do AI Act, criada pelo Digital Omnibus: sistemas que geram conteúdo sexual ou íntimo não consentido | https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
 ---
-A União Europeia mudou o calendário do AI Act. O pacote de simplificação conhecido como AI Omnibus foi proposto pela Comissão Europeia em 19 de novembro de 2025 e teve acordo político em 7 de maio de 2026. A página da Comissão sobre o AI Act registra a entrada em vigor em 27 de julho de 2026.
+A União Europeia mudou o calendário do AI Act. O pacote de simplificação conhecido como Digital Omnibus foi proposto pela Comissão Europeia em 19 de novembro de 2025 e teve acordo político em 7 de maio de 2026. A página da Comissão sobre o AI Act registra a entrada em vigor em 27 de julho de 2026.
 
 As regras para sistemas de alto risco em áreas como biometria, infraestrutura crítica, educação, emprego, migração, asilo e controle de fronteiras passam a valer em 2 de dezembro de 2027. Para sistemas integrados a produtos, como elevadores e brinquedos, a data é 2 de agosto de 2028. A Comissão afirma que assim as regras valerão quando as empresas tiverem ferramentas de apoio, como normas técnicas.
 

@@ -3,14 +3,14 @@ titulo: Marco legal da IA segue sem parecer na Câmara; ANPD já é agência reg
 slug: marco-legal-da-ia-segue-sem-parecer-na-camara-anpd-ja-e
 data: 2026-11-14
 tipo: reportagem
-tema: governanca-ti
+tema: brasil
 ordem: 152
 olho: Regulação no Brasil
 resumo: O PL 2338/2023 continua aguardando o parecer do relator na Comissão Especial da Câmara, com 45 proposições apensadas. Enquanto isso, a Lei nº 15.352/2026 transformou a ANPD em agência reguladora, e a IA está entre as prioridades de fiscalização da agência.
 regiao: Brasil
 fonte_nome: Câmara dos Deputados, ficha de tramitação do PL 2338/2023 (com apoio dos textos do PL 2338/2023 e do PL 6237/2025 e de páginas do Senado, do MJSP e da ANPD)
 fonte_url: https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2487262
-fonte_data: 
+fonte_nota: sem data na página (última ação legislativa registrada: 13/11/2026)
 fonte_tipo: primária
 verificacao: lida na fonte
 checagem: Lida na fonte: abri a ficha do PL 2338/2023 na Câmara em 14 de novembro de 2026 e conferi a situação, os 45 apensados, o relator designado em 20/5/2025 e a última ação em 13/11/2026; li o texto do projeto (artigos 8º e 58), o texto e a exposição de motivos do PL 6237/2025, a página do Senado (aprovação em Plenário em 10/12/2024), a notícia do MJSP sobre a Lei nº 15.352/2026 e as 200 vagas e a notícia da ANPD sobre os quatro temas. Cortei a atribuição ao Ministério da Gestão e o "vício de iniciativa", que não encontrei em página aberta, e troquei "fim de 2026" por "novembro de 2026".

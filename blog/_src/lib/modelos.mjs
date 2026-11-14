@@ -78,7 +78,8 @@ ${corpo}
 
 // ---------- peças ----------
 const chipTema = p => `<span class="chip chip--tema">${icone(tema(p).ic)}${esc(tema(p).nome)}</span>`;
-const fonteLinha = p => p.fonte_nome ? `<span class="fonte">${esc(p.fonte_nome)}${p.fonte_data ? ' · ' + esc(data(p.fonte_data).curta) : ''}</span>` : `<span class="fonte">${esc(TIPOS[p.tipo] || '')}</span>`;
+const fonteCurta = p => String(p.fonte_nome || '').split(/[,(|]/)[0].trim();
+const fonteLinha = p => p.fonte_nome ? `<span class="fonte">${esc(fonteCurta(p))}${p.fonte_data ? ' · ' + esc(data(p.fonte_data).curta) : ''}</span>` : `<span class="fonte">${esc(TIPOS[p.tipo] || '')}</span>`;
 
 export function cartao(p, raiz, o = {}) {
   return `<article class="cartao revela${o.cls ? ' ' + o.cls : ''}" data-tema="${esc(p.tema)}" data-busca="${esc((p.titulo + ' ' + p.resumo + ' ' + (p.fonte_nome || '') + ' ' + tema(p).nome + ' ' + (p.regiao || '')).toLowerCase())}">
@@ -105,7 +106,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
   const temasRadar = Object.keys(TEMAS).filter(k => usados.has(k));
   const ticker = reportagens.slice(0, 12).map(p => `<a href="${urlPost(raiz, p)}"><b>${esc(p.olho || tema(p).nome)}</b>${esc(p.titulo)}</a>`).join('');
 
-  const fontes = new Set(reportagens.map(p => p.fonte_nome).filter(Boolean));
+  const fontes = new Set(reportagens.map(fonteCurta).filter(Boolean));
   const rotulos = [['ia', 3, 13], ['carve-out', 73, 5], ['governanca-ti', 80, 47], ['transformacao', 63, 88], ['due-diligence', 2, 79], ['adocao', -3, 45]].filter(([k]) => posts.some(p => p.tema === k));
   const abertura = `<section class="abertura" aria-labelledby="ab-t">
   <div class="abertura-in">
@@ -172,7 +173,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home }) {
       <div class="ia-arte revela" aria-hidden="true">${capa('ia', 'secao-ia', { variante: 'b' })}</div>
     </div>
     <div class="nums">${stats}</div>
-    ${praticas.length ? `<h3 class="sub revela">Na prática</h3><div class="praticas">${praticas.map((p, i) => `<a class="pratica revela" style="--i:${i}" href="${urlPost(raiz, p)}"><span class="pratica-n">${String(i + 1).padStart(2, '0')}</span><span><b>${esc(p.titulo)}</b><small>${esc(p.fonte_nome || '')}</small></span>${icone('seta')}</a>`).join('')}</div>` : ''}
+    ${praticas.length ? `<h3 class="sub revela">Na prática</h3><div class="praticas">${praticas.map((p, i) => `<a class="pratica revela" style="--i:${i}" href="${urlPost(raiz, p)}"><span class="pratica-n">${String(i + 1).padStart(2, '0')}</span><span><b>${esc(p.titulo)}</b><small>${esc(fonteCurta(p))}</small></span>${icone('seta')}</a>`).join('')}</div>` : ''}
   </div>
 </section>`;
 
@@ -250,15 +251,18 @@ export function post({ cfg, p, posts }) {
   const relacionados = posts.filter(x => x.slug !== p.slug && x.tema === p.tema).slice(0, 3);
   const outros = relacionados.length < 3 ? posts.filter(x => x.slug !== p.slug && x.tema !== p.tema && x.tipo !== 'capa').slice(0, 3 - relacionados.length) : [];
   const corpo = `<article class="artigo">
-  <header class="art-cab">
+  <header class="art-cab${p.video ? ' art-cab--video' : ''}">
     <div class="art-cab-in">
-      <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}index.html#${p.tipo === 'guia' ? 'guias' : 'radar'}">${esc(p.tipo === 'guia' ? 'Guias de campo' : 'Radar')}</a>${icone('seta')}<span>${esc(t.nome)}</span></nav>
-      <div class="art-meta"><span class="chip chip--capa">${icone(p.tipo === 'guia' ? 'livro' : p.tipo === 'capa' ? 'faisca' : 'globo')}${esc(TIPOS[p.tipo] || 'Reportagem')}</span>${chipTema(p)}${p.regiao ? `<span class="regiao">${icone('pino')}${esc(p.regiao)}</span>` : ''}</div>
-      <h1>${esc(p.titulo)}</h1>
-      <p class="art-lead">${esc(p.resumo)}</p>
-      <div class="art-assina"><span class="monograma monograma--p"><span>VV</span></span><span><b>${esc(cfg.autor)}</b><small>${esc(d.longa)} · ${p.min} min de leitura</small></span></div>
+      <div class="art-cab-txt">
+        <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}index.html#${p.tipo === 'guia' ? 'guias' : 'radar'}">${esc(p.tipo === 'guia' ? 'Guias de campo' : 'Radar')}</a>${icone('seta')}<span>${esc(t.nome)}</span></nav>
+        <div class="art-meta"><span class="chip chip--capa">${icone(p.tipo === 'guia' ? 'livro' : p.tipo === 'capa' ? 'faisca' : 'globo')}${esc(TIPOS[p.tipo] || 'Reportagem')}</span>${chipTema(p)}${p.regiao ? `<span class="regiao">${icone('pino')}${esc(p.regiao)}</span>` : ''}</div>
+        <h1>${esc(p.titulo)}</h1>
+        <p class="art-lead">${esc(p.resumo)}</p>
+        <div class="art-assina"><span class="monograma monograma--p"><span>VV</span></span><span><b>${esc(cfg.autor)}</b><small>${esc(d.longa)} · ${p.min} min de leitura</small></span></div>
+      </div>
+      ${p.video ? '' : `<div class="art-arte">${capa(p.tema, p.slug)}</div>`}
     </div>
-    <div class="art-capa">${p.video ? `<video controls preload="none" playsinline poster="${raiz}${esc(p.poster)}"><source src="${raiz}${esc(p.video)}" type="video/mp4"></video>` : capa(p.tema, p.slug)}</div>
+    ${p.video ? `<div class="art-capa"><video controls preload="none" playsinline poster="${raiz}${esc(p.poster)}"><source src="${raiz}${esc(p.video)}" type="video/mp4"></video></div>` : ''}
   </header>
   <div class="art-grade">
     <div class="art-corpo prosa">
@@ -267,7 +271,7 @@ export function post({ cfg, p, posts }) {
       ${p.fonte_url ? `<aside class="fonte-caixa"><h2>${icone('link')}Fonte</h2><p><a href="${esc(p.fonte_url)}" target="_blank" rel="noopener">${esc(p.fonte_nome)}${icone('setaFora')}</a>${p.fonte_data ? `<span>Publicado em ${esc(data(p.fonte_data).longa)}</span>` : ''}${p.fonte_tipo ? `<span>Fonte ${esc(p.fonte_tipo)}</span>` : ''}${p.verificacao ? `<span>Conferência: ${esc(p.verificacao)}</span>` : ''}</p><small>Texto original do blog a partir da fonte citada. Os números valem para o recorte da pesquisa; confira o material completo antes de usar em decisão.</small></aside>` : ''}
     </div>
     <aside class="art-lado">
-      ${dados.length ? `<div class="lado-caixa"><h2>Em números</h2>${dados.map(([v, desc]) => `<div class="dado"><strong>${esc(v)}</strong><span>${esc(desc || '')}</span></div>`).join('')}</div>` : ''}
+      ${dados.length ? `<div class="lado-caixa"><h2>Em números</h2>${dados.map(([v, desc]) => `<div class="dado"><strong${v.length > 9 ? ' class="dado-longo"' : ''}>${esc(v)}</strong><span>${esc(desc || '')}</span></div>`).join('')}</div>` : ''}
       ${(p.passos || []).length ? `<div class="lado-caixa"><h2>Em resumo</h2><ul class="lado-lista">${p.passos.map(s => `<li>${icone('check')}${esc(s)}</li>`).join('')}</ul></div>` : ''}
       <div class="lado-caixa lado-caixa--acoes"><h2>Compartilhar</h2><a class="btn btn--p" data-linkedin href="https://www.linkedin.com/sharing/share-offsite/?url=" target="_blank" rel="noopener">${icone('linkedin')}Postar no LinkedIn</a><button class="btn btn--s" type="button" data-copiar>${icone('copia')}<span>Copiar link</span></button></div>
     </aside>

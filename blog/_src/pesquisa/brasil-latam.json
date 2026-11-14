@@ -1,0 +1,192 @@
+{
+  "tema": "brasil-latam",
+  "verificado_em": "2026-11-14",
+  "itens": [
+    {
+      "titulo": "TIC Empresas 2025: 17% das empresas brasileiras usam IA, ante 13% em 2024",
+      "olho": "IA nas empresas",
+      "resumo": "A pesquisa TIC Empresas 2025, do Cetic.br, mostra que 17% das empresas brasileiras com dez ou mais pessoas ocupadas usaram IA em 2025, contra 13% em 2024. Entre as grandes, a proporção chegou a 50%. Das que usam IA, 80% adotaram soluções prontas.",
+      "corpo": "O Cetic.br, ligado ao NIC.br e ao CGI.br, apresentou em 15 de junho de 2026 os principais resultados da TIC Empresas 2025. A pesquisa está na 17ª edição e mede o uso de tecnologias de informação e comunicação nas empresas brasileiras.\n\nSegundo o resumo executivo, 17% das empresas com dez ou mais pessoas ocupadas afirmaram usar aplicações de IA em 2025, contra 13% em 2024. O total estimado é de 93.475 empresas. Entre as pequenas, a proporção foi de 10% para 15%. Entre as grandes, de 38% para 50%.\n\nEntre as empresas que usam IA, a aplicação mais citada é a automatização de processos e fluxos de trabalho, com 68%. O uso de mineração de texto e análise da linguagem escrita subiu de 22% para 38%. A compra de soluções prontas predomina: 80% adotaram sistemas prontos para uso e 54% contrataram fornecedores externos para desenvolver ou modificar sistemas.\n\nO recorte importa. Foram entrevistadas 4.174 empresas por telefone, entre fevereiro de 2025 e janeiro de 2026, com resultados por porte, região e setor. O universo inclui pequenas e médias empresas. Por isso, o número não é comparável ao de levantamentos feitos só com companhias maiores.",
+      "por_que_importa": "Use este número como linha de base realista: fora das grandes empresas, a IA ainda é usada por uma minoria. Como a maioria das que usam compra solução pronta, o esforço de Gestão da Mudança está na adoção e no redesenho do trabalho, não no desenvolvimento.",
+      "fonte_nome": "Cetic.br | NIC.br | CGI.br, pesquisa TIC Empresas 2025",
+      "fonte_url": "https://www.cetic.br/media/analises/TIC-Empresas-2025-lancamento.pdf",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-06-15",
+      "regiao": "Brasil",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "17%",
+          "descricao": "das empresas brasileiras com dez ou mais pessoas ocupadas usaram aplicações de IA em 2025 (13% em 2024); 4.174 empresas entrevistadas entre fev/2025 e jan/2026",
+          "fonte_url": "https://www.cetic.br/media/docs/publicacoes/2/pt-br/20260831091252/TIC_EMPRESAS_2025_PT_RE.pdf"
+        },
+        {
+          "valor": "50%",
+          "descricao": "das grandes empresas usaram IA em 2025, ante 38% em 2024; entre as pequenas, 15% ante 10%",
+          "fonte_url": "https://www.cetic.br/media/docs/publicacoes/2/pt-br/20260831091252/TIC_EMPRESAS_2025_PT_RE.pdf"
+        },
+        {
+          "valor": "80%",
+          "descricao": "das empresas que usaram IA em 2025 adotaram soluções prontas para uso (76% em 2024)",
+          "fonte_url": "https://www.cetic.br/media/docs/publicacoes/2/pt-br/20260831091252/TIC_EMPRESAS_2025_PT_RE.pdf"
+        }
+      ],
+      "checagem": "Lida na fonte: abri os slides de lançamento (data de 15 de junho de 2026, amostra, período e gráfico H9) e o resumo executivo, onde conferi um a um 17%, 13%, 93.475, 10% e 15%, 38% e 50%, 68%, 22% e 38%, 80%, 76%, 54% e 4.174; cortei a menção a apoio de MCTI, MDIC, IBGE e Ipea e a frase de que é a medição mais ampla do setor privado, que não estão nos documentos."
+    },
+    {
+      "titulo": "Bain: 95% das empresas ouvidas no Brasil usam IA; 62% relatam impacto financeiro",
+      "olho": "IA em escala",
+      "resumo": "Levantamento da Bain com 140 empresas brasileiras indica que a adoção de IA chegou a 95%, 21 pontos percentuais acima de 2024. Cerca de 40% já escalaram ao menos um caso de uso e 62% reportam impacto financeiro direto.",
+      "corpo": "A Bain & Company publicou em setembro de 2026 um levantamento sobre o uso de inteligência artificial em empresas brasileiras. Segundo a consultoria, a adoção alcança 95% das companhias ouvidas, avanço de 21 pontos percentuais em relação a 2024.\n\nOs números indicam que o tema subiu para a alta liderança. A IA está entre as cinco principais prioridades estratégicas de 86% das empresas, e 62% dos programas são liderados pelo CEO ou por seus reportes diretos. Cerca de 40% já escalaram ao menos um caso de uso, 62% reportam impacto financeiro direto e 98% pretendem ampliar o orçamento de IA no próximo ciclo.\n\nOs gargalos são conhecidos de quem conduz mudanças. Os executivos citam preocupações com segurança e privacidade de dados (29%), falta de expertise interna (28%) e baixa maturidade dos dados corporativos (22%). O principal motor da adoção é o ganho de produtividade de pessoal, apontado por 56%.\n\nO recorte é específico. A pesquisa foi feita em julho de 2026 com 140 empresas brasileiras, com faturamento anual entre R$ 40 milhões e mais de R$ 10 bilhões, de setores como serviços financeiros, varejo, tecnologia, saúde e telecomunicações. Não é uma amostra do conjunto das empresas do país.",
+      "por_que_importa": "Com o tema na alta liderança e o orçamento crescendo, o gargalo passa a ser capacidade interna. Planeje a frente de capacitação e de dados junto com o caso de uso, não depois.",
+      "fonte_nome": "Bain & Company Brasil",
+      "fonte_url": "https://www.bain.com/pt-br/insights/uso-de-ia-chega-a-95-das-empresas-no-brasil/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-09-15",
+      "regiao": "Brasil",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "95%",
+          "descricao": "das 140 empresas brasileiras ouvidas pela Bain em julho de 2026 já adotam IA, 21 pontos percentuais acima de 2024",
+          "fonte_url": "https://www.bain.com/pt-br/insights/uso-de-ia-chega-a-95-das-empresas-no-brasil/"
+        },
+        {
+          "valor": "62%",
+          "descricao": "das empresas ouvidas reportam impacto financeiro direto de iniciativas de IA; cerca de 40% escalaram ao menos um caso de uso",
+          "fonte_url": "https://www.bain.com/pt-br/insights/uso-de-ia-chega-a-95-das-empresas-no-brasil/"
+        },
+        {
+          "valor": "28%",
+          "descricao": "dos executivos apontam a falta de expertise interna como gargalo; segurança e privacidade de dados são citadas por 29%",
+          "fonte_url": "https://www.bain.com/pt-br/insights/uso-de-ia-chega-a-95-das-empresas-no-brasil/"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página da Bain (metadado de 15 de setembro de 2026) e conferi 95%, 21 pontos, 40%, 62%, 86%, 98%, 29%, 28%, 22%, 56% e a nota de método (140 empresas, julho de 2026, faturamento de R$ 40 milhões a mais de R$ 10 bilhões); ajustei o \"por que importa\", que atribuía o patrocínio só ao CEO."
+    },
+    {
+      "titulo": "PwC: 75% dos profissionais brasileiros usaram IA no trabalho no último ano",
+      "olho": "Força de trabalho",
+      "resumo": "O recorte brasileiro da pesquisa Hopes and Fears 2026, da PwC, mostra profissionais que usam IA mais do que a média global e confiam na própria capacidade de aprender. Mas o acesso a aprendizado e os incentivos das empresas não acompanham esse ritmo.",
+      "corpo": "A PwC Brasil publicou em 12 de novembro de 2026 o recorte nacional da Pesquisa Global Hopes and Fears 2026. O retrato é de uma força de trabalho que já experimentou a IA e que, segundo a consultoria, se adapta mais rápido do que as empresas esperam. \"O Brasil largou na frente\", resume o texto.\n\nSegundo a pesquisa, 75% dos profissionais brasileiros usaram IA no trabalho nos últimos 12 meses, contra 64% no mundo. O uso diário de IA generativa chega a 36%, ante 22% na média global. E 77% confiam na própria capacidade de aprender novas competências.\n\nAs condições não acompanham a confiança. Apenas 65% dizem ter acesso a recursos de aprendizado e 62% afirmam entender quais competências serão necessárias. Só 15% apontam o uso eficaz da IA entre os comportamentos mais valorizados no trabalho, enquanto 30% citam a prevenção de erros e a minimização de riscos. Na gestão intermediária, 27% dos gerentes relatam dificuldade com o volume e a velocidade das mudanças, ante 24% dos executivos seniores.\n\nA pesquisa ouviu 49.364 profissionais em 48 países e regiões, em maio e junho de 2026, com resultados ponderados por gênero e idade. A página não informa o tamanho da amostra brasileira.",
+      "por_que_importa": "No Brasil, o problema não é convencer as pessoas a experimentar IA. É alinhar incentivos, dar tempo de aprendizado dentro da jornada e apoiar a gestão intermediária, que é quem traduz a mudança para as equipes.",
+      "fonte_nome": "PwC Brasil, Pesquisa Global Hopes and Fears 2026",
+      "fonte_url": "https://www.pwc.com.br/pt/estudos/servicos/consultoria-negocios/2026/pesquisa-global-hopes-and-fears-2026.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-11-12",
+      "regiao": "Brasil",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "75%",
+          "descricao": "dos profissionais brasileiros usaram IA no trabalho nos últimos 12 meses, contra 64% no mundo (pesquisa global com 49.364 profissionais, maio e junho de 2026; amostra brasileira não informada na página)",
+          "fonte_url": "https://www.pwc.com.br/pt/estudos/servicos/consultoria-negocios/2026/pesquisa-global-hopes-and-fears-2026.html"
+        },
+        {
+          "valor": "15%",
+          "descricao": "dos profissionais brasileiros apontam o uso eficaz da IA entre os comportamentos mais valorizados no trabalho; prevenção de erros e minimização de riscos são citadas por 30%",
+          "fonte_url": "https://www.pwc.com.br/pt/estudos/servicos/consultoria-negocios/2026/pesquisa-global-hopes-and-fears-2026.html"
+        },
+        {
+          "valor": "27%",
+          "descricao": "dos gerentes no Brasil relatam dificuldade para lidar com o volume e a velocidade das mudanças, ante 24% dos executivos seniores",
+          "fonte_url": "https://www.pwc.com.br/pt/estudos/servicos/consultoria-negocios/2026/pesquisa-global-hopes-and-fears-2026.html"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página da PwC Brasil (datada de 12 de novembro de 2026) e conferi 75% e 64%, 36% e 22%, 77%, 65%, 62%, 15%, 30%, 27% e 24%, além da nota de método (49.364 profissionais, 48 países e regiões, maio e junho de 2026); só ajustei a redação do primeiro parágrafo para ficar no que a página diz."
+    },
+    {
+      "titulo": "Deloitte: só 23% das empresas no Brasil escalaram 40% ou mais dos pilotos de IA",
+      "olho": "Do piloto à escala",
+      "resumo": "O recorte brasileiro do State of AI in the Enterprise, da Deloitte, mostra ambição alta e escala baixa: 58% das empresas dizem ter implementado no máximo 20% dos pilotos de IA. Quase todas planejam IA agêntica, mas só 27% têm governança madura.",
+      "corpo": "A Deloitte divulgou em 14 de maio de 2026 o recorte brasileiro do relatório State of AI in the Enterprise. O estudo ouviu 3.235 líderes de negócios e de TI em 24 países, sendo 115 brasileiros, entre agosto e setembro de 2025.\n\nO Brasil aparece bem na ambição. Entre os respondentes do país, 42% dizem usar IA para promover mudanças estruturais no negócio, contra 34% na amostra global. O acesso também é amplo: 82% das empresas brasileiras permitem o uso de IA para pelo menos 20% dos profissionais.\n\nA escala é o ponto fraco. Entre as organizações brasileiras, 58% afirmam que no máximo 20% dos pilotos foram implementados, e apenas 23% conseguiram escalar 40% ou mais. A governança também está atrás da ambição: 95% planejam adotar IA agêntica em até dois anos, mas só 27% afirmam ter modelos de governança maduros.\n\nPara Jefferson Denti, Chief Disruption Officer da Deloitte, o desafio é sair do acesso para o uso real. Segundo ele, é preciso \"aumentar a adoção, não somente o acesso\" às ferramentas. O executivo também aponta modernização de dados, governança e requalificação dos profissionais como condições para o sucesso das iniciativas.",
+      "por_que_importa": "Liberar a ferramenta não é adoção. Trate a passagem do piloto para a escala como um projeto de mudança, com métrica de uso real, e discuta a governança de agentes antes da implantação.",
+      "fonte_nome": "Deloitte Brasil, State of AI in the Enterprise 2026",
+      "fonte_url": "https://www.deloitte.com/br/pt/about/press-room/state-of-ai-2026.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-05-14",
+      "regiao": "Brasil",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "23%",
+          "descricao": "das organizações brasileiras conseguiram escalar 40% ou mais dos pilotos de IA; 58% implementaram no máximo 20% (115 executivos brasileiros, coleta entre agosto e setembro de 2025)",
+          "fonte_url": "https://www.deloitte.com/br/pt/about/press-room/state-of-ai-2026.html"
+        },
+        {
+          "valor": "27%",
+          "descricao": "das empresas no Brasil afirmam ter modelos de governança maduros para IA agêntica (21% na amostra global), embora 95% planejem adotá-la em até dois anos",
+          "fonte_url": "https://www.deloitte.com/br/pt/about/press-room/state-of-ai-2026.html"
+        },
+        {
+          "valor": "42%",
+          "descricao": "dos respondentes brasileiros dizem usar IA para promover mudanças estruturais no negócio, contra 34% na amostra global de 3.235 líderes",
+          "fonte_url": "https://www.deloitte.com/br/pt/about/press-room/state-of-ai-2026.html"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o comunicado da Deloitte Brasil (metadado de 14 de maio de 2026) e conferi 42% e 34%, 82%, 58%, 23%, 95%, 27% e 21%, a amostra (3.235 líderes em 24 países, 115 brasileiros, agosto e setembro de 2025) e as falas de Jefferson Denti; só precisei o dia da divulgação e tirei do conselho final a menção a comitê de TI, que não vem da fonte."
+    },
+    {
+      "titulo": "Câmara: regras para IA no trabalho avançam e marco legal da IA segue sem parecer",
+      "olho": "Regulação de IA",
+      "resumo": "Uma comissão da Câmara aprovou projeto que altera a CLT para regular o uso de IA no ambiente de trabalho, com negociação coletiva e transparência em seleção e promoção. O marco legal geral da IA, o PL 2338/23, continua aguardando o parecer do relator.",
+      "corpo": "A Comissão de Ciência, Tecnologia e Inovação da Câmara dos Deputados aprovou o Projeto de Lei 3088/24, que altera a CLT para regular o uso de inteligência artificial no ambiente de trabalho. O parecer foi aprovado em 18 de março de 2026, e a Agência Câmara noticiou a decisão no dia 25.\n\nPelo texto aprovado, empregadores devem adotar medidas razoáveis para prevenir danos à saúde física e mental ligados ao controle por IA. A adoção de IA que afete a estrutura ocupacional poderá ser objeto de negociação coletiva. Critérios de seleção e promoção baseados em algoritmos precisam ser auditáveis. O projeto original previa multa fixa de R$ 2 mil por empregado. A versão aprovada deixa o valor para regulamentação do Executivo e prevê sanções escalonadas: notificação, advertência e multa.\n\nO projeto tramita em caráter conclusivo e ainda passa pelas comissões de Trabalho e de Constituição e Justiça. A ficha de tramitação, consultada em 14 de novembro de 2026, indica que ele aguarda parecer do relator na Comissão de Trabalho.\n\nO marco legal mais amplo, o PL 2338/23, já aprovado pelo Senado, também espera. A ficha da Câmara registra a situação \"Aguardando Parecer do(a) Relator(a)\" na comissão especial, instalada em maio de 2025.",
+      "por_que_importa": "Nada disso é lei ainda, mas o texto indica a direção: transparência, saúde mental e diálogo com sindicatos. Vale incluir esses três pontos desde já no plano de mudança de projetos de IA que afetam cargos e avaliação de pessoas.",
+      "fonte_nome": "Agência Câmara de Notícias, Câmara dos Deputados",
+      "fonte_url": "https://www.camara.leg.br/noticias/1257744-comissao-aprova-regras-para-uso-de-ia-no-ambiente-de-trabalho/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-03-25",
+      "regiao": "Brasil",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "R$ 2 mil",
+          "descricao": "por empregado: multa fixa prevista no texto original do PL 3088/24, retirada na versão aprovada pela comissão, que deixa o valor para regulamentação do Executivo",
+          "fonte_url": "https://www.camara.leg.br/noticias/1257744-comissao-aprova-regras-para-uso-de-ia-no-ambiente-de-trabalho/"
+        },
+        {
+          "valor": "3 comissões",
+          "descricao": "analisam o PL 3088/24 em caráter conclusivo: Ciência, Tecnologia e Inovação (parecer aprovado em 18/03/2026), Trabalho (aguarda parecer do relator) e Constituição e Justiça",
+          "fonte_url": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2451411"
+        },
+        {
+          "valor": "34 deputados",
+          "descricao": "titulares integram a comissão especial do PL 2338/23, instalada em 20/05/2025, com igual número de suplentes",
+          "fonte_url": "https://www.camara.leg.br/noticias/1160383-comissao-que-vai-analisar-projeto-sobre-inteligencia-artificial-sera-presidida-por-luisa-canziani-aguinaldo-ribeiro-sera-relator/"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a notícia da Agência Câmara (25/03/2026), a ficha do PL 3088/24 (parecer aprovado na CCTI em 18/03/2026, situação atual na Comissão de Trabalho), a notícia de 20/05/2025 sobre a comissão especial (34 titulares) e a ficha do PL 2338/23 em https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2487262, que hoje registra \"Aguardando Parecer do(a) Relator(a)\"; acrescentei a data da votação e troquei \"não avançou\" por redação que fica na situação da ficha."
+    },
+    {
+      "titulo": "EY: 83% das empresas da América Latina estão em estágio inicial de adoção de IA",
+      "olho": "América Latina",
+      "resumo": "Estudo da EY com 1.988 executivos em 18 países latino-americanos aponta a transformação digital como principal desafio interno das empresas. Na IA, 83% ainda estão em etapas iniciais e só 11% chegaram a níveis avançados.",
+      "corpo": "A EY publicou em 30 de julho de 2026 os destaques da quarta edição do estudo Desafíos y tendencias de las empresas en Latinoamérica. O levantamento reúne a visão de 1.988 diretores e executivos de primeira linha em 18 países da região.\n\nA mensagem central é uma troca de prioridades. Segundo a EY, as empresas latino-americanas deixaram de olhar primeiro para o risco macroeconômico e passaram a se preocupar com concorrência, mudança no comportamento do cliente e aceleração tecnológica. A transformação digital é apontada por 34% das organizações como o principal desafio interno.\n\nNa inteligência artificial, o interesse é alto e a maturidade é baixa: 83% das empresas estão em etapas iniciais de adoção e só 11% alcançaram níveis avançados. Os investimentos se concentram em IA, analytics e automação.\n\nA página consultada é a da EY para América Central, Panamá e República Dominicana. Nesse recorte sub-regional, tecnologia e transformação digital lideram os desafios internos com 42%, seguidas de automação de processos, com 28%. O texto não detalha a lista de países nem o período de coleta.",
+      "por_que_importa": "Para quem atua em programas regionais, o dado ajuda a calibrar a expectativa: a maior parte das empresas latino-americanas ainda está no começo da curva. Vale checar a maturidade de cada operação antes de replicar um plano de mudança.",
+      "fonte_nome": "EY, Desafíos y tendencias de las empresas en Latinoamérica 2026",
+      "fonte_url": "https://www.ey.com/es_ce/insights/desafios-tendencias-empresas-latinoamerica",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-07-30",
+      "regiao": "América Latina",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "83%",
+          "descricao": "das empresas latino-americanas estão em etapas iniciais de adoção de IA; 11% alcançaram níveis avançados (1.988 diretores e executivos em 18 países)",
+          "fonte_url": "https://www.ey.com/es_ce/insights/desafios-tendencias-empresas-latinoamerica"
+        },
+        {
+          "valor": "34%",
+          "descricao": "das organizações da região identificam a transformação digital como principal desafio interno",
+          "fonte_url": "https://www.ey.com/es_ce/insights/desafios-tendencias-empresas-latinoamerica"
+        },
+        {
+          "valor": "42%",
+          "descricao": "no recorte de América Central, Panamá e República Dominicana apontam tecnologia e transformação digital como principal desafio interno; automação de processos vem em seguida, com 28%",
+          "fonte_url": "https://www.ey.com/es_ce/insights/desafios-tendencias-empresas-latinoamerica"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página da EY Centroamérica (artigo datado de 30 de julho de 2026) e conferi 83%, 11%, 34%, 42%, 28%, 1.988 executivos, 18 países e a menção à quarta edição; ajustei o texto para dizer que a data é a do artigo com os destaques e tirei do conselho final a ideia de diferenças por país, que a página não mostra."
+    }
+  ]
+}

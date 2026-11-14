@@ -1,0 +1,151 @@
+{
+  "tema": "carve-out",
+  "verificado_em": "2026-11-14",
+  "itens": [
+    {
+      "titulo": "Deloitte: TSA e retenção de talentos persistem como desafios após o fechamento",
+      "olho": "Pesquisa global",
+      "resumo": "A edição 2026 da Global Divestiture Survey, da Deloitte, mostra que TSAs e retenção de talentos estão entre os cinco desafios que mais persistem para os vendedores depois do fechamento de um desinvestimento. Muitos identificam os custos remanescentes durante o negócio, mas só 11% os resolvem por completo.",
+      "corpo": "A Deloitte publicou a edição 2026 da Global Divestiture Survey. O relatório, datado de janeiro de 2026, diz que os desinvestimentos deixaram de ser vendas de oportunidade e viraram decisões de estratégia, ligadas a agendas de transformação. Mesmo assim, só cerca de metade das organizações ouvidas atinge o que esperava em prazo e valor de venda.\n\nA pesquisa foi feita em outubro de 2025 pela Deloitte e pela Potloc, com 1.500 executivos de empresas abertas e fechadas e de fundos de private equity e suas investidas, com receita acima de US$ 500 milhões. Entre os desafios que continuam depois do fechamento, os vendedores (n=962) citam, nesta ordem, custos remanescentes, complexidade fiscal e societária, TSAs e retenção de talentos e moral. Para os compradores (n=559), retenção e moral aparecem em terceiro lugar. Muitos vendedores identificam os custos remanescentes durante o negócio, mas só 11% os resolvem por completo.\n\nO relatório registra o que os vendedores fariam diferente em cada fase. Eles dizem que deveriam ter envolvido mais a liderança do negócio vendido, se preparado antes para a comunicação interna e externa e iniciado mais cedo a conversa com clientes e fornecedores.\n\nA recomendação é desenhar o Dia 1 para a independência: definir cedo um modelo mínimo de operação autônoma e ter um plano para os custos remanescentes antes de assinar TSAs. Segundo o relatório, os TSAs podem esconder esses custos por um tempo, mas também podem aumentar a complexidade e o risco com o passar do tempo.",
+      "por_que_importa": "O plano de mudança não termina no Dia 1: saída de TSA e retenção de pessoas precisam de dono, marcos e comunicação próprios no pós-fechamento. Vale antecipar a comunicação interna, com clientes e com fornecedores, que os próprios vendedores dizem ter começado tarde.",
+      "fonte_nome": "Deloitte, 2026 Global Divestiture Survey: The rise of transformational divestitures",
+      "fonte_url": "https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-01",
+      "regiao": "Global",
+      "dados": [
+        {
+          "valor": "11%",
+          "descricao": "Parcela dos vendedores que resolve por completo os custos remanescentes (stranded costs), embora muitos os identifiquem durante o negócio. Pesquisa Deloitte e Potloc com 1.500 executivos, outubro de 2025.",
+          "fonte_url": "https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf"
+        },
+        {
+          "valor": "3º e 4º lugar",
+          "descricao": "Posição de retenção de talentos e moral entre os desafios que persistem após o fechamento: 3º para compradores (n=559) e 4º para vendedores (n=962), atrás de TSAs no caso dos vendedores.",
+          "fonte_url": "https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf"
+        },
+        {
+          "valor": "1.500 executivos",
+          "descricao": "Amostra da pesquisa, feita em outubro de 2025 com empresas e fundos de private equity com receita acima de US$ 500 milhões; cargos de diretor sênior para cima.",
+          "fonte_url": "https://www.deloitte.com/content/dam/assets-shared/docs/industries/financial-services/2026/divestiture-survey-report.pdf"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri o PDF do relatório no site da Deloitte e conferi a data (janeiro de 2026), a amostra (1.500 executivos, outubro de 2025, Deloitte e Potloc, receita acima de US$ 500 milhões), o ranking de desafios pós-fechamento (vendedores n=962, compradores n=559), os 11% e as três lições dos vendedores; troquei a URL principal pela do PDF, porque a página de apresentação (https://www.deloitte.com/global/en/industries/investment-management/perspectives/global-divestiture-survey.html, com data de 26/08/2026 nos metadados) não traz esses números."
+    },
+    {
+      "titulo": "BCG vê 20,3 pontos a mais de retorno em carve-out com transformação",
+      "olho": "Cultura e operação",
+      "resumo": "Em artigo de 28 de outubro de 2026, o BCG afirma que carve-outs combinados com uma agenda ampla de transformação superam os convencionais em 20,3 pontos percentuais de retorno total ao acionista em 24 meses. A consultoria pede que a empresa que fica seja redesenhada com a mesma ambição da que nasce.",
+      "corpo": "Em artigo de 28 de outubro de 2026, o BCG defende que um carve-out não deve terminar na separação. A proposta é usar a transação para redesenhar as duas empresas: a que nasce (NewCo) e a que fica (RemainCo).\n\nO dado central: empresas que combinaram o carve-out com uma agenda ampla de transformação superaram as que seguiram a abordagem convencional em 20,3 pontos percentuais de retorno total ao acionista em 24 meses. O texto da página não informa o tamanho da amostra. O BCG afirma que a RemainCo decepciona com mais frequência do que a NewCo depois da separação. Ela costuma receber uma agenda estreita: cortar custos remanescentes, sair dos TSAs e enxugar funções.\n\nO artigo descreve três camadas de ambição: separação, racionalização e transformação. Na terceira entram a escolha de líderes para a empresa futura, incentivos, rotinas de gestão e ativação de cultura. Sem isso, diz o texto, estratégia e modelo operacional ficam como \"desenhos no papel\" (tradução livre).\n\nDireção estratégica, modelo operacional, escolhas de pessoas e cultura-alvo devem estar definidos cedo, antes do Dia 1, porque até o desenho do TSA pode limitar decisões futuras de sistemas. Para sustentar a agenda, o BCG propõe um escritório de transformação e separação com respaldo do CEO. Uma das tarefas é preparar os líderes para contar a mesma história de mudança a investidores, clientes, empregados e parceiros.",
+      "por_que_importa": "A Gestão da Mudança precisa cobrir as duas empresas, não só a NewCo: a RemainCo também muda de estratégia, estrutura e cultura. Cultura-alvo e narrativa de mudança devem entrar no plano antes do Dia 1, junto com as decisões de TSA e de organização.",
+      "fonte_nome": "BCG, Better Apart: When a Carve-Out Transforms Both Companies",
+      "fonte_url": "https://www.bcg.com/publications/2026/carve-out-strategy-both-companies",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-10-28",
+      "regiao": "Global",
+      "dados": [
+        {
+          "valor": "20,3 p.p.",
+          "descricao": "Vantagem em retorno total ao acionista, em 24 meses, das empresas que combinaram carve-out com transformação ampla sobre as que seguiram a separação convencional, segundo o BCG. A página não informa o tamanho da amostra.",
+          "fonte_url": "https://www.bcg.com/publications/2026/carve-out-strategy-both-companies"
+        },
+        {
+          "valor": "3 camadas",
+          "descricao": "Níveis de ambição de um programa de carve-out descritos pelo BCG: separação (viabilidade), racionalização (eficiência) e transformação (redesenho para superar o mercado).",
+          "fonte_url": "https://www.bcg.com/publications/2026/carve-out-strategy-both-companies"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri o artigo no site do BCG e conferi o título, a data (28 de outubro de 2026), os 20,3 pontos percentuais em 24 meses, a afirmação sobre a RemainCo, as três camadas, o trecho sobre cultura e o escritório de transformação e separação; o texto não traz o tamanho da amostra, e isso está dito no item."
+    },
+    {
+      "titulo": "KPMG chama 2026 de ano do carve-out e aponta os riscos de execução",
+      "olho": "Mercado de M&A",
+      "resumo": "Pesquisa da KPMG International com 700 decisores de M&A mostra que metade espera mais carve-outs nos próximos 12 a 24 meses. Desentrelaçamento operacional, separação de TI e dados e retenção de talentos estão entre os riscos apontados para o sucesso das operações.",
+      "corpo": "A KPMG International publicou em 18 de março de 2026 o 2026 Global M&A Outlook e chamou 2026 de ano do carve-out. Metade dos executivos de M&A, tanto de empresas quanto de fundos de private equity, espera aumento moderado ou significativo dessas operações nos próximos 12 a 24 meses.\n\nA pesquisa ouviu 700 decisores seniores de M&A (519 de empresas e 181 de private equity) em 20 países e jurisdições, entre 19 de dezembro de 2025 e 27 de janeiro de 2026. Os riscos apontados para o sucesso das operações são desentrelaçamento operacional (52%), complexidade de valuation (43%), separação de TI e dados (40%), retenção de talentos (32%) e barreiras regulatórias (25%).\n\nO interesse é maior entre os fundos: 55% já têm carve-outs em análise, contra 21% das empresas. Os números medem expectativa e intenção, não operações fechadas.\n\nHá um dado sobre IA: 31% dizem usar IA agêntica em comunicação com stakeholders e gestão da mudança dentro dos processos de M&A. É a menor fatia entre as seis frentes listadas. Em due diligence e valuation, são 56%.",
+      "por_que_importa": "Os riscos citados são, em boa parte, de pessoas e de operação: quem faz Gestão da Mudança deve entrar no planejamento da separação de sistemas e na retenção antes do fechamento. O dado de IA agêntica mostra que agentes já começam a ser usados em comunicação e mudança nos processos de M&A, ainda que seja a frente menos citada.",
+      "fonte_nome": "KPMG International, 2026 Global M&A Outlook (comunicado de imprensa)",
+      "fonte_url": "https://kpmg.com/xx/en/media/press-releases/2026/03/kpmg-survey-of-global-dealmakers-reveals-rising-m-and-a-expectations.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-03-18",
+      "regiao": "Global",
+      "dados": [
+        {
+          "valor": "52%",
+          "descricao": "Executivos de M&A que apontam o desentrelaçamento operacional como risco relevante para o sucesso das operações; separação de TI e dados tem 40%. Pesquisa com 700 decisores de M&A em 20 países e jurisdições, de 19/12/2025 a 27/01/2026.",
+          "fonte_url": "https://kpmg.com/xx/en/media/press-releases/2026/03/kpmg-survey-of-global-dealmakers-reveals-rising-m-and-a-expectations.html"
+        },
+        {
+          "valor": "32%",
+          "descricao": "Executivos de M&A que citam retenção de talentos como risco relevante para o sucesso das operações, na mesma pesquisa.",
+          "fonte_url": "https://kpmg.com/xx/en/media/press-releases/2026/03/kpmg-survey-of-global-dealmakers-reveals-rising-m-and-a-expectations.html"
+        },
+        {
+          "valor": "31%",
+          "descricao": "Organizações que dizem usar IA agêntica em comunicação com stakeholders e gestão da mudança nos processos de M&A, na mesma pesquisa. É a menor das seis frentes listadas; due diligence e valuation têm 56%.",
+          "fonte_url": "https://kpmg.com/xx/en/media/press-releases/2026/03/kpmg-survey-of-global-dealmakers-reveals-rising-m-and-a-expectations.html"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri o comunicado no site da KPMG e conferi a data (18 de março de 2026), a amostra (700 decisores, 519 de empresas e 181 de private equity, 20 países e jurisdições, de 19/12/2025 a 27/01/2026), os percentuais de risco, os 55% contra 21% e os dados de IA agêntica; retirei o parágrafo sobre a pesquisa de meio de ano da KPMG nos Estados Unidos (150 executivos, 28%, 15% e 19%), porque as notas não traziam a URL e não consegui abrir nenhuma página que confirmasse esses números."
+    },
+    {
+      "titulo": "PwC: desinvestimento é transformação e muda o risco da empresa que fica",
+      "olho": "RemainCo em foco",
+      "resumo": "Texto da PwC dos Estados Unidos, de 23 de julho de 2026, trata o desinvestimento como transformação de operações, tecnologia, dados e controles. A consultoria lista quatro áreas de risco e quatro prioridades para a empresa que fica, incluindo modelo operacional, talentos e saída de TSAs.",
+      "corpo": "A PwC dos Estados Unidos publicou em 23 de julho de 2026 um texto da série Transformation Risk dedicado a desinvestimentos. A tese: vender ou cindir um negócio não é só uma transação jurídica, fiscal ou financeira. É uma transformação de operações, tecnologia, dados, contratos e controles, e a empresa que resta, a RemainCo, passa a ter um perfil de risco próprio.\n\nO texto não traz pesquisa quantitativa. Ele organiza os riscos em quatro áreas: relatórios regulatórios e conformidade; dados, tecnologia e TSAs; governança do programa; e modelo operacional, incluindo pessoas. No último ponto, o alerta: papéis e linhas de reporte mudam, donos de controles podem sair com o negócio vendido, e estruturas indefinidas podem levar a instabilidade no Dia 1 e à saída de empregados-chave.\n\nA PwC lista quatro prioridades para antes do fechamento: validar o perímetro da separação, preparar relatórios e controles, quantificar custos remanescentes e lacunas de capacidade, e desenhar o modelo operacional futuro, com direitos de decisão, necessidades de talento e planos de saída dos TSAs. Sobre a prontidão de controles, Helena Yoon, sócia da PwC nos Estados Unidos, resume: \"é uma questão de valor da transação\" (tradução livre).\n\nPara o Dia 1, a meta é clareza. Os líderes devem saber quais serviços seguem transitórios, quem responde por cada controle, como os problemas sobem e o que precisa acontecer para sair dos TSAs no prazo. A página termina com a lista de serviços que a própria PwC oferece nessa área.",
+      "por_que_importa": "O texto dá um roteiro para o plano de mudança da RemainCo: mapear quem perde ou ganha responsabilidades, reatribuir donos de processos e controles e comunicar isso antes do Dia 1. A saída de TSA deve ser tratada como mudança de modelo de trabalho, não só como marco de contrato.",
+      "fonte_nome": "PwC (EUA), Managing transformation risk in divestitures",
+      "fonte_url": "https://www.pwc.com/us/en/services/audit-assurance/library/managing-transformation-risk-in-divestitures.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-07-23",
+      "regiao": "América do Norte",
+      "dados": [
+        {
+          "valor": "4 áreas de risco",
+          "descricao": "Onde a PwC concentra os riscos de quem acabou de vender ou cindir um negócio: relatórios e conformidade; dados, tecnologia e TSAs; governança do programa; modelo operacional, incluindo pessoas. Texto de orientação, sem pesquisa quantitativa.",
+          "fonte_url": "https://www.pwc.com/us/en/services/audit-assurance/library/managing-transformation-risk-in-divestitures.html"
+        },
+        {
+          "valor": "4 prioridades",
+          "descricao": "Ações que a PwC recomenda à gestão antes do fechamento: validar o perímetro, preparar relatórios e controles, identificar riscos de perda de valor e desenhar o modelo operacional futuro.",
+          "fonte_url": "https://www.pwc.com/us/en/services/audit-assurance/library/managing-transformation-risk-in-divestitures.html"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri a página no site da PwC dos Estados Unidos e conferi o título, a data (23 de julho de 2026), as quatro áreas de risco, as quatro prioridades e as orientações para o Dia 1; corrigi a autoria da frase citada, que é de Helena Yoon, sócia da PwC, e não do texto em geral, e suavizei a afirmação de que o risco fica na RemainCo, porque a página fala em riscos nos dois lados da transação."
+    },
+    {
+      "titulo": "Bain: cerca de 40% dos grandes spin-offs destroem valor em três anos",
+      "olho": "Cisões em números",
+      "resumo": "Estudo da Bain com 305 grandes spin-offs globais mostra retorno médio de 5,6% em três anos, abaixo dos cerca de 9% do S&P 500, e destruição de valor em cerca de 40% dos casos. Entre os que criaram valor, cerca de 90% melhoraram receita, margem ou ambas.",
+      "corpo": "A Bain & Company publicou em 2 de novembro de 2026 um estudo sobre cisões corporativas. A consultoria analisou 305 grandes spin-offs globais anunciados nos últimos 25 anos. O retorno total ao acionista, somando a empresa cindida e a controladora, foi em média de 5,6% três anos depois da separação, contra cerca de 9% do S&P 500. Cerca de 40% das cisões destruíram valor nesse prazo.\n\nEm seguida, a Bain examinou 126 spin-offs listados nos Estados Unidos que criaram valor em três anos. Cerca de 90% melhoraram o resultado, com aceleração da receita, expansão da margem EBITDA ou as duas coisas. Cerca de 60% aceleraram o crescimento da receita. A maioria dos demais reduziu dívida ou devolveu capital aos acionistas.\n\nA conclusão é que separar não garante, por si só, uma avaliação melhor. As empresas precisam de alavancas concretas para compensar as dissinergias e os custos da separação, e ainda explicar como a empresa que fica ganha com a independência.\n\nA Bain propõe perguntas a executivos e conselhos antes de seguir: quanto de crescimento e de margem cada empresa pode assumir, e como a alocação de capital vai mudar. Dizer que o foco da gestão vai acelerar o crescimento, segundo o texto, não é resposta.",
+      "por_que_importa": "A narrativa de mudança de uma cisão precisa se apoiar em metas concretas de crescimento e margem para as duas empresas, não em promessa genérica de foco. Sem essa tese clara, a comunicação com empregados e investidores perde lastro logo nos primeiros resultados.",
+      "fonte_nome": "Bain & Company, Four Proven Ways to Create Value, Any Value, from a Corporate Spin-Off",
+      "fonte_url": "https://www.bain.com/insights/four-proven-ways-to-create-value-any-value-from-a-corporate-spin-off/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-11-02",
+      "regiao": "Global",
+      "dados": [
+        {
+          "valor": "cerca de 40%",
+          "descricao": "Parcela dos 305 grandes spin-offs globais anunciados nos últimos 25 anos que destruíram valor três anos após a separação, segundo a Bain.",
+          "fonte_url": "https://www.bain.com/insights/four-proven-ways-to-create-value-any-value-from-a-corporate-spin-off/"
+        },
+        {
+          "valor": "5,6%",
+          "descricao": "Retorno total ao acionista médio, combinado (empresa cindida e controladora), três anos após a separação nos 305 spin-offs, contra cerca de 9% do S&P 500.",
+          "fonte_url": "https://www.bain.com/insights/four-proven-ways-to-create-value-any-value-from-a-corporate-spin-off/"
+        },
+        {
+          "valor": "cerca de 90%",
+          "descricao": "Parcela dos 126 spin-offs listados nos EUA que criaram valor em três anos e que melhoraram o resultado com aceleração de receita, expansão de margem EBITDA ou ambas. O recorte inclui cisões anunciadas entre 2000 e 2026, com receita combinada de pelo menos US$ 1 bilhão.",
+          "fonte_url": "https://www.bain.com/insights/four-proven-ways-to-create-value-any-value-from-a-corporate-spin-off/"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri o artigo no site da Bain e conferi o título, a data (2 de novembro de 2026), os 305 spin-offs, os 5,6% contra cerca de 9% do S&P 500, os cerca de 40%, os 126 casos listados nos Estados Unidos, os cerca de 90% e os cerca de 60%, além das perguntas propostas a executivos e conselhos."
+    }
+  ]
+}

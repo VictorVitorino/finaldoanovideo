@@ -1,0 +1,161 @@
+{
+  "tema": "due-diligence",
+  "verificado_em": "2026-11-14",
+  "itens": [
+    {
+      "titulo": "PwC: só 16% avaliam liderança e talento antes de assinar o negócio",
+      "olho": "Diligência de pessoas",
+      "resumo": "A edição 2026 da pesquisa de integração de M&A da PwC mostra que só cerca de um em cada três compradores atinge por completo os objetivos da tese do negócio. Apenas 16% dos respondentes avaliam liderança e talento antes da assinatura.",
+      "corpo": "A PwC dos Estados Unidos publicou em 29 de setembro de 2026 a edição 2026 da sua M&A Integration Survey. A conclusão central: só cerca de um em cada três compradores atinge por completo os objetivos da tese do negócio. Para a consultoria, o valor se perde quando as escolhas que traduzem a tese em modelo de operação ficam sem definição ou chegam tarde.\n\nO dado de pessoas chama atenção. Apenas 16% dos respondentes disseram avaliar liderança e talento antes da assinatura ou fazer diligência de pessoas e organização. Entre os desafios ligados a pessoas, o mais citado foi a clareza do desenho organizacional e dos direitos de decisão (56%). Alinhamento cultural e gestão da mudança ligada a pessoas vêm em seguida, com 52% cada.\n\nHá sinal de efeito no valor. Quem traduziu por completo a tese em ações de liderança, talento e organização relatou sucesso total em sinergias de receita em 55% dos casos, contra 34% dos demais. A PwC ressalva que os dados são autodeclarados e não provam causalidade.\n\nA pesquisa ouviu 530 executivos de alta gestão e profissionais seniores de M&A de seis setores. Todos participaram de uma fusão ou aquisição nos últimos três anos, em organizações com receita anual de US$ 1 bilhão ou mais.",
+      "por_que_importa": "Leve a avaliação de liderança, talento e cultura para antes da assinatura e amarre cada decisão de pessoas à tese do negócio, com dono e prazo. Segundo a PwC, decisão adiada para depois do Day One fica mais difícil e mais cara.",
+      "fonte_nome": "PwC US, 2026 M&A Integration Survey",
+      "fonte_url": "https://www.pwc.com/us/ma-integration-survey",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-09-29",
+      "regiao": "América do Norte",
+      "dados": [
+        {
+          "valor": "16%",
+          "descricao": "Respondentes que avaliam liderança e talento antes da assinatura ou fazem diligência de pessoas e organização (PwC 2026 M&A Integration Survey, 530 executivos e profissionais seniores de M&A)",
+          "fonte_url": "https://www.pwc.com/us/ma-integration-survey"
+        },
+        {
+          "valor": "52%",
+          "descricao": "Citam alinhamento cultural como desafio de pessoas na integração; a gestão da mudança ligada a pessoas tem o mesmo percentual (mesma pesquisa)",
+          "fonte_url": "https://www.pwc.com/us/ma-integration-survey"
+        },
+        {
+          "valor": "55% contra 34%",
+          "descricao": "Sucesso total em sinergias de receita entre quem traduziu por completo a tese em ações de liderança, talento e organização, contra quem não traduziu (amostra completa, dado autodeclarado)",
+          "fonte_url": "https://www.pwc.com/us/ma-integration-survey"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri a página da PwC US com o leitor e conferi a data (29 de setembro de 2026), a proporção de um em cada três, os percentuais 16%, 56%, 52%, 55% e 34%, a ressalva de dado autodeclarado e a amostra de 530 respondentes de seis setores em organizações com receita de US$ 1 bilhão ou mais."
+    },
+    {
+      "titulo": "KPMG: liderança e cultura desalinhadas são o risco mais citado após a fusão",
+      "olho": "Risco de pessoas",
+      "resumo": "Na pesquisa de meio de ano da KPMG com executivos de M&A nos Estados Unidos, 70% citam o desalinhamento de liderança e cultura entre os maiores riscos à realização de valor na integração. É o item mais citado. No fim de 2025 eram 52%.",
+      "corpo": "A KPMG dos Estados Unidos divulgou em agosto de 2026 a edição de meio de ano da sua pesquisa com executivos de M&A de empresas. Na pergunta sobre o que mais ameaçou a realização de valor na integração pós-fusão, o desalinhamento de liderança e cultura ficou em primeiro lugar.\n\nO item foi citado por 70% dos respondentes, ante 52% na edição do fim de 2025. A perda de talentos-chave subiu de 41% para 60%. Sinergias irrealistas aparecem em seguida, com 54%, contra 33% na edição anterior. A pergunta admitia mais de uma resposta.\n\nAo mesmo tempo, planejar a integração ainda durante a due diligence perdeu espaço entre os focos para realizar valor: caiu de 50% para 40%. Já a integração de culturas, processos e sistemas subiu de 27% para 39%. O envolvimento antecipado da liderança responsável pela integração foi de 27% para 35%.\n\nO levantamento é online e ouviu 150 executivos de M&A corporativo nos Estados Unidos, todos de organizações com receita de US$ 1 bilhão ou mais. A KPMG avisa que os números são direcionais e que a comparação com o fim de 2025 pode refletir mudanças no questionário, e não só no comportamento dos respondentes. A mesma pesquisa mostra que só 22% relatam governança consistente para o uso de análises geradas por IA nas decisões de M&A, em uma base de 141 respondentes.",
+      "por_que_importa": "Trate alinhamento de liderança e cultura como risco de valor, com dono e indicador, e não como tema para depois do fechamento. Comece o plano de integração e de retenção ainda na diligência.",
+      "fonte_nome": "KPMG US, 2026 Mid-Year M&A Survey: Corporate M&A dealmakers",
+      "fonte_url": "https://kpmg.com/kpmg-us/content/dam/kpmg/pdf/2026/kpmg-2026-mid-year-ma-pulse.pdf",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-08",
+      "regiao": "América do Norte",
+      "dados": [
+        {
+          "valor": "70%",
+          "descricao": "Citam o desalinhamento de liderança e cultura entre os maiores riscos à realização de valor na integração pós-fusão, o item mais citado; eram 52% no fim de 2025 (150 executivos de M&A corporativo nos EUA, resposta múltipla)",
+          "fonte_url": "https://kpmg.com/kpmg-us/content/dam/kpmg/pdf/2026/kpmg-2026-mid-year-ma-pulse.pdf"
+        },
+        {
+          "valor": "60%",
+          "descricao": "Citam a perda de talentos-chave entre os maiores riscos à realização de valor na integração; eram 41% no fim de 2025 (mesma pesquisa, resposta múltipla)",
+          "fonte_url": "https://kpmg.com/kpmg-us/content/dam/kpmg/pdf/2026/kpmg-2026-mid-year-ma-pulse.pdf"
+        },
+        {
+          "valor": "40%",
+          "descricao": "Têm o planejamento da integração durante a due diligence entre os focos para realizar valor; eram 50% no fim de 2025 (mesma pesquisa, resposta múltipla)",
+          "fonte_url": "https://kpmg.com/kpmg-us/content/dam/kpmg/pdf/2026/kpmg-2026-mid-year-ma-pulse.pdf"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri o PDF da KPMG US com o leitor e conferi a data (agosto de 2026), os slides 50 e 51 (70% contra 52%, 60% contra 41%, 54% contra 33%, 40% contra 50%, 39% contra 27%, 35% contra 27%, resposta múltipla, N=150), o slide de governança de IA (22%, N=141), a metodologia (pesquisa online com 150 executivos nos EUA) e o aviso da própria KPMG sobre a comparação com o fim de 2025."
+    },
+    {
+      "titulo": "Mercer: 74% avaliam cultura na diligência, mas a prática segue atrás do discurso",
+      "olho": "Capital humano",
+      "resumo": "Estudo da Transaction Advisors com a Mercer compara 2026 e 2024 e mostra que os compradores passaram a olhar cultura, talento e liderança mais cedo. A distância entre o que dizem e o que fazem, porém, continua.",
+      "corpo": "Um estudo da Transaction Advisors com a Mercer comparou como compradores corporativos tratam o capital humano em fusões e aquisições em 2026 e em 2024. O resumo publicado pela Mercer aponta avanço ao longo do ciclo do negócio. Mas afirma que a distância entre o que os compradores dizem e o que fazem continua e, em alguns pontos, aumentou.\n\nSegundo a página, 65% dos compradores consideram o capital humano uma razão de igual peso para fazer um negócio, ante 54% em 2024. Bem menos empresas, porém, usam critérios de capital humano ao escolher alvos e formular a tese. A avaliação de cultura durante a diligência já é feita por 74%. E 56% definem indicadores de integração de RH e planejam a transição das operações de RH antes do fechamento.\n\nEm IA, o uso ainda é inicial: 23% usam a tecnologia com regularidade em pelo menos um caso ligado a capital humano, e outros 39% ainda exploram as possibilidades.\n\nA pesquisa ouviu líderes de M&A de compradores corporativos de capital aberto e de grandes empresas de capital fechado. O resumo não informa o tamanho da amostra, os países cobertos nem a data de publicação. Para a Mercer, o próximo passo é ligar as decisões de capital humano à criação de valor mensurável.",
+      "por_que_importa": "Avaliar cultura na diligência virou prática comum. O diferencial está em levar o achado para a tese, o preço e o plano de integração. Verifique onde o diagnóstico de cultura mudou, de fato, alguma decisão do negócio.",
+      "fonte_nome": "Mercer e Transaction Advisors, The say-versus-do divide in M&A: 2026 versus 2024",
+      "fonte_url": "https://www.mercer.com/insights/people-strategy/mergers-and-acquisitions/rethinking-human-capital-the-untapped-driver-of-m-and-a-revenue/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026 (ano da edição; a página não informa dia e mês)",
+      "regiao": "Global",
+      "dados": [
+        {
+          "valor": "74%",
+          "descricao": "Compradores que avaliam cultura durante a diligência (pesquisa Transaction Advisors e Mercer de 2026 com líderes de M&A de compradores corporativos; amostra não informada no resumo)",
+          "fonte_url": "https://www.mercer.com/insights/people-strategy/mergers-and-acquisitions/rethinking-human-capital-the-untapped-driver-of-m-and-a-revenue/"
+        },
+        {
+          "valor": "65%",
+          "descricao": "Compradores que consideram o capital humano uma razão de igual peso para fazer um negócio; eram 54% em 2024 (mesma pesquisa)",
+          "fonte_url": "https://www.mercer.com/insights/people-strategy/mergers-and-acquisitions/rethinking-human-capital-the-untapped-driver-of-m-and-a-revenue/"
+        },
+        {
+          "valor": "23%",
+          "descricao": "Compradores que usam IA com regularidade em pelo menos um caso de uso ligado a capital humano; outros 39% ainda exploram (mesma pesquisa)",
+          "fonte_url": "https://www.mercer.com/insights/people-strategy/mergers-and-acquisitions/rethinking-human-capital-the-untapped-driver-of-m-and-a-revenue/"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri a página da Mercer com o leitor e conferi o título, a parceria com a Transaction Advisors, o perfil dos respondentes e os percentuais 65% contra 54%, 74%, 56%, 23% e 39%. A página não traz data de publicação, tamanho da amostra nem países cobertos; o ano vem do título do estudo e a região é a da edição global do site."
+    },
+    {
+      "titulo": "Bain: megafusões e IA criam o \"paradoxo do vencedor\" para quem integra",
+      "olho": "Integração e IA",
+      "resumo": "O relatório de meio de ano da Bain mostra M&A global em alta de 41% nos cinco primeiros meses de 2026 e alerta para um desafio duplo: integrar grandes aquisições e conduzir a transformação com IA ao mesmo tempo. Uma das seis perguntas propostas aos compradores é se os líderes estão prontos para apoiar as pessoas.",
+      "corpo": "A Bain & Company divulgou em 29 de junho de 2026 o seu relatório de meio de ano sobre M&A. O valor global dos negócios subiu 41% nos cinco primeiros meses de 2026, na comparação anual, para US$ 2,4 trilhões. As transações acima de US$ 10 bilhões cresceram 52% em número e 53% em valor.\n\nO alerta é o que a consultoria chama de \"paradoxo do vencedor\": conduzir uma integração complexa e, ao mesmo tempo, a transformação com IA. Segundo a Bain, negócios acima de US$ 10 bilhões levam cerca de sete meses do anúncio ao fechamento e mais 24 a 36 meses para capturar a maior parte das sinergias de custo. Esperar não é opção, diz o relatório: a integração deve servir para avançar a agenda de IA.\n\nEntre as seis perguntas propostas aos compradores, uma trata de pessoas: os líderes estão preparados para apoiar as equipes nessa disrupção? A Bain pede líderes que deem o tom, tolerem erros e respondam à dúvida que os empregados mais querem ver esclarecida, o que a mudança significa para cada um.\n\nSegundo a Bain, programas de integração de ponta já usam IA para identificar e confirmar sinergias de custo duas a três vezes mais rápido. A consultoria afirma ainda que planos e checklists gerados por IA liberam o escritório de integração para apoiar a Gestão da Mudança.",
+      "por_que_importa": "Se a integração vai carregar também a agenda de IA, o plano de mudança precisa tratar as duas frentes como uma só jornada para as pessoas. Prepare os líderes para responder cedo o que muda para cada grupo.",
+      "fonte_nome": "Bain & Company, M&A Midyear Report 2026 (comunicado de imprensa)",
+      "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/global-ma-momentum-builds-in-2026-as-megadeals-surge-but-acquirers-confront-a-new-ai-winners-paradoxbain-company-ma-midyear-report/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-06-29",
+      "regiao": "Global",
+      "dados": [
+        {
+          "valor": "41%",
+          "descricao": "Alta do valor global de M&A nos cinco primeiros meses de 2026 em relação ao mesmo período de 2025, para US$ 2,4 trilhões (Bain, relatório de meio de ano)",
+          "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/global-ma-momentum-builds-in-2026-as-megadeals-surge-but-acquirers-confront-a-new-ai-winners-paradoxbain-company-ma-midyear-report/"
+        },
+        {
+          "valor": "24 a 36 meses",
+          "descricao": "Tempo, após o fechamento, para capturar a maior parte das sinergias de custo em negócios acima de US$ 10 bilhões, segundo análise da Bain; do anúncio ao fechamento são cerca de sete meses",
+          "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/global-ma-momentum-builds-in-2026-as-megadeals-surge-but-acquirers-confront-a-new-ai-winners-paradoxbain-company-ma-midyear-report/"
+        },
+        {
+          "valor": "2 a 3 vezes",
+          "descricao": "Ganho de velocidade na identificação e confirmação de sinergias de custo em programas de integração de ponta que usam IA, segundo a Bain",
+          "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/global-ma-momentum-builds-in-2026-as-megadeals-surge-but-acquirers-confront-a-new-ai-winners-paradoxbain-company-ma-midyear-report/"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri o comunicado da Bain com o leitor e conferi a data (29 de junho de 2026), a alta de 41% para US$ 2,4 trilhões nos cinco primeiros meses, os 52% e 53% das transações acima de US$ 10 bilhões, os prazos de sete meses e de 24 a 36 meses, o ganho de duas a três vezes com IA e o texto das seis perguntas."
+    },
+    {
+      "titulo": "Austrália: IA entra na diligência; pessoas e cultura são o ponto de pressão",
+      "olho": "Diligência de IA",
+      "resumo": "A pesquisa Heads of M&A 2026 da Deloitte Austrália mostra que poucos compradores se sentem seguros para avaliar se um alvo resiste à disrupção da IA. Pessoas e cultura aparecem como o ponto em que mais respondentes veem tensão entre as premissas do negócio e a entrega.",
+      "corpo": "A Deloitte Austrália publicou em 30 de outubro de 2026 uma análise das seis tendências da sua pesquisa anual Heads of M&A. A página da pesquisa, em nona edição, informa 97 respondentes e diz que o levantamento reúne a visão de líderes de M&A australianos. Uma das tendências: a IA muda a execução dos negócios mais rápido do que muda a tese de investimento.\n\nA tecnologia criou um novo desafio de diligência: testar se produtos, poder de preço, dados e tecnologia do alvo resistem à disrupção. Segundo o texto, perto de metade dos compradores não avalia vários riscos-chave. Só 12% a 16% se dizem muito confiantes para julgar se um alvo consegue competir em um mercado transformado por IA. No processo, o uso cai nas fases finais: 71% não usam IA para planejar integração ou separação.\n\nA última tendência trata de valor. Pessoas e cultura são o ponto de pressão mais amplo: 68% relatam tensão entre as premissas feitas antes do negócio e o que pode ser entregue. Tecnologia e sistemas vêm depois, com 62%.\n\nA Deloitte defende que o planejamento da integração comece na due diligence. Hoje, só 11% investem pesado antes do fechamento, seja qual for o ritmo do negócio, e 24% priorizam a velocidade para fechar.",
+      "por_que_importa": "Use a diligência para testar o que o modelo financeiro não mostra: se a organização-alvo consegue absorver IA e se as premissas de pessoas e cultura são entregáveis. Leve os líderes de negócio para essa conversa antes da assinatura.",
+      "fonte_nome": "Deloitte Austrália, Six M&A trends shaping dealmaking in 2026 (Heads of M&A Survey 2026)",
+      "fonte_url": "https://www.deloitte.com/au/en/our-thinking/featured-insights/six-m-and-a-trends-shaping-dealmaking-2026.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-10-30",
+      "regiao": "Ásia-Pacífico",
+      "dados": [
+        {
+          "valor": "68%",
+          "descricao": "Relatam tensão, em pessoas e cultura, entre as premissas pré-negócio e o que pode ser entregue (Heads of M&A Survey 2026 da Deloitte Austrália, líderes de M&A australianos)",
+          "fonte_url": "https://www.deloitte.com/au/en/our-thinking/featured-insights/six-m-and-a-trends-shaping-dealmaking-2026.html"
+        },
+        {
+          "valor": "12% a 16%",
+          "descricao": "Compradores muito confiantes na própria capacidade de julgar se um alvo consegue competir em um mercado transformado por IA (mesma pesquisa)",
+          "fonte_url": "https://www.deloitte.com/au/en/our-thinking/featured-insights/six-m-and-a-trends-shaping-dealmaking-2026.html"
+        },
+        {
+          "valor": "97",
+          "descricao": "Respondentes da nona edição da Heads of M&A Survey, segundo a página da pesquisa da Deloitte Austrália",
+          "fonte_url": "https://www.deloitte.com/au/en/services/consulting/research/deal-heads-mergers-acquisitions.html"
+        }
+      ],
+      "tipo_fonte": "primária",
+      "checagem": "Lida na fonte: abri o artigo da Deloitte Austrália com o leitor e conferi a data (30 de outubro de 2026) e os percentuais 12% a 16%, 71%, 68%, 62%, 11% e 24%; abri também a página da pesquisa e conferi a nona edição e os 97 respondentes."
+    }
+  ]
+}

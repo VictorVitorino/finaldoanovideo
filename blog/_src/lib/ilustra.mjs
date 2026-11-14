@@ -102,26 +102,28 @@ const MOTIVOS = {
       + `<path class="c-desenha" pathLength="1" d="M74 84Q170 20 250 96" ${K} stroke="var(--f2)"/><path class="c-desenha c-desenha--b" pathLength="1" d="M74 84Q150 150 214 176" ${K} stroke="var(--f2)"/><path class="c-desenha c-desenha--c" pathLength="1" d="M250 96Q330 80 352 150" ${K}/>`
       + ponto(74, 84, 5.5) + ponto(250, 96) + ponto(214, 176) + ponto(352, 150) + halo(74, 84) + halo(352, 150, 1.4);
   },
-  transformacao() {
-    const hs = [34, 46, 58, 82, 108, 138];
+  transformacao(h) {
+    const hs = [[34, 46, 58, 82, 108, 138], [52, 44, 66, 60, 96, 132], [30, 58, 50, 88, 84, 140]][h % 3];
     const b = hs.map((v, i) => `<rect class="c-sobe" style="--d:${(i * 0.09).toFixed(2)}s" x="${70 + i * 46}" y="${196 - v}" width="26" height="${v}" fill="var(--${i > 3 ? 'f2' : 'f3'})" stroke="var(--${i > 3 ? 'f2' : 'l'})" stroke-width="1.3"/>`).join('');
     const pts = hs.map((v, i) => `${83 + i * 46} ${196 - v - 22}`);
     return `<path d="M50 196H360M50 196V40" ${L}/>` + [76, 116, 156].map(y => `<path d="M50 ${y}H360" ${L} stroke-dasharray="2 6" opacity=".6"/>`).join('') + b
-      + `<path class="c-desenha" pathLength="1" d="M${pts.join('L')}" ${K}/>` + ponto(313, 36, 5.5) + halo(313, 36);
+      + `<path class="c-desenha" pathLength="1" d="M${pts.join('L')}" ${K}/>` + ponto(313, 196 - hs[5] - 22, 5.5) + halo(313, 196 - hs[5] - 22);
   },
-  'carve-out'() {
+  'carve-out'(h) {
     let s = '';
+    const j0 = (h >> 2) % 2 ? 2 : 0;
     for (let j = 0; j < 4; j++) for (let i = 0; i < 4; i++) {
-      const x = 72 + i * 36, y = 50 + j * 36, sai = i > 1 && j < 2;
+      const x = 72 + i * 36, y = 50 + j * 36, sai = i > 1 && j >= j0 && j < j0 + 2;
       s += sai ? `<rect x="${x}" y="${y}" width="30" height="30" ${L} stroke-dasharray="3 4"/>` : `<rect x="${x}" y="${y}" width="30" height="30" fill="var(--f3)" stroke="var(--l)" stroke-width="1.3"/>`;
     }
-    const bloco = [0, 1].map(j => [0, 1].map(i => `<rect x="${144 + i * 36}" y="${50 + j * 36}" width="30" height="30" fill="var(--f2)"/>`).join('')).join('');
-    return s + `<path d="M214 66H250M214 102H250" ${L} stroke-dasharray="2 5"/><g class="c-separa">${bloco}<rect x="138" y="44" width="78" height="78" fill="none" stroke="var(--f1)" stroke-width="1.6"/></g>`
+    const by = 50 + j0 * 36;
+    const bloco = [0, 1].map(j => [0, 1].map(i => `<rect x="${144 + i * 36}" y="${by + j * 36}" width="30" height="30" fill="var(--f2)"/>`).join('')).join('');
+    return s + `<path d="M214 ${by + 16}H258M214 ${by + 52}H258" ${L} stroke-dasharray="2 5"/><g class="c-separa">${bloco}<rect x="138" y="${by - 6}" width="78" height="78" fill="none" stroke="var(--f1)" stroke-width="1.6"/></g>`
       + `<path d="M72 208H216" ${K}/><path d="M252 208H330" ${K} stroke="var(--f2)"/>` + ponto(72, 208, 3.5) + ponto(216, 208, 3.5) + ponto(252, 208, 3.5, 'f2') + ponto(330, 208, 3.5, 'f2');
   },
-  'due-diligence'() {
+  'due-diligence'(h) {
     let s = '';
-    const fx = 226, fy = 118, fr = 50;
+    const fx = [174, 226, 252][h % 3], fy = [118, 118, 106][h % 3], fr = 50;
     for (let j = 0; j < 7; j++) for (let i = 0; i < 12; i++) {
       const x = 57 + i * 26, y = 42 + j * 26, d = Math.hypot(x - fx, y - fy);
       s += d < fr - 4 ? ponto(x, y, 4.2, (i + j) % 3 === 0 ? 'f2' : 'f1') : ponto(x, y, 2, 'l');
@@ -163,5 +165,5 @@ export function capa(tema, semente = '', o = {}) {
   const linhas = [48, 96, 144, 192].map(y => `<path d="M0 ${y}H400" stroke="var(--l)" stroke-width=".6" opacity=".35"/>`).join('');
   return `<svg class="capa capa--${v}${o.cls ? ' ' + o.cls : ''}" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <rect width="400" height="240" fill="var(--bg)"/>${linhas}
-  <g class="c-motivo">${m(h)}</g></svg>`;
+  <g class="c-motivo"${(h >> 5) % 2 ? ' transform="translate(400 0) scale(-1 1)"' : ''}>${m(h)}</g></svg>`;
 }

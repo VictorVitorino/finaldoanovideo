@@ -1,1 +1,41 @@
-{"destaques": [], "numeros": [], "praticas": []}
+{
+  "destaques": [
+    "bain-cerca-de-40-dos-grandes-spin-offs-destroem-valor-em-tres-anos",
+    "bcg-ve-20-3-pontos-a-mais-de-retorno-em-carve-out-com-transformacao",
+    "deloitte-tsa-e-retencao-de-talentos-persistem-como-desafios-apos-o-fecha"
+  ],
+  "numeros": [
+    {
+      "valor": "27%",
+      "descricao": "dos trabalhadores citam fadiga como limite à produtividade",
+      "fonte": "PwC",
+      "slug": "bain-cerca-de-40-dos-grandes-spin-offs-destroem-valor-em-tres-anos"
+    },
+    {
+      "valor": "60%",
+      "descricao": "dos executivos admitem dificuldade para executar transformações",
+      "fonte": "KPMG",
+      "slug": "bcg-ve-20-3-pontos-a-mais-de-retorno-em-carve-out-com-transformacao"
+    },
+    {
+      "valor": "1.800",
+      "descricao": "teste de número com milhar",
+      "fonte": "Teste",
+      "slug": "deloitte-tsa-e-retencao-de-talentos-persistem-como-desafios-apos-o-fecha"
+    },
+    {
+      "valor": "2,5x",
+      "descricao": "teste de número decimal",
+      "fonte": "Teste",
+      "slug": "estudo-no-mit-smr-o-que-cansa-nao-e-a-mudanca-e-a-dissonancia"
+    }
+  ],
+  "praticas": [
+    "estudo-no-mit-smr-o-que-cansa-nao-e-a-mudanca-e-a-dissonancia",
+    "kpmg-60-dos-executivos-admitem-dificuldade-para-executar-transformacoes",
+    "kpmg-chama-2026-de-ano-do-carve-out-e-aponta-os-riscos-de-execucao",
+    "prosci-lista-cinco-decisoes-para-o-orcamento-de-mudanca-de-2027",
+    "pwc-27-dos-trabalhadores-citam-fadiga-como-limite-a-produtividade",
+    "pwc-desinvestimento-e-transformacao-e-muda-o-risco-da-empresa-que-fica"
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "tema": "transformacao",
+  "verificado_em": "2026-11-14",
+  "itens": [
+    {
+      "titulo": "Reorganização: 88% dos líderes confiam, só 36% dos funcionários concordam",
+      "olho": "Média gerência",
+      "resumo": "Pesquisa global da Bain com quase 1.000 executivos e funcionários que passaram por uma reorganização mostra distância grande entre quem desenha a nova estrutura e quem trabalha nela. Só 22% dos funcionários dizem ter recebido apoio suficiente para se adaptar.",
+      "corpo": "A Bain & Company divulgou em 29 de janeiro de 2026 uma pesquisa global com quase 1.000 executivos e funcionários que passaram por uma reorganização. O resultado mostra uma distância grande entre quem desenha a nova estrutura e quem trabalha dentro dela.\n\nEntre os líderes, 88% acreditam que a nova estrutura organizacional vai atingir seus objetivos. Entre os funcionários que trabalham nessas estruturas, só 36% concordam. Apenas 22% dos funcionários pesquisados dizem ter recebido apoio suficiente em treinamento, coaching ou ferramentas para se adaptar às novas formas de trabalho.\n\nA média gerência está no centro do problema. Noventa por cento dos gerentes de nível médio pesquisados relatam mudanças consideráveis no próprio trabalho. Mais de 80% dos líderes acreditam que comunicam, treinam e apoiam bem os mais afetados, mas só 57% desses gerentes concordam.\n\nPara a Bain, os líderes comunicam demais o desenho e cuidam pouco da transição e do impacto no dia a dia. A consultoria propõe o modelo 20/200/2000: os 20 líderes seniores que desenham e patrocinam o novo modelo, os 200 gerentes de nível médio que redefinem os fluxos de trabalho e os mais de 2.000 funcionários que precisam mudar o comportamento. Para Tracy Thurkow, sócia da Bain, o anúncio do redesenho \"não é a linha de chegada, é o tiro de largada\".",
+      "por_que_importa": "Em reorganizações, meça a confiança de quem executa, não só a de quem patrocina. Planeje a transição da média gerência (fluxos, direitos de decisão, expectativas) antes do anúncio, e não pare em comunicar e treinar.",
+      "fonte_nome": "Bain & Company (comunicado de imprensa)",
+      "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/88-of-leaders-are-confident-their-reorganization-will-deliver--only-36-of-employees-agree-bain--co-research/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-01-29",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "88% x 36%",
+          "descricao": "Líderes que acreditam que a nova estrutura atingirá seus objetivos, contra funcionários que trabalham nessas estruturas e concordam (pesquisa global da Bain com quase 1.000 executivos e funcionários que passaram por reorganização)",
+          "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/88-of-leaders-are-confident-their-reorganization-will-deliver--only-36-of-employees-agree-bain--co-research/"
+        },
+        {
+          "valor": "22%",
+          "descricao": "Funcionários pesquisados que dizem ter recebido apoio suficiente em treinamento, coaching ou ferramentas para se adaptar às novas formas de trabalho",
+          "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/88-of-leaders-are-confident-their-reorganization-will-deliver--only-36-of-employees-agree-bain--co-research/"
+        },
+        {
+          "valor": "90%",
+          "descricao": "Gerentes de nível médio pesquisados que relatam mudanças consideráveis no próprio trabalho após a reorganização",
+          "fonte_url": "https://www.bain.com/about/media-center/press-releases/2026/88-of-leaders-are-confident-their-reorganization-will-deliver--only-36-of-employees-agree-bain--co-research/"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o comunicado no site da Bain (Boston, 29 de janeiro de 2026) e conferi no texto a amostra de quase 1.000 pessoas, os percentuais 88%, 36%, 22%, 90%, mais de 80% e 57%, o modelo 20/200/2000 e a frase de Tracy Thurkow."
+    },
+    {
+      "titulo": "BCG: só uma em cada quatro transformações captura valor de curto e longo prazo",
+      "olho": "Taxa de sucesso",
+      "resumo": "Artigo da BCG de abril de 2026 afirma que apenas cerca de uma em cada quatro transformações captura valor de curto e de longo prazo. Segundo a consultoria, gestão da mudança centrada em pessoas e um escritório de transformação elevam as chances de resultado duradouro.",
+      "corpo": "Um artigo publicado pela BCG em 27 de abril de 2026 afirma que, segundo pesquisas da própria consultoria, apenas cerca de uma em cada quatro transformações consegue capturar valor de curto e de longo prazo. Para os autores, o que separa as bem-sucedidas é uma abordagem centrada em pessoas, apoiada em ciência comportamental.\n\nOs números são da BCG. A probabilidade de melhoria sustentada de desempenho aumenta 90% quando a gestão da mudança, ampla e centrada em pessoas, é parte integrante da transformação. Aumenta 27% quando os líderes estão alinhados sobre seus papéis e responsabilidades e conseguem moldar o comportamento das equipes. Aumenta 21% quando há um chief transformation officer com autoridade suficiente e 19% quando todos entendem o que precisa mudar e como contribuir.\n\nCom base no apoio a centenas de transformações, a BCG diz que empresas com essa gestão da mudança superam os pares em 15% no retorno total ao acionista. No resumo do mesmo artigo, a consultoria apresenta os dois ganhos como tetos: \"até 90%\" e \"até 15%\".\n\nO texto organiza o \"como\" da transformação em quatro elementos: capacitação dos líderes, engajamento das pessoas, certeza na execução e cultura desejada. Na execução, a recomendação é coordenar tudo por um escritório de transformação, com governança clara, cadência de reuniões, etapas de aprovação e uma fonte única de informação sobre o andamento.\n\nO artigo não informa o tamanho da amostra nem o período da pesquisa que sustenta os percentuais.",
+      "por_que_importa": "Os números ajudam a defender Gestão da Mudança como parte do programa, e não como frente de apoio. Use-os com a ressalva de que são da BCG e sem amostra divulgada, e cobre papéis claros para líderes e autoridade real para quem comanda a transformação.",
+      "fonte_nome": "BCG, \"Harnessing the Human Side of Transformations\"",
+      "fonte_url": "https://www.bcg.com/publications/2026/harnessing-the-human-side-of-transformations",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-04-27",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "1 em cada 4",
+          "descricao": "Transformações que conseguem capturar valor de curto e de longo prazo, segundo pesquisa da BCG citada no artigo (cerca de uma em cada quatro; amostra e período não informados)",
+          "fonte_url": "https://www.bcg.com/publications/2026/harnessing-the-human-side-of-transformations"
+        },
+        {
+          "valor": "90%",
+          "descricao": "Aumento na probabilidade de melhoria sustentada de desempenho quando a gestão da mudança ampla e centrada em pessoas é parte integrante da transformação, segundo a BCG (o resumo do artigo fala em \"até 90%\")",
+          "fonte_url": "https://www.bcg.com/publications/2026/harnessing-the-human-side-of-transformations"
+        },
+        {
+          "valor": "21%",
+          "descricao": "Aumento na mesma probabilidade quando há um chief transformation officer com autoridade suficiente para liderar a transformação, segundo a BCG",
+          "fonte_url": "https://www.bcg.com/publications/2026/harnessing-the-human-side-of-transformations"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o artigo no site da BCG (27 de abril de 2026) e conferi a taxa de cerca de uma em cada quatro, os aumentos de 90%, 27%, 21% e 19%, os 15% de retorno ao acionista e os quatro elementos; acrescentei que o resumo do artigo fala em \"até 90%\" e \"até 15%\" e completei a condição dos 27%."
+    },
+    {
+      "titulo": "Conselhos apoiam a transformação, mas só 26% estão muito engajados, diz BCG",
+      "olho": "Governança da transformação",
+      "resumo": "Pesquisa da BCG com chief transformation officers de grandes empresas indica que o conselho de administração apoia a transformação, mas participa pouco dela. Quase dois terços dizem que o envolvimento se limita, na maior parte, a revisar relatórios de andamento.",
+      "corpo": "A BCG publicou em 1º de junho de 2026 um artigo sobre o papel dos conselhos de administração em transformações. A base é uma pesquisa com chief transformation officers (CTOs) de grandes empresas de vários setores e regiões. A consultoria fala em \"algumas dezenas\" de respondentes e não informa o número exato, por isso os percentuais valem como indicação.\n\nQuase dois terços dos CTOs disseram que o envolvimento do conselho se limita, na maior parte, a revisar relatórios de andamento. Cerca de 90% afirmam que o conselho apoia a transformação, mas só 26% o descrevem como altamente engajado. Apenas 14% consideram as contribuições dos conselheiros muito úteis, a ponto de mudar algo por causa delas. Os CTOs relatam menos apoio de CFOs (71%) e de líderes de unidades de negócio (48%).\n\nO contato também é restrito: 55% dos CTOs só interagem com o conselho nas reuniões plenárias, 17% falam com conselheiros fora delas e 14% contam com um comitê de transformação. Dois terços dizem que a empresa usa só os incentivos padrão ou os ajusta pouco. Apenas 29% relatam um plano de incentivos específico da transformação, ligado a métricas financeiras.\n\nA BCG recomenda três medidas: um grupo de trabalho de conselheiros dedicado ao programa, pontos de contato sincronizados com decisões e marcos, e incentivos da liderança atrelados às metas da transformação.",
+      "por_que_importa": "O mapa de stakeholders deve incluir o conselho, que apoia mas participa pouco, e os líderes de unidades de negócio, de quem os CTOs relatam o menor apoio. Vale propor ao escritório de transformação um rito com conselheiros ligado a marcos, além do relatório trimestral.",
+      "fonte_nome": "BCG, \"The Secret to a Successful Transformation? An Engaged Board.\"",
+      "fonte_url": "https://www.bcg.com/publications/2026/how-active-boards-improve-transformation-success",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-06-01",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "26%",
+          "descricao": "CTOs (chief transformation officers) que dizem que o conselho está altamente engajado nos programas de transformação; pesquisa da BCG com \"algumas dezenas\" de CTOs de grandes empresas, número exato não informado",
+          "fonte_url": "https://www.bcg.com/publications/2026/how-active-boards-improve-transformation-success"
+        },
+        {
+          "valor": "14%",
+          "descricao": "CTOs que consideram as contribuições do conselho muito úteis, a ponto de terem feito mudanças com base nelas (mesma pesquisa)",
+          "fonte_url": "https://www.bcg.com/publications/2026/how-active-boards-improve-transformation-success"
+        },
+        {
+          "valor": "29%",
+          "descricao": "CTOs que relatam plano de incentivos específico da transformação, com ligação clara a métricas financeiras (mesma pesquisa)",
+          "fonte_url": "https://www.bcg.com/publications/2026/how-active-boards-improve-transformation-success"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o artigo no site da BCG (1º de junho de 2026) e conferi a amostra de \"algumas dezenas\" de CTOs e os percentuais de quase dois terços, cerca de 90%, 71%, 48%, 26%, 14%, 55%, 17%, 14% e 29%; ajustei a frase sobre apoio de CFOs e unidades de negócio e o trecho de incentivos para o recorte exato da fonte."
+    },
+    {
+      "titulo": "KPMG: empresas gerenciam em média 3,5 iniciativas de transformação simultâneas",
+      "olho": "Mudança contínua",
+      "resumo": "Relatório global da KPMG, com mais de 1.750 líderes de transformação em 20 países, diz que a mudança deixou de ser episódica e virou contínua. A consultoria defende trocar a coordenação de iniciativas pela orquestração da empresa como um todo.",
+      "corpo": "O relatório Transforming the Enterprise 2026, da KPMG International, afirma que a transformação deixou de acontecer por iniciativas isoladas e passou a ser contínua. A base é uma pesquisa global com mais de 1.750 líderes seniores de transformação em 20 países, feita em fevereiro de 2026, com executivos C-level e líderes de Finanças, Front Office, RH, Supply Chain, Risco e Tecnologia. A página do relatório traz a data de 5 de novembro de 2026.\n\nO dado central: as organizações gerenciam, em média, 3,5 iniciativas de transformação simultâneas, muitas vezes atravessando várias funções. Segundo a KPMG, a maioria acelera a transformação mais rápido do que redesenha a empresa para sustentá-la. Os resultados em escala de empresa seguem desiguais, e muitas têm dificuldade para converter atividade de transformação em desempenho sustentado.\n\nEm governança, 60% veem confiança e governança como diferencial estratégico, mas só 28% medem resultados operacionais ou de receita ligados à IA confiável. O relatório também aponta que muitas empresas aplicam IA sobre fluxos de trabalho fragmentados e sistemas desconectados.\n\nA tese da KPMG é que os modelos tradicionais de coordenação estão se esgotando. Quem avança não necessariamente transforma mais que os concorrentes: alinha melhor as prioridades e integra a execução, o que a consultoria chama de orquestração. Para a KPMG, \"é um desafio de liderança\". As três prioridades propostas são reconstruir as bases de tecnologia, dados e governança, redesenhar o trabalho e tratar a empresa como um sistema integrado.",
+      "por_que_importa": "Com 3,5 iniciativas simultâneas em média, o plano de mudança por projeto não basta. Monte uma visão de portfólio: quem é impactado, por qual iniciativa, quando, e onde as iniciativas disputam a mesma capacidade das pessoas.",
+      "fonte_nome": "KPMG International, \"Transforming the Enterprise 2026\"",
+      "fonte_url": "https://kpmg.com/xx/en/our-insights/transformation/transforming-the-enterprise.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-11-05",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "3,5",
+          "descricao": "Média de iniciativas de transformação gerenciadas ao mesmo tempo pelas organizações (pesquisa global da KPMG com mais de 1.750 líderes seniores de transformação em 20 países, fevereiro de 2026)",
+          "fonte_url": "https://kpmg.com/xx/en/our-insights/transformation/transforming-the-enterprise.html"
+        },
+        {
+          "valor": "60%",
+          "descricao": "Líderes pesquisados que veem confiança e governança como diferencial estratégico (mesma pesquisa)",
+          "fonte_url": "https://kpmg.com/xx/en/our-insights/transformation/transforming-the-enterprise.html"
+        },
+        {
+          "valor": "28%",
+          "descricao": "Líderes pesquisados que medem resultados operacionais ou de receita ligados à IA confiável (mesma pesquisa)",
+          "fonte_url": "https://kpmg.com/xx/en/our-insights/transformation/transforming-the-enterprise.html"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página do relatório em kpmg.com e conferi a média de 3,5 iniciativas, a amostra de mais de 1.750 líderes em 20 países (fevereiro de 2026), os 60% e 28% e as três prioridades; a data de 5 de novembro de 2026 é a única declarada na página (publicação e modificação iguais nos metadados), a data original do lançamento não pôde ser confirmada e o PDF completo não abre."
+    },
+    {
+      "titulo": "Funcionários absorvem até duas grandes mudanças por ano; líderes planejam mais",
+      "olho": "Saturação de mudança",
+      "resumo": "Artigo na MIT Sloan Management Review cita pesquisa da The Grossman Group com The Harris Poll: funcionários absorvem uma ou duas grandes mudanças por ano, mas líderes planejam três ou quatro até 2027. O autor propõe diálogo, uma história compartilhada da mudança e melhor sequenciamento.",
+      "corpo": "Em artigo publicado na MIT Sloan Management Review em 28 de maio de 2026, David Grossman descreve funcionários que se afogam em mudança. Grossman é CEO da The Grossman Group, consultoria de comunicação de liderança e mudança, e cita uma pesquisa da própria empresa feita com The Harris Poll.\n\nSegundo o artigo, 83% dos líderes empresariais dizem viver mais grandes mudanças do que nunca. Os funcionários conseguem absorver, de forma realista, uma ou duas grandes mudanças por ano, mas os líderes planejam três ou quatro até 2027. Quase todos os líderes acreditam que comunicam bem a mudança, enquanto um em cada quatro funcionários discorda ou não tem certeza. O trecho aberto do artigo não informa o tamanho da amostra nem a data da pesquisa.\n\nO texto abre com o caso da CareRx, empresa canadense de serviços farmacêuticos que triplicou o negócio em 20 meses, por aquisições, em 2021 e 2022. No fim de 2022, a rotatividade disparou e as reclamações de clientes se acumularam. \"Crescíamos tão rápido que a organização não conseguia acompanhar\", disse Adrianne Sullivan-Campeau, executiva da companhia.\n\nGrossman propõe três disciplinas para os líderes: tornar o diálogo com os funcionários inegociável, construir uma história compartilhada da mudança e sequenciar melhor as mudanças.",
+      "por_que_importa": "Trate a capacidade de absorção como restrição do planejamento: conte quantas grandes mudanças cada público recebe por ano e negocie o sequenciamento com os patrocinadores. Cite o dado com a ressalva de que vem da consultoria do autor.",
+      "fonte_nome": "MIT Sloan Management Review, \"When Employees Are Drowning in Change\" (David Grossman)",
+      "fonte_url": "https://sloanreview.mit.edu/article/when-employees-are-drowning-in-change/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-05-28",
+      "regiao": "América do Norte",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "83%",
+          "descricao": "Líderes empresariais que dizem viver mais grandes mudanças do que nunca, segundo pesquisa da The Grossman Group com The Harris Poll citada pelo autor (amostra e data não informadas no trecho aberto do artigo)",
+          "fonte_url": "https://sloanreview.mit.edu/article/when-employees-are-drowning-in-change/"
+        },
+        {
+          "valor": "1 ou 2 x 3 ou 4",
+          "descricao": "Grandes mudanças que os funcionários conseguem absorver por ano, contra as que os líderes planejam até 2027 (mesma pesquisa)",
+          "fonte_url": "https://sloanreview.mit.edu/article/when-employees-are-drowning-in-change/"
+        },
+        {
+          "valor": "1 em cada 4",
+          "descricao": "Funcionários que discordam ou não têm certeza de que a mudança é bem comunicada, embora quase todos os líderes acreditem que comunicam bem (mesma pesquisa)",
+          "fonte_url": "https://sloanreview.mit.edu/article/when-employees-are-drowning-in-change/"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o artigo no site da MIT Sloan Management Review (28 de maio de 2026) e conferi no trecho aberto os 83%, a relação de uma ou duas contra três ou quatro mudanças até 2027, o um em cada quatro, o caso CareRx com a citação e as três disciplinas; o trecho aberto não traz amostra, data nem países da pesquisa, e o restante do texto é restrito a assinantes."
+    },
+    {
+      "titulo": "Accenture: uso diário de IA cresce, mas só 15% redesenham processos inteiros",
+      "olho": "Adoção x redesenho",
+      "resumo": "A edição de outubro de 2026 do Pulse of Change, da Accenture, ouviu 3.000 executivos C-level e 3.000 funcionários em 21 países, incluindo o Brasil. O uso diário de IA avançou, mas o redesenho de processos e o valor sustentado ficaram quase parados.",
+      "corpo": "A edição de 19 de outubro de 2026 do Pulse of Change, da Accenture, mostra que o uso de IA avança mais rápido do que a mudança no trabalho. A consultoria fez duas pesquisas globais entre julho e agosto de 2026: uma com 3.000 executivos C-level e outra com 3.000 funcionários, em organizações com receita anual acima de US$ 300 milhões, em 19 setores e 21 países, entre eles o Brasil.\n\nO uso diário de IA chegou a 41% dos líderes e 43% dos funcionários, contra 27% e 30% na edição de julho. Mas só 15% dos líderes redesenham processos de ponta a ponta e 20% implantam agentes entre funções. Apenas 25% relatam valor amplo e sustentado com IA, dois pontos percentuais a mais que em julho. Mesmo assim, 53% dos líderes esperam retorno mensurável em 12 meses, e a parcela sobe para 87% em 24 meses.\n\nDo lado dos funcionários, 82% dizem que a IA aumentou a produtividade. Ao mesmo tempo, 50% afirmam que ela elevou a velocidade esperada do trabalho e a necessidade de revisar resultados, e 48% dizem que a troca rápida de ferramentas dificulta manter-se atualizado.\n\nPara a Accenture, o desafio é cada vez mais organizacional, além de técnico. O relatório resume: o uso amplo \"não é o destino\".",
+      "por_que_importa": "Frequência de uso não é adoção com valor. Inclua nos indicadores de mudança o redesenho de processos e o resultado obtido, e acompanhe a carga sobre as pessoas: metade já diz que a IA elevou a velocidade esperada do trabalho.",
+      "fonte_nome": "Accenture, \"Pulse of Change\" (edição de outubro de 2026)",
+      "fonte_url": "https://www.accenture.com/us-en/insights/pulse-of-change",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-10-19",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "15%",
+          "descricao": "Líderes que redesenham processos de ponta a ponta com IA (pesquisa da Accenture com 3.000 executivos C-level de organizações com receita acima de US$ 300 milhões, 21 países, julho e agosto de 2026)",
+          "fonte_url": "https://www.accenture.com/us-en/insights/pulse-of-change"
+        },
+        {
+          "valor": "25%",
+          "descricao": "Parcela que relata valor amplo e sustentado com IA, dois pontos percentuais a mais que na edição de julho de 2026 (dado do bloco sobre líderes da mesma pesquisa)",
+          "fonte_url": "https://www.accenture.com/us-en/insights/pulse-of-change"
+        },
+        {
+          "valor": "48%",
+          "descricao": "Funcionários que dizem que a mudança rápida das ferramentas de IA dificulta manter-se atualizado (pesquisa com 3.000 funcionários não C-level, 21 países, julho e agosto de 2026)",
+          "fonte_url": "https://www.accenture.com/us-en/insights/pulse-of-change"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página oficial do Pulse of Change no site da Accenture (edição de 19 de outubro de 2026) e conferi a metodologia (duas pesquisas de 3.000 pessoas, 19 setores, 21 países com o Brasil na lista, julho e agosto de 2026) e os percentuais 41%, 43%, 27%, 30%, 15%, 20%, 25%, 53%, 87%, 82%, 50% e 48%; a página não diz o grupo dos 25%, então tirei a atribuição a líderes C-level desse dado."
+    }
+  ]
+}

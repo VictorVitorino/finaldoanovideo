@@ -1,0 +1,192 @@
+{
+  "tema": "ia-adocao",
+  "verificado_em": "2026-11-14",
+  "itens": [
+    {
+      "titulo": "Prosci: vontade de usar IA é igual em empresas que avançam e nas que travam",
+      "olho": "Adoção de IA",
+      "resumo": "Artigo da Prosci com achados da pesquisa State of AI Adoption 2026 mostra que a motivação das pessoas para usar IA quase não muda entre organizações que prosperam e as que estagnam. A diferença está nas condições criadas pela empresa, sobretudo no encaixe da IA com o fluxo de trabalho de cada equipe.",
+      "corpo": "A Prosci publicou em 9 de setembro de 2026 um artigo com achados da pesquisa State of AI Adoption 2026, feita com mais de 1.500 trabalhadores. O texto resume um webinar da empresa sobre o tema. O achado central contraria o senso comum: a motivação para usar IA é quase idêntica nas organizações que prosperam e nas que estagnam. O que separa os dois grupos são as condições que a empresa cria para essa vontade virar resultado.\n\nO fator mais associado à adoção em uma equipe foi o encaixe entre a capacidade de IA e o fluxo de trabalho real do time, que a Prosci chama de team AI fit. \"Não se compra encaixe\", resumiu Scott Anderson, chefe de pesquisa da Prosci, em tradução livre. Isso aumenta o peso do gestor direto, que precisa traduzir a ferramenta para o trabalho da equipe.\n\nHá também um descompasso de percepção. Líderes deram a si mesmos nota 3,55 em 5 nas conversas individuais com a equipe sobre IA. Os funcionários deram 2,38 aos mesmos líderes. Entre patrocinadores executivos, o comportamento mais ligado a bons resultados foi formar uma coalizão de líderes alinhados. Ele ficou à frente do patrocínio visível, que liderava as pesquisas da Prosci havia 25 anos.\n\nA barreira também mudou. Em 2024, o principal obstáculo relatado era a proficiência do usuário. Em 2026, essa preocupação caiu cerca de metade, e os desafios de integração na organização e nas equipes mais que dobraram. O artigo não detalha a metodologia nem os percentuais dessas barreiras.",
+      "por_que_importa": "Campanha de engajamento não resolve o que é problema de desenho do trabalho. Leve o plano de mudança para o nível da equipe: prepare gestores para mapear onde a IA entra no fluxo real e meça a percepção dos liderados, não a autoavaliação dos líderes.",
+      "fonte_nome": "Prosci (blog oficial, artigo sobre a pesquisa State of AI Adoption 2026)",
+      "fonte_url": "https://www.prosci.com/blog/leading-ai-integration-what-separates-results-from-stalled-ai-investment",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-09-09",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "3,55 x 2,38",
+          "descricao": "Nota (escala até 5) que líderes deram a si mesmos nas conversas individuais sobre IA com a equipe, contra a nota que os funcionários deram aos mesmos líderes. Pesquisa State of AI Adoption 2026, Prosci.",
+          "fonte_url": "https://www.prosci.com/blog/leading-ai-integration-what-separates-results-from-stalled-ai-investment"
+        },
+        {
+          "valor": "mais de 1.500",
+          "descricao": "Trabalhadores ouvidos na pesquisa State of AI Adoption 2026, segundo o artigo publicado pela Prosci.",
+          "fonte_url": "https://www.prosci.com/blog/leading-ai-integration-what-separates-results-from-stalled-ai-investment"
+        },
+        {
+          "valor": "25 anos",
+          "descricao": "Período em que o patrocínio visível liderou as pesquisas da Prosci. Em 2026, entre patrocinadores executivos, formar uma coalizão de líderes alinhados ficou à frente.",
+          "fonte_url": "https://www.prosci.com/blog/leading-ai-integration-what-separates-results-from-stalled-ai-investment"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o artigo no site da Prosci e conferi a data (9/9/2026), a amostra de mais de 1.500 trabalhadores, as notas 3,55 e 2,38, os 25 anos e a fala de Scott Anderson; troquei 'resumo da pesquisa' por artigo que resume um webinar e tirei a frase sobre acesso restrito a membros, que não está na página."
+    },
+    {
+      "titulo": "Kyndryl: só 23% dos líderes veem a força de trabalho pronta para a IA",
+      "olho": "Prontidão das pessoas",
+      "resumo": "A segunda edição do People Readiness Report, da Kyndryl, mostra a adoção de IA subindo e a prontidão das pessoas caindo seis pontos em um ano. Os 9% de organizações que lideram redesenharam papéis e implantaram gestão da mudança formal antes de considerar o time pronto.",
+      "corpo": "A Kyndryl divulgou em 25 de junho de 2026 a segunda edição do People Readiness Report. A pesquisa ouviu 1.100 líderes de negócios e de tecnologia em oito países, entre eles o Brasil, de 24 de março a 30 de abril de 2026, com trabalho de campo da Edelman Intelligence.\n\nA adoção avançou: 57% dizem que a IA está amplamente implantada ou incorporada aos processos centrais do negócio. A prontidão das pessoas recuou: 23% consideram sua força de trabalho totalmente pronta, seis pontos abaixo de 2025. Para 79%, a velocidade da adoção vai superar a capacidade da organização de adaptar pessoas, governança e modelo operacional. Só 27% têm programas formais de gestão da mudança para IA totalmente implantados.\n\nO relatório isola um grupo de 9% das organizações, chamado de Pacesetters. Elas redesenharam papéis em torno da IA, implantaram por completo a gestão da mudança e consideram a força de trabalho pronta. Entre as organizações que já cumpriram ao menos um desses passos, 94% seguiram essa ordem.\n\nA diferença aparece no negócio. 41% dos Pacesetters já viram inovação em produtos, serviços e modelos de negócio, contra 26% dos demais. Em crescimento de receita atribuído à IA, são 40% contra 27%. Segundo a Kyndryl, o que distingue o grupo não é tecnologia mais avançada, e sim a forma de preparar pessoas e redesenhar o trabalho.",
+      "por_que_importa": "O estudo dá uma sequência prática para defender orçamento: primeiro redesenhar papéis, depois estruturar a gestão da mudança, só então declarar prontidão. Use os 27% com programa formal como argumento para tirar a mudança do improviso.",
+      "fonte_nome": "Kyndryl, People Readiness Report 2026",
+      "fonte_url": "https://www.kyndryl.com/content/dam/kyndrylprogram/doc/en/2026/people-readiness-report.pdf",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-06-25",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "23%",
+          "descricao": "Líderes que consideram sua força de trabalho atual totalmente pronta para aproveitar a IA, queda de 6 pontos em relação a 2025. Base: 1.100 líderes em 8 países, campo de 24/3 a 30/4/2026.",
+          "fonte_url": "https://www.kyndryl.com/content/dam/kyndrylprogram/doc/en/2026/people-readiness-report.pdf"
+        },
+        {
+          "valor": "27%",
+          "descricao": "Líderes que relatam programas formais de gestão da mudança para IA totalmente implantados. Base: 1.100 líderes.",
+          "fonte_url": "https://www.kyndryl.com/content/dam/kyndrylprogram/doc/en/2026/people-readiness-report.pdf"
+        },
+        {
+          "valor": "9%",
+          "descricao": "Organizações classificadas como Pacesetters: redesenharam papéis, implantaram gestão da mudança por completo e consideram a força de trabalho pronta.",
+          "fonte_url": "https://www.kyndryl.com/content/dam/kyndrylprogram/doc/en/2026/people-readiness-report.pdf"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o PDF do relatório no site da Kyndryl e conferi amostra, países, datas de campo e cada percentual (57%, 23%, 79%, 27%, 9%, 94%, 41% x 26%, 40% x 27%); a data de 25/6/2026 não está no PDF e foi conferida na lista de comunicados da Kyndryl em www.prnewswire.com; ajustei 'pronta' para 'totalmente pronta', como diz o relatório."
+    },
+    {
+      "titulo": "BCG: clareza estratégica eleva o impacto da IA em 25 pontos; ferramentas, em 5",
+      "olho": "IA no trabalho",
+      "resumo": "A quarta edição da pesquisa AI at Work, do BCG, mostra que o uso de IA na linha de frente disparou, mas o tempo economizado se perde por falta de orientação. O que sustenta o resultado é estratégia clara e redesenho de fluxos, não mais ferramentas.",
+      "corpo": "O BCG publicou em 3 de junho de 2026 a quarta edição da pesquisa AI at Work, com 11.749 trabalhadores em 14 mercados. A conclusão da consultoria: a IA está mudando os empregos mais rápido do que as empresas mudam o trabalho.\n\nEntre funcionários da linha de frente, definidos como profissionais de escritório sem função de gestão, 74% já usam IA regularmente, 23 pontos percentuais acima de 2025. O Brasil aparece entre os mercados com uso acima da média global. Desses usuários regulares, 42% dizem economizar ao menos um dia de trabalho por semana. Mas 66% recebem pouca ou nenhuma orientação sobre o que fazer com esse tempo.\n\nO diferencial está na direção. Segundo o BCG, uma estratégia clara eleva o impacto mensurável no negócio em 25 pontos percentuais. Ferramentas melhores, sem estratégia e redesenho, movem cerca de 5 pontos. Quem trabalha em empresas que redesenham fluxos de trabalho tem 24 pontos percentuais a mais de chance de ver melhoria mensurável.\n\nO lado humano segue descoberto. 72% dizem que as expectativas de competências mudaram, mas só 36% sentem que receberam capacitação adequada. Apenas um terço da linha de frente considera clara a comunicação da liderança sobre IA, e 28% veem forte ligação entre o que os líderes dizem e o que a organização faz.",
+      "por_que_importa": "Medir adoção não basta: o plano de mudança precisa dizer para onde vai o tempo liberado pela IA e quem decide isso. Comunicação clara da liderança e coerência entre discurso e prática são alavancas mensuráveis, não acessórios.",
+      "fonte_nome": "Boston Consulting Group (BCG), comunicado da pesquisa AI at Work 2026",
+      "fonte_url": "https://www.bcg.com/press/3june2026-ai-reshaping-jobs-faster-than-companies-reshaping-work",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-06-03",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "74%",
+          "descricao": "Funcionários da linha de frente (escritório, sem função de gestão) que usam IA regularmente, 23 pontos percentuais acima de 2025. Base: 11.749 trabalhadores em 14 mercados.",
+          "fonte_url": "https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools"
+        },
+        {
+          "valor": "66%",
+          "descricao": "Usuários regulares de IA na linha de frente que recebem pouca ou nenhuma orientação sobre o que fazer com o tempo economizado.",
+          "fonte_url": "https://www.bcg.com/press/3june2026-ai-reshaping-jobs-faster-than-companies-reshaping-work"
+        },
+        {
+          "valor": "25 p.p. x cerca de 5 p.p.",
+          "descricao": "Ganho de impacto mensurável no negócio associado a uma estratégia clara, contra o ganho de ferramentas melhores sem estratégia e redesenho, segundo o BCG.",
+          "fonte_url": "https://www.bcg.com/press/3june2026-ai-reshaping-jobs-faster-than-companies-reshaping-work"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o comunicado de 3/6/2026 e a página do estudo no site do BCG e conferi amostra (11.749 em 14 mercados), 74%, 42%, 66%, 25 e 5 pontos, 24 pontos e a menção ao Brasil no comunicado; os 23 pontos sobre 2025, os 72%, 36%, um terço e 28% estão na página do estudo; nada foi alterado."
+    },
+    {
+      "titulo": "Work Trend Index: organização pesa mais que o indivíduo no impacto da IA",
+      "olho": "Paradoxo da transformação",
+      "resumo": "O Work Trend Index 2026, da Microsoft, conclui que cultura, apoio do gestor e práticas de talento explicam mais do impacto da IA do que a atitude de cada pessoa. O relatório descreve funcionários prontos para mudar dentro de sistemas que ainda premiam o jeito antigo.",
+      "corpo": "A Microsoft publicou em 5 de maio de 2026 o Work Trend Index anual. O estudo combina sinais anonimizados de uso do Microsoft 365 com uma pesquisa de 20 mil trabalhadores que usam IA em dez países, incluindo o Brasil. O campo foi feito pela Edelman Data x Intelligence entre fevereiro e abril de 2026.\n\nO principal achado: fatores organizacionais, como cultura, apoio do gestor e práticas de talento, respondem por 67% do impacto relatado da IA, contra 32% dos fatores individuais, como mentalidade e comportamento. A Microsoft ressalva que se trata de associação estatística com dados autodeclarados, não de causa e efeito.\n\nO relatório chama de Paradoxo da Transformação o choque entre a pressão por desempenho e a pressão por mudança. 65% dos usuários temem ficar para trás se não usarem IA para se adaptar, mas 45% acham mais seguro focar nas metas atuais do que redesenhar o trabalho. Só 13% dizem ser recompensados por reinventar o trabalho com IA mesmo quando o resultado não vem. E 26% veem a liderança alinhada de forma clara e consistente sobre o tema.\n\nApenas 19% dos usuários estão na zona que a Microsoft chama de Frontier, em que capacidade individual e prontidão da organização se reforçam. \"Os trabalhadores estão prontos. As organizações, não\", resume o relatório, em tradução livre.",
+      "por_que_importa": "Se metas e incentivos premiam só a entrega do trimestre, ninguém redesenha o trabalho. Inclua no plano de mudança a revisão de métricas, do papel do gestor e do reconhecimento à experimentação, e não apenas treinamento individual.",
+      "fonte_nome": "Microsoft, 2026 Work Trend Index Annual Report",
+      "fonte_url": "https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-05-05",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "67% x 32%",
+          "descricao": "Parcela do impacto relatado da IA associada a fatores organizacionais (cultura, apoio do gestor, práticas de talento) contra fatores individuais (mentalidade e comportamento). Pesquisa com 20.000 usuários de IA em 10 países, entre fevereiro e abril de 2026; associação estatística, não causal.",
+          "fonte_url": "https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization"
+        },
+        {
+          "valor": "13%",
+          "descricao": "Usuários de IA que dizem ser recompensados por reinventar o trabalho com IA mesmo quando os resultados não são atingidos.",
+          "fonte_url": "https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization"
+        },
+        {
+          "valor": "26%",
+          "descricao": "Usuários de IA que dizem que a liderança da empresa está alinhada de forma clara e consistente sobre IA.",
+          "fonte_url": "https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o relatório no site da Microsoft e conferi a data (5/5/2026), a amostra de 20.000 usuários de IA em 10 países com o Brasil, e os números 67% x 32%, 65%, 45%, 13%, 26% e 19%; a página dá duas datas para o fim do campo (7 e 20 de abril de 2026), por isso troquei o período exato por 'entre fevereiro e abril de 2026'."
+    },
+    {
+      "titulo": "Reino Unido: líderes incentivam o uso de IA, mas poucos dão o exemplo, diz CMI",
+      "olho": "Liderança e IA",
+      "resumo": "Relatório do Chartered Management Institute trata a adoção de IA como um grande projeto de gestão da mudança e aponta falta de capacidade gerencial como principal trava. A maioria das organizações segue em pilotos e os ganhos transformacionais são raros.",
+      "corpo": "O Chartered Management Institute (CMI), do Reino Unido, publicou em junho de 2026 o relatório \"Artificial Intelligence; Real Leadership\". A base é uma pesquisa com 1.019 gestores britânicos, feita entre fevereiro e março de 2026, e 13 entrevistas em profundidade com especialistas. A tese: a adoção de IA é uma grande iniciativa de gestão da mudança, e não um investimento isolado de TI.\n\nO texto descreve uma distância entre discurso e prática na alta liderança. Entre gestores de organizações que já usam IA, 64% dizem que a liderança sênior incentiva a experimentação, mas só 13% concordam fortemente que esses líderes experimentam as ferramentas. Apenas 12% dos gestores se sentem muito confiantes para liderar equipes que trabalham com IA.\n\nOs ganhos ainda são rasos. Entre os 717 gestores cujas organizações já usam IA, 68% dizem que a empresa está experimentando ou montando pilotos. Nesse grupo, 70% veem ganho de produtividade, mas só 5% relatam melhoria transformacional. Outros 10% não notaram ganho e 15% dizem que é cedo para saber.\n\nOutro sinal chama atenção. O relatório cita pesquisa do próprio CMI, de maio de 2025, em que 70% dos gestores disseram já ter pedido conselho à IA generativa em vez de recorrer ao chefe, por rapidez e detalhe técnico. O CMI recomenda tratar a IA como projeto de mudança alinhado à estratégia, reforçar competências humanas, manter aprendizado contínuo e calibrar riscos, já que a responsabilidade migra da TI para os gestores de linha.",
+      "por_que_importa": "Patrocínio que não usa a ferramenta perde credibilidade. Coloque a alta liderança para experimentar IA de forma visível e invista primeiro na média gerência, que hoje lidera a mudança sem confiança para isso.",
+      "fonte_nome": "Chartered Management Institute (CMI), relatório Artificial Intelligence; Real Leadership",
+      "fonte_url": "https://www.managers.org.uk/knowledge-and-insights/research/ai-real-leadership-report/",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-06-08",
+      "regiao": "Europa",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "13%",
+          "descricao": "Gestores que concordam fortemente que a liderança sênior experimenta ativamente ferramentas de IA; 64% dizem que ela incentiva a experimentação. Perguntas feitas a 717 gestores de organizações que já usam IA, dentro da pesquisa do CMI com 1.019 gestores, entre fevereiro e março de 2026.",
+          "fonte_url": "https://www.managers.org.uk/wp-content/uploads/2026/06/cmi_thought-leadership-report-ai-leadership.pdf"
+        },
+        {
+          "valor": "5%",
+          "descricao": "Gestores que relatam ganhos de produtividade transformacionais com IA; 70% veem algum ganho. Base: 717 gestores de organizações que já usam IA.",
+          "fonte_url": "https://www.managers.org.uk/wp-content/uploads/2026/06/cmi_thought-leadership-report-ai-leadership.pdf"
+        },
+        {
+          "valor": "12%",
+          "descricao": "Gestores que se dizem muito confiantes para liderar equipes que trabalham com IA.",
+          "fonte_url": "https://www.managers.org.uk/wp-content/uploads/2026/06/cmi-ai-report-executive-summary.pdf"
+        }
+      ],
+      "checagem": "Lida na fonte: abri a página do relatório, o sumário executivo e o PDF completo no site do CMI e conferi data (8/6/2026), amostra (1.019), 13 entrevistas, base de 717 e os percentuais 64%, 13%, 12%, 68%, 70% e 5%; corrigi o período da pesquisa (20/2 a 9/3/2026), a origem dos 70% que consultam a IA (pesquisa do CMI de maio de 2025) e troquei os '26% sem ganho' do sumário pelos números do gráfico do relatório (10% sem ganho, 15% cedo para saber)."
+    },
+    {
+      "titulo": "Deloitte: 81% decidem mais rápido com IA, mas só 25% transformam o negócio",
+      "olho": "Redesenho do trabalho",
+      "resumo": "A edição de outubro de 2026 do State of AI in the Enterprise, da Deloitte, aponta a mudança organizacional como o novo gargalo da IA. As empresas ganharam velocidade, mas poucas mexeram de verdade em cargos, autoridade de decisão e responsabilização.",
+      "corpo": "A Deloitte divulgou em 29 de outubro de 2026 a nova edição do State of AI in the Enterprise, com o subtítulo \"Built Differently\". A pesquisa ouviu 3.500 líderes, de diretores ao C-level, em 25 países e seis setores, entre maio e junho de 2026.\n\nA IA entregou velocidade: 81% relatam decisões e execução mais rápidas. Só 25% dizem usar a tecnologia para transformar profundamente o negócio. O relatório resume o quadro como \"mais rápido, não diferente\". Para a Deloitte, a mudança organizacional virou gargalo: a capacidade de redesenhar o trabalho e a governança é o que bloqueia a captura de valor.\n\nOs números de redesenho mostram a profundidade do problema. 60% redesenharam cargos em torno da IA em grau ao menos moderado, mas só 15% descrevem a mudança como extensa ou completa. Também 15% relatam mudança significativa na autoridade de decisão. Segundo o relatório, pede-se às pessoas que trabalhem de outro jeito sem lhes dar poder para agir de outro jeito.\n\nA autonomia cresce mais rápido que a responsabilização. 40% permitem que a IA execute decisões ou ações sem aprovação humana, ao menos em grau moderado, e 23% dizem que não está claro quem responde por um resultado negativo. Ganhos de receita com IA são relatados por 28% das empresas, ante 20% no relatório de janeiro.",
+      "por_que_importa": "Acelerar um processo antigo não é transformação. Ao planejar a mudança, trate direitos de decisão, etapas de aprovação e responsabilização como parte do escopo, junto com papéis e treinamento.",
+      "fonte_nome": "Deloitte, comunicado do relatório State of AI in the Enterprise (edição de outubro de 2026)",
+      "fonte_url": "https://www.deloitte.com/us/en/about/press-room/enterprise-ai-enters-an-roi-reckoning.html",
+      "verificacao": "lida na fonte",
+      "data_publicacao": "2026-10-29",
+      "regiao": "Global",
+      "tipo_fonte": "primária",
+      "dados": [
+        {
+          "valor": "81% x 25%",
+          "descricao": "Empresas que relatam decisões e execução mais rápidas com IA, contra as que dizem transformar profundamente o negócio. Base: 3.500 líderes em 25 países, pesquisa de maio a junho de 2026.",
+          "fonte_url": "https://www.deloitte.com/us/en/about/press-room/enterprise-ai-enters-an-roi-reckoning.html"
+        },
+        {
+          "valor": "60% x 15%",
+          "descricao": "Empresas que redesenharam cargos em torno da IA em grau ao menos moderado, contra as que descrevem a mudança como extensa ou completa. Base: 3.500 respondentes.",
+          "fonte_url": "https://www.deloitte.com/content/dam/assets-zone3/us/en/docs/services/consulting/2026/the-state-of-ai-in-the-enterprise-2026.pdf"
+        },
+        {
+          "valor": "23%",
+          "descricao": "Empresas em que não está claro quem responde quando um sistema de IA produz um resultado negativo; 40% já permitem que a IA execute decisões sem aprovação humana, ao menos em grau moderado.",
+          "fonte_url": "https://www.deloitte.com/us/en/about/press-room/enterprise-ai-enters-an-roi-reckoning.html"
+        }
+      ],
+      "checagem": "Lida na fonte: abri o comunicado de 29/10/2026 e o PDF do relatório no site da Deloitte e conferi amostra (3.500 líderes, 25 países, seis setores, maio a junho de 2026) e os números 81%, 25%, 60%, 15%, 40%, 23% e 28% ante 20%; só traduzi a expressão 'Faster, not different'."
+    }
+  ]
+}

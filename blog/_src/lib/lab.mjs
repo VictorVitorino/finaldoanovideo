@@ -181,7 +181,7 @@ export function paginaModelos({ cfg, modelos }) {
   </dialog>
 </div>
 <noscript><div class="sec-in"><p class="lab-aviso">O download com cadastro precisa de JavaScript ligado no navegador.</p></div></noscript></section>`;
-  return pagina({ cfg, raiz, titulo: 'Modelos para baixar', descricao: 'Modelos em PowerPoint e Excel para gestão da mudança: kit de slides, avaliação ADKAR com mapa de resistência, lista de impactos com dashboard, mapa de adoção, mapa de riscos e mais.', corpo, caminho: 'modelos/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', scripts: ['assets/js/cfg.js', 'assets/js/modelos.js'], ativo: 'lab' });
+  return pagina({ cfg, raiz, titulo: 'Modelos para baixar', descricao: 'Modelos em PowerPoint e Excel para gestão da mudança: kit de slides, avaliação ADKAR com mapa de resistência, lista de impactos com dashboard, mapa de adoção, mapa de riscos e mais.', corpo, caminho: 'modelos/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', scripts: ['assets/js/cfg.js', 'assets/js/modelos.js'], ativo: 'modelos' });
 }
 
 export function paginaPainel({ cfg }) {

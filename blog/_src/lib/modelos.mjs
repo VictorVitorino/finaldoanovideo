@@ -1,6 +1,6 @@
 // Modelos de página do blog. Cada função recebe os dados já carregados e devolve HTML.
 import { esc, markdown, minutos, data } from './md.mjs';
-import { icone, marca, globo, capa } from './ilustra.mjs';
+import { icone, marca, iceberg, CENA, capa } from './ilustra.mjs';
 
 export const TEMAS = {
   ia: { nome: 'IA & Mudança', ic: 'faisca', frase: 'Como a IA muda quem muda' },
@@ -17,12 +17,18 @@ const tema = p => TEMAS[p.tema] || TEMAS.mundo;
 const urlPost = (raiz, p) => `${raiz}posts/${p.slug}/`;
 
 // ---------- esqueleto ----------
-export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imagem, tipo = 'website', classe = '', artigo, scripts = [], ativo = '' }) {
+export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imagem, tipo = 'website', classe = '', artigo, scripts = [], ativo = '', attrs = '' }) {
   const tituloCompleto = titulo ? `${titulo} · ${cfg.nome}` : `${cfg.nome} · ${cfg.lema}`;
   const abs = cfg.url ? cfg.url.replace(/\/$/, '') + '/' + caminho : '';
   const og = imagem ? (cfg.url ? cfg.url.replace(/\/$/, '') + '/' + imagem : raiz + imagem) : '';
-  const nav = [['#radar', 'Radar'], ['#ia', 'IA & Mudança'], ['#guias', 'Guias'], ['lab/', 'Laboratório'], ['#videos', 'Vídeos'], ['#eventos', 'Eventos'], ['#mes', 'Posts do mês'], ['#sobre', 'Sobre']]
-    .map(([h, t]) => h[0] === '#' ? `<a href="${raiz ? raiz + 'index.html' : ''}${h}">${t}</a>` : `<a href="${raiz}${h}"${ativo === 'lab' ? ' class="aqui" aria-current="page"' : ''}>${t}</a>`).join('');
+  const TUDO = [['#radar', 'Radar', 'Radar mundial', 'Notícias e pesquisas, com a fonte'], ['#ia', 'IA & Mudança', 'IA & Mudança', 'Como a IA muda quem muda'], ['#guias', 'Guias', 'Guias de campo', 'Carve-out, due diligence, transformação e TI'], ['lab/', 'Laboratório', 'Laboratório', 'Diagnóstico e ferramentas para montar'], ['modelos/', 'Modelos', 'Modelos para baixar', 'PowerPoint e Excel prontos para usar'], ['#videos', 'Vídeos', 'Vídeos', 'Para ver e mostrar ao time'], ['#eventos', 'Eventos', 'Eventos', 'O que está na agenda'], ['#mes', 'Posts do mês', 'Posts do mês', 'Tudo o que saiu'], ['#estante', 'Sugestões', 'Sugestões', 'O que eu leio e recomendo'], ['#sobre', 'Sobre', 'Quem escreve', esc(cfg.autor)]];
+  const href = h => h[0] === '#' ? `${raiz ? raiz + 'index.html' : ''}${h}` : `${raiz}${h}`;
+  const aqui = h => (h === 'lab/' && ativo === 'lab') || (h === 'modelos/' && ativo === 'modelos') ? ' class="aqui" aria-current="page"' : '';
+  const NO_TOPO = ['#radar', '#ia', '#guias', 'lab/', 'modelos/', '#sobre'];
+  const nav = TUDO.filter(([h]) => NO_TOPO.includes(h)).map(([h, t]) => `<a href="${href(h)}"${aqui(h)}>${t}</a>`).join('');
+  const navRodape = TUDO.map(([h, t]) => `<a href="${href(h)}">${t}</a>`).join('');
+  const navMenu = TUDO.map(([h, , t, d], i) => `<a href="${href(h)}"${aqui(h)} style="--i:${i}"><span class="menu-n">${String(i + 1).padStart(2, '0')}</span><span class="menu-t">${t}</span><span class="menu-d">${d}</span>${icone('seta')}</a>`).join('');
+  const cm = cfg.capaMenu;
   return `<!doctype html>
 <html lang="${cfg.idioma}">
 <head>
@@ -45,35 +51,50 @@ ${artigo ? `<meta property="article:published_time" content="${esc(artigo.data)}
 <link rel="preload" href="${raiz}assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${raiz}assets/css/site.css">
 <link rel="stylesheet" href="${raiz}assets/css/motion.css">
+<link rel="stylesheet" href="${raiz}assets/css/ux.css">
 <script>document.documentElement.classList.add('js')${caminho === '' ? ";try{if(!sessionStorage.getItem('cmw-vinheta')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('vinheta')}catch(e){}" : ''}</script>
 </head>
-<body class="${classe}">
+<body class="${classe}"${attrs}>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="topo" data-topo>
   <div class="topo-in">
     <a class="logo" href="${raiz}index.html" aria-label="${esc(cfg.nome)}: início">${marca()}<span class="logo-txt">Change Management <i>World</i></span><span class="logo-curto">CM <i>World</i></span></a>
     <nav class="nav" aria-label="Seções" data-nav>${nav}</nav>
     <div class="topo-acoes">
-      <a class="btn-ic" href="${raiz ? raiz + 'index.html' : ''}#radar" data-abrir-busca aria-label="Buscar no radar">${icone('busca')}</a>
+      <a class="btn-ic" href="${raiz ? raiz + 'index.html' : ''}#radar" data-abrir-busca aria-label="Buscar no site" data-dica="Buscar · Ctrl K">${icone('busca')}</a>
+      <button class="btn-ic so-js" type="button" data-abrir-lista aria-haspopup="dialog" aria-label="Para ler depois" data-dica="Para ler depois">${icone('marcador')}<i class="conta" data-conta-salvos hidden></i></button>
       ${cfg.linkedin ? `<a class="btn btn--p btn--peq so-desk" href="${esc(cfg.linkedin)}" target="_blank" rel="noopener">${icone('linkedin')}Seguir</a>` : ''}
-      <button class="btn-ic so-mob" type="button" data-menu aria-expanded="false" aria-controls="menu-mob" aria-label="Abrir menu">${icone('menu', 'ic-menu')}${icone('x', 'ic-x')}</button>
+      <a class="btn-menu" href="#rodape" role="button" data-menu aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span class="btn-menu-rot">Menu</span><span class="btn-menu-ic" aria-hidden="true"><i></i><i></i></span></a>
     </div>
   </div>
-  <div class="menu-mob" id="menu-mob" hidden>${nav}${cfg.linkedin ? `<a class="btn btn--p" href="${esc(cfg.linkedin)}" target="_blank" rel="noopener">${icone('linkedin')}Seguir no LinkedIn</a>` : ''}</div>
 </header>
+<dialog class="menu" id="menu" aria-label="Menu do site">
+  <div class="menu-in">
+    <div class="menu-topo"><a class="logo logo--claro" href="${raiz}index.html" aria-label="${esc(cfg.nome)}: início">${marca()}<span>Change Management <i>World</i></span></a><button class="btn-menu btn-menu--x" type="button" data-menu-fechar aria-label="Fechar menu"><span class="btn-menu-rot">Fechar</span><span class="btn-menu-ic" aria-hidden="true"><i></i><i></i></span></button></div>
+    <nav class="menu-links" aria-label="Todas as seções">${navMenu}</nav>
+    <aside class="menu-lado">
+      ${cm ? `<a class="menu-capa" href="${raiz}posts/${esc(cm.slug)}/"><small>${icone('faisca')}Capa da semana</small><b>${esc(cm.titulo)}</b><span class="link-seta">Ler agora${icone('seta')}</span></a>` : ''}
+      <div class="menu-acoes"><button class="btn btn--vidro" type="button" data-abrir-busca>${icone('busca')}Buscar no site<kbd>Ctrl K</kbd></button>${cfg.linkedin ? `<a class="btn btn--claro" href="${esc(cfg.linkedin)}" target="_blank" rel="noopener">${icone('linkedin')}Seguir no LinkedIn</a>` : ''}</div>
+      <p class="menu-nota">${esc(cfg.lema)}.</p>
+    </aside>
+    <div class="menu-mar" aria-hidden="true"></div>
+  </div>
+</dialog>
 <main id="conteudo">
 ${corpo}
 </main>
-<footer class="rodape">
+<footer class="rodape" id="rodape">
   <div class="rodape-in">
     <div class="rodape-marca">${marca()}<div><strong>${esc(cfg.nome)}</strong><span>${esc(cfg.lema)}</span></div></div>
-    <nav class="rodape-nav" aria-label="Rodapé">${nav}</nav>
+    <nav class="rodape-nav" aria-label="Rodapé">${navRodape}</nav>
     <p class="rodape-nota">Curadoria e textos de ${esc(cfg.autor)}. Cada reportagem cita a fonte original, com link; os números valem para o recorte de cada pesquisa. Os guias de campo são a visão do autor.</p>
-    <p class="rodape-fim">© ${new Date().getFullYear()} ${esc(cfg.autor)} · ${esc(cfg.papel)}</p>
+    <p class="rodape-fim"><span>© ${new Date().getFullYear()} ${esc(cfg.autor)} · ${esc(cfg.papel)}</span><a class="rodape-topo" href="#conteudo">Voltar à superfície${icone('setaCima')}</a></p>
   </div>
 </footer>
 <script src="${raiz}assets/js/site.js" defer></script>
-<script src="${raiz}assets/js/motion.js" defer></script>${scripts.map(sc => `\n<script src="${raiz}${sc}" defer></script>`).join('')}
+<script src="${raiz}assets/js/motion.js" defer></script>
+<script src="${raiz}assets/js/dados.js" defer></script>
+<script src="${raiz}assets/js/ux.js" defer></script>${scripts.map(sc => `\n<script src="${raiz}${sc}" defer></script>`).join('')}
 </body>
 </html>`;
 }
@@ -86,7 +107,7 @@ const fonteLinha = p => p.fonte_nome ? `<span class="fonte">${esc(fonteCurta(p))
 // chamada do cartão: a primeira frase do resumo, inteira
 const chamada = r => { const m = /^(.{40,190}?[.!?])(\s|$)/.exec(r); return m ? m[1] : r.length > 190 ? r.slice(0, 188).replace(/\s+\S*$/, '') + '…' : r; };
 export function cartao(p, raiz, o = {}) {
-  return `<article class="cartao revela${o.cls ? ' ' + o.cls : ''}" data-tema="${esc(p.tema)}" data-busca="${esc((p.titulo + ' ' + p.resumo + ' ' + (p.fonte_nome || '') + ' ' + tema(p).nome + ' ' + (p.regiao || '')).toLowerCase())}">
+  return `<article class="cartao revela${o.cls ? ' ' + o.cls : ''}" data-slug="${esc(p.slug)}" data-tema="${esc(p.tema)}" data-busca="${esc((p.titulo + ' ' + p.resumo + ' ' + (p.fonte_nome || '') + ' ' + tema(p).nome + ' ' + (p.regiao || '')).toLowerCase())}">
   <a class="cartao-capa" href="${urlPost(raiz, p)}" tabindex="-1" aria-hidden="true">${capa(p.tema, p.slug)}</a>
   <div class="cartao-corpo">
     <div class="cartao-meta">${chipTema(p)}${p.regiao ? `<span class="regiao">${icone('pino')}${esc(p.regiao)}</span>` : ''}</div>
@@ -98,6 +119,15 @@ export function cartao(p, raiz, o = {}) {
 }
 export const titSecao = (id, olho, tit, sub, extra = '') => `<header class="sec-cab revela">
   <div><span class="olho">${olho}</span><h2 id="${id}-t">${tit}</h2>${sub ? `<p>${sub}</p>` : ''}</div>${extra}</header>`;
+
+// régua de adoção da capa: sem JavaScript é uma lista; com JavaScript vira um controle de arrastar
+const regua = (r, raiz) => !r ? '' : `<div class="regua revela" data-regua data-inicial="${r.inicial ?? 2}">
+      <div class="regua-cab"><span class="olho">${esc(r.olho)}</span><h3>${esc(r.titulo)}</h3><p>${esc(r.nota)}</p></div>
+      <div class="regua-corpo">
+        <ol class="regua-lista">${r.marcas.map((m, i) => `<li data-nome="${esc(m.nome)}" data-estado="${esc(m.estado)}" data-acao="${esc(m.acao)}" data-como="${esc(m.como)}"><span class="regua-n">${i + 1}</span><b>${esc(m.nome)}</b><span>${esc(m.estado)}</span><strong>${esc(m.acao)}</strong><span>${esc(m.como)}</span></li>`).join('')}</ol>
+      </div>
+      <a class="link-seta" href="${raiz}lab/matriz-de-adocao/">Montar a matriz de adoção do seu projeto${icone('seta')}</a>
+    </div>`;
 
 // ---------- início ----------
 export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', estante }) {
@@ -112,22 +142,34 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
 
   // organizações de origem: conta pela primeira palavra do nome, para "PwC", "PwC US" e "PwC Brasil" valerem uma só
   const fontes = new Set(reportagens.map(p => fonteCurta(p).split(/[\s|]/)[0].replace(/^Boston$/, 'BCG').replace(/^Agência$/, 'Câmara').toLowerCase()).filter(Boolean));
-  const rotulos = [['ia', 3, 13], ['carve-out', 73, 5], ['governanca-ti', 80, 47], ['transformacao', 63, 88], ['due-diligence', 2, 79], ['adocao', -3, 45]].filter(([k]) => posts.some(p => p.tema === k));
+  const ab = home.abertura || { titulo: ['Gestão da mudança,', '*além do raso*.'], lead: cfg.descricao }, ice = home.iceberg || { zonas: [], superficie: [], fundo: [] };
+  const linhaTit = l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>');
+  const pct = (v, total) => (v / total * 100).toFixed(2) + '%';
+  const pontos = (ice.fundo || []).map(h => ({ ...h, p: posts.find(p => p.slug === h.slug) })).filter(h => h.p);
   const abertura = `<section class="abertura" aria-labelledby="ab-t">
   <div class="abertura-in">
     <div class="abertura-txt">
       <span class="selo revela">${esc(cfg.edicao.rotulo)} <i></i> ${esc(cfg.edicao.periodo)}</span>
-      <h1 id="ab-t" class="mega"><span class="mega-l"><span>O mundo da</span></span><span class="mega-l"><span><em>gestão da mudança</em>,</span></span><span class="mega-l"><span>em movimento.</span></span></h1>
-      <p class="abertura-lead revela">${esc(cfg.descricao)}</p>
+      <h1 id="ab-t" class="mega">${ab.titulo.map(l => `<span class="mega-l"><span>${linhaTit(l)}</span></span>`).join('')}</h1>
+      <p class="abertura-lead revela">${esc(ab.lead)}</p>
       <div class="abertura-acoes revela"><a class="btn btn--p" href="#capa">Ver a capa da semana${icone('seta')}</a><a class="btn btn--s" href="#radar">Abrir o radar</a></div>
       <dl class="abertura-fatos revela"><div><dt data-conta="${reportagens.length}">${reportagens.length}</dt><dd>reportagens com fonte</dd></div><div><dt data-conta="${fontes.size}">${fontes.size}</dt><dd>organizações de origem</dd></div><div><dt data-conta="${guias.length}">${guias.length}</dt><dd>guias de campo</dd></div></dl>
     </div>
-    <div class="abertura-globo" data-paralaxe>
-      ${globo()}
-      ${rotulos.map(([k, x, y], i) => `<a class="g-rotulo" style="--x:${x}%;--y:${y}%;--i:${i}" ${usados.has(k) ? `href="#radar" data-filtrar="${k}"` : 'href="#capa"'}><i></i>${esc(TEMAS[k].nome)}</a>`).join('')}
+    <div class="mergulho revela" data-mergulho data-zonas="${esc(JSON.stringify(ice.zonas || []))}">
+      <div class="cena-janela" data-cursor="${esc(ice.dica || 'Arraste para mergulhar')}">
+        <div class="cena-mundo">
+          ${iceberg()}
+          <ul class="cena-raso" aria-label="Na superfície: o que todo mundo vê">${(ice.superficie || []).map(s => `<li style="--x:${pct(s.x, CENA.L)};--y:${pct(s.y, CENA.A)}">${esc(s.t)}</li>`).join('')}</ul>
+          <ul class="cena-fundo" aria-label="Abaixo da superfície: o que decide a mudança">${pontos.map((h, i) => `<li style="--x:${pct(h.x, CENA.L)};--y:${pct(h.y, CENA.A)};--i:${i}" class="${h.x > 300 ? 'ponto--e' : ''}"><a class="ponto" href="${urlPost(raiz, h.p)}" data-ler="${esc(h.p.slug)}"><i></i><span><b>${esc(h.t)}</b><small>${esc(h.p.titulo)}</small></span></a></li>`).join('')}</ul>
+          ${ice.fim ? `<p class="cena-fim" style="--y:${pct(1385, CENA.A)}">${esc(ice.fim)}</p>` : ''}
+        </div>
+        <p class="cena-zona" data-zona aria-live="polite"><b>${esc((ice.zonas[0] || {}).nome || 'Superfície')}</b><span>${esc((ice.zonas[0] || {}).frase || '')}</span></p>
+        <div class="sonda so-js" data-sonda><span class="sonda-trilho" aria-hidden="true"><i></i></span><button class="sonda-pega" type="button" role="slider" aria-orientation="vertical" aria-label="Profundidade do mergulho" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Superfície">${icone('setaBaixo')}</button><output class="sonda-m" aria-hidden="true">0 m</output></div>
+        <button class="cena-botao so-js" type="button" data-mergulhar><span>Mergulhar</span>${icone('setaBaixo')}</button>
+      </div>
     </div>
   </div>
-  <div class="ticker" aria-label="Manchetes do radar"><span class="ticker-rot"><i></i>Radar</span><div class="ticker-faixa"><div class="ticker-trilho">${ticker}${ticker}</div></div></div>
+  <div class="ticker" aria-label="Manchetes do radar" data-ticker data-cursor="Arraste"><span class="ticker-rot"><i></i>Radar</span><div class="ticker-faixa"><div class="ticker-trilho">${ticker}${ticker}</div></div></div>
 </section>`;
 
   const blocoCapa = `<section class="sec sec--capa" id="capa" aria-labelledby="capa-t">
@@ -147,6 +189,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
         ${destaques.map((p, i) => `<article class="lado-item revela" style="--i:${i + 1}"><a class="lado-capa" href="${urlPost(raiz, p)}" tabindex="-1" aria-hidden="true">${capa(p.tema, p.slug)}</a><div>${chipTema(p)}<h4><a href="${urlPost(raiz, p)}">${esc(p.titulo)}</a></h4>${fonteLinha(p)}</div></article>`).join('')}
       </div>
     </div>
+    ${regua(home.regua, raiz)}
   </div>
 </section>`;
 
@@ -162,6 +205,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
     <div class="filtros revela" role="group" aria-label="Filtrar reportagens">
       <div class="chips" data-chips><button type="button" class="filtro ativo" data-tema="">Tudo <i>${reportagens.length}</i></button>${temasRadar.map(k => `<button type="button" class="filtro" data-tema="${k}">${icone(TEMAS[k].ic)}${esc(TEMAS[k].nome)} <i>${reportagens.filter(p => p.tema === k).length}</i></button>`).join('')}</div>
       <label class="busca">${icone('busca')}<span class="vis-oculto">Buscar no radar</span><input type="search" placeholder="Buscar: IA, Prosci, carve-out…" data-busca-campo autocomplete="off"></label>
+      <div class="visao" role="group" aria-label="Formato da lista"><button type="button" data-visao="grade" aria-pressed="true" aria-label="Ver em grade" data-dica="Grade">${icone('grade')}</button><button type="button" data-visao="lista" aria-pressed="false" aria-label="Ver em lista" data-dica="Lista">${icone('lista')}</button></div>
     </div>
     <div class="grade grade--radar" data-grade>${reportagens.map(p => cartao(p, raiz)).join('\n')}</div>
     <p class="vazio" data-vazio hidden>Nada no radar com esse filtro. Tente outro tema ou outra palavra.</p>
@@ -185,7 +229,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
   const blocoGuias = `<section class="sec sec--guias" id="guias" aria-labelledby="guias-t">
   <div class="sec-in">
     ${titSecao('guias', 'Guias de campo', 'Como fazer Change Management em…', 'Quatro contextos em que a gestão da mudança muda de forma. Um guia direto para cada um.')}
-    <div class="guias">${guias.map((p, i) => `<article class="guia revela" style="--i:${i}">
+    <div class="guias">${guias.map((p, i) => `<article class="guia revela" data-slug="${esc(p.slug)}" style="--i:${i}">
       <a class="guia-capa" href="${urlPost(raiz, p)}" tabindex="-1" aria-hidden="true">${capa(p.tema, p.slug, { variante: ['a', 'b', 'c', 'a'][i % 4] })}</a>
       <div class="guia-corpo"><span class="guia-n">${String(i + 1).padStart(2, '0')}</span><h3><a href="${urlPost(raiz, p)}">${esc(p.titulo)}</a></h3><p>${esc(p.resumo)}</p>
       <ul>${(p.passos || []).slice(0, 3).map(s => `<li>${icone('check')}${esc(s)}</li>`).join('')}</ul>
@@ -228,8 +272,11 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
 
   const blocoEstante = estante && estante.itens.length ? `<section class="sec sec--estante" id="estante" aria-labelledby="estante-t">
   <div class="sec-in">
-    ${titSecao('estante', 'Sugestões', esc(estante.titulo), esc(estante.nota))}
-    <ol class="estante">${estante.itens.map((b, i) => `<li class="livro revela" style="--i:${Math.min(i, 7)}"><span class="livro-n">${String(i + 1).padStart(2, '0')}</span><span class="livro-txt"><small>${esc(b.tipo)}</small><b>${esc(b.titulo)}</b><i>${esc(b.autor)}</i><em>${esc(b.porque)}</em></span></li>`).join('')}</ol>
+    ${titSecao('estante', 'Sugestões', esc(estante.titulo), esc(estante.nota), `<div class="trilho-setas" data-trilho-setas="estante"><button type="button" data-trilho-ant aria-label="Livros anteriores">${icone('setaEsq')}</button><button type="button" data-trilho-prox aria-label="Próximos livros">${icone('seta')}</button></div>`)}
+    <div class="prateleira revela">
+      <ol class="estante" data-trilho="estante" data-cursor="Arraste">${estante.itens.map((b, i) => `<li class="livro" style="--v:${i % 4}"><button class="livro-obj" type="button" aria-expanded="false" aria-label="${esc(b.titulo)}, de ${esc(b.autor)}. Ver por que recomendo"><span class="livro-face livro-frente"><small>${esc(b.tipo)}</small><b${b.titulo.length > 34 ? ' class="livro-longo"' : ''}>${esc(b.titulo.split(':')[0])}</b><i>${esc(b.autor)}</i><span class="livro-n">${String(i + 1).padStart(2, '0')}</span></span><span class="livro-face livro-verso"><small>Por que recomendo</small><em>${esc(b.porque)}</em><i>${esc(b.titulo.split(':')[0])} · ${esc(b.autor)}</i></span></button></li>`).join('')}</ol>
+      <p class="prateleira-dica">${icone('mao')}Arraste a prateleira e toque num livro para virar</p>
+    </div>
   </div>
 </section>` : '';
   const sobre = `<section class="sec sec--sobre" id="sobre" aria-labelledby="sobre-t">
@@ -251,7 +298,7 @@ export function inicio({ cfg, posts, eventos, videos, perfil, home, lab = '', es
   </div>
 </section>`;
 
-  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + blocoCapa + atalhos + radar + ia + blocoGuias + lab + blocoVideos + blocoEventos + blocoMes + blocoEstante + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio' });
+  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + blocoCapa + atalhos + radar + ia + blocoGuias + lab + blocoVideos + blocoEventos + blocoMes + blocoEstante + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio', scripts: ['assets/js/mergulho.js'] });
 }
 
 // ---------- página de post ----------
@@ -294,7 +341,7 @@ export function post({ cfg, p, posts }) {
   <header class="sec-cab"><div><span class="olho">Continue no radar</span><h2 id="rel-t">Mais sobre ${esc(t.nome)}</h2></div><a class="link-seta" href="${raiz}index.html#radar">Ver tudo${icone('seta')}</a></header>
   <div class="grade grade--rel">${[...relacionados, ...outros].map(x => cartao(x, raiz)).join('\n')}</div>
 </div></section>`;
-  return pagina({ cfg, raiz, titulo: p.titulo, descricao: p.resumo, corpo, caminho: `posts/${p.slug}/`, imagem: `assets/img/og/${p.slug}.jpg`, tipo: 'article', classe: 'pg-post', artigo: { data: p.data, secao: t.nome } });
+  return pagina({ cfg, raiz, titulo: p.titulo, descricao: p.resumo, corpo, caminho: `posts/${p.slug}/`, imagem: `assets/img/og/${p.slug}.jpg`, tipo: 'article', classe: 'pg-post', artigo: { data: p.data, secao: t.nome }, attrs: ` data-slug="${esc(p.slug)}" data-min="${p.min}"` });
 }
 
 // ---------- posts do mês (página minimalista) ----------
@@ -318,7 +365,7 @@ export function cartaoOG({ cfg, p }) {
   const t = p ? tema(p) : null;
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../assets/css/site.css"><style>html,body{margin:0;width:1200px;height:627px;overflow:hidden}</style></head>
 <body><div class="og">
-  <div class="og-arte">${p && p.arte ? p.arte : p ? capa(p.tema, p.slug, { variante: 'a' }) : `<div class="og-globo">${globo()}</div>`}</div>
+  <div class="og-arte">${p && p.arte ? p.arte : p ? capa(p.tema, p.slug, { variante: 'a' }) : `<div class="og-gelo">${iceberg({ recorte: [60, 40, 440, 627], id: 'og' })}</div>`}</div>
   <div class="og-txt"><div class="og-marca">${marca()}<span>Change Management <i>World</i></span></div>
     <div><span class="og-chip">${esc(p ? (p.tipo === 'lab' ? 'Laboratório' : p.tipo === 'guia' ? 'Guia de campo' : p.tipo === 'capa' ? 'Capa da semana' : t.nome) : cfg.edicao.rotulo)}</span><h1 class="${p && p.titulo.length > 70 ? 'og-menor' : ''}">${esc(p ? p.titulo : cfg.lema)}</h1></div>
     <p>${esc(cfg.autor)} · ${esc(cfg.papel)}</p></div>

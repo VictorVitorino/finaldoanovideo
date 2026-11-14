@@ -37,5 +37,143 @@
     "microsoft-detalha-como-conduz-a-mudanca-na-adocao-interna",
     "ai-act-inferir-emocoes-de-funcionarios-com-ia-e-pratica",
     "accenture-uso-diario-de-ia-cresce-mas-so-15-redesenham"
-  ]
+  ],
+  "regua": {
+    "olho": "Experimente",
+    "titulo": "Arraste a pessoa pela régua de adoção",
+    "nota": "Posição é momento, não rótulo. Veja como a conversa muda em cada marca.",
+    "inicial": 2,
+    "marcas": [
+      {
+        "nome": "Resiste",
+        "estado": "Ainda não vê motivo para mudar.",
+        "acao": "Escuta",
+        "como": "Ouvir o motivo e ajustar a mensagem."
+      },
+      {
+        "nome": "Observa",
+        "estado": "Espera para ver funcionar.",
+        "acao": "Exemplo",
+        "como": "Mostrar funcionando, com gente parecida."
+      },
+      {
+        "nome": "Experimenta",
+        "estado": "Testa, com apoio.",
+        "acao": "Prática",
+        "como": "Tempo protegido e apoio por perto."
+      },
+      {
+        "nome": "Adota",
+        "estado": "Usa na rotina.",
+        "acao": "Reforço",
+        "como": "Reconhecer e tirar atritos da rotina."
+      },
+      {
+        "nome": "Multiplica",
+        "estado": "Ensina os colegas.",
+        "acao": "Palco",
+        "como": "Dar voz e formar a rede."
+      }
+    ]
+  },
+  "abertura": {
+    "titulo": [
+      "Gestão da mudança,",
+      "*além do raso*."
+    ],
+    "lead": "Comunicado, treinamento e go-live são a ponta. O que decide se a mudança acontece fica embaixo d'água: confiança, cultura, fadiga, o exemplo de quem lidera. Notícias, pesquisas e guias de campo, por Victor Vitorino."
+  },
+  "iceberg": {
+    "dica": "Arraste para mergulhar",
+    "zonas": [
+      {
+        "ate": 0.08,
+        "nome": "Superfície",
+        "frase": "O que todo mundo vê"
+      },
+      {
+        "ate": 0.42,
+        "nome": "Logo abaixo",
+        "frase": "O que as pessoas sentem"
+      },
+      {
+        "ate": 0.8,
+        "nome": "Fundo",
+        "frase": "O que sustenta a mudança"
+      },
+      {
+        "ate": 1,
+        "nome": "Base",
+        "frase": "O que quase ninguém mede"
+      }
+    ],
+    "superficie": [
+      {
+        "t": "Comunicado",
+        "x": 104,
+        "y": 148
+      },
+      {
+        "t": "Treinamento",
+        "x": 398,
+        "y": 196
+      },
+      {
+        "t": "Go-live",
+        "x": 84,
+        "y": 246
+      }
+    ],
+    "fundo": [
+      {
+        "t": "Fadiga de mudança",
+        "slug": "pwc-27-dos-trabalhadores-citam-fadiga-como-limite-a",
+        "x": 196,
+        "y": 396
+      },
+      {
+        "t": "Dissonância",
+        "slug": "estudo-no-mit-smr-o-que-cansa-nao-e-a-mudanca-e-a",
+        "x": 398,
+        "y": 470
+      },
+      {
+        "t": "Confiança",
+        "slug": "reorganizacao-88-dos-lideres-confiam-so-36-dos-funcionarios",
+        "x": 152,
+        "y": 574
+      },
+      {
+        "t": "Exemplo de quem lidera",
+        "slug": "reino-unido-lideres-incentivam-o-uso-de-ia-mas-poucos-dao-o",
+        "x": 412,
+        "y": 664
+      },
+      {
+        "t": "Cultura",
+        "slug": "kpmg-lideranca-e-cultura-desalinhadas-sao-o-risco-mais",
+        "x": 196,
+        "y": 776
+      },
+      {
+        "t": "Uso de verdade",
+        "slug": "deloitte-medir-adocao-de-ia-por-login-esconde-quem-nao",
+        "x": 392,
+        "y": 878
+      },
+      {
+        "t": "Contexto da organização",
+        "slug": "work-trend-index-organizacao-pesa-mais-que-o-individuo-no",
+        "x": 200,
+        "y": 1000
+      },
+      {
+        "t": "Perfil de cada pessoa",
+        "slug": "mapa-de-perfil-cognitivo",
+        "x": 268,
+        "y": 1150
+      }
+    ],
+    "fim": "É aqui embaixo que a mudança se decide."
+  }
 }

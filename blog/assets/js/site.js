@@ -7,16 +7,14 @@
   const topo = $('[data-topo]');
   const aoRolar = () => topo && topo.classList.toggle('rolou', scrollY > 8);
   addEventListener('scroll', aoRolar, { passive: true }); aoRolar();
-  const btnMenu = $('[data-menu]'), menu = $('#menu-mob');
-  if (btnMenu && menu) {
-    const fecha = () => { menu.hidden = true; btnMenu.setAttribute('aria-expanded', 'false'); btnMenu.setAttribute('aria-label', 'Abrir menu'); };
-    btnMenu.addEventListener('click', () => {
-      const abrir = menu.hidden;
-      menu.hidden = !abrir; btnMenu.setAttribute('aria-expanded', String(abrir)); btnMenu.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
-    });
-    menu.addEventListener('click', e => { if (e.target.closest('a')) fecha(); });
-    addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { fecha(); btnMenu.focus(); } });
-    matchMedia('(min-width: 1101px)').addEventListener('change', fecha);
+  const btnMenu = $('[data-menu]'), menu = $('#menu');
+  if (btnMenu && menu && menu.showModal) {
+    const fecha = () => { if (!menu.open || menu.classList.contains('saindo')) return; menu.classList.add('saindo'); setTimeout(() => { menu.classList.remove('saindo'); menu.close(); }, calmo ? 0 : 260); };
+    btnMenu.addEventListener('click', e => { e.preventDefault(); if (menu.open) return fecha(); menu.showModal(); btnMenu.setAttribute('aria-expanded', 'true'); document.documentElement.classList.add('trava'); });
+    menu.addEventListener('close', () => { btnMenu.setAttribute('aria-expanded', 'false'); document.documentElement.classList.remove('trava'); });
+    btnMenu.addEventListener('keydown', e => { if (e.key === ' ') { e.preventDefault(); btnMenu.click(); } });   // é um link com papel de botão: a barra de espaço também abre
+    menu.addEventListener('cancel', e => { e.preventDefault(); fecha(); });
+    menu.addEventListener('click', e => { if (e.target.closest('a, [data-menu-fechar], [data-abrir-busca]')) fecha(); });
   }
 
   // entrada ao rolar e capas que só se movem quando estão na tela
@@ -37,15 +35,6 @@
     const alvo = new Map(links.map(a => [$(a.hash), a]));
     const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.remove('aqui')); alvo.get(e.target).classList.add('aqui'); } }), { rootMargin: '-45% 0px -50% 0px' });
     alvo.forEach((_, sec) => spy.observe(sec));
-  }
-
-  // paralaxe leve do globo com o ponteiro
-  const par = $('[data-paralaxe]');
-  if (par && !calmo && matchMedia('(pointer: fine)').matches) {
-    addEventListener('pointermove', e => {
-      par.style.setProperty('--px', ((e.clientX / innerWidth) - 0.5).toFixed(3));
-      par.style.setProperty('--py', ((e.clientY / innerHeight) - 0.5).toFixed(3));
-    }, { passive: true });
   }
 
   // radar: filtro por tema, busca e "mostrar mais"
@@ -77,7 +66,6 @@
     campo.addEventListener('input', () => { limite = PASSO; aplica(); });
     mais.addEventListener('click', () => { limite += PASSO; aplica(); });
     $$('[data-filtrar]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const t = a.dataset.filtrar; escolhe(filtros.some(b => b.dataset.tema === t) ? t : '', true); }));
-    $$('[data-abrir-busca]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); $('#radar').scrollIntoView({ behavior: calmo ? 'auto' : 'smooth' }); setTimeout(() => campo.focus({ preventScroll: true }), calmo ? 0 : 500); }));
     const inicial = new URLSearchParams(location.search).get('tema');
     escolhe(filtros.some(b => b.dataset.tema === inicial) ? inicial : '');
   }

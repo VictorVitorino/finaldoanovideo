@@ -33,43 +33,83 @@ const I = {
   grade: '<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
   lista: '<path d="M9 7h11M9 12h11M9 17h11"/><circle cx="4.800" cy="7" r="1.200" fill="currentColor"/><circle cx="4.800" cy="12" r="1.200" fill="currentColor"/><circle cx="4.800" cy="17" r="1.200" fill="currentColor"/>',
   linkedin: '<path d="M6.500 9.500v9M6.500 6.200v.1M10.500 18.500v-5a3 3 0 016 0v5M10.500 9.500v9" stroke-width="2.400"/>',
+  mao: '<path d="M8.500 12.500V6a1.500 1.500 0 013 0v5M11.500 10.500V4.500a1.500 1.500 0 013 0v6M14.500 10.500V6a1.500 1.500 0 013 0v8.500c0 3.500-2.500 6-6 6h-1c-2 0-3.500-1-4.500-2.500L4 14.500c-.6-1 .6-2.200 1.700-1.400l2.800 2.400"/>',
+  marcador: '<path d="M7 4.500h10a1 1 0 011 1V20l-6-4-6 4V5.500a1 1 0 011-1z"/>',
+  setaEsq: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  setaCima: '<path d="M12 19V5M6 11l6-6 6 6"/>',
 };
 export const icone = (nome, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.900" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${(I[nome] || I.globo).replace(/(\d)\.(\d)00/g, '$1.$2')}</svg>`;
 
-// ---------- marca: um globo de traço fino com um ponto em órbita ----------
-export const marca = (cls = '') => `<svg class="marca ${cls}" viewBox="0 0 48 48" aria-hidden="true">
-  <circle cx="24" cy="24" r="14.5" fill="var(--azul-p)"/>
-  <g fill="none" stroke="#fff" stroke-width="1.4" opacity=".9"><ellipse class="marca-meridiano" cx="24" cy="24" rx="6.2" ry="14.5"/><path d="M9.5 24h29M12 17h24M12 31h24" opacity=".6"/></g>
-  <g class="marca-orbita"><ellipse cx="24" cy="24" rx="21.5" ry="8.5" fill="none" stroke="var(--azul)" stroke-width="1.6" transform="rotate(-24 24 24)"/><circle cx="43.6" cy="15.3" r="3.1" fill="var(--azul)"/></g></svg>`;
+const rnd = h => { let s = h || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; };
 
-// ---------- globo da abertura (sobre fundo azul profundo) ----------
-// Esfera em traço fino: meridianos que giram, paralelos, rotas entre pontos, pulsos e um satélite em órbita.
-export function globo() {
-  const C = 280, R = 204;
-  const mer = [0, 1, 2, 3, 4, 5, 6].map(i => `<ellipse class="g-mer" style="--d:${(-i * 2.3).toFixed(2)}s" cx="${C}" cy="${C}" rx="${R}" ry="${R}"/>`).join('');
-  const par = [-150, -100, -50, 0, 50, 100, 150].map(dy => { const rx = Math.sqrt(R * R - dy * dy); return `<ellipse cx="${C}" cy="${C + dy}" rx="${rx.toFixed(1)}" ry="${(rx * 0.13).toFixed(1)}"/>`; }).join('');
-  const P = [[196, 190], [352, 164], [396, 286], [246, 330], [330, 392], [150, 280]];
-  const rotas = [[0, 1], [1, 2], [0, 3], [3, 4], [5, 3], [2, 4]].map(([a, b], i) => {
-    const [x1, y1] = P[a], [x2, y2] = P[b], mx = (x1 + x2) / 2 + (y1 - y2) * 0.28, my = (y1 + y2) / 2 + (x2 - x1) * 0.28 - 18;
-    return `<path class="g-rota" style="--d:${(i * 0.9).toFixed(1)}s" pathLength="1" d="M${x1} ${y1}Q${mx.toFixed(0)} ${my.toFixed(0)} ${x2} ${y2}"/>`;
-  }).join('');
-  const pinos = P.map(([x, y], i) => `<g class="g-pino" style="--d:${(i * 0.7).toFixed(2)}s" transform="translate(${x} ${y})"><circle class="g-onda" r="5"/><circle r="4.5" fill="#fff"/></g>`).join('');
-  return `<svg class="globo" viewBox="0 0 560 560" aria-hidden="true">
+// ---------- marca: o mundo visto abaixo da superfície (um círculo, a linha d'água e um iceberg) ----------
+export const marca = (cls = '') => `<svg class="marca ${cls}" viewBox="0 0 48 48" aria-hidden="true">
+  <circle cx="24" cy="24" r="21" fill="var(--azul-p)"/>
+  <path class="marca-agua" d="M3.1 22A21 21 0 1 0 44.9 22Z" fill="var(--azul)"/>
+  <g class="marca-gelo"><path d="M24 8.5l6.2 13.5H17.4z" fill="#fff"/><path d="M14.5 22h19l2.8 7-6.3 9.6-7.6 1.6-7.4-8.4z" fill="#fff" opacity=".42"/></g>
+  <path class="marca-onda" d="M3.1 22q5.2-2.4 10.4 0t10.5 0 10.4 0 10.5 0" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+
+// ---------- iceberg da abertura ----------
+// Cena de 560 x 1480: céu até a linha d'água (y = 300), a ponta do iceberg acima e a massa submersa abaixo.
+// O mergulho e os pontos clicáveis ficam em assets/js/mergulho.js; aqui só o desenho. "recorte" troca o viewBox (imagem de compartilhamento).
+export const CENA = { L: 560, A: 1480, agua: 300 };
+export function iceberg({ recorte, id = 'ice' } = {}) {
+  const { L, A, agua } = CENA, r = rnd(20261114);
+  const pol = (pts, attrs) => `<path d="M${pts.map(([x, y]) => `${x} ${y}`).join('L')}Z" ${attrs}/>`;
+  // ponta: facetas claras, com a face esquerda iluminada
+  const ponta = [
+    [[[286, 96], [262, 138], [280, 190], [306, 150]], '#FFFFFF'],
+    [[[262, 138], [238, 214], [280, 190]], '#EAF1FE'],
+    [[[306, 150], [280, 190], [330, 176]], '#D5E1F8'],
+    [[[238, 214], [214, 236], [196, 300], [256, 300], [280, 190]], '#C6D5F3'],
+    [[[280, 190], [256, 300], [318, 300], [330, 176]], '#F4F7FD'],
+    [[[330, 176], [318, 300], [372, 300], [350, 238]], '#AFC3EC'],
+  ].map(([pts, cor]) => pol(pts, `fill="${cor}"`)).join('');
+  // massa submersa: contorno esquerdo, direito e espinha, nível a nível; cada faixa vira quatro facetas
+  const NIV = [300, 380, 470, 580, 700, 800, 920, 1010, 1120, 1210, 1290];
+  const ESQ = [150, 120, 86, 70, 96, 84, 128, 170, 206, 250, 286], DIR = [408, 430, 470, 492, 462, 478, 452, 404, 372, 322, 286];
+  const MEIO = [280, 268, 292, 266, 286, 272, 290, 280, 286, 284, 286], DES = [0, 16, -12, 18, -10, 14, -8, 12, -6, 0, 0];
+  let massa = '';
+  for (let i = 0; i < NIV.length - 1; i++) {
+    const e1 = [ESQ[i], NIV[i]], e2 = [ESQ[i + 1], NIV[i + 1]], d1 = [DIR[i], NIV[i]], d2 = [DIR[i + 1], NIV[i + 1]];
+    const m1 = [MEIO[i], NIV[i] + DES[i]], m2 = [MEIO[i + 1], NIV[i + 1] + DES[i + 1]];
+    const fundo = i / (NIV.length - 1), base = 0.56 - fundo * 0.38;
+    const op = k => (base * k * (0.82 + r() * 0.36)).toFixed(2);
+    massa += pol([e1, m1, e2], `fill="#CFE0FF" opacity="${op(1.08)}"`) + pol([m1, m2, e2], `fill="#CFE0FF" opacity="${op(0.86)}"`)
+      + pol([m1, d1, d2], `fill="#BCD0FA" opacity="${op(0.7)}"`) + pol([m1, d2, m2], `fill="#BCD0FA" opacity="${op(0.56)}"`);
+  }
+  const contorno = [...ESQ.map((x, i) => [x, NIV[i]]), ...DIR.map((x, i) => [x, NIV[i]]).reverse().slice(1)];
+  // ondas: período de 140, três telas de largura para o laço
+  const onda = y => `M-280 ${y}${Array.from({ length: 16 }, (_, k) => (k ? 't70 0' : 'q35 -9 70 0')).join('')}`;
+  const raios = [[104, 26, 70, 96], [226, 34, 240, 110], [352, 22, 322, 84], [462, 30, 488, 104]].map(([x, w, x2, w2], k) => `<path class="raio" style="--d:${(k * -2.1).toFixed(1)}s" d="M${x} ${agua}L${x2 - w2 / 2} ${agua + 640}h${w2}L${x + w} ${agua}Z" fill="url(#${id}-raio)"/>`).join('');
+  const bolhas = Array.from({ length: 16 }, (_, k) => { const x = 30 + r() * 500, y = 520 + r() * 900, rr = 2 + r() * 5; return `<g class="bolha" style="--d:${(-r() * 14).toFixed(1)}s;--t:${(9 + r() * 9).toFixed(1)}s;--x:${((r() - 0.5) * 34).toFixed(0)}px"><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${rr.toFixed(1)}" fill="#fff" fill-opacity=".07" stroke="#fff" stroke-opacity=".5" stroke-width=".9"/><circle cx="${(x - rr * 0.35).toFixed(1)}" cy="${(y - rr * 0.35).toFixed(1)}" r="${(rr * 0.22).toFixed(1)}" fill="#fff" fill-opacity=".7"/></g>`; }).join('');
+  const plancton = Array.from({ length: 46 }, () => `<circle class="plancton" style="--d:${(-r() * 6).toFixed(1)}s" cx="${(r() * L).toFixed(0)}" cy="${(agua + 40 + r() * (A - agua - 60)).toFixed(0)}" r="${(0.6 + r() * 1.1).toFixed(1)}"/>`).join('');
+  const peixe = (y, d, t, s) => `<g transform="translate(0 ${y}) scale(${s})"><g class="peixe" style="--d:${d}s;--t:${t}s"><path d="M0 0c7-6 17-6 24 0-7 6-17 6-24 0zM24 0l7-5v10z"/></g></g>`;
+  const escala = [1, 2, 3, 4, 5, 6].map(k => { const y = agua + k * 160; return `<path d="M0 ${y}h16" stroke="#fff" stroke-opacity=".4"/><text x="22" y="${y + 4}">${k * 10} m</text>`; }).join('');
+  return `<svg class="cena" viewBox="${recorte ? recorte.join(' ') : `0 0 ${L} ${A}`}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <defs>
-    <radialGradient id="g-esfera" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#5B8DF5" stop-opacity=".5"/><stop offset=".6" stop-color="#2F6FED" stop-opacity=".16"/><stop offset="1" stop-color="#2F6FED" stop-opacity="0"/></radialGradient>
-    <clipPath id="g-clip"><circle cx="${C}" cy="${C}" r="${R}"/></clipPath>
-    <path id="g-orbita" d="M30 280C30 214 142 160 280 160s250 54 250 120-112 120-250 120S30 346 30 280z" transform="rotate(-20 280 280)"/>
+    <linearGradient id="${id}-ceu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0A2463"/><stop offset="1" stop-color="#16409C"/></linearGradient>
+    <linearGradient id="${id}-mar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A66E0"/><stop offset=".16" stop-color="#1A4CBD"/><stop offset=".42" stop-color="#0F3590"/><stop offset=".72" stop-color="#0A2463"/><stop offset="1" stop-color="#060F2E"/></linearGradient>
+    <linearGradient id="${id}-raio" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <radialGradient id="${id}-halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9DBDFF" stop-opacity=".5"/><stop offset="1" stop-color="#9DBDFF" stop-opacity="0"/></radialGradient>
   </defs>
-  <use href="#g-orbita" class="g-anel g-anel--tras"/>
-  <circle cx="${C}" cy="${C}" r="${R}" fill="url(#g-esfera)"/>
-  <g clip-path="url(#g-clip)" fill="none" stroke="#fff" stroke-width="1" opacity=".34">${mer}</g>
-  <g fill="none" stroke="#fff" stroke-width="1" opacity=".2">${par}</g>
-  <circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="#fff" stroke-width="1.4" opacity=".7"/>
-  <g fill="none" stroke="#8FB4FF" stroke-width="1.6" stroke-linecap="round">${rotas}</g>
-  ${pinos}
-  <use href="#g-orbita" class="g-anel g-anel--frente"/>
-  <g class="g-sat"><circle r="16" fill="#2F6FED" opacity=".25"/><circle r="6" fill="#fff"/>
-    <animateMotion dur="18s" repeatCount="indefinite" rotate="0"><mpath href="#g-orbita"/></animateMotion></g>
+  <rect width="${L}" height="${agua + 6}" fill="url(#${id}-ceu)"/>
+  <circle cx="290" cy="170" r="210" fill="url(#${id}-halo)"/>
+  <g class="cena-linhas" stroke="#fff" stroke-opacity=".07">${[60, 120, 180, 240].map(y => `<path d="M0 ${y}H${L}"/>`).join('')}</g>
+  <path class="onda onda--tras" d="${onda(agua - 5)}V${agua + 30}H-280Z" fill="#5E8DF0" opacity=".5"/>
+  <rect y="${agua}" width="${L}" height="${A - agua}" fill="url(#${id}-mar)"/>
+  <g class="raios">${raios}</g>
+  <g class="plancton-g" fill="#fff">${plancton}</g>
+  <g class="peixes" fill="#fff" opacity=".34">${peixe(690, -3, 38, 1)}${peixe(735, -9, 44, 0.7)}${peixe(1080, -20, 52, 0.85)}</g>
+  <g class="gelo">
+    <g class="gelo-massa">${massa}${pol(contorno, 'fill="none" stroke="#fff" stroke-opacity=".34" stroke-width="1.2" stroke-linejoin="round"')}
+      <path d="M${MEIO.map((x, i) => `${x} ${NIV[i] + DES[i]}`).join('L')}" fill="none" stroke="#fff" stroke-opacity=".2"/></g>
+    <g class="gelo-ponta" stroke="#0A2463" stroke-opacity=".1" stroke-width=".8" stroke-linejoin="round">${ponta}</g>
+  </g>
+  <path class="onda onda--frente" d="${onda(agua)}V${agua + 26}H-280Z" fill="#2A66E0"/>
+  <path class="onda onda--brilho" d="${onda(agua)}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6" stroke-linecap="round"/>
+  <g class="bolhas">${bolhas}</g>
+  <g class="cena-escala" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#fff" fill-opacity=".5">${escala}</g>
   </svg>`;
 }
 
@@ -79,7 +119,6 @@ const L = 'fill="none" stroke="var(--l)" stroke-width="1.3"';
 const K = 'fill="none" stroke="var(--f1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 const ponto = (x, y, r = 4, c = 'f1') => `<circle cx="${x}" cy="${y}" r="${r}" fill="var(--${c})"/>`;
 const halo = (x, y, d = 0) => `<circle class="c-halo" style="--d:${d}s" cx="${x}" cy="${y}" r="5" fill="none" stroke="var(--f2)" stroke-width="1.6"/>`;
-const rnd = h => { let s = h || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; };
 const MOTIVOS = {
   ia(h) {
     const r = rnd(h), N = [];

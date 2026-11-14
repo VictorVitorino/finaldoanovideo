@@ -8,16 +8,17 @@ Blog de notícias sobre Gestão da Mudança (Change Management), de Victor Vitor
 
 | Bloco | O que mostra |
 |---|---|
-| Abertura | Nome do blog, edição, globo animado com os temas e a faixa "Radar" com as manchetes. |
-| Capa da semana | A reportagem principal (com vídeo, se houver) e três destaques da edição. |
+| Abertura | Chamada "Gestão da mudança, além do raso", edição, o iceberg interativo (arraste para mergulhar; cada ponto abaixo d'água abre uma reportagem) e a faixa "Radar" com as manchetes, que também pode ser arrastada. |
+| Capa da semana | A reportagem principal (com vídeo, se houver), três destaques da edição e a régua de adoção, em que se arrasta a pessoa de "resiste" a "multiplica". |
 | Temas | Atalhos que filtram o radar por tema. |
-| Radar mundial | Todas as reportagens, com filtro por tema e busca. Cada uma cita e linka a fonte. |
+| Radar mundial | Todas as reportagens, com filtro por tema, busca e visão em grade ou em lista. Cada cartão tem leitura rápida e "guardar para ler depois". Cada reportagem cita e linka a fonte. |
 | IA & Mudança | Números das pesquisas e reportagens sobre uso de IA na prática. |
 | Guias de campo | Como fazer Change Management em carve-out, due diligence, transformação e governança de TI. |
 | Laboratório | Diagnóstico de nível e ferramentas interativas (RACI, mapa de influência, matriz de adoção). |
 | Vídeos | O vídeo do blog e uma seleção externa. |
 | Eventos | Agenda (estrutura pronta; cresce a cada edição). |
 | Posts do mês | Lista enxuta do que saiu, por mês, com página própria em `mes/AAAA-MM/`. |
+| Sugestões | Estante de livros: a prateleira desliza e cada livro vira para mostrar por que recomendo. |
 | Quem escreve | Perfil, o que gosto e fun fact. |
 
 ## Laboratório (área interativa)
@@ -109,7 +110,7 @@ blog/
   assets/css, js, fonts, img, video                      estilo, comportamento, fontes e mídia
   _src/
     site.config.json     nome, edição, endereço, LinkedIn
-    content/             posts (.md), home.json, perfil.json, eventos.json, videos.json
+    content/             posts (.md), home.json (destaques, números, chamada da abertura, iceberg e régua), perfil.json, eventos.json, videos.json, estante.json
     pesquisa/            apuração verificada (JSON)
     lib/                 modelos de página, ilustrações e utilitários
     build.mjs            gera as páginas
@@ -123,7 +124,8 @@ blog/
 - Cores: azul profundo `#0A2463`, azul vivo `#2F6FED` e cinza `#667085`, com tons claros derivados.
 - Tipos: Newsreader (títulos) e Inter (texto), servidos do próprio site (licença SIL Open Font).
 - Ilustrações: SVG em traço fino, geradas por `lib/ilustra.mjs` (uma por tema).
-- Animação: entradas suaves ao rolar, traços que se desenham, números que contam e globo em rotação. Quem pede menos movimento no sistema (`prefers-reduced-motion`) vê tudo parado.
+- Marca: um círculo com a linha d'água e um iceberg (o mundo visto abaixo da superfície).
+- Animação: entradas suaves ao rolar, traços que se desenham, números que contam, ondas e bolhas na cena do iceberg. Quem pede menos movimento no sistema (`prefers-reduced-motion`) vê tudo parado.
 
 ## Ver no computador
 
@@ -135,3 +137,29 @@ cd blog && python3 -m http.server 8765
 ## Camada de motion
 
 `assets/css/motion.css` e `assets/js/motion.js` entram em todas as páginas e são só enfeite: vinheta de abertura na página inicial (uma vez por visita), formas em movimento na abertura (canvas que reage ao ponteiro), grifo desenhado e letras em onda no título, palavras dos títulos de seção que sobem de trás de uma máscara, capas que entram em cortina, cartões com inclinação 3D e brilho, formas que acompanham a rolagem, barra de progresso e transição entre páginas. Com "reduzir movimento" ligado no sistema, tudo isso fica desligado.
+
+## Conceito: além do raso
+
+O blog mostra o que fica abaixo da superfície da gestão da mudança. A abertura traduz isso em um iceberg: a ponta é o que todo mundo vê (comunicado, treinamento, go-live) e a massa submersa é o que decide a mudança. Tudo é editável em `_src/content/home.json`:
+
+- `abertura`: as linhas do título (o trecho entre asteriscos vira o destaque) e o texto de apoio.
+- `iceberg.superficie`: as etiquetas da ponta. `iceberg.fundo`: os pontos abaixo d'água, cada um com rótulo, `slug` da reportagem que abre e posição (`x` de 0 a 560, `y` de 300 a 1290, medidas do desenho). `iceberg.zonas`: os nomes mostrados conforme a profundidade.
+- `regua`: as cinco marcas da régua de adoção, com o estado e a ação de cada uma (textos da matéria de capa).
+
+O lema ("Gestão da mudança além do raso") e a descrição do site ficam em `_src/site.config.json`.
+
+## Camada de interação
+
+`assets/css/ux.css`, `assets/js/ux.js` e `assets/js/mergulho.js` (só na página inicial) cuidam do acabamento em vidro e de tudo o que se arrasta e clica. `assets/js/dados.js` é gerado pelo build com a lista de posts, ferramentas e modelos.
+
+| Recurso | Como funciona |
+|---|---|
+| Menu | Cápsula de vidro no topo, com seis seções, busca, lista de salvos e o botão Menu, que abre o menu completo em tela cheia. |
+| Busca do site | Ícone da lupa, `Ctrl K` ou `/`. Procura em reportagens, guias, ferramentas, modelos e seções, sem depender de acentos. |
+| Leitura rápida | O olho no cartão (ou um ponto do iceberg) abre a matéria em uma folha lateral, sem sair da página; no celular, a folha sobe de baixo. Setas trocam de matéria e o endereço ganha `#ler/<slug>`, que pode ser compartilhado. |
+| Para ler depois | O marcador guarda a matéria em uma lista que fica só no aparelho da pessoa (`localStorage`). O painel também mostra quantas publicações ela já leu. |
+| Barra de leitura (posts) | Progresso e tempo que falta, tamanho do texto, ouvir em voz alta (voz do próprio aparelho), modo foco, guardar e buscar. Guias com três ou mais partes ganham sumário. Selecionar um trecho oferece copiar como citação, com o link. |
+| Profundímetro | Em telas largas, um mapa das seções da página inicial na lateral direita. |
+
+Nada disso envia dados para fora: salvos, lidos e preferências ficam no navegador de quem lê. Sem JavaScript, o site continua legível: a régua vira lista, a cena do iceberg rola por conta própria e os livros mostram frente e verso.
+

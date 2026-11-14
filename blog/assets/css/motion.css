@@ -20,9 +20,11 @@
 @keyframes marca-some { to { opacity: 0; transform: translateY(-26px) scale(.96); } }
 .vinheta-marca svg { width: 104px; height: 104px; overflow: visible; }
 .vinheta-marca .v-globo { transform-origin: 24px 24px; animation: v-pop .7s cubic-bezier(.2, 1.4, .3, 1) both; }
-.vinheta-marca .v-linhas { stroke-dasharray: 1; stroke-dashoffset: 1; animation: desenha .7s .2s cubic-bezier(.3, .7, .2, 1) forwards; }
-.vinheta-marca .v-orbita { stroke-dasharray: 1; stroke-dashoffset: 1; animation: desenha .75s .25s cubic-bezier(.3, .7, .2, 1) forwards; }
-.vinheta-marca .v-lua { transform-origin: 43.6px 15.3px; animation: v-pop .5s .75s cubic-bezier(.2, 1.6, .3, 1) both; }
+.vinheta-marca .v-linhas { stroke-dasharray: 1; stroke-dashoffset: 1; animation: desenha .7s .35s cubic-bezier(.3, .7, .2, 1) forwards; }
+.vinheta-marca .v-agua { opacity: 0; animation: v-agua .5s .25s ease-out forwards; }
+.vinheta-marca .v-gelo { transform: translateY(13px); opacity: 0; animation: v-emerge .8s .4s cubic-bezier(.2, 1.3, .3, 1) forwards; }
+@keyframes v-agua { to { opacity: .55; } }
+@keyframes v-emerge { to { transform: none; opacity: 1; } }
 @keyframes v-pop { from { transform: scale(0); } }
 .vinheta-nome { font-family: var(--tit); font-size: clamp(1.5rem, 3.4vw, 2.3rem); letter-spacing: -.01em; display: flex; gap: .28em; overflow: hidden; padding-bottom: .12em; }
 .vinheta-nome span { display: inline-block; transform: translateY(115%); animation: sobe .7s cubic-bezier(.2, .7, .2, 1) forwards; animation-delay: calc(.3s + var(--i) * 90ms); }
@@ -48,8 +50,6 @@
 .letra { display: inline-block; animation: onda-letra 5.5s cubic-bezier(.3, 0, .3, 1) infinite; animation-delay: calc(2.4s + var(--i) * 55ms); }
 @keyframes onda-letra { 0%, 14%, 100% { transform: none; } 5% { transform: translateY(-.13em) rotate(-3deg); } 9% { transform: translateY(.03em); } }
 
-/* rótulos do globo flutuam em tempos diferentes */
-.js .g-rotulo { animation-name: surge, flutua; animation-duration: .8s, calc(5s + var(--i) * .7s); animation-delay: calc(.9s + var(--i) * .12s), calc(1.8s + var(--i) * .3s); animation-timing-function: var(--ease), ease-in-out; animation-iteration-count: 1, infinite; animation-direction: normal, alternate; animation-fill-mode: both, none; }
 @keyframes flutua { from { translate: 0 0; } to { translate: 0 -9px; } }
 
 /* ---------- títulos de seção: palavras que sobem e marcador que muda de forma ---------- */
@@ -97,7 +97,7 @@
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
   .pal > span { transform: none; transition: none; }
-  .letra, .js .g-rotulo, .js .sec-cab .olho::before, .js .lab-cab .olho::before { animation: none; }
+  .letra, .js .sec-cab .olho::before, .js .lab-cab .olho::before { animation: none; }
   .js .revela .cartao-capa, .js .revela .guia-capa { clip-path: none; }
   .grifo-mao path { animation: none; stroke-dashoffset: 0; }
   .formas, .enfeite, .progresso, .abertura-luz { display: none; }

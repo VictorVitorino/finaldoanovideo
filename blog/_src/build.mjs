@@ -32,6 +32,8 @@ export function carrega() {
 
 function gera() {
   const d = carrega(), { cfg, posts } = d;
+  const capaPost = posts.find(p => p.slug === cfg.edicao.capa);
+  if (capaPost) cfg.capaMenu = { slug: capaPost.slug, titulo: capaPost.titulo };
   for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
   const nPerguntas = d.dominios.reduce((a, x) => a + x.perguntas.length, 0);
   grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas), estante: existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null }));
@@ -52,11 +54,20 @@ function gera() {
     grava('assets/js/diagnostico-dados.js', `// Gerado por blog/_src/build.mjs a partir de _src/content/diagnostico. Não edite à mão.\nwindow.CMW_DIAG = ${JSON.stringify(dados)};\n`);
   }
   for (const p of posts) grava(`posts/${p.slug}/index.html`, post({ cfg, p, posts }));
+  // dados para a busca do site, a lista de salvos e a leitura rápida (assets/js/ux.js)
+  const curto = (s, n = 150) => s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : s;
+  const dados = {
+    posts: posts.map(p => ({ s: p.slug, t: p.titulo, r: curto(p.resumo), tp: p.tipo, tm: p.tema, tn: TEMAS[p.tema].nome, f: String(p.fonte_nome || '').split(/[,(|]/)[0].trim(), g: p.regiao || '', m: p.min })),
+    lab: FERRAMENTAS.map(f => ({ t: f.nome, d: curto(f.frase, 110), u: `lab/${f.slug}/` })),
+    modelos: json('modelos.json').map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
+    secoes: [['Radar mundial', '#radar'], ['IA & Mudança', '#ia'], ['Guias de campo', '#guias'], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Vídeos', '#videos'], ['Eventos', '#eventos'], ['Posts do mês', '#mes'], ['Sugestões de leitura', '#estante'], ['Quem escreve', '#sobre']].map(([t, u]) => ({ t, u: u[0] === '#' ? 'index.html' + u : u })),
+  };
+  grava('assets/js/dados.js', `// Gerado por blog/_src/build.mjs. Não edite à mão.\nwindow.CMW_DADOS = ${JSON.stringify(dados)};\n`);
   const porMes = {};
   for (const p of posts) (porMes[p.data.slice(0, 7)] = porMes[p.data.slice(0, 7)] || []).push(p);
   for (const [chave, lista] of Object.entries(porMes)) grava(`mes/${chave}/index.html`, mes({ cfg, chave, lista }));
   grava('404.html', naoAchou({ cfg }));
-  grava('assets/img/favicon.svg', marca().replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--azul\)/g, '#2450E6').replace(/var\(--ceu\)/g, '#8EC5FF'));
+  grava('assets/img/favicon.svg', marca().replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--azul-p\)/g, '#0A2463').replace(/var\(--azul\)/g, '#2F6FED'));
   if (cfg.url) {
     const base = cfg.url.replace(/\/$/, '');
     const urls = ['', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/'];
@@ -65,7 +76,7 @@ function gera() {
   }
   // referências a posts que não existem (início e "para ler junto")
   const existe = s => posts.some(p => p.slug === s);
-  for (const s of [...(d.home.destaques || []), ...(d.home.praticas || []), ...(d.home.numeros || []).map(n => n.slug), cfg.edicao.capa]) if (!existe(s)) console.log('aviso: home.json ou site.config.json cita um post que não existe: ' + s);
+  for (const s of [...(d.home.destaques || []), ...(d.home.praticas || []), ...(d.home.numeros || []).map(n => n.slug), ...((d.home.iceberg || {}).fundo || []).map(h => h.slug), cfg.edicao.capa]) if (!existe(s)) console.log('aviso: home.json ou site.config.json cita um post que não existe: ' + s);
   for (const p of posts) for (const s of p.relacionados || []) if (!existe(s)) console.log(`aviso: ${p.slug} cita em "relacionados" um post que não existe: ${s}`);
   const tipos = posts.reduce((a, p) => (a[p.tipo] = (a[p.tipo] || 0) + 1, a), {});
   console.log(`blog gerado: ${posts.length} posts (${Object.entries(tipos).map(([k, v]) => `${v} ${k}`).join(', ')}), ${d.eventos.length} eventos, ${d.videos.length} vídeos, laboratório com ${nPerguntas} perguntas`);

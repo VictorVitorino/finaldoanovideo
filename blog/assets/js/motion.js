@@ -11,9 +11,10 @@
   if (raiz.classList.contains('vinheta')) {
     try { sessionStorage.setItem('cmw-vinheta', '1'); } catch { /* sem memória de sessão: a vinheta só repete */ }
     const tela = cria('div', 'vinheta-tela', `<div class="vinheta-faixas">${[0, 1, 2, 3, 4].map(i => `<i style="--i:${i}"></i>`).join('')}</div>
-      <div class="vinheta-marca"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="v-globo" cx="24" cy="24" r="14.5" fill="#2F6FED"/>
-      <g fill="none" stroke="#fff" stroke-width="1.3"><ellipse class="v-linhas" pathLength="1" cx="24" cy="24" rx="6.2" ry="14.5"/><path class="v-linhas" pathLength="1" d="M9.5 24h29M12 17h24M12 31h24" opacity=".7"/></g>
-      <ellipse class="v-orbita" pathLength="1" cx="24" cy="24" rx="21.5" ry="8.5" fill="none" stroke="#9DBDFF" stroke-width="1.5" transform="rotate(-24 24 24)"/><circle class="v-lua" cx="43.6" cy="15.3" r="3.1" fill="#9DBDFF"/></svg>
+      <div class="vinheta-marca"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="v-globo" cx="24" cy="24" r="21" fill="#2F6FED"/>
+      <path class="v-agua" d="M3.1 22A21 21 0 1 0 44.9 22Z" fill="#0A2463"/>
+      <g class="v-gelo"><path d="M24 8.5l6.2 13.5H17.4z" fill="#fff"/><path d="M14.5 22h19l2.8 7-6.3 9.6-7.6 1.6-7.4-8.4z" fill="#fff" opacity=".5"/></g>
+      <path class="v-linhas" pathLength="1" d="M3.1 22q5.2-2.4 10.4 0t10.5 0 10.4 0 10.5 0" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
       <div class="vinheta-nome">${['Change', 'Management', 'World'].map((p, i) => `<span style="--i:${i}">${p}</span>`).join('')}</div><div class="vinheta-traco"></div></div>`);
     tela.setAttribute('aria-hidden', 'true');
     document.body.appendChild(tela);

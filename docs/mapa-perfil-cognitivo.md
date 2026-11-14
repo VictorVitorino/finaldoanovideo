@@ -4,12 +4,12 @@ Post de LinkedIn sobre Gestão da Mudança (Change Management), em motion graphi
 
 | Arquivo | Para quê |
 |---|---|
-| [`videos/mapa-perfil-cognitivo.mp4`](../videos/mapa-perfil-cognitivo.mp4) | Vídeo 1080 × 1350 (4:5), 89,6 s, 30 fps, com narração, trilha e legenda queimada (o feed toca mudo). |
+| [`videos/mapa-perfil-cognitivo.mp4`](../videos/mapa-perfil-cognitivo.mp4) | Vídeo 1080 × 1350 (4:5), 88 s, 30 fps, com narração, trilha e legenda queimada (o feed toca mudo). |
 | [`videos/mapa-perfil-cognitivo-capa.jpg`](../videos/mapa-perfil-cognitivo-capa.jpg) | Capa (miniatura) do vídeo. |
 
 ## Roteiro e tempos
 
-A narração é do ElevenLabs (voz **Doug – Warm, Confident, Conversational**, modelo `eleven_v4`, take 2 de 2; a assinatura final é um trecho gerado à parte com a mesma voz e emendado no fim). A fala não foi acelerada: cada frase foi recortada no silêncio natural e recolocada com respiros para a animação construir o mapa.
+A narração é do ElevenLabs (voz **Doug – Warm, Confident, Conversational**, modelo `eleven_v4`, take 2 de 2, cortada depois de "Gestão da Mudança."). A fala não foi acelerada: cada frase foi recortada no silêncio natural e recolocada com respiros para a animação construir o mapa.
 
 | Tempo | Cena | Narração | O que a tela constrói |
 |---|---|---|---|
@@ -22,9 +22,9 @@ A narração é do ElevenLabs (voz **Doug – Warm, Confident, Conversational**,
 | 0:47–0:58 | 04 · A ação | Com ele, a Gestão da Mudança deixa de ser receita única. Escuta para quem resiste. Prática para quem experimenta. Palco para quem multiplica. | O mapa vira um dashboard (indicadores e mapa de calor áreas × régua); a receita única dá lugar a uma ação por marca. |
 | 0:58–1:13 | 05 · O mapa vivo | Mas o mapa precisa estar vivo. Posição é momento, não rótulo: pessoas avançam, travam, recuam. A cada onda, medimos de novo e ajustamos o plano, antes e depois do go-live. | Dashboard ao vivo: a cada onda o mapa de calor, a rosca e a linha do índice de adoção mudam; o plano é ajustado; o foguete do go-live decola. |
 | 1:13–1:17 | Pergunta | No seu projeto, você sabe onde cada pessoa está hoje? | Tipografia grande; uma lupa transforma os "?" em pinos no mapa. |
-| 1:16–1:30 | Fecho | Adoção não se impõe. Se constrói. Pessoa por pessoa. Gestão da Mudança. Victor Vitorino. Consultor de Change Management. | Pinos sobem uma escada nas cores da régua; cartão final: "Mapa de Perfil Cognitivo · Mapa de Adoção", "Gestão da Mudança \| Change Management" e a assinatura "Victor Vitorino · Consultor de Change Management". |
+| 1:16–1:28 | Fecho | Adoção não se impõe. Se constrói. Pessoa por pessoa. Gestão da Mudança. | Pinos sobem uma escada nas cores da régua; cartão final: "Mapa de Perfil Cognitivo · Mapa de Adoção", "Gestão da Mudança \| Change Management" e, depois da última palavra, a marca "Victor Vitorino · Consultor de Change Management" (só na imagem). |
 
-A voz fecha com "Gestão da Mudança. Victor Vitorino. Consultor de Change Management." O nome da empresa não aparece nem é dito. A take `doug2v` é a `doug2` com esse fecho emendado (`audio/mapa/assinatura1.mp3`); a take `doug2` original, que terminava em "Alvarez and Marsal", continua na pasta.
+A voz termina em "Gestão da Mudança." **A marca pessoal é só visual**: não há nome de pessoa nem de empresa na narração. A take `doug2s` é a `doug2` cortada depois dessa frase; a `doug2` original, que terminava em "Alvarez and Marsal", continua na pasta.
 
 ## O modelo mostrado no vídeo
 
@@ -63,15 +63,15 @@ Adoção não se impõe. Se constrói, pessoa por pessoa.
 ## Antes de publicar
 
 1. **Método.** Confirme com o time os cinco sinais, as cinco marcas da régua, as ações e as fontes de leitura ("pesquisa curta, conversa com gestores e dados de uso"). São uma proposta para o vídeo.
-2. **Marca.** A assinatura usa "Victor Vitorino · Consultor de Change Management". Para trocar o texto, edite o topo em `animacao/src/mapa/filme.js` e o cartão final em `animacao/src/mapa/cenas/fecho.js`; para trocar a fala, gere outro trecho de voz e refaça a take.
-3. **Voz.** Ouça a narração inteira uma vez, com atenção a "go-live", "Cognitivo", "Vitorino" e "Change Management". A conferência aqui foi por transcrição automática, não por ouvido.
+2. **Marca.** A marca na tela é "Victor Vitorino · Consultor de Change Management". Para trocar o texto, edite o topo em `animacao/src/mapa/filme.js` e o cartão final em `animacao/src/mapa/cenas/fecho.js`.
+3. **Voz.** Ouça a narração inteira uma vez, com atenção a "go-live" e "Cognitivo". A conferência aqui foi por transcrição automática, não por ouvido.
 
 ## Como gerar de novo
 
 ```bash
 cd animacao
 npm install
-python3 producao/mapa_audio.py --take doug2v     # trilha (build/mapa/trilha.wav) e tempos (src/mapa/tempos.json)
+python3 producao/mapa_audio.py --take doug2s     # trilha (build/mapa/trilha.wav) e tempos (src/mapa/tempos.json)
 node render.mjs stills --page mapa.html --w 1080 --h 1350 --test filme --t 3,25,40,46,55,70,86 --out build/mapa/stills
 node render.mjs frames --page mapa.html --w 1080 --h 1350 --test filme --out build/mapa/frames --workers 4
 node render.mjs encode --frames build/mapa/frames --audio build/mapa/trilha.wav --out ../videos/mapa-perfil-cognitivo.mp4

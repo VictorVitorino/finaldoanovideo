@@ -111,7 +111,7 @@ export function desenhar(t, ctx) {
   const tSe = wa(iC - 1) - 0.06, tCons = m('constroi') - 0.06;   // "Se" e "constrói."
   const tP = [0, 1, 2].map(i => wa(iP + i) - 0.06);              // "Pessoa" "por" "pessoa."
   const tA2 = m('gestao') - 0.55, tGes = m('gestao') - 0.08;      // ato 2 (a tipografia sai antes, para o cartão já estar montado na fala)
-  const tAlv = m('alvarez') - 0.05;                               // a assinatura pessoal ("Victor Vitorino…")
+  const tAlv = ctx.mb('mudanca_final') + 0.4;                     // a marca pessoal entra só na imagem, depois da última palavra da fala
   const TT = ctx.TOTAL;                                           // os instantes do quadro final são relativos ao fim do vídeo
   const tBar = i => tCons + 0.12 + i * 0.13;                      // cada barra cresce, da esquerda para a direita
   const tPin = i => tP[0] + 0.02 + i * 0.115, DQ = 0.22;         // cada pino cai (DQ = duração da queda)
@@ -338,7 +338,7 @@ export function desenhar(t, ctx) {
     const tF = tGes - 0.16;                                       // sobe em cascata logo depois do título, antes do rótulo
     c += sobe(fin(t, tF, 0.45), txt('Adoção não se impõe.', MG, FR1, { f: 'L', s: SF, c: C.white }), 24);
     c += sobe(fin(t, tF + 0.1, 0.45), txt('Se constrói, pessoa por pessoa.', MG, FR2, { f: 'L', s: SF, c: C.orange }), 24);
-    // assinatura pessoal, na fala "Victor Vitorino. Consultor de Change Management.": monograma + nome + papel
+    // marca pessoal (não é falada): monograma + nome + papel
     {
       const kM = back(t, tAlv, 0.5), cxm = MG + 34, cym = CTA + 10;
       if (kM > 0.001) {
@@ -346,7 +346,7 @@ export function desenhar(t, ctx) {
         c += onda(cxm, cym, t - tAlv - 0.1, { c: C.orange, r0: 34, r1: 30, sw: 3, d: 0.6 });
       }
       c += sobeMasc('fe-vn', CTA + 4, 40, ease.out5(inv(tAlv + 0.08, tAlv + 0.5, t)), txt('Victor Vitorino', MG + 86, CTA + 4, { w: 700, s: 38, c: C.white }));
-      c += desliza(fin(t, m('consultor') - 0.08, 0.45), txt('Consultor de Change Management', MG + 86, CTA + 38, { s: 26, c: C.navy20 }), -22);
+      c += desliza(fin(t, tAlv + 0.5, 0.45), txt('Consultor de Change Management', MG + 86, CTA + 38, { s: 26, c: C.navy20 }), -22);
     }
   }
 

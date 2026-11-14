@@ -49,7 +49,7 @@ const CASC = 1.1;                                          // duração da casca
 // O passo entre vizinhos acompanha a forma da gota (mais alta do que larga): DX lado a lado, DY um acima do outro,
 // para nenhum pino encostar no vizinho nos trechos em que o arco fica na vertical (folga de ~8 px no quadro).
 const DIR = [-2.1, -1.9, 0, -2.7, -2.1];
-const RAIO = [104, 166];                                   // raio dos dois arcos (centro da estação -> cabeça do pino)
+const RAIO = [108, 172];                                   // raio dos dois arcos (centro da estação -> cabeça do pino)
 const DX = 44, DY = 57;                                    // distância entre cabeças vizinhas (a gota tem 35 x 49)
 const CAB = 31;                                            // altura do centro da cabeça do pino acima da ponta
 const FOLGA = 13;                                          // folga mínima entre um pino "?" e a borda da estrada (18 px no quadro)

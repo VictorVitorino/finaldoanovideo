@@ -20,6 +20,9 @@ const S3 = 154, Y3 = 666;                          // "Se constrói." (laranja)
 const S4 = 76, Y4 = 800;                           // "Pessoa por pessoa."
 const wL = (str, s, ls = LS) => larg(str, s, { f: 'L' }) + ls * str.length;
 const tL = (str, x, y, s, c, ls = LS) => txt(str, x, y, { f: 'L', s, c, ls });
+// ajuste óptico: o desenho das letras Light grandes começa alguns px depois da origem; cada linha recua esse tanto
+// para a tinta nascer na margem (x = 96), na mesma vertical do fio, do rótulo e do monograma
+const XA = MG - 3, XS = MG - 6, XC = MG - 9, XP = MG - 7;   // "Adoção não" / "se impõe." / "Se constrói." / "Pessoa por pessoa."
 
 // ---------- escada (coluna direita): dez barras nas cores da régua (duas por marca), um pino em cada ----------
 const EX0 = 1040, EX1 = W - MG;                    // a escada nasce na guia da coluna e termina na margem direita
@@ -30,16 +33,17 @@ const topo = i => YB - hB(i);
 const SPIN = 1.1;                                  // escala dos pinos
 const SNOME = 30;                                  // nomes das marcas sob a escada
 // barra com o topo arredondado; h = altura atual
-const dBarra = (i, h, r = 10) => {
-  const x = bx(i), y = YB - h, rr = Math.min(r, h / 2);
-  return `M${f(x)},${YB} V${f(y + rr)} Q${f(x)},${f(y)} ${f(x + rr)},${f(y)} H${f(x + BW - rr)} Q${f(x + BW)},${f(y)} ${f(x + BW)},${f(y + rr)} V${YB}Z`;
+// d = recuo do contorno: as barras navy têm traço branco de 2,5 px e recuam 1,25 px para fechar na mesma largura e altura das outras
+const dBarra = (i, h, r = 10, d = 0) => {
+  const x = bx(i) + d, w = BW - 2 * d, hh = Math.max(h - d, 0), y = YB - hh, rr = Math.min(r, hh / 2);
+  return `M${f(x)},${YB} V${f(y + rr)} Q${f(x)},${f(y)} ${f(x + rr)},${f(y)} H${f(x + w - rr)} Q${f(x + w)},${f(y)} ${f(x + w)},${f(y + rr)} V${YB}Z`;
 };
 
 // ---------- ato 2: cartão final (coluna esquerda, de y = 170 a y = 930, a mesma altura da escada) ----------
 const PIN = { x: MG + 37, y: 272, k: 1.6 };        // ponta do pino-emblema (a borda esquerda alinha na margem)
-const ST = 77, TY1 = 372, TY2 = 460;               // título (Light): a linha mais longa termina em x = 959
+const ST = 78, TY1 = 372, TY2 = 460, XT = MG - 6;  // título (Light): a tinta nasce em x = 96 e a linha mais longa termina em x = 958
 const FY = 498;                                    // fio laranja
-const SF = 46, FR1 = 586, FR2 = 646;               // frase-síntese
+const SF = 46, FR1 = 586, FR2 = 646, XF1 = MG - 1, XF2 = MG - 3;   // frase-síntese (com o mesmo ajuste óptico)
 const SLAB = 36, LAB = 734;                        // rótulo da prática
 const RM = 52, CYM = 878;                          // marca pessoal: disco de 826 a 930 (83 px livres acima; a base alinha com a da escada)
 const SNM = 60, SPP = 38;                          // "Victor Vitorino" e "Consultor de Change Management"
@@ -83,7 +87,7 @@ export function desenhar(t, ctx) {
   for (let i = 0; i < NB; i++) {
     if (t <= tBar(i)) continue;
     const nv = NIVEIS[i >> 1], h = hB(i) * backS(inv(tBar(i), tBar(i) + 0.5, t)), navy = nv.cor === C.navy;
-    e += `<path d="${dBarra(i, h)}" fill="${navy ? 'url(#fe-nv)' : nv.cor}"${navy ? ` stroke="${C.white}" stroke-width="2.5"` : ''}/>`;
+    e += `<path d="${dBarra(i, h, 10, navy ? 1.25 : 0)}" fill="${navy ? 'url(#fe-nv)' : nv.cor}"${navy ? ` stroke="${C.white}" stroke-width="2.5"` : ''}/>`;
   }
   for (let i = 0; i < NB; i++) {
     const u = inv(tPin(i), tPin(i) + 0.3, t);
@@ -97,20 +101,20 @@ export function desenhar(t, ctx) {
   if (t < tA2 + 0.3) {
     // a negação entra no lugar, palavra a palavra; quando chega "Se constrói." ela recua para 45%
     const uM = ease.inOut(inv(tSe - 0.2, tSe + 0.2, t));
-    const xI = MG + wL('se ', S1), wI = wL('impõe.', S1);
-    let a = sobeMasc('fe-ad', Y1, S1, ease.out5(inv(tAdo, tAdo + 0.36, t)), tL('Adoção', MG, Y1, S1, C.white));
-    a += sobeMasc('fe-na', Y1, S1, ease.out5(inv(tNao, tNao + 0.34, t)), tL('não', MG + wL('Adoção ', S1), Y1, S1, C.white));
-    a += sobeMasc('fe-se', Y2, S1, ease.out5(inv(tSe1, tSe1 + 0.3, t)), tL('se', MG, Y2, S1, C.white));
+    const xI = XS + wL('se ', S1), wI = wL('impõe.', S1);
+    let a = sobeMasc('fe-ad', Y1, S1, ease.out5(inv(tAdo, tAdo + 0.36, t)), tL('Adoção', XA, Y1, S1, C.white));
+    a += sobeMasc('fe-na', Y1, S1, ease.out5(inv(tNao, tNao + 0.34, t)), tL('não', XA + wL('Adoção ', S1), Y1, S1, C.white));
+    a += sobeMasc('fe-se', Y2, S1, ease.out5(inv(tSe1, tSe1 + 0.3, t)), tL('se', XS, Y2, S1, C.white));
     a += sobeMasc('fe-im', Y2, S1, ease.out5(inv(tImp, tImp + 0.34, t)), tL('impõe.', xI, Y2, S1, C.white));
     let b = opa(lerp(1, 0.45, uM), a);
     // risco laranja sobre "impõe." (recua junto com a negação)
     b += opa(lerp(1, 0.6, uM), tracar(`M${f(xI - 12)},${f(Y2 - S1 * 0.3)} L${f(xI + wI + 6)},${f(Y2 - S1 * 0.36)}`, ease.out(inv(tRisca, tRisca + 0.25, t)), { c: C.orange, sw: 7 }));
     // "Se constrói.": as duas palavras sobem por máscara, em laranja
-    b += sobeMasc('fe-s1', Y3, S3, ease.out5(inv(tSe, tSe + 0.34, t)), tL('Se', MG, Y3, S3, C.orange));
-    b += sobeMasc('fe-s2', Y3, S3, ease.out5(inv(tCons, tCons + 0.4, t)), tL('constrói.', MG + wL('Se ', S3), Y3, S3, C.orange));
+    b += sobeMasc('fe-s1', Y3, S3, ease.out5(inv(tSe, tSe + 0.34, t)), tL('Se', XC, Y3, S3, C.orange));
+    b += sobeMasc('fe-s2', Y3, S3, ease.out5(inv(tCons, tCons + 0.4, t)), tL('constrói.', XC + wL('Se ', S3), Y3, S3, C.orange));
     // "Pessoa por pessoa.": cada palavra sobe no seu instante
     ['Pessoa', 'por', 'pessoa.'].forEach((p, i) => {
-      const x = MG + wL(['', 'Pessoa ', 'Pessoa por '][i], S4, -0.6);
+      const x = XP + wL(['', 'Pessoa ', 'Pessoa por '][i], S4, -0.6);
       b += sobeMasc('fe-p' + i, Y4, S4, ease.out5(inv(tP[i], tP[i] + 0.34, t)), tL(p, x, Y4, S4, C.white, -0.6));
     });
     // saída: a tipografia some para dar lugar ao cartão final
@@ -130,13 +134,13 @@ export function desenhar(t, ctx) {
     }
     // título e fio
     const tT = tA2 + 0.22;
-    c += sobeMasc('fe-t1', TY1, ST, ease.out5(inv(tT, tT + 0.55, t)), txt('Mapa de Perfil Cognitivo', MG, TY1, { f: 'L', s: ST, c: C.white, ls: -0.8 }));
-    c += sobeMasc('fe-t2', TY2, ST, ease.out5(inv(tT + 0.1, tT + 0.65, t)), txt('Mapa de Adoção', MG, TY2, { f: 'L', s: ST, c: C.orange, ls: -0.8 }));
+    c += sobeMasc('fe-t1', TY1, ST, ease.out5(inv(tT, tT + 0.55, t)), txt('Mapa de Perfil Cognitivo', XT, TY1, { f: 'L', s: ST, c: C.white, ls: -0.8 }));
+    c += sobeMasc('fe-t2', TY2, ST, ease.out5(inv(tT + 0.1, tT + 0.65, t)), txt('Mapa de Adoção', XT, TY2, { f: 'L', s: ST, c: C.orange, ls: -0.8 }));
     c += fio(MG, FY, inv(tT + 0.5, tT + 1.0, t), 120, 6);
     // frase-síntese (sobe logo depois do título, antes do rótulo)
     const tF = tGes - 0.16;
-    c += sobe(fin(t, tF, 0.45), txt('Adoção não se impõe.', MG, FR1, { f: 'L', s: SF, c: C.navy20 }), 20);
-    c += sobe(fin(t, tF + 0.1, 0.45), txt('Se constrói, pessoa por pessoa.', MG, FR2, { f: 'L', s: SF, c: C.white }), 20);
+    c += sobe(fin(t, tF, 0.45), txt('Adoção não se impõe.', XF1, FR1, { f: 'L', s: SF, c: C.navy20 }), 20);
+    c += sobe(fin(t, tF + 0.1, 0.45), txt('Se constrói, pessoa por pessoa.', XF2, FR2, { f: 'L', s: SF, c: C.white }), 20);
     // rótulo da prática, em 'gestao'
     {
       const A = 'Gestão da Mudança', B = 'Change Management', xf = MG + larg(A, SLAB, { w: 700 }) + 22;

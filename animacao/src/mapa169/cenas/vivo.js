@@ -1,11 +1,10 @@
 // Cena "vivo" (57,95–72,46 s): "Mas o mapa precisa estar vivo. Posição é momento, não rótulo: pessoas avançam, travam,
 // recuam. A cada onda, medimos de novo e ajustamos o plano, antes e depois do go-live."
 // Versão LIMPA, composta para 16:9 no esquema A (duas colunas, com a janela larga): três blocos e nada mais.
-//   Esquerda (x 96–640)
-//   1. O indicador AO VIVO (o ponto pulsando é o único detalhe vivo da cena) e o título em duas linhas. O indicador
-//      nasce na mesma altura do topo da janela (y 150).
-//   2. O cartão de aviso, com a base na mesma altura da base da janela (y 900): "Posição é momento, não rótulo." e
-//      depois "Plano de mudança ajustado · v2 / v3".
+//   Esquerda (x 96–640): um bloco só, centrado na vertical em relação à janela
+//   1. O indicador AO VIVO (o ponto pulsando é o único detalhe vivo da cena) e o título em duas linhas.
+//   2. O cartão de aviso, abaixo do título: "Posição é momento, não rótulo." e depois
+//      "Plano de mudança ajustado · v2 / v3".
 //   Direita (x 720–1824, y 150–900)
 //   3. A janela do dashboard em duas metades: à esquerda o MAPA DE CALOR (áreas x régua); à direita um cartão com o
 //      ÍNDICE DE ADOÇÃO em número grande, em cima, e a LINHA por onda com o marco GO-LIVE, embaixo.
@@ -67,7 +66,10 @@ const GOY = IC.y + 264, GOH = 44;                                              /
 const Y0 = IC.y + IC.h - 76, Y70 = Y0 - 228;                                   // eixo: 0% e 70%
 const tpx = i => CH.x + 52 + (CH.w - 104) * i / 2, tpy = v => Y0 - (Y0 - Y70) * v / 70;
 const GX = (tpx(1) + tpx(2)) / 2;                                              // x do marco GO-LIVE
-const NT = { x: TX0, w: TX1 - TX0, h: 200, y: WY + WH - 200 };                 // cartão de aviso: base na base da janela
+// coluna de texto: indicador (56) + 44 + título (duas linhas) + 72 + cartão de aviso (200) = 505 px, centrada na
+// vertical em relação à janela (centro em y 525)
+const LY = 272, TY = LY + 56 + 44 + 52;                                        // topo do indicador e 1ª linha de base do título
+const NT = { x: TX0, w: TX1 - TX0, h: 200, y: Math.round(TY + 72 * 1.12 + 72) };   // cartão de aviso: y 577–777
 
 // as três células-exemplo do mapa de calor (posições da onda 1): [área, marca]
 const EX = [
@@ -185,7 +187,7 @@ export function desenhar(t, ctx) {
   let cena = '';
   {
     const k = fin(t, t0 + 0.55, 0.45), on = fin(t, tVivo, 0.35);
-    const sz = 28, wT = larg('AO VIVO', sz, { w: 700, ls: 2 }), h = 56, w = 26 + 20 + 14 + wT + 28, x0 = TX0, y0 = WY, cy = y0 + h / 2;
+    const sz = 28, wT = larg('AO VIVO', sz, { w: 700, ls: 2 }), h = 56, w = 26 + 20 + 14 + wT + 28, x0 = TX0, y0 = LY, cy = y0 + h / 2;
     // único detalhe vivo da cena: o ponto pisca devagar
     const pisca = 1 - 0.5 * on * (0.5 - 0.5 * Math.cos((t - tVivo) * Math.PI * 2 / 1.5));
     const b = `<rect x="${f(x0)}" y="${y0}" width="${f(w)}" height="${h}" rx="${h / 2}" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>`
@@ -193,7 +195,7 @@ export function desenhar(t, ctx) {
       + txt('AO VIVO', x0 + 60, cy + sz * 0.35, { w: 700, s: sz, ls: 2, c: mix(C.navy40, C.white, on) });
     cena += sobe(k, b, 16);
   }
-  cena += titulo(['O mapa precisa', 'estar *vivo*'], TX0, 304, t, t0 + 0.15, { escuro: true });
+  cena += titulo(['O mapa precisa', 'estar *vivo*'], TX0, TY, t, t0 + 0.15, { escuro: true });
 
   // ---------- janela do dashboard (kit ampliado 1,25x) ----------
   let w = `<g transform="translate(${WX} ${WY}) scale(${KJ})">${janela(0, 0, WW / KJ, WH / KJ, { titulo: TITULO_J }).svg}</g>`;
@@ -213,7 +215,8 @@ export function desenhar(t, ctx) {
   {
     const uIn = inv(t0 + 0.8, t0 + 1.6, t);
     const valor = (uIn < 1 ? Math.round(INDICES[0] * ease.out(uIn)) : Math.round(indiceEm(ond))) + '%';
-    w += sobe(fin(t, t0 + 0.7, 0.45) * (1 - 0.55 * kFoco), indice(valor, ondL, inv(t0 + 0.95, t0 + 1.75, t), fin(t, tGo, 0.3)), 14);
+    // o recuo é só de opacidade: o cartão não sai do lugar
+    w += sobe(fin(t, t0 + 0.7, 0.45), opa(1 - 0.55 * kFoco, indice(valor, ondL, inv(t0 + 0.95, t0 + 1.75, t), fin(t, tGo, 0.3))), 14);
   }
 
   // ---------- etiquetas sobre o mapa de calor: avança, trava, recua ----------
@@ -222,7 +225,7 @@ export function desenhar(t, ctx) {
   // a janela entra subindo, com fade
   cena += sobe(fin(t, t0 + 0.1, 0.55), w, 40);
 
-  // ---------- cartão de aviso (coluna da esquerda, base alinhada à base da janela) ----------
+  // ---------- cartão de aviso (coluna da esquerda, abaixo do título) ----------
   {
     const kN = fin(t, tNot, 0.45);
     if (kN > 0.001) {
@@ -264,8 +267,8 @@ export function desenhar(t, ctx) {
   [tC1, tC2].forEach((tc, j) => {
     const o = fin(t, tc - 0.55, 0.2) * fout(t, tc + 0.5, 0.3);
     if (o <= 0.001) return;
-    // a ponta do cursor pousa no canto inferior direito da aba, sem cobrir o texto
-    const tb = TAB[j + 1], P1 = [tb.x + tb.w - 16, tb.cy + 13], P0 = [P1[0] + 30, P1[1] + 76];
+    // a ponta do cursor pousa logo abaixo do texto da aba (não cobre o rótulo) e chega por baixo, por dentro da janela
+    const tb = TAB[j + 1], P1 = [tb.cx + 18, tb.cy + 14], P0 = [P1[0] - 12, P1[1] + 84];
     const [x, y] = kf(t, [[tc - 0.55, P0], [tc - 0.08, P1]]);
     cena += opa(o, cursor(x, y, { clique: inv(tc, tc + 0.45, t), s: 1.4 }));
   });

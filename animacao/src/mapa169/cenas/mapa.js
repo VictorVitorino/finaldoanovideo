@@ -38,7 +38,8 @@ const PE = { y: 882, h: 40, s: 26 };                     // faixa das salvaguard
 
 // onde cada pessoa fica (onda 1), em coordenadas lógicas do mapa. Lugares compostos para o mapa largo: nenhum pino
 // fica em cima de uma bandeira, de um rótulo, no meio da pista, na beira da ilha ou encostado no anel de A e B.
-const PA = G.vaga(3, 0, 4);                              // Pessoa A: ao lado de Adota (onde a cena anterior a deixou)
+const PA0 = G.vaga(3, 0, 4);                             // Pessoa A: ao lado de Adota (onde a cena anterior a deixou)
+const PA = [PA0[0] - 14, PA0[1]];                        // ao assentar, dá um passo curto para o anel não encostar na estação
 const PB0 = G.em(0.20);                                  // Pessoa B: onde parou na cena anterior (na estrada, antes de Observa)
 const POS = {
   // Resiste (6): arco à esquerda da estação e duas pessoas depois da bandeira
@@ -48,7 +49,7 @@ const POS = {
   // Experimenta (6): grupo à direita da estação
   4: [1114, 232], 5: [1160, 238], 10: [1136, 286], 13: [1182, 292], 17: [1108, 338], 22: [1154, 344],
   // Adota (4): A e um arco que sobe à esquerda da estação
-  0: PA, 11: [514, 150], 14: [548, 116], 24: [590, 102],
+  0: PA, 11: [478, 160], 14: [508, 120], 24: [550, 100],
   // Multiplica (1)
   16: [1102, 144],
 };
@@ -74,27 +75,21 @@ function pinoHeroi(x, y, o) {
     + txt(o.letra, x, cy + 7.8, { w: 700, s: 22, c: C.navy, a: 'middle' });
 }
 
-// medidas de texto (as fontes só existem depois de carregadas: mede uma vez, no primeiro quadro)
-let MED = null;
-function medidas() {
-  if (MED) return MED;
-  const SN = 48, SL = 28;
-  MED = {
-    LW: AREAS.map(n => larg(n, LBL.s, { w: 700 }) + 48 + 30),
-    x2: MG + larg(T1 + ' ' + T2, TS, { f: 'L' }) - larg(T2, TS, { f: 'L' }),
-    SN, SL,
-    wn: ['25', '4', '5'].map(v => larg(v, SN, { f: 'L', w: 400 })),
-    wl: ['pessoas', 'áreas', 'marcas'].map(r => larg(r, SL)),
-    wSelo: (larg('ILUSTRATIVO', 14, { w: 700, ls: 2.4 }) + 22) * KS,
-    w1: larg('Leitura agregada por área.', PE.s, { w: 700 }),
-    w2: larg('Retrato do momento, neste projeto. Não é avaliação de desempenho.', PE.s),
-  };
-  return MED;
-}
+// medidas de texto (o main.js carrega as fontes antes de importar as cenas)
+const SN = 48, SL = 28;                                  // placar: números e rótulos
+const MED = {
+  LW: AREAS.map(n => larg(n, LBL.s, { w: 700 }) + 48 + 30),
+  x2: MG + larg(T1 + ' ' + T2, TS, { f: 'L' }) - larg(T2, TS, { f: 'L' }),   // onde "Mapa de Adoção" continua a linha
+  wn: ['25', '4', '5'].map(v => larg(v, SN, { f: 'L', w: 400 })),
+  wl: ['pessoas', 'áreas', 'marcas'].map(r => larg(r, SL)),
+  wSelo: (larg('ILUSTRATIVO', 14, { w: 700, ls: 2.4 }) + 22) * KS,
+  w1: larg('Leitura agregada por área.', PE.s, { w: 700 }),
+  w2: larg('Retrato do momento, neste projeto. Não é avaliação de desempenho.', PE.s),
+};
 
 export function desenhar(t, ctx) {
   const { t0, m } = ctx;
-  const M = medidas();
+  const M = MED;
   const tJ = m('junte'), tA = m('area'), tN = m('nasce') - 0.08;
   // 1ª pessoa de cada leva: Financeiro em 'junte', Comercial em 'área', as outras duas no meio do caminho
   const dL = (tA - tJ) / 2, LAND = [tJ, tJ + dL, tA, tA + dL];
@@ -118,10 +113,10 @@ export function desenhar(t, ctx) {
     for (const p of PESSOAS) {
       const [x, y] = POS[p.id], cor = NIVEIS[p.niv[0]].cor;
       if (p.heroi) {
-        // continuidade com a cena anterior: A e B começam na escala 1 (B ainda na beira da estrada) e assentam uma
-        // vez, antes de a primeira leva chegar. Não recuam: são o fio da história
+        // continuidade com a cena anterior: A e B começam na escala 1 (A ao lado de Adota, B ainda na estrada) e
+        // assentam uma vez, antes de a primeira leva chegar. Não recuam: são o fio da história
         const uh = ease.inOut(inv(tJ - 0.6, tJ - 0.05, t)), sh = lerp(1, SH, uh);
-        const hx = p.heroi === 'B' ? lerp(PB0[0], x, uh) : x, hy = p.heroi === 'B' ? lerp(PB0[1], y, uh) : y;
+        const de = p.heroi === 'B' ? PB0 : PA0, hx = lerp(de[0], x, uh), hy = lerp(de[1], y, uh);
         itens.push({ y: hy, svg: pinoHeroi(hx, hy, { cor, s: sh, letra: p.heroi }) });
         continue;
       }
@@ -162,7 +157,7 @@ export function desenhar(t, ctx) {
   {
     const k = fin(t, t0 + 0.3, 0.45);
     if (k > 0.001) {
-      const { SN, SL, wn, wl, wSelo } = M, GAP = 10, SEP = 48, PAD = 38, ch = BAR.h, y0 = BAR.y, cy = y0 + ch / 2, yb = cy + 17;
+      const { wn, wl, wSelo } = M, GAP = 10, SEP = 48, PAD = 38, ch = BAR.h, y0 = BAR.y, cy = y0 + ch / 2, yb = cy + 17;
       const itens = [[nP, 'pessoas'], [nA, nA > 1 ? 'áreas' : 'área'], [5, 'marcas']];
       const cw = PAD * 2 + wn.reduce((p, q) => p + q, 0) + wl.reduce((p, q) => p + q, 0) + GAP * 3 + SEP * 2;
       const x0 = X1 - cw;
@@ -184,7 +179,7 @@ export function desenhar(t, ctx) {
     const k = fin(t, t0 + 0.42, 0.45);
     if (k > 0.001) {
       const f1 = 'Leitura agregada por área.', f2 = 'Retrato do momento, neste projeto. Não é avaliação de desempenho.';
-      const { w1, w2 } = M, gap = 32, pad = 24, w = w1 + gap + w2 + pad * 2, x0 = MG, yb = PE.y + PE.h / 2 + PE.s * 0.35;
+      const { w1, w2 } = M, gap = 32, pad = 24, w = w1 + gap + w2 + pad * 2, x0 = MG - pad, yb = PE.y + PE.h / 2 + PE.s * 0.35;
       s += `<g opacity="${f(k)}" transform="translate(0 ${f((1 - k) * 12)})"><rect x="${f(x0)}" y="${PE.y}" width="${f(w)}" height="${PE.h}" rx="${PE.h / 2}" fill="#fff" opacity=".88"/>`
         + txt(f1, x0 + pad, yb, { w: 700, s: PE.s, c: C.navy80 })
         + `<path d="M${f(x0 + pad + w1 + gap / 2)},${PE.y + 10} v20" stroke="${C.navy40}" stroke-width="1.5"/>`

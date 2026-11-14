@@ -1,9 +1,9 @@
 // Cena "perfil" (20,41–32,30 s): "Em cada pessoa, mapeamos cinco sinais: clareza do porquê, fluência digital,
 // autonomia para aprender, segurança para errar, e o valor que ela vê na mudança."
 // Versão limpa, composta para 16:9 (1920 x 1080) no esquema A com o peso invertido: três blocos e nada mais.
-//  1. à esquerda (x 96–800), o título em três linhas;
+//  1. à esquerda (x 96–776), o título em três linhas;
 //  2. abaixo dele, o cartão com o sinal da vez (ícone, nome, pergunta e a barra baixo ↔ alto) e, no rodapé, as fontes;
-//  3. à direita (x 880–1824), o RADAR grande da Pessoa B (avatar anônimo no centro): a grade se desenha em
+//  3. à direita (x 856–1824, a 80 px do cartão), o RADAR grande da Pessoa B (avatar anônimo no centro): a grade se desenha em
 //     'cada_pessoa', os cinco ícones aparecem apagados em 'cinco' e, a cada 'sinalN', o ícone N acende (navy),
 //     ganha o rótulo e o vértice cresce.
 // Um foco por vez: o sinal que está sendo falado fica em navy e os já lidos recuam; no fim todos voltam a 100%.
@@ -27,26 +27,26 @@ const mix = (a, b, u) => {
 // ---------- geometria (quadro 1920 x 1080; palco y 130–910; legenda a partir de y 930) ----------
 const P = HEROIS.B, V = P.sinais;
 // coluna da esquerda: título e cartão
-const X0 = MG, X1 = 800;
+const X0 = MG, X1 = 776;                           // o cartão termina 80 px antes do rótulo mais à esquerda do radar (x 856)
 const TIT = { y: 240, s: 72, lh: 82 };              // linhas de base em 240, 322 e 404
 // coluna da direita: radar
 const KR = 1.25;                                    // o radar do kit é desenhado menor e ampliado (traços e pontos crescem juntos)
-const R = 250, RP = R + 12;                         // raio do radar e do prato branco
+const R = 248, RP = R + 12;                         // raio do radar e do prato branco
 const RD = 43, RS = R + 63;                         // raio dos discos dos sinais e da órbita em que ficam
-const CX = 1368, CY = 552;                          // o rótulo mais à direita (Fluência) termina na margem, x = 1824
+const CX = 1364, CY = 550;                          // o rótulo mais à direita (Fluência) termina na margem, x = 1824; o conjunto fica centrado na altura do bloco da esquerda
 const lugar = i => pontoRadar(CX, CY, RS, i, 1);
 // rótulos em duas linhas, do lado de fora do radar
 const ROT = [['Clareza', 'do porquê'], ['Fluência', 'digital'], ['Autonomia', 'para aprender'], ['Segurança', 'para errar'], ['Valor que vê', 'na mudança']];
 const ESQ = [false, false, false, true, true];     // rótulo à esquerda do disco?
-const SR = 30, LR = 36, GR = 14;                    // rótulos: corpo, entrelinha e distância do disco
+const SR = 30, LR = 36, GR = 20;                    // rótulos: corpo, entrelinha e distância do disco (o disco em foco cresce 8%)
 // cartão do sinal da vez
 const CD = { x: X0, y: 462, w: X1 - X0, h: 392 };
 const XL = CD.x + 36, XR = CD.x + CD.w - 36;       // bordas do conteúdo do cartão
-const IC = { cx: XL + 44, cy: CD.y + 80, r: 44 };
+const IC = { cx: XL + 44, cy: CD.y + 78, r: 44 };
 const TX = IC.cx + IC.r + 24;
-const YP = CD.y + 172;                              // linha de base da pergunta
-const BR = { y: CD.y + 216, h: 16 };                // barra baixo ↔ alto
-const DIV = CD.y + 276;                             // fio que separa o rodapé das fontes
+const YP = CD.y + 170;                              // linha de base da pergunta
+const BR = { y: CD.y + 214, h: 16 };                // barra baixo ↔ alto
+const DIV = CD.y + 272;                             // fio que separa o rodapé das fontes
 const FONTES = ['*Fontes:* pesquisa curta, conversa', 'com gestores e dados de uso.'];
 const ABRE = { ic: 'pessoa', rot: 'Pessoa B', pergunta: 'Como ela percebe, avalia e decide a mudança?' };
 // selo do kit (fonte fixa de 14 px) ampliado para o texto passar de 26 px
@@ -145,7 +145,7 @@ export function desenhar(t, ctx) {
 
       // rodapé das fontes (texto obrigatório): fica o tempo todo
       p += `<rect x="${XL}" y="${DIV}" width="${XR - XL}" height="2" fill="${C.gray}"/>`;
-      FONTES.forEach((ln, j) => { p += tRico(ln, XL, DIV + 47 + j * 37, { s: 28, c: C.navy80, hi: C.navy, hw: 700 }); });
+      FONTES.forEach((ln, j) => { p += tRico(ln, XL, DIV + 46 + j * 37, { s: 28, c: C.navy80, hi: C.navy, hw: 700 }); });
 
       s += sobe(kCd, p, 24);
     }

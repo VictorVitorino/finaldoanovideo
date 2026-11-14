@@ -321,6 +321,7 @@
         if (e.key === 'ArrowDown') { e.preventDefault(); pAtivo = n ? (pAtivo + 1) % n : 0; marcaBusca(true); }
         else if (e.key === 'ArrowUp') { e.preventDefault(); pAtivo = n ? (pAtivo - 1 + n) % n : 0; marcaBusca(true); }
         else if (e.key === 'Enter') { e.preventDefault(); const a = $$('.paleta-item', paleta)[pAtivo]; if (a) a.click(); }
+        else if (e.key === 'Escape') { e.preventDefault(); paleta.close(); }   // sem isto, o navegador só limparia o campo
       });
       paleta.addEventListener('pointermove', e => { const a = e.target.closest('.paleta-item'); if (!a) return; const i = $$('.paleta-item', paleta).indexOf(a); if (i !== pAtivo) { pAtivo = i; marcaBusca(false); } });
       paleta.addEventListener('click', e => {

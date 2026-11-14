@@ -1,4 +1,4 @@
-// Fotografa uma página do blog para conferência. Uso: node foto.mjs <arquivo.html|url> <saida.png> [largura] [altura] [--inteira] [--y N]
+// Fotografa uma página do blog para conferência. Uso: node foto.mjs <arquivo.html|url> <saida.png> [largura] [altura] [--inteira] [--y N] [--sel '#secao']
 import { createRequire } from 'node:module';
 const { chromium } = createRequire(import.meta.url)('playwright');   // Playwright já vem instalado no ambiente
 import { resolve } from 'node:path';
@@ -16,7 +16,9 @@ await p.evaluate(() => document.fonts.ready);
 let alt = 0, yy = 0;
 do { await p.evaluate(v => scrollTo(0, v), yy); await p.waitForTimeout(160); yy += +h * 0.6; alt = await p.evaluate(() => document.documentElement.scrollHeight); } while (yy < alt);
 await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await p.waitForTimeout(300);
-await p.evaluate(v => scrollTo(0, v), y);
+const si = resto.indexOf('--sel');
+if (si >= 0) await p.evaluate(q => { const e = document.querySelector(q); scrollTo(0, e.getBoundingClientRect().top + scrollY - 70); }, resto[si + 1]);
+else await p.evaluate(v => scrollTo(0, v), y);
 await p.waitForTimeout(2600);
 await p.screenshot({ path: saida, fullPage: inteira });
 console.log(`${saida} · altura da página ${alt}px${erros.length ? ' · ERROS: ' + erros.join(' | ') : ''}`);

@@ -162,8 +162,10 @@ export const TEM_MOTIVO = Object.keys(MOTIVOS);
 export function capa(tema, semente = '', o = {}) {
   const h = hash(semente + tema), v = o.variante ?? ['a', 'b', 'c', 'b', 'a', 'c'][h % 6];
   const m = MOTIVOS[tema] || MOTIVOS.mundo;
+  // metade das capas é espelhada para variar; gráficos com sentido de leitura (crescimento, curva de adoção) nunca
+  const espelha = (h >> 5) % 2 === 1 && !['transformacao', 'adocao', 'governanca-ti'].includes(tema);
   const linhas = [48, 96, 144, 192].map(y => `<path d="M0 ${y}H400" stroke="var(--l)" stroke-width=".6" opacity=".35"/>`).join('');
   return `<svg class="capa capa--${v}${o.cls ? ' ' + o.cls : ''}" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <rect width="400" height="240" fill="var(--bg)"/>${linhas}
-  <g class="c-motivo"${(h >> 5) % 2 ? ' transform="translate(400 0) scale(-1 1)"' : ''}>${m(h)}</g></svg>`;
+  <g class="c-motivo"${espelha ? ' transform="translate(400 0) scale(-1 1)"' : ''}>${m(h)}</g></svg>`;
 }

@@ -12,7 +12,9 @@
   const bPlay = $('[data-vi-play]'), bTocar = $('[data-vi-tocar]'), bLeg = $('[data-vi-leg]'), bSom = $('[data-vi-som]'), bCheia = $('[data-vi-cheia]');
   const prog = $('[data-vi-prog]'), elT = $('[data-vi-t]'), elLeg = $('[data-vi-legenda]'), elDica = $('[data-vi-dica]');
   const toque = $('[data-vi-toque]'), cartao = $('[data-vi-cartao]'), fim = $('[data-vi-fim]');
-  const pontos = $$('[data-vi-ponto]'), chips = $$('[data-vi-chip]'), elErro = $('[data-vi-erro]'), elConta = $('[data-vi-conta]');
+  const pontos = $$('[data-vi-ponto]'), elErro = $('[data-vi-erro]');
+  // no bloco da transcrição, o título de cada ponto vira um botão que abre o ponto no vídeo
+  const chips = $$('[data-vi-chip]').map(sp => { const b = document.createElement('button'); b.type = 'button'; b.className = 'vi-chip'; b.dataset.viChip = sp.dataset.viChip; b.textContent = sp.textContent; sp.replaceWith(b); return b; });
   const porId = Object.fromEntries(D.pontos.map(p => [p.id, p]));
   const IC = {
     play: '<path d="M8 5.5v13l11-6.500z" fill="currentColor"/>', denovo: '<path d="M5.500 12.500a6.500 6.500 0 1 0 2-5"/><path d="M5 4.500v4.500h4.500"/>', pausa: '<path d="M8.5 6v12M15.500 6v12" stroke-width="2.6"/>',
@@ -31,16 +33,10 @@
 
   let carregado = false, comLegenda = guarda.le('cmw-video-legendas') !== '0', arrastando = false, raf = 0;
   let legAtual = -2, capAtual = -1, tocouGelo = false, emToque = false, tToque = 0, aberto = null, voltaTocando = false, mostrouDica = false, noFim = false;
-  // pontos já abertos: ficam marcados na lista, e a contagem aparece no título dela
+  // pontos já abertos: ficam marcados na lista da transcrição (e o leitor de tela ouve "já visto")
   let vistos = new Set();
   try { vistos = new Set(JSON.parse(guarda.le('cmw-video-pontos') || '[]').filter(id => porId[id])); } catch { /* lista inválida: começa do zero */ }
-  const conta = () => {
-    // o item já visto ganha a marca e, para quem usa leitor de tela, o aviso no nome
-    chips.forEach(b => { const v = vistos.has(b.dataset.viChip); b.classList.toggle('visto', v); if (v && !b.querySelector('.vis-oculto')) b.insertAdjacentHTML('beforeend', '<span class="vis-oculto"> (já visto)</span>'); });
-    const n = vistos.size, tot = D.pontos.length;
-    elConta.textContent = n === 0 ? '' : n >= tot ? `Os ${tot} explorados: você foi além do raso` : `${n} de ${tot} explorados`;
-    elConta.classList.toggle('cheio', n >= tot);
-  };
+  const conta = () => chips.forEach(b => { const v = vistos.has(b.dataset.viChip); b.classList.toggle('visto', v); if (v && !b.querySelector('.vis-oculto')) b.insertAdjacentHTML('beforeend', '<span class="vis-oculto"> (já visto)</span>'); });
 
   // 1080p em tela larga; 720p em tela pequena ou com economia de dados
   const carrega = () => {

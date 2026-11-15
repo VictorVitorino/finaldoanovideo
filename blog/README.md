@@ -29,12 +29,26 @@ Logo abaixo da abertura fica o vídeo "O iceberg que não aparece no slide" (1 m
 
 - O filme é um MP4 comum (`assets/video/alem-do-raso-1080.mp4` em tela larga e `-720.mp4` em tela pequena ou com economia de dados). Ele só é baixado depois do clique.
 - Por cima do filme, a página desenha: cinco capítulos, as legendas, 11 pontos clicáveis (cada um pausa o filme e abre um cartão com o tema, o que a gente faz e um link do blog), o momento "Sua vez: toque no gelo" (o filme para aos 0:55 e segue sozinho depois de 9 s) e o quadro final "Qual é o seu iceberg?", que leva aos três fluxos de Serviços.
-- A lista "Explore os 11 pontos" abre os mesmos cartões e marca os já vistos (a contagem fica guardada no navegador de quem visita).
+- Abaixo do vídeo ficam só os capítulos e uma linha recolhida, "Ler a transcrição e os pontos do vídeo". Dentro dela, o título de cada ponto abre o ponto no vídeo e ganha um visto depois de aberto (fica guardado no navegador de quem visita). Não há lista de pontos exposta: os pontos já aparecem dentro do filme.
 - Teclado, com o foco no player: espaço ou K, setas (5 s), Home, M (som), C (legendas), F (tela cheia) e Esc (fecha o cartão).
 - Sem JavaScript, o vídeo toca com os controles do navegador e a faixa de legendas (`assets/video/alem-do-raso.vtt`); a transcrição e os pontos ficam em texto, no bloco "Ler a transcrição".
 - Textos: `_src/content/video.json` (título, cartões, quadro final). Tempos e posições: `_src/content/video-tempos.json`, exportado do próprio filme; não edite à mão. Marcação em `_src/lib/video.mjs`, comportamento em `assets/js/video.js`, estilo em `assets/css/video.css` (carregados só na página inicial).
+- O quadro final tem só a pergunta e três escolhas; para rever o filme, o botão de tocar da barra vira "Ver de novo".
 - O build grava as legendas em VTT e para com erro se faltar o arquivo do filme.
 - Como o filme é produzido (roteiro, narração, render e exportação): `docs/alem-do-raso.md`, na raiz do repositório. O filme não tem personagens: pessoas aparecem como pontos de luz.
+
+### Capa do blog para o LinkedIn
+
+A capa usa o cenário do vídeo (a sala de reunião à noite, a mesa como linha d'água e o iceberg inteiro por baixo), com a marca, a chamada e o endereço do blog. Não tem personagens.
+
+| Arquivo | Uso |
+|---|---|
+| `assets/img/linkedin/capa-blog-linkedin-paisagem.png` | 2400 × 1254 (1200 × 627 em dobro): para subir em um post com o link do blog. |
+| `assets/img/linkedin/capa-blog-linkedin-retrato.png` | 2160 × 2700 (1080 × 1350 em dobro): para um post só de imagem; ocupa mais tela no celular. |
+| `assets/img/linkedin/capa-blog-1200x627.jpg` | Imagem de compartilhamento do início, do radar e dos meses (`og:image`): é o que o LinkedIn mostra quando alguém cola o link. |
+
+Para gerar de novo (por exemplo, se o endereço mudar): `node animacao/producao/capa_blog.mjs [endereço]`. Sem o argumento, o endereço vem de `_src/site.config.json` (`url`). O desenho fica em `animacao/src/raso/capa.js`.
+Depois de trocar a imagem, o LinkedIn pode levar um tempo para atualizar a prévia do link; o Post Inspector do LinkedIn força a atualização.
 
 ### Efeitos (do guia de design)
 

@@ -1,4 +1,5 @@
-// Gera as imagens de compartilhamento do LinkedIn (1200 x 627) em assets/img/og/: uma por post e uma do início.
+// Gera as imagens de compartilhamento do LinkedIn (1200 x 627) em assets/img/og/: uma por post e por página.
+// A do início (a capa do blog) é feita à parte, com o cenário do vídeo: node animacao/producao/capa_blog.mjs
 // Uso: node blog/_src/og.mjs [slug ...]   (sem argumentos, gera todas). Precisa do Playwright (já instalado no ambiente).
 import { createRequire } from 'node:module';
 import { mkdirSync, writeFileSync, rmSync, readdirSync, readFileSync } from 'node:fs';
@@ -19,7 +20,7 @@ const DECKS = readdirSync(join(SRC, 'content', 'apresentacoes')).filter(f => f.e
 const ARTE_DECK = { 'gestao-da-mudanca': 'diagnostico', 'plano-de-comunicacao': 'influencia', 'cultura-e-engajamento': 'adocao', 'impactos-da-mudanca': 'raci', 'kickoff-e-treinamento': 'diagnostico' };
 const PAGINAS = [['servicos', 'Change Management Advisory e IA aplicada, com apoio de perto', 'influencia', 'Serviços'], ['sobre', `Sobre ${cfg.autor}`, 'adocao', 'Quem escreve'],
   ['apresentacoes', 'Apresentações em HTML para abrir, adaptar e apresentar no navegador', 'adocao', 'Apresentações em HTML'], ...DECKS.map(d => [`apresentacao-${d.id}`, d.nome, ARTE_DECK[d.id] || 'diagnostico', 'Apresentação em HTML'])];
-const itens = [{ slug: 'inicio', p: null }, ...posts.map(p => ({ slug: p.slug, p })), ...LAB.map(([slug, titulo, arte]) => ({ slug, p: { titulo, tipo: 'lab', tema: 'mundo', slug, arte: PREVIAS[arte]('a') } })), ...PAGINAS.map(([slug, titulo, arte, rotulo]) => ({ slug, p: { titulo, tipo: 'pagina', rotulo, tema: 'mundo', slug, arte: PREVIAS[arte]('a') } }))].filter(i => !so.length || so.includes(i.slug));
+const itens = [...posts.map(p => ({ slug: p.slug, p })), ...LAB.map(([slug, titulo, arte]) => ({ slug, p: { titulo, tipo: 'lab', tema: 'mundo', slug, arte: PREVIAS[arte]('a') } })), ...PAGINAS.map(([slug, titulo, arte, rotulo]) => ({ slug, p: { titulo, tipo: 'pagina', rotulo, tema: 'mundo', slug, arte: PREVIAS[arte]('a') } }))].filter(i => !so.length || so.includes(i.slug));
 for (const { slug, p } of itens) {
   const html = join(TMP, slug + '.html');
   writeFileSync(html, cartaoOG({ cfg, p }));

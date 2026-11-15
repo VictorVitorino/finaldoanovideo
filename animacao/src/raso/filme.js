@@ -280,9 +280,11 @@ export function buildFilme(T) {
     return s;
   }
 
-  function frame(t) {
-    const cam = camera(t), id = cenaEm(t);
-    const topoMundo = cam.cy - 540 / cam.z, baseMundo = cam.cy + 540 / cam.z;
+  // o mundo no instante t, visto pela câmera cam, em um quadro de Wv x Hv, sem textos nem interface
+  // (o filme usa 1920 x 1080; a capa do blog usa o mesmo cenário em outros formatos)
+  function mundoEm(t, cam, Wv = W, Hv = H) {
+    const mx = Wv / 2, my = Hv / 2;
+    const topoMundo = cam.cy - my / cam.z, baseMundo = cam.cy + my / cam.z;
     const kv = 1 - ease.inOut(inv(cn.mergulho + 0.15, cn.mergulho + 1.5, t));          // véu sob a mesa
     const km = ease.inOut(inv(cn.mergulho + 0.3, cn.mergulho + 1.8, t));               // a mesa vira mar
     const G = gelo(t);
@@ -296,13 +298,18 @@ export function buildFilme(T) {
     if (!G.quebrado && kv < 0.999) mundo += contornoBloco(0.45) + [ev.recuo + 0.9, cn.fatores + 4.6, cn.fatores + 8.6, m('mapeia') + 2.6, m('onde') + 1.2].map(t0 => reflexo((t - t0) / 2.6, 0.55)).join('');
     if (baseMundo > WL && kv < 0.999) mundo += mapeamento(t) + golpesFx(t) + bolhas(t, ev.travessia - 0.05, 960, WL + 420, { n: 26, seed: 8, larg: 1500, d: 2.6, janela: 0.5 }) + bolhas(t, ev.descida + 0.5, 880, WL + 380, { n: 16, seed: 9, larg: 900, d: 2.2, janela: 0.5 });
     mundo += veu(kv) + superficie(t, km) + caminhoFx(t) + tona(t, cam) + G.pedras;
-    let s = `<rect width="${W}" height="${H}" fill="${C.fundo}"/><g transform="translate(960 540) scale(${f(cam.z)}) translate(${f(-cam.cx)} ${f(-cam.cy)})">${mundo}</g>`;
+    let s = `<rect width="${Wv}" height="${Hv}" fill="${C.fundo}"/><g transform="translate(${mx} ${my}) scale(${f(cam.z)}) translate(${f(-cam.cx)} ${f(-cam.cy)})">${mundo}</g>`;
     // partículas próximas, com paralaxe (só abaixo da linha d'água)
-    const yTona = 540 + (WL - cam.cy) * cam.z;
-    if (kv < 0.999 && yTona < H) s += `<clipPath id="cl-perto"><rect x="0" y="${f(Math.max(0, yTona + 8))}" width="${W}" height="${H}"/></clipPath><g clip-path="url(#cl-perto)" opacity="${f(1 - kv)}"><g transform="translate(960 540) scale(${f(cam.z * 1.15)}) translate(${f(-cam.cx)} ${f(-(WL + (cam.cy - WL) * 1.3))})">${particulas(t, 1)}</g></g>`;
+    const yTona = my + (WL - cam.cy) * cam.z;
+    if (kv < 0.999 && yTona < Hv) s += `<clipPath id="cl-perto"><rect x="0" y="${f(Math.max(0, yTona + 8))}" width="${Wv}" height="${Hv}"/></clipPath><g clip-path="url(#cl-perto)" opacity="${f(1 - kv)}"><g transform="translate(${mx} ${my}) scale(${f(cam.z * 1.15)}) translate(${f(-cam.cx)} ${f(-(WL + (cam.cy - WL) * 1.3))})">${particulas(t, 1)}</g></g>`;
     // clarão da travessia da linha d'água
     const kc = Math.max(0, 1 - Math.abs(t - ev.travessia) / 0.32);
-    if (kc > 0) s += `<rect width="${W}" height="${H}" fill="${C.suave}" opacity="${f(0.3 * kc)}"/>`;
+    if (kc > 0) s += `<rect width="${Wv}" height="${Hv}" fill="${C.suave}" opacity="${f(0.3 * kc)}"/>`;
+    return s;
+  }
+  function frame(t) {
+    const cam = camera(t), id = cenaEm(t);
+    let s = mundoEm(t, cam);
     s += textos(t, cam, id) + interface_(t, id);
     if (t < 0.5) s += `<rect width="${W}" height="${H}" fill="#020817" opacity="${f(1 - t / 0.5)}"/>`;
     return s;
@@ -327,7 +334,7 @@ export function buildFilme(T) {
       final: ev.final, capa: +(cn.choque - 0.9).toFixed(2), pontos,   // capa: os cinco fatores na tela
     };
   }
-  return { duration: TOTAL, frame, interativo, audio: './build/raso/trilha.wav' };
+  return { duration: TOTAL, frame, interativo, cenario: mundoEm, audio: './build/raso/trilha.wav' };
 }
 
 export async function criar() {

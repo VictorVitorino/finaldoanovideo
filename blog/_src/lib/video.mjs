@@ -2,6 +2,7 @@
 // um momento em que o vídeo espera o toque de quem assiste e uma tela final de escolha.
 // Conteúdo editorial: content/video.json. Tempos e posições: content/video-tempos.json, exportado do próprio filme
 // (animacao/producao/raso_interativo.mjs). O comportamento fica em assets/js/video.js.
+// Abaixo do vídeo ficam só os capítulos e um bloco recolhido com a transcrição e os pontos (cada título abre o ponto no vídeo).
 // Sem JavaScript, o vídeo toca com os controles do navegador e a faixa de legendas; a transcrição e os pontos ficam em texto.
 import { esc } from './md.mjs';
 import { icone } from './ilustra.mjs';
@@ -32,7 +33,6 @@ export function blocoVideo({ v, tempos, raiz = '', cfg }) {
   const base = String(cfg.url || '').replace(/\/$/, '') + '/', iso = `PT${Math.floor(dur / 60)}M${Math.round(dur % 60)}S`;
   const ld = cfg.url ? { '@context': 'https://schema.org', '@type': 'VideoObject', name: v.titulo, description: v.nota.replace(/\s*\n\s*/g, ' '), thumbnailUrl: base + v.capa, contentUrl: base + v.hd, uploadDate: v.data, duration: iso, inLanguage: cfg.idioma || 'pt-BR', transcript: tempos.legendas.map(l => l.texto).join(' ') } : null;
   const dados = { dur, hd: raiz + v.hd, sd: raiz + v.sd, caps: tempos.capitulos, leg: tempos.legendas.map(l => [l.a, l.b, l.texto]), pausa: tempos.pausa, fim: tempos.final, pontos: pontos.map(({ e, ...p }) => p) };
-  const grupos = Object.keys(v.grupos).map(g => ({ nome: v.grupos[g], itens: tempos.pontos.filter(p => p.grupo === g) }));
   // transcrição: um parágrafo por capítulo
   const trans = tempos.capitulos.map((c, i) => { const fim = i + 1 < tempos.capitulos.length ? tempos.capitulos[i + 1].t : dur; return { nome: c.nome, t: c.t, texto: tempos.legendas.filter(l => l.a + 0.2 >= c.t && l.a + 0.2 < fim).map(l => l.texto).join(' ') }; });
   return `<section class="sec sec--video" id="video" aria-labelledby="video-t">
@@ -77,15 +77,11 @@ export function blocoVideo({ v, tempos, raiz = '', cfg }) {
         </div>
       </div>
       <ol class="vi-caps" aria-label="Capítulos do vídeo">${tempos.capitulos.map((c, i) => `<li data-vi-cap="${i}" data-t="${c.t}"><span>${String(i + 1).padStart(2, '0')}</span><b>${esc(c.nome)}</b><small>${mmss(c.t)}</small></li>`).join('')}</ol>
-      <div class="vi-explora so-js">
-        <div class="vi-explora-cab"><h3>Explore os ${pontos.length} pontos</h3><span class="vi-conta" data-vi-conta data-total="${pontos.length}" aria-live="polite"></span></div>
-        ${grupos.map((g, i) => `<div class="vi-grupo"><h4 id="vi-g${i}">${esc(g.nome)}</h4><ul aria-labelledby="vi-g${i}">${g.itens.map(p => `<li><button type="button" class="vi-chip" data-vi-chip="${esc(p.id)}">${esc(v.pontos[p.id].titulo)}</button></li>`).join('')}</ul></div>`).join('')}
-      </div>
       <details class="vi-texto">
         <summary>${icone('lista')}Ler a transcrição e os pontos do vídeo</summary>
         <div class="vi-texto-in">
           <section><h3>Transcrição</h3>${trans.map(x => `<p><b>${esc(x.nome)} (${mmss(x.t)}).</b> ${esc(x.texto)}</p>`).join('')}</section>
-          <section><h3>Pontos do vídeo</h3><dl>${pontos.map(p => `<div><dt>${esc(p.t)}</dt><dd>${esc(p.tx)} <i>O que a gente faz: ${esc(p.fz)}</i>${p.l ? ` <a href="${esc(p.l[1])}">${esc(p.l[0])}</a>` : ''}</dd></div>`).join('')}</dl></section>
+          <section><h3>Pontos do vídeo</h3><dl>${pontos.map(p => `<div><dt><span data-vi-chip="${esc(p.id)}">${esc(p.t)}</span></dt><dd>${esc(p.tx)} <i>O que a gente faz: ${esc(p.fz)}</i>${p.l ? ` <a href="${esc(p.l[1])}">${esc(p.l[0])}</a>` : ''}</dd></div>`).join('')}</dl></section>
         </div>
       </details>
       <p class="vi-creditos">${esc(v.creditos)}</p>

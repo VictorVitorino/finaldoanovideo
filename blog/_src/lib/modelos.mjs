@@ -21,6 +21,9 @@ const urlPost = (raiz, p) => `${raiz}posts/${p.slug}/`;
 export const frases = t => String(t || '').split('\n').map(l => `<span class="frase">${esc(l)}</span>`).join('');
 export const corrido = t => String(t || '').replace(/\s*\n\s*/g, ' ');
 
+// capa do blog: a arte feita para o LinkedIn (animacao/producao/capa_blog.mjs), usada como imagem de compartilhamento do início, do radar e dos meses
+const CAPA_BLOG = 'assets/img/linkedin/capa-blog-1200x627.jpg';
+
 // ---------- contato (site.config.json › contato) ----------
 export const contato = cfg => {
   const c = cfg.contato || {}, n = String(c.numero || '').replace(/\D/g, '');
@@ -258,7 +261,7 @@ export function inicio({ cfg, posts, perfil, home, lab = '', servicos = '', sobr
   </div>
 </section>`;
 
-  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + (video ? video.html : '') + trilha + blocoCapa + radar + lab + servicos + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio pg-escura', scripts: ['assets/js/mergulho.js', ...(video ? ['assets/js/video.js'] : [])], estilos: video ? ['assets/css/video.css'] : [] });
+  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + (video ? video.html : '') + trilha + blocoCapa + radar + lab + servicos + sobre, caminho: '', imagem: CAPA_BLOG, classe: 'pg-inicio pg-escura', scripts: ['assets/js/mergulho.js', ...(video ? ['assets/js/video.js'] : [])], estilos: video ? ['assets/css/video.css'] : [] });
 }
 
 // ---------- radar completo: reportagens (filtro, busca, grade ou lista), guias de campo, IA em números, agenda e vídeos ----------
@@ -309,7 +312,7 @@ ${stats ? `<section class="sec sec--ia" id="ia" aria-labelledby="ia-t">
     </div>
   </div>
 </section>`;
-  return pagina({ cfg, raiz, titulo: 'Radar mundial', descricao: 'Reportagens, guias de campo, números sobre IA e agenda de gestão da mudança, com filtro por tema, busca e a fonte original de cada uma.', corpo, caminho: 'radar/', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-radar', ativo: 'radar' });
+  return pagina({ cfg, raiz, titulo: 'Radar mundial', descricao: 'Reportagens, guias de campo, números sobre IA e agenda de gestão da mudança, com filtro por tema, busca e a fonte original de cada uma.', corpo, caminho: 'radar/', imagem: CAPA_BLOG, classe: 'pg-radar', ativo: 'radar' });
 }
 
 // ---------- página de post ----------
@@ -368,7 +371,7 @@ export function mes({ cfg, chave, lista }) {
   <p class="arq-sub">${lista.length} ${lista.length === 1 ? 'post' : 'posts'} · ${esc(cfg.nome)}</p>
   <ol class="lista-mes lista-mes--pg">${lista.map((p, j) => `<li><a href="${urlPost(raiz, p)}"><span class="lm-n">${String(j + 1).padStart(2, '0')}</span><span class="lm-t">${esc(p.titulo)}<small>${esc(p.resumo)}</small></span><span class="lm-m">${esc(tema(p).nome)} · ${esc(TIPOS[p.tipo] || '')}</span>${icone('seta')}</a></li>`).join('')}</ol>
 </div></section>`;
-  return pagina({ cfg, raiz, titulo: `Posts de ${d.mesNome} de ${d.ano}`, descricao: `Todos os posts de ${d.mesNome} de ${d.ano} no ${cfg.nome}.`, corpo, caminho: `mes/${chave}/`, imagem: 'assets/img/og/inicio.jpg', classe: 'pg-arquivo', ativo: 'radar' });
+  return pagina({ cfg, raiz, titulo: `Posts de ${d.mesNome} de ${d.ano}`, descricao: `Todos os posts de ${d.mesNome} de ${d.ano} no ${cfg.nome}.`, corpo, caminho: `mes/${chave}/`, imagem: CAPA_BLOG, classe: 'pg-arquivo', ativo: 'radar' });
 }
 
 export function naoAchou({ cfg }) {

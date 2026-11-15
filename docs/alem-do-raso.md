@@ -83,7 +83,7 @@ Fica em `blog/_src/lib/video.mjs` (marcação), `blog/assets/js/video.js` (compo
 O filme é um MP4 comum; a página desenha por cima dele.
 
 - **Capítulos:** cinco botões abaixo do vídeo e marcas na barra de posição.
-- **Pontos clicáveis (11):** os cinco fatores, os três itens do mapa e os três golpes. Clicar pausa o filme e abre um cartão com o tema, o que a gente faz e um link do blog. A lista "Explore os 11 pontos", abaixo do vídeo, tem uma linha de texto por grupo, abre os mesmos cartões e marca os já vistos.
+- **Pontos clicáveis (11):** os cinco fatores, os três itens do mapa e os três golpes. Clicar pausa o filme e abre um cartão com o tema, o que a gente faz e um link do blog. Não há lista de pontos exposta abaixo do vídeo: eles também estão no bloco recolhido da transcrição, onde cada título abre o ponto no filme.
 - **Sua vez:** aos 0:55 o filme para e pede um toque no gelo. Quem não tocar em 9 s segue junto.
 - **Quadro final:** só a pergunta "Qual é o seu iceberg?" e três escolhas, que levam aos fluxos de Serviços (Adoção de IA, ERP, Governança). Para rever o filme, o botão de tocar da barra vira "Ver de novo".
 - **Teclado:** espaço ou K (tocar e pausar), setas (5 s), Home (começo), M (som), C (legendas), F (tela cheia), Esc (fecha o cartão).
@@ -91,9 +91,14 @@ O filme é um MP4 comum; a página desenha por cima dele.
 
 Para mudar os textos dos cartões e do quadro final, edite `blog/_src/content/video.json` e rode o build.
 
+## Capa do blog para o LinkedIn
+
+O mesmo cenário serve de capa do blog: `animacao/src/raso/capa.js` pede ao filme o mundo de um instante (o gelo inteiro, já debaixo d'água, com o slide de status na parede), sem textos nem interface, e escreve por cima a marca, a chamada e o endereço.
+`node animacao/producao/capa_blog.mjs [endereço]` grava três arquivos em `blog/assets/img/linkedin/`: a capa em paisagem (1200 × 627, em dobro), a capa em retrato (1080 × 1350, em dobro) e a imagem de compartilhamento do site.
+
 ## O que foi conferido e o que não foi
 
-- Conferido: os dois MP4 decodificam do começo ao fim (2.641 quadros), têm início rápido e som em −16,8 LUFS; a camada interativa passou por 100 verificações automáticas em tela larga, celular, teclado, sem JavaScript e com movimento reduzido.
+- Conferido: os dois MP4 decodificam do começo ao fim (2.641 quadros), têm início rápido e som em −16,8 LUFS; a camada interativa passou por 101 verificações automáticas em tela larga, celular, teclado, sem JavaScript e com movimento reduzido.
 - O navegador dos testes não toca H.264. Por isso os testes de reprodução usaram uma cópia WebM do mesmo filme; o MP4 foi conferido pelo ffmpeg, não tocado em um navegador.
 - A narração foi escolhida pela transcrição (texto completo e ritmo), não de ouvido. Vale ouvir uma vez e pedir outra tomada se a entonação não agradar.
 - Os textos dos cartões são uma primeira versão e podem ser ajustados em `video.json`.

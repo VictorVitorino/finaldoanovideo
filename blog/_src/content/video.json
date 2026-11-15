@@ -124,25 +124,21 @@
   },
   "fim": {
     "titulo": "Qual é o seu iceberg?",
-    "nota": "Escolha o tipo de projeto e veja o caminho, passo a passo.",
+    "nota": "Escolha o tipo de projeto",
     "opcoes": [
       [
         "Adoção de IA",
-        "servicos/#fluxo-ia",
-        "faisca"
+        "servicos/#fluxo-ia"
       ],
       [
         "Implantação de ERP",
-        "servicos/#fluxo-erp",
-        "camadas"
+        "servicos/#fluxo-erp"
       ],
       [
         "Governança",
-        "servicos/#fluxo-governanca",
-        "escudo"
+        "servicos/#fluxo-governanca"
       ]
-    ],
-    "de_novo": "Ver de novo"
+    ]
   },
   "creditos": "Narração em voz sintética (ElevenLabs). Os exemplos do vídeo são ilustrativos.",
   "erro": "Não foi possível carregar o vídeo."

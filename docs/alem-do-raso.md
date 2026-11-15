@@ -83,9 +83,9 @@ Fica em `blog/_src/lib/video.mjs` (marcação), `blog/assets/js/video.js` (compo
 O filme é um MP4 comum; a página desenha por cima dele.
 
 - **Capítulos:** cinco botões abaixo do vídeo e marcas na barra de posição.
-- **Pontos clicáveis (11):** os cinco fatores, os três itens do mapa e os três golpes. Clicar pausa o filme e abre um cartão com o tema, o que a gente faz e um link do blog. A lista "Explore os 11 pontos" abre os mesmos cartões e marca os já vistos.
+- **Pontos clicáveis (11):** os cinco fatores, os três itens do mapa e os três golpes. Clicar pausa o filme e abre um cartão com o tema, o que a gente faz e um link do blog. A lista "Explore os 11 pontos", abaixo do vídeo, tem uma linha de texto por grupo, abre os mesmos cartões e marca os já vistos.
 - **Sua vez:** aos 0:55 o filme para e pede um toque no gelo. Quem não tocar em 9 s segue junto.
-- **Quadro final:** "Qual é o seu iceberg?", com os três fluxos de Serviços (Adoção de IA, ERP, Governança), a conversa por WhatsApp e "Ver de novo".
+- **Quadro final:** só a pergunta "Qual é o seu iceberg?" e três escolhas, que levam aos fluxos de Serviços (Adoção de IA, ERP, Governança). Para rever o filme, o botão de tocar da barra vira "Ver de novo".
 - **Teclado:** espaço ou K (tocar e pausar), setas (5 s), Home (começo), M (som), C (legendas), F (tela cheia), Esc (fecha o cartão).
 - **Sem JavaScript:** o vídeo toca com os controles do navegador e a faixa de legendas; a transcrição e os pontos ficam em texto.
 
@@ -93,7 +93,7 @@ Para mudar os textos dos cartões e do quadro final, edite `blog/_src/content/vi
 
 ## O que foi conferido e o que não foi
 
-- Conferido: os dois MP4 decodificam do começo ao fim (2.641 quadros), têm início rápido e som em −16,8 LUFS; a camada interativa passou por 97 verificações automáticas em tela larga, celular, teclado, sem JavaScript e com movimento reduzido.
+- Conferido: os dois MP4 decodificam do começo ao fim (2.641 quadros), têm início rápido e som em −16,8 LUFS; a camada interativa passou por 100 verificações automáticas em tela larga, celular, teclado, sem JavaScript e com movimento reduzido.
 - O navegador dos testes não toca H.264. Por isso os testes de reprodução usaram uma cópia WebM do mesmo filme; o MP4 foi conferido pelo ffmpeg, não tocado em um navegador.
 - A narração foi escolhida pela transcrição (texto completo e ritmo), não de ouvido. Vale ouvir uma vez e pedir outra tomada se a entonação não agradar.
 - Os textos dos cartões são uma primeira versão e podem ser ajustados em `video.json`.

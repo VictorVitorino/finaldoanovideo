@@ -5,7 +5,7 @@
 // Sem JavaScript, o vídeo toca com os controles do navegador e a faixa de legendas; a transcrição e os pontos ficam em texto.
 import { esc } from './md.mjs';
 import { icone } from './ilustra.mjs';
-import { titSecao, frases, contato } from './modelos.mjs';
+import { titSecao, frases } from './modelos.mjs';
 
 const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 const hms = s => { const m = Math.floor(s / 60), r = s - m * 60; return `00:${String(m).padStart(2, '0')}:${r.toFixed(3).padStart(6, '0')}`; };
@@ -26,7 +26,7 @@ export function legendasVTT(tempos) {
 
 export function blocoVideo({ v, tempos, raiz = '', cfg }) {
   if (!v || !tempos) return '';
-  const ct = contato(cfg), dur = tempos.duracao;
+  const dur = tempos.duracao;
   for (const p of tempos.pontos) if (!v.pontos[p.id]) throw new Error(`video.json: falta o texto do ponto "${p.id}"`);
   const pontos = tempos.pontos.map(p => { const c = v.pontos[p.id]; return { id: p.id, g: v.grupos[p.grupo] || '', e: p.grupo === 'fatores' && p.x + p.w / 2 < 50, de: p.de, ate: p.ate, x: p.x, y: p.y, w: p.w, h: p.h, t: c.titulo, tx: c.texto, fz: c.fazemos, l: c.link ? [c.link[0], raiz + c.link[1]] : null }; });
   const base = String(cfg.url || '').replace(/\/$/, '') + '/', iso = `PT${Math.floor(dur / 60)}M${Math.round(dur % 60)}S`;
@@ -64,9 +64,8 @@ export function blocoVideo({ v, tempos, raiz = '', cfg }) {
           <button type="button" class="btn btn--claro btn--peq" data-vi-continuar>${icone('play')}Continuar o vídeo</button>
         </aside>
         <div class="vi-fim so-js" data-vi-fim hidden>
-          <div class="vi-fim-txt"><h3 tabindex="-1" data-vi-fim-tit>${esc(v.fim.titulo)}</h3><p>${esc(v.fim.nota)}</p></div>
-          <div class="vi-fim-opcoes">${v.fim.opcoes.map(([t, h, i]) => `<a class="vi-opcao" href="${raiz}${esc(h)}">${icone(i || 'rota')}<b>${esc(t)}</b>${icone('seta')}</a>`).join('')}</div>
-          <div class="vi-fim-acoes">${ct.zap ? `<a class="btn btn--claro btn--peq" href="${esc(ct.zap)}" target="_blank" rel="noopener">${icone('conversa')}Falar com ${esc(cfg.autor.split(' ')[0])}</a>` : ''}<button type="button" class="btn btn--vidro btn--peq" data-vi-denovo>${icone('ciclo')}${esc(v.fim.de_novo)}</button></div>
+          <h3 tabindex="-1" data-vi-fim-tit>${esc(v.fim.titulo)}</h3>
+          <ul class="vi-fim-opcoes" aria-label="${esc(v.fim.nota)}">${v.fim.opcoes.map(([t, h]) => `<li><a class="vi-opcao" href="${raiz}${esc(h)}">${esc(t)}</a></li>`).join('')}</ul>
         </div>
         <div class="vi-barra so-js" data-vi-barra>
           <button type="button" class="vi-bt vi-bt--p" data-vi-tocar aria-label="Reproduzir">${icone('play')}</button>
@@ -79,8 +78,8 @@ export function blocoVideo({ v, tempos, raiz = '', cfg }) {
       </div>
       <ol class="vi-caps" aria-label="Capítulos do vídeo">${tempos.capitulos.map((c, i) => `<li data-vi-cap="${i}" data-t="${c.t}"><span>${String(i + 1).padStart(2, '0')}</span><b>${esc(c.nome)}</b><small>${mmss(c.t)}</small></li>`).join('')}</ol>
       <div class="vi-explora so-js">
-        <h3><i class="vi-mais"></i>Explore os ${pontos.length} pontos do vídeo<span class="vi-conta" data-vi-conta data-total="${pontos.length}" aria-live="polite"></span></h3>
-        <div class="vi-grupos">${grupos.map(g => `<p><span>${esc(g.nome)}</span>${g.itens.map(p => `<button type="button" class="vi-chip" data-vi-chip="${esc(p.id)}">${esc(v.pontos[p.id].titulo)}</button>`).join('')}</p>`).join('')}</div>
+        <div class="vi-explora-cab"><h3>Explore os ${pontos.length} pontos</h3><span class="vi-conta" data-vi-conta data-total="${pontos.length}" aria-live="polite"></span></div>
+        ${grupos.map((g, i) => `<div class="vi-grupo"><h4 id="vi-g${i}">${esc(g.nome)}</h4><ul aria-labelledby="vi-g${i}">${g.itens.map(p => `<li><button type="button" class="vi-chip" data-vi-chip="${esc(p.id)}">${esc(v.pontos[p.id].titulo)}</button></li>`).join('')}</ul></div>`).join('')}
       </div>
       <details class="vi-texto">
         <summary>${icone('lista')}Ler a transcrição e os pontos do vídeo</summary>

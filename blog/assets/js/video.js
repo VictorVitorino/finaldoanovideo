@@ -15,7 +15,7 @@
   const pontos = $$('[data-vi-ponto]'), chips = $$('[data-vi-chip]'), elErro = $('[data-vi-erro]'), elConta = $('[data-vi-conta]');
   const porId = Object.fromEntries(D.pontos.map(p => [p.id, p]));
   const IC = {
-    play: '<path d="M8 5.5v13l11-6.500z" fill="currentColor"/>', pausa: '<path d="M8.5 6v12M15.500 6v12" stroke-width="2.6"/>',
+    play: '<path d="M8 5.5v13l11-6.500z" fill="currentColor"/>', denovo: '<path d="M5.500 12.500a6.500 6.500 0 1 0 2-5"/><path d="M5 4.500v4.500h4.500"/>', pausa: '<path d="M8.5 6v12M15.500 6v12" stroke-width="2.6"/>',
     som: '<path d="M4 9.5v5h3.500L12 18V6L7.500 9.500z"/><path d="M15.500 9a4 4 0 010 6M18 6.500a7.500 7.500 0 010 11"/>', mudo: '<path d="M4 9.500v5h3.500L12 18V6L7.500 9.500z"/><path d="M16 9.500l5 5M21 9.500l-5 5"/>',
   };
   const ic = n => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
@@ -35,7 +35,8 @@
   let vistos = new Set();
   try { vistos = new Set(JSON.parse(guarda.le('cmw-video-pontos') || '[]').filter(id => porId[id])); } catch { /* lista inválida: começa do zero */ }
   const conta = () => {
-    chips.forEach(b => b.classList.toggle('visto', vistos.has(b.dataset.viChip)));
+    // o item já visto ganha a marca e, para quem usa leitor de tela, o aviso no nome
+    chips.forEach(b => { const v = vistos.has(b.dataset.viChip); b.classList.toggle('visto', v); if (v && !b.querySelector('.vis-oculto')) b.insertAdjacentHTML('beforeend', '<span class="vis-oculto"> (já visto)</span>'); });
     const n = vistos.size, tot = D.pontos.length;
     elConta.textContent = n === 0 ? '' : n >= tot ? `Os ${tot} explorados: você foi além do raso` : `${n} de ${tot} explorados`;
     elConta.classList.toggle('cheio', n >= tot);
@@ -92,7 +93,7 @@
   const passo = () => { pinta(video.currentTime); raf = video.paused || video.ended ? 0 : requestAnimationFrame(passo); };
   const botoes = () => {
     const toca = !video.paused && !video.ended;
-    bTocar.innerHTML = ic(toca ? 'pausa' : 'play'); bTocar.setAttribute('aria-label', toca ? 'Pausar' : video.ended ? 'Ver de novo' : 'Reproduzir');
+    bTocar.innerHTML = ic(toca ? 'pausa' : video.ended ? 'denovo' : 'play'); bTocar.setAttribute('aria-label', toca ? 'Pausar' : video.ended ? 'Ver de novo' : 'Reproduzir');
     vi.classList.toggle('vi--tocando', toca);
     vi.classList.toggle('vi--comecou', carregado && (video.currentTime > 0.05 || toca));
     // pausado no meio do filme, sem cartão, toque ou quadro final: o botão do centro volta, só o ícone
@@ -147,7 +148,6 @@
   // ---------- tela final ----------
   function mostraFim() { noFim = true; fim.hidden = false; vi.classList.add('vi--fim'); pontos.forEach(b => { b.hidden = true; }); botoes(); }
   function escondeFim() { if (!noFim) return; noFim = false; fim.hidden = true; vi.classList.remove('vi--fim'); botoes(); }
-  $('[data-vi-denovo]').addEventListener('click', () => { vai(0); tocar(); bTocar.focus({ preventScroll: true }); });
 
   // ---------- controles ----------
   const alterna = () => { if (emToque) return segue(); if (aberto) return fecha(true); if (video.ended) { vai(0); return tocar(); } if (video.paused) tocar(); else video.pause(); };

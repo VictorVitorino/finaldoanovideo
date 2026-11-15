@@ -37,7 +37,7 @@ export const botoesContato = (cfg, { principal = 'btn--p', apoio = 'btn--s', tel
 };
 
 // ---------- esqueleto ----------
-export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imagem, tipo = 'website', classe = '', artigo, scripts = [], ativo = '', attrs = '' }) {
+export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imagem, tipo = 'website', classe = '', artigo, scripts = [], estilos = [], ativo = '', attrs = '' }) {
   const tituloCompleto = titulo ? `${titulo} · ${cfg.nome}` : `${cfg.nome} · ${cfg.lema}`;
   const abs = cfg.url ? cfg.url.replace(/\/$/, '') + '/' + caminho : '';
   const og = imagem ? (cfg.url ? cfg.url.replace(/\/$/, '') + '/' + imagem : raiz + imagem) : '';
@@ -84,7 +84,7 @@ ${artigo ? `<meta property="article:published_time" content="${esc(artigo.data)}
 <link rel="stylesheet" href="${raiz}assets/css/site.css">
 <link rel="stylesheet" href="${raiz}assets/css/motion.css">
 <link rel="stylesheet" href="${raiz}assets/css/ux.css">
-<link rel="stylesheet" href="${raiz}assets/css/jornada.css">
+<link rel="stylesheet" href="${raiz}assets/css/jornada.css">${estilos.map(e => `\n<link rel="stylesheet" href="${raiz}${e}">`).join('')}
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body class="${classe}"${attrs}>
@@ -182,7 +182,8 @@ const mancheteCartao = (p, raiz, i) => `<li class="galeria-item"><article class=
       <span class="manchete-pe">${esc(fonteCurta(p))} · ${p.min} min</span></article></li>`;
 
 // ---------- início: abertura e um trecho de cada destino (radar, laboratório, serviços e sobre) ----------
-export function inicio({ cfg, posts, perfil, home, lab = '', servicos = '', sobre = '' }) {
+// video: { html, rotulo } do vídeo interativo (lib/video.mjs), logo abaixo da abertura; sem ele, a página fica como antes
+export function inicio({ cfg, posts, perfil, home, lab = '', servicos = '', sobre = '', video = null }) {
   const raiz = '';
   const capaP = posts.find(p => p.slug === cfg.edicao.capa) || posts[0];
   const reportagens = posts.filter(p => p.tipo === 'reportagem');
@@ -201,6 +202,7 @@ export function inicio({ cfg, posts, perfil, home, lab = '', servicos = '', sobr
       <h1 id="ab-t" class="mega">${ab.titulo.map(l => `<span class="mega-l"><span>${linhaTit(l)}</span></span>`).join('')}</h1>
       <p class="abertura-lead revela">${frases(ab.lead)}</p>
       <div class="abertura-acoes revela"><a class="btn btn--p" href="radar/">Explorar notícias${icone('seta')}</a><a class="btn btn--s btn--busca" href="radar/" data-abrir-busca>${icone('busca')}Buscar no blog<kbd>Ctrl K</kbd></a></div>
+      ${video ? `<a class="abertura-video revela" href="#video" data-vi-abrir><i>${icone('play')}</i><span>${esc(video.chamada)}</span><small>${esc(video.rotulo)}</small></a>` : ''}
     </div>
     <div class="mergulho revela" data-mergulho data-zonas="${esc(JSON.stringify(ice.zonas || []))}">
       <div class="cena-topo"><div class="cena-cab"><h2 class="cena-tit">${esc(ice.titulo || 'O iceberg da mudança')}</h2><p class="cena-zona" data-zona aria-live="polite"><b>${esc((ice.zonas[0] || {}).nome || 'Superfície')}</b><span>${esc((ice.zonas[0] || {}).frase || '')}</span></p></div><output class="sonda-m so-js" aria-hidden="true">0 m</output></div>
@@ -256,7 +258,7 @@ export function inicio({ cfg, posts, perfil, home, lab = '', servicos = '', sobr
   </div>
 </section>`;
 
-  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + trilha + blocoCapa + radar + lab + servicos + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio pg-escura', scripts: ['assets/js/mergulho.js'] });
+  return pagina({ cfg, raiz, titulo: '', descricao: cfg.descricao, corpo: abertura + (video ? video.html : '') + trilha + blocoCapa + radar + lab + servicos + sobre, caminho: '', imagem: 'assets/img/og/inicio.jpg', classe: 'pg-inicio pg-escura', scripts: ['assets/js/mergulho.js', ...(video ? ['assets/js/video.js'] : [])], estilos: video ? ['assets/css/video.css'] : [] });
 }
 
 // ---------- radar completo: reportagens (filtro, busca, grade ou lista), guias de campo, IA em números, agenda e vídeos ----------

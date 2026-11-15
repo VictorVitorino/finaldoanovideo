@@ -1,0 +1,258 @@
+/* Change Management World · vídeo interativo da página inicial ("Além do raso").
+   A marcação vem de _src/lib/video.mjs e o comportamento, de assets/js/video.js.
+   A tela (.vi-tela) junta o palco 16:9 e a barra de controles; por cima do palco ficam o botão de início, os pontos
+   clicáveis, a legenda e o momento do toque. O cartão de um ponto e o quadro final ficam por cima do palco em tela larga
+   e abaixo dele em tela estreita. Sem JavaScript, sobra o vídeo com os controles do navegador. */
+
+.sec--video { padding-top: clamp(48px, 5.5vw, 84px); padding-bottom: clamp(28px, 3.6vw, 52px); scroll-margin-top: 72px; }
+.sec--video .sec-cab { margin-bottom: clamp(20px, 2.6vw, 32px); }
+.vi { display: grid; gap: 14px; --vi-mola: cubic-bezier(.2, 1.3, .3, 1); --vi-noite: #04102E; --vi-fundo: #071A4A; --vi-vidro: rgba(7, 22, 64, .9); --vi-fio: rgba(157, 189, 255, .3); }
+
+/* ---------- tela: palco + barra ---------- */
+.vi-tela { --vi-barra: 58px; position: relative; isolation: isolate; border-radius: 20px; overflow: hidden; background: var(--vi-fundo); container: tela / inline-size; box-shadow: 0 40px 80px -48px rgba(10, 36, 99, .8), 0 14px 30px -20px rgba(10, 36, 99, .55); }
+.vi-palco { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--vi-noite); container: palco / inline-size; }
+.vi-video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: contain; background: var(--vi-noite); }
+.vi--vivo .vi-video { cursor: pointer; }
+.vi [hidden] { display: none !important; }
+
+/* ---------- começo: botão sobre a capa ---------- */
+.vi-play { position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: clamp(10px, 1.7cqw, 18px); color: #fff; background: radial-gradient(70% 80% at 50% 46%, rgba(4, 16, 46, .08), rgba(4, 16, 46, .6)); cursor: pointer; transition: opacity .5s var(--ease), visibility .5s; }
+.vi-play-ic { position: relative; display: grid; place-items: center; width: clamp(60px, 8.6cqw, 92px); aspect-ratio: 1; border-radius: 50%; background: var(--azul-p); color: #fff; border: 2px solid #fff; box-shadow: 0 0 0 8px rgba(255, 255, 255, .2), 0 26px 50px -18px rgba(0, 0, 0, .75); transition: transform .45s var(--vi-mola), background .3s var(--ease); }
+.vi-play-ic .ic { width: 42%; height: 42%; margin-left: 6%; }
+.vi-play-ic::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .7); animation: vi-onda 2.4s var(--ease) infinite; }
+.vi-play:hover .vi-play-ic, .vi-play:focus-visible .vi-play-ic { transform: scale(1.08); background: var(--azul); }
+.vi-play:focus-visible { outline: none; }
+.vi-play:focus-visible .vi-play-ic { box-shadow: 0 0 0 4px var(--azul-p), 0 0 0 7px #fff; }
+.vi-play-txt { display: grid; gap: 3px; justify-items: center; padding: .55em 1.1em .6em; border-radius: 14px; background: var(--vi-vidro); border: 1px solid var(--vi-fio); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-align: center; }
+.vi-play-txt b { font: 500 clamp(1.05rem, 2.2cqw, 1.5rem)/1.1 var(--tit); letter-spacing: -.01em; }
+.vi-play-txt small { font-size: clamp(.72rem, 1.3cqw, .86rem); color: #C9D6F2; }
+.vi--comecou .vi-play { opacity: 0; visibility: hidden; pointer-events: none; }
+.vi--pausado .vi-play { opacity: 1; visibility: visible; background: none; }
+.vi--pausado .vi-play-ic { pointer-events: auto; }
+.vi--pausado .vi-play-ic::after, .vi--pausado .vi-play-txt { display: none; }
+
+/* ---------- pontos clicáveis ---------- */
+.vi-pontos { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.vi-ponto { position: absolute; pointer-events: auto; border-radius: clamp(6px, 1.2cqw, 14px); border: 1px solid rgba(255, 255, 255, .28); background: rgba(255, 255, 255, .05); cursor: pointer; transition: background .25s var(--ease), border-color .25s var(--ease); animation: vi-surge .5s var(--ease) both; }
+/* o selo de "mais" fica no meio da borda de fora da caixa: não cobre o texto do filme nem a caixa vizinha */
+.vi-ponto i, .vi-mais { position: absolute; top: 50%; right: 0; translate: 50% -50%; width: clamp(15px, 2.2cqw, 23px); aspect-ratio: 1; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(4, 16, 46, .45); animation: vi-pulso 2s ease-out infinite; }
+.vi-ponto--e i { right: auto; left: 0; translate: -50% -50%; }
+.vi-ponto i::before, .vi-ponto i::after, .vi-mais::before, .vi-mais::after { content: ''; position: absolute; left: 50%; top: 50%; width: 46%; height: 2px; border-radius: 1px; background: var(--azul-p); transform: translate(-50%, -50%); }
+.vi-ponto i::after, .vi-mais::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .3s var(--ease); }
+.vi-ponto:hover, .vi-ponto:focus-visible, .vi-ponto.aberto { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .9); }
+.vi-ponto:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.vi-ponto.aberto i { background: var(--azul-suave); animation: none; }
+.vi-ponto.aberto i::after { transform: translate(-50%, -50%) rotate(0deg); }
+.vi-mais { position: relative; top: auto; right: auto; translate: none; flex: none; display: inline-block; width: 20px; animation: none; box-shadow: none; }
+
+/* ---------- legenda e dica ---------- */
+.vi-legenda { position: absolute; left: 50%; bottom: 5%; z-index: 4; transform: translateX(-50%); width: max-content; max-width: 88%; margin: 0; padding: .3em .75em .36em; border-radius: .5em; background: rgba(4, 12, 36, .82); color: #fff; font: 500 clamp(.74rem, 2cqw, 1.28rem)/1.3 var(--txt); text-align: center; text-wrap: balance; pointer-events: none; }
+.vi--cartao .vi-legenda, .vi--toque .vi-legenda, .vi--fim .vi-legenda, .vi:not(.vi--comecou) .vi-legenda { opacity: 0; }
+.vi-dica { position: absolute; left: 50%; top: 4.6%; z-index: 4; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 7px 14px 7px 8px; border-radius: 999px; background: rgba(255, 255, 255, .95); color: var(--azul-p); font-size: clamp(.72rem, 1.4cqw, .88rem); font-weight: 600; white-space: nowrap; box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .7); pointer-events: none; animation: vi-desce .5s var(--ease) both; }
+.vi-dica .vi-mais { background: var(--azul-p); }
+.vi-dica .vi-mais::before, .vi-dica .vi-mais::after { background: #fff; }
+
+/* ---------- o momento do toque: o vídeo para e espera ---------- */
+.vi-toque { position: absolute; inset: 0; z-index: 5; background: radial-gradient(circle at var(--tx) var(--ty), rgba(4, 16, 46, 0) 10%, rgba(4, 16, 46, .6) 58%); animation: vi-aparece .4s var(--ease) both; }
+.vi-toque-alvo { position: absolute; left: var(--tx); top: var(--ty); width: clamp(58px, 10.5cqw, 116px); aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 2px solid #fff; background: rgba(255, 255, 255, .16); cursor: pointer; transition: background .3s var(--ease), transform .4s var(--vi-mola); }
+.vi-toque-alvo::before, .vi-toque-alvo::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid #fff; animation: vi-onda 1.8s var(--ease) infinite; pointer-events: none; }
+.vi-toque-alvo::after { animation-delay: .9s; }
+.vi-toque-alvo:hover, .vi-toque-alvo:focus-visible { background: rgba(255, 255, 255, .34); transform: translate(-50%, -50%) scale(1.06); }
+.vi-toque-alvo:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+/* no centro, um ponto; em volta, o tempo que falta para o filme seguir sozinho */
+.vi-toque-alvo b { position: absolute; left: 50%; top: 50%; width: 22%; aspect-ratio: 1; margin: -11% 0 0 -11%; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px rgba(255, 255, 255, .25); }
+.vi-toque-alvo i { position: absolute; inset: -10px; border-radius: 50%; background: conic-gradient(var(--azul-suave) calc(var(--vi-k) * 360deg), rgba(255, 255, 255, .2) 0); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px)); mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px)); animation: vi-conta 9s linear both; pointer-events: none; }
+.vi-toque-txt { position: absolute; left: calc(var(--tx) + clamp(46px, 8.2cqw, 88px)); top: var(--ty); transform: translateY(-50%); display: grid; gap: 4px; width: max-content; max-width: min(40%, 330px); margin: 0; padding: 14px 18px 13px; border-radius: 14px; background: var(--vi-vidro); border: 1px solid var(--vi-fio); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #fff; animation: vi-entra .5s .1s var(--ease) both; }
+.vi-toque-txt b { font: 500 clamp(1rem, 2.1cqw, 1.38rem)/1.15 var(--tit); letter-spacing: -.01em; }
+.vi-toque-txt span { font-size: clamp(.78rem, 1.4cqw, .9rem); color: #C9D6F2; }
+.vi-toque-txt button { justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 30px; margin-top: 4px; color: var(--azul-suave); font-size: .8rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.vi-toque-txt button:hover { color: #fff; }
+.vi-toque-txt button .ic { width: 14px; height: 14px; }
+/* o toque: um anel que estoura a partir do gelo */
+.vi-palco::after { content: ''; position: absolute; left: var(--tx); top: var(--ty); z-index: 5; width: 10cqw; aspect-ratio: 1; margin: -5cqw 0 0 -5cqw; border-radius: 50%; border: 3px solid #fff; opacity: 0; pointer-events: none; }
+.vi--quebrou .vi-palco::after { animation: vi-estouro .7s var(--ease) both; }
+
+/* ---------- espera e erro ---------- */
+.vi-roda { position: absolute; left: 50%; top: 50%; z-index: 4; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .25); border-top-color: #fff; opacity: 0; pointer-events: none; transition: opacity .3s .25s; animation: vi-gira .8s linear infinite paused; }
+.vi--espera .vi-roda { opacity: 1; animation-play-state: running; }
+.vi-aviso { position: absolute; left: 50%; top: 50%; z-index: 8; transform: translate(-50%, -50%); width: max-content; max-width: 86%; margin: 0; padding: 14px 18px; border-radius: 12px; background: var(--vi-vidro); border: 1px solid var(--vi-fio); color: #fff; font-size: .92rem; text-align: center; }
+.vi-aviso a { color: var(--azul-suave); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- cartão de um ponto ---------- */
+.vi-cartao { position: absolute; z-index: 6; top: 14px; right: 14px; bottom: calc(var(--vi-barra) + 14px); width: min(40%, 392px); display: flex; flex-direction: column; gap: 11px; padding: clamp(18px, 2.3cqw, 26px); border-radius: 16px; overflow: auto; background: var(--vi-vidro); border: 1px solid var(--vi-fio); -webkit-backdrop-filter: blur(16px) saturate(1.15); backdrop-filter: blur(16px) saturate(1.15); color: #fff; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .85); animation: vi-cartao .45s var(--ease) both; }
+.vi-cartao--e { right: auto; left: 14px; animation-name: vi-cartao-e; }
+.vi-cartao small { font-size: .68rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: var(--azul-suave); }
+.vi-cartao h3 { font: 500 clamp(1.3rem, 2.5cqw, 1.72rem)/1.14 var(--tit); letter-spacing: -.01em; color: #fff; outline: none; }
+.vi-cartao > p { margin: 0; font-size: .94rem; line-height: 1.55; color: #DCE6FF; }
+.vi-cartao .vi-cartao-fz { display: grid; gap: 5px; padding: 12px 14px 13px; border-radius: 12px; background: rgba(157, 189, 255, .13); border-left: 3px solid var(--azul-suave); }
+.vi-cartao-fz b { font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--azul-suave); }
+.vi-cartao-fz span { font-size: .93rem; line-height: 1.5; color: #fff; }
+.vi-cartao .link-seta { align-self: flex-start; color: #fff; font-size: .88rem; text-align: left; }
+.vi-cartao .link-seta:hover { color: var(--azul-suave); }
+.vi-cartao .btn { align-self: flex-start; margin-top: auto; }
+.vi-palco :focus-visible, .vi-cartao :focus-visible, .vi-fim :focus-visible, .vi-barra :focus-visible { outline-color: #fff; }
+
+/* ---------- quadro final: a escolha ---------- */
+.vi-fim { position: absolute; z-index: 6; left: 14px; right: 14px; bottom: calc(var(--vi-barra) + 14px); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 28px; align-items: center; padding: 16px 20px; border-radius: 16px; background: var(--vi-vidro); border: 1px solid var(--vi-fio); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); color: #fff; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .85); animation: vi-sobe .6s var(--ease) both; }
+.vi-fim-txt { grid-row: 1 / 3; }
+.vi-fim-txt h3 { font: 500 clamp(1.2rem, 2.3cqw, 1.6rem)/1.15 var(--tit); letter-spacing: -.01em; color: #fff; outline: none; }
+.vi-fim-txt p { margin: 5px 0 0; font-size: .88rem; line-height: 1.45; color: #C9D6F2; max-width: 30em; }
+.vi-fim-opcoes, .vi-fim-acoes { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.vi-opcao { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 10px; background: #fff; color: var(--azul-p); font-size: .9rem; font-weight: 600; white-space: nowrap; transition: transform .35s var(--vi-mola), background .3s var(--ease); }
+.vi-opcao b { font-weight: 600; }
+.vi-opcao .ic:first-child { color: var(--azul); width: 18px; height: 18px; }
+.vi-opcao .ic:last-child { width: 15px; height: 15px; transition: transform .35s var(--ease); }
+.vi-opcao:hover { background: var(--azul-suave); transform: translateY(-2px); }
+.vi-opcao:hover .ic:last-child { transform: translateX(3px); }
+.vi-fim-acoes .btn { min-height: 38px; }
+.vi-fim-acoes .btn--vidro { justify-content: center; }
+
+/* ---------- barra de controles ---------- */
+.vi-barra { position: relative; z-index: 7; display: flex; align-items: center; gap: 8px; min-height: var(--vi-barra); padding: 0 14px; background: var(--vi-fundo); border-top: 1px solid rgba(157, 189, 255, .16); color: #fff; }
+.vi-bt { position: relative; flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; color: #DCE6FF; transition: background .25s var(--ease), color .25s var(--ease); }
+.vi-bt .ic { width: 21px; height: 21px; }
+.vi-bt:hover { background: rgba(255, 255, 255, .13); color: #fff; }
+.vi-bt--p { border-radius: 50%; background: #fff; color: var(--azul-p); }
+.vi-bt--p:hover { background: var(--azul-suave); color: var(--azul-p); }
+.vi-bt--p .ic { width: 19px; height: 19px; }
+.vi-bt[aria-pressed="false"] { color: #7F93C4; }
+.vi-bt[data-vi-leg][aria-pressed="false"]::before { content: ''; position: absolute; left: 50%; top: 50%; width: 25px; height: 2px; margin: -1px 0 0 -12.5px; border-radius: 1px; background: currentColor; transform: rotate(-42deg); box-shadow: 0 0 0 1.5px var(--vi-fundo); }
+.vi-tempo { display: inline-flex; gap: 5px; margin-inline: 4px 2px; font-size: .84rem; font-variant-numeric: tabular-nums; color: #C9D6F2; white-space: nowrap; }
+.vi-tempo b { min-width: 2.2em; text-align: right; font-weight: 600; color: #fff; }
+.vi-tempo i { font-style: normal; opacity: .5; }
+.vi-trilho { position: relative; flex: 1 1 auto; min-width: 70px; display: grid; align-items: center; }
+.vi-trilho input { --p: 0%; -webkit-appearance: none; appearance: none; width: 100%; height: 40px; margin: 0; background: transparent; cursor: pointer; }
+.vi-trilho input::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--azul-suave) var(--p), rgba(255, 255, 255, .2) var(--p)); }
+.vi-trilho input::-moz-range-track { height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .2); }
+.vi-trilho input::-moz-range-progress { height: 6px; border-radius: 3px; background: var(--azul-suave); }
+.vi-trilho input::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; margin-top: -5px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 4px rgba(157, 189, 255, .28); transition: transform .2s var(--ease); }
+.vi-trilho input::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 0 0 4px rgba(157, 189, 255, .28); }
+.vi-trilho input:hover::-webkit-slider-thumb { transform: scale(1.2); }
+.vi-trilho input:focus-visible { outline: 2px solid #fff; outline-offset: 0; border-radius: 8px; }
+.vi-marcos { position: absolute; left: 8px; right: 8px; top: 50%; height: 0; pointer-events: none; }
+.vi-marcos i { position: absolute; top: -4px; width: 3px; height: 8px; margin-left: -1.5px; background: var(--vi-fundo); }
+
+/* ---------- capítulos ---------- */
+.vi-caps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.vi-caps li { display: grid; }
+.vi-caps button, html:not(.js) .vi-caps li { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 4px 8px; width: 100%; padding: 12px 14px 13px; border-radius: 12px; border: 1px solid var(--linha); background: #fff; color: var(--tinta); text-align: left; transition: border-color .25s var(--ease), background .25s var(--ease), color .25s var(--ease), transform .35s var(--vi-mola); }
+.vi-caps span { font: italic 500 .98rem/1 var(--tit); color: var(--azul); }
+.vi-caps small { font-size: .74rem; font-variant-numeric: tabular-nums; color: var(--cinza); }
+.vi-caps b { grid-column: 1 / -1; font-size: .9rem; font-weight: 600; line-height: 1.25; }
+.vi-caps button:hover { border-color: var(--azul); transform: translateY(-2px); }
+.vi-caps button.feito { background: var(--azul-claro); border-color: transparent; }
+.vi-caps button.feito small { color: #4F5B75; }
+.vi-caps button[aria-current] { background: var(--azul-p); border-color: var(--azul-p); color: #fff; }
+.vi-caps button[aria-current] span, .vi-caps button[aria-current] small { color: var(--azul-suave); }
+
+/* ---------- explorar os pontos pela lista ---------- */
+.vi-explora { display: grid; gap: 14px; padding: clamp(18px, 2.2vw, 24px) clamp(18px, 2.4vw, 26px); border-radius: 16px; background: var(--cinza-claro); }
+.vi-explora h3 { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font: 500 1.14rem/1.2 var(--tit); color: var(--tinta); }
+.vi-explora h3 .vi-mais { background: var(--azul-p); }
+.vi-explora h3 .vi-mais::before, .vi-explora h3 .vi-mais::after { background: #fff; }
+.vi-conta { margin-left: auto; font: 600 .78rem/1.2 var(--txt); color: var(--cinza); }
+.vi-conta.cheio { color: var(--azul); }
+.vi-grupos { display: grid; grid-template-columns: 1.3fr .95fr 1fr; gap: 14px 30px; }
+.vi-grupos p { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px; margin: 0; }
+.vi-grupos p > span { flex: 1 1 100%; font-size: .68rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: var(--cinza); }
+.vi-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #C9D3E6; background: #fff; color: var(--azul-p); font-size: .86rem; font-weight: 600; text-align: left; transition: border-color .25s var(--ease), background .25s var(--ease), color .25s var(--ease); }
+.vi-chip:hover { border-color: var(--azul); background: var(--azul-claro); }
+.vi-chip.visto::before { content: ''; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--azul); }
+.vi-chip[aria-current] { border-color: var(--azul-p); background: var(--azul-p); color: #fff; }
+.vi-chip[aria-current]::before { background: var(--azul-suave); }
+
+/* ---------- transcrição e créditos ---------- */
+.vi-texto { border: 1px solid var(--linha); border-radius: 14px; background: #fff; }
+.vi-texto summary { display: flex; align-items: center; gap: 10px; padding: 14px 18px; list-style: none; cursor: pointer; font-size: .92rem; font-weight: 600; color: var(--azul-p); border-radius: 14px; }
+.vi-texto summary::-webkit-details-marker { display: none; }
+.vi-texto summary .ic { color: var(--azul); }
+.vi-texto summary::after { content: ''; width: 8px; height: 8px; margin: -4px 4px 0 auto; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .3s var(--ease); }
+.vi-texto[open] summary::after { margin-top: 4px; transform: rotate(-135deg); }
+.vi-texto summary:hover { color: var(--azul); }
+.vi-texto-in { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 36px; padding: 6px 18px 20px; }
+.vi-texto-in h3 { margin-bottom: 10px; font: 500 1.05rem/1.2 var(--tit); color: var(--tinta); }
+.vi-texto-in p { margin: 0 0 9px; font-size: .9rem; line-height: 1.6; color: #3A4660; }
+.vi-texto-in p b { color: var(--tinta); }
+.vi-texto-in dl { display: grid; gap: 11px; margin: 0; }
+.vi-texto-in dt { font-size: .9rem; font-weight: 600; color: var(--tinta); }
+.vi-texto-in dd { margin: 2px 0 0; font-size: .88rem; line-height: 1.55; color: #3A4660; }
+.vi-texto-in dd i { display: block; font-style: normal; color: var(--cinza); }
+.vi-texto-in dd a { color: var(--azul-p); text-decoration: underline; text-underline-offset: 3px; }
+.vi-creditos { margin: 0; font-size: .78rem; color: var(--cinza); }
+
+/* ---------- botão da abertura ---------- */
+.abertura-video { display: inline-flex; align-items: center; gap: 12px; margin-top: 18px; padding: 6px 16px 6px 6px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .26); background: rgba(255, 255, 255, .08); color: #fff; font-size: .92rem; font-weight: 600; transition: background .3s var(--ease), border-color .3s var(--ease); }
+.abertura-video i { position: relative; flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--azul-p); }
+.abertura-video i .ic { width: 15px; height: 15px; margin-left: 2px; }
+.abertura-video i::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .7); animation: vi-onda 2.4s var(--ease) infinite; }
+.abertura-video small { font-size: .8rem; font-weight: 500; color: #C9D6F2; }
+.abertura-video:hover { background: rgba(255, 255, 255, .16); border-color: #fff; }
+
+/* ---------- tela cheia: o palco continua 16:9 para os pontos ficarem no lugar ---------- */
+.vi-tela:fullscreen { display: grid; grid-template-rows: minmax(0, 1fr) auto; align-items: center; width: 100vw; height: 100vh; border-radius: 0; background: #020818; }
+.vi-tela:fullscreen .vi-palco { width: min(100%, calc((100vh - var(--vi-barra)) * 16 / 9)); margin-inline: auto; }
+.vi-tela:-webkit-full-screen { display: grid; grid-template-rows: minmax(0, 1fr) auto; align-items: center; width: 100vw; height: 100vh; border-radius: 0; background: #020818; }
+.vi-tela:-webkit-full-screen .vi-palco { width: min(100%, calc((100vh - var(--vi-barra)) * 16 / 9)); margin-inline: auto; }
+
+/* ---------- tela estreita: cartão e quadro final descem para baixo do palco ---------- */
+@container tela (max-width: 860px) {
+  .vi-cartao, .vi-cartao--e { position: static; width: auto; max-height: none; border-radius: 0; border: 0; border-top: 1px solid rgba(157, 189, 255, .2); background: var(--azul-p); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; animation-name: vi-desce-b; }
+  .vi-cartao .btn { margin-top: 4px; }
+  .vi-fim { position: static; grid-template-columns: 1fr; gap: 12px; border-radius: 0; border: 0; border-top: 1px solid rgba(157, 189, 255, .2); background: var(--azul-p); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; animation-name: vi-desce-b; }
+  .vi-fim-txt { grid-row: auto; }
+  .vi-fim-opcoes, .vi-fim-acoes { justify-content: flex-start; }
+}
+@container tela (max-width: 560px) {
+  .vi-barra { flex-wrap: wrap; gap: 0 4px; padding: 2px 8px 8px; }
+  .vi-trilho { order: -1; flex: 1 1 100%; }
+  .vi-trilho input { height: 30px; }
+  .vi-tempo { margin-right: auto; }
+  .vi-fim-opcoes { display: grid; justify-content: stretch; }
+  .vi-opcao { justify-content: flex-start; }
+  .vi-opcao .ic:last-child { margin-left: auto; }
+  .vi-fim-acoes .btn { flex: 1 1 auto; }
+}
+@container palco (max-width: 600px) {
+  .vi-toque-txt { left: 50%; top: auto; bottom: 5%; transform: translateX(-50%); max-width: 92%; padding: 9px 14px; text-align: center; justify-items: center; animation-name: vi-aparece; }
+  .vi-toque-txt span { display: none; }
+  .vi-toque-txt button { justify-self: center; margin-top: 0; min-height: 26px; }
+  /* palco pequeno: o selo vai para fora da caixa (não cobre o texto do filme), a área de toque cresce e o botão de pausa encolhe */
+  .vi-ponto i { translate: 88% -50%; box-shadow: 0 1px 4px rgba(4, 16, 46, .5); animation: none; }
+  .vi-ponto--e i { translate: -88% -50%; }
+  .vi-ponto::after { content: ''; position: absolute; inset: -5px -8px; }
+  .vi--pausado .vi-play-ic { width: 44px; }
+}
+@media (max-width: 900px) {
+  .vi-grupos { grid-template-columns: 1fr; }
+  .vi-texto-in { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .vi-tela { border-radius: 14px; }
+  .vi-caps { display: flex; gap: 8px; margin-inline: calc(-1 * var(--borda)); padding: 2px var(--borda) 6px; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: var(--borda); scrollbar-width: none; }
+  .vi-caps::-webkit-scrollbar { display: none; }
+  .vi-caps li { flex: 0 0 min(46vw, 190px); scroll-snap-align: start; }
+  .vi-conta { flex: 1 1 100%; margin-left: 0; }
+}
+
+/* ---------- movimento ---------- */
+@property --vi-k { syntax: '<number>'; inherits: false; initial-value: 0; }
+@keyframes vi-onda { from { transform: scale(1); opacity: .9; } to { transform: scale(1.6); opacity: 0; } }
+@keyframes vi-pulso { 0% { box-shadow: 0 2px 8px rgba(4, 16, 46, .45), 0 0 0 0 rgba(255, 255, 255, .7); } 70%, 100% { box-shadow: 0 2px 8px rgba(4, 16, 46, .45), 0 0 0 min(11px, 1.5cqw) rgba(255, 255, 255, 0); } }
+@keyframes vi-surge { from { opacity: 0; transform: scale(.94); } }
+@keyframes vi-aparece { from { opacity: 0; } }
+@keyframes vi-entra { from { opacity: 0; translate: -12px 0; } }
+@keyframes vi-desce { from { opacity: 0; translate: 0 -10px; } }
+@keyframes vi-desce-b { from { opacity: 0; translate: 0 -8px; } }
+@keyframes vi-sobe { from { opacity: 0; translate: 0 16px; } }
+@keyframes vi-cartao { from { opacity: 0; translate: 22px 0; } }
+@keyframes vi-cartao-e { from { opacity: 0; translate: -22px 0; } }
+@keyframes vi-conta { to { --vi-k: 1; } }
+@keyframes vi-estouro { 0% { opacity: .95; transform: scale(.5); border-width: 5px; } 100% { opacity: 0; transform: scale(7); border-width: 1px; } }
+@keyframes vi-gira { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) {
+  .vi-play-ic::after, .vi-ponto, .vi-ponto i, .vi-toque-alvo::before, .vi-toque-alvo::after, .abertura-video i::after, .vi-toque, .vi-toque-txt, .vi-cartao, .vi-fim, .vi-dica, .vi--quebrou .vi-palco::after { animation: none !important; }
+  .vi-play-ic, .vi-opcao, .vi-caps button, .vi-toque-alvo { transition: none; }
+}
+@media print {
+  .vi-tela, .vi-caps, .vi-explora, .vi-creditos, .abertura-video { display: none !important; }
+}

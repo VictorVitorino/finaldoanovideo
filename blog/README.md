@@ -17,11 +17,24 @@ Quatro destinos no topo: **Radar**, **Laboratório**, **Serviços** e **Sobre**.
 | Serviços (`servicos/`) | Change Management Advisory e IA aplicada: duas frentes, "Quem conduz" (apresentação do autor, com a foto), cinco serviços com ficha completa (para quem, o que inclui, como funciona, acompanhamento, entregas, formato), sintomas e respostas, fluxos por tipo de projeto (Adoção de IA, Implantação de ERP e Governança), acompanhamento antes, durante e depois, jornada de IA aplicada, gráfico de adoção e contato. |
 | Sobre (`sobre/`) | Bio, cartão de contato (WhatsApp, LinkedIn e "Salvar contato" em .vcf), quatro pilares e a pilha de livros: cada livro abre uma página de contexto com o resumo em três ideias e a leitura do autor. |
 
-Conteúdo que alimenta essas páginas, em `_src/content/`: `home.json` (abertura, iceberg, trilha, régua), `servicos.json`, `fluxos.json` (os fluxos por tipo de projeto), `perfil.json`, `estante.json` (livros, com ISBN, pergunta, ideias e leitura), `modelos.json` e os posts em `posts/`. O contato fica em `_src/site.config.json` (`contato`).
+Conteúdo que alimenta essas páginas, em `_src/content/`: `home.json` (abertura, iceberg, trilha, régua), `video.json` (textos do vídeo interativo da página inicial), `servicos.json`, `fluxos.json` (os fluxos por tipo de projeto), `perfil.json`, `estante.json` (livros, com ISBN, pergunta, ideias e leitura), `modelos.json` e os posts em `posts/`. O contato fica em `_src/site.config.json` (`contato`).
 
 ### Iceberg da abertura
 
 O cartão tem três regiões: a barra de cima (título, zona atual e profundidade), a cena e os controles (sonda ao lado, botão "Explorar o iceberg" embaixo). Nada fica por cima da ilustração. Os pontos abaixo d'água são numerados; em telas estreitas, os rótulos saem da cena e vão para uma legenda numerada logo abaixo, e cada item leva a câmera até o ponto. Dá para explorar arrastando a cena, pela sonda, pelo botão ou pelo teclado (setas, Page Up, Page Down, Home e End na sonda).
+
+### Vídeo interativo da página inicial
+
+Logo abaixo da abertura fica o vídeo "O iceberg que não aparece no slide" (1 min 28 s, com narração e legendas). A abertura tem o atalho "Ver o vídeo", que leva ao player e começa a tocar.
+
+- O filme é um MP4 comum (`assets/video/alem-do-raso-1080.mp4` em tela larga e `-720.mp4` em tela pequena ou com economia de dados). Ele só é baixado depois do clique.
+- Por cima do filme, a página desenha: cinco capítulos, as legendas, 11 pontos clicáveis (cada um pausa o filme e abre um cartão com o tema, o que a gente faz e um link do blog), o momento "Sua vez: toque no gelo" (o filme para aos 0:55 e segue sozinho depois de 9 s) e o quadro final "Qual é o seu iceberg?", que leva aos três fluxos de Serviços.
+- A lista "Explore os 11 pontos" abre os mesmos cartões e marca os já vistos (a contagem fica guardada no navegador de quem visita).
+- Teclado, com o foco no player: espaço ou K, setas (5 s), Home, M (som), C (legendas), F (tela cheia) e Esc (fecha o cartão).
+- Sem JavaScript, o vídeo toca com os controles do navegador e a faixa de legendas (`assets/video/alem-do-raso.vtt`); a transcrição e os pontos ficam em texto, no bloco "Ler a transcrição".
+- Textos: `_src/content/video.json` (título, cartões, quadro final). Tempos e posições: `_src/content/video-tempos.json`, exportado do próprio filme; não edite à mão. Marcação em `_src/lib/video.mjs`, comportamento em `assets/js/video.js`, estilo em `assets/css/video.css` (carregados só na página inicial).
+- O build grava as legendas em VTT e para com erro se faltar o arquivo do filme.
+- Como o filme é produzido (roteiro, narração, render e exportação): `docs/alem-do-raso.md`, na raiz do repositório. O filme não tem personagens: pessoas aparecem como pontos de luz.
 
 ### Efeitos (do guia de design)
 
@@ -159,7 +172,7 @@ blog/
   assets/css, js, fonts, img, video                      estilo, comportamento, fontes e mídia
   _src/
     site.config.json     nome, edição, endereço, LinkedIn
-    content/             posts (.md), home.json (destaques, números, chamada da abertura, iceberg e régua), perfil.json, eventos.json, videos.json, estante.json
+    content/             posts (.md), home.json (destaques, números, chamada da abertura, iceberg e régua), video.json e video-tempos.json (vídeo interativo), perfil.json, eventos.json, videos.json, estante.json
     pesquisa/            apuração verificada (JSON)
     lib/                 modelos de página, ilustrações e utilitários
     build.mjs            gera as páginas

@@ -1,0 +1,297 @@
+{
+ "duracao": 88.02,
+ "fps": 30,
+ "capitulos": [
+  {
+   "nome": "A ponta",
+   "t": 0
+  },
+  {
+   "nome": "Abaixo da linha",
+   "t": 14.71
+  },
+  {
+   "nome": "Onde o projeto bate",
+   "t": 31.94
+  },
+  {
+   "nome": "Como a gente trabalha",
+   "t": 40.78
+  },
+  {
+   "nome": "O gelo vira caminho",
+   "t": 70.23
+  }
+ ],
+ "legendas": [
+  {
+   "a": 1.48,
+   "b": 5.69,
+   "texto": "Todo projeto de mudança tem uma parte que cabe no slide:"
+  },
+  {
+   "a": 5.36,
+   "b": 8.65,
+   "texto": "o prazo, o sistema, o treinamento."
+  },
+  {
+   "a": 9.07,
+   "b": 10.88,
+   "texto": "É a ponta do iceberg."
+  },
+  {
+   "a": 11.11,
+   "b": 14.64,
+   "texto": "E muita reunião termina aqui, na superfície."
+  },
+  {
+   "a": 15.49,
+   "b": 19.38,
+   "texto": "Só que a mudança de verdade acontece abaixo da linha d'água."
+  },
+  {
+   "a": 20.57,
+   "b": 22.78,
+   "texto": "No que cada pessoa entende."
+  },
+  {
+   "a": 23.11,
+   "b": 24.6,
+   "texto": "No que ela acredita."
+  },
+  {
+   "a": 25.05,
+   "b": 26.86,
+   "texto": "No que tem medo de perder."
+  },
+  {
+   "a": 27.25,
+   "b": 29.06,
+   "texto": "Nos hábitos de anos."
+  },
+  {
+   "a": 29.43,
+   "b": 31.48,
+   "texto": "Na confiança em quem lidera."
+  },
+  {
+   "a": 32.57,
+   "b": 35.82,
+   "texto": "É nesse gelo invisível que os projetos batem."
+  },
+  {
+   "a": 36.23,
+   "b": 37.96,
+   "texto": "O sistema entra no ar,"
+  },
+  {
+   "a": 37.83,
+   "b": 40.04,
+   "texto": "e as pessoas voltam para a planilha."
+  },
+  {
+   "a": 41.26,
+   "b": 43.87,
+   "texto": "Gestão da mudança é mergulhar."
+  },
+  {
+   "a": 44.41,
+   "b": 47.1,
+   "texto": "Primeiro, a gente mapeia o gelo:"
+  },
+  {
+   "a": 46.77,
+   "b": 48.3,
+   "texto": "quem é impactado,"
+  },
+  {
+   "a": 47.97,
+   "b": 49.98,
+   "texto": "o que muda para cada um,"
+  },
+  {
+   "a": 49.69,
+   "b": 51.58,
+   "texto": "onde está a resistência."
+  },
+  {
+   "a": 52.52,
+   "b": 55.45,
+   "texto": "Depois, quebra esse gelo em partes."
+  },
+  {
+   "a": 56.36,
+   "b": 58.81,
+   "texto": "Com sentido: o porquê,"
+  },
+  {
+   "a": 58.52,
+   "b": 60.25,
+   "texto": "na voz de quem lidera."
+  },
+  {
+   "a": 60.75,
+   "b": 62.24,
+   "texto": "Com prática:"
+  },
+  {
+   "a": 61.95,
+   "b": 64.64,
+   "texto": "as pessoas aprendendo no trabalho real."
+  },
+  {
+   "a": 65.13,
+   "b": 66.7,
+   "texto": "E com medida:"
+  },
+  {
+   "a": 66.41,
+   "b": 69.7,
+   "texto": "o uso de verdade, semana a semana."
+  },
+  {
+   "a": 70.76,
+   "b": 72.49,
+   "texto": "Pedaço por pedaço,"
+  },
+  {
+   "a": 72.28,
+   "b": 74.89,
+   "texto": "o que travava o projeto vira caminho."
+  },
+  {
+   "a": 75.5,
+   "b": 78.51,
+   "texto": "E a adoção deixa de ser promessa:"
+  },
+  {
+   "a": 78.18,
+   "b": 79.47,
+   "texto": "vira rotina."
+  },
+  {
+   "a": 80.66,
+   "b": 84.15,
+   "texto": "Isso é gestão da mudança além do raso."
+  }
+ ],
+ "pausa": {
+  "t": 55.599,
+  "x": 50.61,
+  "y": 34.33
+ },
+ "final": 84.246,
+ "capa": 31.04,
+ "pontos": [
+  {
+   "id": "sentido",
+   "grupo": "fatores",
+   "de": 22.2,
+   "ate": 31.59,
+   "x": 12.96,
+   "y": 22.78,
+   "w": 21.62,
+   "h": 13.15
+  },
+  {
+   "id": "crencas",
+   "grupo": "fatores",
+   "de": 23.98,
+   "ate": 31.59,
+   "x": 65.94,
+   "y": 35.74,
+   "w": 16.08,
+   "h": 13.15
+  },
+  {
+   "id": "perdas",
+   "grupo": "fatores",
+   "de": 26,
+   "ate": 31.59,
+   "x": 13.75,
+   "y": 44.07,
+   "w": 20.84,
+   "h": 13.15
+  },
+  {
+   "id": "habitos",
+   "grupo": "fatores",
+   "de": 27.92,
+   "ate": 31.59,
+   "x": 65.94,
+   "y": 57.04,
+   "w": 13.59,
+   "h": 13.15
+  },
+  {
+   "id": "confianca",
+   "grupo": "fatores",
+   "de": 30.06,
+   "ate": 31.59,
+   "x": 18.17,
+   "y": 66.3,
+   "w": 16.42,
+   "h": 13.15
+  },
+  {
+   "id": "impactados",
+   "grupo": "mapear",
+   "de": 47.29,
+   "ate": 51.84,
+   "x": 5.1,
+   "y": 41.67,
+   "w": 23.26,
+   "h": 7.41
+  },
+  {
+   "id": "impactos",
+   "grupo": "mapear",
+   "de": 48.77,
+   "ate": 51.84,
+   "x": 5.1,
+   "y": 50,
+   "w": 29.53,
+   "h": 7.41
+  },
+  {
+   "id": "resistencia",
+   "grupo": "mapear",
+   "de": 50.21,
+   "ate": 51.84,
+   "x": 5.1,
+   "y": 58.33,
+   "w": 27.09,
+   "h": 7.41
+  },
+  {
+   "id": "q-sentido",
+   "grupo": "quebrar",
+   "de": 57.17,
+   "ate": 70.33,
+   "x": 5.1,
+   "y": 40.56,
+   "w": 28.09,
+   "h": 10.37
+  },
+  {
+   "id": "q-pratica",
+   "grupo": "quebrar",
+   "de": 61.56,
+   "ate": 70.33,
+   "x": 5.1,
+   "y": 53.52,
+   "w": 23.84,
+   "h": 10.37
+  },
+  {
+   "id": "q-medida",
+   "grupo": "quebrar",
+   "de": 66.02,
+   "ate": 70.33,
+   "x": 5.1,
+   "y": 66.48,
+   "w": 29.69,
+   "h": 10.37
+  }
+ ]
+}

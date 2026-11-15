@@ -1,0 +1,149 @@
+{
+  "id": "alem-do-raso",
+  "olho": "Em 1 min 28 s",
+  "titulo": "O iceberg que não aparece no slide",
+  "nota": "Um mergulho no que segura um projeto por baixo da linha d'água e em como a gente trabalha para quebrar esse gelo.\nO vídeo é interativo: toque nos pontos para abrir cada tema.",
+  "data": "2026-11-15",
+  "hd": "assets/video/alem-do-raso-1080.mp4",
+  "sd": "assets/video/alem-do-raso-720.mp4",
+  "capa": "assets/video/alem-do-raso-capa.jpg",
+  "legendas": "assets/video/alem-do-raso.vtt",
+  "botao": "Assistir",
+  "chamada": "Ver o vídeo",
+  "dica": "Toque nos pontos do vídeo para saber mais",
+  "pausa": {
+    "titulo": "Sua vez: toque no gelo",
+    "sub": "É aqui que a gente começa a quebrar.",
+    "seguir": "Seguir sem tocar"
+  },
+  "grupos": {
+    "fatores": "Fatores invisíveis",
+    "mapear": "Mapear o gelo",
+    "quebrar": "Quebrar em partes"
+  },
+  "pontos": {
+    "sentido": {
+      "titulo": "Sentido",
+      "texto": "Antes de aceitar uma mudança, a pessoa precisa entender por que ela existe e o que tem a ver com o trabalho dela. Sem isso, o comunicado vira ruído.",
+      "fazemos": "Uma narrativa da mudança, dita pelo patrocinador e traduzida por cada gestor.",
+      "link": [
+        "Apresentação: plano de comunicação",
+        "apresentacoes/plano-de-comunicacao/"
+      ]
+    },
+    "crencas": {
+      "titulo": "Crenças",
+      "texto": "Cada pessoa carrega ideias sobre o que funciona: \"sempre fizemos assim\". Elas não aparecem na ata, mas decidem o que acontece depois da reunião.",
+      "fazemos": "Escuta com grupos de cada área, antes de desenhar a solução, para saber no que as pessoas acreditam.",
+      "link": [
+        "Ferramenta: mapa de influência",
+        "lab/mapa-de-influencia/"
+      ]
+    },
+    "perdas": {
+      "titulo": "Perdas",
+      "texto": "Toda mudança tira alguma coisa de alguém: domínio, autonomia, status, tempo. Quem sente que vai perder resiste, mesmo concordando com o projeto.",
+      "fazemos": "Um mapa de impactos por papel, com o que cada um perde e ganha, tratado de frente.",
+      "link": [
+        "Modelo: lista de impactos com dashboard",
+        "modelos/#lista-de-impactos-dashboard"
+      ]
+    },
+    "habitos": {
+      "titulo": "Hábitos",
+      "texto": "O jeito antigo é automático; o novo exige esforço. Sob pressão, as pessoas voltam para o que já sabem fazer.",
+      "fazemos": "Prática no trabalho real e apoio perto do uso, até o novo jeito ficar mais fácil que o antigo.",
+      "link": [
+        "Modelo: plano de treinamentos",
+        "modelos/#plano-de-treinamentos"
+      ]
+    },
+    "confianca": {
+      "titulo": "Confiança",
+      "texto": "As pessoas olham para quem lidera antes de se mexer. Se o líder não usa, não cobra e não explica, o recado que fica é: \"isso passa\".",
+      "fazemos": "Patrocínio ativo e gestores preparados para conversar com a própria equipe.",
+      "link": [
+        "Modelo: workshop com patrocinadores",
+        "modelos/#workshop-com-patrocinadores"
+      ]
+    },
+    "impactados": {
+      "titulo": "Quem é impactado",
+      "texto": "O primeiro mapa é de gente: por área e por papel, quem muda de tarefa, de tela, de alçada ou de rotina.",
+      "fazemos": "Mapa de stakeholders, com a influência e o apoio de cada grupo.",
+      "link": [
+        "Ferramenta: mapa de influência",
+        "lab/mapa-de-influencia/"
+      ]
+    },
+    "impactos": {
+      "titulo": "O que muda para cada um",
+      "texto": "A mesma mudança pesa diferente: para uns é um clique a mais; para outros, é o trabalho inteiro.",
+      "fazemos": "Matriz de impactos por processo e por papel, que vira a base do plano.",
+      "link": [
+        "Modelo: lista de impactos com dashboard",
+        "modelos/#lista-de-impactos-dashboard"
+      ]
+    },
+    "resistencia": {
+      "titulo": "Onde está a resistência",
+      "texto": "Resistência é informação: mostra onde falta sentido, capacidade ou confiança.",
+      "fazemos": "Leitura de prontidão por área, antes de escolher a ação.",
+      "link": [
+        "Ferramenta: matriz de adoção",
+        "lab/matriz-de-adocao/"
+      ]
+    },
+    "q-sentido": {
+      "titulo": "Sentido, na voz de quem lidera",
+      "texto": "O porquê precisa sair da boca do patrocinador e chegar a cada equipe pelo gestor direto.",
+      "fazemos": "Mensagens por público e um roteiro de conversa para os gestores.",
+      "link": [
+        "Apresentação: kickoff e treinamento",
+        "apresentacoes/kickoff-e-treinamento/"
+      ]
+    },
+    "q-pratica": {
+      "titulo": "Prática, no trabalho real",
+      "texto": "Adulto aprende fazendo, perto do uso. Treinamento longe da rotina se perde em semanas.",
+      "fazemos": "Trilhas por papel, prática assistida e uma rede de multiplicadores.",
+      "link": [
+        "Modelo: plano de treinamentos",
+        "modelos/#plano-de-treinamentos"
+      ]
+    },
+    "q-medida": {
+      "titulo": "Medida, semana a semana",
+      "texto": "Presença em treinamento não é adoção. O que conta é o uso de verdade, por área.",
+      "fazemos": "Índice de adoção lido a cada onda, com reforço onde o uso cai.",
+      "link": [
+        "Ferramenta: matriz de adoção",
+        "lab/matriz-de-adocao/"
+      ]
+    }
+  },
+  "fim": {
+    "titulo": "Qual é o seu iceberg?",
+    "nota": "Escolha o tipo de projeto e veja o caminho, passo a passo.",
+    "opcoes": [
+      [
+        "Adoção de IA",
+        "servicos/#fluxo-ia",
+        "faisca"
+      ],
+      [
+        "Implantação de ERP",
+        "servicos/#fluxo-erp",
+        "camadas"
+      ],
+      [
+        "Governança",
+        "servicos/#fluxo-governanca",
+        "escudo"
+      ]
+    ],
+    "de_novo": "Ver de novo"
+  },
+  "creditos": "Narração em voz sintética (ElevenLabs). Os exemplos do vídeo são ilustrativos.",
+  "erro": "Não foi possível carregar o vídeo."
+}

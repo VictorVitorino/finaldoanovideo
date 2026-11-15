@@ -9,6 +9,7 @@ import { marca } from './lib/ilustra.mjs';
 import { inicio, post, mes, naoAchou, paginaRadar, TEMAS } from './lib/modelos.mjs';
 import { paginaServicos, blocoServicos } from './lib/servicos.mjs';
 import { fluxosBusca } from './lib/fluxos.mjs';
+import { blocoVideo, legendasVTT } from './lib/video.mjs';
 import { paginaSobre, blocoSobre } from './lib/sobre.mjs';
 import { deckHTML, paginaApresentacoes, capaDoDeck } from './lib/apresenta.mjs';
 import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, PREVIAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
@@ -49,7 +50,12 @@ function gera() {
   const mods = json('modelos.json').filter(m => existsSync(join(SAIDA, 'assets', 'modelos', m.arquivo))).map(m => ({ ...m, ...(previas[m.id] || {}) }));
   const estante = existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null;
   const convite = blocoServicos(d.servicos, '../');
-  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas, mods.length), servicos: blocoServicos(d.servicos, ''), sobre: blocoSobre({ cfg, perfil: d.perfil, raiz: '' }) }));
+  // vídeo interativo da página inicial: conteúdo em video.json, tempos e posições exportados do filme em video-tempos.json
+  const vd = existsSync(join(CONT, 'video.json')) && existsSync(join(CONT, 'video-tempos.json')) ? { v: json('video.json'), tempos: json('video-tempos.json') } : null;
+  if (vd && !existsSync(join(SAIDA, vd.v.sd))) throw new Error(`video.json: falta o arquivo ${vd.v.sd} (rode a produção do filme em animacao/)`);
+  if (vd) grava(vd.v.legendas, legendasVTT(vd.tempos));
+  const video = vd ? { html: blocoVideo({ ...vd, raiz: '', cfg }), chamada: vd.v.chamada || 'Ver o vídeo', rotulo: `${Math.floor(vd.tempos.duracao / 60)} min ${Math.round(vd.tempos.duracao % 60)} s` } : null;
+  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas, mods.length), servicos: blocoServicos(d.servicos, ''), sobre: blocoSobre({ cfg, perfil: d.perfil, raiz: '' }), video }));
   grava('radar/index.html', paginaRadar({ cfg, posts, eventos: d.eventos, videos: d.videos, home: d.home }));
   grava('servicos/index.html', paginaServicos({ cfg, c: d.servicos, perfil: d.perfil, fluxos: d.fluxos }));
   grava('sobre/index.html', paginaSobre({ cfg, perfil: d.perfil, estante, convite }));
@@ -85,7 +91,7 @@ function gera() {
     modelos: mods.map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
     servicos: d.servicos.servicos.map(x => ({ t: x.nome, d: curto(x.frase, 110), u: `servicos/#servico-${x.id}` })),
     decks: decks.map(dk => ({ t: dk.nome, d: curto(dk.frase, 110), u: `apresentacoes/${dk.id}/` })),
-    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Apresentações em HTML', 'apresentacoes/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Quem conduz: Victor Vitorino', 'servicos/#quem'], ['Fluxos por tipo de projeto', 'servicos/#fluxos'], ...fluxosBusca(d.fluxos).map(x => [x.t, x.u]), ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
+    secoes: [...(vd ? [[`Vídeo: ${vd.v.titulo}`, 'index.html#video']] : []), ['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Apresentações em HTML', 'apresentacoes/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Quem conduz: Victor Vitorino', 'servicos/#quem'], ['Fluxos por tipo de projeto', 'servicos/#fluxos'], ...fluxosBusca(d.fluxos).map(x => [x.t, x.u]), ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
   };
   grava('assets/js/dados.js', `// Gerado por blog/_src/build.mjs. Não edite à mão.\nwindow.CMW_DADOS = ${JSON.stringify(dados)};\n`);
   const porMes = {};

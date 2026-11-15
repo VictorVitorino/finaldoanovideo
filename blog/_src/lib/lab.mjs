@@ -105,7 +105,7 @@ const capaViva = m => { if (/power/i.test(m.formato || '')) return capaDeck(m);
   const mot = MOTIVO[MOTIVO_DE[m.id]] || MOTIVO[{ raci: 'letras', influencia: 'quadrante', adocao: 'linha', diagnostico: 'radar' }[m.previa]] || MOTIVO.barras;
   return `<span class="capa-viva capa-viva--xls" data-inclina aria-hidden="true"><span class="cl-txt"><small>Planilha</small><b>${esc(m.nome)}</b><i>${esc(m.fatos || m.formato || '')}</i></span><span class="cl-arte"><svg viewBox="0 0 200 156" aria-hidden="true" focusable="false">${mot()}</svg></span><span class="cl-formas"><i></i><i></i></span></span>`; };
 const cab = (raiz, f, extra = '') => `<header class="lab-cab"><div class="sec-in">
-  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>${esc(f.nome)}</span></nav>
+  <nav class="migalhas" aria-label="Você está em"><a href="${raiz || './'}">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>${esc(f.nome)}</span></nav>
   <span class="olho">${esc(f.olho)}</span><h1>${esc(f.titulo || f.nome)}</h1><p class="lab-lead">${esc(f.lead || f.frase)}</p>${extra}</div></header>`;
 const semJs = `<noscript><p class="lab-aviso">Esta ferramenta precisa de JavaScript ligado no navegador. Os modelos em Excel podem ser baixados sem ele, na página do Laboratório.</p></noscript>`;
 // barra de ações: "editar" muda o conteúdo da ferramenta; "exportar" leva o resultado para fora
@@ -119,7 +119,7 @@ const pg = (cfg, f, corpo, scripts = ['assets/js/lab.js']) => pagina({ cfg, raiz
 export function labInicio({ cfg, nPerguntas, regua: rg, modelos = [], decks = [] }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
-  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Laboratório</span></nav>
+  <nav class="migalhas" aria-label="Você está em"><a href="${raiz || './'}">Início</a>${icone('seta')}<span>Laboratório</span></nav>
   <span class="olho">Laboratório</span><h1>Teste, monte e baixe</h1><p class="lab-lead">Um diagnóstico para saber em que nível de Change Management você está, três instrumentos para montar no navegador e modelos em PowerPoint e Excel para levar ao projeto.</p></div></header>
 <section class="sec sec--lab-pg" aria-label="Ferramentas"><div class="sec-in">
   <div class="lab-cartoes">${FERRAMENTAS.map((f, i) => `<a class="lab-cartao revela" style="--i:${i}" href="${f.slug}/"><span class="lab-cartao-arte">${PREVIAS[f.id](['a', 'b', 'c', 'b'][i])}</span><span class="lab-cartao-txt"><small>${esc(f.olho)}${f.id === 'diagnostico' && nPerguntas ? ' · ' + nPerguntas + ' perguntas' : ''}</small><b>${esc(f.nome)}</b><em>${esc(f.frase)}</em><span class="link-seta">${esc(f.acao)}${icone('seta')}</span></span></a>`).join('')}</div>
@@ -214,7 +214,7 @@ export function labAdocao({ cfg }) {
 export function paginaModelos({ cfg, modelos }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
-  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>Modelos</span></nav>
+  <nav class="migalhas" aria-label="Você está em"><a href="${raiz || './'}">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>Modelos</span></nav>
   <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Apresentações em PowerPoint e planilhas em Excel com os cálculos, o painel e as instruções de uso. Veja a prévia de cada arquivo antes de baixar; para baixar, informe nome e e-mail uma única vez.</p><p class="lab-atalho"><a class="link-seta" href="${raiz}apresentacoes/">Prefere apresentar pelo navegador? Veja as apresentações em HTML${icone('seta')}</a></p></div></header>
 <section class="sec sec--lab-pg"><div class="sec-in" data-modelos>
   <div class="mod-grade">${modelos.map((m, i) => `<article class="mod revela" style="--i:${i % 3}" id="${esc(m.id)}">${(m.previas || []).length ? `<button type="button" class="mod-arte mod-arte--previa so-js-botao" data-previa="${esc(m.id)}" aria-label="Ver a prévia de ${esc(m.nome)}">${capaViva(m)}<span class="mod-lupa">${icone('lupa')}Ver prévia</span></button>` : `<div class="mod-arte">${capaViva(m)}</div>`}<div class="mod-txt"><small>${esc(m.olho)} · ${esc(m.formato || 'Excel')}</small><h2>${esc(m.nome)}</h2><p>${esc(m.frase)}</p>${m.fatos ? `<p class="mod-fatos">${esc(m.fatos)}</p>` : ''}<div class="mod-acoes"><button type="button" class="btn btn--p btn--peq" data-baixar="${esc(m.id)}" data-arquivo="${esc(m.arquivo)}" data-nome="${esc(m.nome)}">${icone('setaBaixo')}<span>Baixar modelo</span></button></div></div></article>`).join('')}</div>

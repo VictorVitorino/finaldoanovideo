@@ -91,7 +91,7 @@ ${artigo ? `<meta property="article:published_time" content="${esc(artigo.data)}
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="topo" data-topo>
   <div class="topo-in">
-    <a class="logo" href="${raiz}index.html" aria-label="${esc(cfg.nome)}: início">${marca()}<span class="logo-txt">Change Management <i>World</i></span><span class="logo-curto">CM <i>World</i></span></a>
+    <a class="logo" href="${raiz || './'}" aria-label="${esc(cfg.nome)}: início">${marca()}<span class="logo-txt">Change Management <i>World</i></span><span class="logo-curto">CM <i>World</i></span></a>
     <nav class="nav" aria-label="Seções" data-nav>${nav}</nav>
     <div class="topo-acoes">
       <a class="btn-ic" href="${raiz}radar/" data-abrir-busca aria-label="Buscar no site" data-dica="Buscar · Ctrl K">${icone('busca')}</a>
@@ -102,7 +102,7 @@ ${artigo ? `<meta property="article:published_time" content="${esc(artigo.data)}
 </header>
 <dialog class="menu" id="menu" aria-label="Menu do site">
   <div class="menu-in">
-    <div class="menu-topo"><a class="logo logo--claro" href="${raiz}index.html" aria-label="${esc(cfg.nome)}: início">${marca()}<span>Change Management <i>World</i></span></a><button class="btn-menu btn-menu--x" type="button" data-menu-fechar aria-label="Fechar menu"><span class="btn-menu-rot">Fechar</span><span class="btn-menu-ic" aria-hidden="true"><i></i><i></i></span></button></div>
+    <div class="menu-topo"><a class="logo logo--claro" href="${raiz || './'}" aria-label="${esc(cfg.nome)}: início">${marca()}<span>Change Management <i>World</i></span></a><button class="btn-menu btn-menu--x" type="button" data-menu-fechar aria-label="Fechar menu"><span class="btn-menu-rot">Fechar</span><span class="btn-menu-ic" aria-hidden="true"><i></i><i></i></span></button></div>
     <div class="menu-nav">
       <nav class="menu-links" aria-label="Seções do site">${navMenu}</nav>
       <nav class="menu-atalhos" aria-label="Atalhos"><span>Atalhos</span>${navAtalhos}</nav>
@@ -122,7 +122,7 @@ ${corpo}
   <div class="rodape-in">
     <div class="rodape-grade">
       <div class="rodape-sobre">
-        <a class="rodape-marca" href="${raiz}index.html" aria-label="${esc(cfg.nome)}: início">${marca()}<span><strong>${esc(cfg.nome)}</strong><span>${esc(cfg.lema)}</span></span></a>
+        <a class="rodape-marca" href="${raiz || './'}" aria-label="${esc(cfg.nome)}: início">${marca()}<span><strong>${esc(cfg.nome)}</strong><span>${esc(cfg.lema)}</span></span></a>
         ${ct.tel || cfg.linkedin ? `<div class="rodape-contato"><p class="rodape-tit">Fale comigo</p><p class="rodape-canais">${ct.zap ? `<a href="${esc(ct.zap)}" target="_blank" rel="noopener">${icone('conversa')}<span>WhatsApp<b>${esc(ct.tel)}</b></span></a>` : ct.tel ? `<a href="${esc(ct.hrefTel)}">${icone('telefone')}<span>Telefone<b>${esc(ct.tel)}</b></span></a>` : ''}${cfg.linkedin ? `<a href="${esc(cfg.linkedin)}" target="_blank" rel="noopener">${icone('linkedin')}<span>LinkedIn<b>Ver o perfil</b></span></a>` : ''}</p></div>` : ''}
       </div>
       <nav class="rodape-nav" aria-label="Rodapé">${navRodape}</nav>
@@ -274,7 +274,7 @@ export function paginaRadar({ cfg, posts, eventos = [], videos = [], home = {} }
   const stats = (home.numeros || []).map((n, i) => { const p = posts.find(x => x.slug === n.slug), v = parseFloat(String(n.valor).replace(',', '.')); return `<a class="num revela" style="--i:${i}" href="${p ? urlPost(raiz, p) : '#radar'}"><strong data-conta="${esc(n.valor)}">${esc(n.valor)}</strong>${v > 0 && v <= 100 && /%/.test(n.valor) ? `<span class="num-barra" aria-hidden="true"><i style="--v:${(v / 100).toFixed(2)}"></i></span>` : ''}<span>${esc(n.descricao)}</span><small>${esc(n.fonte)}${icone('setaFora')}</small></a>`; }).join('');
   const corpo = `<section class="sec sec--radar sec--radar-pg" id="radar" aria-labelledby="radar-t">
   <div class="sec-in">
-    <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Radar</span></nav>
+    <nav class="migalhas" aria-label="Você está em"><a href="${raiz || './'}">Início</a>${icone('seta')}<span>Radar</span></nav>
     <header class="sec-cab"><div><span class="olho">Radar mundial</span><h1 id="radar-t">O que está acontecendo em Change Management</h1><p>Pesquisas, normas e movimentos do mercado, com a fonte original em cada reportagem.</p></div><nav class="sec-atalhos" aria-label="Nesta página">${guias.length ? `<a href="#guias">Guias de campo</a>` : ''}${stats ? `<a href="#ia">IA em números</a>` : ''}<a href="#agenda">Agenda e vídeos</a></nav></header>
     <div class="filtros" role="group" aria-label="Filtrar reportagens">
       <div class="chips" data-chips><button type="button" class="filtro ativo" data-tema="">Tudo <i>${reportagens.length}</i></button>${temasRadar.map(k => `<button type="button" class="filtro" data-tema="${k}">${icone(TEMAS[k].ic)}${esc(TEMAS[k].nome)} <i>${reportagens.filter(p => p.tema === k).length}</i></button>`).join('')}</div>
@@ -324,7 +324,7 @@ export function post({ cfg, p, posts }) {
   <header class="art-cab${p.video ? ' art-cab--video' : ''}">
     <div class="art-cab-in">
       <div class="art-cab-txt">
-        <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${p.tipo === 'guia' ? raiz + 'radar/#guias' : raiz + 'radar/'}">${esc(p.tipo === 'guia' ? 'Guias de campo' : 'Radar')}</a>${icone('seta')}<span>${esc(t.nome)}</span></nav>
+        <nav class="migalhas" aria-label="Você está em"><a href="${raiz || './'}">Início</a>${icone('seta')}<a href="${p.tipo === 'guia' ? raiz + 'radar/#guias' : raiz + 'radar/'}">${esc(p.tipo === 'guia' ? 'Guias de campo' : 'Radar')}</a>${icone('seta')}<span>${esc(t.nome)}</span></nav>
         <div class="art-meta"><span class="chip chip--capa">${icone(p.tipo === 'guia' ? 'livro' : p.tipo === 'capa' ? 'faisca' : 'globo')}${esc(TIPOS[p.tipo] || 'Reportagem')}</span>${chipTema(p)}${p.regiao ? `<span class="regiao">${icone('pino')}${esc(p.regiao)}</span>` : ''}</div>
         <h1>${esc(p.titulo)}</h1>
         <p class="art-lead">${esc(p.resumo)}</p>
@@ -363,7 +363,7 @@ export function post({ cfg, p, posts }) {
 export function mes({ cfg, chave, lista }) {
   const raiz = '../../', d = data(chave);
   const corpo = `<section class="sec sec--arquivo"><div class="sec-in sec-in--estreita">
-  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Posts do mês</span></nav>
+  <nav class="migalhas" aria-label="Você está em"><a href="${raiz || './'}">Início</a>${icone('seta')}<span>Posts do mês</span></nav>
   <h1 class="arq-tit">${esc(d.mesNome)} <i>${d.ano}</i></h1>
   <p class="arq-sub">${lista.length} ${lista.length === 1 ? 'post' : 'posts'} · ${esc(cfg.nome)}</p>
   <ol class="lista-mes lista-mes--pg">${lista.map((p, j) => `<li><a href="${urlPost(raiz, p)}"><span class="lm-n">${String(j + 1).padStart(2, '0')}</span><span class="lm-t">${esc(p.titulo)}<small>${esc(p.resumo)}</small></span><span class="lm-m">${esc(tema(p).nome)} · ${esc(TIPOS[p.tipo] || '')}</span>${icone('seta')}</a></li>`).join('')}</ol>
@@ -372,8 +372,9 @@ export function mes({ cfg, chave, lista }) {
 }
 
 export function naoAchou({ cfg }) {
-  const corpo = `<section class="sec sec--arquivo"><div class="sec-in sec-in--estreita erro"><div class="erro-arte">${capa('mundo', '404', { variante: 'a' })}</div><h1 class="arq-tit">Essa página mudou de lugar</h1><p class="arq-sub">Acontece nas melhores transformações. O radar continua no início.</p><a class="btn btn--p" href="index.html">Voltar ao início</a></div></section>`;
-  return pagina({ cfg, raiz: '', titulo: 'Página não encontrada', corpo, caminho: '404.html', classe: 'pg-arquivo' });
+  const corpo = `<section class="sec sec--arquivo"><div class="sec-in sec-in--estreita erro"><div class="erro-arte">${capa('mundo', '404', { variante: 'a' })}</div><h1 class="arq-tit">Essa página mudou de lugar</h1><p class="arq-sub">Acontece nas melhores transformações. O radar continua no início.</p><a class="btn btn--p" href="/">Voltar ao início</a></div></section>`;
+  // raiz '/': a página de erro aparece em qualquer endereço que não exista, então os caminhos partem da raiz do site
+  return pagina({ cfg, raiz: '/', titulo: 'Página não encontrada', corpo, caminho: '404.html', classe: 'pg-arquivo' });
 }
 // cartão de imagem para o LinkedIn (1200 x 627): renderizado por og.mjs
 export function cartaoOG({ cfg, p }) {

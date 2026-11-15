@@ -155,7 +155,7 @@ export const cartaoDeck = (d, raiz, tag = 'h2') => `<article class="mod revela" 
 export function paginaApresentacoes({ cfg, decks }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
-  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>Apresentações</span></nav>
+  <nav class="migalhas" aria-label="Você está em"><a href="${raiz || './'}">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>Apresentações</span></nav>
   <span class="olho">Apresentações em HTML</span><h1>Slides prontos para abrir, adaptar e apresentar no navegador</h1><p class="lab-lead">${decks.length} apresentações de gestão da mudança que funcionam como um PowerPoint, sem precisar instalar nada: abra o link, preencha o nome do projeto, edite o texto na tela e apresente.</p></div></header>
 <section class="sec sec--lab-pg"><div class="sec-in">
   <ol class="uso revela" aria-label="Como usar">${PASSOS.map(([t, x], i) => `<li><b>${String(i + 1).padStart(2, '0')}</b><strong>${esc(t)}</strong><span>${esc(x)}</span></li>`).join('')}</ol>

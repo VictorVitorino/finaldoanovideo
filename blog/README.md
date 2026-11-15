@@ -189,6 +189,12 @@ blog/
 - Marca: um círculo com a linha d'água e um iceberg (o mundo visto abaixo da superfície).
 - Animação: entradas suaves ao rolar, traços que se desenham, números que contam, ondas e bolhas na cena do iceberg. Quem pede menos movimento no sistema (`prefers-reduced-motion`) vê tudo parado.
 
+## Endereços
+
+- A página inicial é a raiz do site (`/`), sem `index.html`: a marca, o rodapé e as trilhas de navegação apontam para a raiz.
+- Na Vercel, `vercel.json` liga `cleanUrls`: quem abrir um endereço antigo terminado em `index.html` é levado para o endereço limpo.
+- A página de erro (`404.html`) usa caminhos a partir da raiz do site, para aparecer com estilo em qualquer endereço que não exista.
+
 ## Ver no computador
 
 ```bash

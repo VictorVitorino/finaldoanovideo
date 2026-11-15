@@ -164,7 +164,7 @@
   const cache = new Map();
   const carrega = async s => {
     if (cache.has(s)) return cache.get(s);
-    const base = urlPost(s), r = await fetch(base + 'index.html');
+    const base = urlPost(s), r = await fetch(base);
     if (!r.ok) throw new Error('falha ' + r.status);
     const doc = new DOMParser().parseFromString(await r.text(), 'text/html'), q = sel => doc.querySelector(sel), corpo = q('.art-corpo');
     if (!corpo) throw new Error('sem corpo');
@@ -286,7 +286,7 @@
       ...D.modelos.map(m => ({ g: 'Modelos para baixar', t: m.t, d: m.d, u: RAIZ + m.u, ic: 'baixar', e: m.f, b: norm(m.t + ' ' + m.d + ' ' + m.f + ' modelo template baixar') })),
       ...(D.decks || []).map(x => ({ g: 'Apresentações em HTML', t: x.t, d: x.d, u: RAIZ + x.u, ic: 'grade', e: 'Abrir', b: norm(x.t + ' ' + x.d + ' apresentacao apresentacoes slides html deck') })),
       ...(D.servicos || []).map(x => ({ g: 'Serviços', t: x.t, d: x.d, u: RAIZ + x.u, ic: 'lista', e: 'Ficha', b: norm(x.t + ' ' + x.d + ' servico servicos advisory') })),
-      ...D.secoes.map(s => ({ g: 'Seções', t: s.t, d: '', u: noInicio && s.u.startsWith('index.html#') ? s.u.slice(10) : RAIZ + s.u, ic: 'lista', e: 'Ir', b: norm(s.t + ' secao') })),
+      ...D.secoes.map(s => ({ g: 'Seções', t: s.t, d: '', u: s.u[0] === '#' && noInicio ? s.u : RAIZ + s.u, ic: 'lista', e: 'Ir', b: norm(s.t + ' secao') })),
     ];
     for (const x of indice) x.nt = norm(x.t);
   };
@@ -324,7 +324,7 @@
     if (its[pAtivo]) { campo.setAttribute('aria-activedescendant', its[pAtivo].id); if (rola) its[pAtivo].scrollIntoView({ block: 'nearest' }); } else campo.removeAttribute('aria-activedescendant');
   };
   const abreBusca = () => {
-    if (!HTMLDialogElement.prototype.showModal) { location.href = RAIZ + 'index.html#radar'; return; }
+    if (!HTMLDialogElement.prototype.showModal) { location.href = RAIZ + '#radar'; return; }
     fechaLista();
     if (!paleta) {
       montaIndice();

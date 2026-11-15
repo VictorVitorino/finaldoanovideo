@@ -307,18 +307,43 @@ a.evento:hover { transform: translateY(-3px); box-shadow: var(--sombra); border-
 .gostos li:hover { background: var(--azul-p); color: #fff; }
 .fato { font-family: var(--tit); font-style: italic; font-size: 1.32rem; line-height: 1.35; color: var(--azul-p); padding-left: 18px; border-left: 2px solid var(--azul); }
 
-/* rodapé */
+/* rodapé em três faixas: marca e contato; os destinos em quatro colunas, uma por aba; nota e direitos */
 .rodape { background: var(--tinta); color: #fff; }
-.rodape-in { max-width: var(--max); margin: 0 auto; padding: 60px var(--borda) 36px; display: grid; gap: 26px; }
-.rodape-marca { display: flex; align-items: center; gap: 14px; }
-.rodape-marca .marca { width: 46px; height: 46px; }
-.rodape-marca strong { display: block; font-family: var(--tit); font-weight: 500; font-size: 1.5rem; }
-.rodape-marca span { color: var(--azul-suave); font-size: .9rem; }
-.rodape-nav { display: flex; flex-wrap: wrap; gap: 6px 24px; }
-.rodape-nav a { font-size: .9rem; font-weight: 500; color: #C2CCE0; transition: color .2s; }
-.rodape-nav a:hover { color: #fff; }
-.rodape-nota { color: #8E9BB5; font-size: .86rem; max-width: 64em; }
-.rodape-fim { color: #8E9BB5; font-size: .82rem; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .12); }
+.rodape-in { max-width: var(--max); margin: 0 auto; padding: clamp(44px, 5vw, 64px) var(--borda) 30px; }
+.rodape-grade { display: grid; gap: clamp(30px, 3.6vw, 44px); }
+.rodape-sobre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; }
+.rodape-marca { display: inline-flex; align-items: center; gap: 14px; color: #fff; }
+.rodape-marca .marca { width: 46px; height: 46px; flex: none; }
+.rodape-marca strong { display: block; font-family: var(--tit); font-weight: 500; font-size: 1.5rem; line-height: 1.15; }
+.rodape-marca span span { display: block; margin-top: 5px; color: var(--azul-suave); font-size: .9rem; }
+.rodape-tit { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--azul-suave); }
+.rodape-tit a { display: inline-block; padding-block: 5px; color: inherit; transition: color .2s; }
+.rodape-tit a:hover { color: #fff; }
+.rodape-contato { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.rodape-canais { display: flex; flex-wrap: wrap; gap: 10px; }
+.rodape-canais a { display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 18px 8px 14px; border-radius: 12px; color: #fff; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .16); transition: background .25s, border-color .25s, transform .35s var(--mola); }
+.rodape-canais a:hover { background: rgba(255, 255, 255, .1); border-color: rgba(157, 189, 255, .6); transform: translateY(-2px); }
+.rodape-canais .ic { width: 20px; height: 20px; flex: none; color: var(--azul-suave); }
+.rodape-canais span { display: grid; gap: 1px; font-size: .7rem; line-height: 1.25; color: #A9B6CF; }
+.rodape-canais b { font-size: .92rem; font-weight: 600; color: #fff; white-space: nowrap; }
+.rodape-nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px clamp(20px, 3vw, 44px); }
+.rodape-col { display: grid; gap: 8px; align-content: start; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .14); }
+.rodape-col ul { display: grid; gap: 1px; }
+.rodape-col li a { display: inline-block; padding-block: 5px; font-size: .92rem; line-height: 1.35; color: #C2CCE0; transition: color .2s, transform .3s var(--ease); }
+.rodape-col li a:hover { color: #fff; transform: translateX(3px); }
+.rodape-fim { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 18px 40px; margin-top: clamp(36px, 4.4vw, 56px); padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .12); color: #8E9BB5; }
+.rodape-legal { display: grid; gap: 10px; }
+.rodape-nota { font-size: .82rem; line-height: 1.55; max-width: 78ch; }
+.rodape-direitos { font-size: .82rem; color: #A9B6CF; }
+@media (max-width: 640px) {
+  .rodape-contato { flex-direction: column; align-items: flex-start; }
+  .rodape-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .rodape-fim { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .rodape-topo { justify-self: start; }
+}
+@media (max-width: 380px) {
+  .rodape-canais a { flex: 1 1 100%; }
+}
 
 /* ---------- página de post ---------- */
 .art-cab { background: linear-gradient(180deg, var(--azul-claro), #fff 78%); }

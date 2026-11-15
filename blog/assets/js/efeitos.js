@@ -1,5 +1,5 @@
 // Change Management World · efeitos da jornada (sem dependências).
-// Galeria que desliza, ficha em foco, cartões que viram, fluxo BPMN, narrativa fixa, gráfico que se constrói
+// Galeria que desliza, ficha em foco, cartões que viram, fluxos por tipo de projeto (BPMN), narrativa fixa, gráfico que se constrói
 // pilha de livros num cartão que vira, capas vivas dos modelos e cartões que reagem ao cursor. Cada efeito só existe na página que tem o seu gancho (data-*),
 // usa um requestAnimationFrame por tarefa e para quando sai da tela.
 (() => {
@@ -175,79 +175,135 @@
     }
   });
 
-  // ---------- fluxo BPMN ----------
-  // A ficha percorre as ligações, acende cada tarefa e, na decisão, volta uma vez antes de seguir.
-  const fx = $('[data-fluxo]');
-  if (fx) {
-    const svg = $('.fluxo-svg', fx), ficha = $('.fx-ficha', svg), legenda = $('[data-fx-legenda]', fx), rol = $('.fluxo-rolagem', fx);
-    const bTocar = $('[data-fx="tocar"]', fx), bPasso = $('[data-fx="passo"]', fx), bVeloz = $('[data-fx="veloz"]', fx);
-    const no = id => $(`[data-no="${id}"]`, svg), feita = id => $(`[data-feita="${id}"]`, svg);
-    const txt = {}; $$('.fluxo-lista li', fx).forEach(li => { txt[li.dataset.passo] = { t: $('b', li).textContent, r: $('small', li).textContent, d: $('em', li).textContent }; });
-    txt.ini = { t: 'Início', r: txt.t0.r, d: 'O projeto começa quando alguém decide que a mudança é necessária.' };
-    txt.fim = { t: 'Mudança adotada', r: txt.t6.r, d: 'O ciclo fecha quando o uso vira rotina. E recomeça na próxima onda.' };
-    const ROTEIRO = ['ini', 'c-ini', 't0', 'c-0', 't1', 'c-1', 't2', 'c-2', 't3', 'c-3', 't4', 'c-4', 't5', 'c-5', 'gw', 'c-nao', 't4', 'c-4', 't5', 'c-5', 'gw', 'c-sim', 't6', 'c-fim', 'fim'];
-    const VELS = [1, 1.6, 2.4], PXS = 250, PAUSA = 1100;
-    const caminho = {}, comp = {};
-    for (const id of new Set(ROTEIRO.filter(x => x.startsWith('c-')))) { caminho[id] = $('#' + id, svg); comp[id] = caminho[id].getTotalLength(); }
-    const vb = svg.viewBox.baseVal;
-    let k = 0, tocando = false, vis = false, iv = 0, raf = 0, espera = 0, t0 = 0, dur = 0, parar = false, visitasGw = 0, andando = false;
-    const poe = (x, y) => {
-      ficha.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
-      if (rol.scrollWidth > rol.clientWidth + 4) { const esc = svg.clientWidth / vb.width; rol.scrollLeft = x * esc - rol.clientWidth / 2; }   // em tela estreita, a rolagem acompanha a ficha
+  // ---------- fluxos por tipo de projeto (BPMN) ----------
+  // Cada aba é um tipo de projeto, com o seu diagrama. A ficha percorre o roteiro, acende cada etapa e, nas decisões,
+  // faz o laço uma vez antes de seguir. Dá para pausar, andar passo a passo, voltar e abrir qualquer etapa com clique ou teclado.
+  const fxs = $('[data-fluxos]');
+  if (fxs) {
+    const VELS = [1, 1.6, 2.4], PXS = 250, PAUSA = 2600;
+    const abas = $$('[role="tab"]', fxs), paineis = $$('[data-fluxo]', fxs);
+    let iv = 0, sel = 0, vis = false;
+    const maquina = fx => {
+      const svg = $('.fluxo-svg', fx), ficha = $('.fx-ficha', svg), rol = $('.fluxo-rolagem', fx), leg = $('[data-fx-legenda]', fx);
+      const D = JSON.parse($('[data-fx-dados]', fx).textContent), R = D.r, ULT = R.length - 1;
+      const elOnde = $('[data-fx-onde]', fx), elTit = $('[data-fx-tit]', fx), elDesc = $('[data-fx-desc]', fx), elEnt = $('[data-fx-ent]', fx);
+      const bTocar = $('[data-fx="tocar"]', fx), bPasso = $('[data-fx="passo"]', fx), bVolta = $('[data-fx="volta"]', fx), bVeloz = $('[data-fx="veloz"]', fx);
+      const no = id => $(`[data-no="${id}"]`, svg), lig = i => D.a[R[i] + '>' + R[i + 1]];
+      const linha = id => $('#' + id, svg), feita = id => $(`[data-feita="${id}"]`, svg), fases = $$('.fx-fase', svg);
+      const comp = {}, compDe = id => comp[id] || (comp[id] = linha(id).getTotalLength());   // medido só com o painel na tela
+      const vb = svg.viewBox.baseVal;
+      let k = 0, tocando = false, andando = false, parar = false, raf = 0, espera = 0, t0 = 0, dur = 0, nova = true, vezes = {};
+      const nosTodos = $$('.fx-no', svg); nosTodos.forEach(g => { g.setAttribute('role', 'button'); g.tabIndex = -1; });
+      svg.setAttribute('aria-label', svg.getAttribute('aria-label') + ' Use as setas para andar pelas etapas.');
+      const marcaFoco = () => nosTodos.forEach(g => { g.tabIndex = g.dataset.no === R[k] ? 0 : -1; });   // só a etapa atual entra na ordem do Tab
+      const poe = (x, y, segue = true) => {
+        ficha.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+        if (segue && rol.scrollWidth > rol.clientWidth + 4) rol.scrollLeft = x * (svg.clientWidth / vb.width) - rol.clientWidth / 2;   // em tela estreita, a rolagem acompanha a ficha
+      };
+      const diz = () => {
+        const n = D.n[R[k]], a = k < ULT ? lig(k) : null;
+        const tipo = n.k === 'G' ? 'Decisão' : n.k === 'E' ? (n.fim ? 'Fim' : 'Início') : `Etapa ${n.i} de ${D.t}`;
+        elOnde.textContent = `${n.l} · ${tipo}`; elTit.textContent = n.t;
+        elDesc.textContent = n.k === 'G' ? (a && a.r === 'não' ? n.nao : n.sim) : n.d;
+        elEnt.hidden = !n.e; if (n.e) elEnt.lastElementChild.textContent = n.e;
+        fases.forEach((g, j) => { g.classList.toggle('ativa', j === n.f); g.classList.toggle('feita', j < n.f); });
+      };
+      const botao = () => { bTocar.setAttribute('aria-pressed', String(tocando)); bTocar.innerHTML = `${ic(tocando ? 'pausa' : 'play')}<span>${tocando ? 'Pausar' : k >= ULT ? 'Recomeçar' : 'Reproduzir'}</span>`; bVolta.disabled = k === 0 && !andando; leg.setAttribute('aria-live', tocando ? 'off' : 'polite'); };
+      // estado parado em uma parada do roteiro: tudo o que veio antes fica feito
+      const pinta = alvo => {
+        cancelAnimationFrame(raf); raf = 0; clearTimeout(espera); andando = false; parar = false; k = alvo; vezes = {};
+        $$('.fx-no', svg).forEach(g => g.classList.remove('ativo', 'feito'));
+        $$('.fx-feitas path', svg).forEach(c => { c.style.strokeDashoffset = '1'; });
+        for (let i = 0; i < alvo; i++) { no(R[i]).classList.add('feito'); feita(lig(i).id).style.strokeDashoffset = '0'; vezes[R[i]] = (vezes[R[i]] || 0) + 1; }
+        const g = no(R[alvo]); g.classList.remove('feito'); g.classList.add('ativo'); vezes[R[alvo]] = (vezes[R[alvo]] || 0) + 1;
+        const n = D.n[R[alvo]]; poe(n.x, n.y); ficha.classList.toggle('some', alvo > 0); diz(); botao(); marcaFoco();
+      };
+      const chega = () => {   // a ficha parou na parada seguinte
+        const de = no(R[k]); de.classList.remove('ativo'); de.classList.add('feito');
+        k++; const g = no(R[k]); g.classList.remove('feito'); g.classList.add('ativo'); vezes[R[k]] = (vezes[R[k]] || 0) + 1;
+        const n = D.n[R[k]]; poe(n.x, n.y); ficha.classList.add('some'); diz(); marcaFoco();
+      };
+      const agenda = ms => { clearTimeout(espera); espera = setTimeout(avanca, ms); };
+      const descanso = () => (k >= ULT ? 5200 : (vezes[R[k]] > 1 ? .45 : 1) * PAUSA / VELS[iv]);   // etapa já vista no laço: pausa curta
+      const quadro = agora => {
+        const id = lig(k).id, u = Math.min(1, (agora - t0) / dur), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+        const q = linha(id).getPointAtLength(compDe(id) * e); poe(q.x, q.y);
+        if (nova) feita(id).style.strokeDashoffset = String(1 - e);
+        if (u < 1) { raf = requestAnimationFrame(quadro); return; }
+        raf = 0; andando = false; feita(id).style.strokeDashoffset = '0'; chega();
+        if (parar) { parar = false; tocando = false; botao(); return; }
+        if (tocando) agenda(descanso()); botao();
+      };
+      function avanca() {   // sai da parada atual e percorre a próxima ligação
+        if (andando) return;
+        if (k >= ULT) pinta(0);
+        const id = lig(k).id;
+        if (calmo) { feita(id).style.strokeDashoffset = '0'; chega(); botao(); return; }
+        nova = feita(id).style.strokeDashoffset !== '0';
+        andando = true; ficha.classList.remove('some'); t0 = performance.now(); dur = Math.max(420, compDe(id) / (PXS * VELS[iv]) * 1000);
+        raf = requestAnimationFrame(quadro); botao();
+      }
+      const pausa = () => { tocando = false; clearTimeout(espera); if (andando) parar = true; botao(); };
+      const toca = () => { tocando = true; parar = false; botao(); if (!andando) agenda(k === 0 ? 700 : 80); };
+      const abre = id => { const i = R.indexOf(id); if (i < 0) return; tocando = false; delete fxs.dataset.volta; pinta(i); };   // etapa escolhida por clique ou teclado
+      bTocar.addEventListener('click', () => { delete fxs.dataset.volta; if (tocando) pausa(); else toca(); });
+      bPasso.addEventListener('click', () => { clearTimeout(espera); delete fxs.dataset.volta; if (andando) { parar = true; tocando = false; botao(); return; } tocando = false; parar = !calmo; avanca(); botao(); });
+      bVolta.addEventListener('click', () => { delete fxs.dataset.volta; tocando = false; pinta(Math.max(0, andando ? k : k - 1)); });
+      bVeloz.addEventListener('click', () => { iv = (iv + 1) % VELS.length; const r = String(VELS[iv]).replace('.', ','); $$('[data-fx="veloz"]', fxs).forEach(b => { $('b', b).textContent = r + '×'; b.setAttribute('aria-label', `Velocidade: ${r} vez${VELS[iv] > 1 ? 'es' : ''}`); }); });
+      svg.addEventListener('click', e => { const g = e.target.closest('[data-no]'); if (g) abre(g.dataset.no); });
+      svg.addEventListener('keydown', e => {
+        const g = e.target.closest('[data-no]'); if (!g) return;
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abre(g.dataset.no); }
+        else if (d || e.key === 'Home' || e.key === 'End') { e.preventDefault(); tocando = false; delete fxs.dataset.volta; pinta(e.key === 'Home' ? 0 : e.key === 'End' ? ULT : Math.min(ULT, Math.max(0, k + d))); no(R[k]).focus(); }   // setas: parada anterior e seguinte do roteiro
+      });
+      $$('[data-fx-trava]', fx).forEach(li => {
+        const g = no(li.dataset.fxTrava), b = $('[data-fx-ver]', li); if (!g) return;
+        const acende = v => g.classList.toggle('alerta', v);
+        li.addEventListener('pointerenter', () => acende(true)); li.addEventListener('pointerleave', () => acende(false));
+        li.addEventListener('focusin', () => acende(true)); li.addEventListener('focusout', () => acende(false));
+        if (b) b.addEventListener('click', () => { abre(li.dataset.fxTrava); const q = rol.getBoundingClientRect(); if (q.top < 80 || q.bottom > innerHeight) rol.scrollIntoView({ block: 'center', behavior: suave }); });
+      });
+      return { toca, pausa, pinta, tocando: () => tocando };
     };
-    const centroDe = id => { const b = no(id).firstElementChild.getBBox(); return [b.x + b.width / 2, b.y + b.height / 2]; };
-    const diz = id => {
-      const t = txt[id]; if (!t) return;
-      let d = t.d; if (id === 'gw') d = visitasGw < 2 ? 'Ainda não: o caminho volta para capacitação e prática.' : 'Sim: a mudança segue para o reforço.';
-      legenda.innerHTML = `<b></b><span></span>`; legenda.firstChild.textContent = `${t.r} · ${t.t}`; legenda.lastChild.textContent = d;
-    };
-    const zera = () => {
-      k = 0; visitasGw = 0;
-      $$('.fx-no', svg).forEach(g => g.classList.remove('ativo', 'feito'));
-      $$('.fx-feitas path', svg).forEach(p => { p.style.strokeDashoffset = '1'; });
-      const [x, y] = centroDe('ini'); poe(x, y); ficha.classList.remove('some'); no('ini').classList.add('ativo'); diz('ini');
-    };
-    const chega = id => {   // a ficha parou num nó
-      $$('.fx-no.ativo', svg).forEach(g => { g.classList.remove('ativo'); g.classList.add('feito'); });
-      if (id === 'gw') visitasGw++;
-      const g = no(id); g.classList.remove('feito'); g.classList.add('ativo'); diz(id);
-      const [x, y] = centroDe(id); poe(x, y); ficha.classList.add('some');
-    };
-    const botao = () => { bTocar.setAttribute('aria-pressed', String(tocando)); bTocar.innerHTML = `${ic(tocando ? 'pausa' : 'play')}<span>${tocando ? 'Pausar' : k >= ROTEIRO.length - 1 ? 'Recomeçar' : 'Reproduzir'}</span>`; };
-    const agenda = ms => { clearTimeout(espera); espera = setTimeout(avanca, ms); };
-    const quadro = agora => {
-      const id = ROTEIRO[k], u = Math.min(1, (agora - t0) / dur), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
-      const p = caminho[id].getPointAtLength(comp[id] * e); poe(p.x, p.y);
-      feita(id).style.strokeDashoffset = String(1 - e);
-      if (u < 1) { raf = requestAnimationFrame(quadro); return; }
-      raf = 0; andando = false; k++; chega(ROTEIRO[k]);
-      if (parar) { parar = false; tocando = false; botao(); return; }
-      if (tocando) agenda(k >= ROTEIRO.length - 1 ? 4200 : PAUSA / VELS[iv]);
-      else botao();
-    };
-    function avanca() {   // sai do nó atual e percorre a próxima ligação
-      if (andando) return;
-      if (k >= ROTEIRO.length - 1) zera();
-      const id = ROTEIRO[k + 1];
-      if (calmo) { k += 2; feita(id).style.strokeDashoffset = '0'; chega(ROTEIRO[k]); botao(); return; }
-      k++; andando = true; ficha.classList.remove('some'); t0 = performance.now(); dur = Math.max(380, comp[id] / (PXS * VELS[iv]) * 1000);
-      raf = requestAnimationFrame(quadro);
-    }
-    const pausa = () => { tocando = false; clearTimeout(espera); if (andando) parar = true; botao(); };
-    const toca = () => { tocando = true; parar = false; botao(); if (!andando) agenda(k === 0 ? 500 : 60); };
-    bTocar.addEventListener('click', () => (tocando ? pausa() : toca()));
-    bPasso.addEventListener('click', () => { clearTimeout(espera); if (andando) { parar = true; tocando = false; botao(); return; } tocando = false; parar = !calmo; avanca(); botao(); });
-    bVeloz.addEventListener('click', () => { iv = (iv + 1) % VELS.length; const r = String(VELS[iv]).replace('.', ','); $('b', bVeloz).textContent = r + '×'; bVeloz.setAttribute('aria-label', `Velocidade: ${r} vez${VELS[iv] > 1 ? 'es' : ''}`); });
-    zera(); botao();
-    // começa sozinho quando entra na tela e descansa quando sai, quando a aba some ou quando há um diálogo aberto
+    const ms = paineis.map(maquina);
     let jaTocou = false;
+    // toca sozinho quando entra na tela e descansa quando sai, quando a aba do navegador some ou quando há um diálogo aberto
     const confere = () => {
-      const pode = vis && !document.hidden && !raiz.classList.contains('trava');
-      if (!pode && tocando) { pausa(); fx.dataset.volta = '1'; }
-      else if (pode && fx.dataset.volta) { delete fx.dataset.volta; toca(); }
-      else if (pode && !jaTocou && !calmo) { jaTocou = true; toca(); }
+      const pode = vis && !document.hidden && !raiz.classList.contains('trava'), m = ms[sel];
+      if (!pode && m.tocando()) { m.pausa(); fxs.dataset.volta = '1'; }
+      else if (pode && fxs.dataset.volta) { delete fxs.dataset.volta; m.toca(); }
+      else if (pode && !jaTocou && !calmo) { jaTocou = true; m.toca(); }
     };
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => { vis = es[0].isIntersecting; confere(); }, { threshold: .35 }).observe(fx); else { vis = true; confere(); }
+    const mostra = (i, foco) => {
+      if (i === sel && !paineis[i].hidden) return;
+      const tocava = ms[sel].tocando() || !!fxs.dataset.volta; ms[sel].pausa(); ms[sel].pinta(0); delete fxs.dataset.volta;   // o fluxo que sai volta ao início, parado
+      sel = i;
+      abas.forEach((a, j) => { a.setAttribute('aria-selected', String(j === i)); a.tabIndex = j === i ? 0 : -1; });
+      paineis.forEach((q, j) => { q.hidden = j !== i; });
+      ms[i].pinta(0);
+      if (foco) abas[i].focus();
+      if (tocava && !calmo && vis && !document.hidden) ms[i].toca();
+    };
+    abas.forEach((a, i) => {
+      a.addEventListener('click', () => mostra(i));
+      a.addEventListener('keydown', e => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (d) { e.preventDefault(); mostra((i + d + abas.length) % abas.length, true); }
+        else if (e.key === 'Home') { e.preventDefault(); mostra(0, true); }
+        else if (e.key === 'End') { e.preventDefault(); mostra(abas.length - 1, true); }
+      });
+    });
+    paineis.forEach((q, j) => { q.hidden = j !== 0; });
+    ms[0].pinta(0);
+    // endereço com o tipo (servicos/#fluxo-erp) abre a aba certa
+    const doEndereco = rola => { const i = paineis.findIndex(q => '#' + q.id === location.hash); if (i < 0) return; mostra(i); if (rola) fxs.scrollIntoView({ block: 'start', behavior: 'auto' }); };
+    doEndereco(true); addEventListener('hashchange', () => doEndereco(true));
+    if ('IntersectionObserver' in window) {
+      const naTela = new Set();
+      const io = new IntersectionObserver(es => { es.forEach(e => (e.isIntersecting ? naTela.add(e.target) : naTela.delete(e.target))); vis = naTela.size > 0; confere(); }, { threshold: .4 });
+      paineis.forEach(q => io.observe($('.fluxo-rolagem', q)));
+    } else { vis = true; confere(); }
     document.addEventListener('visibilitychange', confere);
     new MutationObserver(confere).observe(raiz, { attributes: true, attributeFilter: ['class'] });
   }

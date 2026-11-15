@@ -101,7 +101,7 @@ ${n ? `
       <script type="application/json" data-livros-dados>${JSON.stringify(livros.map(b => ({ t: curto(b), a: b.autor, p: b.pergunta || '', i: b.ideias || [], l: b.leitura || b.porque, c: b.capa ? raiz + b.capa : '', f: b.fonte || '' }))).replace(/</g, '\\u003c')}</script>
     </div>
     <ol class="livros-lista">${livros.map((b, i) => `<li>${b.capa ? `<img src="${raiz}${esc(b.capa)}" alt="Capa do livro ${esc(curto(b))}" width="${b.capa_l || 300}" height="${b.capa_a || 450}" loading="lazy" decoding="async">` : ''}<div><small>${nn(i)} · ${esc(b.autor)}</small><h3>${esc(curto(b))}</h3><p class="livro-pergunta">${esc(b.pergunta || '')}</p>${(b.ideias || []).length ? `<ul>${b.ideias.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}<p><b>Minha leitura.</b> ${esc(b.leitura || b.porque)}</p></div></li>`).join('')}</ol>
-    <p class="livros-credito">Capas: Google Books. Os resumos e as leituras são do autor do blog.</p>
+    <p class="livros-credito">Capas: reprodução das edições (Google Books e editoras). Os resumos e as leituras são do autor do blog.</p>
   </div>
 </section>` : ''}
 

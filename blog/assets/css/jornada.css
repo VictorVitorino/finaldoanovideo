@@ -1,6 +1,6 @@
 /* Change Management World · jornada e efeitos.
    Quatro destinos (Radar, Laboratório, Serviços e Sobre) e os componentes que eles compartilham:
-   trilha de caminhos, galeria que desliza, ficha em foco, cartões que viram, fluxo BPMN, narrativa fixa,
+   trilha de caminhos, galeria que desliza, ficha em foco, cartões que viram, fluxos por tipo de projeto, narrativa fixa,
    gráfico que se constrói, carrossel 3D da estante e brilho holográfico.
    Carrega depois de site.css, motion.css e ux.css. O comportamento fica em assets/js/efeitos.js. */
 
@@ -27,11 +27,6 @@ html.trava .holo--auto::after { animation-play-state: paused; }
 .menu-nota a { font-family: var(--txt); font-style: normal; font-size: .92rem; font-weight: 600; color: #fff; white-space: nowrap; margin-left: 6px; border-bottom: 1px solid rgba(255, 255, 255, .34); }
 .btn--claro { background: linear-gradient(180deg, #fff, #E6EEFE); color: var(--azul-p); box-shadow: 0 1px 0 #fff inset, 0 14px 30px -18px rgba(0, 0, 0, .7); }
 .btn--claro:hover { background: linear-gradient(180deg, #fff, var(--azul-suave)); }
-.rodape-contato { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; font-size: .92rem; }
-.rodape-contato span { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--azul-suave); }
-.rodape-contato a { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-weight: 600; transition: color .2s; }
-.rodape-contato a:hover { color: var(--azul-suave); }
-.rodape-contato .ic { width: 17px; height: 17px; color: var(--azul-suave); }
 
 /* ---------- abertura das páginas internas (Serviços e Sobre) ---------- */
 .abertura--pg .abertura-in { grid-template-columns: minmax(0, 1fr) minmax(280px, 400px); padding-block: clamp(30px, 6.4vh, 72px) clamp(34px, 7vh, 80px); }
@@ -176,48 +171,122 @@ html:not(.js) .virada { min-height: 0; transform: none; cursor: default; display
 html:not(.js) .virada-face { position: relative; inset: auto; transform: none; -webkit-backface-visibility: visible; backface-visibility: visible; }
 html:not(.js) .virada em { display: none; }
 
-/* ---------- fluxo BPMN: raias, tarefas, decisão e a ficha que percorre o caminho ---------- */
-.fluxo { border: 1px solid var(--linha); border-radius: 20px; background: #fff; overflow: hidden; }
+/* ---------- fluxos por tipo de projeto: abas, diagrama BPMN (raias, fases, tarefas e decisões), ficha da etapa e notas ---------- */
+/* o quadro é mais largo que a coluna de texto: o diagrama precisa de espaço para ser lido */
+.fluxos { --larg: min(1360px, 100vw - 2 * var(--borda)); width: var(--larg); margin-inline: calc((100% - var(--larg)) / 2); }
+.fluxos-abas { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+.fluxos-aba { display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 12px 18px; border-radius: 16px; border: 1px solid var(--linha); background: #fff; color: var(--tinta); text-align: left; cursor: pointer; transition: background .25s, border-color .25s, color .25s, box-shadow .3s, transform .35s var(--mola); }
+.fluxos-aba .ic { width: 26px; height: 26px; flex: none; color: var(--azul); transition: color .25s; }
+.fluxos-aba b { display: block; font-size: 1.02rem; font-weight: 600; line-height: 1.25; }
+.fluxos-aba small { display: block; margin-top: 2px; font-size: .82rem; line-height: 1.3; color: var(--cinza); transition: color .25s; }
+.fluxos-aba:hover { border-color: var(--azul); background: var(--azul-claro); transform: translateY(-2px); }
+.fluxos-aba[aria-selected="true"] { background: var(--azul-p); border-color: var(--azul-p); color: #fff; box-shadow: 0 18px 34px -22px rgba(10, 36, 99, .9); transform: none; }
+.fluxos-aba[aria-selected="true"] .ic { color: var(--azul-suave); }
+.fluxos-aba[aria-selected="true"] small { color: #C9D7F5; }
+.fluxo { border: 1px solid var(--linha); border-radius: 20px; background: #fff; overflow: hidden; scroll-margin-top: 104px; }   /* endereço direto (servicos/#fluxo-erp): sobra espaço para as abas acima do quadro */
+.fluxo[hidden] { display: none; }
+html:not(.js) .fluxo + .fluxo { margin-top: 24px; }
+.fluxo-cab { padding: 18px 20px 14px; border-bottom: 1px solid var(--linha); }
+.fluxo-cab h3 { font-family: var(--tit); font-weight: 500; font-size: 1.5rem; line-height: 1.2; color: var(--azul-p); }
+.fluxo-cab p { margin-top: 2px; font-size: .95rem; color: var(--cinza); }
+html.js .fluxo-cab { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .fluxo-rolagem { overflow-x: auto; scrollbar-width: thin; }
-.fluxo-svg { display: block; width: 100%; min-width: 900px; height: auto; font-family: var(--txt); }
+.fluxo-svg { display: block; width: 100%; min-width: calc(var(--fx-l, 1470) * .74px); height: auto; font-family: var(--txt); }
 .fx-raia { fill: #fff; }
 .fx-raia--b { fill: #F7F9FC; }
-.fx-raia-t { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; fill: var(--cinza); }
+.fx-raia-t { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; fill: var(--cinza); }
 .fx-div { stroke: var(--linha); stroke-width: 1; }
+.fx-fase rect { fill: #F3F5F8; transition: fill .35s; }
+.fx-fase text { font-size: 10.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; fill: var(--cinza); transition: fill .35s; }
+.fx-fase.feita rect { fill: var(--azul-claro); }
+.fx-fase.feita text { fill: var(--azul-p); }
+.fx-fase.ativa rect { fill: var(--azul-p); }
+.fx-fase.ativa text { fill: #fff; }
+.fx-sep { fill: none; stroke: #D5DCE8; stroke-width: 1; stroke-dasharray: 2 5; }
 .fx-linhas path { fill: none; stroke: #B8C4DC; stroke-width: 1.6; }
 .fx-ponta { fill: #9AA8C4; }
 .fx-feitas path { fill: none; stroke: var(--azul); stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.fx-no { outline: none; }
+html.js .fx-no { cursor: pointer; }
+.fx-alvo { fill: transparent; }
 .fx-tarefa rect { fill: #fff; stroke: #B8C4DC; stroke-width: 1.4; transition: fill .35s, stroke .35s; }
 .fx-tarefa text { font-size: 12.5px; font-weight: 600; fill: var(--tinta); transition: fill .35s; }
+.fx-tarefa:hover rect { stroke: var(--azul); }
 .fx-tarefa.feito rect { fill: var(--azul-claro); stroke: var(--azul); }
 .fx-tarefa.ativo rect { fill: var(--azul-p); stroke: var(--azul-p); }
 .fx-tarefa.ativo text { fill: #fff; }
-.fx-decisao path { fill: #fff; stroke: var(--azul-p); stroke-width: 1.6; transition: fill .35s; }
-.fx-decisao.feito path { fill: var(--azul-claro); }
-.fx-decisao.ativo path { fill: var(--azul); stroke: var(--azul); }
-.fx-rot { font-size: 12.5px; font-weight: 600; fill: var(--azul-p); }
-.fx-rot--p { font-size: 11px; font-weight: 500; fill: var(--cinza); }
+.fx-decisao > path { fill: #fff; stroke: var(--azul-p); stroke-width: 1.6; transition: fill .35s, stroke .35s; }
+.fx-decisao:hover > path { stroke: var(--azul); }
+.fx-decisao.feito > path { fill: var(--azul-claro); }
+.fx-decisao.ativo > path { fill: var(--azul); stroke: var(--azul); }
+.fx-rot { font-size: 12px; font-weight: 600; fill: var(--azul-p); }
+.fx-rot--p { font-size: 10.5px; font-weight: 500; fill: var(--cinza); }
 .fx-evento { fill: #fff; stroke: var(--azul-p); stroke-width: 1.8; transition: fill .35s; }
 .fx-evento--fim { stroke-width: 4.5; }
 .fx-no.feito .fx-evento, .fx-no.ativo .fx-evento { fill: var(--azul-suave); }
+.fx-no:focus-visible rect, .fx-no:focus-visible > path, .fx-no:focus-visible .fx-evento { stroke: var(--azul); stroke-width: 3.2; }
+.fx-alerta circle { fill: var(--azul); stroke: #fff; stroke-width: 1.6; }
+.fx-alerta path { fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; }
+.fx-no.alerta > rect, .fx-no.alerta > path { stroke: var(--azul); stroke-width: 3.2; }
+.fx-no.alerta .fx-alerta circle { animation: fx-pulso 1.1s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.fx-ficha { pointer-events: none; transition: opacity .25s; }
 .fx-ficha-centro { fill: var(--azul); stroke: #fff; stroke-width: 2; }
 .fx-ficha-halo { fill: rgba(47, 111, 237, .22); transform-box: fill-box; transform-origin: center; animation: fx-pulso 1.5s ease-in-out infinite; }
 @keyframes fx-pulso { 50% { transform: scale(1.35); opacity: .35; } }
-.fx-ficha { transition: opacity .25s; }
 .fx-ficha.some { opacity: 0; }
 html:not(.js) .fx-ficha { display: none; }
-.fluxo-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding: 14px 18px; border-top: 1px solid var(--linha); background: #FBFCFE; }
+.fluxo-barra { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 14px 30px; padding: 16px 20px; border-top: 1px solid var(--linha); background: #FBFCFE; }
+.fluxo-botoes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .fluxo-barra .btn b { font-variant-numeric: tabular-nums; margin-left: 2px; }
-.fluxo-legenda { flex: 1 1 280px; display: grid; gap: 2px; margin-left: 6px; font-size: .92rem; line-height: 1.4; min-height: 2.9em; align-content: center; }
-.fluxo-legenda b { font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--azul); }
-.fluxo-legenda span { color: #344054; }
-.fluxo-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 48px); padding: 6px 18px 16px; }
+.fluxo-volta { width: 40px; padding: 0; justify-content: center; }
+.fluxo-legenda { display: grid; gap: 3px; align-content: start; min-height: 6.6em; font-size: .94rem; line-height: 1.45; }
+.fluxo-legenda small { font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--azul); }
+.fluxo-legenda > b { font-size: 1.06rem; font-weight: 600; color: var(--tinta); }
+.fluxo-legenda > span { max-width: 80ch; color: #344054; }
+.fluxo-legenda em { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin-top: 5px; font-style: normal; font-size: .88rem; font-weight: 500; color: var(--azul-p); }
+.fluxo-legenda em[hidden] { display: none; }
+.fluxo-legenda em i { padding: 3px 9px; border-radius: 999px; font-style: normal; font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: var(--azul-claro); color: var(--azul-p); }
+.fluxo-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 48px); padding: 6px 20px 16px; }
 .fluxo-lista li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 0 10px; padding: 12px 0; border-top: 1px solid var(--linha); }
-.fluxo-lista span { grid-row: 1 / span 3; font-family: var(--tit); font-style: italic; color: var(--azul); }
+.fluxo-lista li > span { grid-row: 1 / span 3; font-family: var(--tit); font-style: italic; color: var(--azul); }
 .fluxo-lista b { font-size: .98rem; }
 .fluxo-lista small { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--cinza); }
 .fluxo-lista em { font-style: normal; font-size: .9rem; color: #344054; }
+.fluxo-lista em i { font-style: normal; font-weight: 500; color: var(--azul-p); }
 html.js .fluxo-lista { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; padding: 0; }
+.fluxo-notas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--linha); }
+.fluxo-notas section { padding: 20px 22px 24px; }
+.fluxo-notas section + section { border-left: 1px solid var(--linha); }
+.fluxo-notas h4 { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-family: var(--txt); font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--azul-p); }
+.fluxo-notas h4 .ic { width: 17px; height: 17px; flex: none; color: var(--azul); }
+.fluxo-notas h4 .fluxo-selo { stroke: none; }
+.fluxo-ver { display: inline-flex; align-items: center; gap: 5px; min-height: 24px; margin-left: 2px; font-size: .8rem; font-weight: 600; color: var(--azul); white-space: nowrap; cursor: pointer; transition: color .2s; }
+.fluxo-ver:hover { color: var(--azul-p); }
+.fluxo-ver .ic { width: 13px; height: 13px; }
+.fluxo-notas ul { display: grid; gap: 10px; }
+.fluxo-notas li { position: relative; padding-left: 16px; font-size: .92rem; line-height: 1.5; color: #344054; }
+.fluxo-notas li::before { content: ''; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--azul); }
+.fluxo-notas li b { font-weight: 600; color: var(--tinta); }
+.fluxo-links li { padding-left: 0; }
+.fluxo-links li::before { display: none; }
+.fluxo-links a { display: inline-flex; align-items: center; gap: 8px; padding-block: 4px; font-weight: 600; color: var(--azul-p); transition: color .2s; }
+.fluxo-links a:hover { color: var(--azul); }
+.fluxo-links .ic { width: 15px; height: 15px; flex: none; transition: transform .3s var(--ease); }
+.fluxo-links a:hover .ic { transform: translateX(3px); }
+@media (max-width: 900px) {
+  .fluxo-barra { grid-template-columns: minmax(0, 1fr); }
+  .fluxo-notas { grid-template-columns: minmax(0, 1fr); }
+  .fluxo-notas section + section { border-left: 0; border-top: 1px solid var(--linha); }
+}
+@media (max-width: 720px) {
+  .fluxos-abas { gap: 8px; }
+  .fluxos-aba { flex-direction: column; justify-content: center; gap: 6px; min-height: 78px; padding: 10px 6px; text-align: center; }
+  .fluxos-aba small { display: none; }
+  .fluxos-aba b { font-size: .86rem; }
+  .fluxo-barra { padding: 12px 14px; }
+  .fluxo-legenda { min-height: 10.4em; }
+  .fluxo-notas section { padding: 18px 16px 20px; }
+}
 
 /* ---------- acompanhamento: antes, durante e depois ---------- */
 .sec--acomp { background: var(--cinza-claro); }
@@ -917,9 +986,8 @@ html:not(.js) .mod-lupa { display: none; }
 .previa-pe { position: sticky; bottom: calc(-1 * clamp(22px, 3vw, 40px)); display: flex; flex-wrap: wrap; gap: var(--e-1); margin: 0 calc(-1 * clamp(22px, 3vw, 40px)) calc(-1 * clamp(22px, 3vw, 40px)); padding: var(--e-2) clamp(22px, 3vw, 40px); background: #fff; border-top: 1px solid var(--linha); }
 
 /* ---------- alvos de toque: links curtos de navegação com pelo menos 24 px de altura ---------- */
-.rodape-contato a { padding-block: 4px; }
 .guia h3 a { display: inline-block; padding-block: 2px; }
-.rodape-nav a, .migalhas a, .temas-linha a, .sec-atalhos a, .menu-atalhos a { display: inline-block; padding-block: 5px; }
+.migalhas a, .temas-linha a, .sec-atalhos a, .menu-atalhos a { display: inline-block; padding-block: 5px; }
 .juntos li a { display: inline-block; padding-block: 3px; }
 
 /* ---------- laboratório: editar e exportar em grupos separados ---------- */
@@ -992,8 +1060,6 @@ html:not(.js) .mod-lupa { display: none; }
   .galeria--servicos .galeria-item { width: min(84vw, 340px); }
   .galeria--modelos .galeria-item { width: min(80vw, 288px); }
   .galeria-conta { display: none; }
-  .fluxo-barra { padding: 12px 14px; }
-  .fluxo-legenda { flex-basis: 100%; margin-left: 0; }
   dialog.foco { padding: 8px; }
   .foco-painel { border-radius: 18px; padding: 20px 18px; max-height: 100%; }
   .convite { border-radius: 20px; }
@@ -1040,4 +1106,12 @@ html:not(.js) .mod-lupa { display: none; }
   .galeria-nav, .fluxo-barra, .foco-x, .historia-botoes, [data-virar-todos], [data-gr-repetir] { display: none !important; }
   html.js .fichas { display: grid; }
   .historia-fixo { position: static; }
+  .fluxos { width: auto; margin-inline: 0; }
+  .fluxos-abas, .fluxo-ver, .fx-ficha { display: none !important; }
+  .fluxo[hidden] { display: block !important; }
+  .fluxo + .fluxo { margin-top: 18px; }
+  .fluxo, .fluxo-notas section { break-inside: avoid; }
+  .fluxo-svg { min-width: 0; }
+  html.js .fluxo-cab { position: static; width: auto; height: auto; padding: 14px 18px 10px; border-bottom: 1px solid var(--linha); overflow: visible; clip-path: none; white-space: normal; }
+  html.js .fluxo-lista { position: static; width: auto; height: auto; padding: 6px 18px 12px; overflow: visible; clip-path: none; white-space: normal; }
 }

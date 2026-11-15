@@ -1,0 +1,193 @@
+{
+  "olho": "Como funciona",
+  "titulo": "O caminho de cada tipo de projeto",
+  "nota": "Escolha o tipo de projeto e acompanhe a ficha que percorre o processo: ela mostra quem faz o quê, onde a decisão acontece e onde a mudança costuma travar.",
+  "rotulos": {
+    "travas": "Onde costuma travar",
+    "medidas": "O que eu acompanho",
+    "links": "Para aprofundar",
+    "entrega": "Entrega"
+  },
+  "tipos": [
+    {
+      "id": "ia",
+      "nome": "Adoção de IA",
+      "icone": "faisca",
+      "frase": "Copilotos, assistentes e agentes no trabalho",
+      "raias": ["Liderança e comitê de IA", "Gestores e equipes", "Gestão da mudança", "TI, dados e jurídico"],
+      "fases": [["Enquadrar", 0, 3], ["Pilotar", 4, 6], ["Escalar", 7, 8], ["Sustentar", 9, 11]],
+      "nos": [
+        { "id": "ini", "tipo": "inicio", "raia": 0, "col": 0, "t": "Início", "d": "A pressão por IA chega de todos os lados: ferramentas disponíveis, concorrentes usando e equipes testando por conta própria." },
+        { "id": "a1", "raia": 0, "col": 1, "t": "Define ambição e limites", "d": "A liderança diz que problemas a IA deve resolver, o que não está em jogo e quem decide. Sem essa conversa, o boato ocupa o espaço.", "e": "Tese de valor e princípios de uso" },
+        { "id": "a2", "raia": 2, "col": 2, "t": "Mapeia casos de uso e impactos", "d": "Com as áreas, levanta as tarefas candidatas e o que muda no trabalho de cada papel.", "e": "Mapa de casos de uso por papel" },
+        { "id": "a3", "raia": 3, "col": 2, "t": "Avalia dados, risco e regras", "d": "Segurança, dados e jurídico avaliam cada caso: que informação entra, LGPD, sigilo e onde a revisão humana é obrigatória.", "e": "Política de uso e classificação de risco" },
+        { "id": "g1", "tipo": "decisao", "raia": 3, "col": 3, "t": "Risco aceitável?", "rot": "b", "nao": "Ainda não: o caso volta para ajuste de escopo, de dados ou de revisão humana.", "sim": "Sim: o caso segue, com regras claras de uso." },
+        { "id": "a4", "raia": 2, "col": 4, "t": "Prepara narrativa e embaixadores", "d": "Trata de frente o que preocupa (substituição, erro, exposição) e prepara voluntários de cada área para puxar o uso.", "e": "Mensagens por público e rede de embaixadores" },
+        { "id": "a5", "raia": 1, "col": 5, "t": "Pilota em tarefas reais", "d": "Um grupo pequeno usa a IA no próprio trabalho por algumas semanas, com apoio próximo e regra clara.", "e": "Registro do piloto: usos, ganhos e erros" },
+        { "id": "a6", "raia": 2, "col": 5, "t": "Mede uso, valor e confiança", "d": "Uso ativo por semana, tempo ganho, qualidade da entrega e quanto as pessoas confiam no resultado.", "e": "Painel do piloto" },
+        { "id": "g2", "tipo": "decisao", "raia": 0, "col": 6, "t": "Provou valor?", "rot": "c", "nao": "Ainda não: o caso é ajustado e o piloto roda de novo. Encerrar um caso fraco também é resultado.", "sim": "Sim: o caso tem ganho comprovado e vai para a escala." },
+        { "id": "a7", "raia": 1, "col": 7, "t": "Redesenha o trabalho da equipe", "d": "Cada gestor revê o fluxo da equipe: o que a IA faz, o que a pessoa revisa e o que deixa de ser feito. Sem isso, a IA vira mais uma aba aberta.", "e": "Novo fluxo de trabalho por área" },
+        { "id": "a8", "raia": 1, "col": 8, "t": "Capacita por papel, em ondas", "d": "Trilhas curtas por função, com prática na tarefa real e apoio dos embaixadores.", "e": "Trilhas por papel e plantão de dúvidas" },
+        { "id": "a9", "raia": 2, "col": 8, "t": "Acompanha a adoção por área", "d": "Depois da novidade, o uso cai. Onde cai, a conversa é com o gestor da área, e não mais um comunicado geral.", "e": "Índice de adoção por área" },
+        { "id": "g3", "tipo": "decisao", "raia": 2, "col": 9, "t": "Virou rotina?", "rot": "b", "nao": "Ainda não: reforço com os gestores e nova rodada de prática nas áreas que ficaram para trás.", "sim": "Sim: o uso está na rotina e aparece no resultado." },
+        { "id": "a10", "raia": 0, "col": 10, "t": "Reconhece e abre nova onda", "d": "A liderança mostra os ganhos, revê as regras conforme a tecnologia muda e escolhe os próximos casos.", "e": "Ciclo de revisão de casos, regras e metas" },
+        { "id": "fim", "tipo": "fim", "raia": 0, "col": 11, "t": "IA no trabalho", "d": "A IA faz parte da rotina, com regra, medida e dono. O ciclo recomeça a cada nova onda de casos." }
+      ],
+      "ligacoes": [
+        ["ini", "a1"],
+        ["a1", "a2"],
+        ["a2", "a3"],
+        ["a3", "g1"],
+        ["g1", "a2", { "r": "não", "s": "c", "e": "d" }],
+        ["g1", "a4", { "r": "sim", "s": "d", "e": "b" }],
+        ["a4", "a5", { "s": "c", "e": "e" }],
+        ["a5", "a6"],
+        ["a6", "g2"],
+        ["g2", "a5", { "r": "não", "s": "e", "e": "c" }],
+        ["g2", "a7", { "r": "sim", "s": "d", "e": "c" }],
+        ["a7", "a8"],
+        ["a8", "a9"],
+        ["a9", "g3"],
+        ["g3", "a8", { "r": "não", "s": "c", "e": "d" }],
+        ["g3", "a10", { "r": "sim", "s": "d", "e": "b" }],
+        ["a10", "fim"]
+      ],
+      "roteiro": ["ini", "a1", "a2", "a3", "g1", "a2", "a3", "g1", "a4", "a5", "a6", "g2", "a5", "a6", "g2", "a7", "a8", "a9", "g3", "a8", "a9", "g3", "a10", "fim"],
+      "travas": [
+        ["a2", "Licença distribuída não é adoção: sem caso de uso ligado à tarefa, o acesso vira curiosidade."],
+        ["a4", "Medo não dito: enquanto ninguém fala do que acontece com os cargos, as pessoas usam pouco ou escondem o uso."],
+        ["a7", "Gestor fora do jogo: se o líder direto não usa nem cobra, o piloto não vira rotina."]
+      ],
+      "medidas": [
+        "Uso ativo por semana, por área e por papel",
+        "Casos de uso em produção e tempo ganho por tarefa",
+        "Confiança no resultado e incidentes de uso indevido"
+      ],
+      "links": [
+        ["Reportagens de IA & Mudança", "radar/?tema=ia"],
+        ["Matriz de adoção: meça o uso por área", "lab/matriz-de-adocao/"],
+        ["Aulas e oficinas de IA aplicada", "servicos/#servico-ia"]
+      ]
+    },
+    {
+      "id": "erp",
+      "nome": "Implantação de ERP",
+      "icone": "camadas",
+      "frase": "SAP, Oracle, TOTVS e outros sistemas de gestão",
+      "raias": ["Patrocinador e comitê", "Áreas e usuários-chave", "Gestão da mudança", "Projeto e TI"],
+      "fases": [["Preparar", 0, 1], ["Desenhar", 2, 3], ["Construir e testar", 4, 5], ["Virar a chave", 6, 8], ["Estabilizar", 9, 12]],
+      "folgas": { "9": 30 },
+      "nos": [
+        { "id": "ini", "tipo": "inicio", "raia": 0, "col": 0, "t": "Início", "d": "A empresa decide trocar o sistema de gestão. A partir daqui, processos, telas e alçadas mudam para muita gente ao mesmo tempo." },
+        { "id": "b1", "raia": 0, "col": 1, "t": "Define o porquê e as regras", "d": "O patrocinador explica por que trocar o sistema, fixa o princípio de aderir ao padrão e libera os usuários-chave de parte da rotina.", "e": "Caso da mudança e regras do projeto" },
+        { "id": "b2", "raia": 1, "col": 2, "t": "Compara processo e padrão", "d": "Em oficinas, os usuários-chave confrontam o processo de hoje com o padrão do sistema. É aqui que aparece o \"sempre fizemos assim\".", "e": "Processo futuro e lista de diferenças" },
+        { "id": "g1", "tipo": "decisao", "raia": 0, "col": 3, "t": "Cabe no padrão?", "rot": "c", "nao": "Não coube: o comitê decide a exceção. A regra é a área adaptar o processo; customizar o sistema é o último recurso.", "sim": "Sim: o desenho está fechado e vira a base para medir os impactos." },
+        { "id": "b3", "raia": 2, "col": 4, "t": "Mapeia impactos por papel", "d": "Para cada função: o que muda na tarefa, na tela, na alçada e no perfil de acesso.", "e": "Matriz de impactos por processo e papel" },
+        { "id": "b4", "raia": 3, "col": 4, "t": "Configura, migra dados e testa", "d": "A equipe do projeto configura o sistema, carrega os cadastros e roda os testes integrados. A qualidade do dado é responsabilidade das áreas.", "e": "Sistema configurado e dados saneados" },
+        { "id": "b5", "raia": 1, "col": 5, "t": "Executa os testes de aceite", "d": "Os usuários-chave executam cenários reais de ponta a ponta. O teste valida o sistema e mostra onde as pessoas ainda não estão prontas.", "e": "Cenários aprovados e pontos de atenção" },
+        { "id": "b6", "raia": 1, "col": 6, "t": "Treina perto da virada", "d": "Por papel, em ambiente de treino e conduzido pelos usuários-chave, nas semanas finais. Treino cedo demais se perde.", "e": "Trilhas por papel e guias rápidos" },
+        { "id": "b7", "raia": 2, "col": 6, "t": "Mede a prontidão das pessoas", "d": "Quem treinou, quem praticou, gestores preparados e suporte montado: a evidência que entra na decisão de virar.", "e": "Painel de prontidão por área" },
+        { "id": "g2", "tipo": "decisao", "raia": 0, "col": 7, "t": "Pronto para virar?", "rot": "c", "nao": "Ainda não: a virada é adiada e as áreas com lacuna recebem reforço antes de nova avaliação.", "sim": "Sim: sistema e pessoas prontos. A data é confirmada e comunicada." },
+        { "id": "b8", "raia": 3, "col": 8, "t": "Vira a chave e entra em produção", "d": "Congelamento, carga final de dados e início da operação no novo sistema, com plano de contingência e sala de comando.", "e": "Plano de virada e comunicação do congelamento" },
+        { "id": "b9", "raia": 1, "col": 9, "t": "Opera de forma assistida", "d": "Usuários-chave ao lado das equipes e reunião diária de incidentes. A queda de produtividade é esperada; escondê-la é o que custa caro.", "e": "Rotina de apoio e lista diária de incidentes" },
+        { "id": "b10", "raia": 2, "col": 9, "t": "Acompanha uso e erros", "d": "Chamados por área, erros de lançamento, planilhas paralelas e o primeiro fechamento do mês.", "e": "Indicadores de estabilização" },
+        { "id": "g3", "tipo": "decisao", "raia": 2, "col": 10, "t": "Operação estável?", "rot": "b", "nao": "Ainda não: a operação assistida continua e o reforço vai para onde os erros se repetem.", "sim": "Sim: a operação passa para a sustentação." },
+        { "id": "b11", "raia": 0, "col": 11, "t": "Encerra e cobra o benefício", "d": "O patrocinador encerra o projeto, desliga os controles paralelos e acompanha os ganhos prometidos.", "e": "Passagem para a sustentação e plano de benefícios" },
+        { "id": "fim", "tipo": "fim", "raia": 0, "col": 12, "t": "Sistema na rotina", "d": "O novo sistema é o jeito normal de trabalhar, com dono para cada processo. O ciclo recomeça a cada melhoria ou nova onda." }
+      ],
+      "ligacoes": [
+        ["ini", "b1"],
+        ["b1", "b2", { "s": "b", "e": "e" }],
+        ["b2", "g1"],
+        ["g1", "b2", { "r": "não", "s": "e", "e": "c" }],
+        ["g1", "b3", { "r": "sim", "s": "d", "e": "c" }],
+        ["b3", "b4"],
+        ["b4", "b5"],
+        ["b5", "b6"],
+        ["b6", "b7"],
+        ["b7", "g2"],
+        ["g2", "b6", { "r": "não", "s": "e", "e": "c" }],
+        ["g2", "b8", { "r": "sim", "s": "d", "e": "c" }],
+        ["b8", "b9", { "s": "d", "e": "e" }],
+        ["b9", "b10"],
+        ["b10", "g3"],
+        ["g3", "b9", { "r": "não", "s": "c", "e": "d" }],
+        ["g3", "b11", { "r": "sim", "s": "d", "e": "b" }],
+        ["b11", "fim"]
+      ],
+      "roteiro": ["ini", "b1", "b2", "g1", "b2", "g1", "b3", "b4", "b5", "b6", "b7", "g2", "b6", "b7", "g2", "b8", "b9", "b10", "g3", "b9", "b10", "g3", "b11", "fim"],
+      "travas": [
+        ["b5", "Usuário-chave sem tempo: quem acumula o projeto com a rotina não testa direito nem consegue ensinar os colegas."],
+        ["b6", "Treino cedo demais ou genérico: semanas depois, ninguém lembra da tela que nunca usou."],
+        ["g2", "Virada decidida só pelo sistema: testes aprovados com áreas despreparadas viram fila de chamados e planilha paralela."]
+      ],
+      "medidas": [
+        "Prontidão por área antes da virada: quem treinou, quem praticou e gestores preparados",
+        "Chamados e erros de lançamento por usuário nas primeiras semanas",
+        "Controles paralelos desligados e prazo do fechamento do mês"
+      ],
+      "links": [
+        ["Lista de impactos com dashboard (Excel)", "modelos/#lista-de-impactos-dashboard"],
+        ["Plano editorial de treinamentos (Excel)", "modelos/#plano-de-treinamentos"],
+        ["Apresentação de kickoff e treinamento", "apresentacoes/kickoff-e-treinamento/"]
+      ]
+    },
+    {
+      "id": "governanca",
+      "nome": "Governança",
+      "icone": "escudo",
+      "frase": "De TI, de dados ou de IA: regra que vira hábito",
+      "raias": ["Diretoria e comitê", "Gestores e equipes", "Gestão da mudança", "Escritório de governança"],
+      "fases": [["Diagnosticar", 0, 2], ["Desenhar", 3, 4], ["Pactuar", 5, 7], ["Rodar", 8, 9], ["Sustentar", 10, 11]],
+      "nos": [
+        { "id": "ini", "tipo": "inicio", "raia": 0, "col": 0, "t": "Início", "d": "Uma auditoria, um incidente ou o crescimento expõe o problema: decisões sem dono, regras que ninguém segue e atalhos por todo lado." },
+        { "id": "c1", "raia": 0, "col": 1, "t": "Define o que a regra protege", "d": "A diretoria declara que risco ou desperdício a governança vai atacar. Sem dor declarada, a regra é lida como burocracia.", "e": "Mandato e princípios da governança" },
+        { "id": "c2", "raia": 2, "col": 2, "t": "Mapeia quem decide hoje", "d": "Casos recentes mostram o caminho real das decisões: os atalhos, quem os usa e quem perde poder com a nova regra.", "e": "Mapa de decisões e de stakeholders" },
+        { "id": "c3", "raia": 3, "col": 3, "t": "Desenha fóruns, papéis e regras", "d": "O escritório propõe quem decide, em que fórum, com que critério e em que prazo, e um caminho rápido para exceções.", "e": "Modelo de decisão: fóruns, papéis e políticas" },
+        { "id": "c4", "raia": 1, "col": 3, "t": "Testa a regra em casos reais", "d": "Gestores passam demandas verdadeiras pelo desenho proposto. O teste mostra onde a regra trava o trabalho.", "e": "Ajustes pedidos por quem vai cumprir" },
+        { "id": "g1", "tipo": "decisao", "raia": 1, "col": 4, "t": "Dá para cumprir?", "rot": "c", "nao": "Ainda não: a regra custa mais do que o risco que evita. O desenho volta para ser simplificado.", "sim": "Sim: quem vai cumprir a regra reconhece que ela cabe no dia a dia." },
+        { "id": "c5", "raia": 0, "col": 5, "t": "Aprova e dá o exemplo", "d": "A diretoria aprova o modelo e passa a levar as próprias demandas ao fórum. A primeira exceção concedida a um diretor desmonta a regra.", "e": "Modelo aprovado e compromisso da diretoria" },
+        { "id": "c6", "raia": 3, "col": 6, "t": "Monta fóruns e registros", "d": "Calendário, pauta, critérios e registro das decisões prontos antes da primeira reunião.", "e": "Agenda dos fóruns e registro de decisões" },
+        { "id": "c7", "raia": 2, "col": 7, "t": "Traduz a regra para cada papel", "d": "O que muda para quem pede, para quem aprova e para quem executa, em uma página por papel.", "e": "Guias por papel e plano de comunicação" },
+        { "id": "c8", "raia": 1, "col": 8, "t": "Roda o primeiro ciclo assistido", "d": "As primeiras demandas passam pelo novo caminho, com apoio na sala e ajuste na hora.", "e": "Decisões registradas e lições do ciclo" },
+        { "id": "c9", "raia": 2, "col": 8, "t": "Acompanha aderência e atalhos", "d": "Quantas decisões passaram pelo fórum, em quanto tempo, e quantas foram por fora. Fórum lento convida ao atalho.", "e": "Painel de aderência e de exceções" },
+        { "id": "g2", "tipo": "decisao", "raia": 2, "col": 9, "t": "Virou hábito?", "rot": "b", "nao": "Ainda não: o que emperra é ajustado e os gestores tratam os desvios em mais um ciclo assistido.", "sim": "Sim: as decisões passam pelo fórum sem empurrão." },
+        { "id": "c10", "raia": 0, "col": 10, "t": "Cobra, reconhece e revisa", "d": "A diretoria acompanha os indicadores, reconhece quem cumpre e revê a regra de tempos em tempos. Governança que não se revisa vira burocracia.", "e": "Rito de revisão e indicadores no painel da diretoria" },
+        { "id": "fim", "tipo": "fim", "raia": 0, "col": 11, "t": "Regra que virou hábito", "d": "A regra é o jeito normal de decidir, com dono, prazo e medida. O ciclo recomeça a cada revisão do modelo." }
+      ],
+      "ligacoes": [
+        ["ini", "c1"],
+        ["c1", "c2"],
+        ["c2", "c3", { "s": "b", "e": "e" }],
+        ["c3", "c4"],
+        ["c4", "g1"],
+        ["g1", "c3", { "r": "não", "s": "b", "e": "d" }],
+        ["g1", "c5", { "r": "sim", "s": "d", "e": "b" }],
+        ["c5", "c6"],
+        ["c6", "c7"],
+        ["c7", "c8", { "s": "c", "e": "e" }],
+        ["c8", "c9"],
+        ["c9", "g2"],
+        ["g2", "c8", { "r": "não", "s": "c", "e": "d" }],
+        ["g2", "c10", { "r": "sim", "s": "d", "e": "b" }],
+        ["c10", "fim"]
+      ],
+      "roteiro": ["ini", "c1", "c2", "c3", "c4", "g1", "c3", "c4", "g1", "c5", "c6", "c7", "c8", "c9", "g2", "c8", "c9", "g2", "c10", "fim"],
+      "travas": [
+        ["c3", "Regra desenhada longe de quem cumpre: fica correta no papel e impraticável no dia a dia."],
+        ["c5", "Exceção para quem manda: quando um diretor fura a fila, todos entendem que a regra é opcional."],
+        ["c9", "Fórum lento: se a decisão demora mais pelo caminho oficial, o atalho volta."]
+      ],
+      "medidas": [
+        "Decisões e demandas que passaram pelo fórum, sobre o total",
+        "Tempo de resposta do fórum e fila de pendências",
+        "Exceções abertas, tratadas e reincidentes"
+      ],
+      "links": [
+        ["Guia de campo: Change Management em governança de TI", "posts/guia-change-management-em-governanca-de-ti/"],
+        ["Matriz RACI: quem decide e quem executa", "lab/matriz-raci/"],
+        ["Mapa de influência de stakeholders", "lab/mapa-de-influencia/"]
+      ]
+    }
+  ]
+}

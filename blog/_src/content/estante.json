@@ -1,5 +1,5 @@
 {
-  "titulo": "Oito livros, oito perguntas",
+  "titulo": "Nove livros, nove perguntas",
   "nota": "Cada livro desta pilha responde a uma pergunta que aparece em todo projeto de mudança. Toque no livro da frente para abrir o resumo.",
   "itens": [
     {
@@ -39,6 +39,26 @@
         "O ponto em que a pessoa trava (a barreira) indica a ação que falta."
       ],
       "leitura": "É como aprender a dirigir: saber por que preciso e querer vêm antes da aula teórica e da prática, e só vira hábito com reforço. Treinar antes do desejo é ensinar baliza a quem não quer tirar carteira."
+    },
+    {
+      "titulo": "Change Management: The People Side of Change",
+      "autor": "Jeffrey M. Hiatt e Timothy J. Creasey",
+      "tipo": "Livro",
+      "porque": "O lado humano da mudança, explicado para quem lidera projetos: por que gerenciar, o que fazer e em que ordem.",
+      "pergunta": "Por que a solução certa não basta?",
+      "motivo": "fases",
+      "isbn": "9781930885615",
+      "capa": "assets/img/livros/change-management.jpg",
+      "capa_l": 480,
+      "capa_a": 719,
+      "fonte": "https://books.google.com/books?vid=ISBN9781930885615",
+      "ideias": [
+        "Uma solução certa não gera resultado sozinha: o ganho aparece quando as pessoas adotam e usam o novo jeito de trabalhar.",
+        "A gestão da mudança tem dois lados: o individual, que mostra como cada pessoa atravessa a mudança (o ADKAR), e o organizacional, que é o que o projeto faz para apoiar todas elas.",
+        "No lado organizacional, o trabalho tem três fases: preparar, gerenciar e reforçar a mudança, com patrocínio ativo, comunicação, gestores próximos da equipe, treinamento e gestão da resistência."
+      ],
+      "leitura": "É como comprar uma esteira: a compra não melhora a saúde de ninguém; o uso, sim. O projeto entrega a solução, e o resultado só aparece quando as pessoas passam a usar. É o livro que eu indico para explicar ao patrocinador por que a gestão da mudança entra no plano desde o início.",
+      "capa_manual": true
     },
     {
       "titulo": "Managing Transitions",
@@ -126,14 +146,15 @@
       "isbn": "9788574526454",
       "capa": "assets/img/livros/hcmbok.jpg",
       "capa_l": 480,
-      "capa_a": 692,
+      "capa_a": 687,
       "fonte": "https://books.google.com/books?vid=ISBN9788574526454",
       "ideias": [
         "Organiza a gestão de mudanças ao longo do ciclo de vida do projeto, do planejamento ao encerramento.",
         "Trata o fator humano como parte do projeto, com atividades, papéis e entregas em cada fase.",
         "Conversa com as práticas de gerenciamento de projetos e traz o olhar brasileiro."
       ],
-      "leitura": "É a planta da obra com a parte hidráulica desenhada desde o início: gente não é acabamento. Uso como referência para encaixar cada entrega de mudança no cronograma do projeto."
+      "leitura": "É a planta da obra com a parte hidráulica desenhada desde o início: gente não é acabamento. Uso como referência para encaixar cada entrega de mudança no cronograma do projeto.",
+      "capa_manual": true
     },
     {
       "titulo": "Nudge",

@@ -49,7 +49,14 @@ export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imag
   const href = h => `${raiz}${h}`;
   const aqui = h => GRUPO[ativo] === h ? ` class="aqui" aria-current="${ativo === 'modelos' ? 'true' : 'page'}"` : '';
   const nav = ABAS.map(([h, t]) => `<a href="${href(h)}"${aqui(h)}>${t}</a>`).join('');
-  const navRodape = [...ABAS, ...ATALHOS].map(([h, t]) => `<a href="${href(h)}">${t}</a>`).join('');
+  // rodapé: os mesmos destinos, agrupados pelas quatro abas (o título de cada coluna leva à aba)
+  const RODAPE = [
+    ['radar/', 'Radar', [['radar/', 'Reportagens'], ['radar/#guias', 'Guias de campo'], ['radar/?tema=ia', 'IA & Mudança'], ['radar/#agenda', 'Agenda e vídeos'], [mesAtual, 'Posts do mês']]],
+    ['lab/', 'Laboratório', [['lab/diagnostico/', 'Diagnóstico de nível'], ['lab/', 'Ferramentas para montar'], ['apresentacoes/', 'Apresentações em HTML'], ['modelos/', 'Modelos para baixar']]],
+    ['servicos/', 'Serviços', [['servicos/#servicos', 'O que eu faço'], ['servicos/#fluxos', 'Fluxos por tipo de projeto'], ['servicos/#acompanhamento', 'Acompanhamento'], ['servicos/#contato', 'Falar comigo']]],
+    ['sobre/', 'Sobre', [['sobre/', `Quem é ${esc(cfg.autor)}`], ['sobre/#estante', 'Sugestões de leitura']]],
+  ];
+  const navRodape = RODAPE.map(([h, t, links], i) => `<div class="rodape-col"><p class="rodape-tit" id="rod-${i}"><a href="${href(h)}">${t}</a></p><ul aria-labelledby="rod-${i}">${links.map(([l, r]) => `<li><a href="${href(l)}">${r}</a></li>`).join('')}</ul></div>`).join('');
   const navMenu = ABAS.map(([h, t, d], i) => `<a href="${href(h)}"${aqui(h)} style="--i:${i}"><span class="menu-n">${String(i + 1).padStart(2, '0')}</span><span class="menu-t">${t}</span><span class="menu-d">${d}</span>${icone('seta')}</a>`).join('');
   const navAtalhos = ATALHOS.map(([h, t]) => `<a href="${href(h)}">${t}</a>`).join('');
   const ct = contato(cfg);
@@ -113,11 +120,17 @@ ${corpo}
 </main>
 <footer class="rodape" id="rodape">
   <div class="rodape-in">
-    <div class="rodape-marca">${marca()}<div><strong>${esc(cfg.nome)}</strong><span>${esc(cfg.lema)}</span></div></div>
-    <nav class="rodape-nav" aria-label="Rodapé">${navRodape}</nav>
-    ${ct.tel || cfg.linkedin ? `<p class="rodape-contato"><span>Contato</span>${ct.zap ? `<a href="${esc(ct.zap)}" target="_blank" rel="noopener">${icone('conversa')}WhatsApp ${esc(ct.tel)}</a>` : ct.tel ? `<a href="${esc(ct.hrefTel)}">${icone('telefone')}${esc(ct.tel)}</a>` : ''}${cfg.linkedin ? `<a href="${esc(cfg.linkedin)}" target="_blank" rel="noopener">${icone('linkedin')}LinkedIn</a>` : ''}</p>` : ''}
-    <p class="rodape-nota">Curadoria e textos de ${esc(cfg.autor)}. Cada reportagem cita a fonte original, com link; os números valem para o recorte de cada pesquisa. Os guias de campo são a visão do autor.</p>
-    <p class="rodape-fim"><span>© ${new Date().getFullYear()} ${esc(cfg.autor)} · ${esc(cfg.papel)}</span><a class="rodape-topo" href="#conteudo">Voltar à superfície${icone('setaCima')}</a></p>
+    <div class="rodape-grade">
+      <div class="rodape-sobre">
+        <a class="rodape-marca" href="${raiz}index.html" aria-label="${esc(cfg.nome)}: início">${marca()}<span><strong>${esc(cfg.nome)}</strong><span>${esc(cfg.lema)}</span></span></a>
+        ${ct.tel || cfg.linkedin ? `<div class="rodape-contato"><p class="rodape-tit">Fale comigo</p><p class="rodape-canais">${ct.zap ? `<a href="${esc(ct.zap)}" target="_blank" rel="noopener">${icone('conversa')}<span>WhatsApp<b>${esc(ct.tel)}</b></span></a>` : ct.tel ? `<a href="${esc(ct.hrefTel)}">${icone('telefone')}<span>Telefone<b>${esc(ct.tel)}</b></span></a>` : ''}${cfg.linkedin ? `<a href="${esc(cfg.linkedin)}" target="_blank" rel="noopener">${icone('linkedin')}<span>LinkedIn<b>Ver o perfil</b></span></a>` : ''}</p></div>` : ''}
+      </div>
+      <nav class="rodape-nav" aria-label="Rodapé">${navRodape}</nav>
+    </div>
+    <div class="rodape-fim">
+      <div class="rodape-legal"><p class="rodape-nota">Curadoria e textos de ${esc(cfg.autor)}. Cada reportagem cita a fonte original, com link; os números valem para o recorte de cada pesquisa. Os guias de campo são a visão do autor.</p><p class="rodape-direitos">© ${new Date().getFullYear()} ${esc(cfg.autor)} · ${esc(cfg.papel)}</p></div>
+      <a class="rodape-topo" href="#conteudo">Voltar à superfície${icone('setaCima')}</a>
+    </div>
   </div>
 </footer>
 <script src="${raiz}assets/js/site.js" defer></script>

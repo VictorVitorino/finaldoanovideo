@@ -8,6 +8,7 @@ import { frontMatter, markdown, minutos } from './lib/md.mjs';
 import { marca } from './lib/ilustra.mjs';
 import { inicio, post, mes, naoAchou, paginaRadar, TEMAS } from './lib/modelos.mjs';
 import { paginaServicos, blocoServicos } from './lib/servicos.mjs';
+import { fluxosBusca } from './lib/fluxos.mjs';
 import { paginaSobre, blocoSobre } from './lib/sobre.mjs';
 import { deckHTML, paginaApresentacoes, capaDoDeck } from './lib/apresenta.mjs';
 import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, PREVIAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
@@ -30,7 +31,7 @@ export function carrega() {
   // diagnóstico: um arquivo por domínio em content/diagnostico, na ordem abaixo
   const ORDEM = ['modelos', 'estrategia', 'pessoas', 'execucao', 'medicao', 'contextos'];
   const dominios = ORDEM.filter(d => existsSync(join(CONT, 'diagnostico', d + '.json'))).map(d => ({ id: d, ...json(`diagnostico/${d}.json`) }));
-  return { cfg, posts, eventos: json('eventos.json'), videos: json('videos.json'), perfil: json('perfil.json'), home: json('home.json'), servicos: json('servicos.json'), dominios, relatorio: json('diagnostico-relatorio.json') };
+  return { cfg, posts, eventos: json('eventos.json'), videos: json('videos.json'), perfil: json('perfil.json'), home: json('home.json'), servicos: json('servicos.json'), fluxos: existsSync(join(CONT, 'fluxos.json')) ? json('fluxos.json') : null, dominios, relatorio: json('diagnostico-relatorio.json') };
 }
 
 const DECKS = ['gestao-da-mudanca', 'plano-de-comunicacao', 'cultura-e-engajamento', 'impactos-da-mudanca', 'kickoff-e-treinamento'];   // ordem das apresentações em HTML
@@ -50,7 +51,7 @@ function gera() {
   const convite = blocoServicos(d.servicos, '../');
   grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas, mods.length), servicos: blocoServicos(d.servicos, ''), sobre: blocoSobre({ cfg, perfil: d.perfil, raiz: '' }) }));
   grava('radar/index.html', paginaRadar({ cfg, posts, eventos: d.eventos, videos: d.videos, home: d.home }));
-  grava('servicos/index.html', paginaServicos({ cfg, c: d.servicos, perfil: d.perfil }));
+  grava('servicos/index.html', paginaServicos({ cfg, c: d.servicos, perfil: d.perfil, fluxos: d.fluxos }));
   grava('sobre/index.html', paginaSobre({ cfg, perfil: d.perfil, estante, convite }));
   // apresentações em HTML: cada deck é uma página autônoma, com o motor (deck.css e deck.js) embutido
   const decks = DECKS.filter(id => existsSync(join(CONT, 'apresentacoes', id + '.json'))).map(id => json(`apresentacoes/${id}.json`));
@@ -84,7 +85,7 @@ function gera() {
     modelos: mods.map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
     servicos: d.servicos.servicos.map(x => ({ t: x.nome, d: curto(x.frase, 110), u: `servicos/#servico-${x.id}` })),
     decks: decks.map(dk => ({ t: dk.nome, d: curto(dk.frase, 110), u: `apresentacoes/${dk.id}/` })),
-    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Apresentações em HTML', 'apresentacoes/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Quem conduz: Victor Vitorino', 'servicos/#quem'], ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
+    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Apresentações em HTML', 'apresentacoes/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Quem conduz: Victor Vitorino', 'servicos/#quem'], ['Fluxos por tipo de projeto', 'servicos/#fluxos'], ...fluxosBusca(d.fluxos).map(x => [x.t, x.u]), ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
   };
   grava('assets/js/dados.js', `// Gerado por blog/_src/build.mjs. Não edite à mão.\nwindow.CMW_DADOS = ${JSON.stringify(dados)};\n`);
   const porMes = {};

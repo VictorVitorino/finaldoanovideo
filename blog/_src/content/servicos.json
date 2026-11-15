@@ -267,58 +267,6 @@
       }
     ]
   },
-  "fluxo": {
-    "olho": "Como funciona",
-    "titulo": "O caminho de um projeto, passo a passo",
-    "nota": "Acompanhe a ficha que percorre o processo: ela mostra quem faz o quê e onde a decisão acontece.",
-    "raias": [
-      "Patrocinador",
-      "Gestão da mudança",
-      "Gestores e equipes"
-    ],
-    "passos": [
-      {
-        "raia": 0,
-        "t": "Define o porquê",
-        "d": "O patrocinador diz por que mudar e o que está em jogo."
-      },
-      {
-        "raia": 1,
-        "t": "Diagnóstico de prontidão",
-        "d": "Leitura de impactos, stakeholders e riscos de pessoas."
-      },
-      {
-        "raia": 1,
-        "t": "Estratégia e plano",
-        "d": "O que muda para cada público, com que apoio e em que ordem."
-      },
-      {
-        "raia": 2,
-        "t": "Gestores preparados",
-        "d": "Quem lidera as áreas recebe a mensagem e o roteiro primeiro."
-      },
-      {
-        "raia": 2,
-        "t": "Capacitação e prática",
-        "d": "As equipes aprendem fazendo, perto do uso."
-      },
-      {
-        "raia": 1,
-        "t": "Mede a adoção",
-        "d": "Uso real por área, e não só treinamento concluído."
-      },
-      {
-        "raia": 0,
-        "t": "Reforça e reconhece",
-        "d": "O patrocinador sustenta o que foi conquistado."
-      }
-    ],
-    "decisao": {
-      "pergunta": "Adoção no alvo?",
-      "nao": "Reforço",
-      "sim": "Sustentar"
-    }
-  },
   "acompanhamento": {
     "olho": "Acompanhamento",
     "titulo": "Presente antes, durante e depois da virada",

@@ -1,50 +1,15 @@
 // Página de Serviços (serviços particulares de gestão da mudança e IA aplicada) e o convite dela na página inicial.
-// Os efeitos (galeria que desliza, ficha em foco, cartões que viram, fluxo BPMN, narrativa fixa e gráfico que se constrói)
+// Os efeitos (galeria que desliza, ficha em foco, cartões que viram, fluxos por tipo de projeto, narrativa fixa e gráfico que se constrói)
 // ficam em assets/js/efeitos.js; aqui só a estrutura. Sem JavaScript, tudo aparece como texto e listas.
 import { esc } from './md.mjs';
 import { icone, iceberg } from './ilustra.mjs';
 import { iconeVivo } from './vivo.mjs';
 import { pagina, titSecao, navGaleria, botoesContato, contato, frases, corrido } from './modelos.mjs';
 import { foto, papeis } from './sobre.mjs';
+import { secaoFluxos } from './fluxos.mjs';
 
 const tit = l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>');
-const quebra = (t, max = 15) => { const ls = ['']; for (const p of t.split(' ')) { const k = ls.length - 1; if (ls[k] && (ls[k] + ' ' + p).length > max) ls.push(p); else ls[k] = (ls[k] + ' ' + p).trim(); } return ls; };
 const lista = (itens, cls = '') => `<ul class="checks${cls ? ' ' + cls : ''}">${itens.map(e => `<li>${icone('check')}<span>${esc(e)}</span></li>`).join('')}</ul>`;
-
-// ---------- fluxo BPMN: três raias, tarefas, uma decisão e a ficha que percorre o caminho ----------
-function fluxoSVG(f) {
-  const RAIA = 104, TOPO = 14, LAT = 150, TW = 98, TH = 54, R = 12, PASSO = 112, X0 = 200;
-  const col = i => X0 + i * PASSO, cy = r => TOPO + r * RAIA + RAIA / 2, W = col(9) + 44, H = TOPO * 2 + 3 * RAIA;
-  // colunas: 0 início · 1 a 6 tarefas · 7 decisão · 8 última tarefa · 9 fim
-  const pos = f.passos.map((p, i) => ({ ...p, x: col(i < 6 ? i + 1 : 8), y: cy(p.raia), i }));
-  const ini = { x: col(0), y: cy(pos[0].raia) }, gw = { x: col(7), y: cy(pos[5].raia) }, fim = { x: col(9), y: cy(pos[6].raia) }, G = 23;
-  const dir = p => [p.x + TW / 2, p.y], esq = p => [p.x - TW / 2, p.y], cima = p => [p.x, p.y - TH / 2], baixo = p => [p.x, p.y + TH / 2];
-  // ligação em ângulo reto, com canto arredondado: sai para o lado e entra por cima ou por baixo
-  const liga = (a, b) => Math.abs(a[1] - b[1]) < 1 ? `M${a[0]} ${a[1]}H${b[0]}` : `M${a[0]} ${a[1]}H${b[0] - R}Q${b[0]} ${a[1]} ${b[0]} ${a[1] + (b[1] > a[1] ? R : -R)}V${b[1]}`;
-  const entra = (a, b) => Math.abs(a.y - b.y) < 1 ? esq(b) : b.y > a.y ? cima(b) : baixo(b);
-  const yVolta = TOPO + 3 * RAIA - 8;
-  const C = [   // ligações, com o nó de chegada de cada uma
-    ['c-ini', `M${ini.x + 9} ${ini.y}H${esq(pos[0])[0]}`],
-    ...[0, 1, 2, 3, 4].map(i => [`c-${i}`, liga(dir(pos[i]), entra(pos[i], pos[i + 1]))]),
-    ['c-5', `M${dir(pos[5])[0]} ${pos[5].y}H${gw.x - G}`],
-    ['c-nao', `M${gw.x} ${gw.y + G}V${yVolta - R}Q${gw.x} ${yVolta} ${gw.x - R} ${yVolta}H${pos[4].x + R}Q${pos[4].x} ${yVolta} ${pos[4].x} ${yVolta - 6}V${baixo(pos[4])[1]}`],
-    ['c-sim', `M${gw.x} ${gw.y - G}V${pos[6].y + R}Q${gw.x} ${pos[6].y} ${gw.x + R} ${pos[6].y}H${esq(pos[6])[0]}`],
-    ['c-fim', `M${dir(pos[6])[0]} ${pos[6].y}H${fim.x - 12}`],
-  ];
-  const raias = f.raias.map((n, r) => { const ls = quebra(n, 13); return `<rect x="0" y="${TOPO + r * RAIA}" width="${W}" height="${RAIA}" class="fx-raia${r % 2 ? ' fx-raia--b' : ''}"/><text class="fx-raia-t" x="16" y="${cy(r) + 4 - (ls.length - 1) * 8}">${ls.map((l, k) => `<tspan x="16" dy="${k ? 16 : 0}">${esc(l)}</tspan>`).join('')}</text>`; }).join('');
-  const tarefas = pos.map(p => { const ls = quebra(p.t, 14); return `<g class="fx-no fx-tarefa" data-no="t${p.i}"><rect x="${p.x - TW / 2}" y="${p.y - TH / 2}" width="${TW}" height="${TH}" rx="10"/><text x="${p.x}" y="${p.y + 4.5 - (ls.length - 1) * 7.5}" text-anchor="middle">${ls.map((l, k) => `<tspan x="${p.x}" dy="${k ? 15 : 0}">${esc(l)}</tspan>`).join('')}</text></g>`; }).join('');
-  return `<svg class="fluxo-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Fluxo do trabalho em três raias: ${esc(f.raias.join(', '))}. A descrição de cada passo está na lista abaixo.">
-  <defs><marker id="fx-seta" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5L8.5 5 1 8.5z" class="fx-ponta"/></marker></defs>
-  ${raias}<path d="M${LAT - 12} ${TOPO}V${H - TOPO}" class="fx-div"/>
-  <g class="fx-linhas">${C.map(([id, d]) => `<path id="${id}" d="${d}" marker-end="url(#fx-seta)"/>`).join('')}</g>
-  <g class="fx-feitas">${C.map(([id, d]) => `<path data-feita="${id}" d="${d}" pathLength="1"/>`).join('')}</g>
-  <g class="fx-no" data-no="ini"><circle cx="${ini.x}" cy="${ini.y}" r="9" class="fx-evento"/></g>
-  <g class="fx-no" data-no="fim"><circle cx="${fim.x}" cy="${fim.y}" r="11" class="fx-evento fx-evento--fim"/></g>
-  ${tarefas}
-  <g class="fx-no fx-decisao" data-no="gw"><path d="M${gw.x} ${gw.y - G}l${G} ${G}-${G} ${G}-${G}-${G}z"/><text x="${gw.x + G + 10}" y="${gw.y + 4}" class="fx-rot">${esc(f.decisao.pergunta)}</text><text x="${gw.x + 9}" y="${gw.y + G + 20}" class="fx-rot fx-rot--p">não: ${esc(f.decisao.nao.toLowerCase())}</text><text x="${gw.x + 9}" y="${gw.y - G - 9}" class="fx-rot fx-rot--p">sim</text></g>
-  <g class="fx-ficha" transform="translate(${ini.x} ${ini.y})"><circle r="14" class="fx-ficha-halo"/><circle r="7" class="fx-ficha-centro"/></g>
-  </svg>`;
-}
 
 // ---------- gráfico que se constrói: barras, linha de tendência e pontos ----------
 function graficoSVG(g) {
@@ -70,8 +35,8 @@ export const blocoServicos = (c, raiz) => !c ? '' : `<section class="sec sec--se
 </section>`;
 
 // ---------- página ----------
-export function paginaServicos({ cfg, c, perfil }) {
-  const raiz = '../', f = c.fluxo, j = c.jornada, g = c.grafico, v = c.viradas, ac = c.acompanhamento, ct = contato(cfg), q = c.quem;
+export function paginaServicos({ cfg, c, perfil, fluxos }) {
+  const raiz = '../', j = c.jornada, g = c.grafico, v = c.viradas, ac = c.acompanhamento, ct = contato(cfg), q = c.quem;
   const acoes = botoesContato(cfg, { principal: 'btn--p', apoio: 'btn--s' });
   // quem conduz: apresentação pessoal logo depois da abertura. Com o arquivo da foto (perfil.foto), o cartão mostra o retrato em círculo; sem ele, o iceberg da marca.
   const papel1 = perfil ? (perfil.papel_linhas || [perfil.papel])[0] : '';
@@ -129,16 +94,7 @@ ${quem}<section class="sec sec--servicos-pg" id="servicos" aria-labelledby="serv
   </div>
 </section>
 
-<section class="sec sec--fluxo" aria-labelledby="fluxo-t">
-  <div class="sec-in">
-    ${titSecao('fluxo', esc(f.olho), esc(f.titulo), esc(f.nota))}
-    <div class="fluxo revela" data-fluxo>
-      <div class="fluxo-rolagem">${fluxoSVG(f)}</div>
-      <div class="fluxo-barra so-js"><button type="button" class="btn btn--p btn--peq" data-fx="tocar" aria-pressed="false">${icone('play')}<span>Reproduzir</span></button><button type="button" class="btn btn--s btn--peq" data-fx="passo">Passo a passo${icone('seta')}</button><button type="button" class="btn btn--s btn--peq" data-fx="veloz" aria-label="Velocidade: 1 vez">Velocidade <b>1×</b></button><p class="fluxo-legenda" data-fx-legenda><b>Início</b><span>${esc(f.passos[0].d)}</span></p></div>
-      <ol class="fluxo-lista">${f.passos.map((p, i) => `<li data-passo="t${i}"><span>${String(i + 1).padStart(2, '0')}</span><b>${esc(p.t)}</b><small>${esc(f.raias[p.raia])}</small><em>${esc(p.d)}</em></li>`).join('')}<li data-passo="gw"><span>?</span><b>${esc(f.decisao.pergunta)}</b><small>${esc(f.raias[1])}</small><em>Se a adoção ainda não chegou ao alvo, o caminho volta para capacitação e prática. Se chegou, segue para o reforço.</em></li></ol>
-    </div>
-  </div>
-</section>
+${secaoFluxos(fluxos, raiz)}
 
 <section class="sec sec--acomp" id="acompanhamento" aria-labelledby="acomp-t">
   <div class="sec-in">

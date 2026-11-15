@@ -1,0 +1,164 @@
+{
+  "id": "plano-de-comunicacao",
+  "nome": "Plano de comunicação da mudança",
+  "olho": "Comunicação",
+  "frase": "Para alinhar quem precisa saber o quê, por quem, por qual canal e quando: públicos, mensagens-chave, porta-vozes, canais, calendário, escuta e medição.",
+  "para": "patrocinador, comunicação e gestores",
+  "duracao": "25 min",
+  "slides": [
+    {
+      "tipo": "capa",
+      "olho": "Comunicação",
+      "titulo": ["Plano de comunicação", "do {projeto}"],
+      "sub": "Quem precisa saber o quê, por quem, por qual canal e quando.",
+      "notas": "Diga logo no início o que você espera sair da reunião: a aprovação das mensagens e a agenda dos porta-vozes.\nPreencha o nome do projeto, a área e a data em Personalizar."
+    },
+    {
+      "tipo": "mensagem",
+      "olho": "Princípio",
+      "frase": "Comunicar não é avisar: é dar a cada pessoa *o porquê, o quê e o como*, na hora certa.",
+      "apoio": "O aviso informa. A comunicação de mudança prepara a pessoa para agir e abre espaço para ela responder.",
+      "itens": [
+        { "t": "Por que mudamos?", "d": "O motivo do negócio, dito por quem decide." },
+        { "t": "O que muda para mim?", "d": "O impacto no meu trabalho, dito pelo meu gestor." },
+        { "t": "Como eu faço?", "d": "O que fazer, quando e onde pedir ajuda." }
+      ],
+      "notas": "As três perguntas aparecem nessa ordem na cabeça de quem recebe a mudança.\nSe a comunicação pula a primeira, a pessoa ouve a segunda como ameaça."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Objetivos",
+      "titulo": "A comunicação cumpre três objetivos, nesta ordem",
+      "itens": [
+        { "n": "01", "t": "Entender", "d": "Todas as pessoas impactadas sabem por que mudamos e o que muda.", "lista": ["Meta: [xx%] de entendimento na pesquisa"] },
+        { "n": "02", "t": "Preparar", "d": "Cada público sabe o que fazer, quando e com que apoio.", "lista": ["Meta: [xx%] se sentem preparados"] },
+        { "n": "03", "t": "Sustentar", "d": "Depois do go-live, as pessoas sabem onde tirar dúvidas e veem os resultados.", "lista": ["Meta: dúvidas respondidas em [x] dias"] }
+      ],
+      "notas": "Cada objetivo tem uma meta que se mede. Sem meta, comunicação vira lista de peças enviadas.\nCombine quem responde por cada meta."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Públicos",
+      "titulo": "Cada público precisa ouvir uma coisa diferente",
+      "colunas": ["Público", "O que muda para ele", "O que precisa saber", "Quem fala"],
+      "larguras": [20, 30, 30, 20],
+      "linhas": [
+        ["Liderança", "[Decisões e indicadores que passa a acompanhar]", "O porquê e o papel de patrocinar", "Patrocinador"],
+        ["Gestores", "[Rotina da equipe e novos controles]", "Como conduzir a equipe na mudança", "Diretoria e projeto"],
+        ["Usuários diretos", "[Processo e sistema do dia a dia]", "O que muda, quando e como se preparar", "Gestor direto"],
+        ["Áreas parceiras", "[Entradas e saídas que mudam]", "O que muda na interface com a área", "Líder do projeto"],
+        ["Clientes e fornecedores", "[Prazos, canais ou documentos]", "O que muda para eles e desde quando", "Relacionamento"]
+      ],
+      "notas": "A coluna “O que muda para ele” vem do mapa de impactos.\nSe um público não tem porta-voz definido, a mensagem vai chegar pelo corredor."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Mensagens-chave",
+      "titulo": "Uma mensagem central, sustentada por três argumentos",
+      "itens": [
+        { "t": "Mensagem central", "d": "[Em uma frase: o que muda, por quê e o que ganhamos com isso.]", "dest": true },
+        { "n": "01", "t": "Por que agora", "d": "[O motivo do negócio e o custo de não mudar.]" },
+        { "n": "02", "t": "O que muda", "d": "[O que muda na prática e o que continua igual.]" },
+        { "n": "03", "t": "Como apoiamos", "d": "[Treinamento, suporte e canais para dúvidas.]" }
+      ],
+      "notas": "Teste a mensagem central com duas pessoas de fora do projeto: se elas não conseguem repetir, está longa.\nTodo material do projeto deve caber dentro desses três argumentos."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Porta-vozes",
+      "titulo": "A mensagem certa vem da pessoa certa",
+      "itens": [
+        { "icone": "orbita", "t": "Patrocinador", "d": "Fala do negócio: por que mudamos, aonde queremos chegar e o que não é negociável." },
+        { "icone": "conversa", "t": "Gestor direto", "d": "Fala do trabalho: o que muda para a equipe, o que se espera de cada pessoa e como será o apoio." },
+        { "icone": "rota", "t": "Projeto e agentes de mudança", "d": "Falam do como: datas, treinamentos, passo a passo e respostas às dúvidas." }
+      ],
+      "notas": "Quando o gestor não se sente preparado, ele repassa o e-mail e não conversa. Prepare os gestores antes de cada marco.\nDefina por nome quem é o porta-voz de cada público."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Canais",
+      "titulo": "Cada canal tem uma função: informar, conversar ou ouvir",
+      "colunas": ["Canal", "Para que serve", "Frequência", "Dono"],
+      "larguras": [28, 34, 20, 18],
+      "linhas": [
+        ["Encontro com a liderança", "Alinhar o porquê e as decisões", "Mensal", "Patrocinador"],
+        ["Reunião de equipe", "Traduzir a mudança para o dia a dia", "Semanal", "Gestor direto"],
+        ["E-mail e intranet", "Registrar datas, marcos e orientações", "Quinzenal", "Comunicação"],
+        ["Mensagens rápidas", "Lembretes e respostas curtas", "A cada marco", "Projeto"],
+        ["Rede de agentes de mudança", "Ouvir dúvidas e testar mensagens", "Semanal", "Gestão da mudança"]
+      ],
+      "notas": "Canal de mão única (e-mail, intranet) informa, mas não muda comportamento. As conversas é que mudam.\nUse os canais que as pessoas já usam; evite criar um canal novo só para o projeto."
+    },
+    {
+      "tipo": "linha",
+      "olho": "Calendário",
+      "titulo": "A comunicação muda de tom a cada fase",
+      "fases": [
+        { "per": "Antes", "nome": "Explicar o porquê", "itens": ["Anúncio do patrocinador", "Conversas dos gestores", "Perguntas e respostas"] },
+        { "per": "Preparação", "nome": "Mostrar o que muda", "itens": ["O que muda por público", "Convite aos treinamentos", "Contagem regressiva"] },
+        { "per": "Go-live", "nome": "Orientar o uso", "itens": ["Passo a passo do primeiro dia", "Canais de suporte", "Boletim diário"], "marco": "Go-live", "dest": true },
+        { "per": "Depois", "nome": "Reforçar", "itens": ["Resultados alcançados", "Histórias de quem usa", "Próximas melhorias"] }
+      ],
+      "notas": "O erro mais comum é parar de comunicar no go-live. A fase “Depois” é a que consolida o uso.\nAjuste os nomes das fases ao cronograma do projeto."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Plano de ações",
+      "titulo": "O plano responde: o quê, para quem, por onde, quando e quem",
+      "colunas": ["Quando", "Público", "Mensagem", "Canal", "Responsável", "Situação"],
+      "larguras": [9, 15, 28, 20, 16, 12],
+      "linhas": [
+        ["[dd/mm]", "Liderança", "Por que mudamos e o que pedimos", "Encontro com a liderança", "Patrocinador", "@1 Feito"],
+        ["[dd/mm]", "Gestores", "Como conduzir a conversa com a equipe", "Oficina de gestores", "Gestão da mudança", "@2 Em curso"],
+        ["[dd/mm]", "Todos", "Anúncio do projeto e das datas", "E-mail e intranet", "Comunicação", "@2 Em curso"],
+        ["[dd/mm]", "Usuários diretos", "O que muda no meu trabalho", "Reunião de equipe", "Gestor direto", "@0 A fazer"],
+        ["[dd/mm]", "Usuários diretos", "Convite e agenda dos treinamentos", "E-mail e mensagens", "Projeto", "@0 A fazer"]
+      ],
+      "notas": "Este é o slide de trabalho: atualize a situação a cada reunião, no modo de edição.\nO plano completo pode ficar numa planilha; aqui entram as ações das próximas semanas."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Escuta",
+      "titulo": "Comunicação tem duas vias: quatro formas de ouvir",
+      "itens": [
+        { "icone": "pulso", "t": "Pesquisa de pulso", "d": "Três perguntas rápidas depois de cada marco." },
+        { "icone": "conversa", "t": "Agentes de mudança", "d": "Trazem as dúvidas que não chegam por e-mail." },
+        { "icone": "radar", "t": "Perguntas e respostas", "d": "Uma lista viva, atualizada toda semana." },
+        { "icone": "relogio", "t": "Plantão de dúvidas", "d": "Horário fixo com o time do projeto." }
+      ],
+      "notas": "O que se ouve precisa voltar: responda em público às perguntas mais frequentes.\nSilêncio depois de uma pesquisa custa mais caro do que não perguntar."
+    },
+    {
+      "tipo": "barras",
+      "olho": "Medição",
+      "titulo": "Medimos alcance, entendimento e confiança",
+      "itens": [
+        { "rot": "Alcance: recebeu a mensagem", "v": 92, "meta": 95 },
+        { "rot": "Entendimento: sabe o que muda", "v": 74, "meta": 80 },
+        { "rot": "Confiança: sente-se preparado", "v": 58, "meta": 75 },
+        { "rot": "Dúvidas respondidas no prazo", "v": 88, "meta": 90 }
+      ],
+      "nota": "Exemplo ilustrativo. Em “Editar texto”, troque os números pelos da sua pesquisa: as barras e as cores acompanham.",
+      "notas": "Alcance alto com entendimento baixo indica mensagem difícil ou canal errado.\nEntendimento alto com confiança baixa pede treino e apoio, não mais comunicados."
+    },
+    {
+      "tipo": "lista",
+      "olho": "Próximos passos",
+      "titulo": "O que fazemos nas próximas duas semanas",
+      "itens": [
+        { "t": "Validar as mensagens-chave com o patrocinador", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Preparar os gestores para a primeira conversa", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Publicar o calendário do primeiro mês", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Abrir os canais de escuta", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Rodar a primeira pesquisa de pulso", "quem": "[Dono]", "quando": "[data]" }
+      ],
+      "notas": "Feche cada item com nome e data ainda na reunião."
+    },
+    {
+      "tipo": "fecho",
+      "frase": ["Quem entende o porquê", "*decide participar*."],
+      "apoio": "O que pedimos hoje: [a aprovação das mensagens-chave e da agenda dos porta-vozes].",
+      "notas": "Termine com o pedido e com a data da próxima comunicação que as pessoas vão receber."
+    }
+  ]
+}

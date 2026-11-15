@@ -1,0 +1,151 @@
+{
+  "id": "gestao-da-mudanca",
+  "nome": "Gestão da mudança: visão do programa",
+  "olho": "Change Management",
+  "frase": "Para apresentar a estratégia de mudança ao comitê e aos líderes: o que muda, como vamos conduzir, quem faz o quê e como saberemos que deu certo.",
+  "para": "comitê e liderança",
+  "duracao": "25 min",
+  "slides": [
+    {
+      "tipo": "capa",
+      "olho": "Change Management",
+      "titulo": ["Gestão da mudança", "do {projeto}"],
+      "sub": "Como vamos levar as pessoas da situação atual até o uso real da solução.",
+      "notas": "Abra dizendo, em uma frase, o que o projeto muda e por que esta conversa importa agora.\nAntes de apresentar, preencha o nome do projeto, a área e a data em Personalizar."
+    },
+    {
+      "tipo": "mensagem",
+      "olho": "Ponto de partida",
+      "frase": "Projeto entregue ainda não é valor: *o alvo é o uso real.*",
+      "apoio": "Sistema no ar, processo desenhado e treinamento dado são meios. O resultado só aparece quando as pessoas trabalham do jeito novo.",
+      "itens": [
+        { "t": "O que muda e para quem?", "d": "Os impactos por grupo e o que se espera de cada um." },
+        { "t": "Como vamos conduzir?", "d": "Patrocínio, comunicação, capacitação e sustentação." },
+        { "t": "Como saber se deu certo?", "d": "Indicadores de prontidão, adoção e resultado." }
+      ],
+      "notas": "Use este slide para combinar a régua de sucesso: o projeto não termina no go-live, termina quando o uso vira rotina.\nAs três perguntas organizam o restante da apresentação."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "O porquê",
+      "titulo": "Mudamos porque [o problema ou a oportunidade], para chegar a [resultado] até [data]",
+      "itens": [
+        { "n": "01", "t": "De onde partimos", "d": "[A situação de hoje, em uma frase, com um número que mostre o tamanho do problema.]" },
+        { "n": "02", "t": "O que muda", "d": "[Os processos, sistemas e papéis que mudam, na linguagem de quem vive o dia a dia.]" },
+        { "n": "03", "t": "O que ganhamos", "d": "[O resultado esperado para o negócio e para as pessoas, com data.]", "dest": true }
+      ],
+      "notas": "Escreva o título como a conclusão do slide. Se o grupo só lembrar de uma frase, que seja esta.\nO terceiro cartão é o que o patrocinador deve repetir em toda comunicação."
+    },
+    {
+      "tipo": "depara",
+      "olho": "O que muda",
+      "titulo": "O jeito de trabalhar muda em quatro dimensões",
+      "cab": ["Hoje", "Depois"],
+      "linhas": [
+        ["Processo", "[Como o trabalho é feito hoje, com os passos e o retrabalho.]", "[Como passa a ser feito: mais simples, com um dono por etapa.]"],
+        ["Sistema", "[Planilhas e sistemas separados, sem visão única.]", "[Uma plataforma integrada, com o dado registrado na origem.]"],
+        ["Papéis", "[Quem decide e quem executa hoje.]", "[O que cada papel passa a decidir e a executar.]"],
+        ["Indicadores", "[O que se mede hoje e com que frequência.]", "[O que passa a ser medido, quando e por quem.]"]
+      ],
+      "notas": "Mostre uma linha por vez. Para cada uma, dê um exemplo concreto de uma área presente na sala.\nO detalhe por grupo fica na apresentação de impactos."
+    },
+    {
+      "tipo": "escada",
+      "olho": "Como a mudança acontece",
+      "titulo": "A mudança acontece pessoa a pessoa, em cinco passos",
+      "degraus": [
+        { "n": "A", "t": "Consciência", "d": "Entendo por que a mudança é necessária." },
+        { "n": "D", "t": "Desejo", "d": "Quero participar e apoiar." },
+        { "n": "K", "t": "Conhecimento", "d": "Sei o que fazer e como fazer." },
+        { "n": "A", "t": "Habilidade", "d": "Consigo fazer no dia a dia." },
+        { "n": "R", "t": "Reforço", "d": "Mantenho o novo jeito, sem voltar atrás." }
+      ],
+      "nota": "Modelo ADKAR, da Prosci. Se um passo falha, os seguintes não se sustentam.",
+      "notas": "Explique que treinar (conhecimento) não resolve quando a pessoa ainda não entendeu o porquê (consciência) ou não quer (desejo).\nPergunte ao grupo em que passo a maioria das pessoas está hoje."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Como vamos conduzir",
+      "titulo": "Quatro frentes levam as pessoas do aviso ao uso",
+      "itens": [
+        { "icone": "orbita", "t": "Patrocínio", "d": "Liderança visível, que explica o porquê e remove obstáculos.", "lista": ["Agenda dos patrocinadores", "Coalizão de líderes"] },
+        { "icone": "conversa", "t": "Comunicação", "d": "A mensagem certa, para o público certo, pela pessoa certa.", "lista": ["Plano por público", "Canais de escuta"] },
+        { "icone": "camadas", "t": "Capacitação", "d": "Treino por papel, com prática antes do go-live.", "lista": ["Trilhas por público", "Multiplicadores"] },
+        { "icone": "ciclo", "t": "Sustentação", "d": "Apoio no início do uso e reforço até virar rotina.", "lista": ["Suporte no go-live", "Medição da adoção"] }
+      ],
+      "notas": "Cada frente tem um dono e entregas. Diga quem responde por cada uma neste projeto.\nAs apresentações de comunicação, cultura, impactos e treinamento detalham as frentes."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Papéis",
+      "titulo": "Cada papel tem uma parte que ninguém faz no lugar dele",
+      "colunas": ["Papel", "O que faz", "Como aparece"],
+      "larguras": [22, 39, 39],
+      "linhas": [
+        ["Patrocinador", "Explica o porquê, decide e remove obstáculos.", "Abre os encontros e cobra o uso nos ritos de gestão."],
+        ["Líderes e gestores", "Traduzem a mudança para a equipe e dão o exemplo.", "Conversam com cada pessoa e acompanham a adoção."],
+        ["Agentes de mudança", "Levam dúvidas e sinais do dia a dia para o projeto.", "Apoiam os colegas e testam as mensagens."],
+        ["Equipe do projeto", "Entrega a solução e ajusta o que os testes mostrarem.", "Participa das oficinas e responde às dúvidas."],
+        ["Gestão da mudança", "Planeja, mede e apoia as quatro frentes.", "Acompanha os indicadores e propõe as ações."]
+      ],
+      "notas": "Troque os papéis pelos nomes das pessoas quando a apresentação for para um grupo pequeno.\nReforce: gestão da mudança apoia, mas quem muda a equipe é o gestor direto."
+    },
+    {
+      "tipo": "linha",
+      "olho": "A jornada",
+      "titulo": "Quatro fases, do preparo à rotina",
+      "fases": [
+        { "per": "[Mês 1 e 2]", "nome": "Preparar", "itens": ["Mapear impactos e públicos", "Alinhar os patrocinadores", "Definir os indicadores"] },
+        { "per": "[Mês 3 e 4]", "nome": "Engajar", "itens": ["Comunicar o porquê", "Formar agentes de mudança", "Ouvir dúvidas e receios"] },
+        { "per": "[Mês 5]", "nome": "Implantar", "itens": ["Treinar por papel", "Apoiar o go-live", "Tratar resistências"], "marco": "Go-live", "dest": true },
+        { "per": "[Mês 6 a 8]", "nome": "Sustentar", "itens": ["Medir a adoção", "Reforçar e reconhecer", "Transferir para a operação"] }
+      ],
+      "notas": "Ajuste os períodos ao cronograma do projeto.\nChame a atenção para a fase Sustentar: é a que mais costuma ser cortada e a que garante o resultado."
+    },
+    {
+      "tipo": "barras",
+      "olho": "Como saberemos que deu certo",
+      "titulo": "Quatro indicadores mostram se a mudança vira resultado",
+      "itens": [
+        { "rot": "Prontidão antes do go-live", "v": 79, "meta": 75 },
+        { "rot": "Cobertura de treinamento", "v": 96, "meta": 95 },
+        { "rot": "Adoção no dia a dia", "v": 56, "meta": 70 },
+        { "rot": "Benefício realizado", "v": 41, "meta": 60 }
+      ],
+      "nota": "Exemplo ilustrativo. Em “Editar texto”, troque os números pelos do seu projeto: as barras e as cores acompanham.",
+      "notas": "Leia de cima para baixo: os dois primeiros indicadores mostram o preparo; os dois últimos, o resultado.\nCombine quem mede, com que frequência e em que reunião os números são discutidos."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Riscos da mudança",
+      "titulo": "Três riscos pedem resposta antes do go-live",
+      "colunas": ["Risco", "Sinal de alerta", "Resposta", "Dono"],
+      "larguras": [22, 27, 37, 14],
+      "linhas": [
+        ["Patrocínio distante", "Líderes ausentes dos encontros", "Agenda fixa de presença e mensagens do patrocinador", "[Nome]"],
+        ["Gestores sem preparo", "Dúvidas sem resposta nas equipes", "Roteiro de conversa e prévia do treinamento", "[Nome]"],
+        ["Sobrecarga das equipes", "Treinos adiados e horas extras", "Negociar prioridades e janelas de treino", "[Nome]"]
+      ],
+      "notas": "Peça ao comitê para confirmar os donos na reunião.\nSe houver um quarto risco relevante, acrescente no modo de edição e ajuste o título."
+    },
+    {
+      "tipo": "lista",
+      "olho": "Próximos passos",
+      "titulo": "O que acontece nos próximos 30 dias",
+      "itens": [
+        { "t": "Validar o mapa de impactos com os gestores", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Fechar a agenda dos patrocinadores", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Publicar o plano de comunicação", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Indicar os agentes de mudança de cada área", "quem": "[Dono]", "quando": "[data]" },
+        { "t": "Definir a linha de base dos indicadores", "quem": "[Dono]", "quando": "[data]" }
+      ],
+      "notas": "Feche cada item com nome e data ainda na reunião.\nVolte a este slide na abertura do próximo encontro."
+    },
+    {
+      "tipo": "fecho",
+      "frase": ["A mudança só termina", "quando o novo jeito *vira rotina*."],
+      "apoio": "O que pedimos hoje: [a decisão ou o apoio esperado deste grupo].",
+      "notas": "Termine com o pedido, não com um agradecimento: diga exatamente o que precisa do grupo e até quando."
+    }
+  ]
+}

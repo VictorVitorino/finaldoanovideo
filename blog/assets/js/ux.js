@@ -284,6 +284,7 @@
       ...D.posts.map(p => ({ g: p.tp === 'guia' ? 'Guias de campo' : 'Reportagens', t: p.t, d: [p.tn, p.f, p.g].filter(Boolean).join(' · '), u: urlPost(p.s), ic: p.tp === 'guia' ? 'livro' : p.tp === 'capa' ? 'faisca' : 'globo', e: p.tp === 'capa' ? 'Capa' : p.m + ' min', b: norm([p.t, p.r, p.tn, p.f, p.g].join(' ')) })),
       ...D.lab.map(f => ({ g: 'Laboratório', t: f.t, d: f.d, u: RAIZ + f.u, ic: 'grade', e: 'Ferramenta', b: norm(f.t + ' ' + f.d + ' laboratorio ferramenta') })),
       ...D.modelos.map(m => ({ g: 'Modelos para baixar', t: m.t, d: m.d, u: RAIZ + m.u, ic: 'baixar', e: m.f, b: norm(m.t + ' ' + m.d + ' ' + m.f + ' modelo template baixar') })),
+      ...(D.decks || []).map(x => ({ g: 'Apresentações em HTML', t: x.t, d: x.d, u: RAIZ + x.u, ic: 'grade', e: 'Abrir', b: norm(x.t + ' ' + x.d + ' apresentacao apresentacoes slides html deck') })),
       ...(D.servicos || []).map(x => ({ g: 'Serviços', t: x.t, d: x.d, u: RAIZ + x.u, ic: 'lista', e: 'Ficha', b: norm(x.t + ' ' + x.d + ' servico servicos advisory') })),
       ...D.secoes.map(s => ({ g: 'Seções', t: s.t, d: '', u: noInicio && s.u.startsWith('index.html#') ? s.u.slice(10) : RAIZ + s.u, ic: 'lista', e: 'Ir', b: norm(s.t + ' secao') })),
     ];
@@ -300,7 +301,7 @@
     for (let i = 0; i < t.length; i++) { if (marc[i] !== on) { out += marc[i] ? '<mark>' : '</mark>'; on = marc[i]; } out += esc(t[i]); }
     return out + (on ? '</mark>' : '');
   };
-  const ORDEM = ['Reportagens', 'Guias de campo', 'Laboratório', 'Modelos para baixar', 'Serviços', 'Seções'], TETO = { Reportagens: 6 };
+  const ORDEM = ['Reportagens', 'Guias de campo', 'Laboratório', 'Apresentações em HTML', 'Modelos para baixar', 'Serviços', 'Seções'], TETO = { Reportagens: 6 };
   const desenhaBusca = q => {
     const res = $('.paleta-res', paleta), ts = norm(q).split(/\s+/).filter(Boolean);
     let grupos;

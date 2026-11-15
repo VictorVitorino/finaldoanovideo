@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="pt-BR" data-deck="gestao-da-mudanca" data-ver="965efefa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão da mudança: visão do programa · apresentação em HTML · Change Management World</title>
+<meta name="description" content="Para apresentar a estratégia de mudança ao comitê e aos líderes: o que muda, como vamos conduzir, quem faz o quê e como saberemos que deu certo.">
+<link rel="canonical" href="https://change-management-world.vercel.app/apresentacoes/gestao-da-mudanca/">
+<meta property="og:url" content="https://change-management-world.vercel.app/apresentacoes/gestao-da-mudanca/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gestão da mudança: visão do programa · apresentação em HTML">
+<meta property="og:description" content="Para apresentar a estratégia de mudança ao comitê e aos líderes: o que muda, como vamos conduzir, quem faz o quê e como saberemos que deu certo.">
+<meta property="og:image" content="https://change-management-world.vercel.app/assets/img/og/apresentacao-gestao-da-mudanca.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A2463">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20class%3D%22marca%20%22%20viewBox%3D%220%200%2048%2048%22%20aria-hidden%3D%22true%22%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2221%22%20fill%3D%22%230A2463%22%2F%3E%3Cpath%20class%3D%22marca-agua%22%20d%3D%22M3.1%2022A21%2021%200%201%200%2044.9%2022Z%22%20fill%3D%22%232F6FED%22%2F%3E%3Cg%20class%3D%22marca-gelo%22%3E%3Cpath%20d%3D%22M24%208.5l6.2%2013.5H17.4z%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M14.5%2022h19l2.8%207-6.3%209.6-7.6%201.6-7.4-8.4z%22%20fill%3D%22%23fff%22%20opacity%3D%22.42%22%2F%3E%3C%2Fg%3E%3Cpath%20class%3D%22marca-onda%22%20d%3D%22M3.1%2022q5.2-2.4%2010.4%200t10.5%200%2010.4%200%2010.5%200%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<style id="dk-fontes">@font-face{font-family:'Newsreader';src:url('../../assets/fonts/newsreader.woff2') format('woff2');font-weight:200 800;font-display:swap}@font-face{font-family:'Newsreader';src:url('../../assets/fonts/newsreader-italic.woff2') format('woff2');font-weight:200 800;font-style:italic;font-display:swap}@font-face{font-family:'Inter';src:url('../../assets/fonts/inter.woff2') format('woff2');font-weight:100 900;font-display:swap}</style>
+<style>/* Change Management World · apresentações em HTML (motor de slides, sem dependências).
+   Cada slide é uma caixa 16:9 e tudo dentro dela é medido em "em": o tamanho base acompanha a largura do slide (1,25cqw),
+   então o mesmo slide serve em tela cheia, na grade de miniaturas, na leitura e na impressão, sem JavaScript para escalar.
+   Modos (classe no <html>): m-apresenta (um slide por vez), m-leitura (todos em coluna; no celular o slide deixa de ser 16:9
+   e o conteúdo reflui), m-grade (miniaturas). Sem JavaScript vale a leitura. Impressão: uma página por slide. */
+:root {
+  --azul-p: #0A2463; --azul: #2F6FED; --azul-h: #1F58D0; --azul-claro: #EAF1FE; --azul-suave: #9DBDFF; --noite: #071A4A;
+  --cinza: #667085; --cinza-claro: #F3F5F8; --linha: #E0E5EC; --tinta: #0B1530; --texto: #344054;
+  --tit: 'Newsreader', Georgia, 'Times New Roman', serif; --txt: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1); --mola: cubic-bezier(.2, 1.3, .3, 1);
+  --barra: 60px; --notas-h: 0px; --alt-util: calc(100vh - var(--barra));
+}
+@supports (height: 100dvh) { :root { --alt-util: calc(100dvh - var(--barra)); } }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--txt); font-size: 16px; line-height: 1.5; color: var(--tinta); background: #EDF0F5; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--azul); outline-offset: 2px; border-radius: 4px; }
+.so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- slide ---------- */
+/* 1em = 1,45% da largura do slide (18,6 px num slide de 1280 px, perto de 14 pt num slide de PowerPoint): o slide mede 69 × 38,8 em. */
+.slides { display: grid; gap: 28px; width: min(100% - 32px, 1120px); margin: 28px auto calc(var(--barra) + 36px); }
+.slide { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; width: 100%; overflow: hidden; background: #fff; color: var(--tinta); border-radius: 14px; box-shadow: 0 1px 2px rgba(10, 36, 99, .08), 0 20px 44px -26px rgba(10, 36, 99, .4); scroll-margin-top: 16px; }
+.sl { position: absolute; inset: 0; display: flex; flex-direction: column; font-size: 1.45vw; font-size: 1.45cqw; line-height: 1.45; padding: 2.7em 3.45em 3.1em; }
+.sl-olho { margin: 0 0 1em; font-size: .64em; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; line-height: 1.5; color: var(--azul); }
+.sl-tit { margin: 0; max-width: 27em; font-family: var(--tit); font-weight: 500; font-size: 2.05em; line-height: 1.12; letter-spacing: -.015em; color: var(--azul-p); text-wrap: balance; }
+.sl-tit em, .msg em, .capa-tit em, .secao-tit em, .fecho-msg em { font-style: italic; }
+.sl-corpo { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; margin-top: 1.7em; }
+.slide--cartoes .sl-corpo, .slide--linha .sl-corpo, .slide--mensagem .sl-corpo { justify-content: center; margin-top: 1em; }
+.slide--escada .sl-corpo { justify-content: flex-end; margin-top: 1em; padding-bottom: .6em; }
+.sl-pe { position: absolute; left: 3.45em; right: 3.45em; bottom: 1.05em; display: flex; align-items: baseline; gap: 1em; padding-top: .45em; border-top: 1px solid var(--linha); line-height: 1.2; color: var(--cinza); }
+.sl-pe > * { font-size: .54em; }
+.sl-pe i { font-family: var(--tit); font-size: 1.12em; }
+.sl-pe .sl-proj { margin-left: auto; }
+.sl-pe .sl-num { min-width: 1.6em; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--azul-p); }
+.sl-notas { display: none; }
+.nota { margin: 1.3em 0 0; font-size: .66em; color: var(--cinza); }
+[data-campo].vazio { font-style: italic; }
+.slide:not(.slide--escuro) [data-campo].vazio { color: var(--azul); }
+
+/* slides escuros: capa, divisória e fechamento (a mesma luz atrás do iceberg dos arquivos em PowerPoint) */
+.slide--escuro { color: #fff; background: radial-gradient(circle farthest-corner at 80.5% 14%, #1E50C0, var(--azul-p) 36%, var(--noite)); }
+.slide--escuro .sl-olho { color: var(--azul-suave); }
+.slide--escuro .sl-pe { border-top-color: rgba(47, 111, 237, .8); color: var(--azul-suave); }
+.slide--escuro .sl-pe .sl-num { color: #fff; }
+.ice { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; overflow: visible; }
+.ice :is(.b-borda, .b-faceta) { fill: none; stroke: var(--azul); stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.ice .b-faceta { stroke-width: 1.5; }
+.ice .b-p1 { fill: var(--azul-claro); } .ice .b-p2 { fill: var(--azul-suave); } .ice .b-p3 { fill: #fff; }
+.ice .b-ponta { transform-box: fill-box; transform-origin: 50% 100%; }
+.ice .b-agua { fill: none; stroke: var(--azul-suave); stroke-width: 1.1; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.ice .b-reflexo { fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: .08 .92; stroke-dashoffset: .08; opacity: 0; }
+.ice .b-bolha { fill: none; stroke: var(--azul-suave); stroke-width: 1.1; opacity: 0; }
+.ice .b-berg { transform-box: view-box; }
+
+/* capa (as medidas seguem a capa dos arquivos em PowerPoint: fio a 31% da altura, linha d'água a 42%) */
+.slide--capa .sl { padding-top: 0; justify-content: flex-start; }
+.capa-txt { margin-top: 11.9em; max-width: 43em; }
+.capa-txt .sl-olho { margin-bottom: 1.6em; }
+.capa-txt .sl-olho::before { content: ''; display: block; width: 5.6em; height: .26em; margin-bottom: 1.5em; background: var(--azul); transform-origin: 0 50%; }
+.capa-tit { margin: 0; font-family: var(--tit); font-weight: 400; font-size: 3em; line-height: 1.1; letter-spacing: -.02em; }
+.capa-tit .ln, .secao-tit .ln, .fecho-msg .ln { display: block; }
+.capa-sub { margin: 1.5em 0 0; max-width: 31em; font-size: 1em; line-height: 1.45; color: var(--azul-claro); }
+.capa-meta { position: absolute; left: 3.45em; bottom: 4.5em; margin: 0; color: var(--azul-suave); }
+.capa-meta > span { font-size: .76em; }
+
+/* divisória: número e título apoiados na linha d'água; o apoio fica abaixo dela */
+.slide--secao .sl { justify-content: flex-start; }
+.secao-linha { display: flex; align-items: flex-end; margin-top: 9.3em; min-height: 8.4em; }
+.secao-n { flex: none; width: 1.9em; font-family: var(--tit); font-style: italic; font-size: 4.6em; line-height: .84; color: var(--azul-suave); }
+.secao-tit { margin: 0 0 .06em; max-width: 14em; font-family: var(--tit); font-weight: 400; font-size: 2.6em; line-height: 1.08; letter-spacing: -.02em; }
+.secao-apoio { margin: 2.5em 0 0 8.57em; max-width: 29em; font-size: 1.02em; line-height: 1.45; color: var(--azul-claro); }
+
+/* mensagem: uma frase grande no lugar do título */
+.msg { margin: 0; max-width: 18em; font-family: var(--tit); font-weight: 400; font-size: 2.7em; line-height: 1.12; letter-spacing: -.02em; color: var(--azul-p); text-wrap: balance; }
+.msg em { color: var(--azul); }
+.msg-apoio { margin: 1.3em 0 0; max-width: 37em; font-size: 1.04em; line-height: 1.5; color: var(--texto); }
+.msg-itens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.2em; margin: 2.3em 0 0; padding: 0; list-style: none; }
+.msg-itens li { padding-top: .9em; border-top: 2px solid var(--azul-p); }
+.msg-itens b { display: block; font-family: var(--tit); font-style: italic; font-weight: 400; font-size: 1.8em; line-height: 1; color: var(--azul); }
+.msg-itens strong { display: block; margin: .45em 0 .25em; font-family: var(--tit); font-weight: 500; font-size: 1.24em; line-height: 1.2; color: var(--azul-p); }
+.msg-itens span { display: block; font-size: .86em; line-height: 1.45; color: var(--texto); }
+
+/* cartões */
+.cartoes { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 1.2em; align-items: stretch; }
+.cartao { position: relative; display: flex; flex-direction: column; gap: .5em; min-height: 12.5em; padding: 1.5em 1.4em 1.4em; border-radius: .8em; background: var(--cinza-claro); border-top: .2em solid var(--azul); }
+.cartao h3 { margin: 0; font-family: var(--tit); font-weight: 500; font-size: 1.36em; line-height: 1.18; color: var(--azul-p); }
+.cartao p { margin: 0; font-size: .94em; line-height: 1.5; color: var(--texto); }
+.cartao ul { margin: auto 0 0; padding: .7em 0 0; list-style: none; display: grid; gap: .38em; font-size: .82em; line-height: 1.4; color: var(--texto); }
+.cartao li { position: relative; padding-left: 1.15em; }
+.cartao li::before { content: ''; position: absolute; left: 0; top: .6em; width: .5em; height: .13em; background: var(--azul); }
+.cartao-n { font-family: var(--tit); font-style: italic; font-size: 1.9em; line-height: 1; color: var(--azul); }
+.cartao-ic { display: grid; place-items: center; width: 2.7em; height: 2.7em; margin-bottom: .35em; border-radius: .75em; color: var(--azul-p); background: var(--azul-claro); }
+.cartao-ic .icv { width: 1.7em; height: 1.7em; }
+.cartao--dest { background: var(--azul-p); border-top-color: var(--azul-suave); }
+.cartao--dest h3 { color: #fff; }
+.cartao--dest p, .cartao--dest ul { color: var(--azul-claro); }
+.cartao--dest li::before { background: var(--azul-suave); }
+.cartao--dest .cartao-n { color: var(--azul-suave); }
+.cartao--dest .cartao-ic { color: #fff; background: rgba(255, 255, 255, .12); }
+.cartoes[style*="--n:4"] { gap: 1em; }
+.cartoes[style*="--n:4"] .cartao { padding: 1.3em 1.15em 1.2em; }
+.cartoes[style*="--n:4"] .cartao h3 { font-size: 1.26em; }
+.cartoes[style*="--n:4"] .cartao p { font-size: .86em; }
+.cartoes[style*="--n:5"] { gap: .8em; }
+.cartoes[style*="--n:5"] .cartao { padding: 1.15em 1em 1.1em; }
+.cartoes[style*="--n:5"] .cartao h3 { font-size: 1.12em; }
+.cartoes[style*="--n:5"] .cartao p { font-size: .8em; }
+/* números em destaque */
+.cartoes--numeros .cartao { min-height: 13em; padding: 1.7em 1.6em; background: #fff; border: 1px solid var(--linha); border-top: .2em solid var(--azul-p); }
+.cartao-v { font-family: var(--tit); font-weight: 400; font-size: 4.4em; line-height: 1; letter-spacing: -.02em; color: var(--azul-p); font-variant-numeric: tabular-nums; }
+.cartao-v small { margin-left: .15em; font-size: .4em; letter-spacing: 0; color: var(--azul); }
+.icv { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.icv .p { fill: currentColor; stroke: none; }
+
+/* de → para */
+.depara { display: grid; gap: .7em; }
+.dp-cab, .dp-l { display: grid; grid-template-columns: 9em minmax(0, 1fr) 2em minmax(0, 1fr); align-items: stretch; }
+.dp-cab b { padding: 0 1.6em .1em; font-size: .64em; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cinza); }
+.dp-cab b:last-child { color: var(--azul); }
+.dp-rot { align-self: center; padding-right: 1em; font-family: var(--tit); font-weight: 500; font-size: 1.34em; line-height: 1.2; color: var(--azul-p); }
+.dp-de, .dp-para { margin: 0; padding: 1.05em 1.2em; border-radius: .6em; font-size: 1em; line-height: 1.42; }
+.dp-de { background: var(--cinza-claro); color: var(--texto); }
+.dp-para { background: var(--azul-claro); color: var(--azul-p); font-weight: 500; box-shadow: inset .2em 0 0 var(--azul); }
+.dp-seta { display: grid; place-items: center; color: var(--azul); }
+.dp-seta .ic { width: 1.2em; height: 1.2em; }
+
+/* tabela */
+.tab { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .98em; line-height: 1.4; }
+.tab th { padding: 0 .8em .6em; text-align: left; vertical-align: bottom; font-size: .7em; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cinza); border-bottom: 2px solid var(--azul-p); }
+.tab td { padding: .85em .8em; vertical-align: top; color: var(--texto); border-bottom: 1px solid var(--linha); }
+.tab td:first-child { font-weight: 600; color: var(--azul-p); }
+.tab th:first-child, .tab td:first-child { padding-left: 0; }
+.tab--densa { font-size: .84em; }
+.tab--densa td { padding-block: .62em; }
+.chip { display: inline-block; padding: .2em .7em; border-radius: 99em; font-size: .86em; font-weight: 600; line-height: 1.3; white-space: nowrap; }
+.chip--3 { background: var(--azul-p); color: #fff; }
+.chip--2 { background: var(--azul); color: #fff; }
+.chip--1 { background: var(--azul-suave); color: var(--azul-p); }
+.chip--0 { background: var(--cinza-claro); color: var(--cinza); }
+
+/* linha do tempo */
+.linha { position: relative; display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 1.5em; margin: 0; padding: 2.1em 0 0; list-style: none; }
+.linha::before { content: ''; position: absolute; left: 0; right: 0; top: .5em; height: .15em; border-radius: 1em; background: linear-gradient(90deg, var(--azul-suave), var(--azul) 55%, var(--azul-p)); transform-origin: 0 50%; }
+.fase { position: relative; }
+.fase::before { content: ''; position: absolute; left: 0; top: -2.1em; width: 1.15em; height: 1.15em; border-radius: 50%; background: #fff; border: .26em solid var(--azul-p); }
+.fase-per { display: block; font-size: .64em; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--azul); }
+.fase h3 { margin: .2em 0 .55em; font-family: var(--tit); font-weight: 500; font-size: 1.6em; line-height: 1.15; color: var(--azul-p); }
+.fase ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .5em; font-size: .9em; line-height: 1.4; color: var(--texto); }
+.fase li { position: relative; padding-left: 1.1em; }
+.fase li::before { content: ''; position: absolute; left: 0; top: .6em; width: .5em; height: .13em; background: var(--azul); }
+.fase-marco { display: inline-flex; align-items: center; gap: .5em; margin-top: 1em; padding: .4em .8em; border-radius: .6em; font-style: normal; font-size: .8em; font-weight: 600; line-height: 1.3; color: var(--azul-p); background: var(--azul-claro); }
+.fase-marco .ic { width: 1.1em; height: 1.1em; color: var(--azul); }
+.fase--dest::before { background: var(--azul-p); box-shadow: 0 0 0 .3em rgba(47, 111, 237, .22); }
+.fase--dest .fase-marco { color: #fff; background: var(--azul-p); }
+.fase--dest .fase-marco .ic { color: var(--azul-suave); }
+
+/* agenda: os horários são calculados a partir do início e das durações */
+.agenda { display: grid; gap: 1em; }
+.ag-cab { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5em .9em; margin: 0; font-size: .86em; color: var(--texto); }
+.ag-cab b { font-family: var(--tit); font-weight: 500; font-size: 1.6em; line-height: 1; color: var(--azul-p); font-variant-numeric: tabular-nums; }
+.ag-cab small { font-size: .74em; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--azul); }
+.ag-lista { display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--linhas, 5), auto); grid-auto-columns: minmax(0, 1fr); gap: .65em 2em; margin: 0; padding: 0; list-style: none; }
+.ag-item { display: grid; grid-template-columns: 4.6em minmax(0, 1fr) auto; align-items: center; gap: 1em; padding: .82em 1.1em .82em 1em; border-radius: .6em; background: var(--cinza-claro); box-shadow: inset .2em 0 0 var(--azul); transition: background .3s, box-shadow .3s, color .3s, opacity .3s; }
+.ag-hora { font-family: var(--tit); font-weight: 500; font-size: 1.62em; line-height: 1; color: var(--azul-p); font-variant-numeric: tabular-nums; }
+.ag-t { display: block; font-weight: 600; font-size: 1.04em; line-height: 1.25; color: var(--azul-p); }
+.ag-quem { display: block; font-size: .8em; line-height: 1.3; color: var(--cinza); }
+.ag-dur { font-size: .76em; font-weight: 600; white-space: nowrap; color: var(--cinza); font-variant-numeric: tabular-nums; }
+.ag-item--pausa { background: transparent; box-shadow: inset 0 0 0 1px var(--linha); }
+.ag-item--pausa .ag-t { font-weight: 500; color: var(--cinza); }
+.ag-item.agora { background: var(--azul-p); box-shadow: inset .2em 0 0 var(--azul-suave); }
+.ag-item.agora :is(.ag-hora, .ag-t) { color: #fff; }
+.ag-item.agora :is(.ag-quem, .ag-dur) { color: var(--azul-suave); }
+.ag-item.feito { opacity: .5; }
+html.m-apresenta:not(.editando) .ag-item { cursor: pointer; }
+
+/* mapa de calor: grupos nas linhas, dimensões nas colunas; no modo de edição, clicar numa célula muda o grau */
+.matriz { display: grid; gap: .5em; }
+.mz-cab, .mz-l { display: grid; grid-template-columns: 12em repeat(var(--cols, 5), minmax(0, 1fr)) 5.6em; gap: .45em; align-items: stretch; }
+.mz-cab b { align-self: end; padding-bottom: .2em; text-align: center; font-size: .62em; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; line-height: 1.25; color: var(--cinza); }
+.mz-cab b:last-child { color: var(--azul-p); }
+.mz-rot { display: grid; align-content: center; padding-right: .8em; }
+.mz-rot b { font-weight: 600; font-size: .94em; line-height: 1.25; color: var(--azul-p); }
+.mz-rot small { font-size: .72em; line-height: 1.3; color: var(--cinza); }
+.mz-c, .mz-geral { display: grid; place-items: center; min-height: 3.1em; border-radius: .5em; font-size: .84em; font-weight: 600; text-align: center; transition: background .25s, color .25s, transform .25s var(--mola); }
+[data-g="3"] { background: var(--azul-p); color: #fff; }
+[data-g="2"] { background: var(--azul); color: #fff; }
+[data-g="1"] { background: var(--azul-suave); color: var(--azul-p); }
+[data-g="0"] { background: var(--cinza-claro); color: var(--cinza); }
+.mz-geral { font-weight: 700; background: #fff; }
+.mz-geral[data-g="3"] { color: var(--azul-p); box-shadow: inset 0 0 0 .16em var(--azul-p); }
+.mz-geral[data-g="2"] { color: var(--azul); box-shadow: inset 0 0 0 .16em var(--azul); }
+.mz-geral[data-g="1"] { color: var(--azul-p); box-shadow: inset 0 0 0 .16em var(--azul-suave); }
+.mz-geral[data-g="0"] { color: var(--cinza); box-shadow: inset 0 0 0 .1em var(--linha); }
+.mz-c { cursor: default; }
+html.editando .mz-c { cursor: pointer; }
+html.editando .mz-c:hover { transform: scale(1.05); }
+.mz-leg { display: flex; flex-wrap: wrap; align-items: center; gap: .5em 1.3em; margin: .8em 0 0; font-size: .66em; color: var(--cinza); }
+.mz-leg span { display: inline-flex; align-items: center; gap: .5em; }
+.mz-leg i { width: 1.1em; height: 1.1em; border-radius: .3em; }
+.mz-leg em { margin-left: auto; font-style: normal; }
+
+/* barras: resultado contra a meta */
+.barras { display: grid; gap: 1.55em; }
+.br-l { display: grid; grid-template-columns: 17em minmax(0, 1fr) 4em 5.4em; align-items: center; gap: 1em; }
+.br-rot { font-weight: 600; font-size: 1.02em; line-height: 1.25; color: var(--azul-p); }
+.br-trilho { position: relative; height: 2em; border-radius: .4em; background: var(--cinza-claro); }
+.br-b { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) * 1%); max-width: 100%; border-radius: .4em; background: var(--azul); transform-origin: 0 50%; transition: width .5s var(--ease), background .3s; }
+.br-l[data-s="3"] .br-b { background: var(--azul-p); }
+.br-l[data-s="1"] .br-b { background: var(--azul-suave); }
+.br-meta { position: absolute; top: -.3em; bottom: -.3em; left: calc(var(--m) * 1%); width: .16em; background: var(--tinta); border-radius: 1em; transition: left .5s var(--ease); }
+.br-v { font-family: var(--tit); font-weight: 500; font-size: 1.8em; line-height: 1; text-align: right; color: var(--azul-p); font-variant-numeric: tabular-nums; }
+.br-m { font-size: .74em; color: var(--cinza); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.br-leg { display: flex; flex-wrap: wrap; gap: .4em 1.3em; margin: .3em 0 0; font-size: .66em; color: var(--cinza); }
+.br-leg span { display: inline-flex; align-items: center; gap: .5em; }
+.br-leg i { width: 1.1em; height: 1.1em; border-radius: .3em; }
+.br-leg u { width: .16em; height: 1.2em; background: var(--tinta); text-decoration: none; }
+
+/* escada: degraus que sobem da esquerda para a direita */
+.escada { flex: 0 1 22.5em; min-height: 0; display: grid; grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr)); gap: .7em; align-items: end; margin: 0; padding: 0; list-style: none; }
+.degrau { display: flex; flex-direction: column; gap: .35em; height: calc(52% + var(--k) * (48% / (var(--n, 5) - 1))); padding: 1em 1em .9em; border-radius: .7em .7em .25em .25em; background: var(--azul-claro); border-top: .2em solid var(--azul); }
+.dg-n { font-family: var(--tit); font-style: italic; font-weight: 400; font-size: 1.8em; line-height: 1; color: var(--azul); }
+.degrau h3 { margin: 0; font-family: var(--tit); font-weight: 500; font-size: 1.26em; line-height: 1.15; color: var(--azul-p); }
+.degrau p { margin: 0; font-size: .82em; line-height: 1.42; color: var(--texto); }
+.degrau--foco { background: var(--azul-p); border-top-color: var(--azul-suave); }
+.degrau--foco .dg-n { color: var(--azul-suave); }
+.degrau--foco h3 { color: #fff; }
+.degrau--foco p { color: var(--azul-claro); }
+
+/* lista: combinados e próximos passos, com dono e prazo */
+.lista { display: grid; gap: .6em; margin: 0; padding: 0; list-style: none; }
+.lista--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7em 1.4em; }
+.lista > li { display: grid; grid-template-columns: 1.9em minmax(0, 1fr) auto auto; align-items: center; gap: .9em; padding: 1em 1.2em 1em 1em; border-radius: .6em; background: var(--cinza-claro); }
+.li-ic { display: grid; place-items: center; width: 1.9em; height: 1.9em; border-radius: 50%; color: #fff; background: var(--azul-p); }
+.li-ic .ic { width: 1.05em; height: 1.05em; stroke-width: 2.4; }
+.lista b { display: block; font-weight: 600; font-size: 1.06em; line-height: 1.3; color: var(--azul-p); }
+.lista p { margin: .15em 0 0; font-size: .82em; line-height: 1.4; color: var(--texto); }
+.li-quem, .li-quando { font-size: .76em; font-weight: 600; white-space: nowrap; }
+.li-quem { padding: .25em .75em; border-radius: 99em; color: var(--azul-p); background: var(--azul-claro); }
+.li-quando { min-width: 4.5em; text-align: right; color: var(--cinza); font-variant-numeric: tabular-nums; }
+
+/* fechamento: a frase final acima da linha d'água, o pedido abaixo dela */
+.slide--fecho .sl { justify-content: flex-start; }
+.fecho-cx { display: flex; align-items: flex-end; height: 15.6em; }
+.fecho-msg { margin: 0; max-width: 16.5em; font-family: var(--tit); font-weight: 400; font-size: 2.75em; line-height: 1.1; letter-spacing: -.02em; }
+.fecho-msg em { color: var(--azul-suave); }
+.fecho-apoio { margin: 2.1em 0 0; max-width: 34em; font-size: 1.02em; line-height: 1.5; color: var(--azul-claro); }
+.fecho-contato { position: absolute; left: 3.45em; bottom: 4.5em; display: flex; flex-wrap: wrap; gap: .3em 1.4em; margin: 0; color: var(--azul-suave); }
+.fecho-contato > * { font-size: .8em; }
+.fecho-contato b { color: #fff; font-weight: 600; }
+
+/* ---------- modo apresentar ---------- */
+html.m-apresenta, html.m-apresenta body { height: 100%; overflow: hidden; background: #050D24; }
+html.m-apresenta .slides { position: fixed; inset: 0 0 calc(var(--barra) + var(--notas-h)) 0; display: grid; place-items: center; width: auto; margin: 0; gap: 0; }
+html.m-apresenta .slide { grid-area: 1 / 1; width: min(100vw, calc((var(--alt-util) - var(--notas-h)) * 16 / 9)); border-radius: 0; box-shadow: 0 30px 80px rgba(0, 0, 0, .55); visibility: hidden; opacity: 0; transition: opacity .32s ease, visibility 0s .32s; }
+html.m-apresenta .slide.atual { visibility: visible; opacity: 1; z-index: 1; transition: opacity .32s ease; }
+html.m-apresenta.cheia { --barra: 0px; }
+html.m-apresenta:not(.editando) .slide { cursor: default; }
+html.m-apresenta [data-p] { transition: opacity .5s var(--ease), transform .6s var(--ease); }
+html.m-apresenta [data-p]:not(.on) { opacity: 0; transform: translateY(.7em); pointer-events: none; }
+/* movimento ao entrar no slide */
+html.m-apresenta .slide.atual :is(.sl-olho, .sl-tit, .msg, .msg-apoio, .capa-sub, .capa-meta, .secao-apoio, .fecho-apoio, .fecho-contato) { animation: dk-sobe .7s var(--ease) both; }
+html.m-apresenta .slide.atual :is(.sl-tit, .msg) { animation-delay: .08s; }
+html.m-apresenta .slide.atual :is(.msg-apoio, .capa-sub, .secao-apoio, .fecho-apoio) { animation-delay: .5s; }
+html.m-apresenta .slide.atual :is(.capa-meta, .fecho-contato) { animation-delay: .8s; }
+html.m-apresenta .slide.atual :is(.capa-tit, .secao-tit, .fecho-msg) .ln { animation: dk-sobe .8s var(--ease) both; animation-delay: calc(.2s + var(--l, 0) * .14s); }
+html.m-apresenta .slide.atual .secao-n { animation: dk-surge 1s var(--ease) .1s both; }
+html.m-apresenta .slide.atual .capa-txt .sl-olho::before { animation: dk-fio .7s var(--ease) .1s both; }
+html.m-apresenta .slide.atual .linha::before { animation: dk-fio 1.1s cubic-bezier(.4, 0, .2, 1) .2s both; }
+html.m-apresenta .slide.atual .fase.on::before, html.m-apresenta .slide.atual .fase:not([data-p])::before { animation: dk-pousa .5s var(--mola) both; }
+html.m-apresenta .slide.atual .br-b { animation: dk-cresce .9s var(--ease) both; animation-delay: calc(.3s + var(--i, 0) * 90ms); }
+html.m-apresenta .slide.atual :is(.mz-c, .mz-geral) { animation: dk-celula .45s var(--ease) both; animation-delay: calc(.3s + var(--i, 0) * 90ms + var(--c, 0) * 50ms); }
+html.m-apresenta .slide.atual :is(.lista > li, .ag-item, .tab tbody tr, .mz-rot, .br-rot, .ag-cab) { animation: dk-sobe .6s var(--ease) both; animation-delay: calc(.25s + var(--i, 0) * 70ms); }
+html.m-apresenta .slide.atual .ice .b-agua { animation: dk-traco 1.1s cubic-bezier(.4, 0, .2, 1) .15s both; }
+html.m-apresenta .slide.atual .ice .b-ponta { animation: dk-emerge .9s cubic-bezier(.34, 1.4, .64, 1) .45s both; }
+html.m-apresenta .slide.atual .ice .b-borda { animation: dk-traco 1.2s cubic-bezier(.4, 0, .2, 1) .65s both; }
+html.m-apresenta .slide.atual .ice .b-faceta { animation: dk-traco .55s ease-out calc(1.25s + var(--i) * 70ms) both; }
+html.m-apresenta .slide.atual .ice .b-berg { animation: dk-flutua 6.5s ease-in-out 2.2s infinite alternate; }
+html.m-apresenta .slide.atual .ice .b-bolha { animation: dk-bolha calc(6.5s + var(--i) * 1.2s) linear calc(2s + var(--i) * 1.3s) infinite; }
+html.m-apresenta .slide.atual .ice .b-reflexo { animation: dk-brilha 7.5s cubic-bezier(.4, 0, .6, 1) 2.6s infinite; }
+@keyframes dk-sobe { from { opacity: 0; transform: translateY(.6em); } }
+@keyframes dk-surge { from { opacity: 0; } }
+@keyframes dk-fio { from { transform: scaleX(0); } }
+@keyframes dk-pousa { from { transform: scale(0); } }
+@keyframes dk-cresce { from { transform: scaleX(0); } }
+@keyframes dk-celula { from { opacity: 0; transform: scale(.7); } }
+@keyframes dk-traco { from { stroke-dashoffset: 1; } }
+@keyframes dk-emerge { from { transform: scaleY(0); opacity: 0; } }
+@keyframes dk-flutua { from { transform: translateY(calc(var(--u, 100) * -.05px)) rotate(-.7deg); } to { transform: translateY(calc(var(--u, 100) * .05px)) rotate(.6deg); } }
+@keyframes dk-bolha { 0% { transform: translate(0, 0); opacity: 0; } 14% { opacity: .8; } 78% { opacity: .5; } 100% { transform: translate(calc(var(--u, 100) * .1px), calc(var(--u, 100) * -2.4px)); opacity: 0; } }
+@keyframes dk-brilha { 0% { stroke-dashoffset: .08; opacity: 0; } 6% { opacity: .95; } 46% { opacity: .95; } 52%, 100% { stroke-dashoffset: -.92; opacity: 0; } }
+
+/* notas de quem apresenta */
+.notas-painel { position: fixed; left: 0; right: 0; bottom: var(--barra); z-index: 5; display: none; height: var(--notas-h); padding: 14px clamp(16px, 4vw, 48px); overflow: auto; color: #DCE6FB; background: #0A1433; border-top: 1px solid rgba(157, 189, 255, .25); font-size: .95rem; line-height: 1.55; }
+.notas-painel b { display: block; margin-bottom: 4px; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--azul-suave); }
+.notas-painel p { margin: 0; max-width: 78ch; white-space: pre-line; }
+html.com-notas { --notas-h: clamp(92px, 20vh, 190px); }
+html.m-apresenta.com-notas .notas-painel { display: block; }
+html.com-notas:not(.m-apresenta):not(.m-grade) .sl-notas { display: block; position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; margin: 0; padding: 10px 16px; font-size: .8rem; line-height: 1.45; color: #DCE6FB; background: rgba(7, 26, 74, .94); white-space: pre-line; }
+
+/* ---------- modo grade ---------- */
+html.m-grade .slides { grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 18px; width: min(100% - 32px, 1440px); margin-top: 22px; }
+html.m-grade .slide { border-radius: 10px; cursor: pointer; outline: 3px solid transparent; outline-offset: 2px; transition: outline-color .2s, transform .25s var(--ease); }
+html.m-grade .slide:hover { transform: translateY(-3px); outline-color: var(--azul-suave); }
+html.m-grade .slide.atual { outline-color: var(--azul); }
+html.m-grade .slide > * { pointer-events: none; }
+html.m-grade .slide::after { content: attr(data-n); position: absolute; left: 8px; top: 8px; min-width: 24px; padding: 2px 7px; border-radius: 99px; font: 700 12px/1.5 var(--txt); text-align: center; color: #fff; background: rgba(10, 36, 99, .9); }
+
+/* ---------- barra de comandos ---------- */
+.barra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; align-items: center; gap: 6px; height: var(--barra); padding: 0 clamp(8px, 2vw, 20px); color: #fff; background: #0A1433; border-top: 1px solid rgba(157, 189, 255, .22); transition: transform .35s var(--ease), opacity .35s; }
+html:not(.js) .barra, html:not(.js) .notas-painel { display: none; }
+html:not(.js) .slides { margin-bottom: 28px; }
+.barra-prog { position: absolute; left: 0; right: 0; top: -3px; height: 3px; background: rgba(157, 189, 255, .18); }
+.barra-prog i { display: block; height: 100%; width: 0; background: var(--azul); transition: width .35s var(--ease); }
+.barra-site { display: inline-flex; align-items: center; gap: 9px; min-width: 44px; min-height: 44px; margin-right: 6px; padding: 6px 8px; border-radius: 10px; font-weight: 600; font-size: .86rem; text-decoration: none; white-space: nowrap; }
+.barra-site:hover { background: rgba(255, 255, 255, .08); }
+.barra-site svg { width: 26px; height: 26px; flex: none; }
+.barra-site i { font-family: var(--tit); font-size: 1.08em; color: var(--azul-suave); }
+.barra-nav { display: inline-flex; align-items: center; gap: 2px; }
+.barra-conta { min-width: 62px; text-align: center; font-size: .86rem; font-weight: 600; font-variant-numeric: tabular-nums; color: #DCE6FB; }
+.barra-acoes { display: flex; align-items: center; gap: 2px; margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.barra-acoes::-webkit-scrollbar { display: none; }
+.bt { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 44px; height: 44px; padding: 0 11px; border-radius: 10px; font-size: .82rem; font-weight: 600; white-space: nowrap; color: #DCE6FB; transition: background .2s, color .2s; }
+.bt:hover { background: rgba(255, 255, 255, .1); color: #fff; }
+.bt[aria-pressed="true"] { background: var(--azul); color: #fff; }
+.bt--p { background: #fff; color: var(--azul-p); }
+.bt--p:hover { background: var(--azul-claro); color: var(--azul-p); }
+.bt[disabled] { opacity: .35; cursor: default; }
+.bt .ic { width: 20px; height: 20px; }
+.barra-sep { width: 1px; height: 24px; flex: none; margin: 0 4px; background: rgba(157, 189, 255, .25); }
+html.m-apresenta [data-acao="apresentar"], html.m-leitura [data-acao="leitura"] { display: none; }
+html.m-apresenta.cheia .barra { transform: translateY(100%); opacity: 0; }
+html.m-apresenta.cheia.barra-viva .barra { transform: none; opacity: 1; }
+@media (max-width: 1180px) { .bt span { display: none; } .bt--p span { display: inline; } .barra-site span { display: none; } }
+@media (max-width: 560px) { .barra { gap: 2px; } .barra-site { margin-right: 0; padding: 0; min-width: 44px; min-height: 44px; justify-content: center; } .barra-conta { min-width: 50px; } .barra-sep { display: none; } .bt--p span { display: none; }
+  html.m-leitura .barra-nav, html.m-leitura :is([data-acao="cron"], [data-acao="cheia"], [data-acao="ajuda"]) { display: none; } html.m-leitura .barra-acoes { margin-left: 0; flex: 1; justify-content: space-between; } }
+@media (max-width: 400px) { html.m-leitura [data-acao="grade"] { display: none; } }
+@media (max-width: 340px) { .barra { padding-inline: 4px; } .bt { min-width: 40px; padding: 0 6px; } .barra-site { min-width: 40px; } }
+
+/* aviso do modo de edição, avisos rápidos e cronômetro */
+.faixa { position: fixed; right: 14px; top: 14px; z-index: 12; display: none; align-items: center; gap: 6px; max-width: calc(100% - 28px); padding: 6px 6px 6px 14px; border-radius: 14px; font-size: .84rem; font-weight: 600; line-height: 1.3; color: #fff; background: var(--azul); box-shadow: 0 14px 34px -14px rgba(0, 0, 0, .6); }
+.faixa > span { margin-right: 6px; }
+html.editando .cron { top: 70px; }
+html.editando .faixa { display: flex; }
+.faixa .bt { height: 36px; min-width: 36px; color: #fff; background: rgba(255, 255, 255, .16); }
+.faixa .bt:hover { background: rgba(255, 255, 255, .28); }
+.faixa .bt span { display: inline; }
+html.editando [data-e], html.editando [data-campo] { outline: 1px dashed rgba(47, 111, 237, .55); outline-offset: .18em; border-radius: .2em; cursor: text; }
+html.editando .slide--escuro [data-e], html.editando .slide--escuro [data-campo] { outline-color: rgba(157, 189, 255, .7); }
+html.editando [data-e]:focus { outline: 2px solid var(--azul); background: rgba(47, 111, 237, .08); }
+html.editando [data-campo] { cursor: pointer; }
+.aviso { position: fixed; left: 50%; bottom: calc(var(--barra) + var(--notas-h) + 14px); z-index: 12; max-width: calc(100% - 24px); padding: 10px 16px; translate: -50% 12px; border-radius: 12px; font-size: .88rem; color: #fff; background: #0A1433; border: 1px solid rgba(157, 189, 255, .3); box-shadow: 0 14px 34px -14px rgba(0, 0, 0, .7); opacity: 0; pointer-events: none; transition: opacity .3s, translate .3s var(--ease); }
+.aviso.on { opacity: 1; translate: -50% 0; }
+.cron { position: fixed; right: 14px; top: 14px; z-index: 11; display: none; align-items: center; gap: 4px; padding: 6px 6px 6px 16px; border-radius: 16px; color: #fff; background: rgba(10, 20, 51, .94); border: 1px solid rgba(157, 189, 255, .3); box-shadow: 0 14px 34px -14px rgba(0, 0, 0, .7); }
+.cron.on { display: inline-flex; }
+.cron output { min-width: 3.4ch; margin-right: 6px; font-family: var(--tit); font-size: 1.7rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.cron.fim output { color: var(--azul-suave); animation: dk-pisca 1s steps(1) infinite; }
+.cron .bt { height: 36px; min-width: 36px; padding: 0 8px; }
+.cron .bt span { display: inline; }
+@keyframes dk-pisca { 50% { opacity: .35; } }
+
+/* painel "Personalizar" */
+.painel { width: min(100% - 24px, 460px); max-height: calc(100% - 24px); padding: 0; border: 0; border-radius: 18px; color: var(--tinta); background: #fff; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .7); }
+.painel::backdrop { background: rgba(5, 13, 36, .62); }
+.painel form { display: grid; gap: 14px; padding: 24px; }
+.painel h2 { margin: 0; font-family: var(--tit); font-weight: 500; font-size: 1.5rem; line-height: 1.15; color: var(--azul-p); }
+.painel p { margin: 0; font-size: .9rem; color: var(--cinza); }
+.painel label { display: grid; gap: 5px; font-size: .78rem; font-weight: 600; letter-spacing: .04em; color: var(--azul-p); }
+.painel input { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid #B8C4DC; border-radius: 10px; font: inherit; font-size: 1rem; font-weight: 400; color: var(--tinta); background: #fff; }
+.painel input:focus { outline: 2px solid var(--azul); outline-offset: 1px; border-color: var(--azul); }
+.painel-acoes { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+.painel .bt { color: var(--azul-p); border: 1px solid #B8C4DC; }
+.painel .bt:hover { background: var(--azul-claro); color: var(--azul-p); }
+.painel .bt--p { color: #fff; background: var(--azul-p); border-color: var(--azul-p); }
+.painel .bt--p:hover { background: var(--azul); color: #fff; }
+.painel .bt span { display: inline; }
+.painel kbd { display: inline-block; min-width: 1.6em; padding: 1px 6px; border-radius: 6px; font: 600 .78rem/1.5 var(--txt); text-align: center; color: var(--azul-p); background: var(--azul-claro); }
+.painel dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 14px; margin: 0; font-size: .9rem; }
+.painel dt { white-space: nowrap; } .painel dd { margin: 0; color: var(--texto); }
+.painel a { color: var(--azul-p); font-weight: 600; }
+
+/* ---------- leitura em telas estreitas (celular e tablet em pé): o slide deixa de ser 16:9 e o conteúdo reflui ---------- */
+@media (max-width: 1000px) {
+  html:not(.m-apresenta):not(.m-grade) .slides { gap: 18px; width: min(100% - 24px, 680px); margin-top: 16px; }
+  html:not(.m-apresenta):not(.m-grade) .slide { aspect-ratio: auto; container-type: normal; }
+  html:not(.m-apresenta):not(.m-grade) .sl { position: relative; inset: auto; font-size: 15.5px; padding: 26px 20px 62px; }
+  html:not(.m-apresenta):not(.m-grade) .sl-pe { left: 20px; right: 20px; bottom: 16px; }
+  html:not(.m-apresenta):not(.m-grade) .sl-pe > * { font-size: 11px; }
+  html:not(.m-apresenta):not(.m-grade) .sl-tit { font-size: 1.62em; }
+  html:not(.m-apresenta):not(.m-grade) .sl-corpo { margin-top: 1.2em; display: block; }
+  html:not(.m-apresenta):not(.m-grade) :is(.sl-olho, .fase-per) { font-size: .72em; }
+  html:not(.m-apresenta):not(.m-grade) .ag-cab { font-size: 1em; }
+  html:not(.m-apresenta):not(.m-grade) .escada { flex: none; }
+  html:not(.m-apresenta):not(.m-grade) .slide--escada .sl-corpo { padding-bottom: 0; }
+  html:not(.m-apresenta):not(.m-grade) :is(.ag-quem, .ag-dur, .li-quem, .li-quando, .mz-rot small, .br-m) { font-size: .8em; }
+  html:not(.m-apresenta):not(.m-grade) .ice { position: relative; inset: auto; height: 46vw; max-height: 240px; }
+  html:not(.m-apresenta):not(.m-grade) .slide--escuro .sl { padding-top: 6px; }
+  html:not(.m-apresenta):not(.m-grade) :is(.capa-txt, .secao-linha) { margin-top: 0; }
+  html:not(.m-apresenta):not(.m-grade) .fecho-cx { height: auto; }
+  html:not(.m-apresenta):not(.m-grade) .secao-n { width: auto; margin-right: .3em; }
+  html:not(.m-apresenta):not(.m-grade) :is(.capa-meta, .fecho-contato) > * { font-size: .86em; }
+  html:not(.m-apresenta):not(.m-grade) .cartao { min-height: 0; }
+  html:not(.m-apresenta):not(.m-grade) :is(.nota, .mz-leg, .br-leg) { font-size: .8em; }
+  html:not(.m-apresenta):not(.m-grade) .capa-tit { font-size: 2.05em; }
+  html:not(.m-apresenta):not(.m-grade) :is(.capa-meta, .fecho-contato) { position: static; margin-top: 1.4em; }
+  html:not(.m-apresenta):not(.m-grade) .secao-linha { gap: 1em; min-height: 0; align-items: flex-start; }
+  html:not(.m-apresenta):not(.m-grade) .secao-n { font-size: 3em; line-height: 1; }
+  html:not(.m-apresenta):not(.m-grade) .secao-tit { font-size: 1.9em; }
+  html:not(.m-apresenta):not(.m-grade) .secao-apoio { margin: 1.2em 0 0; }
+  html:not(.m-apresenta):not(.m-grade) :is(.msg, .fecho-msg) { font-size: 1.85em; }
+  html:not(.m-apresenta):not(.m-grade) :is(.msg-itens, .cartoes, .lista--2) { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  html:not(.m-apresenta):not(.m-grade) .msg-itens { margin-top: 1.6em; }
+  html:not(.m-apresenta):not(.m-grade) .cartao-v { font-size: 2.5em; }
+  html:not(.m-apresenta):not(.m-grade) :is(.dp-cab) { display: none; }
+  html:not(.m-apresenta):not(.m-grade) .dp-l { grid-template-columns: minmax(0, 1fr); gap: 6px; padding-bottom: 12px; border-bottom: 1px solid var(--linha); }
+  html:not(.m-apresenta):not(.m-grade) .dp-seta { justify-self: start; rotate: 90deg; }
+  html:not(.m-apresenta):not(.m-grade) .dp-de::before, html:not(.m-apresenta):not(.m-grade) .dp-para::before { content: attr(data-th); display: block; margin-bottom: 2px; font-size: .7em; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cinza); }
+  html:not(.m-apresenta):not(.m-grade) .tab, html:not(.m-apresenta):not(.m-grade) .tab tbody, html:not(.m-apresenta):not(.m-grade) .tab tr, html:not(.m-apresenta):not(.m-grade) .tab td { display: block; width: auto; }
+  html:not(.m-apresenta):not(.m-grade) .tab thead, html:not(.m-apresenta):not(.m-grade) .tab colgroup { display: none; }
+  html:not(.m-apresenta):not(.m-grade) .tab { font-size: .95em; }
+  html:not(.m-apresenta):not(.m-grade) .tab tr { padding: 10px 0; border-bottom: 1px solid var(--linha); }
+  html:not(.m-apresenta):not(.m-grade) .tab td { padding: 3px 0; border: 0; }
+  html:not(.m-apresenta):not(.m-grade) .tab td:not(:first-child)::before { content: attr(data-th) ": "; font-weight: 600; color: var(--cinza); }
+  html:not(.m-apresenta):not(.m-grade) .tab td:first-child { font-size: 1.05em; }
+  html:not(.m-apresenta):not(.m-grade) .linha { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 0 0 0 26px; }
+  html:not(.m-apresenta):not(.m-grade) .linha::before { left: 7px; right: auto; top: 6px; bottom: 6px; width: 3px; height: auto; background: linear-gradient(180deg, var(--azul-suave), var(--azul) 55%, var(--azul-p)); }
+  html:not(.m-apresenta):not(.m-grade) .fase::before { left: -26px; top: 2px; width: 17px; height: 17px; border-width: 4px; }
+  html:not(.m-apresenta):not(.m-grade) .ag-lista { grid-auto-flow: row; grid-template-rows: none; grid-template-columns: minmax(0, 1fr); }
+  html:not(.m-apresenta):not(.m-grade) .ag-item { grid-template-columns: 3.7em minmax(0, 1fr) auto; gap: 10px; padding: 10px 12px; }
+  html:not(.m-apresenta):not(.m-grade) .ag-hora { font-size: 1.3em; }
+  html:not(.m-apresenta):not(.m-grade) .mz-cab { display: none; }
+  html:not(.m-apresenta):not(.m-grade) .mz-l { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; padding: 10px 0; border-bottom: 1px solid var(--linha); }
+  html:not(.m-apresenta):not(.m-grade) .mz-rot { grid-column: 1 / -1; padding: 0 0 4px; }
+  html:not(.m-apresenta):not(.m-grade) :is(.mz-c, .mz-geral) { min-height: 46px; font-size: .72em; line-height: 1.15; padding: 2px; }
+  html:not(.m-apresenta):not(.m-grade) :is(.mz-c, .mz-geral)::before { content: attr(data-th); display: block; font-weight: 500; opacity: .85; }
+  html:not(.m-apresenta):not(.m-grade) .mz-leg em { margin-left: 0; }
+  html:not(.m-apresenta):not(.m-grade) .br-l { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+  html:not(.m-apresenta):not(.m-grade) .br-rot { grid-column: 1 / -1; }
+  html:not(.m-apresenta):not(.m-grade) .br-m { grid-column: 1 / -1; }
+  html:not(.m-apresenta):not(.m-grade) .escada { grid-template-columns: minmax(0, 1fr); height: auto; gap: 10px; }
+  html:not(.m-apresenta):not(.m-grade) .degrau { height: auto; border-radius: 12px; margin-left: calc(var(--k) * 4%); }
+  html:not(.m-apresenta):not(.m-grade) .lista > li { grid-template-columns: 1.9em minmax(0, 1fr); }
+  html:not(.m-apresenta):not(.m-grade) :is(.li-quem, .li-quando) { grid-column: 2; justify-self: start; }
+  html.com-notas:not(.m-apresenta):not(.m-grade) .sl-notas { position: static; margin: 0; }
+}
+
+/* ---------- movimento reduzido e impressão ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html.m-apresenta [data-p]:not(.on) { transform: none; }
+}
+@media print {
+  @page { size: 338.67mm 190.5mm; margin: 0; }
+  html, body { height: auto !important; overflow: visible !important; background: #fff !important; }
+  .barra, .notas-painel, .painel, .faixa, .aviso, .cron, .so-leitor { display: none !important; }
+  .slides { display: block !important; position: static !important; width: auto !important; margin: 0 !important; }
+  .slide { width: 338.67mm !important; height: 190.5mm !important; aspect-ratio: auto !important; container-type: normal !important; visibility: visible !important; opacity: 1 !important; border-radius: 0 !important; box-shadow: none !important; outline: 0 !important; break-after: page; break-inside: avoid; }
+  .slide::after { display: none !important; }
+  .slide:last-child { break-after: auto; }
+  .ag-item.feito { opacity: 1 !important; }
+  .ag-item.agora { background: var(--cinza-claro) !important; box-shadow: inset .2em 0 0 var(--azul) !important; }
+  .ag-item.agora :is(.ag-hora, .ag-t) { color: var(--azul-p) !important; }
+  .ag-item.agora :is(.ag-quem, .ag-dur) { color: var(--cinza) !important; }
+  .sl { position: absolute !important; inset: 0 !important; font-size: 4.9107mm !important; padding: 2.7em 3.45em 3.1em !important; }
+  .slide--capa .sl { padding-top: 0 !important; }
+  .sl-notas { display: none !important; }
+  [data-p] { opacity: 1 !important; transform: none !important; }
+  [data-e], [data-campo] { outline: 0 !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<main class="slides" aria-label="Gestão da mudança: visão do programa">
+<section class="slide slide--capa slide--escuro" id="s1" data-n="1" aria-roledescription="slide" aria-label="1 de 12: Gestão da mudança do [nome do projeto]"><svg class="ice" style="--u:100" viewBox="0 0 1333 750" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false"><g><circle class="b-bolha" style="--i:0" cx="875.0" cy="612.0" r="7.0"/><circle class="b-bolha" style="--i:1" cx="985.0" cy="657.0" r="9.5"/><circle class="b-bolha" style="--i:2" cx="1165.0" cy="672.0" r="6.0"/><circle class="b-bolha" style="--i:3" cx="1295.0" cy="602.0" r="8.5"/><circle class="b-bolha" style="--i:4" cx="1225.0" cy="642.0" r="5.0"/></g><g class="b-berg" style="transform-origin:1075px 312px"><path class="b-borda" pathLength="1" d="M945.0 329.0L1210.0 329.0L1265.0 427.0L1235.0 552.0L1125.0 662.0L1010.0 602.0L930.0 492.0L910.0 412.0Z"/><path class="b-faceta" pathLength="1" style="--i:0" d="M1075.0 452.0L1083.0 329.0"/><path class="b-faceta" pathLength="1" style="--i:1" d="M1075.0 452.0L910.0 412.0"/><path class="b-faceta" pathLength="1" style="--i:2" d="M1075.0 452.0L1265.0 427.0"/><path class="b-faceta" pathLength="1" style="--i:3" d="M1075.0 452.0L1235.0 552.0"/><path class="b-faceta" pathLength="1" style="--i:4" d="M1075.0 452.0L1125.0 662.0"/><path class="b-faceta" pathLength="1" style="--i:5" d="M1075.0 452.0L1010.0 602.0"/><g class="b-ponta"><path class="b-p1" d="M1037.0 222.0L1075.0 222.0L1075.0 307.0L991.0 307.0L1007.0 254.0Z"/><path class="b-p2" d="M1077.0 132.0L1150.0 250.0L1167.0 307.0L1075.0 307.0L1075.0 212.0Z"/><path class="b-p3" d="M1077.0 132.0L1107.0 214.0L1087.0 307.0L1041.0 307.0L1037.0 222.0Z"/></g></g><path class="b-agua" pathLength="1" d="M870.0 315.5H1400"/><path class="b-reflexo" pathLength="1" d="M870.0 315.5H1400"/></svg><div class="sl"><div class="capa-txt"><p class="sl-olho" data-e="0">Change Management</p><h1 class="capa-tit"><span class="ln" data-e="1" style="--l:0">Gestão da mudança</span><span class="ln" style="--l:1"><span data-e="2">do </span><span data-campo="projeto" data-vazio="[nome do projeto]" class="vazio">[nome do projeto]</span></span></h1><p class="capa-sub" data-e="3">Como vamos levar as pessoas da situação atual até o uso real da solução.</p></div><p class="capa-meta"><span><span data-campo="area" data-vazio="[Área responsável]" class="vazio">[Área responsável]</span> · <span data-campo="data" data-vazio="[mês e ano]" class="vazio">[mês e ano]</span></span></p><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">1</span></footer></div><aside class="sl-notas" data-e="4" aria-label="Notas de quem apresenta">Abra dizendo, em uma frase, o que o projeto muda e por que esta conversa importa agora.
+Antes de apresentar, preencha o nome do projeto, a área e a data em Personalizar.</aside></section>
+<section class="slide slide--mensagem" id="s2" data-n="2" aria-roledescription="slide" aria-label="2 de 12: Projeto entregue ainda não é valor: o alvo é o uso real."><div class="sl"><p class="sl-olho" data-e="5">Ponto de partida</p><div class="sl-corpo"><p class="msg" data-e="6">Projeto entregue ainda não é valor: <em>o alvo é o uso real.</em></p><p class="msg-apoio" data-e="7">Sistema no ar, processo desenhado e treinamento dado são meios. O resultado só aparece quando as pessoas trabalham do jeito novo.</p><ol class="msg-itens"><li data-p="1"><b>01</b><strong data-e="8">O que muda e para quem?</strong><span data-e="9">Os impactos por grupo e o que se espera de cada um.</span></li><li data-p="2"><b>02</b><strong data-e="10">Como vamos conduzir?</strong><span data-e="11">Patrocínio, comunicação, capacitação e sustentação.</span></li><li data-p="3"><b>03</b><strong data-e="12">Como saber se deu certo?</strong><span data-e="13">Indicadores de prontidão, adoção e resultado.</span></li></ol></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">2</span></footer></div><aside class="sl-notas" data-e="14" aria-label="Notas de quem apresenta">Use este slide para combinar a régua de sucesso: o projeto não termina no go-live, termina quando o uso vira rotina.
+As três perguntas organizam o restante da apresentação.</aside></section>
+<section class="slide slide--cartoes" id="s3" data-n="3" aria-roledescription="slide" aria-label="3 de 12: Mudamos porque [o problema ou a oportunidade], para chegar a [resultado] até [data]"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="15">O porquê</p><h2 class="sl-tit" data-e="16">Mudamos porque [o problema ou a oportunidade], para chegar a [resultado] até [data]</h2></header><div class="sl-corpo"><div class="cartoes" style="--n:3"><article class="cartao" data-p="1"><span class="cartao-n">01</span><h3 data-e="17">De onde partimos</h3><p data-e="18">[A situação de hoje, em uma frase, com um número que mostre o tamanho do problema.]</p></article><article class="cartao" data-p="2"><span class="cartao-n">02</span><h3 data-e="19">O que muda</h3><p data-e="20">[Os processos, sistemas e papéis que mudam, na linguagem de quem vive o dia a dia.]</p></article><article class="cartao cartao--dest" data-p="3"><span class="cartao-n">03</span><h3 data-e="21">O que ganhamos</h3><p data-e="22">[O resultado esperado para o negócio e para as pessoas, com data.]</p></article></div></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">3</span></footer></div><aside class="sl-notas" data-e="23" aria-label="Notas de quem apresenta">Escreva o título como a conclusão do slide. Se o grupo só lembrar de uma frase, que seja esta.
+O terceiro cartão é o que o patrocinador deve repetir em toda comunicação.</aside></section>
+<section class="slide slide--depara" id="s4" data-n="4" aria-roledescription="slide" aria-label="4 de 12: O jeito de trabalhar muda em quatro dimensões"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="24">O que muda</p><h2 class="sl-tit" data-e="25">O jeito de trabalhar muda em quatro dimensões</h2></header><div class="sl-corpo"><div class="depara"><div class="dp-cab"><span></span><b>Hoje</b><span></span><b>Depois</b></div><div class="dp-l" data-p="1"><span class="dp-rot" data-e="26">Processo</span><p class="dp-de" data-e="27" data-th="Hoje">[Como o trabalho é feito hoje, com os passos e o retrabalho.]</p><span class="dp-seta"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><p class="dp-para" data-e="28" data-th="Depois">[Como passa a ser feito: mais simples, com um dono por etapa.]</p></div><div class="dp-l" data-p="2"><span class="dp-rot" data-e="29">Sistema</span><p class="dp-de" data-e="30" data-th="Hoje">[Planilhas e sistemas separados, sem visão única.]</p><span class="dp-seta"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><p class="dp-para" data-e="31" data-th="Depois">[Uma plataforma integrada, com o dado registrado na origem.]</p></div><div class="dp-l" data-p="3"><span class="dp-rot" data-e="32">Papéis</span><p class="dp-de" data-e="33" data-th="Hoje">[Quem decide e quem executa hoje.]</p><span class="dp-seta"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><p class="dp-para" data-e="34" data-th="Depois">[O que cada papel passa a decidir e a executar.]</p></div><div class="dp-l" data-p="4"><span class="dp-rot" data-e="35">Indicadores</span><p class="dp-de" data-e="36" data-th="Hoje">[O que se mede hoje e com que frequência.]</p><span class="dp-seta"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><p class="dp-para" data-e="37" data-th="Depois">[O que passa a ser medido, quando e por quem.]</p></div></div></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">4</span></footer></div><aside class="sl-notas" data-e="38" aria-label="Notas de quem apresenta">Mostre uma linha por vez. Para cada uma, dê um exemplo concreto de uma área presente na sala.
+O detalhe por grupo fica na apresentação de impactos.</aside></section>
+<section class="slide slide--escada" id="s5" data-n="5" aria-roledescription="slide" aria-label="5 de 12: A mudança acontece pessoa a pessoa, em cinco passos"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="39">Como a mudança acontece</p><h2 class="sl-tit" data-e="40">A mudança acontece pessoa a pessoa, em cinco passos</h2></header><div class="sl-corpo"><ol class="escada" style="--n:5"><li class="degrau" style="--k:0" data-p="1"><b class="dg-n">A</b><h3 data-e="41">Consciência</h3><p data-e="42">Entendo por que a mudança é necessária.</p></li><li class="degrau" style="--k:1" data-p="2"><b class="dg-n">D</b><h3 data-e="43">Desejo</h3><p data-e="44">Quero participar e apoiar.</p></li><li class="degrau" style="--k:2" data-p="3"><b class="dg-n">K</b><h3 data-e="45">Conhecimento</h3><p data-e="46">Sei o que fazer e como fazer.</p></li><li class="degrau" style="--k:3" data-p="4"><b class="dg-n">A</b><h3 data-e="47">Habilidade</h3><p data-e="48">Consigo fazer no dia a dia.</p></li><li class="degrau" style="--k:4" data-p="5"><b class="dg-n">R</b><h3 data-e="49">Reforço</h3><p data-e="50">Mantenho o novo jeito, sem voltar atrás.</p></li></ol><p class="nota" data-e="51">Modelo ADKAR, da Prosci. Se um passo falha, os seguintes não se sustentam.</p></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">5</span></footer></div><aside class="sl-notas" data-e="52" aria-label="Notas de quem apresenta">Explique que treinar (conhecimento) não resolve quando a pessoa ainda não entendeu o porquê (consciência) ou não quer (desejo).
+Pergunte ao grupo em que passo a maioria das pessoas está hoje.</aside></section>
+<section class="slide slide--cartoes" id="s6" data-n="6" aria-roledescription="slide" aria-label="6 de 12: Quatro frentes levam as pessoas do aviso ao uso"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="53">Como vamos conduzir</p><h2 class="sl-tit" data-e="54">Quatro frentes levam as pessoas do aviso ao uso</h2></header><div class="sl-corpo"><div class="cartoes" style="--n:4"><article class="cartao" data-p="1"><span class="cartao-ic"><svg class="icv icv--orbita" viewBox="0 0 48 48" aria-hidden="true"><circle pathLength="1" cx="24" cy="24" r="15"/><g class="m1 gira"><circle class="p" cx="24" cy="9" r="3.6"/><circle class="p" cx="37" cy="31.5" r="3.6"/><circle class="p" cx="11" cy="31.5" r="3.6"/></g><circle class="p" cx="24" cy="24" r="2.6"/></svg></span><h3 data-e="55">Patrocínio</h3><p data-e="56">Liderança visível, que explica o porquê e remove obstáculos.</p><ul><li data-e="57">Agenda dos patrocinadores</li><li data-e="58">Coalizão de líderes</li></ul></article><article class="cartao" data-p="2"><span class="cartao-ic"><svg class="icv icv--conversa" viewBox="0 0 48 48" aria-hidden="true"><path pathLength="1" d="M8 12a4 4 0 014-4h16a4 4 0 014 4v9a4 4 0 01-4 4H18l-6 5v-5a4 4 0 01-4-4z"/><path pathLength="1" class="m1" d="M36 17a4 4 0 014 4v9a4 4 0 01-4 4v5l-6-5h-7"/><circle class="p m2" cx="15" cy="16.5" r="1.4"/><circle class="p m2" style="--d:.12s" cx="20" cy="16.5" r="1.4"/><circle class="p m2" style="--d:.24s" cx="25" cy="16.5" r="1.4"/></svg></span><h3 data-e="59">Comunicação</h3><p data-e="60">A mensagem certa, para o público certo, pela pessoa certa.</p><ul><li data-e="61">Plano por público</li><li data-e="62">Canais de escuta</li></ul></article><article class="cartao" data-p="3"><span class="cartao-ic"><svg class="icv icv--camadas" viewBox="0 0 48 48" aria-hidden="true"><path pathLength="1" class="m1" d="M24 8l15 7.5-15 7.5-15-7.5z"/><path pathLength="1" d="M9 24l15 7.5 15-7.5"/><path pathLength="1" class="m3" d="M9 32.5l15 7.5 15-7.5"/></svg></span><h3 data-e="63">Capacitação</h3><p data-e="64">Treino por papel, com prática antes do go-live.</p><ul><li data-e="65">Trilhas por público</li><li data-e="66">Multiplicadores</li></ul></article><article class="cartao" data-p="4"><span class="cartao-ic"><svg class="icv icv--ciclo" viewBox="0 0 48 48" aria-hidden="true"><g class="m1 gira"><path pathLength="1" d="M9 24a15 15 0 0126-10.2L40 18M40 9v9h-9"/><path pathLength="1" d="M39 24a15 15 0 01-26 10.2L8 30M8 39v-9h9"/></g></svg></span><h3 data-e="67">Sustentação</h3><p data-e="68">Apoio no início do uso e reforço até virar rotina.</p><ul><li data-e="69">Suporte no go-live</li><li data-e="70">Medição da adoção</li></ul></article></div></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">6</span></footer></div><aside class="sl-notas" data-e="71" aria-label="Notas de quem apresenta">Cada frente tem um dono e entregas. Diga quem responde por cada uma neste projeto.
+As apresentações de comunicação, cultura, impactos e treinamento detalham as frentes.</aside></section>
+<section class="slide slide--tabela" id="s7" data-n="7" aria-roledescription="slide" aria-label="7 de 12: Cada papel tem uma parte que ninguém faz no lugar dele"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="72">Papéis</p><h2 class="sl-tit" data-e="73">Cada papel tem uma parte que ninguém faz no lugar dele</h2></header><div class="sl-corpo"><table class="tab"><colgroup><col style="width:22%"><col style="width:39%"><col style="width:39%"></colgroup><thead><tr><th scope="col">Papel</th><th scope="col">O que faz</th><th scope="col">Como aparece</th></tr></thead><tbody><tr style="--i:0"><td data-e="74" data-th="Papel">Patrocinador</td><td data-e="75" data-th="O que faz">Explica o porquê, decide e remove obstáculos.</td><td data-e="76" data-th="Como aparece">Abre os encontros e cobra o uso nos ritos de gestão.</td></tr><tr style="--i:1"><td data-e="77" data-th="Papel">Líderes e gestores</td><td data-e="78" data-th="O que faz">Traduzem a mudança para a equipe e dão o exemplo.</td><td data-e="79" data-th="Como aparece">Conversam com cada pessoa e acompanham a adoção.</td></tr><tr style="--i:2"><td data-e="80" data-th="Papel">Agentes de mudança</td><td data-e="81" data-th="O que faz">Levam dúvidas e sinais do dia a dia para o projeto.</td><td data-e="82" data-th="Como aparece">Apoiam os colegas e testam as mensagens.</td></tr><tr style="--i:3"><td data-e="83" data-th="Papel">Equipe do projeto</td><td data-e="84" data-th="O que faz">Entrega a solução e ajusta o que os testes mostrarem.</td><td data-e="85" data-th="Como aparece">Participa das oficinas e responde às dúvidas.</td></tr><tr style="--i:4"><td data-e="86" data-th="Papel">Gestão da mudança</td><td data-e="87" data-th="O que faz">Planeja, mede e apoia as quatro frentes.</td><td data-e="88" data-th="Como aparece">Acompanha os indicadores e propõe as ações.</td></tr></tbody></table></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">7</span></footer></div><aside class="sl-notas" data-e="89" aria-label="Notas de quem apresenta">Troque os papéis pelos nomes das pessoas quando a apresentação for para um grupo pequeno.
+Reforce: gestão da mudança apoia, mas quem muda a equipe é o gestor direto.</aside></section>
+<section class="slide slide--linha" id="s8" data-n="8" aria-roledescription="slide" aria-label="8 de 12: Quatro fases, do preparo à rotina"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="90">A jornada</p><h2 class="sl-tit" data-e="91">Quatro fases, do preparo à rotina</h2></header><div class="sl-corpo"><ol class="linha" style="--n:4"><li class="fase" data-p="1"><small class="fase-per" data-e="92">[Mês 1 e 2]</small><h3 data-e="93">Preparar</h3><ul><li data-e="94">Mapear impactos e públicos</li><li data-e="95">Alinhar os patrocinadores</li><li data-e="96">Definir os indicadores</li></ul></li><li class="fase" data-p="2"><small class="fase-per" data-e="97">[Mês 3 e 4]</small><h3 data-e="98">Engajar</h3><ul><li data-e="99">Comunicar o porquê</li><li data-e="100">Formar agentes de mudança</li><li data-e="101">Ouvir dúvidas e receios</li></ul></li><li class="fase fase--dest" data-p="3"><small class="fase-per" data-e="102">[Mês 5]</small><h3 data-e="103">Implantar</h3><ul><li data-e="104">Treinar por papel</li><li data-e="105">Apoiar o go-live</li><li data-e="106">Tratar resistências</li></ul><em class="fase-marco"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4M6 5h11l-2.5 3.5L17 12H6"/></svg><span data-e="107">Go-live</span></em></li><li class="fase" data-p="4"><small class="fase-per" data-e="108">[Mês 6 a 8]</small><h3 data-e="109">Sustentar</h3><ul><li data-e="110">Medir a adoção</li><li data-e="111">Reforçar e reconhecer</li><li data-e="112">Transferir para a operação</li></ul></li></ol></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">8</span></footer></div><aside class="sl-notas" data-e="113" aria-label="Notas de quem apresenta">Ajuste os períodos ao cronograma do projeto.
+Chame a atenção para a fase Sustentar: é a que mais costuma ser cortada e a que garante o resultado.</aside></section>
+<section class="slide slide--barras" id="s9" data-n="9" aria-roledescription="slide" aria-label="9 de 12: Quatro indicadores mostram se a mudança vira resultado"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="114">Como saberemos que deu certo</p><h2 class="sl-tit" data-e="115">Quatro indicadores mostram se a mudança vira resultado</h2></header><div class="sl-corpo"><div class="barras" data-barras data-max="100"><div class="br-l" data-s="1" style="--i:0;--v:79.0;--m:75.0"><span class="br-rot" data-e="116">Prontidão antes do go-live</span><span class="br-trilho"><i class="br-b"></i><u class="br-meta"></u></span><b class="br-v"><span data-e="117">79</span>%</b><small class="br-m">meta <span data-e="118">75</span>%</small></div><div class="br-l" data-s="1" style="--i:1;--v:96.0;--m:95.0"><span class="br-rot" data-e="119">Cobertura de treinamento</span><span class="br-trilho"><i class="br-b"></i><u class="br-meta"></u></span><b class="br-v"><span data-e="120">96</span>%</b><small class="br-m">meta <span data-e="121">95</span>%</small></div><div class="br-l" data-s="2" style="--i:2;--v:56.0;--m:70.0"><span class="br-rot" data-e="122">Adoção no dia a dia</span><span class="br-trilho"><i class="br-b"></i><u class="br-meta"></u></span><b class="br-v"><span data-e="123">56</span>%</b><small class="br-m">meta <span data-e="124">70</span>%</small></div><div class="br-l" data-s="3" style="--i:3;--v:41.0;--m:60.0"><span class="br-rot" data-e="125">Benefício realizado</span><span class="br-trilho"><i class="br-b"></i><u class="br-meta"></u></span><b class="br-v"><span data-e="126">41</span>%</b><small class="br-m">meta <span data-e="127">60</span>%</small></div><p class="br-leg"><span><i data-g="1"></i>Na meta</span><span><i data-g="2"></i>Em atenção</span><span><i data-g="3"></i>Crítico</span><span><u></u>Meta</span></p></div><p class="nota" data-e="128">Exemplo ilustrativo. Em “Editar texto”, troque os números pelos do seu projeto: as barras e as cores acompanham.</p></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">9</span></footer></div><aside class="sl-notas" data-e="129" aria-label="Notas de quem apresenta">Leia de cima para baixo: os dois primeiros indicadores mostram o preparo; os dois últimos, o resultado.
+Combine quem mede, com que frequência e em que reunião os números são discutidos.</aside></section>
+<section class="slide slide--tabela" id="s10" data-n="10" aria-roledescription="slide" aria-label="10 de 12: Três riscos pedem resposta antes do go-live"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="130">Riscos da mudança</p><h2 class="sl-tit" data-e="131">Três riscos pedem resposta antes do go-live</h2></header><div class="sl-corpo"><table class="tab"><colgroup><col style="width:22%"><col style="width:27%"><col style="width:37%"><col style="width:14%"></colgroup><thead><tr><th scope="col">Risco</th><th scope="col">Sinal de alerta</th><th scope="col">Resposta</th><th scope="col">Dono</th></tr></thead><tbody><tr style="--i:0"><td data-e="132" data-th="Risco">Patrocínio distante</td><td data-e="133" data-th="Sinal de alerta">Líderes ausentes dos encontros</td><td data-e="134" data-th="Resposta">Agenda fixa de presença e mensagens do patrocinador</td><td data-e="135" data-th="Dono">[Nome]</td></tr><tr style="--i:1"><td data-e="136" data-th="Risco">Gestores sem preparo</td><td data-e="137" data-th="Sinal de alerta">Dúvidas sem resposta nas equipes</td><td data-e="138" data-th="Resposta">Roteiro de conversa e prévia do treinamento</td><td data-e="139" data-th="Dono">[Nome]</td></tr><tr style="--i:2"><td data-e="140" data-th="Risco">Sobrecarga das equipes</td><td data-e="141" data-th="Sinal de alerta">Treinos adiados e horas extras</td><td data-e="142" data-th="Resposta">Negociar prioridades e janelas de treino</td><td data-e="143" data-th="Dono">[Nome]</td></tr></tbody></table></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">10</span></footer></div><aside class="sl-notas" data-e="144" aria-label="Notas de quem apresenta">Peça ao comitê para confirmar os donos na reunião.
+Se houver um quarto risco relevante, acrescente no modo de edição e ajuste o título.</aside></section>
+<section class="slide slide--lista" id="s11" data-n="11" aria-roledescription="slide" aria-label="11 de 12: O que acontece nos próximos 30 dias"><div class="sl"><header class="sl-cab"><p class="sl-olho" data-e="145">Próximos passos</p><h2 class="sl-tit" data-e="146">O que acontece nos próximos 30 dias</h2></header><div class="sl-corpo"><ul class="lista"><li style="--i:0"><span class="li-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b data-e="147">Validar o mapa de impactos com os gestores</b></div><span class="li-quem" data-e="148">[Dono]</span><span class="li-quando" data-e="149">[data]</span></li><li style="--i:1"><span class="li-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b data-e="150">Fechar a agenda dos patrocinadores</b></div><span class="li-quem" data-e="151">[Dono]</span><span class="li-quando" data-e="152">[data]</span></li><li style="--i:2"><span class="li-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b data-e="153">Publicar o plano de comunicação</b></div><span class="li-quem" data-e="154">[Dono]</span><span class="li-quando" data-e="155">[data]</span></li><li style="--i:3"><span class="li-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b data-e="156">Indicar os agentes de mudança de cada área</b></div><span class="li-quem" data-e="157">[Dono]</span><span class="li-quando" data-e="158">[data]</span></li><li style="--i:4"><span class="li-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b data-e="159">Definir a linha de base dos indicadores</b></div><span class="li-quem" data-e="160">[Dono]</span><span class="li-quando" data-e="161">[data]</span></li></ul></div><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">11</span></footer></div><aside class="sl-notas" data-e="162" aria-label="Notas de quem apresenta">Feche cada item com nome e data ainda na reunião.
+Volte a este slide na abertura do próximo encontro.</aside></section>
+<section class="slide slide--fecho slide--escuro" id="s12" data-n="12" aria-roledescription="slide" aria-label="12 de 12: A mudança só termina quando o novo jeito vira rotina."><svg class="ice" style="--u:55" viewBox="0 0 1333 750" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false"><g><circle class="b-bolha" style="--i:0" cx="1005.0" cy="570.0" r="3.9"/><circle class="b-bolha" style="--i:1" cx="1065.5" cy="594.8" r="5.2"/><circle class="b-bolha" style="--i:2" cx="1164.5" cy="603.0" r="3.3"/><circle class="b-bolha" style="--i:3" cx="1236.0" cy="564.5" r="4.7"/><circle class="b-bolha" style="--i:4" cx="1197.5" cy="586.5" r="2.8"/></g><g class="b-berg" style="transform-origin:1115px 405px"><path class="b-borda" pathLength="1" d="M1043.5 414.4L1189.3 414.4L1219.5 468.3L1203.0 537.0L1142.5 597.5L1079.3 564.5L1035.3 504.0L1024.3 460.0Z"/><path class="b-faceta" pathLength="1" style="--i:0" d="M1115.0 482.0L1119.4 414.4"/><path class="b-faceta" pathLength="1" style="--i:1" d="M1115.0 482.0L1024.3 460.0"/><path class="b-faceta" pathLength="1" style="--i:2" d="M1115.0 482.0L1219.5 468.3"/><path class="b-faceta" pathLength="1" style="--i:3" d="M1115.0 482.0L1203.0 537.0"/><path class="b-faceta" pathLength="1" style="--i:4" d="M1115.0 482.0L1142.5 597.5"/><path class="b-faceta" pathLength="1" style="--i:5" d="M1115.0 482.0L1079.3 564.5"/><g class="b-ponta"><path class="b-p1" d="M1094.1 355.5L1115.0 355.5L1115.0 402.3L1068.8 402.3L1077.6 373.1Z"/><path class="b-p2" d="M1116.1 306.0L1156.3 370.9L1165.6 402.3L1115.0 402.3L1115.0 350.0Z"/><path class="b-p3" d="M1116.1 306.0L1132.6 351.1L1121.6 402.3L1096.3 402.3L1094.1 355.5Z"/></g></g><path class="b-agua" pathLength="1" d="M80 406.9H1253"/><path class="b-reflexo" pathLength="1" d="M80 406.9H1253"/></svg><div class="sl"><p class="sl-olho" data-e="163">Para fechar</p><div class="fecho-cx"><p class="fecho-msg"><span class="ln" data-e="164" style="--l:0">A mudança só termina</span><span class="ln" data-e="165" style="--l:1">quando o novo jeito <em>vira rotina</em>.</span></p></div><p class="fecho-apoio" data-e="166">O que pedimos hoje: [a decisão ou o apoio esperado deste grupo].</p><p class="fecho-contato"><b><span data-campo="quem" data-vazio="[Quem apresenta]" class="vazio">[Quem apresenta]</span></b><span><span data-campo="area" data-vazio="[Área responsável]" class="vazio">[Área responsável]</span></span></p><footer class="sl-pe"><span>Change Management <i>World</i></span><span class="sl-proj"><span data-campo="projeto" data-vazio="[Nome do projeto]" class="vazio">[Nome do projeto]</span></span><span class="sl-num">12</span></footer></div><aside class="sl-notas" data-e="167" aria-label="Notas de quem apresenta">Termine com o pedido, não com um agradecimento: diga exatamente o que precisa do grupo e até quando.</aside></section>
+</main>
+<div class="notas-painel"><b>Notas de quem apresenta</b><p></p></div>
+<div class="faixa" role="status"><span>Editando</span><button type="button" class="bt" data-acao="restaurar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4.5V9h4.5"/></svg><span>Restaurar</span></button><button type="button" class="bt" data-acao="concluir"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Concluir</span></button></div>
+<div class="cron" role="timer" aria-label="Cronômetro"><output>5:00</output><button type="button" class="bt" data-cron="tocar"><span>Iniciar</span></button><button type="button" class="bt" data-cron="mais" aria-label="Mais um minuto"><span>+1 min</span></button><button type="button" class="bt" data-cron="zerar" aria-label="Recomeçar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4.5V9h4.5"/></svg></button><button type="button" class="bt" data-cron="fechar" aria-label="Fechar o cronômetro"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<p class="aviso" role="status" aria-live="polite"></p>
+<p class="so-leitor" aria-live="polite" data-vivo></p>
+<nav class="barra" aria-label="Comandos da apresentação">
+  <div class="barra-prog" aria-hidden="true"><i></i></div>
+  <a class="barra-site" href="https://change-management-world.vercel.app/apresentacoes/" title="Todas as apresentações"><svg class="marca " viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#0A2463"/><path class="marca-agua" d="M3.1 22A21 21 0 1 0 44.9 22Z" fill="#2F6FED"/><g class="marca-gelo"><path d="M24 8.5l6.2 13.5H17.4z" fill="#fff"/><path d="M14.5 22h19l2.8 7-6.3 9.6-7.6 1.6-7.4-8.4z" fill="#fff" opacity=".42"/></g><path class="marca-onda" d="M3.1 22q5.2-2.4 10.4 0t10.5 0 10.4 0 10.5 0" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg><span>Change Management <i>World</i></span></a>
+  <div class="barra-nav"><button type="button" class="bt" data-acao="ant" aria-label="Voltar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><output class="barra-conta">1 / 12</output><button type="button" class="bt" data-acao="prox" aria-label="Avançar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+  <div class="barra-acoes">
+    <button type="button" class="bt bt--p" data-acao="apresentar" title="Apresentar" aria-label="Apresentar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg><span>Apresentar</span></button><button type="button" class="bt" data-acao="leitura" title="Leitura" aria-label="Leitura"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 10.5h14M5 15h14M5 19.5h9"/></svg><span>Leitura</span></button><button type="button" class="bt" data-acao="grade" aria-pressed="false" title="Slides" aria-label="Slides"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="7" height="6" rx="1.2"/><rect x="13" y="5" width="7" height="6" rx="1.2"/><rect x="4" y="13.5" width="7" height="6" rx="1.2"/><rect x="13" y="13.5" width="7" height="6" rx="1.2"/></svg><span>Slides</span></button><button type="button" class="bt" data-acao="notas" aria-pressed="false" title="Notas" aria-label="Notas"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l4 4v12H6zM15 4v4h4M9 12.5h7M9 16h5"/></svg><span>Notas</span></button><span class="barra-sep"></span>
+    <button type="button" class="bt" data-acao="campos" title="Personalizar" aria-label="Personalizar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg><span>Personalizar</span></button><button type="button" class="bt" data-acao="editar" aria-pressed="false" title="Editar texto" aria-label="Editar texto"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16zM14 7l3 3"/></svg><span>Editar texto</span></button><button type="button" class="bt" data-acao="cron" aria-pressed="false" title="Cronômetro" aria-label="Cronômetro"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="7"/><path d="M12 10v3.5l2.4 1.6M10 3.5h4M18.2 7l1.3-1.3"/></svg><span>Cronômetro</span></button><span class="barra-sep"></span>
+    <button type="button" class="bt" data-acao="cheia" aria-pressed="false" title="Tela cheia" aria-label="Tela cheia"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Tela cheia</span></button><button type="button" class="bt" data-acao="pdf" title="PDF" aria-label="PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5M7 17H5V9h14v8h-2M7 14h10v6H7z"/></svg><span>PDF</span></button><button type="button" class="bt" data-acao="baixar" title="Baixar" aria-label="Baixar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span>Baixar</span></button><button type="button" class="bt" data-acao="ajuda" aria-label="Atalhos do teclado" title="Atalhos do teclado"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M8 14h8"/></svg></button>
+  </div>
+</nav>
+<dialog class="painel" data-painel="campos" aria-labelledby="dk-campos-t"><form method="dialog">
+  <h2 id="dk-campos-t">Personalizar</h2><p>Preencha uma vez: vale para todos os slides. Deixe em branco para manter o texto de espera.</p>
+  <label>Nome do projeto<input name="projeto" type="text" autocomplete="off" maxlength="80"></label><label>Área responsável<input name="area" type="text" autocomplete="off" maxlength="80"></label><label>Data ou período<input name="data" type="text" autocomplete="off" maxlength="80"></label><label>Quem apresenta<input name="quem" type="text" autocomplete="off" maxlength="80"></label>
+  <div class="painel-acoes"><button type="button" class="bt" data-fechar><span>Cancelar</span></button><button type="submit" class="bt bt--p"><span>Aplicar</span></button></div>
+</form></dialog>
+<dialog class="painel" data-painel="ajuda" aria-labelledby="dk-ajuda-t"><form method="dialog">
+  <h2 id="dk-ajuda-t">Atalhos do teclado</h2>
+  <dl><dt><kbd>→ ou espaço</kbd></dt><dd>Próxima etapa ou próximo slide</dd><dt><kbd>←</kbd></dt><dd>Voltar</dd><dt><kbd>F</kbd></dt><dd>Tela cheia</dd><dt><kbd>G</kbd></dt><dd>Ver todos os slides</dd><dt><kbd>N</kbd></dt><dd>Notas de quem apresenta</dd><dt><kbd>E</kbd></dt><dd>Editar o texto na tela</dd><dt><kbd>P</kbd></dt><dd>Personalizar os campos</dd><dt><kbd>T</kbd></dt><dd>Cronômetro</dd><dt><kbd>L / A</kbd></dt><dd>Leitura / Apresentar</dd><dt><kbd>Esc</kbd></dt><dd>Sair da edição, da grade ou da tela cheia</dd></dl>
+  <p>Na apresentação, um clique no slide também avança. O que você muda fica salvo neste navegador; “Baixar” gera um arquivo único, que abre sem internet.</p>
+  <p>Modelo livre para uso e adaptação. <a href="https://change-management-world.vercel.app/apresentacoes/">Change Management World</a>, por Victor Vitorino.</p>
+  <div class="painel-acoes"><button type="submit" class="bt bt--p"><span>Entendi</span></button></div>
+</form></dialog>
+<script>// Change Management World · apresentações em HTML (motor de slides, sem dependências).
+// Um arquivo só: navegação por teclado, toque e clique, etapas por slide, três modos (apresentar, leitura e grade),
+// edição do texto na própria tela (fica salva neste navegador), campos que se preenchem uma vez e valem para todos os slides,
+// agenda que recalcula os horários, mapa de calor clicável, barras que acompanham os números, notas, cronômetro,
+// impressão em PDF (uma página por slide) e download de uma cópia autônoma, com as fontes embutidas.
+(() => {
+  const raiz = document.documentElement, $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const slides = $$('.slide'); if (!slides.length) return;
+  raiz.classList.add('js');
+  const N = slides.length, ID = raiz.dataset.deck || 'apresentacao', ARQUIVO = raiz.dataset.arquivo === '1';
+  const CHAVE = `cmw-deck:${ID}:${raiz.dataset.ver || '1'}${ARQUIVO ? ':arquivo' : ''}`;
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bt = a => $(`[data-acao="${a}"]`), esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const num = t => { const v = parseFloat(String(t).replace(/\./g, '').replace(',', '.').replace(/[^\d.-]/g, '')); return isFinite(v) ? v : null; };
+
+  // ---------- o que a pessoa mudou (fica neste navegador) ----------
+  let dados = {}; try { dados = JSON.parse(localStorage.getItem(CHAVE)) || {}; } catch (e) {}
+  for (const k of ['textos', 'campos', 'graus']) dados[k] = dados[k] || {};
+  let gravaEm = 0;
+  const grava = () => { clearTimeout(gravaEm); gravaEm = setTimeout(() => { try { localStorage.setItem(CHAVE, JSON.stringify(dados)); } catch (e) {} }, 250); };
+  // só texto e ênfase: nada do que foi colado ou digitado vira marcação solta
+  const limpa = html => { const t = document.createElement('template'); t.innerHTML = html; const sai = no => [...no.childNodes].map(n => n.nodeType === 3 ? esc(n.nodeValue) : n.nodeType !== 1 ? '' : /^(EM|STRONG|B|I)$/.test(n.nodeName) ? `<${n.nodeName.toLowerCase()}>${sai(n)}</${n.nodeName.toLowerCase()}>` : n.nodeName === 'BR' ? ' ' : sai(n)).join(''); return sai(t.content); };
+
+  // ---------- campos: preenchidos uma vez, valem para a apresentação inteira ----------
+  const campos = $$('[data-campo]');
+  // num arquivo baixado, o valor já vem escrito no slide: ele passa a ser o valor do campo
+  campos.forEach(e => { const k = e.dataset.campo; if (dados.campos[k] == null && !e.classList.contains('vazio') && e.textContent !== e.dataset.vazio) dados.campos[k] = e.textContent; });
+  const poeCampos =() => campos.forEach(e => { const v = (dados.campos[e.dataset.campo] || '').trim(); e.textContent = v || e.dataset.vazio; e.classList.toggle('vazio', !v); });
+
+  // ---------- agenda: horários a partir do início e das durações ----------
+  const hm = t => { const m = /^(\d{1,2})\s*[:h]\s*(\d{2})?$/.exec(String(t).trim()); return m ? Math.min(23, +m[1]) * 60 + Math.min(59, +(m[2] || 0)) : null; };
+  const hora = min => `${String(Math.floor(min / 60) % 24).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;
+  const duracao = min => min < 60 ? `${min} min` : `${Math.floor(min / 60)} h${min % 60 ? ' ' + String(min % 60).padStart(2, '0') + ' min' : ''}`;
+  const calcAgenda = ag => {
+    const ini = hm($('.ag-inicio', ag).textContent); let t = ini == null ? +(ag.dataset.ini || 540) : ini; ag.dataset.ini = t; const t0 = t;
+    $$('.ag-item', ag).forEach(li => { $('.ag-hora', li).textContent = hora(t); const d = parseInt($('.ag-min', li).textContent, 10); t += d > 0 ? d : 0; });
+    $('.ag-total', ag).textContent = `${duracao(t - t0)} de encontro · término às ${hora(t)}`;
+  };
+
+  // ---------- mapa de calor: o grau geral da linha é o maior grau entre as dimensões ----------
+  const GRAUS = ['Sem impacto', 'Baixo', 'Médio', 'Alto'];
+  const poeGrau = (c, g) => { c.dataset.g = g; $('span', c).textContent = g ? GRAUS[g] : '–'; if (c.dataset.th) c.setAttribute('aria-label', `${c.dataset.th}: ${GRAUS[g].toLowerCase()}`); };
+  const calcMatriz = m => $$('.mz-l', m).forEach(l => { const g = Math.max(0, ...$$('.mz-c', l).map(c => +c.dataset.g)); poeGrau($('.mz-geral', l), g); });
+
+  // ---------- barras: largura e situação seguem os números (na meta, em atenção, crítico) ----------
+  const calcBarras = b => { const max = +b.dataset.max || 100; $$('.br-l', b).forEach(l => {
+    const v = num($('.br-v [data-e]', l).textContent), me = $('.br-m [data-e]', l), m = me ? num(me.textContent) : null, inv = l.hasAttribute('data-inv');
+    l.style.setProperty('--v', Math.max(0, Math.min(100, (v || 0) / max * 100)).toFixed(1)); if (m != null) l.style.setProperty('--m', Math.max(0, Math.min(100, m / max * 100)).toFixed(1));
+    l.dataset.s = m == null || v == null ? 2 : (inv ? v <= m : v >= m) ? 1 : (inv ? v <= m * 1.25 : v >= m * .8) ? 2 : 3;
+  }); };
+  const recalcula = () => { $$('[data-agenda]').forEach(calcAgenda); $$('[data-matriz]').forEach(calcMatriz); $$('[data-barras]').forEach(calcBarras); };
+
+  // restaura o que estava salvo
+  const editaveis = $$('[data-e]');
+  editaveis.forEach(e => { const v = dados.textos[e.dataset.e]; if (typeof v === 'string') e.innerHTML = limpa(v); });
+  $$('.mz-c[data-k]').forEach(c => { const g = dados.graus[c.dataset.k]; if (g != null) poeGrau(c, Math.max(0, Math.min(3, +g || 0))); });
+  poeCampos(); recalcula();
+
+  // ---------- navegação ----------
+  const conta = $('.barra-conta'), prog = $('.barra-prog i'), vivo = $('[data-vivo]'), notasP = $('.notas-painel p');
+  let i = Math.max(0, Math.min(N - 1, (parseInt(location.hash.replace(/\D/g, ''), 10) || 1) - 1)), passo = 0, modo = 'leitura';
+  const maxPasso = s => Math.max(0, ...$$('[data-p]', s).map(e => +e.dataset.p));
+  const titulo = s => { const t = $('.sl-tit, .capa-tit, .secao-tit, .msg, .fecho-msg', s); return t ? t.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  const contagem = s => { if (calmo) return; $$('[data-conta]', s).forEach(e => { const alvo = num(e.textContent); if (alvo == null) return; const casas = (String(e.textContent).split(',')[1] || '').length, t0 = performance.now(), dur = 900;
+    const anda = t => { const k = Math.min(1, (t - t0) / dur), v = alvo * (1 - Math.pow(1 - k, 3)); e.textContent = v.toFixed(casas).replace('.', ','); if (k < 1 && modo === 'apresenta' && slides[i] === s) requestAnimationFrame(anda); else e.textContent = alvo.toFixed(casas).replace('.', ','); };
+    requestAnimationFrame(anda); }); };
+  const pinta = (anuncia = true) => {
+    slides.forEach((s, k) => { const at = k === i, esconde = modo === 'apresenta' && !at; s.classList.toggle('atual', at); s.inert = esconde; if (esconde) s.setAttribute('aria-hidden', 'true'); else s.removeAttribute('aria-hidden');
+      if (at || modo !== 'apresenta') $$('[data-p]', s).forEach(e => e.classList.toggle('on', modo !== 'apresenta' || +e.dataset.p <= passo)); });
+    conta.textContent = `${i + 1} / ${N}`; prog.style.width = `${(i + (modo === 'apresenta' ? Math.min(1, (passo + 1) / (maxPasso(slides[i]) + 1)) : 1)) / N * 100}%`;
+    bt('ant').disabled = modo === 'apresenta' && i === 0 && passo === 0; bt('prox').disabled = modo === 'apresenta' && i === N - 1 && passo >= maxPasso(slides[i]);
+    const nt = $('.sl-notas', slides[i]); notasP.textContent = nt ? nt.textContent.trim() : 'Este slide não tem notas.';
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+    if (anuncia) vivo.textContent = `Slide ${i + 1} de ${N}: ${titulo(slides[i])}`;
+  };
+  const vai = (k, p = 0) => { const novo = Math.max(0, Math.min(N - 1, k)), mudou = novo !== i; i = novo; passo = p === 'fim' ? maxPasso(slides[i]) : p; pinta(); if (mudou && modo === 'apresenta') contagem(slides[i]);
+    if (modo === 'leitura') slides[i].scrollIntoView({ behavior: calmo ? 'auto' : 'smooth', block: 'start' }); };
+  const proximo = () => { if (modo !== 'apresenta') return vai(i + 1); if (passo < maxPasso(slides[i])) { passo++; pinta(false); } else if (i < N - 1) vai(i + 1); };
+  const anterior = () => { if (modo !== 'apresenta') return vai(i - 1); if (passo > 0) { passo--; pinta(false); } else if (i > 0) vai(i - 1, 'fim'); };
+
+  // ---------- modos ----------
+  const poeModo = m => {
+    modo = m; raiz.classList.remove('m-apresenta', 'm-leitura', 'm-grade'); raiz.classList.add('m-' + m);
+    if (m !== 'apresenta' && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    slides.forEach(s => m === 'grade' ? s.setAttribute('tabindex', '0') : s.removeAttribute('tabindex'));
+    bt('grade').setAttribute('aria-pressed', m === 'grade'); passo = m === 'apresenta' ? 0 : passo; pinta(false);
+    if (m !== 'apresenta') slides[i].scrollIntoView({ block: m === 'grade' ? 'center' : 'start' }); else { scrollTo(0, 0); contagem(slides[i]); }
+  };
+  // na leitura, o slide "atual" é o que está mais perto do meio da tela
+  let rolando = false;
+  addEventListener('scroll', () => { if (modo !== 'leitura' || rolando) return; rolando = true; requestAnimationFrame(() => { rolando = false; const meio = innerHeight / 2; let melhor = i, dist = Infinity;
+    slides.forEach((s, k) => { const r = s.getBoundingClientRect(), d = Math.abs((r.top + r.bottom) / 2 - meio); if (d < dist) { dist = d; melhor = k; } }); if (melhor !== i) { i = melhor; pinta(false); } }); }, { passive: true });
+
+  // ---------- tela cheia e barra que se recolhe ----------
+  let somaEm = 0;
+  const acorda = () => { raiz.classList.add('barra-viva'); clearTimeout(somaEm); somaEm = setTimeout(() => raiz.classList.remove('barra-viva'), 2600); };
+  const cheia = () => { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); else if (raiz.requestFullscreen) { if (modo !== 'apresenta') poeModo('apresenta'); raiz.requestFullscreen().catch(() => aviso('Este navegador não permitiu a tela cheia.')); } };
+  document.addEventListener('fullscreenchange', () => { const on = !!document.fullscreenElement; raiz.classList.toggle('cheia', on); bt('cheia').setAttribute('aria-pressed', on); if (on) acorda(); });
+  for (const ev of ['mousemove', 'touchstart', 'keydown']) addEventListener(ev, () => { if (raiz.classList.contains('cheia')) acorda(); }, { passive: true });
+
+  // ---------- avisos rápidos ----------
+  const cx = $('.aviso'); let avisoEm = 0;
+  const aviso = (t, ms = 2600) => { cx.textContent = t; cx.classList.add('on'); clearTimeout(avisoEm); avisoEm = setTimeout(() => cx.classList.remove('on'), ms); };
+
+  // ---------- edição na tela ----------
+  const editar = on => { raiz.classList.toggle('editando', on); editaveis.forEach(e => on ? e.setAttribute('contenteditable', 'true') : e.removeAttribute('contenteditable')); bt('editar').setAttribute('aria-pressed', on);
+    if (on && modo === 'apresenta') { passo = maxPasso(slides[i]); pinta(false); } if (on) aviso('Clique em um texto para mudar. Fica salvo neste navegador.', 4200); if (!on && document.activeElement && document.activeElement.blur) document.activeElement.blur(); };
+  document.addEventListener('input', e => { const el = e.target.closest ? e.target.closest('[data-e]') : null; if (!el) return; dados.textos[el.dataset.e] = limpa(el.innerHTML); grava();
+    const ag = el.closest('[data-agenda]'), br = el.closest('[data-barras]'); if (ag) calcAgenda(ag); if (br) calcBarras(br); });
+  document.addEventListener('paste', e => { if (!(e.target.closest && e.target.closest('[data-e]'))) return; e.preventDefault(); const t = ((e.clipboardData || window.clipboardData).getData('text/plain') || '').replace(/\s*\n\s*/g, ' ');
+    if (!document.execCommand || !document.execCommand('insertText', false, t)) { const sel = getSelection(); if (sel.rangeCount) { sel.deleteFromDocument(); sel.getRangeAt(0).insertNode(document.createTextNode(t)); sel.collapseToEnd(); e.target.dispatchEvent(new Event('input', { bubbles: true })); } } });
+  const restaura = () => { if (!confirm('Voltar ao texto original desta apresentação? As suas alterações neste navegador serão apagadas.')) return; try { localStorage.removeItem(CHAVE); } catch (e) {} location.reload(); };
+
+  // ---------- painéis (personalizar e atalhos) ----------
+  const painel = n => $(`dialog[data-painel="${n}"]`);
+  const abre = (n, foco) => { const d = painel(n); if (!d || !d.showModal) return; if (n === 'campos') $$('input[name]', d).forEach(inp => { inp.value = dados.campos[inp.name] || ''; }); d.showModal(); const alvo = foco && $(`input[name="${foco}"]`, d); if (alvo) alvo.focus(); };
+  const fCampos = $('dialog[data-painel="campos"] form');
+  if (fCampos) fCampos.addEventListener('submit', () => { $$('input[name]', fCampos).forEach(inp => { dados.campos[inp.name] = inp.value.trim(); }); poeCampos(); grava(); aviso('Campos aplicados em todos os slides.'); });
+  $$('dialog [data-fechar]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
+  $$('dialog.painel').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+
+  // ---------- cronômetro ----------
+  const cron = $('.cron'), mostrador = $('output', cron); let resto = 300, total = 300, fimEm = 0, tique = 0;
+  const pintaCron = () => { const s = Math.max(0, Math.ceil(resto)); mostrador.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; cron.classList.toggle('fim', s === 0); $('[data-cron="tocar"] span', cron).textContent = tique ? 'Pausar' : 'Iniciar'; };
+  const paraCron = () => { clearInterval(tique); tique = 0; pintaCron(); };
+  const tocaCron = () => { if (tique) return paraCron(); if (resto <= 0) resto = total; fimEm = Date.now() + resto * 1000; tique = setInterval(() => { resto = (fimEm - Date.now()) / 1000; if (resto <= 0) { resto = 0; paraCron(); aviso('Tempo encerrado.', 5000); } else pintaCron(); }, 250); pintaCron(); };
+  const poeCron = min => { paraCron(); total = resto = Math.max(1, min) * 60; cron.classList.add('on'); bt('cron').setAttribute('aria-pressed', 'true'); pintaCron(); };
+  cron.addEventListener('click', e => { const b = e.target.closest('[data-cron]'); if (!b) return; const a = b.dataset.cron;
+    if (a === 'tocar') tocaCron(); if (a === 'mais') { resto += 60; total = Math.max(total, resto); if (tique) fimEm += 60000; pintaCron(); } if (a === 'zerar') { paraCron(); resto = total; pintaCron(); }
+    if (a === 'fechar') { paraCron(); cron.classList.remove('on'); bt('cron').setAttribute('aria-pressed', 'false'); } });
+
+  // ---------- baixar uma cópia autônoma (com as fontes embutidas) ----------
+  const base64 = buf => { let s = ''; const b = new Uint8Array(buf); for (let k = 0; k < b.length; k += 0x8000) s += String.fromCharCode.apply(null, b.subarray(k, k + 0x8000)); return btoa(s); };
+  const embute = async css => { const urls = [...new Set([...css.matchAll(/url\(['"]?([^'")]+\.woff2)['"]?\)/g)].map(m => m[1]))];
+    for (const u of urls) { const r = await fetch(new URL(u, document.baseURI)); if (!r.ok) throw new Error(u); css = css.split(u).join(`data:font/woff2;base64,${base64(await r.arrayBuffer())}`); } return css; };
+  const baixar = async () => {
+    aviso('Preparando o arquivo…', 8000);
+    const c = raiz.cloneNode(true);
+    c.className = ''; c.removeAttribute('style'); c.dataset.arquivo = '1';
+    $$('[contenteditable]', c).forEach(e => e.removeAttribute('contenteditable'));
+    $$('.on, .atual, .agora, .feito, .fim', c).forEach(e => e.classList.remove('on', 'atual', 'agora', 'feito', 'fim'));
+    $$('[inert], [aria-hidden="true"].slide, [tabindex].slide', c).forEach(e => { e.removeAttribute('inert'); e.removeAttribute('aria-hidden'); e.removeAttribute('tabindex'); });
+    $$('dialog[open]', c).forEach(d => d.removeAttribute('open'));
+    $$('[aria-pressed]', c).forEach(e => e.setAttribute('aria-pressed', 'false'));
+    const st = $('#dk-fontes', c);
+    if (st && !/base64,/.test(st.textContent)) { try { st.textContent = await embute(st.textContent); } catch (e) { st.textContent = ''; } }
+    const nome = (dados.campos.projeto || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9 ]/g, '').trim().replace(/\s+/g, '-').slice(0, 40);
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['<!doctype html>\n' + c.outerHTML], { type: 'text/html;charset=utf-8' })); a.download = `${ID}${nome ? '-' + nome : ''}.html`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 6000);
+    aviso('Arquivo baixado: abre em qualquer navegador, mesmo sem internet.', 5000);
+  };
+
+  // ---------- comandos da barra ----------
+  const ACOES = { ant: anterior, prox: proximo, apresentar: () => poeModo('apresenta'), leitura: () => poeModo('leitura'), grade: () => poeModo(modo === 'grade' ? 'apresenta' : 'grade'),
+    notas: () => { const on = raiz.classList.toggle('com-notas'); bt('notas').setAttribute('aria-pressed', on); }, editar: () => editar(!raiz.classList.contains('editando')), campos: () => abre('campos'), ajuda: () => abre('ajuda'),
+    cron: () => { if (cron.classList.contains('on')) { paraCron(); cron.classList.remove('on'); bt('cron').setAttribute('aria-pressed', 'false'); } else poeCron(5); }, cheia, pdf: () => { editar(false); print(); }, baixar, restaurar: restaura, concluir: () => editar(false) };
+  document.addEventListener('click', e => {
+    const b = e.target.closest ? e.target.closest('[data-acao]') : null; if (b) { const f = ACOES[b.dataset.acao]; if (f) { e.preventDefault(); f(); } return; }
+    const s = e.target.closest('.slide'); if (!s) return;
+    if (modo === 'grade') { i = slides.indexOf(s); poeModo('apresenta'); return; }
+    const edita = raiz.classList.contains('editando');
+    const cp = e.target.closest('[data-campo]'); if (cp && edita) { abre('campos', cp.dataset.campo); return; }
+    const cel = e.target.closest('.mz-c'); if (cel) { if (edita) { const g = (+cel.dataset.g + 1) % 4; poeGrau(cel, g); dados.graus[cel.dataset.k] = g; grava(); calcMatriz(cel.closest('[data-matriz]')); } return; }
+    if (edita || modo !== 'apresenta') return;
+    const item = e.target.closest('.ag-item'); if (item) { const era = item.classList.contains('agora'), todos = $$('.ag-item', item.closest('.ag-lista')); todos.forEach(x => x.classList.remove('agora', 'feito'));
+      if (!era) { item.classList.add('agora'); todos.slice(0, todos.indexOf(item)).forEach(x => x.classList.add('feito')); if (item.classList.contains('ag-item--pausa')) { poeCron(parseInt($('.ag-min', item).textContent, 10) || 10); tocaCron(); } } return; }
+    if (e.target.closest('a, button, summary, input, label') || String(getSelection()).length) return;
+    proximo();
+  });
+
+  // ---------- teclado e toque ----------
+  addEventListener('keydown', e => {
+    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+    const t = e.target, digitando = t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName);
+    if (digitando) { if (t.isContentEditable && (e.key === 'Escape' || (e.key === 'Enter' && !e.shiftKey))) { e.preventDefault(); t.blur(); } return; }
+    if ($('dialog[open]')) return;
+    const k = e.key, noBotao = t.closest && t.closest('button, a, summary');
+    if (modo === 'grade' && (k === 'Enter' || k === ' ') && t.classList && t.classList.contains('slide')) { e.preventDefault(); i = slides.indexOf(t); poeModo('apresenta'); return; }
+    if (modo === 'apresenta') {
+      if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(k) || ((k === ' ' || k === 'Enter') && !noBotao)) { e.preventDefault(); return proximo(); }
+      if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); return anterior(); }
+      if (k === 'Home') { e.preventDefault(); return vai(0); } if (k === 'End') { e.preventDefault(); return vai(N - 1); }
+    }
+    const a = { f: 'cheia', g: 'grade', n: 'notas', e: 'editar', p: 'campos', t: 'cron', l: 'leitura', a: 'apresentar', '?': 'ajuda' }[k.toLowerCase()];
+    if (a) { e.preventDefault(); ACOES[a](); }
+    if (k === 'Escape') { if (raiz.classList.contains('editando')) editar(false); else if (modo === 'grade') poeModo('apresenta'); }
+  });
+  let tx = 0, ty = 0;
+  const palco = $('.slides');
+  palco.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+  palco.addEventListener('touchend', e => { if (modo !== 'apresenta' || raiz.classList.contains('editando')) return; const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) { e.preventDefault(); dx < 0 ? proximo() : anterior(); } });
+  addEventListener('hashchange', () => { const k = (parseInt(location.hash.replace(/\D/g, ''), 10) || 1) - 1; if (k !== i && k >= 0 && k < N) vai(k); });
+
+  // começa apresentando em telas largas e em leitura nas estreitas (ou conforme ?modo=)
+  const pedido = new URLSearchParams(location.search).get('modo');
+  poeModo(pedido === 'leitura' || pedido === 'grade' ? pedido : pedido === 'apresentar' || matchMedia('(min-width: 861px)').matches ? 'apresenta' : 'leitura');
+  pintaCron();
+  // na primeira visita, uma dica de como conduzir
+  try { if (modo === 'apresenta' && !localStorage.getItem('cmw-deck:dica')) { localStorage.setItem('cmw-deck:dica', '1'); setTimeout(() => aviso('Setas ou clique para avançar · E edita o texto · F abre em tela cheia', 5200), 1400); } } catch (e) {}
+})();
+</script>
+</body>
+</html>

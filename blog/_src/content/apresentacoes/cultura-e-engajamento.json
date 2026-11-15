@@ -1,0 +1,159 @@
+{
+  "id": "cultura-e-engajamento",
+  "nome": "Cultura e engajamento na mudança",
+  "olho": "Cultura e engajamento",
+  "frase": "Para combinar com a liderança os comportamentos que sustentam a mudança e como mobilizar as pessoas: leitura da cultura, de–para, alavancas, rituais, rede de agentes e pulso.",
+  "para": "liderança e gestores",
+  "duracao": "30 min",
+  "slides": [
+    {
+      "tipo": "capa",
+      "olho": "Cultura e engajamento",
+      "titulo": ["Cultura e engajamento", "no {projeto}"],
+      "sub": "Os comportamentos que sustentam a mudança e como vamos mobilizar as pessoas.",
+      "notas": "Esta conversa é com a liderança: o que ela faz pesa mais do que qualquer campanha.\nPreencha o nome do projeto, a área e a data em Personalizar."
+    },
+    {
+      "tipo": "mensagem",
+      "olho": "Princípio",
+      "frase": "Cultura é o que as pessoas fazem quando ninguém está olhando: a mudança só fica *se virar hábito.*",
+      "apoio": "Processo e sistema mudam em uma data. Comportamento muda com exemplo, prática e reconhecimento, repetidos por meses.",
+      "notas": "Peça um exemplo ao grupo: um hábito da empresa que ninguém escreveu e todo mundo segue.\nA partir dele, pergunte: o novo jeito de trabalhar combina ou briga com esse hábito?"
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Leitura da cultura",
+      "titulo": "A cultura atual ajuda em alguns pontos e trava em outros",
+      "itens": [
+        { "icone": "subida", "t": "O que nos ajuda", "d": "[Traços da cultura que favorecem a mudança.]", "lista": ["[Ex.: orgulho do trabalho bem-feito]", "[Ex.: colaboração entre áreas]"] },
+        { "icone": "camadas", "t": "O que nos trava", "d": "[Hábitos que dificultam o novo jeito de trabalhar.]", "lista": ["[Ex.: decidir pelo costume]", "[Ex.: guardar o problema]"] },
+        { "icone": "orbita", "t": "O que preservar", "d": "[O que não muda e precisa ser dito com todas as letras.]", "lista": ["[Ex.: cuidado com o cliente]", "[Ex.: segurança em primeiro lugar]"], "dest": true }
+      ],
+      "notas": "Preencha com o que as pessoas disseram em entrevistas e oficinas, com as palavras delas.\nDizer o que não muda reduz a ansiedade e dá chão para a mudança."
+    },
+    {
+      "tipo": "depara",
+      "olho": "Comportamentos",
+      "titulo": "Quatro comportamentos fazem a diferença nesta mudança",
+      "cab": ["De", "Para"],
+      "linhas": [
+        ["Decisão", "Decido pelo costume e pela experiência.", "Decido com o dado registrado no sistema."],
+        ["Problemas", "Guardo o problema até resolver sozinho.", "Trago o problema cedo e peço ajuda."],
+        ["Processo", "Cada área faz do seu jeito.", "Seguimos o processo combinado e melhoramos juntos."],
+        ["Aprendizado", "Espero o treinamento para começar.", "Pratico, pergunto e ensino os colegas."]
+      ],
+      "nota": "Exemplos: troque pelos comportamentos do seu projeto. Poucos e observáveis valem mais do que uma lista de valores.",
+      "notas": "Um bom comportamento-alvo é algo que dá para ver alguém fazendo.\nMostre uma linha por vez e peça um exemplo real de cada uma."
+    },
+    {
+      "tipo": "escada",
+      "olho": "Como o hábito se forma",
+      "titulo": "O comportamento vira hábito quando quatro alavancas apontam para o mesmo lado",
+      "degraus": [
+        { "n": "01", "t": "Exemplo", "d": "A liderança pratica primeiro, e em público." },
+        { "n": "02", "t": "Rotina", "d": "O novo comportamento entra nas reuniões e nos ritos." },
+        { "n": "03", "t": "Reconhecimento", "d": "Quem pratica é visto e valorizado." },
+        { "n": "04", "t": "Sistema", "d": "Metas, processos e ferramentas pedem o novo jeito." }
+      ],
+      "notas": "Se a meta premia o comportamento antigo, o discurso não vence a meta.\nRevise com o grupo: qual alavanca hoje puxa para o lado contrário?"
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Papel da liderança",
+      "titulo": "Três gestos da liderança valem mais do que qualquer campanha",
+      "itens": [
+        { "n": "01", "t": "Dar o exemplo", "d": "Usar a solução na frente da equipe e decidir com os novos dados." },
+        { "n": "02", "t": "Abrir espaço", "d": "Perguntar o que preocupa, ouvir sem julgar e responder no prazo." },
+        { "n": "03", "t": "Reconhecer", "d": "Citar quem pratica o novo comportamento, toda semana." }
+      ],
+      "notas": "Peça a cada líder que escolha um gesto para começar nesta semana e diga quando vai fazer.\nGestos pequenos e repetidos constroem mais confiança do que um grande evento."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Rede de engajamento",
+      "titulo": "Os agentes de mudança ligam o projeto ao dia a dia das equipes",
+      "itens": [
+        { "icone": "orbita", "t": "Quem são", "d": "Pessoas respeitadas pelos colegas, uma para cada [20 a 30] pessoas impactadas." },
+        { "icone": "conversa", "t": "O que fazem", "d": "Explicam a mudança, recolhem dúvidas e avisam o projeto quando algo trava." },
+        { "icone": "faisca", "t": "Como apoiamos", "d": "Encontro semanal, materiais prontos e acesso direto ao time do projeto." }
+      ],
+      "notas": "Escolha pela influência entre os colegas, não pelo cargo.\nO gestor precisa liberar tempo: sem isso, a rede existe só no papel."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Rituais",
+      "titulo": "Os rituais colocam a mudança na agenda de todos",
+      "colunas": ["Ritual", "Para quê", "Frequência", "Quem conduz"],
+      "larguras": [28, 36, 16, 20],
+      "linhas": [
+        ["Conversa de equipe", "Tirar dúvidas e combinar a semana", "Semanal", "Gestor direto"],
+        ["Encontro dos agentes", "Trocar sinais e preparar mensagens", "Semanal", "Gestão da mudança"],
+        ["Roda com o patrocinador", "Ouvir a operação sem intermediários", "Mensal", "Patrocinador"],
+        ["Momento de reconhecimento", "Mostrar quem pratica o novo jeito", "Quinzenal", "Liderança"],
+        ["Revisão dos indicadores", "Decidir ações a partir da adoção", "Mensal", "Comitê"]
+      ],
+      "notas": "Prefira encaixar a mudança em ritos que já existem a criar reuniões novas.\nUm ritual só se mantém quando tem dono e pauta fixa."
+    },
+    {
+      "tipo": "barras",
+      "olho": "Régua de adoção",
+      "titulo": "Onde as pessoas estão hoje, entre resistir e multiplicar",
+      "max": 50,
+      "itens": [
+        { "rot": "Resiste", "v": 8 },
+        { "rot": "Observa", "v": 22 },
+        { "rot": "Experimenta", "v": 38 },
+        { "rot": "Adota", "v": 24 },
+        { "rot": "Multiplica", "v": 8 }
+      ],
+      "nota": "Exemplo ilustrativo: percentual das pessoas impactadas em cada ponto da régua. Troque pelos números do seu levantamento.",
+      "notas": "A conversa muda conforme o ponto da régua: quem observa precisa de exemplo; quem experimenta precisa de apoio; quem adota pode ensinar.\nO alvo é mover as pessoas um ponto por vez."
+    },
+    {
+      "tipo": "barras",
+      "olho": "Pulso de engajamento",
+      "titulo": "O pulso por área mostra onde agir primeiro",
+      "itens": [
+        { "rot": "Comercial", "v": 81, "meta": 75 },
+        { "rot": "Tecnologia", "v": 78, "meta": 75 },
+        { "rot": "Operações", "v": 72, "meta": 75 },
+        { "rot": "Financeiro", "v": 64, "meta": 75 },
+        { "rot": "Atendimento", "v": 55, "meta": 75 }
+      ],
+      "nota": "Exemplo ilustrativo: percentual de respostas favoráveis na pesquisa de pulso, por área.",
+      "notas": "Olhe primeiro para as áreas em azul mais escuro: é onde a liderança precisa aparecer.\nCompare sempre com a medição anterior; a tendência importa mais do que o número isolado."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Plano de ação",
+      "titulo": "Cada ação de cultura tem uma alavanca, um dono e uma data",
+      "colunas": ["Ação", "Alavanca", "Dono", "Quando", "Situação"],
+      "larguras": [40, 18, 14, 13, 15],
+      "linhas": [
+        ["Patrocinador usa o painel na reunião mensal", "Exemplo", "[Nome]", "[data]", "@2 Em curso"],
+        ["Incluir a adoção na pauta das equipes", "Rotina", "[Nome]", "[data]", "@0 A fazer"],
+        ["Reconhecer um destaque por área", "Reconhecimento", "[Nome]", "[data]", "@0 A fazer"],
+        ["Ajustar as metas ao novo processo", "Sistema", "[Nome]", "[data]", "@0 A fazer"]
+      ],
+      "notas": "Uma ação por alavanca já é um bom começo.\nAtualize a situação a cada reunião, no modo de edição."
+    },
+    {
+      "tipo": "lista",
+      "olho": "Combinados",
+      "titulo": "O que pedimos à liderança nesta semana",
+      "itens": [
+        { "t": "Abrir a reunião de equipe com o porquê da mudança" },
+        { "t": "Usar a solução em uma decisão real, na frente do time" },
+        { "t": "Perguntar a três pessoas o que ainda preocupa" },
+        { "t": "Reconhecer um colega que praticou o novo jeito" }
+      ],
+      "notas": "Peça que cada líder diga em voz alta o que vai fazer e quando.\nNo próximo encontro, comece perguntando como foi."
+    },
+    {
+      "tipo": "fecho",
+      "frase": ["Engajamento não se pede:", "*se constrói no dia a dia*."],
+      "apoio": "O que pedimos hoje: [o compromisso da liderança com os quatro comportamentos].",
+      "notas": "Termine com o compromisso da liderança, dito por ela."
+    }
+  ]
+}

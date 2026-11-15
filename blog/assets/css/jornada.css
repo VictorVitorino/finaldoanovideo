@@ -681,6 +681,17 @@ html:not(.js) .livros-lista { display: grid; gap: 28px; }
 .folha-completa[open] summary .ic { transform: rotate(180deg); }
 .folha-art .folha-completa .prosa { margin-top: var(--e-1); }
 
+/* ---------- apresentações em HTML: como usar (quatro passos) e atalho na página de modelos ---------- */
+.uso { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 0 0 48px; padding: 0; list-style: none; }
+.uso li { display: grid; gap: 6px; align-content: start; padding-top: 16px; border-top: 2px solid var(--azul-p); }
+.uso b { font-family: var(--tit); font-style: italic; font-weight: 400; font-size: 1.7rem; line-height: 1; color: var(--azul); }
+.uso strong { font-family: var(--tit); font-weight: 500; font-size: 1.3rem; line-height: 1.2; color: var(--azul-p); }
+.uso span { font-size: .95rem; line-height: 1.5; color: #344054; }
+.lab-atalho { margin-top: 16px; }
+a.mod-arte { cursor: pointer; }
+@media (max-width: 900px) { .uso { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .uso { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-bottom: 32px; } }
+
 /* ---------- serviços: quem conduz (apresentação pessoal; o retrato entra quando existe o arquivo da foto, senão fica o cartão de contato) ---------- */
 .sec--quem { padding-bottom: 0; }
 .quem { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(28px, 5vw, 84px); align-items: center; }

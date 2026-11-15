@@ -44,7 +44,7 @@ export function pagina({ cfg, raiz, titulo, descricao, corpo, caminho = '', imag
   const mesAtual = cfg.mesAtual ? `mes/${cfg.mesAtual}/` : 'radar/';
   // quatro abas no topo; os atalhos ficam no menu e no rodapé
   const ABAS = [['radar/', 'Radar', 'Notícias, pesquisas e guias de campo, com a fonte'], ['lab/', 'Laboratório', 'Diagnóstico, ferramentas e modelos para baixar'], ['servicos/', 'Serviços', 'Change Management Advisory e IA aplicada'], ['sobre/', 'Sobre', `Quem é ${esc(cfg.autor)} e o que ele recomenda`]];
-  const ATALHOS = [['radar/#guias', 'Guias de campo'], ['radar/?tema=ia', 'IA & Mudança'], ['radar/#agenda', 'Agenda e vídeos'], [mesAtual, 'Posts do mês'], ['modelos/', 'Modelos para baixar'], ['sobre/#estante', 'Sugestões de leitura']];
+  const ATALHOS = [['radar/#guias', 'Guias de campo'], ['radar/?tema=ia', 'IA & Mudança'], ['radar/#agenda', 'Agenda e vídeos'], [mesAtual, 'Posts do mês'], ['apresentacoes/', 'Apresentações em HTML'], ['modelos/', 'Modelos para baixar'], ['sobre/#estante', 'Sugestões de leitura']];
   const GRUPO = { radar: 'radar/', lab: 'lab/', modelos: 'lab/', servicos: 'servicos/', sobre: 'sobre/' };
   const href = h => `${raiz}${h}`;
   const aqui = h => GRUPO[ativo] === h ? ` class="aqui" aria-current="${ativo === 'modelos' ? 'true' : 'page'}"` : '';

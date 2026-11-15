@@ -1,0 +1,156 @@
+{
+  "id": "impactos-da-mudanca",
+  "nome": "Impactos da mudança",
+  "olho": "Impactos",
+  "frase": "Para validar o que muda, para quem e com que intensidade: grupos impactados, mapa de calor por dimensão, de–para por grupo, impactos de grau alto e plano de tratamento.",
+  "para": "gestores e comitê",
+  "duracao": "30 min",
+  "slides": [
+    {
+      "tipo": "capa",
+      "olho": "Impactos",
+      "titulo": ["Impactos da mudança", "do {projeto}"],
+      "sub": "O que muda, para quem, com que intensidade e como vamos tratar.",
+      "notas": "O objetivo desta reunião é validar o mapa com os gestores e fechar as decisões que ele pede.\nPreencha o nome do projeto, a área e a data em Personalizar."
+    },
+    {
+      "tipo": "mensagem",
+      "olho": "Princípio",
+      "frase": "Antes de comunicar e treinar, é preciso saber *o que muda para quem.*",
+      "apoio": "O mapa de impactos orienta todo o resto: a mensagem de cada público, o treino de cada papel e o apoio no go-live.",
+      "itens": [
+        { "t": "O que muda?", "d": "Processos, sistemas, papéis, competências e indicadores." },
+        { "t": "Para quem?", "d": "Os grupos impactados, quantas pessoas e onde estão." },
+        { "t": "Com que intensidade?", "d": "Grau alto, médio ou baixo, para priorizar o cuidado." }
+      ],
+      "notas": "Sem o mapa, todo mundo recebe a mesma mensagem e o mesmo treino: sobra para uns e falta para outros."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Como levantamos",
+      "titulo": "O mapa nasce de três fontes e é validado com os gestores",
+      "itens": [
+        { "n": "01", "t": "Desenho da solução", "d": "Comparação do processo atual com o futuro, etapa por etapa." },
+        { "n": "02", "t": "Oficinas com as áreas", "d": "Os usuários-chave contam o que muda no dia a dia de cada grupo." },
+        { "n": "03", "t": "Validação dos gestores", "d": "Cada gestor confirma os impactos e o grau da sua equipe.", "dest": true }
+      ],
+      "notas": "Diga quantas oficinas foram feitas e quem participou: isso dá lastro ao mapa.\nA validação é o passo de hoje."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Quem é impactado",
+      "titulo": "Seis grupos sentem a mudança, com intensidades diferentes",
+      "colunas": ["Grupo", "Pessoas", "Onde", "O que mais muda", "Grau"],
+      "larguras": [20, 12, 20, 34, 14],
+      "linhas": [
+        ["Operações", "[120]", "[Unidades]", "Processo e sistema do dia a dia", "@3 Alto"],
+        ["Atendimento", "[45]", "[Central]", "Roteiro e registro dos chamados", "@3 Alto"],
+        ["Financeiro", "[18]", "[Matriz]", "Conferências e fechamento", "@2 Médio"],
+        ["Comercial", "[30]", "[Regionais]", "Consulta de informações", "@2 Médio"],
+        ["Gestores", "[22]", "[Todas as áreas]", "Indicadores e ritos de gestão", "@2 Médio"],
+        ["Tecnologia", "[12]", "[Matriz]", "Suporte e integrações", "@1 Baixo"]
+      ],
+      "nota": "Exemplo ilustrativo: troque pelos grupos e números do seu projeto.",
+      "notas": "Confirme com cada gestor o número de pessoas e o grau.\nGrupo é quem vive a mesma mudança, e nem sempre coincide com o organograma."
+    },
+    {
+      "tipo": "matriz",
+      "olho": "Mapa de calor",
+      "titulo": "Operações e Atendimento concentram os impactos de grau alto",
+      "colunas": ["Processos", "Sistemas", "Papéis", "Competências", "Indicadores"],
+      "linhas": [
+        { "nome": "Operações", "sub": "[120 pessoas]", "graus": [3, 3, 2, 3, 2] },
+        { "nome": "Atendimento", "sub": "[45 pessoas]", "graus": [3, 2, 2, 3, 1] },
+        { "nome": "Financeiro", "sub": "[18 pessoas]", "graus": [2, 2, 1, 2, 2] },
+        { "nome": "Comercial", "sub": "[30 pessoas]", "graus": [1, 2, 1, 2, 1] },
+        { "nome": "Gestores", "sub": "[22 pessoas]", "graus": [1, 2, 2, 1, 2] },
+        { "nome": "Tecnologia", "sub": "[12 pessoas]", "graus": [1, 1, 1, 1, 0] }
+      ],
+      "notas": "Leia por linha (quem sente mais) e por coluna (o que mais muda).\nEm “Editar texto”, clique em uma célula para mudar o grau; o grau geral da linha acompanha."
+    },
+    {
+      "tipo": "depara",
+      "olho": "Para um grupo",
+      "titulo": "O que muda para [Operações], do jeito que a equipe vai sentir",
+      "cab": ["Hoje", "Depois"],
+      "linhas": [
+        ["Processo", "[Registro em planilha, no fim do turno.]", "[Registro no sistema, na hora da atividade.]"],
+        ["Sistema", "[Três telas e conferência manual.]", "[Uma tela, com validação automática.]"],
+        ["Papéis", "[O supervisor confere tudo.]", "[Cada pessoa responde pelo próprio registro.]"],
+        ["Competências", "[Conhecer a planilha da área.]", "[Usar o sistema e ler os indicadores.]"]
+      ],
+      "nota": "Faça um slide como este para cada grupo de grau alto: duplique o arquivo baixado ou edite este para cada reunião.",
+      "notas": "Use as palavras da equipe, não as do projeto.\nEste é o slide que o gestor pode levar para a conversa com o time."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Impactos de grau alto",
+      "titulo": "Cada impacto alto tem uma resposta e um dono",
+      "colunas": ["Impacto", "Grupo", "Risco se não tratar", "Resposta", "Dono"],
+      "larguras": [26, 13, 23, 27, 11],
+      "linhas": [
+        ["Registro passa a ser em tempo real", "Operações", "Dados incompletos e retrabalho", "Treino prático e apoio no posto", "[Nome]"],
+        ["Uma tela substitui três, com validação", "Operações", "Erros e lentidão no início", "Ambiente de treino e guia rápido", "[Nome]"],
+        ["Ler os indicadores e agir sobre eles", "Operações", "Painel ignorado na rotina", "Oficina prática com dados da área", "[Nome]"],
+        ["Roteiro de atendimento muda", "Atendimento", "Fila maior nas primeiras semanas", "Simulações e reforço de equipe", "[Nome]"],
+        ["Registro completo de cada chamado", "Atendimento", "Histórico falho para o cliente", "Guia rápido e monitoria no início", "[Nome]"]
+      ],
+      "notas": "Para cada linha, pergunte: a resposta é suficiente? O dono está confortável com o prazo?\nImpacto alto sem dono vira problema de go-live."
+    },
+    {
+      "tipo": "cartoes",
+      "numeros": true,
+      "etapas": false,
+      "olho": "Panorama",
+      "titulo": "O tamanho da mudança, em três números",
+      "itens": [
+        { "v": "29", "t": "impactos mapeados", "d": "Em cinco dimensões: processos, sistemas, papéis, competências e indicadores." },
+        { "v": "5", "t": "de grau alto", "d": "Pedem plano dedicado, com resposta e dono definidos." },
+        { "v": "247", "t": "pessoas em seis grupos", "d": "Quase metade está em Operações, o grupo de maior impacto." }
+      ],
+      "nota": "Exemplo ilustrativo: troque os números e as frases pelos do seu mapa.",
+      "notas": "Três números bastam para o comitê entender o porte da mudança. No exemplo, cada célula preenchida do mapa de calor conta como um impacto.\nSe o número de impactos altos crescer, o plano e o prazo precisam ser revistos."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Como tratamos",
+      "titulo": "Cada tipo de impacto pede um tipo de resposta",
+      "itens": [
+        { "icone": "conversa", "t": "Comunicar", "d": "Quando a pessoa precisa entender o que muda e por quê." },
+        { "icone": "camadas", "t": "Capacitar", "d": "Quando muda a forma de fazer e é preciso praticar." },
+        { "icone": "rota", "t": "Ajustar", "d": "Quando o papel, a meta ou o processo pedem uma decisão." },
+        { "icone": "pulso", "t": "Apoiar", "d": "Quando o início do uso pede gente por perto." }
+      ],
+      "notas": "Treinamento não resolve impacto de papel ou de meta: isso pede decisão da liderança.\nMarque no mapa qual resposta cada impacto recebe."
+    },
+    {
+      "tipo": "linha",
+      "olho": "Plano de tratamento",
+      "titulo": "O tratamento dos impactos acompanha as fases do projeto",
+      "fases": [
+        { "per": "Antes", "nome": "Preparar", "itens": ["Validar o mapa com os gestores", "Decidir ajustes de papéis", "Comunicar o que muda"] },
+        { "per": "Preparação", "nome": "Capacitar", "itens": ["Treinos por papel", "Simulações do dia a dia", "Guias rápidos"] },
+        { "per": "Go-live", "nome": "Apoiar", "itens": ["Apoio no posto", "Plantão de dúvidas", "Acompanhar os sinais"], "marco": "Go-live", "dest": true },
+        { "per": "Depois", "nome": "Confirmar", "itens": ["Medir a adoção por grupo", "Tratar o que ficou", "Atualizar o mapa"] }
+      ],
+      "notas": "O mapa é vivo: novos impactos aparecem nos testes e no início do uso.\nCombine quem atualiza o mapa e com que frequência."
+    },
+    {
+      "tipo": "lista",
+      "olho": "Decisões",
+      "titulo": "Três decisões destravam o plano de impactos",
+      "itens": [
+        { "t": "Aprovar o novo papel do supervisor", "d": "Sem a decisão, a conferência paralela continua.", "quem": "[Diretoria]", "quando": "[data]" },
+        { "t": "Liberar as equipes para os treinos práticos", "d": "São [x] horas por pessoa antes do go-live.", "quem": "[Gestores]", "quando": "[data]" },
+        { "t": "Reforçar o atendimento nas duas primeiras semanas", "d": "Evita fila e desgaste com o cliente.", "quem": "[Operações]", "quando": "[data]" }
+      ],
+      "notas": "Leve as decisões prontas para aprovar, com a consequência de não decidir.\nRegistre quem decidiu e a data."
+    },
+    {
+      "tipo": "fecho",
+      "frase": ["Quem sabe o que muda para si", "*muda com mais segurança*."],
+      "apoio": "O que pedimos hoje: [a validação do mapa e as três decisões].",
+      "notas": "Termine confirmando, em voz alta, o que ficou validado e o que ainda depende de alguém."
+    }
+  ]
+}

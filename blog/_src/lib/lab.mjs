@@ -88,7 +88,7 @@ const tituloCapa = (linhas, k) => {
   }).join('')}</span>`).join('');
 };
 let nCapas = 0;
-const capaDeck = m => { const c = m.capa_txt || { olho: 'Apresentação', titulo: [[{ t: m.nome, i: false }]] };
+export const capaDeck = m => { const c = m.capa_txt || { olho: 'Apresentação', titulo: [[{ t: m.nome, i: false }]] };
   return `<span class="capa-viva capa-viva--ppt${m.capa_txt ? '' : ' capa-viva--solta'}" data-inclina aria-hidden="true"><span class="cl-fundo"><i class="cl-orbe"></i><i class="cl-orbe"></i><i class="cl-orbe"></i></span><span class="cl-mar"></span>${BERG}<span class="cl-txt"><small>${esc(c.olho || 'Apresentação')}</small><b>${tituloCapa(c.titulo, nCapas++)}</b><i>${esc(m.fatos || m.formato || '')}</i></span></span>`; };
 const MOTIVO = {
   barras: () => `<path class="m-e" d="M18 138h164"/>${[34, 56, 80, 104, 126].map((h, i) => `<rect class="m-b" style="--i:${i}" x="${26 + i * 31}" y="${138 - h}" width="21" height="${h}" rx="3"/>`).join('')}`,
@@ -116,7 +116,7 @@ const outras = (raiz, atual) => `<section class="sec sec--rel"><div class="sec-i
   <div class="lab-lista lab-lista--3">${FERRAMENTAS.filter(f => f.id !== atual).map(f => `<a class="lab-item" href="${raiz}lab/${f.slug}/"><span class="lab-item-arte">${PREVIAS[f.id]()}</span><span class="lab-item-txt"><small>${esc(f.olho)}</small><b>${esc(f.nome)}</b></span>${icone('seta')}</a>`).join('')}</div></div></section>`;
 const pg = (cfg, f, corpo, scripts = ['assets/js/lab.js']) => pagina({ cfg, raiz: '../../', titulo: f.nome, descricao: f.frase, corpo, caminho: `lab/${f.slug}/`, imagem: `assets/img/og/lab-${f.id}.jpg`, classe: 'pg-lab', scripts, ativo: 'lab' });
 
-export function labInicio({ cfg, nPerguntas, regua: rg, modelos = [] }) {
+export function labInicio({ cfg, nPerguntas, regua: rg, modelos = [], decks = [] }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
   <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Laboratório</span></nav>
@@ -125,6 +125,13 @@ export function labInicio({ cfg, nPerguntas, regua: rg, modelos = [] }) {
   <div class="lab-cartoes">${FERRAMENTAS.map((f, i) => `<a class="lab-cartao revela" style="--i:${i}" href="${f.slug}/"><span class="lab-cartao-arte">${PREVIAS[f.id](['a', 'b', 'c', 'b'][i])}</span><span class="lab-cartao-txt"><small>${esc(f.olho)}${f.id === 'diagnostico' && nPerguntas ? ' · ' + nPerguntas + ' perguntas' : ''}</small><b>${esc(f.nome)}</b><em>${esc(f.frase)}</em><span class="link-seta">${esc(f.acao)}${icone('seta')}</span></span></a>`).join('')}</div>
 </div></section>
 ${rg ? `<section class="sec sec--regua" aria-label="Régua de adoção"><div class="sec-in">${regua(rg, raiz)}</div></section>` : ''}
+${decks.length ? `<section class="sec sec--modelos-lab sec--decks-lab" id="apresentacoes" aria-labelledby="apresentacoes-t"><div class="sec-in">
+  ${titSecao('apresentacoes', 'Apresentações em HTML', 'Slides para abrir, adaptar e apresentar no navegador', 'Funcionam como um PowerPoint, sem instalar nada: tela cheia, texto editável na tela, PDF e arquivo único para levar.', `<a class="link-seta" href="${raiz}apresentacoes/">Ver as ${decks.length} apresentações${icone('seta')}</a>`)}
+  <div class="galeria galeria--modelos revela" data-galeria>
+    <ol class="galeria-trilho" data-cursor="Arraste" tabindex="0" aria-label="Apresentações em HTML">${decks.map(d => `<li class="galeria-item"><a class="modelo-c holo" href="${raiz}apresentacoes/${esc(d.id)}/"><span class="modelo-c-arte">${d.capa}</span><small>${esc(d.olho)} · HTML</small><b>${esc(d.nome)}</b><span>${esc(d.frase)}</span><em>Abrir apresentação${icone('seta')}</em></a></li>`).join('')}</ol>
+    ${navGaleria('Apresentações em HTML')}
+  </div>
+</div></section>` : ''}
 ${modelos.length ? `<section class="sec sec--modelos-lab" id="modelos" aria-labelledby="modelos-t"><div class="sec-in">
   ${titSecao('modelos', 'Modelos para baixar', 'Slides e planilhas prontos para o projeto', 'Apresentações em PowerPoint e planilhas em Excel com os cálculos, o painel e as instruções de uso.', `<a class="link-seta" href="${raiz}modelos/">Ver os ${modelos.length} modelos${icone('seta')}</a>`)}
   <div class="galeria galeria--modelos revela" data-galeria>
@@ -208,7 +215,7 @@ export function paginaModelos({ cfg, modelos }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
   <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>Modelos</span></nav>
-  <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Apresentações em PowerPoint e planilhas em Excel com os cálculos, o painel e as instruções de uso. Veja a prévia de cada arquivo antes de baixar; para baixar, informe nome e e-mail uma única vez.</p></div></header>
+  <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Apresentações em PowerPoint e planilhas em Excel com os cálculos, o painel e as instruções de uso. Veja a prévia de cada arquivo antes de baixar; para baixar, informe nome e e-mail uma única vez.</p><p class="lab-atalho"><a class="link-seta" href="${raiz}apresentacoes/">Prefere apresentar pelo navegador? Veja as apresentações em HTML${icone('seta')}</a></p></div></header>
 <section class="sec sec--lab-pg"><div class="sec-in" data-modelos>
   <div class="mod-grade">${modelos.map((m, i) => `<article class="mod revela" style="--i:${i % 3}" id="${esc(m.id)}">${(m.previas || []).length ? `<button type="button" class="mod-arte mod-arte--previa so-js-botao" data-previa="${esc(m.id)}" aria-label="Ver a prévia de ${esc(m.nome)}">${capaViva(m)}<span class="mod-lupa">${icone('lupa')}Ver prévia</span></button>` : `<div class="mod-arte">${capaViva(m)}</div>`}<div class="mod-txt"><small>${esc(m.olho)} · ${esc(m.formato || 'Excel')}</small><h2>${esc(m.nome)}</h2><p>${esc(m.frase)}</p>${m.fatos ? `<p class="mod-fatos">${esc(m.fatos)}</p>` : ''}<div class="mod-acoes"><button type="button" class="btn btn--p btn--peq" data-baixar="${esc(m.id)}" data-arquivo="${esc(m.arquivo)}" data-nome="${esc(m.nome)}">${icone('setaBaixo')}<span>Baixar modelo</span></button></div></div></article>`).join('')}</div>
   <p class="lab-nota">${icone('escudo')}Seu nome e e-mail são usados só para registrar o download. Não são repassados a terceiros.</p>

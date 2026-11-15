@@ -12,7 +12,8 @@ Quatro destinos no topo: **Radar**, **Laboratório**, **Serviços** e **Sobre**.
 |---|---|
 | Início (`index.html`) | Abertura "Gestão da mudança, além do raso" com o iceberg interativo; três caminhos (ler, praticar, aplicar); capa da semana com a régua de adoção; galeria com os destaques do radar; ferramentas do Laboratório; convite para os Serviços; quem escreve. |
 | Radar (`radar/`) | Todas as reportagens (filtro por tema, busca, grade ou lista), guias de campo, IA em números (cada número leva à reportagem) e agenda e vídeos. |
-| Laboratório (`lab/`) | Diagnóstico de nível, três ferramentas para montar no navegador e a galeria de modelos para baixar (`modelos/`). |
+| Laboratório (`lab/`) | Diagnóstico de nível, três ferramentas para montar no navegador, a galeria de apresentações em HTML (`apresentacoes/`) e a galeria de modelos para baixar (`modelos/`). |
+| Apresentações (`apresentacoes/`) | Cinco apresentações de gestão da mudança em HTML, que rodam no navegador como um PowerPoint: visão do programa, comunicação, cultura e engajamento, impactos e kickoff com plano de treinamento. Cada uma é uma página autônoma (`apresentacoes/<id>/`). |
 | Serviços (`servicos/`) | Change Management Advisory e IA aplicada: duas frentes, "Quem conduz" (apresentação do autor, com a foto), cinco serviços com ficha completa (para quem, o que inclui, como funciona, acompanhamento, entregas, formato), sintomas e respostas, fluxo do trabalho, acompanhamento antes, durante e depois, jornada de IA aplicada, gráfico de adoção e contato. |
 | Sobre (`sobre/`) | Bio, cartão de contato (WhatsApp, LinkedIn e "Salvar contato" em .vcf), quatro pilares e a pilha de livros: cada livro abre uma página de contexto com o resumo em três ideias e a leitura do autor. |
 
@@ -51,6 +52,23 @@ Fica em `lab/` e tem cinco páginas. Tudo roda no navegador de quem acessa; nada
 - Textos do relatório (níveis, o que estudar, leituras do blog): `blog/_src/content/diagnostico-relatorio.json`.
 - Modelos em Excel: `python3 blog/_src/modelos_xlsx.py` gera os três arquivos de novo.
 - Lógica das ferramentas: `blog/assets/js/lab.js`. Páginas: `blog/_src/lib/lab.mjs`.
+
+## Apresentações em HTML
+
+Slides que as pessoas usam direto no navegador, sem instalar nada. Cada apresentação é uma página autônoma: o motor (`assets/css/deck.css` e `assets/js/deck.js`) vai embutido no HTML na geração, então a página pode ser salva ou baixada como um arquivo único.
+
+- Conteúdo: um arquivo por apresentação em `_src/content/apresentacoes/<id>.json` (nome, olho, frase, para quem, duração e a lista de slides). A ordem fica em `DECKS`, no `build.mjs`.
+- Tipos de slide (`_src/lib/apresenta.mjs`): `capa`, `secao`, `mensagem`, `cartoes` (com ícone, número ou valor em destaque), `depara`, `tabela` (uma célula `@2 Em curso` vira etiqueta de situação), `linha` (linha do tempo), `agenda`, `matriz` (mapa de calor), `barras`, `escada`, `lista` e `fecho`. Todo slide aceita `notas` (para quem apresenta) e `"etapas": false` desliga a revelação por clique.
+- No texto, `*ênfase*` vira itálico e `{projeto}`, `{area}`, `{data}` e `{quem}` viram campos: a pessoa preenche uma vez em "Personalizar" e vale para todos os slides (`{Projeto}`, com maiúscula, começa o texto de espera em maiúscula).
+- Escala: o slide é uma caixa 16:9 e tudo dentro dele é medido em `em`; o tamanho base é 1,45% da largura do slide (`1.45cqw`). Por isso o mesmo slide serve em tela cheia, na grade de miniaturas e na impressão, sem JavaScript para escalar.
+- Modos: apresentar (um slide por vez, com etapas), leitura (todos em coluna; até 1000 px de largura o slide deixa de ser 16:9 e o conteúdo reflui, para ler no celular) e grade (miniaturas). Telas largas abrem apresentando; estreitas, em leitura. `?modo=leitura` força a leitura.
+- O que a pessoa faz na tela: editar qualquer texto (fica salvo no navegador dela, por apresentação e por versão do conteúdo), mudar o início e as durações da agenda (os horários se recalculam), clicar nas células do mapa de calor para mudar o grau, trocar os números das barras (largura e situação acompanham), marcar o item da agenda em andamento (num intervalo, o cronômetro começa), ver as notas, salvar em PDF (uma página por slide) e baixar uma cópia autônoma com as fontes embutidas, que abre sem internet.
+- Atalhos: setas, espaço, Home e End; `F` tela cheia, `G` grade, `N` notas, `E` editar, `P` personalizar, `T` cronômetro, `L` leitura, `A` apresentar, `?` lista de atalhos.
+- Sem JavaScript, a página mostra todos os slides abertos, em coluna. Com "reduzir movimento", nada se anima.
+- Capas e divisórias usam o mesmo iceberg e a mesma luz de fundo dos arquivos em PowerPoint.
+- Imagens de compartilhamento: `node blog/_src/og.mjs apresentacoes apresentacao-<id>`.
+
+Para criar uma apresentação nova: copie um dos arquivos de `_src/content/apresentacoes/`, mude `id`, textos e slides, acrescente o `id` em `DECKS` e rode o build. Mantenha os títulos em até duas linhas e confira se nenhum slide passa do rodapé.
 
 ## Modelos para baixar e painel de downloads
 

@@ -1,0 +1,176 @@
+{
+  "id": "kickoff-e-treinamento",
+  "nome": "Kickoff e plano de treinamento",
+  "olho": "Kickoff e treinamento",
+  "frase": "Para abrir o projeto com as equipes: agenda do encontro com horários, o porquê, o que muda, a jornada até o go-live, quem é quem, trilhas e calendário de treinamento e próximos passos.",
+  "para": "equipes impactadas e gestores",
+  "duracao": "2 h de encontro",
+  "slides": [
+    {
+      "tipo": "capa",
+      "olho": "Kickoff",
+      "titulo": ["Kickoff", "do {projeto}"],
+      "sub": "O que muda, a jornada até o go-live e como cada pessoa vai se preparar.",
+      "notas": "Deixe este slide na tela enquanto as pessoas chegam.\nAntes do encontro, preencha o nome do projeto, a área e a data em Personalizar e ajuste a agenda no modo de edição."
+    },
+    {
+      "tipo": "agenda",
+      "olho": "Agenda",
+      "titulo": "O nosso encontro de hoje",
+      "inicio": "09:00",
+      "itens": [
+        { "min": 10, "t": "Boas-vindas e objetivos do encontro", "quem": "[Patrocinador]" },
+        { "min": 15, "t": "Por que estamos mudando", "quem": "[Patrocinador]" },
+        { "min": 20, "t": "O que muda no dia a dia", "quem": "[Líder do projeto]" },
+        { "min": 15, "t": "A jornada até o go-live", "quem": "[Líder do projeto]" },
+        { "min": 10, "t": "Intervalo", "pausa": true },
+        { "min": 20, "t": "Plano de treinamento", "quem": "[Capacitação]" },
+        { "min": 10, "t": "Quem é quem e rede de apoio", "quem": "[Gestão da mudança]" },
+        { "min": 15, "t": "Perguntas e respostas", "quem": "Todos" },
+        { "min": 5, "t": "Combinados e próximos passos", "quem": "[Líder do projeto]" }
+      ],
+      "nota": "Na apresentação, clique em um item para marcar onde estamos; no intervalo, o cronômetro começa sozinho. Em “Editar texto”, mude o início ou os minutos e os horários se recalculam.",
+      "notas": "Combine o horário de término logo no começo e cumpra.\nVolte a este slide depois do intervalo para mostrar o que falta."
+    },
+    {
+      "tipo": "mensagem",
+      "olho": "Por que estamos aqui",
+      "frase": "Estamos mudando para *[o resultado que buscamos]*, e isso depende de cada pessoa nesta sala.",
+      "apoio": "[O motivo do negócio, na voz do patrocinador: o que acontece se nada mudar e o que ganhamos ao mudar.]",
+      "notas": "Este slide é do patrocinador. Peça que ele fale com as próprias palavras, sem ler.\nUm exemplo real do problema de hoje vale mais do que um número."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "O que muda",
+      "titulo": "Três coisas mudam no nosso dia a dia, e uma continua igual",
+      "itens": [
+        { "n": "01", "t": "[O processo]", "d": "[O que passa a ser feito de outro jeito, em uma frase simples.]" },
+        { "n": "02", "t": "[A ferramenta]", "d": "[O sistema ou a ferramenta que entra e o que ela substitui.]" },
+        { "n": "03", "t": "[O jeito de decidir]", "d": "[Quem decide o quê e com que informação.]" },
+        { "t": "O que não muda", "d": "[O que continua igual e merece ser dito: a equipe, os valores, o compromisso com o cliente.]", "dest": true }
+      ],
+      "notas": "Fale do que muda para quem está na sala, não do projeto.\nDizer o que não muda acalma e dá chão para a conversa."
+    },
+    {
+      "tipo": "linha",
+      "olho": "A jornada",
+      "titulo": "Do kickoff ao uso de rotina, em quatro marcos",
+      "fases": [
+        { "per": "[Hoje]", "nome": "Kickoff", "itens": ["Entender o porquê", "Conhecer a jornada", "Saber o meu papel"] },
+        { "per": "[Mês 1 e 2]", "nome": "Treinamento", "itens": ["Trilha por papel", "Prática no ambiente de treino", "Avaliação de aprendizagem"] },
+        { "per": "[Data]", "nome": "Go-live", "itens": ["Apoio no posto", "Plantão de dúvidas", "Boletim diário"], "marco": "Início do uso", "dest": true },
+        { "per": "[Mês 3 e 4]", "nome": "Rotina", "itens": ["Reforço para quem precisa", "Medição da adoção", "Melhorias sugeridas"] }
+      ],
+      "notas": "Ajuste os períodos ao cronograma.\nMostre que o apoio não termina no go-live: há uma fase inteira depois dele."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Quem é quem",
+      "titulo": "A rede de apoio: a quem recorrer em cada situação",
+      "colunas": ["Papel", "Quem é", "Procure quando"],
+      "larguras": [24, 28, 48],
+      "linhas": [
+        ["Patrocinador", "[Nome]", "Precisar de uma decisão ou de prioridade"],
+        ["Líder do projeto", "[Nome]", "Tiver dúvida sobre datas e escopo"],
+        ["Usuários-chave", "[Nomes por área]", "Quiser entender o processo novo"],
+        ["Multiplicadores", "[Nomes por turma]", "Precisar de ajuda para praticar"],
+        ["Gestor direto", "[O seu gestor]", "Quiser combinar a rotina da equipe"]
+      ],
+      "notas": "Apresente as pessoas que estiverem na sala; rosto conhecido encurta o caminho da dúvida.\nDeixe os contatos no material enviado depois do encontro."
+    },
+    {
+      "tipo": "secao",
+      "olho": "Segunda parte",
+      "n": "02",
+      "titulo": ["Plano de", "treinamento"],
+      "apoio": "Quem treina o quê, quando, em que formato e como vamos acompanhar.",
+      "notas": "Depois do intervalo, retome por aqui."
+    },
+    {
+      "tipo": "escada",
+      "olho": "Como vamos aprender",
+      "titulo": "O aprendizado vai do conhecer ao dominar, com prática em cada passo",
+      "degraus": [
+        { "n": "01", "t": "Conhecer", "d": "Vídeos curtos e visão geral do processo." },
+        { "n": "02", "t": "Praticar", "d": "Exercícios guiados no ambiente de treino." },
+        { "n": "03", "t": "Aplicar", "d": "Casos reais da área, com apoio do multiplicador." },
+        { "n": "04", "t": "Dominar", "d": "Uso no dia a dia e ajuda aos colegas." }
+      ],
+      "notas": "Ninguém aprende um processo novo só assistindo: reforce que a prática faz parte do treinamento.\nExplique onde fica o ambiente de treino e como acessar."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Trilhas",
+      "titulo": "Cada público tem uma trilha, do tamanho do que muda para ele",
+      "colunas": ["Trilha", "Para quem", "Conteúdo", "Carga", "Formato"],
+      "larguras": [18, 20, 34, 10, 18],
+      "linhas": [
+        ["Visão geral", "Todos", "O porquê, o que muda e a jornada", "1 h", "Ao vivo"],
+        ["Operação", "Usuários diretos", "Processo novo e uso do sistema", "8 h", "Sala e prática"],
+        ["Gestão", "Gestores", "Indicadores e condução da equipe", "4 h", "Oficina"],
+        ["Multiplicadores", "Usuários-chave", "Conteúdo completo e como ensinar", "16 h", "Sala e prática"],
+        ["Suporte", "Tecnologia", "Atendimento e solução de dúvidas", "6 h", "Oficina"]
+      ],
+      "nota": "Exemplo ilustrativo: ajuste as trilhas e as cargas ao seu projeto.",
+      "notas": "Cada pessoa precisa sair sabendo qual é a sua trilha.\nA carga vem do mapa de impactos: quem muda mais, treina mais."
+    },
+    {
+      "tipo": "tabela",
+      "olho": "Calendário",
+      "titulo": "As turmas acontecem em [três] semanas, antes do go-live",
+      "colunas": ["Turma", "Data", "Horário", "Local ou link", "Instrutor", "Vagas"],
+      "larguras": [26, 11, 19, 18, 15, 11],
+      "linhas": [
+        ["Visão geral · turma 1", "[dd/mm]", "09:00 às 10:00", "[Auditório]", "[Nome]", "[60]"],
+        ["Operação · turma A", "[dd/mm]", "08:00 às 12:00", "[Sala 1]", "[Nome]", "[20]"],
+        ["Operação · turma B", "[dd/mm]", "13:00 às 17:00", "[Sala 1]", "[Nome]", "[20]"],
+        ["Gestão", "[dd/mm]", "14:00 às 18:00", "[Sala 2]", "[Nome]", "[15]"],
+        ["Multiplicadores", "[dd/mm]", "08:00 às 17:00", "[Sala 2]", "[Nome]", "[12]"]
+      ],
+      "notas": "Envie o calendário por e-mail no mesmo dia, com o convite de agenda.\nCombine com os gestores a liberação das equipes antes de divulgar."
+    },
+    {
+      "tipo": "cartoes",
+      "olho": "Combinados",
+      "titulo": "Três combinados fazem o treinamento valer",
+      "itens": [
+        { "icone": "relogio", "t": "Presença", "d": "A agenda de treino tem prioridade: o gestor libera e a pessoa comparece." },
+        { "icone": "frasco", "t": "Prática", "d": "Ninguém sai sem fazer o exercício no ambiente de treino." },
+        { "icone": "conversa", "t": "Dúvidas", "d": "Pergunta feita é pergunta respondida: no encontro ou em até [2] dias." }
+      ],
+      "notas": "Peça o compromisso dos gestores na frente das equipes.\nDiga onde as dúvidas devem ser enviadas e quem responde."
+    },
+    {
+      "tipo": "barras",
+      "olho": "Acompanhamento",
+      "titulo": "Acompanhamos da inscrição ao uso",
+      "itens": [
+        { "rot": "Inscritos nas turmas", "v": 88, "meta": 100 },
+        { "rot": "Presença", "v": 93, "meta": 95 },
+        { "rot": "Aproveitamento na avaliação", "v": 83, "meta": 80 },
+        { "rot": "Uso depois do treino", "v": 64, "meta": 85 }
+      ],
+      "nota": "Exemplo ilustrativo. Em “Editar texto”, troque os números pelos do seu projeto: as barras e as cores acompanham.",
+      "notas": "Treinamento concluído não é o fim: o último indicador mostra se o que foi aprendido virou uso.\nMostre este painel aos gestores toda semana durante as turmas."
+    },
+    {
+      "tipo": "lista",
+      "olho": "Próximos passos",
+      "titulo": "O que cada pessoa faz nesta semana",
+      "itens": [
+        { "t": "Conferir a minha turma e bloquear a agenda", "quem": "Todos", "quando": "[data]" },
+        { "t": "Assistir ao vídeo de visão geral", "quem": "Todos", "quando": "[data]" },
+        { "t": "Liberar a equipe nas datas de treino", "quem": "Gestores", "quando": "[data]" },
+        { "t": "Enviar as dúvidas pelo canal do projeto", "quem": "Todos", "quando": "Sempre" }
+      ],
+      "notas": "Termine com ações simples, que cada pessoa consegue fazer ainda hoje."
+    },
+    {
+      "tipo": "fecho",
+      "olho": "Perguntas",
+      "frase": ["Ninguém precisa", "aprender *sozinho*."],
+      "apoio": "Dúvidas: [canal do projeto] · [e-mail ou ramal].",
+      "notas": "Abra para perguntas e anote as que ficarem sem resposta: elas entram na lista de perguntas e respostas do projeto."
+    }
+  ]
+}

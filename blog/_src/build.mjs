@@ -9,6 +9,7 @@ import { marca } from './lib/ilustra.mjs';
 import { inicio, post, mes, naoAchou, paginaRadar, TEMAS } from './lib/modelos.mjs';
 import { paginaServicos, blocoServicos } from './lib/servicos.mjs';
 import { paginaSobre, blocoSobre } from './lib/sobre.mjs';
+import { deckHTML, paginaApresentacoes, capaDoDeck } from './lib/apresenta.mjs';
 import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, PREVIAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
 
 const SRC = dirname(fileURLToPath(import.meta.url)), SAIDA = join(SRC, '..'), CONT = join(SRC, 'content');
@@ -32,13 +33,15 @@ export function carrega() {
   return { cfg, posts, eventos: json('eventos.json'), videos: json('videos.json'), perfil: json('perfil.json'), home: json('home.json'), servicos: json('servicos.json'), dominios, relatorio: json('diagnostico-relatorio.json') };
 }
 
+const DECKS = ['gestao-da-mudanca', 'plano-de-comunicacao', 'cultura-e-engajamento', 'impactos-da-mudanca', 'kickoff-e-treinamento'];   // ordem das apresentações em HTML
+
 function gera() {
   const d = carrega(), { cfg, posts } = d;
   d.perfil.temFoto = !!d.perfil.foto && existsSync(join(SAIDA, d.perfil.foto));   // sem o arquivo da foto, o perfil mostra as iniciais
   const capaPost = posts.find(p => p.slug === cfg.edicao.capa);
   if (capaPost) cfg.capaMenu = { slug: capaPost.slug, titulo: capaPost.titulo };
   cfg.mesAtual = posts.map(p => p.data.slice(0, 7)).sort().pop();   // mês mais recente, para o link "Posts do mês"
-  for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel', 'radar', 'servicos', 'sobre', 'consultoria']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
+  for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel', 'radar', 'servicos', 'sobre', 'consultoria', 'apresentacoes']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
   const nPerguntas = d.dominios.reduce((a, x) => a + x.perguntas.length, 0);
   // catálogo dos modelos, com as prévias reais geradas por previas_modelos.py (quando existem)
   const previas = existsSync(join(CONT, 'modelos-previas.json')) ? json('modelos-previas.json') : {};
@@ -49,8 +52,15 @@ function gera() {
   grava('radar/index.html', paginaRadar({ cfg, posts, eventos: d.eventos, videos: d.videos, home: d.home }));
   grava('servicos/index.html', paginaServicos({ cfg, c: d.servicos, perfil: d.perfil }));
   grava('sobre/index.html', paginaSobre({ cfg, perfil: d.perfil, estante, convite }));
+  // apresentações em HTML: cada deck é uma página autônoma, com o motor (deck.css e deck.js) embutido
+  const decks = DECKS.filter(id => existsSync(join(CONT, 'apresentacoes', id + '.json'))).map(id => json(`apresentacoes/${id}.json`));
+  const deckCss = readFileSync(join(SAIDA, 'assets', 'css', 'deck.css'), 'utf8'), deckJs = readFileSync(join(SAIDA, 'assets', 'js', 'deck.js'), 'utf8');
+  if (/<\/script/i.test(deckJs) || /<\/style/i.test(deckCss)) throw new Error('deck.js ou deck.css tem um fechamento de <script> ou <style> no texto: não pode ser embutido');
+  if (decks.length) grava('apresentacoes/index.html', paginaApresentacoes({ cfg, decks }));
+  for (const dk of decks) grava(`apresentacoes/${dk.id}/index.html`, deckHTML({ cfg, d: dk, css: deckCss, js: deckJs }));
+  const decksLab = decks.map(dk => ({ id: dk.id, nome: dk.nome, olho: dk.olho, frase: dk.frase, n: dk.slides.length, duracao: dk.duracao, capa: capaDoDeck(dk) }));
   // Laboratório
-  grava('lab/index.html', labInicio({ cfg, nPerguntas, modelos: mods }));
+  grava('lab/index.html', labInicio({ cfg, nPerguntas, modelos: mods, decks: decksLab }));
   grava('modelos/index.html', paginaModelos({ cfg, modelos: mods }));
   grava('painel/index.html', paginaPainel({ cfg }));
   const dl = cfg.downloads || {};
@@ -73,7 +83,8 @@ function gera() {
     lab: FERRAMENTAS.map(f => ({ t: f.nome, d: curto(f.frase, 110), u: `lab/${f.slug}/` })),
     modelos: mods.map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
     servicos: d.servicos.servicos.map(x => ({ t: x.nome, d: curto(x.frase, 110), u: `servicos/#servico-${x.id}` })),
-    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Quem conduz: Victor Vitorino', 'servicos/#quem'], ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
+    decks: decks.map(dk => ({ t: dk.nome, d: curto(dk.frase, 110), u: `apresentacoes/${dk.id}/` })),
+    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Apresentações em HTML', 'apresentacoes/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Quem conduz: Victor Vitorino', 'servicos/#quem'], ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
   };
   grava('assets/js/dados.js', `// Gerado por blog/_src/build.mjs. Não edite à mão.\nwindow.CMW_DADOS = ${JSON.stringify(dados)};\n`);
   const porMes = {};
@@ -83,7 +94,7 @@ function gera() {
   grava('assets/img/favicon.svg', marca().replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--azul-p\)/g, '#0A2463').replace(/var\(--azul\)/g, '#2F6FED'));
   if (cfg.url) {
     const base = cfg.url.replace(/\/$/, '');
-    const urls = ['', 'radar/', 'servicos/', 'sobre/', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/'];
+    const urls = ['', 'radar/', 'servicos/', 'sobre/', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/', ...(decks.length ? ['apresentacoes/', ...decks.map(dk => `apresentacoes/${dk.id}/`)] : [])];
     grava('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${base}/${u}</loc></url>`).join('\n')}\n</urlset>\n`);
     grava('robots.txt', `User-agent: *\nAllow: /\nDisallow: /_src/\nDisallow: /painel/\nSitemap: ${base}/sitemap.xml\n`);
   }

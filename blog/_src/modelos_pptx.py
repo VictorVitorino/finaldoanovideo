@@ -36,8 +36,8 @@ def kit(pasta=None):
            fundo=AZP, margem=0.32)
     xg, wg = col(4, 8)
     blocos = [('O que muda', '[Processos, sistemas, papéis e indicadores que mudam.]'), ('Quem é impactado', '[Grupos e número de pessoas.]'),
-              ('Como será o sucesso', '[Adoção, uso e resultado esperados, com data.]'), ('Quem patrocina', '[Patrocinador e coalizão de líderes.]'),
-              ('Como vamos conduzir', '[As frentes de comunicação, capacitação e apoio.]'), ('Principais riscos', '[Os três que mais ameaçam a adoção.]')]
+              ('Sucesso esperado', '[Adoção, uso e resultado esperados, com data.]'), ('Quem patrocina', '[Patrocinador e coalizão de líderes.]'),
+              ('Como conduzir', '[As frentes de comunicação, capacitação e apoio.]'), ('Principais riscos', '[Os três que mais ameaçam a adoção.]')]
     hb = (H_UTIL - 0.3) / 2
     for i, (t, c) in enumerate(blocos):
         x, w = faixas(3, xg, wg)[i % 3]
@@ -49,7 +49,7 @@ def kit(pasta=None):
                 'Se cortar slides do kit, ajuste a lista de cada coluna.')
     partes = [('01', 'O que muda e para quem?', ['Impactos por grupo', 'Mapa de stakeholders', 'Onde a mudança pode travar']),
               ('02', 'Como vamos conduzir?', ['Papéis e responsabilidades', 'Comunicação e capacitação', 'Riscos e respostas']),
-              ('03', 'Como saberemos que deu certo?', ['Adoção por área', 'Status para o comitê', 'Próximos 90 dias'])]
+              ('03', 'Como saber se deu certo?', ['Adoção por área', 'Status para o comitê', 'Próximos 90 dias'])]
     for (x, w), (num, pergunta, itens) in zip(faixas(3, calha=0.45), partes):
         passo_numerado(s, x, Y_TOPO, w, 3.0, num, pergunta, [P(i, cor=CZ, entre=5) for i in itens], tam_num=40)
     painel(s, MARGEM, 5.45, UTIL, 0.92, [R('O que esperamos deste grupo', AZ, entre=3), P('[A decisão, o apoio ou o alinhamento que queremos ao final da apresentação.]', cor=AZP, tam=14)],
@@ -61,7 +61,7 @@ def kit(pasta=None):
 
     # 5 · impactos
     imp = sorted(EX_IMPACTOS, key=lambda r: (-r[5], -r[6]))
-    s = d.slide('Impactos', 'Os impactos mais altos se concentram em [Operações e Suprimentos]',
+    s = d.slide('Impactos', 'Os impactos mais altos estão em [Operações e Suprimentos]',
                 'Resumo dos impactos. Os números do topo e as linhas da tabela vêm da planilha "Lista de impactos com dashboard".\n'
                 'Mostre só os impactos mais altos (grau 4 ou 5) e deixe a lista completa na planilha. Grau: 4 e 5 = alto, 3 = médio, 1 e 2 = baixo.\n'
                 'Para trocar a cor de uma célula de grau, selecione a célula e use Preenchimento: azul profundo para alto, azul vivo para médio, azul suave para baixo.',
@@ -76,7 +76,7 @@ def kit(pasta=None):
     tabela(s, MARGEM, 3.38, [2.2, 3.65, 1.25, 1.05, 0.85, UTIL - 9.0], linhas, 0.53, 0.36, nome='Tabela: impactos mais altos')
 
     # 6 · stakeholders
-    s = d.slide('Stakeholders', 'A prioridade é conquistar quem tem muita influência e ainda não apoia',
+    s = d.slide('Stakeholders', 'A prioridade é conquistar quem influencia e ainda não apoia',
                 'Mapa de influência (vertical) por apoio à mudança (horizontal). Arraste os círculos numerados para a posição de cada stakeholder; '
                 'as notas de 1 a 5 vêm da planilha "Mapa de influência de stakeholders".\n'
                 'Quadrante destacado: muita influência e pouco apoio. É onde a mudança costuma travar e onde o patrocinador precisa entrar.\n'
@@ -103,7 +103,7 @@ def kit(pasta=None):
     pessoas = [por_barreira.get(e, 0) for e in ELEMENTOS]
     avaliadas = sum(g[2] for g in EX_ADKAR)
     pb = pessoas.index(max(pessoas))
-    s = d.slide('Diagnóstico', f'[{pessoas[pb] / avaliadas:.0%}] das pessoas travam em [{ELEMENTOS[pb]}]: é ali que a ação precisa começar',
+    s = d.slide('Diagnóstico', f'[{pessoas[pb] / avaliadas:.0%}] das pessoas travam em [{ELEMENTOS[pb]}]: a ação começa ali',
                 'Leitura ADKAR do projeto: pessoas por ponto de barreira. Os números vêm do painel da planilha "Avaliação ADKAR com mapa de resistência": '
                 'clique no gráfico e use "Editar dados" para trocar os valores.\n'
                 'O ponto de barreira de cada grupo é o primeiro elemento, na ordem do modelo, com nota 3 ou menor. Não é a menor nota: não adianta treinar quem ainda não decidiu participar.\n'
@@ -176,12 +176,12 @@ def kit(pasta=None):
     legenda_exposicao(s, xt, 6.12, (DIR - xt) / 3)
 
     # 12 · divisória
-    d.divisoria('03', 'Como saberemos que deu certo', 'A régua de adoção por área, o status para o comitê e os compromissos dos próximos 90 dias.',
+    d.divisoria('03', 'Como saber se deu certo', 'A régua de adoção por área, o status para o comitê e os compromissos dos próximos 90 dias.',
                 'Divisória da terceira parte. Daqui em diante a conversa é sobre evidência: onde cada área está na régua de adoção, o status para o comitê e os compromissos dos próximos 90 dias.')
 
     # 13 · adoção por área
     fr = [[v / sum(c) for v in c] for _, c in EX_ADOCAO]
-    s = d.slide('Adoção', 'A adoção ainda trava em [Operações], a área com mais gente e o menor índice',
+    s = d.slide('Adoção', 'A adoção ainda trava em [Operações], a maior área',
                 'Régua de adoção por área. Clique no gráfico e use "Editar dados" para informar a parcela de pessoas de cada área em cada marca (a soma de cada área é 100%). '
                 'Os números vêm da planilha "Mapa de adoção". A última barra é o conjunto das áreas.\n'
                 'Índice de adoção = parcela das pessoas em Adota ou Multiplica. Atualize os valores à direita junto com o gráfico.\n'
@@ -189,7 +189,7 @@ def kit(pasta=None):
     regua_adocao(s, MARGEM, Y_TOPO, UTIL, H_UTIL, [a for a, _ in EX_ADOCAO], fr, pessoas=[sum(c) for _, c in EX_ADOCAO])
 
     # 14 · status
-    s = d.slide('Status para o comitê', 'A adoção está em [27%], [abaixo] do esperado para esta fase',
+    s = d.slide('Status para o comitê', 'A adoção está em [27%], [abaixo] do esperado para a fase',
                 'Slide para o comitê. Mostre uso real, não só atividades entregues.\n'
                 'Em cada cartão: valor atual, meta da fase com o atingimento (valor ÷ meta) e situação. Situação: na meta (100% ou mais), em atenção (85% a 99%) e crítico (abaixo de 85%). '
                 'A etiqueta fica mais escura quanto mais atenção o indicador pede; troque o texto e o preenchimento juntos.\n'
@@ -198,8 +198,9 @@ def kit(pasta=None):
     for (x, w), (nome, v, meta, un) in zip(faixas(4), cartoes):
         sit, at = situacao(v, meta)
         cartao_indicador(s, x, Y_TOPO, w, 1.85, nome, fmt_ind(v, un), fmt_ind(meta, un) + ' nesta fase', sit, None, at)
-    colunas = [('O que avançou', ['[Conquista desde o último comitê]', '[Conquista desde o último comitê]']), ('O que travou', ['[Onde a adoção parou]', '[Causa provável]']),
-               ('Decisões que precisamos', ['[O que o comitê precisa decidir hoje]', '[Quem decide e até quando]'])]
+    colunas = [('O que avançou', ['[Conquista desde o último comitê]', '[Conquista desde o último comitê]', '[O que explica o avanço]']),
+               ('O que travou', ['[Onde a adoção parou]', '[Causa provável]', '[O que já está sendo feito]']),
+               ('Decisões que precisamos', ['[O que o comitê precisa decidir hoje]', '[Quem decide e até quando]', '[O que acontece se a decisão não vier]'])]
     for (x, w), (t, itens) in zip(faixas(3), colunas):
         bloco(s, x, 4.4, w, 2.0, None, t, [P(i, cor=CZ, marcador='–', entre=5) for i in itens], tam_tit=17)
 

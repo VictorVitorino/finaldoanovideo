@@ -55,7 +55,7 @@ def kickoff(pasta=None):
         texto(s, x, Y_TOPO + 3.15, w, 1.1, '[O que isso significa na prática para quem faz o trabalho.]', cor=CZ, tam=14)
 
     # 4 · de e para
-    s = d.slide('De e para', 'Na prática, [quatro] rotinas passam a funcionar de outro jeito',
+    s = d.slide('De e para', 'Na prática, [quatro] rotinas vão funcionar de outro jeito',
                 'Três ou quatro linhas bastam. Use exemplos concretos do trabalho das pessoas: o que elas fazem hoje e o que passam a fazer.\n'
                 'A tabela é nativa: clique para editar; para incluir uma rotina, use Inserir linha abaixo.\n'
                 'Diga também o que não muda. Saber o que continua igual reduz a ansiedade.')
@@ -90,11 +90,12 @@ def kickoff(pasta=None):
         rotulo(s, x, yl - 0.55, lb - 0.2, '[mês]', AZ)
         dn = 0.34 if vira else 0.2
         oval(s, x, yl - dn / 2, dn, AZ if vira else BR, BR if vira else AZP, 1.5, nome=f'Marco {i + 1}')
-        texto(s, x, yl + 0.45, lb - 0.25, 2.6, [H(m, cor=AZ if vira else AZP, entre=12), R('O que acontece', CZ, entre=3), P('[Em uma frase.]', entre=14),
-                                                R('A sua parte', CZ, entre=3), P('[O que esperamos de você.]')])
+        # o nome do marco tem caixa própria, de duas linhas, para os rótulos de baixo ficarem alinhados entre as colunas
+        texto(s, x, yl + 0.45, lb - 0.25, 0.64, [H(m, cor=AZ if vira else AZP, entre=0)])
+        texto(s, x, yl + 1.22, lb - 0.25, 1.7, [R('O que acontece', CZ, entre=3), P('[Em uma frase.]', entre=14), R('A sua parte', CZ, entre=3), P('[O que esperamos de você.]')])
 
     # 7 · rede de apoio
-    s = d.slide('Rede de apoio', 'Você não vai fazer isso sozinho: quatro apoios estão à sua disposição',
+    s = d.slide('Rede de apoio', 'Você não está sozinho: conte com quatro apoios',
                 'Mostre a rede de apoio: quem procurar, onde aprender e como dar retorno.\n'
                 'Troque os textos entre colchetes por nomes, datas e endereços reais. Apoio sem nome e sem canal não é usado.\n'
                 'Combine com os gestores antes: eles são a primeira referência e precisam saber responder.')
@@ -141,7 +142,7 @@ def relatorio(pasta=None):
            meta='[Comitê] · [data da reunião]')
 
     # 2 · síntese
-    s = d.slide('Síntese', 'A adoção chegou a [56%]: avança, mas está [14 pontos] abaixo da meta',
+    s = d.slide('Síntese', 'A adoção chegou a [56%], [14 pontos] abaixo da meta',
                 'Abra com a resposta: estamos no caminho ou não, e por quê. O título é a mensagem principal.\n'
                 'Cartões: valor atual, situação, meta com o atingimento (valor ÷ meta) e variação contra o último comitê. Situação: na meta (100% ou mais), '
                 'em atenção (85% a 99%) e crítico (abaixo de 85%). A etiqueta fica mais escura quanto mais atenção o indicador pede.\n'
@@ -270,7 +271,7 @@ def workshop(pasta=None):
                 'Bloco 1, 15 minutos. Objetivo: todos saem com a mesma leitura do ponto de partida.\n'
                 'Se precisar de mais detalhe, traga dois ou três slides do kit de gestão da mudança: a mudança em uma página, os impactos e a régua de adoção.',
                 olho='Bloco 1 · 15 minutos')
-    s = d.slide('Onde estamos', '[Nome do projeto] muda a rotina de [180] pessoas em [cinco] áreas',
+    s = d.slide('Onde estamos', 'A mudança chega a [180] pessoas em [cinco] áreas',
                 'Três números para situar o grupo, cada um com uma frase de leitura. Troque pelos números do seu projeto '
                 '(pessoas impactadas e impactos altos vêm da planilha "Lista de impactos com dashboard"; o índice de adoção, do "Mapa de adoção").\n'
                 'Peça que cada líder diga, em uma frase, como a mudança aparece na área dele. Não discuta soluções ainda.', dica=EXEMPLO)
@@ -287,14 +288,14 @@ def workshop(pasta=None):
     s = d.slide('O papel', 'Três atitudes que só o patrocinador pode ter',
                 'Apresente cada atitude e peça um exemplo concreto neste projeto. Preencha o painel "Neste projeto" com o que o grupo disser.\n'
                 'Patrocínio não se delega: a equipe do projeto prepara, mas a presença, a coalizão e a mensagem do porquê são de quem lidera.')
-    atitudes = [('Participar de forma ativa e visível', 'Estar presente do começo ao fim, não só no lançamento: abrir reuniões, perguntar pela adoção, aparecer na operação.', '[Onde a sua presença faz diferença]'),
+    atitudes = [('Ser presença ativa e visível', 'Estar presente do começo ao fim, não só no lançamento: abrir reuniões, perguntar pela adoção, aparecer na operação.', '[Onde a sua presença faz diferença]'),
                 ('Formar a coalizão de líderes', 'Alinhar os outros diretores e gestores para que digam a mesma coisa às suas equipes.', '[Quem precisa estar junto]'),
                 ('Comunicar diretamente', 'Explicar por que a mudança existe e o risco de não mudar. Essa mensagem tem mais força vinda do topo.', '[Momentos e canais]')]
     for i, ((x, w), (t, c, neste)) in enumerate(zip(faixas(3, calha=0.45), atitudes)):
         passo_numerado(s, x, Y_TOPO, w, 2.85, f'{i + 1:02d}', t, c, tam_num=40)
         painel(s, x, Y_TOPO + 3.15, w, 1.0, [R('Neste projeto', AZ, entre=3), P(neste, cor=AZP, negrito=True)], fundo=AZC, margem=0.2, ancora='meio')
     notas_ex = [3.4, 2.6, 3.1]
-    s = d.slide('Exercício 1', 'Onde estamos hoje em cada atitude: a nota que o grupo se dá',
+    s = d.slide('Exercício 1', 'Onde estamos em cada atitude: a nota que o grupo se dá',
                 'Autoavaliação. Cada líder dá uma nota de 1 a 5 para o grupo em cada atitude (1 = quase nunca fazemos; 5 = fazemos sempre, e as equipes veem). '
                 'Calcule a média e registre no gráfico: clique nele e use "Editar dados".\n'
                 'Comece a conversa pela nota mais baixa (a barra escura; troque o destaque se for outra) e preencha, à direita, o que o grupo fará para subir um ponto.\n'
@@ -314,7 +315,7 @@ def workshop(pasta=None):
     # 8 a 9 · bloco 3
     d.divisoria('03', 'Onde podemos travar', 'Quem tem influência e ainda não apoia, o que essa pessoa perde com a mudança e quem conversa com ela.',
                 'Bloco 3, 30 minutos. Exercício em grupo com o mapa de stakeholders. Saída do bloco: quem conversa com quem, sobre o quê e até quando.', olho='Bloco 3 · 30 minutos')
-    s = d.slide('Exercício 2', 'Quem precisamos conquistar, e quem conversa com cada um',
+    s = d.slide('Exercício 2', 'Quem precisamos conquistar, e quem conversa com quem',
                 'Exercício em grupo. Posicione os stakeholders no mapa (arraste os círculos; as notas de influência e de apoio vêm da planilha "Mapa de influência de stakeholders") '
                 'e preencham juntos a tabela para quem está no quadrante em destaque.\n'
                 'Pergunta-chave: o que essa pessoa perde ou teme com a mudança? A coluna "Quem conversa" só vale com nome, e a última, com data.\n'
@@ -331,7 +332,7 @@ def workshop(pasta=None):
     # 10 a 11 · bloco 4
     d.divisoria('04', 'Compromissos', 'O que cada líder faz nos próximos 30 dias, com quem e como saberemos que aconteceu.',
                 'Bloco 4, 25 minutos. Este bloco não pode ser cortado: é a saída do workshop. Cada líder assume um compromisso visível para os próximos 30 dias.', olho='Bloco 4 · 25 minutos')
-    s = d.slide('Compromissos', 'Cada líder sai com um compromisso visível para os próximos 30 dias',
+    s = d.slide('Compromissos', 'Cada líder sai com um compromisso visível para 30 dias',
                 'Projete e preencha na hora. Um compromisso por líder: uma ação que as equipes conseguem ver, com data e evidência.\n'
                 'Exemplos: abrir a reunião semanal com os dados de adoção, visitar a operação na semana do go-live, conversar com um stakeholder do quadrante "Conquistar".\n'
                 'Envie este slide a todos no mesmo dia e volte a ele na abertura do próximo encontro.')

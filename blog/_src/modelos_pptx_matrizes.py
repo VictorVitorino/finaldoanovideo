@@ -46,8 +46,8 @@ def matrizes(pasta=None):
                 'Cada planilha do blog tem um slide correspondente neste deck. A planilha guarda os dados e faz as contas; o slide mostra a leitura e a conclusão.\n'
                 'Ordem sugerida para o comitê: síntese executiva, as matrizes que sustentam a síntese e os próximos passos.')
     passos = [('Preencha a planilha', 'Os dados e os cálculos ficam lá: notas, contagens, índices e prioridades.'),
-              ('Leve os números para o slide', 'Edite a tabela, as formas ou os dados do gráfico. Nada aqui é imagem.'),
-              ('Escreva a conclusão no título', 'O comitê lê a mensagem primeiro. A matriz é a prova.')]
+              ('Leve os números ao slide', 'Edite a tabela, as formas ou os dados do gráfico. Nada aqui é imagem.'),
+              ('Escreva a conclusão', 'No título do slide: o comitê lê a mensagem primeiro. A matriz é a prova.')]
     fx = faixas(3, calha=0.7)
     for i, ((x, w), (t, c)) in enumerate(zip(fx, passos)):
         fio(s, x, Y_TOPO, x + w, Y_TOPO, AZP, 1.25)
@@ -173,7 +173,7 @@ def matrizes(pasta=None):
     medias_sinal = [sum(g[2][k] for g in EX_PRONTIDAO) / len(EX_PRONTIDAO) for k in range(5)]
     fraco = medias_sinal.index(min(medias_sinal))
     resiste = [g for g in EX_PRONTIDAO if sum(g[2]) / 5 < 2]
-    s = d.slide('Diagnóstico de prontidão', f'[{SINAIS[fraco]}] é o sinal mais fraco, e [{resiste[0][0]}] ainda resiste' if resiste
+    s = d.slide('Diagnóstico de prontidão', f'[{SINAIS[fraco]}] é o sinal mais fraco; quem ainda resiste é [{resiste[0][0]}]' if resiste
                 else f'[{SINAIS[fraco]}] é o sinal mais fraco entre os grupos avaliados',
                 'Vem da planilha "Formulário de diagnóstico de prontidão". Notas de 1 (discordo totalmente) a 5 (concordo totalmente) para cinco sinais, por grupo.\n'
                 'As cores seguem a régua das planilhas: cinzas para as notas baixas, azuis para as altas. A média de cada grupo sugere a marca da régua de adoção e a ação que mais ajuda: '
@@ -202,7 +202,7 @@ def matrizes(pasta=None):
 
     # 10 · mapa de riscos
     altos = [r for r in EX_RISCOS if r[3] * r[4] >= 15]
-    s = d.slide('Mapa de riscos', f'[{POR_EXTENSO[riscos_altos]}] riscos de exposição alta pedem resposta imediata: [{" e ".join(r[1].lower() for r in altos)}]',
+    s = d.slide('Mapa de riscos', f'[{POR_EXTENSO[riscos_altos]}] riscos têm exposição alta e pedem resposta imediata: [{" e ".join(r[1].lower() for r in altos)}]',
                 'Vem da planilha "Mapa de riscos da mudança". Probabilidade (vertical) e impacto na adoção (horizontal), de 1 a 5. Exposição = probabilidade x impacto.\n'
                 'Arraste cada círculo numerado para a célula do risco. A tabela traz os cinco de maior exposição, com a resposta combinada e o responsável.\n'
                 'Alta (15 ou mais): ação imediata e acompanhamento no comitê. Média (8 a 14): plano de resposta com dono. Baixa (até 7): monitorar.', dica=EXEMPLO)
@@ -229,7 +229,7 @@ def matrizes(pasta=None):
     ls = wl / len(semanas)
     y0, alt_cab, alt = Y_TOPO, 0.5, 0.415
     yb = y0 + alt_cab + alt * len(EX_TREINOS)
-    ret(s, xl + 5 * ls, y0, ls, yb - y0, AZC, nome='Faixa: semana do go-live')
+    ret(s, xl + 5 * ls, y0 + 0.2, ls, yb - y0 - 0.2, AZC, nome='Faixa: semana do go-live')
     rotulo(s, xa, y0 + 0.2, wa, 'Público e ação'); rotulo(s, xl, y0, wl, 'Semanas em relação ao go-live', alinh='centro'); rotulo(s, DIR - ws, y0 + 0.2, ws, 'Status', alinh='dir')
     for k, sem in enumerate(semanas):
         texto(s, xl + k * ls, y0 + 0.24, ls, 0.22, sem, tam=T_ROTULO, cor=AZP if sem == 'Go-live' else CZ, negrito=sem == 'Go-live', alinh='centro', entre=0)
@@ -248,7 +248,7 @@ def matrizes(pasta=None):
 
     # 12 · próximos passos
     d.secao('Próximos passos')
-    s = d.slide('Próximos passos', 'Nos próximos 30 dias, as matrizes viram decisão, ação e nova leitura',
+    s = d.slide('Próximos passos', 'Em 30 dias, as matrizes viram decisão, ação e nova leitura',
                 'Feche com compromissos. Três horizontes: o que o comitê decide agora, o que a equipe de mudança e os gestores fazem em seguida e quando as matrizes serão lidas de novo.\n'
                 'As tabelas são nativas: para incluir uma linha, clique na última e use Inserir linha abaixo.\n'
                 'Na próxima reunião, abra por este slide e pela síntese executiva.')

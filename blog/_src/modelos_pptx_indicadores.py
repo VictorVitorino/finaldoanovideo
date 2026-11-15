@@ -13,7 +13,7 @@ sys.dont_write_bytecode = True      # não deixa __pycache__ no repositório
 from modelos_pptx_base import *     # noqa: E402,F403
 
 POR_EXTENSO = ['nenhum', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze']
-PERGUNTAS = {'Prontidão': 'As pessoas estão preparadas para mudar?', 'Capacitação': 'Sabem fazer do jeito novo?',
+PERGUNTAS = {'Prontidão': 'As pessoas estão prontas?', 'Capacitação': 'Sabem fazer do jeito novo?',
              'Adoção': 'Estão usando na rotina?', 'Resultado': 'O negócio colheu o benefício?'}
 
 def _meta(ind):
@@ -52,7 +52,7 @@ def indicadores(pasta=None):
            'A etiqueta fica mais escura quanto mais atenção o indicador pede, e sempre traz o nome da situação.', meta='[Comitê] · [período do painel]')
 
     # 2 · o que medir e por quê
-    s = d.slide('O que medir', 'Quatro grupos de indicadores mostram se a mudança vai virar resultado',
+    s = d.slide('O que medir', 'Quatro grupos de indicadores mostram, do preparo ao benefício, se a mudança vai virar resultado',
                 'A árvore de indicadores. Os dois primeiros grupos antecipam: mostram, antes do go-live, se a mudança tem chance de pegar. Os dois últimos confirmam: mostram, depois, se pegou e se valeu.\n'
                 'Use este slide para combinar com o comitê o que será acompanhado e por quê. Menos indicadores, com dono e fonte, valem mais do que uma lista longa.\n'
                 'Se trocar um indicador, troque também a ficha (slides 7 e 8) e a planilha.')
@@ -104,7 +104,7 @@ def indicadores(pasta=None):
     texto(s, xg + 3.6, Y_TOPO + 4.08, wg - 3.6, 0.24, 'Linha vertical: 100% da meta', tam=T_ROTULO, cor=CZ, alinh='dir', entre=0)
 
     # 4 · prontidão e capacitação
-    s = d.slide('Prontidão e capacitação', 'Os cinco indicadores de preparo cruzaram a meta entre o [Mês 5] e o [Mês 6]',
+    s = d.slide('Prontidão e capacitação', 'O preparo está feito: os cinco indicadores cruzaram a meta entre o [Mês 5] e o [Mês 6]',
                 'Os indicadores que antecipam a adoção, mês a mês, contra a meta (linha tracejada). Clique em cada gráfico e use "Editar dados".\n'
                 'Em cada painel: o valor do último mês, a meta e a situação. Atualize os três junto com o gráfico.\n'
                 'Se um destes indicadores estiver abaixo da meta perto do go-live, a adoção vai sentir: leve a causa e uma decisão ao comitê.', dica=EXEMPLO)
@@ -112,7 +112,7 @@ def indicadores(pasta=None):
         _painel_tendencia(s, x, Y_TOPO, w, H_UTIL - 0.1, ind, linhas_nome=2)
 
     # 5 · adoção e uso
-    s = d.slide('Adoção e uso', 'O uso chegou a [81%], mas só [56%] das pessoas adotaram de fato',
+    s = d.slide('Adoção e uso', 'O uso chegou a [81%], mas só [56%] adotaram de fato',
                 'Os três indicadores de adoção, que só existem a partir do go-live (Mês 4). Uso efetivo mostra quem acessa; índice de adoção, quem já trabalha do jeito novo; '
                 'proficiência, quanto do trabalho sai certo.\n'
                 'A distância entre uso e adoção é a mensagem: login não é adoção. Clique em cada gráfico e use "Editar dados".\n'
@@ -142,8 +142,9 @@ def indicadores(pasta=None):
                            {'t': _meta(ind), 'alinh': 'dir', 'negrito': True, 'cor': AZP}])
         tabela(s, MARGEM, Y_TOPO, [2.2, 2.95, 2.7, 1.9, 1.2, UTIL - 10.95], linhas, alt, 0.36, nome='Tabela: ficha dos indicadores')
 
-    ficha('Os cinco indicadores de preparo dizem se as pessoas estão prontas e sabem fazer', inds[:5], 0.72, 'Exemplo ilustrativo: ajuste definições, fontes e metas ao seu projeto.')
-    ficha('Os seis indicadores de adoção e de resultado dizem se a mudança pegou e valeu', inds[5:], 0.66, None)
+    exemplo_ficha = 'Exemplo ilustrativo: ajuste definições, fontes e metas ao seu projeto.'
+    ficha('Os cinco indicadores de preparo dizem se as pessoas estão prontas e se sabem fazer do jeito novo', inds[:5], 0.72, exemplo_ficha)
+    ficha('Os seis indicadores de adoção e de resultado dizem se a mudança pegou e se valeu a pena', inds[5:], 0.66, exemplo_ficha)
 
     # 9 · leitura do período e decisões
     d.secao('Leitura e próximos passos')
@@ -152,7 +153,7 @@ def indicadores(pasta=None):
                 'No painel azul, no máximo três decisões, cada uma escrita como frase que se responde com sim, não ou uma escolha.\n'
                 'Atualize as contagens, as listas e as frases a cada painel.', dica=EXEMPLO)
     xq, wq = col(0, 8)
-    frases = {'Na meta': 'O preparo está completo.', 'Em atenção': 'O uso existe, mas ainda com retrabalho.', 'Crítico': 'Adoção e benefício seguem atrás da curva.'}
+    frases = {'Na meta': 'O preparo está completo.', 'Em atenção': 'O uso existe, mas com retrabalho.', 'Crítico': 'Adoção e benefício seguem atrasados.'}
     for (x, w), k in zip(faixas(3, xq, wq), ('Na meta', 'Em atenção', 'Crítico')):
         fio(s, x, Y_TOPO, x + w, Y_TOPO, AZP, 1.25)
         texto(s, x, Y_TOPO + 0.12, 1.0, 1.0, str(conta[k]), tam=60, cor=AZP, entre=0)

@@ -1,5 +1,6 @@
 // Change Management World · camada de motion (sem dependências).
-// Vinheta de abertura, barra de progresso, palavras dos títulos, formas da abertura e onda no clique dos botões.
+// Vinheta de abertura, barra de progresso, palavras dos títulos, partículas da abertura (ligadas por proximidade,
+// afastadas pelo ponteiro e empurradas pelo pulso do clique) e onda no clique dos botões.
 // Tudo o que se move usa um único requestAnimationFrame por tarefa e para quando não está à vista.
 (() => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -62,7 +63,7 @@
     const luz = cria('div', 'abertura-luz'), cv = cria('canvas', 'formas'); cv.setAttribute('aria-hidden', 'true');
     ab.prepend(cv); ab.prepend(luz);
     const c = cv.getContext('2d'), CORES = ['157,189,255', '47,111,237', '255,255,255'];
-    let W = 0, H = 0, topo = 0, F = [], naTela = true, mx = -9999, my = -9999, lx = null, ly = null, raf = 0, ult = 0, t = 0;
+    let W = 0, H = 0, topo = 0, F = [], naTela = true, mx = -9999, my = -9999, lx = null, ly = null, raf = 0, ult = 0, t = 0, pulsos = [];
     const semeia = () => {
       const n = Math.round(Math.min(40, Math.max(14, W * H / 30000)));
       F = Array.from({ length: n }, (_, i) => ({
@@ -90,6 +91,13 @@
         if (f.x < -20) f.x = W + 20; else if (f.x > W + 20) f.x = -20;
         if (f.y < -20) f.y = H + 20; else if (f.y > H + 20) f.y = -20;
       }
+      // pulsos do clique: um anel que cresce e empurra as formas por onde passa
+      for (const p of pulsos) {
+        p.r += 8.5 * k; const a = 1 - p.r / 280;
+        for (const f of F) { const dx = f.x - p.x, dy = f.y - p.y, d = Math.hypot(dx, dy); if (d > 0 && Math.abs(d - p.r) < 30) { const e = a * 5; f.ex += dx / d * e; f.ey += dy / d * e; } }
+        if (a > 0) { c.lineWidth = 1.5; c.strokeStyle = `rgba(157,189,255,${(a * .55).toFixed(3)})`; c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.283); c.stroke(); }
+      }
+      if (pulsos.length) pulsos = pulsos.filter(p => p.r < 280);
       c.lineWidth = 1;
       for (let i = 0; i < F.length; i++) for (let j = i + 1; j < F.length; j++) {
         const a = F[i], b = F[j]; if (a.t !== 'ponto' || b.t !== 'ponto') continue;
@@ -118,6 +126,10 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(es => { naTela = es[0].isIntersecting; confere(); }).observe(ab);
     document.addEventListener('visibilitychange', confere);
     new MutationObserver(confere).observe(raiz, { attributes: true, attributeFilter: ['class'] });
+    ab.addEventListener('pointerdown', e => {
+      if (e.button || e.target.closest('a, button, input, .mergulho, .frentes, .retrato') || pulsos.length > 3) return;
+      const r = ab.getBoundingClientRect(); pulsos.push({ x: e.clientX - r.left, y: e.clientY - r.top - topo, r: 0 });
+    }, { passive: true });
     if (fino) {
       let base = null;   // posição da abertura na tela: lida uma vez, refeita ao rolar ou redimensionar
       addEventListener('scroll', () => { base = null; }, { passive: true }); addEventListener('resize', () => { base = null; }, { passive: true });

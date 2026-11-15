@@ -37,6 +37,11 @@ const I = {
   marcador: '<path d="M7 4.500h10a1 1 0 011 1V20l-6-4-6 4V5.500a1 1 0 011-1z"/>',
   setaEsq: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
   setaCima: '<path d="M12 19V5M6 11l6-6 6 6"/>',
+  telefone: '<path d="M8.6 4.5l1.4 3.6-1.9 1.5a9.5 9.5 0 006.3 6.3l1.5-1.9 3.6 1.4V18a1.5 1.5 0 01-1.6 1.5C10.8 19 5 13.2 4.5 6.1A1.5 1.5 0 016 4.5z"/>',
+  conversa: '<path d="M12 4a8 8 0 00-6.9 12L4 20l4.1-1.1A8 8 0 1012 4z"/><path d="M9 10.5h6M9 13.5h3.5"/>',
+  pausa: '<path d="M8.5 6v12M15.5 6v12" stroke-width="2.6"/>',
+  camadas: '<path d="M12 4l8 4-8 4-8-4zM4 12l8 4 8-4M4 16l8 4 8-4"/>',
+  alvo: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/>',
 };
 export const icone = (nome, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.900" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${(I[nome] || I.globo).replace(/(\d)\.(\d)00/g, '$1.$2')}</svg>`;
 

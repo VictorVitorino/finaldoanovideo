@@ -2,7 +2,7 @@
 // O comportamento fica em assets/js/lab.js; aqui só a estrutura das páginas e as prévias em traço fino.
 import { esc } from './md.mjs';
 import { icone } from './ilustra.mjs';
-import { pagina, titSecao } from './modelos.mjs';
+import { pagina, titSecao, regua, navGaleria } from './modelos.mjs';
 
 const L = 'fill="none" stroke="var(--l)" stroke-width="1.3"';
 const K = 'fill="none" stroke="var(--f1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
@@ -60,28 +60,52 @@ export function secaoLab(raiz, nPerguntas, nModelos) {
 </section>`;
 }
 
+// ---------- capas vivas dos modelos ----------
+// No site, a capa de cada modelo é um cartão animado (o motivo se constrói ao entrar na tela e de novo ao passar o cursor,
+// o cartão inclina com profundidade e uma faixa de luz atravessa). O arquivo baixado é estático; as páginas reais aparecem em "Ver prévia".
+const MOTIVO = {
+  barras: () => `<path class="m-e" d="M18 138h164"/>${[34, 56, 80, 104, 126].map((h, i) => `<rect class="m-b" style="--i:${i}" x="${26 + i * 31}" y="${138 - h}" width="21" height="${h}" rx="3"/>`).join('')}`,
+  linha: () => `<path class="m-e" d="M18 138h164M18 138V22"/><path class="m-a" d="M22 118L62 96L100 104L140 62L178 34V138H22z"/><path class="m-l" pathLength="1" d="M22 118L62 96L100 104L140 62L178 34"/>${[[22, 118], [62, 96], [100, 104], [140, 62], [178, 34]].map(([x, y], i) => `<circle class="m-p" style="--i:${i}" cx="${x}" cy="${y}" r="5"/>`).join('')}`,
+  calor: (c = 6, l = 4) => Array.from({ length: c * l }, (_, k) => { const i = k % c, j = Math.floor(k / c), o = [.25, .5, .75, 1][(i * 7 + j * 5 + i * j) % 4]; return `<rect class="m-c" style="--i:${i + j};--o:${o}" x="${20 + i * 27}" y="${22 + j * 29}" width="23" height="25" rx="4"/>`; }).join(''),
+  quadrante: () => `<rect class="m-q" x="22" y="18" width="156" height="120" rx="6"/><path class="m-e m-t" d="M100 18v120M22 78h156"/>${[[136, 44, 9], [158, 62, 6], [60, 50, 7], [72, 108, 6], [128, 104, 6], [44, 92, 5]].map(([x, y, r], i) => `<circle class="m-d${i ? '' : ' m-d--f'}" style="--i:${i}" cx="${x}" cy="${y}" r="${r}"/>`).join('')}`,
+  radar: () => { const P = (f, k) => { const a = -Math.PI / 2 + k * Math.PI / 3; return `${(100 + Math.cos(a) * 58 * f).toFixed(1)} ${(80 + Math.sin(a) * 58 * f).toFixed(1)}`; }, v = [.92, .6, .8, .5, .86, .68]; return [1, .66, .33].map(f => `<path class="m-e" d="M${[0, 1, 2, 3, 4, 5].map(k => P(f, k)).join('L')}Z"/>`).join('') + `<path class="m-a" d="M${v.map((f, k) => P(f, k)).join('L')}Z"/><path class="m-l" pathLength="1" d="M${v.map((f, k) => P(f, k)).join('L')}Z"/>${v.map((f, k) => `<circle class="m-p" style="--i:${k}" cx="${P(f, k).split(' ')[0]}" cy="${P(f, k).split(' ')[1]}" r="4"/>`).join('')}`; },
+  tempo: () => `<path class="m-l" pathLength="1" d="M18 84h164"/>${[30, 65, 100, 135, 170].map((x, i) => `<rect class="m-c" style="--i:${i};--o:${i % 2 ? .5 : .85}" x="${x - 14}" y="${i % 2 ? 100 : 34}" width="28" height="30" rx="5"/><circle class="m-p" style="--i:${i}" cx="${x}" cy="84" r="6"/>`).join('')}`,
+  letras: () => 'ARCICARIICARRICA'.split('').map((t, k) => { const i = k % 4, j = Math.floor(k / 4); return `<g class="m-c" style="--i:${i + j};--o:1"><rect class="${t === 'A' ? 'm-f1' : t === 'R' ? 'm-f2' : 'm-f3'}" x="${34 + i * 34}" y="${16 + j * 31}" width="30" height="27" rx="4"/><text x="${49 + i * 34}" y="${35 + j * 31}" text-anchor="middle">${t}</text></g>`; }).join(''),
+  medidor: () => `<path class="m-e m-g" d="M30 118a70 70 0 01140 0"/><path class="m-l m-g" pathLength="1" d="M30 118a70 70 0 01140 0"/><path class="m-n" d="M100 118L100 58"/><circle class="m-p" style="--i:0" cx="100" cy="118" r="7"/>${[0, 1, 2].map(i => `<rect class="m-c" style="--i:${i + 2};--o:${[.4, .7, 1][i]}" x="${44 + i * 40}" y="130" width="32" height="8" rx="4"/>`).join('')}`,
+  pilha: () => [2, 1, 0].map(k => `<g class="m-s" style="--k:${k}"><rect x="46" y="38" width="112" height="72" rx="6"/>${k ? '' : `<path class="m-e" d="M58 54h44M58 66h70M58 78h56"/><rect class="m-f2" x="120" y="82" width="26" height="18" rx="3"/>`}</g>`).join(''),
+};
+const MOTIVO_DE = { 'kit-de-gestao-da-mudanca': 'pilha', 'apresentacao-kickoff-da-mudanca': 'barras', 'relatorio-executivo-de-adocao': 'linha', 'workshop-com-patrocinadores': 'quadrante', 'slides-das-matrizes-da-mudanca': 'letras', 'painel-de-indicadores-da-mudanca': 'medidor', 'painel-de-indicadores-da-mudanca-xlsx': 'medidor', 'avaliacao-adkar-mapa-de-resistencia': 'barras', 'lista-de-impactos-dashboard': 'calor', 'matriz-de-adocao': 'linha', 'formulario-de-diagnostico': 'radar', 'mapa-de-riscos': 'calor', 'plano-de-treinamentos': 'tempo', 'matriz-raci': 'letras', 'mapa-de-influencia': 'quadrante' };
+const capaViva = m => { const ppt = /power/i.test(m.formato || ''), mot = MOTIVO[MOTIVO_DE[m.id]] || MOTIVO[{ raci: 'letras', influencia: 'quadrante', adocao: 'linha', diagnostico: 'radar' }[m.previa]] || MOTIVO.barras;
+  return `<span class="capa-viva capa-viva--${ppt ? 'ppt' : 'xls'}" data-inclina><span class="cl-txt"><small>${esc(ppt ? 'Apresentação' : 'Planilha')}</small><b>${esc(m.nome)}</b><i>${esc(m.fatos || m.formato || '')}</i></span><span class="cl-arte"><svg viewBox="0 0 200 156" aria-hidden="true">${mot()}</svg></span><span class="cl-formas" aria-hidden="true"><i></i><i></i><i></i></span></span>`; };
 const cab = (raiz, f, extra = '') => `<header class="lab-cab"><div class="sec-in">
   <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>${esc(f.nome)}</span></nav>
   <span class="olho">${esc(f.olho)}</span><h1>${esc(f.titulo || f.nome)}</h1><p class="lab-lead">${esc(f.lead || f.frase)}</p>${extra}</div></header>`;
 const semJs = `<noscript><p class="lab-aviso">Esta ferramenta precisa de JavaScript ligado no navegador. Os modelos em Excel podem ser baixados sem ele, na página do Laboratório.</p></noscript>`;
-const barra = (botoes, modelo, raiz) => `<div class="lab-barra" role="toolbar" aria-label="Ações">${botoes}${modelo ? `<a class="btn btn--s btn--peq" href="${raiz}modelos/#${modelo.replace('.xlsx', '')}">${icone('copia')}Baixar modelo em Excel</a>` : ''}</div>`;
+// barra de ações: "editar" muda o conteúdo da ferramenta; "exportar" leva o resultado para fora
+const barra = (editar, exportar, modelo, raiz) => `<div class="lab-barra"><div class="lab-grupo" role="toolbar" aria-label="Editar"><span class="lab-grupo-t">Editar</span>${editar}</div><div class="lab-grupo lab-grupo--sair" role="toolbar" aria-label="Exportar"><span class="lab-grupo-t">Exportar</span>${exportar}${modelo ? `<a class="btn btn--s btn--peq" href="${raiz}modelos/#${modelo.replace('.xlsx', '')}">${icone('setaFora')}Modelo em Excel</a>` : ''}</div></div>`;
 const bt = (acao, ic, txt, cls = 'btn--s') => `<button type="button" class="btn ${cls} btn--peq" data-acao="${acao}">${icone(ic)}<span>${txt}</span></button>`;
 const privacidade = `<p class="lab-nota">${icone('escudo')}Tudo o que você preenche fica só no seu navegador. Nada é enviado nem guardado pelo blog.</p>`;
 const outras = (raiz, atual) => `<section class="sec sec--rel"><div class="sec-in"><header class="sec-cab"><div><span class="olho">Laboratório</span><h2>Outras ferramentas</h2></div><a class="link-seta" href="${raiz}lab/">Ver todas${icone('seta')}</a></header>
   <div class="lab-lista lab-lista--3">${FERRAMENTAS.filter(f => f.id !== atual).map(f => `<a class="lab-item" href="${raiz}lab/${f.slug}/"><span class="lab-item-arte">${PREVIAS[f.id]()}</span><span class="lab-item-txt"><small>${esc(f.olho)}</small><b>${esc(f.nome)}</b></span>${icone('seta')}</a>`).join('')}</div></div></section>`;
 const pg = (cfg, f, corpo, scripts = ['assets/js/lab.js']) => pagina({ cfg, raiz: '../../', titulo: f.nome, descricao: f.frase, corpo, caminho: `lab/${f.slug}/`, imagem: `assets/img/og/lab-${f.id}.jpg`, classe: 'pg-lab', scripts, ativo: 'lab' });
 
-export function labInicio({ cfg, nPerguntas }) {
+export function labInicio({ cfg, nPerguntas, regua: rg, modelos = [] }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
   <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Laboratório</span></nav>
-  <span class="olho">Laboratório</span><h1>Teste, monte e baixe</h1><p class="lab-lead">Um diagnóstico para saber em que nível de Change Management você está e três instrumentos para montar no navegador e levar para o projeto.</p></div></header>
-<section class="sec sec--lab-pg"><div class="sec-in">
+  <span class="olho">Laboratório</span><h1>Teste, monte e baixe</h1><p class="lab-lead">Um diagnóstico para saber em que nível de Change Management você está, três instrumentos para montar no navegador e modelos em PowerPoint e Excel para levar ao projeto.</p></div></header>
+<section class="sec sec--lab-pg" aria-label="Ferramentas"><div class="sec-in">
   <div class="lab-cartoes">${FERRAMENTAS.map((f, i) => `<a class="lab-cartao revela" style="--i:${i}" href="${f.slug}/"><span class="lab-cartao-arte">${PREVIAS[f.id](['a', 'b', 'c', 'b'][i])}</span><span class="lab-cartao-txt"><small>${esc(f.olho)}${f.id === 'diagnostico' && nPerguntas ? ' · ' + nPerguntas + ' perguntas' : ''}</small><b>${esc(f.nome)}</b><em>${esc(f.frase)}</em><span class="link-seta">${esc(f.acao)}${icone('seta')}</span></span></a>`).join('')}</div>
-  <div class="lab-modelos revela"><h2>Modelos para baixar</h2><p>Kit de slides em PowerPoint e planilhas em Excel: avaliação ADKAR com mapa de resistência, lista de impactos com dashboard, mapa de adoção, mapa de riscos e mais.</p>
-    <a class="btn btn--p" href="${raiz}modelos/">Ver os modelos${icone('seta')}</a></div>
-</div></section>`;
-  return pagina({ cfg, raiz, titulo: 'Laboratório', descricao: 'Diagnóstico de nível em Change Management e ferramentas interativas: matriz RACI, mapa de influência e matriz de adoção.', corpo, caminho: 'lab/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', ativo: 'lab' });
+</div></section>
+${rg ? `<section class="sec sec--regua" aria-label="Régua de adoção"><div class="sec-in">${regua(rg, raiz)}</div></section>` : ''}
+${modelos.length ? `<section class="sec sec--modelos-lab" id="modelos" aria-labelledby="modelos-t"><div class="sec-in">
+  ${titSecao('modelos', 'Modelos para baixar', 'Slides e planilhas prontos para o projeto', 'Apresentações em PowerPoint e planilhas em Excel com os cálculos, o painel e as instruções de uso.', `<a class="link-seta" href="${raiz}modelos/">Ver os ${modelos.length} modelos${icone('seta')}</a>`)}
+  <div class="galeria galeria--modelos revela" data-galeria>
+    <ol class="galeria-trilho" data-cursor="Arraste" tabindex="0" aria-label="Modelos para baixar">${modelos.map((m, i) => `<li class="galeria-item"><a class="modelo-c holo" href="${raiz}modelos/#${esc(m.id)}"><span class="modelo-c-arte">${capaViva(m)}</span><small>${esc(m.olho)} · ${esc(m.formato || 'Excel')}</small><b>${esc(m.nome)}</b><span>${esc(m.frase)}</span><em>Ver e baixar${icone('seta')}</em></a></li>`).join('')}</ol>
+    ${navGaleria('Modelos para baixar')}
+  </div>
+</div></section>` : ''}`;
+  return pagina({ cfg, raiz, titulo: 'Laboratório', descricao: 'Diagnóstico de nível em Change Management, ferramentas interativas (matriz RACI, mapa de influência e matriz de adoção) e modelos em PowerPoint e Excel para baixar.', corpo, caminho: 'lab/', imagem: 'assets/img/og/lab.jpg', classe: 'pg-lab', ativo: 'lab' });
 }
 
 export function labDiagnostico({ cfg, dominios, relatorio }) {
@@ -112,7 +136,7 @@ export function labRaci({ cfg }) {
   const corpo = `${cab('../../', f)}
 <section class="sec sec--lab-pg"><div class="sec-in">
   <div class="ferr" data-ferramenta="raci">
-    ${barra(bt('add-linha', 'lista', 'Nova atividade') + bt('add-coluna', 'pessoa', 'Novo papel') + `<button type="button" class="btn btn--s btn--peq" data-acao="modo" aria-pressed="false">${icone('grade')}<span>Usar RASCI</span></button>` + bt('exemplo', 'ciclo', 'Recarregar exemplo') + bt('csv', 'setaBaixo', 'Baixar CSV') + bt('imprimir', 'copia', 'Imprimir ou PDF'), 'matriz-raci.xlsx', '../../')}
+    ${barra(bt('add-linha', 'lista', 'Nova atividade') + bt('add-coluna', 'pessoa', 'Novo papel') + `<button type="button" class="btn btn--s btn--peq" data-acao="modo" aria-pressed="false">${icone('grade')}<span>Usar RASCI</span></button>` + bt('exemplo', 'ciclo', 'Recarregar exemplo'), bt('csv', 'setaBaixo', 'Baixar CSV') + bt('imprimir', 'copia', 'Imprimir ou PDF'), 'matriz-raci.xlsx', '../../')}
     <div class="ferr-grade"><div class="ferr-principal"><div class="tabela-rolagem" data-tabela></div></div>
       <aside class="ferr-lado"><div class="lado-caixa"><h2>Legenda</h2><ul class="legenda" data-legenda></ul></div><div class="lado-caixa"><h2>Conferência</h2><div data-conferencia></div></div><div class="lado-caixa"><h2>Carga por papel</h2><div data-carga></div></div></aside></div>
     ${privacidade}
@@ -127,7 +151,7 @@ export function labInfluencia({ cfg }) {
   const corpo = `${cab('../../', f)}
 <section class="sec sec--lab-pg"><div class="sec-in">
   <div class="ferr" data-ferramenta="influencia">
-    ${barra(`<form class="ferr-add" data-form><label class="vis-oculto" for="inf-nome">Nome do stakeholder</label><input id="inf-nome" type="text" maxlength="40" placeholder="Nome ou grupo" autocomplete="off"><button type="submit" class="btn btn--p btn--peq">${icone('pessoa')}Adicionar</button></form>` + bt('exemplo', 'ciclo', 'Recarregar exemplo') + bt('png', 'setaBaixo', 'Baixar imagem') + bt('csv', 'setaBaixo', 'Baixar CSV'), 'mapa-de-influencia.xlsx', '../../')}
+    ${barra(`<form class="ferr-add" data-form><label class="vis-oculto" for="inf-nome">Nome do stakeholder</label><input id="inf-nome" type="text" maxlength="40" placeholder="Nome ou grupo" autocomplete="off"><button type="submit" class="btn btn--p btn--peq">${icone('pessoa')}Adicionar</button></form>` + bt('exemplo', 'ciclo', 'Recarregar exemplo'), bt('png', 'setaBaixo', 'Baixar imagem') + bt('csv', 'setaBaixo', 'Baixar CSV'), 'mapa-de-influencia.xlsx', '../../')}
     <div class="ferr-grade"><div class="ferr-principal"><div class="mapa" data-mapa></div><p class="lab-dica">Arraste os pontos, ou selecione um e use as setas do teclado.</p></div>
       <aside class="ferr-lado"><div class="lado-caixa"><h2>Selecionado</h2><div data-selecionado></div></div><div class="lado-caixa"><h2>Estratégia por quadrante</h2><div data-quadrantes></div></div></aside></div>
     ${privacidade}
@@ -142,7 +166,7 @@ export function labAdocao({ cfg }) {
   const corpo = `${cab('../../', f)}
 <section class="sec sec--lab-pg"><div class="sec-in">
   <div class="ferr" data-ferramenta="adocao">
-    ${barra(bt('add-linha', 'lista', 'Nova área') + bt('exemplo', 'ciclo', 'Recarregar exemplo') + bt('png', 'setaBaixo', 'Baixar gráfico') + bt('csv', 'setaBaixo', 'Baixar CSV') + bt('imprimir', 'copia', 'Imprimir ou PDF'), 'matriz-de-adocao.xlsx', '../../')}
+    ${barra(bt('add-linha', 'lista', 'Nova área') + bt('exemplo', 'ciclo', 'Recarregar exemplo'), bt('png', 'setaBaixo', 'Baixar gráfico') + bt('csv', 'setaBaixo', 'Baixar CSV') + bt('imprimir', 'copia', 'Imprimir ou PDF'), 'matriz-de-adocao.xlsx', '../../')}
     <div class="ferr-grade"><div class="ferr-principal"><div class="tabela-rolagem" data-tabela></div><div class="grafico" data-grafico></div></div>
       <aside class="ferr-lado"><div class="lado-caixa lado-caixa--kpi"><h2>Índice de adoção</h2><div data-indice></div></div><div class="lado-caixa"><h2>Onde agir primeiro</h2><div data-acoes></div></div></aside></div>
     ${privacidade}
@@ -156,11 +180,12 @@ export function labAdocao({ cfg }) {
 export function paginaModelos({ cfg, modelos }) {
   const raiz = '../';
   const corpo = `<header class="lab-cab"><div class="sec-in">
-  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<span>Modelos</span></nav>
-  <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Slides em PowerPoint e planilhas em Excel com fórmulas, dashboards e instruções de uso. Para baixar, informe nome e e-mail uma única vez.</p></div></header>
+  <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>Modelos</span></nav>
+  <span class="olho">Modelos para baixar</span><h1>Instrumentos prontos para o seu projeto</h1><p class="lab-lead">Apresentações em PowerPoint e planilhas em Excel com os cálculos, o painel e as instruções de uso. Veja a prévia de cada arquivo antes de baixar; para baixar, informe nome e e-mail uma única vez.</p></div></header>
 <section class="sec sec--lab-pg"><div class="sec-in" data-modelos>
-  <div class="mod-grade">${modelos.map((m, i) => `<article class="mod revela" style="--i:${i}" id="${esc(m.id)}"><div class="mod-arte">${PREVIAS[m.previa](['a', 'b', 'c'][i % 3])}</div><div class="mod-txt"><small>${esc(m.olho)} · ${esc(m.formato || 'Excel')}</small><h2>${esc(m.nome)}</h2><p>${esc(m.frase)}</p><button type="button" class="btn btn--p btn--peq" data-baixar="${esc(m.id)}" data-arquivo="${esc(m.arquivo)}" data-nome="${esc(m.nome)}">${icone('setaBaixo')}<span>Baixar modelo</span></button></div></article>`).join('')}</div>
+  <div class="mod-grade">${modelos.map((m, i) => `<article class="mod revela" style="--i:${i % 3}" id="${esc(m.id)}">${(m.previas || []).length ? `<button type="button" class="mod-arte mod-arte--previa so-js-botao" data-previa="${esc(m.id)}" aria-label="Ver a prévia de ${esc(m.nome)}">${capaViva(m)}<span class="mod-lupa">${icone('lupa')}Ver prévia</span></button>` : `<div class="mod-arte">${capaViva(m)}</div>`}<div class="mod-txt"><small>${esc(m.olho)} · ${esc(m.formato || 'Excel')}</small><h2>${esc(m.nome)}</h2><p>${esc(m.frase)}</p>${m.fatos ? `<p class="mod-fatos">${esc(m.fatos)}</p>` : ''}<div class="mod-acoes"><button type="button" class="btn btn--p btn--peq" data-baixar="${esc(m.id)}" data-arquivo="${esc(m.arquivo)}" data-nome="${esc(m.nome)}">${icone('setaBaixo')}<span>Baixar modelo</span></button></div></div></article>`).join('')}</div>
   <p class="lab-nota">${icone('escudo')}Seu nome e e-mail são usados só para registrar o download. Não são repassados a terceiros.</p>
+  <script type="application/json" data-previas-dados>${JSON.stringify(Object.fromEntries(modelos.filter(m => (m.previas || []).length).map(m => [m.id, { n: m.nome, o: `${m.olho} · ${m.formato || 'Excel'}`, f: m.fatos || '', i: m.previas.map(x => ({ s: raiz + x.src, l: x.l, a: x.a })) }]))).replace(/</g, '\\u003c')}</script>
   <dialog class="portao" data-portao aria-labelledby="portao-t">
     <form method="dialog" class="portao-in" data-form novalidate>
       <button type="button" class="m-x portao-x" data-fechar aria-label="Fechar">×</button>

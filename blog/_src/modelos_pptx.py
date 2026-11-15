@@ -1,188 +1,219 @@
-"""Gera o kit de slides em PowerPoint do blog (blog/assets/modelos/kit-de-gestao-da-mudanca.pptx).
-Slides 16:9, editáveis (formas e tabelas nativas), nas cores do blog. Uso: python3 blog/_src/modelos_pptx.py
+"""Gera o kit de slides de gestão da mudança (blog/assets/modelos/kit-de-gestao-da-mudanca.pptx).
+
+Quinze slides 16:9, editáveis (formas, tabelas e gráficos nativos), no sistema visual do blog.
+As instruções de uso de cada slide ficam nas anotações do orador.
+Uso: python3 blog/_src/modelos_pptx.py
 """
-import os
-from pptx import Presentation
-from pptx.util import Inches, Pt
-from pptx.dml.color import RGBColor
-from pptx.enum.shapes import MSO_SHAPE
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+import sys
 
-SAIDA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'assets', 'modelos')
-AZP, AZ, AZC, AZS = RGBColor(0x0A, 0x24, 0x63), RGBColor(0x2F, 0x6F, 0xED), RGBColor(0xEA, 0xF1, 0xFE), RGBColor(0x9D, 0xBD, 0xFF)
-CZ, CZC, LIN, TINTA, BR = RGBColor(0x66, 0x70, 0x85), RGBColor(0xF3, 0xF5, 0xF8), RGBColor(0xE0, 0xE5, 0xEC), RGBColor(0x0B, 0x15, 0x30), RGBColor(0xFF, 0xFF, 0xFF)
-TIT, TXT = 'Georgia', 'Calibri'
-P = Presentation(); P.slide_width = Inches(13.333); P.slide_height = Inches(7.5)
-VAZIO = P.slide_layouts[6]
+sys.dont_write_bytecode = True      # não deixa __pycache__ no repositório
+
+from modelos_pptx_base import *     # noqa: E402,F403
 
 
-def caixa(s, x, y, w, h, cor=None, linha=None, forma=MSO_SHAPE.RECTANGLE):
-    f = s.shapes.add_shape(forma, Inches(x), Inches(y), Inches(w), Inches(h))
-    if cor is None: f.fill.background()
-    else: f.fill.solid(); f.fill.fore_color.rgb = cor
-    if linha is None: f.line.fill.background()
-    else: f.line.color.rgb = linha; f.line.width = Pt(1)
-    f.shadow.inherit = False
-    return f
+def kit(pasta=None):
+    d = Deck('Kit de slides de gestão da mudança', 'Modelo para apresentar a estratégia de mudança, quem é impactado, como conduzir e como medir a adoção.',
+             'gestão da mudança; estratégia; stakeholders; RACI; ADKAR; adoção; riscos')
+
+    # 1 · capa
+    d.capa('Kit de slides', 'Gestão da mudança\vdo _[nome do projeto]_',
+           'Para apresentar o que muda e para quem, como vamos conduzir e como saberemos que deu certo.',
+           'Como usar este kit: troque os textos entre colchetes, substitua os dados de exemplo e apague os slides que não precisar. '
+           'Cada slide traz aqui, nas anotações, para que serve e como preencher.\n'
+           'Os títulos são frases de conclusão. Reescreva cada um com a mensagem do seu projeto: quem lê só os títulos deve entender a história.\n'
+           'Tabelas e gráficos são nativos: clique para editar o texto ou use "Editar dados" no gráfico. '
+           'Os exemplos usam as mesmas áreas e escalas das planilhas do blog, para você levar os números de lá para cá.')
+
+    # 2 · a mudança em uma página
+    s = d.slide('Estratégia', 'Mudamos [o quê] para alcançar [resultado] até [data]',
+                'A estratégia de mudança em uma página: é a síntese que abre a apresentação. Preencha com o patrocinador: se não couber aqui, a mensagem ainda não está clara.\n'
+                'Comece pelo painel azul (por que mudar), na linguagem de quem vive o problema. Depois complete os seis blocos, cada um com duas ou três linhas.\n'
+                'Este slide costuma abrir a conversa com a liderança e volta em toda apresentação do projeto.')
+    x0, w0 = col(0, 4)
+    painel(s, x0, Y_TOPO, w0, H_UTIL, [R('Por que mudar', AZS, entre=8),
+                                      H('[O problema ou a oportunidade, em duas frases, na linguagem de quem vive o problema.]', cor=BR, tam=20, entre=22),
+                                      R('Se nada mudar', AZS, entre=6), P('[O custo de ficar como está, com um exemplo do dia a dia.]', cor=AZC, tam=14)],
+           fundo=AZP, margem=0.32)
+    xg, wg = col(4, 8)
+    blocos = [('O que muda', '[Processos, sistemas, papéis e indicadores que mudam.]'), ('Quem é impactado', '[Grupos e número de pessoas.]'),
+              ('Como será o sucesso', '[Adoção, uso e resultado esperados, com data.]'), ('Quem patrocina', '[Patrocinador e coalizão de líderes.]'),
+              ('Como vamos conduzir', '[As frentes de comunicação, capacitação e apoio.]'), ('Principais riscos', '[Os três que mais ameaçam a adoção.]')]
+    hb = (H_UTIL - 0.3) / 2
+    for i, (t, c) in enumerate(blocos):
+        x, w = faixas(3, xg, wg)[i % 3]
+        bloco(s, x, Y_TOPO + (i // 3) * (hb + 0.3), w, hb, None, t, c, tam_tit=17)
+
+    # 3 · roteiro
+    s = d.slide('Roteiro', 'Três perguntas organizam esta apresentação',
+                'Roteiro do detalhe, logo depois da visão em uma página. Diga em uma frase o que você espera do grupo ao final (decisão, apoio ou alinhamento) e escreva isso na faixa de baixo.\n'
+                'Se cortar slides do kit, ajuste a lista de cada coluna.')
+    partes = [('01', 'O que muda e para quem?', ['Impactos por grupo', 'Mapa de stakeholders', 'Onde a mudança pode travar']),
+              ('02', 'Como vamos conduzir?', ['Papéis e responsabilidades', 'Comunicação e capacitação', 'Riscos e respostas']),
+              ('03', 'Como saberemos que deu certo?', ['Adoção por área', 'Status para o comitê', 'Próximos 90 dias'])]
+    for (x, w), (num, pergunta, itens) in zip(faixas(3, calha=0.45), partes):
+        passo_numerado(s, x, Y_TOPO, w, 3.0, num, pergunta, [P(i, cor=CZ, entre=5) for i in itens], tam_num=40)
+    painel(s, MARGEM, 5.45, UTIL, 0.92, [R('O que esperamos deste grupo', AZ, entre=3), P('[A decisão, o apoio ou o alinhamento que queremos ao final da apresentação.]', cor=AZP, tam=14)],
+           fundo=AZC, margem=0.25, my=0.12, ancora='meio')
+
+    # 4 · divisória
+    d.divisoria('01', 'O que muda e para quem', 'Os impactos por grupo, o mapa de stakeholders e onde a mudança pode travar.',
+                'Divisória da primeira parte. Use a pausa para lembrar a pergunta que os próximos slides respondem: o que muda, para quem e onde a mudança pode travar.')
+
+    # 5 · impactos
+    imp = sorted(EX_IMPACTOS, key=lambda r: (-r[5], -r[6]))
+    s = d.slide('Impactos', 'Os impactos mais altos se concentram em [Operações e Suprimentos]',
+                'Resumo dos impactos. Os números do topo e as linhas da tabela vêm da planilha "Lista de impactos com dashboard".\n'
+                'Mostre só os impactos mais altos (grau 4 ou 5) e deixe a lista completa na planilha. Grau: 4 e 5 = alto, 3 = médio, 1 e 2 = baixo.\n'
+                'Para trocar a cor de uma célula de grau, selecione a célula e use Preenchimento: azul profundo para alto, azul vivo para médio, azul suave para baixo.',
+                dica=EXEMPLO)
+    numeros = [('Impactos mapeados', str(len(EX_IMPACTOS))), ('Impactos altos', str(sum(1 for r in EX_IMPACTOS if r[5] >= 4))),
+               ('Pessoas impactadas', str(sum(r[6] for r in EX_IMPACTOS))), ('Grau médio (1 a 5)', f'{sum(r[5] for r in EX_IMPACTOS) / len(EX_IMPACTOS):.1f}'.replace('.', ','))]
+    for (x, w), (rot, v) in zip(faixas(4), numeros):
+        indicador(s, x, Y_TOPO, w, rot, v, tam=32, h=1.0)
+    grau = lambda g: celula(f'{g} · ' + ('Alto' if g >= 4 else 'Médio' if g == 3 else 'Baixo'), 3 if g >= 4 else 2 if g == 3 else 1)
+    linhas = [['Grupo impactado', 'O que muda', 'Tipo', {'t': 'Grau', 'alinh': 'centro'}, {'t': 'Pessoas', 'alinh': 'dir'}, 'Ação de mudança']]
+    linhas += [[r[2], r[4], r[3], grau(r[5]), {'t': str(r[6]), 'alinh': 'dir'}, r[7]] for r in imp[:5]]
+    tabela(s, MARGEM, 3.38, [2.2, 3.65, 1.25, 1.05, 0.85, UTIL - 9.0], linhas, 0.53, 0.36, nome='Tabela: impactos mais altos')
+
+    # 6 · stakeholders
+    s = d.slide('Stakeholders', 'A prioridade é conquistar quem tem muita influência e ainda não apoia',
+                'Mapa de influência (vertical) por apoio à mudança (horizontal). Arraste os círculos numerados para a posição de cada stakeholder; '
+                'as notas de 1 a 5 vêm da planilha "Mapa de influência de stakeholders".\n'
+                'Quadrante destacado: muita influência e pouco apoio. É onde a mudança costuma travar e onde o patrocinador precisa entrar.\n'
+                'O mapa é retrato do momento e material sensível: atualize a cada fase e pense em quem recebe este slide.',
+                dica='Exemplo ilustrativo: arraste os círculos para a posição de cada stakeholder.')
+    lado = 3.7
+    mapa_influencia(s, MARGEM + 0.56, Y_TOPO, lado, [(i + 1, st[2], st[3]) for i, st in enumerate(EX_STAKEHOLDERS)])
+    xq, wq = MARGEM + 0.56 + lado + 0.6, DIR - (MARGEM + 0.56 + lado + 0.6)
+    quad = [('Conquistar', 'Muita influência, pouco apoio. Entender o que a pessoa perde e envolver o patrocinador.', AZ, 2.5),
+            ('Mobilizar', 'Muita influência e apoio. Dar papel visível na coalizão de patrocínio.', AZP, 1.25),
+            ('Ouvir', 'Pouca influência, pouco apoio. A resistência costuma ser informação sobre o desenho.', AZP, 1.25),
+            ('Envolver', 'Pouca influência formal, apoio alto. São bons multiplicadores.', AZP, 1.25)]
+    for i, (nome, acao, cor, esp) in enumerate(quad):
+        x, w = faixas(2, xq, wq)[i % 2]
+        bloco(s, x, Y_TOPO + (i // 2) * 1.62, w, 1.45, None, nome, acao, cor_fio=cor, esp=esp, tam_tit=17, tam=T_TAB)
+    rotulo(s, xq, Y_TOPO + 3.3, wq, 'Quem está no mapa')
+    for k, (x, w) in enumerate(faixas(3, xq, wq, 0.2)):
+        texto(s, x, Y_TOPO + 3.58, w, 0.5, [P(f'*{i + 1}*  {EX_STAKEHOLDERS[i][0]}', tam=T_ROTULO + 1, cor=CZ, entre=2) for i in (k, k + 3)])
+
+    # 7 · ADKAR
+    # pessoas por ponto de barreira, como no painel da planilha: cada grupo trava no primeiro elemento com nota 3 ou menor
+    por_barreira = {}
+    for g in EX_ADKAR: por_barreira[barreira(g[3:8])] = por_barreira.get(barreira(g[3:8]), 0) + g[2]
+    pessoas = [por_barreira.get(e, 0) for e in ELEMENTOS]
+    avaliadas = sum(g[2] for g in EX_ADKAR)
+    pb = pessoas.index(max(pessoas))
+    s = d.slide('Diagnóstico', f'[{pessoas[pb] / avaliadas:.0%}] das pessoas travam em [{ELEMENTOS[pb]}]: é ali que a ação precisa começar',
+                'Leitura ADKAR do projeto: pessoas por ponto de barreira. Os números vêm do painel da planilha "Avaliação ADKAR com mapa de resistência": '
+                'clique no gráfico e use "Editar dados" para trocar os valores.\n'
+                'O ponto de barreira de cada grupo é o primeiro elemento, na ordem do modelo, com nota 3 ou menor. Não é a menor nota: não adianta treinar quem ainda não decidiu participar.\n'
+                'A coluna em azul profundo é a barreira com mais gente: se for outra, clique duas vezes na coluna e troque o preenchimento. Ajuste a faixa de baixo com a ação, o dono e o prazo.\n'
+                'ADKAR é marca registrada da Prosci.', dica=EXEMPLO)
+    hg = 1.72
+    rotulo(s, MARGEM, Y_TOPO - 0.04, 5.0, 'Pessoas por ponto de barreira')
+    grafico_barras(s, MARGEM, Y_TOPO, UTIL, hg, ELEMENTOS, pessoas, destaque=[pb], maximo=max(pessoas) * 1.2, fmt='0', vao=150, rotulo_cat=False,
+                   margens=(0.0, 0.2, 1.0, 0.8), nome='Gráfico: pessoas por ponto de barreira do ADKAR',
+                   descr='Colunas com o número de pessoas em cada ponto de barreira do ADKAR; a coluna escura é a barreira com mais gente.')
+    significa = ['Entende por que mudar', 'Quer participar', 'Sabe como fazer', 'Consegue fazer', 'Mantém a mudança']
+    acoes = ['Patrocinador explica o porquê e o risco de não mudar', 'Gestor direto conversa sobre perdas e ganhos', 'Capacitação no processo, perto do uso',
+             'Prática guiada e apoio no posto de trabalho', 'Reconhecer, medir o uso e tirar atritos']
+    lb = UTIL / 5
+    for i in range(5):
+        x = MARGEM + i * lb + 0.12
+        texto(s, x, Y_TOPO + hg + 0.08, lb - 0.24, 1.75, [H(ELEMENTOS[i], tam=17, alinh='centro', entre=2), P(significa[i], tam=T_TAB, cor=CZ, alinh='centro', entre=10),
+                                                         R('Se for a barreira', AZ if i == pb else CZ, alinh='centro', entre=3), P(acoes[i], tam=T_TAB, cor=TINTA, alinh='centro')])
+    yp = 5.72
+    ret(s, MARGEM, yp, UTIL, 0.72, AZC, nome='Faixa: ponto de barreira')
+    for (x, w), (rot, t) in zip(faixas(3, MARGEM + 0.25, UTIL - 0.5, 0.3), [('Ponto de barreira', f'[{ELEMENTOS[pb]}]: {pessoas[pb]} de {avaliadas} pessoas'),
+                                                                              ('Ação prioritária', '[O que será feito para destravar]'), ('Dono e prazo', '[Nome] · [data]')]):
+        texto(s, x, yp, w, 0.72, [R(rot, AZ, entre=2), P(t, tam=T_CORPO, cor=AZP, negrito=True)], ancora='meio')
+
+    # 8 · divisória
+    d.divisoria('02', 'Como vamos conduzir', 'Quem faz o quê, o que cada público precisa ouvir e aprender, e os riscos que pedem resposta.',
+                'Divisória da segunda parte. Use a pausa para dizer o que os próximos slides respondem: quem faz o quê, o que cada público precisa ouvir e aprender, e que riscos pedem resposta.')
+
+    # 9 · RACI
+    s = d.slide('Papéis', 'Cada atividade da mudança tem um único aprovador',
+                'Matriz RACI. R = responsável (executa), A = aprova e responde pelo resultado (um por atividade), C = consultado, I = informado. '
+                'Use A/R quando a mesma pessoa aprova e executa.\n'
+                'Troque as letras direto nas células e ajuste a cor do preenchimento. As atividades e os papéis vêm da planilha "Matriz RACI da mudança", que confere se falta ou sobra aprovador.\n'
+                'Leitura: muitos R no mesmo papel indicam sobrecarga; muitos C deixam a decisão lenta. Valide a matriz com as pessoas, não só com o organograma.', dica=EXEMPLO)
+    matriz_raci(s, MARGEM, Y_TOPO, UTIL, EX_PAPEIS, EX_RACI[:9], alt=0.365)
+    legenda_raci(s, MARGEM, 6.1)
+
+    # 10 · comunicação e capacitação
+    s = d.slide('Comunicação e capacitação', 'Cada público ouve do emissor certo e treina perto do uso',
+                'Uma linha por público. Escreva a mensagem-chave do ponto de vista de quem recebe ("o que muda para mim").\n'
+                'Quem comunica: a mensagem de negócio vem do patrocinador; o impacto no dia a dia, do gestor direto.\n'
+                'Capacitação: formato, duração e momento, sempre perto do uso. Em "Como medir", prefira comportamento e resultado a presença e satisfação. '
+                'O detalhe fica na planilha "Plano editorial de treinamentos".', dica=EXEMPLO)
+    linhas = [['Público', 'Mensagem-chave', 'Quem comunica', 'Canal e momento', 'Capacitação', 'Como medir'],
+              ['Gestores diretos', 'O que muda na equipe e qual é o papel de quem lidera', 'Patrocinador', 'Reunião de líderes, 3 semanas antes', 'Ao vivo on-line, 90 min: como conduzir a equipe', 'Conversa feita com a equipe'],
+              ['Usuários-chave', 'Por que foram escolhidos e o que se espera deles', 'Líder do projeto', 'Encontro dedicado, 2 semanas antes', 'Prática guiada, 4 h: processo de ponta a ponta', 'Executa o processo sem ajuda'],
+              ['Usuários finais', 'O que muda no meu dia a dia e onde pedir ajuda', 'Gestor direto', 'Reunião de equipe, na semana do go-live', 'Prática guiada, 2 h: tarefas mais frequentes', 'Uso na rotina, sem retrabalho'],
+              ['Todos', 'O que já funciona e o que ainda vamos ajustar', 'Patrocinador', 'Comunicado, 1 semana depois', 'Vídeo curto, 5 min: dúvidas da primeira semana', 'Dúvidas resolvidas no canal']]
+    tabela(s, MARGEM, Y_TOPO, [1.6, 2.55, 1.6, 2.05, 2.15, UTIL - 9.95], linhas, 0.7, 0.36, nome='Tabela: comunicação e capacitação por público')
+    painel(s, MARGEM, 5.62, UTIL, 0.72, [P('*Quem fala o quê:* o patrocinador explica por que a mudança existe; o gestor direto traduz o que muda na rotina de cada pessoa.', cor=AZP, tam=T_CORPO)],
+           fundo=AZC, margem=0.25, my=0.1, ancora='meio')
+
+    # 11 · riscos
+    alta = sum(1 for r in EX_RISCOS if r[3] * r[4] >= 15)
+    s = d.slide('Riscos', f'[{["Nenhum", "Um", "Dois", "Três", "Quatro", "Cinco"][alta]}] riscos pedem ação imediata para proteger a adoção',
+                'Matriz de probabilidade (vertical) por impacto na adoção (horizontal), de 1 a 5. Exposição = probabilidade x impacto.\n'
+                'Arraste os círculos numerados para a célula de cada risco. A tabela traz os cinco de maior exposição; a lista completa fica na planilha "Mapa de riscos da mudança".\n'
+                'Alta (15 ou mais): ação imediata e acompanhamento no comitê. Média (8 a 14): plano de resposta com dono. Baixa: monitorar.\n'
+                'Descreva cada risco como causa e efeito e revise a cada marco do projeto.', dica=EXEMPLO)
+    lado = 3.45
+    matriz_riscos(s, MARGEM + 0.6, Y_TOPO, lado, [(i + 1, r[3], r[4]) for i, r in enumerate(EX_RISCOS)])
+    xt = MARGEM + 0.6 + lado + 0.55
+    curta = ['Agenda fixa do patrocinador até a estabilização', 'Preparar os gestores antes das equipes, com roteiro de conversa', 'Prática perto do go-live e apoio no posto de trabalho',
+             'Mapa de carga e decisão de sequência com a liderança', 'Reforço pelos supervisores e uso nos indicadores da rotina']
+    expo = lambda e: celula(f'{e} · ' + ('Alta' if e >= 15 else 'Média' if e >= 8 else 'Baixa'), 3 if e >= 15 else 2 if e >= 8 else 1)
+    maiores = sorted(range(5), key=lambda i: -EX_RISCOS[i][3] * EX_RISCOS[i][4])
+    linhas = [[{'t': 'Nº', 'alinh': 'centro'}, 'Risco', {'t': 'Exposição', 'alinh': 'centro'}, 'Resposta', 'Dono']]
+    linhas += [[{'t': str(i + 1), 'alinh': 'centro'}, {'t': EX_RISCOS[i][0], 'negrito': False, 'cor': TINTA}, expo(EX_RISCOS[i][3] * EX_RISCOS[i][4]), curta[i], EX_RISCOS[i][6]] for i in maiores]
+    tabela(s, xt, Y_TOPO - 0.06, [0.42, 2.1, 1.0, 2.45, DIR - xt - 5.97], linhas, 0.66, 0.36, tam=11, primeira=False, nome='Tabela: principais riscos')
+    legenda_exposicao(s, xt, 6.12, (DIR - xt) / 3)
+
+    # 12 · divisória
+    d.divisoria('03', 'Como saberemos que deu certo', 'A régua de adoção por área, o status para o comitê e os compromissos dos próximos 90 dias.',
+                'Divisória da terceira parte. Daqui em diante a conversa é sobre evidência: onde cada área está na régua de adoção, o status para o comitê e os compromissos dos próximos 90 dias.')
+
+    # 13 · adoção por área
+    fr = [[v / sum(c) for v in c] for _, c in EX_ADOCAO]
+    s = d.slide('Adoção', 'A adoção ainda trava em [Operações], a área com mais gente e o menor índice',
+                'Régua de adoção por área. Clique no gráfico e use "Editar dados" para informar a parcela de pessoas de cada área em cada marca (a soma de cada área é 100%). '
+                'Os números vêm da planilha "Mapa de adoção". A última barra é o conjunto das áreas.\n'
+                'Índice de adoção = parcela das pessoas em Adota ou Multiplica. Atualize os valores à direita junto com o gráfico.\n'
+                'A marca com mais gente em cada área indica a ação prioritária. Posição é momento, não rótulo: use leitura agregada por área, nunca para avaliar pessoas.', dica=EXEMPLO)
+    regua_adocao(s, MARGEM, Y_TOPO, UTIL, H_UTIL, [a for a, _ in EX_ADOCAO], fr, pessoas=[sum(c) for _, c in EX_ADOCAO])
+
+    # 14 · status
+    s = d.slide('Status para o comitê', 'A adoção está em [27%], [abaixo] do esperado para esta fase',
+                'Slide para o comitê. Mostre uso real, não só atividades entregues.\n'
+                'Em cada cartão: valor atual, meta da fase com o atingimento (valor ÷ meta) e situação. Situação: na meta (100% ou mais), em atenção (85% a 99%) e crítico (abaixo de 85%). '
+                'A etiqueta fica mais escura quanto mais atenção o indicador pede; troque o texto e o preenchimento juntos.\n'
+                'A barra na base do cartão mostra o atingimento: ajuste a largura da parte azul. Feche com as decisões que o comitê precisa tomar hoje.', dica=EXEMPLO)
+    cartoes = [('Índice de adoção', 27, 35, '%'), ('Uso efetivo', 52, 50, '%'), ('Proficiência', 31, 35, '%'), ('Índice de prontidão', 66, 75, '%')]
+    for (x, w), (nome, v, meta, un) in zip(faixas(4), cartoes):
+        sit, at = situacao(v, meta)
+        cartao_indicador(s, x, Y_TOPO, w, 1.85, nome, fmt_ind(v, un), fmt_ind(meta, un) + ' nesta fase', sit, None, at)
+    colunas = [('O que avançou', ['[Conquista desde o último comitê]', '[Conquista desde o último comitê]']), ('O que travou', ['[Onde a adoção parou]', '[Causa provável]']),
+               ('Decisões que precisamos', ['[O que o comitê precisa decidir hoje]', '[Quem decide e até quando]'])]
+    for (x, w), (t, itens) in zip(faixas(3), colunas):
+        bloco(s, x, 4.4, w, 2.0, None, t, [P(i, cor=CZ, marcador='–', entre=5) for i in itens], tam_tit=17)
+
+    # 15 · próximos passos
+    s = d.slide('Próximos passos', 'Os próximos 90 dias têm entregas, donos e datas definidos',
+                'Feche a apresentação com compromissos. Em cada horizonte: o foco, três entregas com dono e data, e o marco de adoção esperado.\n'
+                'As tabelas são nativas: para incluir uma entrega, clique na última linha e use Inserir linha abaixo.\n'
+                'Volte a este slide na abertura da próxima reunião.')
+    horizontes(s, [('30', 'dias', '[Preparar gestores e usuários-chave]', '[xx% das pessoas em Adota ou Multiplica]'),
+                   ('60', 'dias', '[Sustentar o uso depois do go-live]', '[xx% das pessoas em Adota ou Multiplica]'),
+                   ('90', 'dias', '[Transferir para a operação]', '[xx% das pessoas em Adota ou Multiplica]')])
+
+    return d.salvar('kit-de-gestao-da-mudanca.pptx', pasta)
 
 
-def texto(s, x, y, w, h, t, tam=14, cor=TINTA, negrito=False, fonte=TXT, alinh=PP_ALIGN.LEFT, ancora=MSO_ANCHOR.TOP, italico=False):
-    tb = s.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h)); tf = tb.text_frame; tf.word_wrap = True; tf.vertical_anchor = ancora
-    tf.margin_left = tf.margin_right = Inches(0.04); tf.margin_top = tf.margin_bottom = Inches(0.02)
-    for i, linha in enumerate(t if isinstance(t, list) else [t]):
-        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph(); p.alignment = alinh
-        r = p.add_run(); r.text = linha; r.font.size = Pt(tam); r.font.color.rgb = cor; r.font.bold = negrito; r.font.name = fonte; r.font.italic = italico
-        p.space_after = Pt(4)
-    return tb
-
-
-def no(f, t, tam=12, cor=BR, negrito=True, alinh=PP_ALIGN.CENTER):
-    tf = f.text_frame; tf.word_wrap = True; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
-    p = tf.paragraphs[0]; p.alignment = alinh; r = p.add_run(); r.text = t; r.font.size = Pt(tam); r.font.color.rgb = cor; r.font.bold = negrito; r.font.name = TXT
-
-
-def slide(olho, titulo, dica):
-    s = P.slides.add_slide(VAZIO)
-    caixa(s, 0, 0, 13.333, 0.12, AZP)
-    texto(s, 0.6, 0.38, 9, 0.3, olho.upper(), 10.5, AZ, True)
-    texto(s, 0.6, 0.66, 12, 0.8, titulo, 28, TINTA, fonte=TIT)
-    caixa(s, 0.6, 7.02, 12.13, 0.01, LIN)
-    texto(s, 0.6, 7.06, 8, 0.3, 'Change Management World · Victor Vitorino', 9, CZ)
-    texto(s, 8.7, 7.06, 4.03, 0.3, 'Modelo livre para uso e adaptação', 9, CZ, alinh=PP_ALIGN.RIGHT)
-    s.notes_slide.notes_text_frame.text = dica
-    return s
-
-
-def tabela(s, x, y, w, h, linhas, larguras=None, tam=11):
-    nl, nc = len(linhas), len(linhas[0])
-    t = s.shapes.add_table(nl, nc, Inches(x), Inches(y), Inches(w), Inches(h)).table
-    if larguras:
-        for j, lw in enumerate(larguras): t.columns[j].width = Inches(lw)
-    for i, lin in enumerate(linhas):
-        for j, v in enumerate(lin):
-            c = t.cell(i, j); c.text = str(v); c.vertical_anchor = MSO_ANCHOR.MIDDLE
-            c.fill.solid(); c.fill.fore_color.rgb = AZP if i == 0 else (CZC if i % 2 == 0 else BR)
-            for p in c.text_frame.paragraphs:
-                for r in p.runs: r.font.size = Pt(tam); r.font.name = TXT; r.font.bold = i == 0; r.font.color.rgb = BR if i == 0 else TINTA
-    return t
-
-
-# 1 · capa
-s = P.slides.add_slide(VAZIO)
-caixa(s, 0, 0, 13.333, 7.5, AZP)
-caixa(s, 0.8, 1.2, 0.9, 0.04, AZS)
-texto(s, 0.8, 1.45, 8, 0.4, 'KIT DE SLIDES', 12, AZS, True)
-texto(s, 0.8, 1.95, 11, 1.6, ['Gestão da mudança', 'do [nome do projeto]'], 46, BR, fonte=TIT)
-texto(s, 0.8, 4.2, 9, 0.9, 'Dez slides editáveis para apresentar estratégia, stakeholders, papéis, adoção, riscos e plano. Troque os textos entre colchetes.', 16, RGBColor(0xC9, 0xD6, 0xF2))
-texto(s, 0.8, 6.4, 8, 0.4, '[Área responsável] · [mês e ano]', 12, AZS)
-texto(s, 8.3, 6.4, 4.2, 0.4, 'Change Management World · Victor Vitorino', 10, AZS, alinh=PP_ALIGN.RIGHT)
-
-# 2 · estratégia em uma página
-s = slide('Estratégia', 'A mudança em uma página', 'Preencha os seis blocos com o patrocinador. Se não couber aqui, a mensagem ainda não está clara.')
-blocos = [('Por que mudar', '[O problema ou a oportunidade, em duas frases]'), ('O que muda', '[Processos, sistemas, papéis e indicadores]'), ('Quem é impactado', '[Grupos e número de pessoas]'),
-          ('Como será o sucesso', '[Adoção, uso e resultado esperados, com data]'), ('Quem patrocina', '[Patrocinador e coalizão de líderes]'), ('Principais riscos', '[Os três que mais ameaçam a adoção]')]
-for i, (t, d) in enumerate(blocos):
-    x, y = 0.6 + (i % 3) * 4.11, 1.75 + (i // 3) * 2.55
-    caixa(s, x, y, 3.9, 2.35, CZC if i % 2 else AZC)
-    caixa(s, x, y, 3.9, 0.06, AZ if i < 3 else AZP)
-    texto(s, x + 0.25, y + 0.28, 3.4, 0.4, t, 16, AZP, True)
-    texto(s, x + 0.25, y + 0.85, 3.4, 1.3, d, 12.5, CZ)
-
-# 3 · lista de impactos
-s = slide('Impactos', 'O que muda para cada grupo', 'Resuma aqui os impactos mais altos. A lista completa fica na planilha "Lista de impactos com dashboard".')
-tabela(s, 0.6, 1.75, 12.13, 4.6, [['Grupo impactado', 'O que muda', 'Tipo', 'Grau', 'Pessoas', 'Ação de mudança']] + [['[Grupo]', '[De / para, em uma frase]', '[Processo, sistema, papel…]', '[1 a 5]', '[nº]', '[Comunicação, capacitação ou apoio]'] for _ in range(6)], [2.2, 3.6, 1.9, 0.8, 0.9, 2.73])
-
-# 4 · mapa de stakeholders
-s = slide('Stakeholders', 'Mapa de influência e apoio', 'Arraste os círculos para a posição de cada stakeholder. Prioridade: quem tem muita influência e pouco apoio.')
-X0, Y0, T = 1.5, 1.7, 4.9
-caixa(s, X0, Y0, T, T, CZC, LIN)
-caixa(s, X0, Y0, T / 2, T / 2, AZC); caixa(s, X0 + T / 2, Y0, T / 2, T / 2, RGBColor(0xDD, 0xE8, 0xFD))
-for (tx, ty, t) in [(X0 + 0.12, Y0 + 0.1, 'CONQUISTAR'), (X0 + T / 2 + 0.12, Y0 + 0.1, 'MOBILIZAR'), (X0 + 0.12, Y0 + T - 0.42, 'OUVIR'), (X0 + T / 2 + 0.12, Y0 + T - 0.42, 'ENVOLVER')]:
-    texto(s, tx, ty, 2, 0.3, t, 10, AZP, True)
-texto(s, X0, Y0 + T + 0.08, T, 0.3, 'Apoio à mudança: resiste → apoia', 11, CZ, alinh=PP_ALIGN.CENTER)
-texto(s, 0.55, Y0 + 1.9, 0.9, 1.2, ['Influência', 'baixa → alta'], 11, CZ, alinh=PP_ALIGN.CENTER)
-for (px, py, t, c) in [(0.25, 0.14, 'DO', AZP), (0.82, 0.1, 'PE', AZ), (0.56, 0.3, 'TI', AZ), (0.3, 0.46, 'GL', AZP), (0.76, 0.68, 'UC', CZ), (0.2, 0.82, 'AT', CZ)]:
-    f = caixa(s, X0 + px * T - 0.24, Y0 + py * T - 0.24, 0.48, 0.48, c, BR, MSO_SHAPE.OVAL); no(f, t, 10)
-for i, (t, d) in enumerate([('Conquistar', 'Muita influência, pouco apoio. Entender o que a pessoa perde e envolver o patrocinador.'), ('Mobilizar', 'Muita influência e apoio. Dar papel visível na coalizão de patrocínio.'), ('Envolver', 'Pouca influência formal, apoio alto. Bons multiplicadores.'), ('Ouvir', 'Pouca influência, pouco apoio. Resistência pode ser informação sobre o desenho.')]):
-    y = 1.7 + i * 1.25
-    caixa(s, 7.2, y, 0.06, 1.0, AZ)
-    texto(s, 7.4, y, 5.3, 0.35, t, 15, AZP, True); texto(s, 7.4, y + 0.4, 5.3, 0.7, d, 12, CZ)
-
-# 5 · matriz RACI
-s = slide('Papéis', 'Matriz RACI da mudança', 'R = responsável, A = aprovador (um por atividade), C = consultado, I = informado. Troque as letras direto nas células.')
-cab = ['Atividade', 'Patrocinador', 'Líder do projeto', 'Gestão da mudança', 'Gestores diretos', 'RH', 'TI']
-lin = [['Definir a estratégia de mudança', 'A', 'C', 'R', 'C', 'C', 'I'], ['Mapear stakeholders e impactos', 'I', 'A', 'R', 'C', 'C', 'C'], ['Aprovar as mensagens-chave', 'A', 'R', 'R', 'C', 'I', 'I'], ['Executar o plano de comunicação', 'C', 'C', 'A', 'R', 'C', 'I'], ['Preparar e entregar a capacitação', 'I', 'C', 'A', 'C', 'R', 'C'], ['Medir a adoção e reportar', 'I', 'C', 'A', 'R', 'I', 'C'], ['Sustentar e transferir para a operação', 'A', 'R', 'C', 'R', 'C', 'C']]
-t = tabela(s, 0.6, 1.75, 12.13, 4.4, [cab] + lin, [3.73, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4])
-COR = {'A': (AZP, BR), 'R': (AZ, BR), 'C': (RGBColor(0xD5, 0xE2, 0xFB), AZP), 'I': (CZC, CZ)}
-for i in range(1, len(lin) + 1):
-    for j in range(1, 7):
-        c = t.cell(i, j); v = c.text; c.fill.solid(); c.fill.fore_color.rgb = COR[v][0]
-        for p in c.text_frame.paragraphs:
-            p.alignment = PP_ALIGN.CENTER
-            for r in p.runs: r.font.bold = True; r.font.size = Pt(13); r.font.color.rgb = COR[v][1]
-texto(s, 0.6, 6.3, 12.13, 0.5, 'Regra de ouro: um único A por atividade. Muitos C deixam a decisão lenta.', 12, CZ, italico=True)
-
-# 6 · ADKAR
-s = slide('Diagnóstico', 'Onde a mudança trava: leitura ADKAR', 'Preencha a nota de cada elemento por grupo. O ponto de barreira é o primeiro elemento com nota 3 ou menor. Use a planilha "Avaliação ADKAR" para calcular.')
-el = [('Consciência', 'Entende por que mudar', 'Patrocinador explica o porquê'), ('Desejo', 'Quer participar', 'Gestor direto conversa sobre perdas e ganhos'), ('Conhecimento', 'Sabe como fazer', 'Capacitação perto do uso'), ('Habilidade', 'Consegue fazer', 'Prática guiada e apoio no posto'), ('Reforço', 'Mantém a mudança', 'Reconhecer e medir o uso')]
-for i, (n, d, a) in enumerate(el):
-    x = 0.6 + i * 2.46
-    f = caixa(s, x, 1.75, 2.3, 0.8, [AZP, AZP, AZ, AZ, AZS][i], forma=MSO_SHAPE.CHEVRON if i else MSO_SHAPE.PENTAGON); no(f, n, 13, BR if i < 4 else AZP)
-    texto(s, x, 2.7, 2.3, 0.4, d, 12, TINTA, True, alinh=PP_ALIGN.CENTER)
-    caixa(s, x, 3.2, 2.3, 1.1, CZC); texto(s, x + 0.12, 3.28, 2.06, 0.3, 'NOTA DO GRUPO', 9, CZ, True, alinh=PP_ALIGN.CENTER); texto(s, x, 3.55, 2.3, 0.7, '[1 a 5]', 22, AZP, fonte=TIT, alinh=PP_ALIGN.CENTER)
-    texto(s, x, 4.45, 2.3, 0.3, 'SE FOR A BARREIRA', 9, AZ, True, alinh=PP_ALIGN.CENTER); texto(s, x, 4.75, 2.3, 0.9, a, 11.5, CZ, alinh=PP_ALIGN.CENTER)
-caixa(s, 0.6, 5.85, 12.13, 0.95, AZC); texto(s, 0.85, 5.95, 11.6, 0.8, ['Ponto de barreira do grupo: [elemento]', 'Ação prioritária: [o que será feito, por quem e até quando]'], 13, AZP, True)
-
-# 7 · régua de adoção
-s = slide('Adoção', 'Mapa de adoção: onde cada área está', 'Informe o percentual de pessoas de cada área em cada marca. A largura das barras é ilustrativa: redimensione para refletir os seus números.')
-niv = [('Resiste', RGBColor(0x98, 0xA2, 0xB3), 'Escuta'), ('Observa', CZ, 'Exemplo'), ('Experimenta', AZS, 'Prática'), ('Adota', AZ, 'Reforço'), ('Multiplica', AZP, 'Palco')]
-for i, (n, c, a) in enumerate(niv):
-    x = 2.6 + i * 2.03
-    f = caixa(s, x, 1.75, 1.93, 0.5, c); no(f, n, 12, TINTA if i == 2 else BR)
-    texto(s, x, 6.0, 1.93, 0.3, 'AÇÃO', 9, CZ, True, alinh=PP_ALIGN.CENTER); texto(s, x, 6.25, 1.93, 0.4, a, 14, AZP, True, alinh=PP_ALIGN.CENTER)
-for j, (ar, ps) in enumerate([('[Área 1]', [17, 33, 33, 17, 0]), ('[Área 2]', [29, 42, 15, 14, 0]), ('[Área 3]', [17, 17, 33, 17, 16]), ('[Área 4]', [33, 33, 17, 17, 0])]):
-    y = 2.5 + j * 0.85
-    texto(s, 0.6, y + 0.12, 1.9, 0.4, ar, 13, TINTA, True)
-    x = 2.6
-    for i, pc in enumerate(ps):
-        if not pc: continue
-        w = 10.13 * pc / 100; f = caixa(s, x, y, w - 0.03, 0.62, niv[i][1]); no(f, f'{pc}%', 11, TINTA if i == 2 else BR); x += w
-texto(s, 0.6, 5.95, 1.9, 0.8, ['Índice de adoção', '[xx%]'], 12, AZP, True)
-
-# 8 · comunicação e capacitação
-s = slide('Plano', 'Comunicação e capacitação por público', 'Uma linha por público. A mensagem de negócio vem do patrocinador; o impacto no dia a dia, do gestor direto.')
-tabela(s, 0.6, 1.75, 12.13, 4.6, [['Público', 'Mensagem-chave', 'Quem comunica', 'Canal e momento', 'Capacitação', 'Como medir']] + [['[Público]', '[O que muda para mim]', '[Patrocinador ou gestor direto]', '[Canal · data]', '[Formato · quando]', '[Uso, comportamento ou resultado]'] for _ in range(6)], [1.8, 2.6, 2.0, 1.9, 1.9, 1.93])
-
-# 9 · riscos
-s = slide('Riscos', 'Mapa de riscos da mudança', 'Posicione os números dos riscos na matriz. Detalhe cada um na planilha "Mapa de riscos".')
-G0x, G0y, C = 1.6, 1.75, 0.86
-for i in range(5):
-    for j in range(5):
-        e = (5 - i) * (j + 1); cor = AZP if e >= 15 else AZ if e >= 8 else AZC
-        f = caixa(s, G0x + j * C, G0y + i * C, C - 0.05, C - 0.05, cor); no(f, str(e), 11, BR if e >= 8 else CZ, False)
-texto(s, G0x, G0y + 5 * C + 0.02, 5 * C, 0.3, 'Impacto na adoção: baixo → alto', 11, CZ, alinh=PP_ALIGN.CENTER)
-texto(s, 0.55, G0y + 1.6, 1.0, 1.0, ['Probabilidade', 'baixa → alta'], 11, CZ, alinh=PP_ALIGN.CENTER)
-tabela(s, 6.5, 1.75, 6.23, 4.3, [['Nº', 'Risco', 'Resposta', 'Dono']] + [[str(i), '[Causa e efeito]', '[O que será feito]', '[Nome]'] for i in range(1, 6)], [0.5, 2.4, 2.23, 1.1])
-texto(s, 6.5, 6.2, 6.23, 0.5, 'Exposição = probabilidade x impacto. 15 ou mais: ação imediata.', 11.5, CZ, italico=True)
-
-# 10 · status de adoção
-s = slide('Acompanhamento', 'Status da adoção', 'Slide para o comitê. Mostre uso real, não só atividades entregues.')
-for i, (r, v, d) in enumerate([('Índice de adoção', '[xx%]', 'pessoas em Adota ou Multiplica'), ('Uso na rotina', '[xx%]', 'dos usuários ativos na semana'), ('Proficiência', '[xx%]', 'das tarefas sem retrabalho'), ('Prontidão', '[x,x]', 'nota média de 1 a 5')]):
-    x = 0.6 + i * 3.08
-    caixa(s, x, 1.75, 2.9, 1.9, AZP if i == 0 else CZC)
-    texto(s, x + 0.2, 1.9, 2.5, 0.3, r.upper(), 10, AZS if i == 0 else CZ, True); texto(s, x + 0.2, 2.25, 2.5, 0.8, v, 36, BR if i == 0 else AZP, fonte=TIT); texto(s, x + 0.2, 3.1, 2.5, 0.4, d, 11, RGBColor(0xC9, 0xD6, 0xF2) if i == 0 else CZ)
-for i, (t, d) in enumerate([('O que avançou', '[Duas ou três conquistas desde o último comitê]'), ('O que travou', '[Onde a adoção parou e a causa provável]'), ('Decisões que precisamos', '[O que o comitê precisa decidir hoje]')]):
-    x = 0.6 + i * 4.11
-    caixa(s, x, 3.95, 3.9, 0.05, AZ); texto(s, x, 4.1, 3.9, 0.4, t, 15, AZP, True); texto(s, x, 4.6, 3.9, 2.0, d, 12.5, CZ)
-
-# 11 · próximos passos
-s = slide('Plano', 'Próximos 30, 60 e 90 dias', 'Feche a apresentação com compromissos, donos e datas.')
-for i, (t, c) in enumerate([('30 dias', AZP), ('60 dias', AZ), ('90 dias', AZS)]):
-    x = 0.6 + i * 4.11
-    f = caixa(s, x, 1.75, 3.9, 0.7, c); no(f, t, 16, AZP if i == 2 else BR)
-    caixa(s, x, 2.45, 3.9, 3.9, CZC)
-    texto(s, x + 0.25, 2.65, 3.4, 3.5, ['[Entrega] · [dono] · [data]', '[Entrega] · [dono] · [data]', '[Entrega] · [dono] · [data]', '[Marco de adoção esperado]'], 13, TINTA)
-
-os.makedirs(SAIDA, exist_ok=True)
-P.save(os.path.join(SAIDA, 'kit-de-gestao-da-mudanca.pptx'))
-print('kit de slides gerado:', len(P.slides._sldIdLst), 'slides')
+if __name__ == '__main__':
+    kit()

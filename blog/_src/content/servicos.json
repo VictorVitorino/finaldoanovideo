@@ -1,0 +1,444 @@
+{
+  "olho": "Change Management Advisory",
+  "titulo": [
+    "Change Management",
+    "Advisory,",
+    "*com apoio de perto*."
+  ],
+  "lead": "Atuo como advisor de Change Management para líderes, times e projetos.\nAconselho, estruturo e acompanho a gestão da mudança organizacional (GMO), do diagnóstico à adoção, e ensino as equipes a usar IA aplicada no trabalho.",
+  "resumo_inicio": "Advisory em Change Management para líderes e projetos, com acompanhamento até a adoção, e aulas práticas de IA aplicada para profissionais e equipes.",
+  "frentes": [
+    {
+      "id": "gmo",
+      "nome": "Advisory em Change Management",
+      "frase": "Para o projeto entregar adoção, e não só o sistema.",
+      "itens": [
+        "Diagnóstico de prontidão",
+        "Estratégia e plano de mudança",
+        "Acompanhamento até a adoção"
+      ],
+      "icone": "marcos"
+    },
+    {
+      "id": "ia",
+      "nome": "IA aplicada",
+      "frase": "Aulas práticas para usar IA no próprio trabalho, com segurança.",
+      "itens": [
+        "Aulas e oficinas práticas",
+        "Casos de uso e biblioteca de comandos",
+        "Regras de uso responsável"
+      ],
+      "icone": "faisca"
+    }
+  ],
+  "servicos_titulo": "O que eu faço, serviço a serviço",
+  "servicos_nota": "Arraste os cartões ou use as setas. Abra a ficha de cada serviço para ver o que inclui, como funciona e como é o acompanhamento.",
+  "servicos": [
+    {
+      "id": "diagnostico",
+      "frente": "GMO",
+      "olho": "Advisory · ponto de partida",
+      "nome": "Diagnóstico de prontidão e adoção",
+      "frase": "Um retrato de onde a mudança tende a travar, com as ações que destravam.",
+      "para_quem": "Projetos que vão começar, que estão perto da virada ou que entregaram e não viram o uso chegar.",
+      "inclui": [
+        "Entrevistas com patrocinador, gestores e pessoas-chave",
+        "Pesquisa curta de prontidão com as equipes",
+        "Leitura de impactos por área e por público",
+        "Mapa de adoção: quem resiste, observa, experimenta, adota e multiplica",
+        "Riscos de pessoas e de patrocínio",
+        "Plano de ação priorizado"
+      ],
+      "como": [
+        {
+          "t": "Escuta",
+          "d": "Entrevistas, pesquisa e dados de uso, quando existem."
+        },
+        {
+          "t": "Leitura",
+          "d": "Impactos, adoção e riscos, área por área."
+        },
+        {
+          "t": "Devolutiva",
+          "d": "Achados e plano de ação com a liderança."
+        }
+      ],
+      "acompanhamento": "Devolutiva com a liderança e, se fizer sentido, uma segunda leitura depois das primeiras ações.",
+      "entregas": [
+        "Relatório de diagnóstico",
+        "Mapa de adoção por área",
+        "Plano de ação priorizado"
+      ],
+      "formato": "Trabalho curto e focado, presencial, remoto ou híbrido.",
+      "icone": "pulso"
+    },
+    {
+      "id": "gmo",
+      "frente": "GMO",
+      "olho": "Advisory · projeto completo",
+      "nome": "Advisory em gestão da mudança, de ponta a ponta",
+      "frase": "Aconselhamento e apoio à frente de gestão da mudança do projeto, do diagnóstico ao pós go-live.",
+      "para_quem": "Implantações de sistemas, programas de transformação, reestruturações e carve-outs.",
+      "inclui": [
+        "Diagnóstico de prontidão e leitura de impactos",
+        "Mapa de stakeholders e plano de patrocínio",
+        "Estratégia e plano de gestão da mudança",
+        "Plano de comunicação por público",
+        "Plano de capacitação e rede de multiplicadores",
+        "Preparação para o go-live e apoio na virada",
+        "Medição de adoção e plano de sustentação"
+      ],
+      "como": [
+        {
+          "t": "Entender",
+          "d": "Contexto, impactos e riscos de pessoas."
+        },
+        {
+          "t": "Planejar",
+          "d": "Estratégia, mensagens, capacitação e indicadores."
+        },
+        {
+          "t": "Executar",
+          "d": "Comunicação, treinamento, rede de apoio e prontidão."
+        },
+        {
+          "t": "Sustentar",
+          "d": "Adoção medida, reforço e lições aprendidas."
+        }
+      ],
+      "acompanhamento": "Presença nos ritos do projeto: ponto de acompanhamento com o PMO e leitura periódica de adoção com o patrocinador, até a mudança virar rotina.",
+      "entregas": [
+        "Relatório de prontidão",
+        "Matriz de impactos",
+        "Mapa de stakeholders",
+        "Plano de mudança, comunicação e capacitação",
+        "Painel de adoção",
+        "Relatório de encerramento com lições aprendidas"
+      ],
+      "formato": "Sob medida para o porte e o prazo do projeto, junto ao patrocinador, ao PMO e aos gestores das áreas.",
+      "icone": "marcos"
+    },
+    {
+      "id": "acompanhamento",
+      "frente": "GMO",
+      "olho": "Advisory · apoio contínuo",
+      "nome": "Acompanhamento do projeto",
+      "frase": "Apoio contínuo ao time que já conduz a mudança: método, ritmo e um olhar de fora.",
+      "para_quem": "Projetos em andamento, PMOs e times internos de GMO que precisam de reforço sem montar uma frente nova.",
+      "inclui": [
+        "Revisão do plano de mudança e dos riscos de pessoas",
+        "Participação nos ritos do projeto e nos comitês",
+        "Leitura periódica de adoção, com recomendações",
+        "Apoio a patrocinadores e gestores nos momentos de decisão",
+        "Revisão de comunicados, treinamentos e materiais",
+        "Plano de ação para o que não está avançando"
+      ],
+      "como": [
+        {
+          "t": "Ponto de partida",
+          "d": "Leitura rápida do projeto e combinado dos ritos."
+        },
+        {
+          "t": "Ritmo",
+          "d": "Encontros regulares e canal aberto entre eles."
+        },
+        {
+          "t": "Ajuste",
+          "d": "Recomendações a cada ciclo, com responsável e prazo."
+        },
+        {
+          "t": "Balanço",
+          "d": "O que avançou no período e os próximos passos."
+        }
+      ],
+      "acompanhamento": "Encontros regulares com o time do projeto, relatório de acompanhamento a cada ciclo e canal direto para dúvidas entre um encontro e outro.",
+      "entregas": [
+        "Relatório de acompanhamento por ciclo",
+        "Lista de riscos e ações atualizada",
+        "Recomendações para o comitê"
+      ],
+      "formato": "Cadência combinada no início (semanal, quinzenal ou mensal), remoto ou presencial.",
+      "icone": "ciclo"
+    },
+    {
+      "id": "ia",
+      "frente": "IA aplicada",
+      "olho": "IA aplicada · aulas práticas",
+      "nome": "Aulas e oficinas de IA aplicada",
+      "frase": "Aulas e oficinas práticas para usar IA no próprio trabalho, com segurança.",
+      "para_quem": "Profissionais, áreas de negócio, times de projeto e lideranças que querem sair da curiosidade para o uso de verdade.",
+      "inclui": [
+        "Fundamentos: o que a IA faz bem, o que não faz e onde erra",
+        "Levantamento de casos de uso com cada área",
+        "Prática guiada nas ferramentas que a empresa já usa",
+        "Biblioteca de comandos (prompts) da área",
+        "Regras de uso responsável e cuidado com dados",
+        "Acompanhamento do que virou rotina"
+      ],
+      "como": [
+        {
+          "t": "Entender",
+          "d": "Vocabulário comum e expectativa realista."
+        },
+        {
+          "t": "Escolher",
+          "d": "As tarefas em que a IA ajuda de fato."
+        },
+        {
+          "t": "Praticar",
+          "d": "Prática guiada no trabalho real da área."
+        },
+        {
+          "t": "Sustentar",
+          "d": "Regras claras e medição do uso."
+        }
+      ],
+      "acompanhamento": "Encontros depois das aulas, para tirar dúvidas, trocar o que funcionou e medir o que entrou na rotina.",
+      "entregas": [
+        "Mapa de casos de uso",
+        "Roteiros de prática",
+        "Biblioteca de comandos da área",
+        "Guia de uso responsável"
+      ],
+      "formato": "Aulas particulares ou oficinas em turma, presenciais ou remotas.",
+      "icone": "faisca"
+    },
+    {
+      "id": "mentoria",
+      "frente": "GMO e IA",
+      "olho": "Advisory e IA · individual",
+      "nome": "Mentoria particular",
+      "frase": "Acompanhamento individual, ou em pequenos grupos, para quem conduz a mudança por dentro.",
+      "para_quem": "Patrocinadores, líderes de programa, gestores de áreas impactadas e times internos de gestão da mudança.",
+      "inclui": [
+        "Encontros de orientação com a pauta de cada pessoa",
+        "Revisão de planos, mensagens e materiais",
+        "Preparação para comitês e momentos de decisão",
+        "Uso de IA no próprio trabalho de gestão da mudança"
+      ],
+      "como": [
+        {
+          "t": "Objetivo",
+          "d": "O que a pessoa quer destravar no período."
+        },
+        {
+          "t": "Encontros",
+          "d": "Conversas com pauta, exemplos e tarefa prática."
+        },
+        {
+          "t": "Revisão",
+          "d": "O que mudou na prática e o que vem depois."
+        }
+      ],
+      "acompanhamento": "Canal aberto entre os encontros para revisar materiais e decisões do dia a dia.",
+      "entregas": [
+        "Plano de desenvolvimento do período",
+        "Materiais revisados",
+        "Registro dos combinados"
+      ],
+      "formato": "Encontros periódicos, individuais ou em pequenos grupos.",
+      "icone": "conversa"
+    }
+  ],
+  "viradas": {
+    "olho": "Do sintoma à resposta",
+    "titulo": "O que costuma aparecer, e como eu ajudo",
+    "nota": "Toque em um cartão para virar.",
+    "itens": [
+      {
+        "frente": "O sistema entrou, mas o uso não veio.",
+        "verso": "Adoção desenhada desde o início: quem muda o quê, com que apoio, medida por uso real e não por treinamento concluído.",
+        "icone": "tela"
+      },
+      {
+        "frente": "A liderança apoia, mas a operação não sente.",
+        "verso": "Patrocínio com agenda própria: o que cada líder faz, diz e acompanha, e uma rede de gestores preparada para sustentar.",
+        "icone": "cascata"
+      },
+      {
+        "frente": "O projeto já começou e a gestão da mudança ficou para depois.",
+        "verso": "Acompanhamento com leitura rápida, prioridades claras e ritmo. Dá para recuperar, desde que o patrocinador entre no jogo.",
+        "icone": "relogio"
+      },
+      {
+        "frente": "Todo mundo fala de IA, pouca gente usa de verdade.",
+        "verso": "Prática no trabalho de cada área, com casos de uso reais, regras claras e acompanhamento do que virou rotina.",
+        "icone": "faisca"
+      }
+    ]
+  },
+  "fluxo": {
+    "olho": "Como funciona",
+    "titulo": "O caminho de um projeto, passo a passo",
+    "nota": "Acompanhe a ficha que percorre o processo: ela mostra quem faz o quê e onde a decisão acontece.",
+    "raias": [
+      "Patrocinador",
+      "Gestão da mudança",
+      "Gestores e equipes"
+    ],
+    "passos": [
+      {
+        "raia": 0,
+        "t": "Define o porquê",
+        "d": "O patrocinador diz por que mudar e o que está em jogo."
+      },
+      {
+        "raia": 1,
+        "t": "Diagnóstico de prontidão",
+        "d": "Leitura de impactos, stakeholders e riscos de pessoas."
+      },
+      {
+        "raia": 1,
+        "t": "Estratégia e plano",
+        "d": "O que muda para cada público, com que apoio e em que ordem."
+      },
+      {
+        "raia": 2,
+        "t": "Gestores preparados",
+        "d": "Quem lidera as áreas recebe a mensagem e o roteiro primeiro."
+      },
+      {
+        "raia": 2,
+        "t": "Capacitação e prática",
+        "d": "As equipes aprendem fazendo, perto do uso."
+      },
+      {
+        "raia": 1,
+        "t": "Mede a adoção",
+        "d": "Uso real por área, e não só treinamento concluído."
+      },
+      {
+        "raia": 0,
+        "t": "Reforça e reconhece",
+        "d": "O patrocinador sustenta o que foi conquistado."
+      }
+    ],
+    "decisao": {
+      "pergunta": "Adoção no alvo?",
+      "nao": "Reforço",
+      "sim": "Sustentar"
+    }
+  },
+  "acompanhamento": {
+    "olho": "Acompanhamento",
+    "titulo": "Presente antes, durante e depois da virada",
+    "nota": "A mudança não termina no go-live. O acompanhamento é o que separa projeto entregue de mudança adotada.",
+    "momentos": [
+      {
+        "quando": "Antes",
+        "titulo": "Preparar",
+        "texto": "Diagnóstico, estratégia e plano. Patrocinador e gestores alinhados antes do primeiro anúncio.",
+        "itens": [
+          "Prontidão medida",
+          "Mensagens por público",
+          "Rede de multiplicadores formada"
+        ]
+      },
+      {
+        "quando": "Durante",
+        "titulo": "Conduzir",
+        "texto": "Comunicação, capacitação e apoio em campo. Riscos de pessoas tratados a cada ciclo.",
+        "itens": [
+          "Ritos com o PMO",
+          "Treinamento perto do uso",
+          "Prontidão conferida antes do go-live"
+        ]
+      },
+      {
+        "quando": "Depois",
+        "titulo": "Sustentar",
+        "texto": "Adoção medida por uso real, reforço com os gestores e ajustes até a mudança virar rotina.",
+        "itens": [
+          "Leitura de adoção por área",
+          "Plano de reforço",
+          "Lições aprendidas"
+        ]
+      }
+    ],
+    "ritos_titulo": "Os ritos do acompanhamento",
+    "ritos": [
+      {
+        "t": "Ponto de acompanhamento",
+        "d": "Com o time do projeto e o PMO: avanço, riscos de pessoas e próximas ações."
+      },
+      {
+        "t": "Leitura de adoção",
+        "d": "Com o patrocinador: onde o uso está chegando, onde travou e o que decidir."
+      },
+      {
+        "t": "Canal aberto",
+        "d": "Com gestores e multiplicadores: dúvidas e sinais do dia a dia, sem esperar a próxima reunião."
+      },
+      {
+        "t": "Relatório do ciclo",
+        "d": "Um resumo curto do que avançou, do que preocupa e do que vem a seguir."
+      }
+    ]
+  },
+  "jornada": {
+    "olho": "IA aplicada na prática",
+    "titulo": "Da curiosidade ao uso de verdade",
+    "fases": [
+      {
+        "nome": "Entender",
+        "frase": "O que a IA faz bem, o que não faz e onde pode errar.",
+        "texto": "Antes de qualquer ferramenta, o time precisa de um vocabulário comum e de expectativa realista. É o que tira o medo e também o exagero.",
+        "entregas": [
+          "Oficina de fundamentos",
+          "Glossário do time"
+        ]
+      },
+      {
+        "nome": "Escolher",
+        "frase": "As tarefas da área em que a IA ajuda de fato.",
+        "texto": "Cada área levanta as próprias rotinas e escolhe por onde começar. Caso de uso bom é o que economiza tempo de alguém toda semana.",
+        "entregas": [
+          "Mapa de casos de uso",
+          "Critérios de prioridade"
+        ]
+      },
+      {
+        "nome": "Praticar",
+        "frase": "Prática guiada nas ferramentas que a empresa já usa.",
+        "texto": "Aprender é fazer no trabalho real, com exemplos da própria área e alguém por perto para destravar.",
+        "entregas": [
+          "Roteiros de prática",
+          "Biblioteca de comandos da área"
+        ]
+      },
+      {
+        "nome": "Sustentar",
+        "frase": "Regras claras e medição do que virou rotina.",
+        "texto": "Uso responsável precisa de combinado simples. E adoção se mede por trabalho que mudou, não por login.",
+        "entregas": [
+          "Guia de uso responsável",
+          "Indicadores de uso real"
+        ]
+      }
+    ]
+  },
+  "grafico": {
+    "olho": "O que eu acompanho",
+    "titulo": "Adoção se mede onda a onda",
+    "nota": "Índice de adoção: parcela das pessoas que já adotam ou multiplicam. Os números são do modelo ilustrativo do vídeo da capa (25 pessoas, três ondas); não são resultado de cliente.",
+    "ondas": [
+      {
+        "rotulo": "Onda 1",
+        "valor": 20
+      },
+      {
+        "rotulo": "Onda 2",
+        "valor": 32
+      },
+      {
+        "rotulo": "Onda 3",
+        "valor": 56
+      }
+    ]
+  },
+  "fecho": {
+    "olho": "Contato",
+    "titulo": "Vamos conversar sobre o que você precisa?",
+    "texto": "Conte o momento do projeto ou o que você quer aprender.\nRespondo com um caminho possível."
+  }
+}

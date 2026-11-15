@@ -2,11 +2,17 @@
   "nome": "Change Management World",
   "nome_curto": "CM World",
   "lema": "Gestão da mudança além do raso",
-  "descricao": "Notícias, pesquisas e guias de campo sobre o que está abaixo da superfície da gestão da mudança: IA, transformação, carve-out, due diligence e governança de TI. Por Victor Vitorino.",
+  "descricao": "Change Management Advisory e conteúdo sobre o que está abaixo da superfície da gestão da mudança: IA, transformação, carve-out, due diligence e governança de TI. Por Victor Vitorino.",
   "autor": "Victor Vitorino",
-  "papel": "Consultor especialista em Change Management",
+  "papel": "Change Management Advisor",
   "url": "https://change-management-world.vercel.app",
   "linkedin": "https://www.linkedin.com/in/victor-vitorino-7222b26a",
+  "contato": {
+    "telefone": "(11) 97066-6412",
+    "numero": "5511970666412",
+    "whatsapp": true,
+    "mensagem": "Olá, Victor. Vi o Change Management World e quero saber mais sobre os seus serviços."
+  },
   "idioma": "pt-BR",
   "edicao": {
     "numero": 1,

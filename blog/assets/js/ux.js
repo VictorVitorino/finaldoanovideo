@@ -71,7 +71,7 @@
       if (speechSynthesis.getVoices().length && !this.escolhe()) return avisa('Este aparelho não tem voz em português instalada', 'som');
       if (this.raiz !== raiz) {
         this.para(); this.raiz = raiz;
-        this.blocos = $$('h2, h3, p, li, blockquote', raiz).filter(el => !el.closest('.fonte-caixa, nav, .folha-fim, .sumario-mob, .folha-meta') && !el.querySelector('p, li') && el.textContent.trim().length > 1);
+        this.blocos = $$('h2, h3, p, li, blockquote', raiz).filter(el => !el.closest('.fonte-caixa, nav, .folha-fim, .sumario-mob, .folha-meta, details:not([open])') && !el.querySelector('p, li') && el.textContent.trim().length > 1);
         // começa de onde a pessoa está, não do início da matéria
         this.i = Math.max(0, this.blocos.findIndex(el => el.getBoundingClientRect().bottom > 90));
       }
@@ -153,6 +153,13 @@
   };
 
   // ---------- leitura rápida (folha lateral) ----------
+  // "como aplicar": a ferramenta do Laboratório que combina com o tema da matéria
+  const APLICA = {
+    ia: ['lab/matriz-de-adocao/', 'Meça o uso de verdade, área por área, na Matriz de adoção.'], adocao: ['lab/matriz-de-adocao/', 'Coloque as pessoas na régua e veja a ação de cada marca na Matriz de adoção.'],
+    transformacao: ['lab/mapa-de-influencia/', 'Mapeie quem influencia a mudança no Mapa de influência.'], 'carve-out': ['lab/matriz-raci/', 'Defina quem decide e quem executa na Matriz RACI.'],
+    'governanca-ti': ['lab/matriz-raci/', 'Deixe claro quem aprova cada decisão na Matriz RACI.'], 'due-diligence': ['modelos/#mapa-de-riscos', 'Avalie os riscos de pessoas com o Mapa de riscos.'],
+    mundo: ['lab/diagnostico/', 'Descubra o seu nível no Diagnóstico e veja o que estudar.'], brasil: ['lab/diagnostico/', 'Descubra o seu nível no Diagnóstico e veja o que estudar.'],
+  };
   let folha = null, fila = [], atual = 0, origem = null, empurrou = false, porHistorico = false;
   const cache = new Map();
   const carrega = async s => {
@@ -167,7 +174,9 @@
       if (m && POST.has(m[1]) && a.href.startsWith(RAIZ)) a.dataset.ler = m[1];
     });
     corpo.querySelectorAll('[src]').forEach(a => a.setAttribute('src', new URL(a.getAttribute('src'), base).href));
-    const o = { titulo: (q('h1') || {}).textContent || '', lead: (q('.art-lead') || {}).textContent || '', meta: (q('.art-meta') || {}).innerHTML || '', quando: (q('.art-assina small') || {}).textContent || '', dados: [...doc.querySelectorAll('.art-lado .dado')].map(d => d.outerHTML).join(''), corpo: corpo.innerHTML };
+    const imp = corpo.querySelector('.importa'), importa = imp ? (imp.querySelector('p') || {}).textContent || '' : '';
+    if (imp) imp.remove();   // "por que importa" sobe para o resumo; não repete na matéria completa
+    const o = { titulo: (q('h1') || {}).textContent || '', lead: (q('.art-lead') || {}).textContent || '', meta: (q('.art-meta') || {}).innerHTML || '', quando: (q('.art-assina small') || {}).textContent || '', dados: [...doc.querySelectorAll('.art-lado .dado')].map(d => d.outerHTML).join(''), importa, passos: [...doc.querySelectorAll('.art-lado .lado-lista li')].map(li => li.textContent.trim()), corpo: corpo.innerHTML };
     cache.set(s, o); return o;
   };
   const mostraFolha = async s => {
@@ -180,7 +189,15 @@
     try {
       const o = await carrega(s);
       if (fila[atual] !== s || !folha.open) return;   // a pessoa já foi para outra
-      art.innerHTML = `<div class="folha-meta">${o.meta}</div><h2>${esc(o.titulo)}</h2><p class="folha-lead">${esc(o.lead)}</p><p class="folha-quando">${esc(o.quando)}</p>${o.dados ? `<div class="folha-dados">${o.dados}</div>` : ''}<div class="prosa">${o.corpo}</div><div class="folha-fim"><a class="btn btn--p" href="${urlPost(s)}">Abrir a página completa${ic('seta')}</a><button type="button" class="btn btn--s" data-f="fechar">Fechar</button></div>`;
+      const ap = APLICA[(POST.get(s) || {}).tm] || APLICA.mundo;
+      art.innerHTML = `<div class="folha-meta">${o.meta}</div><h2>${esc(o.titulo)}</h2><p class="folha-quando">${esc(o.quando)}</p>
+        <div class="folha-resumo">
+          <section><h3>O que aconteceu</h3><p>${esc(o.lead)}</p>${o.dados ? `<div class="folha-dados">${o.dados}</div>` : ''}</section>
+          ${o.importa ? `<section><h3>Por que importa</h3><p>${esc(o.importa)}</p></section>` : ''}
+          <section><h3>Como aplicar</h3>${o.passos.length ? `<ul>${o.passos.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}<a class="folha-aplica" href="${RAIZ + ap[0]}"><span>${esc(ap[1])}</span>${ic('seta')}</a></section>
+        </div>
+        <details class="folha-completa"><summary>Ler a matéria completa aqui${ic('setaBaixo')}</summary><div class="prosa">${o.corpo}</div></details>
+        <div class="folha-fim"><a class="btn btn--p" href="${urlPost(s)}">Abrir a página da matéria${ic('seta')}</a><button type="button" class="btn btn--s" data-f="fechar">Fechar</button></div>`;
       art.style.animation = 'none'; void art.offsetWidth; art.style.animation = '';
       setTimeout(() => { if (folha.open && fila[atual] === s && rol.scrollHeight <= rol.clientHeight + 60) marcaLido(s); }, 5000);
     } catch { location.href = urlPost(s); }   // sem conseguir buscar (arquivo local, rede): abre a página
@@ -267,6 +284,7 @@
       ...D.posts.map(p => ({ g: p.tp === 'guia' ? 'Guias de campo' : 'Reportagens', t: p.t, d: [p.tn, p.f, p.g].filter(Boolean).join(' · '), u: urlPost(p.s), ic: p.tp === 'guia' ? 'livro' : p.tp === 'capa' ? 'faisca' : 'globo', e: p.tp === 'capa' ? 'Capa' : p.m + ' min', b: norm([p.t, p.r, p.tn, p.f, p.g].join(' ')) })),
       ...D.lab.map(f => ({ g: 'Laboratório', t: f.t, d: f.d, u: RAIZ + f.u, ic: 'grade', e: 'Ferramenta', b: norm(f.t + ' ' + f.d + ' laboratorio ferramenta') })),
       ...D.modelos.map(m => ({ g: 'Modelos para baixar', t: m.t, d: m.d, u: RAIZ + m.u, ic: 'baixar', e: m.f, b: norm(m.t + ' ' + m.d + ' ' + m.f + ' modelo template baixar') })),
+      ...(D.servicos || []).map(x => ({ g: 'Serviços', t: x.t, d: x.d, u: RAIZ + x.u, ic: 'lista', e: 'Ficha', b: norm(x.t + ' ' + x.d + ' servico servicos advisory') })),
       ...D.secoes.map(s => ({ g: 'Seções', t: s.t, d: '', u: noInicio && s.u.startsWith('index.html#') ? s.u.slice(10) : RAIZ + s.u, ic: 'lista', e: 'Ir', b: norm(s.t + ' secao') })),
     ];
     for (const x of indice) x.nt = norm(x.t);
@@ -282,7 +300,7 @@
     for (let i = 0; i < t.length; i++) { if (marc[i] !== on) { out += marc[i] ? '<mark>' : '</mark>'; on = marc[i]; } out += esc(t[i]); }
     return out + (on ? '</mark>' : '');
   };
-  const ORDEM = ['Reportagens', 'Guias de campo', 'Laboratório', 'Modelos para baixar', 'Seções'], TETO = { Reportagens: 6 };
+  const ORDEM = ['Reportagens', 'Guias de campo', 'Laboratório', 'Modelos para baixar', 'Serviços', 'Seções'], TETO = { Reportagens: 6 };
   const desenhaBusca = q => {
     const res = $('.paleta-res', paleta), ts = norm(q).split(/\s+/).filter(Boolean);
     let grupos;
@@ -414,7 +432,7 @@
   if (rg) {
     const itens = $$('.regua-lista li', rg).map(li => ({ ...li.dataset })), n = itens.length, corpo = $('.regua-corpo', rg);
     if (n > 1) {
-      const trilho = cria('div', 'regua-trilho', `<div class="regua-linha"><i></i></div><ol class="regua-marcas">${itens.map((m, i) => `<li style="--i:${i}"><button type="button" data-marca="${i}" tabindex="-1">${esc(m.nome)}</button></li>`).join('')}</ol><div class="regua-pessoa" role="slider" tabindex="0" aria-label="Posição da pessoa na régua de adoção" aria-valuemin="1" aria-valuemax="${n}">${ic('pessoa')}</div>`);
+      const trilho = cria('div', 'regua-trilho', `<div class="regua-linha"><i></i></div><ol class="regua-marcas">${itens.map((m, i) => `<li style="--i:${i}"><button type="button" data-marca="${i}" aria-pressed="false"><i>${i + 1}</i>${esc(m.nome)}</button></li>`).join('')}</ol><div class="regua-pessoa" role="slider" tabindex="0" aria-label="Posição da pessoa na régua de adoção" aria-valuemin="1" aria-valuemax="${n}">${ic('pessoa')}</div>`);
       trilho.style.setProperty('--ult', n - 1);
       const painel = cria('div', 'regua-painel', '<div class="regua-estado"><small>Onde a pessoa está</small><b></b><p></p></div><div class="regua-acao"><small>O que fazer</small><b></b><p></p></div>');
       painel.setAttribute('aria-live', 'polite');
@@ -426,7 +444,7 @@
         $('.regua-estado b', painel).textContent = m.nome; $('.regua-estado p', painel).textContent = m.estado;
         $('.regua-acao b', painel).textContent = m.acao; $('.regua-acao p', painel).textContent = m.como;
         pessoa.setAttribute('aria-valuenow', i + 1); pessoa.setAttribute('aria-valuetext', `${m.nome}. ${m.estado} O que fazer: ${m.acao}. ${m.como}`);
-        marcas.forEach((li, k) => li.classList.toggle('aqui', k === i));
+        marcas.forEach((li, k) => { li.classList.toggle('aqui', k === i); li.firstElementChild.setAttribute('aria-pressed', String(k === i)); });
         painel.classList.remove('troca'); void painel.offsetWidth; painel.classList.add('troca');
       };
       const define = (i, suave) => { i = limita(i, 0, n - 1); trilho.classList.toggle('suave', suave !== false && !calmo); trilho.style.setProperty('--p', i / (n - 1)); mostra(i); };

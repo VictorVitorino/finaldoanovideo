@@ -1,0 +1,397 @@
+{
+ "kit-de-gestao-da-mudanca": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/kit-de-gestao-da-mudanca-1.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/kit-de-gestao-da-mudanca-2.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/kit-de-gestao-da-mudanca-3.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/kit-de-gestao-da-mudanca-4.webp",
+    "l": 960,
+    "a": 540
+   }
+  ],
+  "capa": 0,
+  "fatos": "15 slides editáveis",
+  "n": 15
+ },
+ "apresentacao-kickoff-da-mudanca": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/apresentacao-kickoff-da-mudanca-1.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/apresentacao-kickoff-da-mudanca-2.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/apresentacao-kickoff-da-mudanca-3.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/apresentacao-kickoff-da-mudanca-4.webp",
+    "l": 960,
+    "a": 540
+   }
+  ],
+  "capa": 0,
+  "fatos": "8 slides editáveis",
+  "n": 8
+ },
+ "relatorio-executivo-de-adocao": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/relatorio-executivo-de-adocao-1.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/relatorio-executivo-de-adocao-2.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/relatorio-executivo-de-adocao-3.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/relatorio-executivo-de-adocao-4.webp",
+    "l": 960,
+    "a": 540
+   }
+  ],
+  "capa": 0,
+  "fatos": "7 slides editáveis",
+  "n": 7
+ },
+ "workshop-com-patrocinadores": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/workshop-com-patrocinadores-1.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/workshop-com-patrocinadores-2.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/workshop-com-patrocinadores-3.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/workshop-com-patrocinadores-4.webp",
+    "l": 960,
+    "a": 540
+   }
+  ],
+  "capa": 0,
+  "fatos": "12 slides editáveis",
+  "n": 12
+ },
+ "slides-das-matrizes-da-mudanca": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/slides-das-matrizes-da-mudanca-1.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/slides-das-matrizes-da-mudanca-2.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/slides-das-matrizes-da-mudanca-3.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/slides-das-matrizes-da-mudanca-4.webp",
+    "l": 960,
+    "a": 540
+   }
+  ],
+  "capa": 0,
+  "fatos": "12 slides editáveis",
+  "n": 12
+ },
+ "painel-de-indicadores-da-mudanca": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-1.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-2.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-3.webp",
+    "l": 960,
+    "a": 540
+   },
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-4.webp",
+    "l": 960,
+    "a": 540
+   }
+  ],
+  "capa": 0,
+  "fatos": "10 slides editáveis",
+  "n": 10
+ },
+ "painel-de-indicadores-da-mudanca-xlsx": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-xlsx-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-xlsx-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-xlsx-3.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/painel-de-indicadores-da-mudanca-xlsx-4.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "4 abas: Como usar, Indicadores, Dados, Painel",
+  "n": 4
+ },
+ "avaliacao-adkar-mapa-de-resistencia": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/avaliacao-adkar-mapa-de-resistencia-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/avaliacao-adkar-mapa-de-resistencia-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/avaliacao-adkar-mapa-de-resistencia-3.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/avaliacao-adkar-mapa-de-resistencia-4.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "3 abas: Como usar, Avaliação ADKAR, Painel",
+  "n": 3
+ },
+ "lista-de-impactos-dashboard": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/lista-de-impactos-dashboard-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/lista-de-impactos-dashboard-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/lista-de-impactos-dashboard-3.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/lista-de-impactos-dashboard-4.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "4 abas: Como usar, Lista de impactos, Painel, Listas",
+  "n": 4
+ },
+ "matriz-de-adocao": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/matriz-de-adocao-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/matriz-de-adocao-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/matriz-de-adocao-3.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "3 abas: Como usar, Matriz de adoção, Painel",
+  "n": 3
+ },
+ "formulario-de-diagnostico": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/formulario-de-diagnostico-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/formulario-de-diagnostico-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/formulario-de-diagnostico-3.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/formulario-de-diagnostico-4.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "4 abas: Como usar, Formulário, Painel, Listas",
+  "n": 4
+ },
+ "mapa-de-riscos": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/mapa-de-riscos-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/mapa-de-riscos-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/mapa-de-riscos-3.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/mapa-de-riscos-4.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "4 abas: Como usar, Riscos, Painel, Listas",
+  "n": 4
+ },
+ "plano-de-treinamentos": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/plano-de-treinamentos-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/plano-de-treinamentos-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/plano-de-treinamentos-3.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/plano-de-treinamentos-4.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "4 abas: Como usar, Plano, Painel, Listas",
+  "n": 4
+ },
+ "matriz-raci": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/matriz-raci-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/matriz-raci-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/matriz-raci-3.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "3 abas: Como usar, Matriz RACI, Painel",
+  "n": 3
+ },
+ "mapa-de-influencia": {
+  "previas": [
+   {
+    "src": "assets/img/modelos/mapa-de-influencia-1.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/mapa-de-influencia-2.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/mapa-de-influencia-3.webp",
+    "l": 936,
+    "a": 662
+   },
+   {
+    "src": "assets/img/modelos/mapa-de-influencia-4.webp",
+    "l": 936,
+    "a": 662
+   }
+  ],
+  "capa": 1,
+  "fatos": "3 abas: Como usar, Stakeholders, Painel",
+  "n": 3
+ }
+}

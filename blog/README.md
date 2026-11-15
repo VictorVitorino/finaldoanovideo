@@ -4,22 +4,34 @@ Blog de notícias sobre Gestão da Mudança (Change Management), de Victor Vitor
 
 É um site estático: a pasta `blog/` inteira é o que se publica. Não precisa de servidor nem de banco de dados. Cada post tem endereço próprio e imagem de compartilhamento, para o link abrir com prévia no LinkedIn.
 
-## O que tem na página inicial
+## Como o site está organizado
 
-| Bloco | O que mostra |
+Quatro destinos no topo: **Radar**, **Laboratório**, **Serviços** e **Sobre**. Em telas menores, o botão Menu abre os mesmos quatro, mais os atalhos (guias de campo, IA & Mudança, agenda e vídeos, posts do mês, modelos, sugestões de leitura) e o contato.
+
+| Página | O que mostra |
 |---|---|
-| Abertura | Chamada "Gestão da mudança, além do raso", edição, o iceberg interativo (arraste para mergulhar; cada ponto abaixo d'água abre uma reportagem), a vitrine com quatro entradas (capa da semana, diagnóstico de nível, modelos para baixar e números do radar) e a faixa "Radar" com as manchetes, que também pode ser arrastada. |
-| Capa da semana | A reportagem principal (com vídeo, se houver), três destaques da edição e a régua de adoção, em que se arrasta a pessoa de "resiste" a "multiplica". |
-| Temas | Atalhos que filtram o radar por tema. |
-| Radar mundial | Todas as reportagens, com filtro por tema, busca e visão em grade ou em lista. Cada cartão tem leitura rápida e "guardar para ler depois". Cada reportagem cita e linka a fonte. |
-| IA & Mudança | Números das pesquisas e reportagens sobre uso de IA na prática. |
-| Guias de campo | Como fazer Change Management em carve-out, due diligence, transformação e governança de TI. |
-| Laboratório | Diagnóstico de nível e ferramentas interativas (RACI, mapa de influência, matriz de adoção). |
-| Vídeos | O vídeo do blog e uma seleção externa. |
-| Eventos | Agenda (estrutura pronta; cresce a cada edição). |
-| Posts do mês | Lista enxuta do que saiu, por mês, com página própria em `mes/AAAA-MM/`. |
-| Sugestões | Estante de livros: a prateleira desliza e cada livro vira para mostrar por que recomendo. |
-| Quem escreve | Perfil, o que gosto e fun fact. |
+| Início (`index.html`) | Abertura "Gestão da mudança, além do raso" com o iceberg interativo; três caminhos (ler, praticar, aplicar); capa da semana com a régua de adoção; galeria com os destaques do radar; ferramentas do Laboratório; convite para os Serviços; quem escreve. |
+| Radar (`radar/`) | Todas as reportagens (filtro por tema, busca, grade ou lista), guias de campo, IA em números (cada número leva à reportagem) e agenda e vídeos. |
+| Laboratório (`lab/`) | Diagnóstico de nível, três ferramentas para montar no navegador e a galeria de modelos para baixar (`modelos/`). |
+| Serviços (`servicos/`) | Change Management Advisory e IA aplicada: duas frentes, cinco serviços com ficha completa (para quem, o que inclui, como funciona, acompanhamento, entregas, formato), sintomas e respostas, fluxo do trabalho, acompanhamento antes, durante e depois, jornada de IA aplicada, gráfico de adoção e contato. |
+| Sobre (`sobre/`) | Bio, cartão de contato (WhatsApp, LinkedIn e "Salvar contato" em .vcf), quatro pilares e a pilha de livros: cada livro abre uma página de contexto com o resumo em três ideias e a leitura do autor. |
+
+Conteúdo que alimenta essas páginas, em `_src/content/`: `home.json` (abertura, iceberg, trilha, régua), `servicos.json`, `perfil.json`, `estante.json` (livros, com ISBN, pergunta, ideias e leitura), `modelos.json` e os posts em `posts/`. O contato fica em `_src/site.config.json` (`contato`).
+
+### Iceberg da abertura
+
+O cartão tem três regiões: a barra de cima (título, zona atual e profundidade), a cena e os controles (sonda ao lado, botão "Explorar o iceberg" embaixo). Nada fica por cima da ilustração. Os pontos abaixo d'água são numerados; em telas estreitas, os rótulos saem da cena e vão para uma legenda numerada logo abaixo, e cada item leva a câmera até o ponto. Dá para explorar arrastando a cena, pela sonda, pelo botão ou pelo teclado (setas, Page Up, Page Down, Home e End na sonda).
+
+### Efeitos (do guia de design)
+
+`assets/css/jornada.css` e `assets/js/efeitos.js` guardam os componentes de efeito, cada um ligado por um atributo `data-*` e sem dependências: galeria que desliza com inércia, ficha em foco (o painel cresce a partir do cartão), cartões que viram, fluxo BPMN com ficha que percorre o processo, narrativa fixa, gráfico que se constrói, pilha de livros num cartão que vira, cartões que inclinam com o cursor, ícones de linha que se desenham na entrada (`_src/lib/vivo.mjs`), brilho holográfico e prévia dos modelos. As partículas da abertura ficam em `motion.js`. Tudo respeita "reduzir movimento", para fora da tela e funciona como texto e listas sem JavaScript.
+
+Tokens do sistema (em `jornada.css`): espaçamento `--e-1` a `--e-6` (8, 16, 24, 32 e 48 px), raios `--r-1` a `--r-4` e três níveis de elevação `--elev-1` a `--elev-3`.
+
+### Prévias e capas
+
+- Prévias reais dos modelos: `python3 blog/_src/previas_modelos.py` converte cada PowerPoint e planilha em imagens das primeiras páginas (`assets/img/modelos/`) e conta slides e abas (`_src/content/modelos-previas.json`). Rode depois de regerar os arquivos.
+- Capas dos livros: `python3 blog/_src/capas_livros.py` baixa as capas pelo ISBN (Google Books; Open Library como reserva) para `assets/img/livros/`.
 
 ## Laboratório (área interativa)
 

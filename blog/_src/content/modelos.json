@@ -6,7 +6,7 @@
     "olho": "Apresentação",
     "previa": "diagnostico",
     "formato": "PowerPoint",
-    "frase": "Onze slides editáveis: mudança em uma página, impactos, stakeholders, RACI, ADKAR, mapa de adoção, riscos, status e próximos passos."
+    "frase": "Slides editáveis: mudança em uma página, impactos, stakeholders, RACI, ADKAR, mapa de adoção, riscos, status e próximos passos."
   },
   {
     "id": "apresentacao-kickoff-da-mudanca",
@@ -15,7 +15,7 @@
     "olho": "Apresentação",
     "previa": "adocao",
     "formato": "PowerPoint",
-    "frase": "Sete slides para lançar a mudança: o porquê, de e para, o que muda para cada grupo, jornada até o go-live, rede de apoio e o que se pede de cada um."
+    "frase": "Para lançar a mudança: o porquê, de e para, o que muda para cada grupo, jornada até o go-live, rede de apoio e o que se pede de cada um."
   },
   {
     "id": "relatorio-executivo-de-adocao",
@@ -24,7 +24,7 @@
     "olho": "Apresentação",
     "previa": "diagnostico",
     "formato": "PowerPoint",
-    "frase": "Seis slides para o comitê: adoção em uma tela, avanço por área, causas pela leitura ADKAR, decisões necessárias e compromissos do próximo ciclo."
+    "frase": "Para o comitê: adoção em uma tela, avanço por área, causas pela leitura ADKAR, decisões necessárias e compromissos do próximo ciclo."
   },
   {
     "id": "workshop-com-patrocinadores",
@@ -33,7 +33,34 @@
     "olho": "Apresentação",
     "previa": "influencia",
     "formato": "PowerPoint",
-    "frase": "Roteiro de 90 minutos em oito slides: o papel de quem patrocina, exercício de stakeholders e os compromissos de cada líder para 30 dias."
+    "frase": "Roteiro de 90 minutos: o papel de quem patrocina, exercício de stakeholders e os compromissos de cada líder para 30 dias."
+  },
+  {
+    "id": "slides-das-matrizes-da-mudanca",
+    "arquivo": "slides-das-matrizes-da-mudanca.pptx",
+    "nome": "Slides das matrizes da mudança",
+    "olho": "Matrizes",
+    "previa": "raci",
+    "formato": "PowerPoint",
+    "frase": "Um slide pronto para o comitê por matriz: RACI, mapa de influência, impactos, ADKAR, adoção, riscos e plano de treinamentos, com síntese executiva."
+  },
+  {
+    "id": "painel-de-indicadores-da-mudanca",
+    "arquivo": "painel-de-indicadores-da-mudanca.pptx",
+    "nome": "Painel de indicadores: slides para o comitê",
+    "olho": "Indicadores",
+    "previa": "adocao",
+    "formato": "PowerPoint",
+    "frase": "O que medir e por quê, painel de uma página, evolução da adoção, ficha dos indicadores e as decisões do período. Par da planilha com os cálculos."
+  },
+  {
+    "id": "painel-de-indicadores-da-mudanca-xlsx",
+    "arquivo": "painel-de-indicadores-da-mudanca.xlsx",
+    "nome": "Painel de indicadores: planilha com os cálculos",
+    "olho": "Indicadores",
+    "previa": "adocao",
+    "formato": "Excel",
+    "frase": "Ficha de cada indicador, valores por mês e painel com meta, atingimento, variação e situação, com as contas explicadas."
   },
   {
     "id": "avaliacao-adkar-mapa-de-resistencia",
@@ -68,7 +95,7 @@
     "nome": "Formulário de diagnóstico de prontidão",
     "olho": "Diagnóstico",
     "previa": "diagnostico",
-    "frase": "Cinco sinais por pessoa ou grupo, com média e leitura sugerida da marca de adoção.",
+    "frase": "Cinco sinais por pessoa ou grupo, com média, sinal mais fraco, leitura sugerida da marca de adoção e mapa de calor por área.",
     "formato": "Excel"
   },
   {
@@ -77,7 +104,7 @@
     "nome": "Mapa de riscos da mudança",
     "olho": "Riscos",
     "previa": "influencia",
-    "frase": "Probabilidade, impacto, exposição e prioridade calculadas, com resposta, responsável e prazo.",
+    "frase": "Probabilidade, impacto, exposição e prioridade calculadas, com resposta, responsável, prazo, status e mapa de calor 5 x 5.",
     "formato": "Excel"
   },
   {
@@ -86,7 +113,7 @@
     "nome": "Plano editorial de treinamentos",
     "olho": "Capacitação",
     "previa": "raci",
-    "frase": "A pauta da capacitação: público, tema, objetivo, formato, data e como medir.",
+    "frase": "A pauta da capacitação: público, tema, objetivo, formato, data, momento em relação ao go-live e como medir.",
     "formato": "Excel"
   },
   {
@@ -104,7 +131,7 @@
     "nome": "Mapa de influência de stakeholders",
     "olho": "Stakeholders",
     "previa": "influencia",
-    "frase": "Influência e apoio de cada stakeholder, com estratégia sugerida e gráfico de dispersão.",
+    "frase": "Influência e apoio de cada stakeholder, com estratégia sugerida, mapa de dispersão com os nomes e lista por quadrante.",
     "formato": "Excel"
   }
 ]

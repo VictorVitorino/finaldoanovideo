@@ -34,7 +34,7 @@
     const fundo = p > 0.97 ? 2 : p > 0.05 ? 1 : 0;
     if (fundo !== fundoAtual) {
       fundoAtual = fundo; sonda.classList.toggle('fundo', fundo === 2); botao.classList.toggle('subir', fundo === 2);
-      botao.querySelector('span').textContent = ['Mergulhar', 'Descer mais', 'Voltar à superfície'][fundo];
+      botao.querySelector('span').textContent = ['Explorar o iceberg', 'Descer mais', 'Voltar à superfície'][fundo];
     }
   };
   // durante o arraste, no máximo uma atualização por quadro
@@ -83,7 +83,7 @@
 
   // sonda: arrastar a alça, clicar no trilho e teclado
   let caixaSonda = null;
-  const deSonda = (y, folga = 22) => { const r = caixaSonda || sonda.getBoundingClientRect(); return (y - r.top - folga) / (r.height - 72); };
+  const deSonda = (y, folga = 22) => { const r = caixaSonda || sonda.getBoundingClientRect(); return (y - r.top - 8 - folga) / (r.height - 60); };   // a alça corre de 8 px do topo a 8 px da base
   sonda.addEventListener('pointerdown', e => {
     if (e.button) return;
     e.preventDefault(); marcaUso(); caixaSonda = sonda.getBoundingClientRect();
@@ -108,6 +108,19 @@
     const a = e.target.closest('.ponto'); if (!a || !curso || a.matches(':hover')) return;
     marcaUso(); aplica((a.parentElement.offsetTop - janela.clientHeight / 2) / curso, true); janela.scrollTop = 0;
   });
+
+  // legenda fora da ilustração: passar o cursor ou o foco num tema leva a câmera até o ponto e o destaca
+  const legenda = caixa.querySelector('.cena-legenda');
+  if (legenda) {
+    const ate = a => {
+      const alvoP = mundo.querySelector(`[data-ponto="${a.dataset.legenda}"]`); if (!alvoP || !curso) return;
+      marcaUso(); aplica((alvoP.parentElement.offsetTop - alturaJanela / 2) / curso, true);
+      mundo.querySelectorAll('.ponto.realce').forEach(x => x.classList.remove('realce')); alvoP.classList.add('realce');
+    };
+    legenda.addEventListener('pointerover', e => { const a = e.target.closest('[data-legenda]'); if (a) ate(a); });
+    legenda.addEventListener('focusin', e => { const a = e.target.closest('[data-legenda]'); if (a) ate(a); });
+    legenda.addEventListener('pointerleave', () => mundo.querySelectorAll('.ponto.realce').forEach(x => x.classList.remove('realce')));
+  }
 
   // os pontos surgem quando entram na janela; fora da tela, a animação da cena descansa
   if ('IntersectionObserver' in window) {

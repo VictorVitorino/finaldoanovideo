@@ -1,54 +1,158 @@
 {
-  "titulo": "O que eu leio e recomendo",
-  "nota": "Livros que voltam à minha mesa quando o assunto é mudança.",
+  "titulo": "Oito livros, oito perguntas",
+  "nota": "Cada livro desta pilha responde a uma pergunta que aparece em todo projeto de mudança. Toque no livro da frente para abrir o resumo.",
   "itens": [
     {
       "titulo": "Leading Change",
       "autor": "John P. Kotter",
       "tipo": "Livro",
-      "porque": "Os oito passos e o papel da liderança em mobilizar a organização."
+      "porque": "Os oito passos e o papel da liderança em mobilizar a organização.",
+      "pergunta": "Como mobilizar uma organização inteira?",
+      "motivo": "degraus",
+      "isbn": "9781422186435",
+      "capa": "assets/img/livros/leading-change.jpg",
+      "capa_l": 473,
+      "capa_a": 720,
+      "fonte": "https://books.google.com/books?vid=ISBN9781422186435",
+      "ideias": [
+        "A maioria das transformações falha por erros previsíveis: pouca urgência, coalizão fraca e visão mal comunicada.",
+        "Kotter organiza a mudança em oito passos, da urgência à consolidação na cultura.",
+        "Mudança grande pede liderança, e não só gestão: alguém precisa mobilizar as pessoas, além de cumprir o plano."
+      ],
+      "leitura": "É como tirar um navio grande do porto: sem urgência, ninguém solta as amarras; sem uma tripulação de líderes remando junto, o navio não sai do lugar. No projeto, uso os oito passos como lista de conferência do patrocínio."
     },
     {
       "titulo": "ADKAR: A Model for Change in Business, Government and Our Community",
       "autor": "Jeffrey M. Hiatt",
       "tipo": "Livro",
-      "porque": "A mudança vista pela pessoa: do porquê ao reforço."
+      "porque": "A mudança vista pela pessoa: do porquê ao reforço.",
+      "pergunta": "O que cada pessoa precisa para mudar?",
+      "motivo": "passos",
+      "isbn": "9781930885509",
+      "capa": "assets/img/livros/adkar.jpg",
+      "capa_l": 479,
+      "capa_a": 720,
+      "fonte": "https://books.google.com/books?vid=ISBN9781930885509",
+      "ideias": [
+        "A organização só muda quando cada pessoa muda.",
+        "São cinco etapas em sequência: consciência, desejo, conhecimento, habilidade e reforço.",
+        "O ponto em que a pessoa trava (a barreira) indica a ação que falta."
+      ],
+      "leitura": "É como aprender a dirigir: saber por que preciso e querer vêm antes da aula teórica e da prática, e só vira hábito com reforço. Treinar antes do desejo é ensinar baliza a quem não quer tirar carteira."
     },
     {
       "titulo": "Managing Transitions",
       "autor": "William Bridges",
       "tipo": "Livro",
-      "porque": "Mudança é situacional; transição é o que acontece por dentro."
+      "porque": "Mudança é situacional; transição é o que acontece por dentro.",
+      "pergunta": "O que acontece por dentro de quem muda?",
+      "motivo": "ponte",
+      "isbn": "9780738219653",
+      "capa": "assets/img/livros/managing-transitions.jpg",
+      "capa_l": 300,
+      "capa_a": 377,
+      "fonte": "https://books.google.com/books?vid=ISBN9780738219653",
+      "ideias": [
+        "Mudança é o evento de fora; transição é o processo interno pelo qual as pessoas passam.",
+        "Toda transição tem três fases: o fim, a zona neutra e o novo começo.",
+        "Projetos tropeçam quando pulam o fim e a zona neutra e cobram o novo começo cedo demais."
+      ],
+      "leitura": "É como mudar de casa: a mudança acontece no dia do caminhão, mas a transição leva meses, até a casa nova parecer sua. Antes do go-live, eu pergunto: o que as pessoas estão deixando para trás?"
     },
     {
       "titulo": "Switch: How to Change Things When Change Is Hard",
       "autor": "Chip Heath e Dan Heath",
       "tipo": "Livro",
-      "porque": "Razão, emoção e caminho, em linguagem direta."
+      "porque": "Razão, emoção e caminho, em linguagem direta.",
+      "pergunta": "Por que mudar é difícil, mesmo quando faz sentido?",
+      "motivo": "chave",
+      "isbn": "9780385528757",
+      "capa": "assets/img/livros/switch.jpg",
+      "capa_l": 480,
+      "capa_a": 708,
+      "fonte": "https://books.google.com/books?vid=ISBN9780385528757",
+      "ideias": [
+        "Toda mudança disputa dois lados da mente: o racional (o condutor) e o emocional (o elefante).",
+        "Para mudar, direcione o condutor, motive o elefante e desenhe o caminho.",
+        "Procure os pontos luminosos: o que já funciona e pode ser copiado."
+      ],
+      "leitura": "É o condutor em cima do elefante: se o elefante não quer ir, o condutor cansa. Em projeto, a planilha convence o condutor; o que move o elefante é ver um colega usando e ganhando tempo."
     },
     {
       "titulo": "The Fearless Organization",
       "autor": "Amy C. Edmondson",
       "tipo": "Livro",
-      "porque": "Segurança psicológica como condição para aprender e adotar."
+      "porque": "Segurança psicológica como condição para aprender e adotar.",
+      "pergunta": "Como criar um ambiente em que dá para aprender?",
+      "motivo": "voz",
+      "isbn": "9781119477242",
+      "capa": "assets/img/livros/the-fearless-organization.jpg",
+      "capa_l": 480,
+      "capa_a": 720,
+      "fonte": "https://books.google.com/books?vid=ISBN9781119477242",
+      "ideias": [
+        "Segurança psicológica é a crença de que se pode falar, perguntar e errar sem punição.",
+        "Sem ela, as pessoas escondem problemas e a organização aprende devagar.",
+        "A liderança constrói essa segurança quando trata o trabalho como aprendizado, convida as pessoas a falar e responde bem a más notícias."
+      ],
+      "leitura": "É a rede embaixo do trapézio: ninguém tenta o salto novo sem ela. Na adoção de um sistema ou de IA, quem tem medo de errar na frente dos outros volta para a planilha."
     },
     {
       "titulo": "Diffusion of Innovations",
       "autor": "Everett M. Rogers",
       "tipo": "Livro",
-      "porque": "Por que algumas ideias se espalham e quem puxa a adoção."
+      "porque": "Por que algumas ideias se espalham e quem puxa a adoção.",
+      "pergunta": "Como uma novidade se espalha?",
+      "motivo": "curva",
+      "isbn": "9780743222099",
+      "capa": "assets/img/livros/diffusion-of-innovations.jpg",
+      "capa_l": 300,
+      "capa_a": 463,
+      "fonte": "https://books.google.com/books?vid=ISBN9780743222099",
+      "ideias": [
+        "Uma novidade se espalha por grupos em sequência: inovadores, primeiros adeptos, maioria inicial, maioria tardia e retardatários.",
+        "A adoção depende de vantagem percebida, compatibilidade, simplicidade e da chance de testar e de ver funcionando.",
+        "Formadores de opinião e redes de colegas pesam mais do que a comunicação oficial."
+      ],
+      "leitura": "É como a ola no estádio: começa com poucos e só vira onda quando os vizinhos veem e se levantam. Por isso, mapeio quem os colegas observam antes de planejar a capacitação."
     },
     {
       "titulo": "HCMBOK: o fator humano na liderança de projetos",
       "autor": "Vicente Gonçalves e Carla Campos",
       "tipo": "Livro",
-      "porque": "Gestão de mudanças integrada às fases do projeto, com olhar brasileiro."
+      "porque": "Gestão de mudanças integrada às fases do projeto, com olhar brasileiro.",
+      "pergunta": "Como encaixar a mudança nas fases do projeto?",
+      "motivo": "fases",
+      "isbn": "9788574526454",
+      "capa": "assets/img/livros/hcmbok.jpg",
+      "capa_l": 480,
+      "capa_a": 692,
+      "fonte": "https://books.google.com/books?vid=ISBN9788574526454",
+      "ideias": [
+        "Organiza a gestão de mudanças ao longo do ciclo de vida do projeto, do planejamento ao encerramento.",
+        "Trata o fator humano como parte do projeto, com atividades, papéis e entregas em cada fase.",
+        "Conversa com as práticas de gerenciamento de projetos e traz o olhar brasileiro."
+      ],
+      "leitura": "É a planta da obra com a parte hidráulica desenhada desde o início: gente não é acabamento. Uso como referência para encaixar cada entrega de mudança no cronograma do projeto."
     },
     {
       "titulo": "Nudge",
       "autor": "Richard H. Thaler e Cass R. Sunstein",
       "tipo": "Livro",
-      "porque": "Como o desenho das escolhas torna o comportamento certo o mais fácil."
+      "porque": "Como o desenho das escolhas torna o comportamento certo o mais fácil.",
+      "pergunta": "Como tornar o comportamento certo o mais fácil?",
+      "motivo": "empurrao",
+      "isbn": "9780143137009",
+      "capa": "assets/img/livros/nudge.jpg",
+      "capa_l": 469,
+      "capa_a": 720,
+      "fonte": "https://books.google.com/books?vid=ISBN9780143137009",
+      "ideias": [
+        "As pessoas decidem com atalhos e vieses; o jeito de apresentar as opções influencia a escolha.",
+        "Um nudge orienta sem proibir: padrões bem escolhidos, lembretes e simplificação.",
+        "Tornar a opção certa a mais fácil costuma funcionar melhor do que tentar convencer."
+      ],
+      "leitura": "É colocar a fruta na altura dos olhos na cantina. Em projeto, eu pergunto: o novo jeito é o caminho mais fácil? Se o sistema antigo continua a um clique, é para lá que as pessoas voltam."
     }
   ]
 }

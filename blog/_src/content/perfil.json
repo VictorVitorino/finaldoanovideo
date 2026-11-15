@@ -1,10 +1,43 @@
 {
   "nome": "Victor Vitorino",
   "iniciais": "VV",
-  "papel": "Líder de Transformação · especialista em Change Management",
+  "papel": "Change Management Advisor · Líder de Transformação",
+  "papel_linhas": [
+    "Change Management Advisor",
+    "Líder de Transformação e IA aplicada"
+  ],
+  "chamada": [
+    "Faço o investimento",
+    "digital virar",
+    "*adoção e valor*."
+  ],
   "bio": [
-    "Lidero programas de transformação na interseção entre tecnologia, processos e arquitetura funcional de soluções. Meu trabalho é fazer o investimento digital virar adoção, eficiência operacional e valor para o negócio.",
-    "Conecto estratégia corporativa, implementação de sistemas e mudança de comportamento, em programas orientados por dados, governança e resultados que se medem. Neste blog, registro o que fica abaixo da superfície da gestão da mudança."
+    "Sou Change Management Advisor e líder de transformação, com atuação em tecnologia, processos e arquitetura funcional de soluções.\nConecto a estratégia da empresa, a implementação dos sistemas e a mudança de comportamento das pessoas.",
+    "Aconselho e acompanho programas de transformação guiados por dados, governança e resultados que se medem.\nPara mim, projeto entregue ainda não é o fim: o alvo é o uso real, a eficiência operacional e o valor para o negócio.",
+    "No blog, registro o que fica abaixo da superfície da gestão da mudança.\nNo advisory, levo isso para o projeto e para as pessoas: gestão da mudança organizacional (GMO) e aulas de IA aplicada ao trabalho."
+  ],
+  "bio_curta": "Change Management Advisor e líder de transformação.\nConecto estratégia, sistemas e comportamento para o investimento digital virar adoção, eficiência operacional e valor para o negócio.",
+  "pilares": [
+    {
+      "frente": "Tecnologia, processos e arquitetura",
+      "verso": "Entender a solução por dentro: o que o sistema faz, o processo que ele muda e quem sente a diferença.",
+      "icone": "camadas"
+    },
+    {
+      "frente": "Do investimento à adoção",
+      "verso": "Projeto entregue ainda não é valor. O alvo é uso real, eficiência operacional e resultado para o negócio.",
+      "icone": "subida"
+    },
+    {
+      "frente": "Estratégia, sistemas e comportamento",
+      "verso": "A mudança acontece quando os três andam juntos: o porquê do negócio, a ferramenta e o hábito das pessoas.",
+      "icone": "orbita"
+    },
+    {
+      "frente": "Dados, governança e resultado",
+      "verso": "Programas conduzidos com indicadores, ritos de decisão e metas que se medem.",
+      "icone": "painel"
+    }
   ],
   "gosto": [
     "IA aplicada à adoção",

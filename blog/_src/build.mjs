@@ -7,6 +7,8 @@ import { fileURLToPath } from 'node:url';
 import { frontMatter, markdown, minutos } from './lib/md.mjs';
 import { marca } from './lib/ilustra.mjs';
 import { inicio, post, mes, naoAchou, paginaRadar, TEMAS } from './lib/modelos.mjs';
+import { paginaServicos, blocoServicos } from './lib/servicos.mjs';
+import { paginaSobre, blocoSobre } from './lib/sobre.mjs';
 import { secaoLab, labInicio, labDiagnostico, labRaci, labInfluencia, labAdocao, FERRAMENTAS, PREVIAS, paginaModelos, paginaPainel } from './lib/lab.mjs';
 
 const SRC = dirname(fileURLToPath(import.meta.url)), SAIDA = join(SRC, '..'), CONT = join(SRC, 'content');
@@ -27,7 +29,7 @@ export function carrega() {
   // diagnóstico: um arquivo por domínio em content/diagnostico, na ordem abaixo
   const ORDEM = ['modelos', 'estrategia', 'pessoas', 'execucao', 'medicao', 'contextos'];
   const dominios = ORDEM.filter(d => existsSync(join(CONT, 'diagnostico', d + '.json'))).map(d => ({ id: d, ...json(`diagnostico/${d}.json`) }));
-  return { cfg, posts, eventos: json('eventos.json'), videos: json('videos.json'), perfil: json('perfil.json'), home: json('home.json'), dominios, relatorio: json('diagnostico-relatorio.json') };
+  return { cfg, posts, eventos: json('eventos.json'), videos: json('videos.json'), perfil: json('perfil.json'), home: json('home.json'), servicos: json('servicos.json'), dominios, relatorio: json('diagnostico-relatorio.json') };
 }
 
 function gera() {
@@ -36,17 +38,23 @@ function gera() {
   const capaPost = posts.find(p => p.slug === cfg.edicao.capa);
   if (capaPost) cfg.capaMenu = { slug: capaPost.slug, titulo: capaPost.titulo };
   cfg.mesAtual = posts.map(p => p.data.slice(0, 7)).sort().pop();   // mês mais recente, para o link "Posts do mês"
-  for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel', 'radar']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
+  for (const dir of ['posts', 'mes', 'lab', 'modelos', 'painel', 'radar', 'servicos', 'sobre', 'consultoria']) rmSync(join(SAIDA, dir), { recursive: true, force: true });
   const nPerguntas = d.dominios.reduce((a, x) => a + x.perguntas.length, 0);
-  const mods = json('modelos.json');
-  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas, mods.length), estante: existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null }));
-  grava('radar/index.html', paginaRadar({ cfg, posts }));
+  // catálogo dos modelos, com as prévias reais geradas por previas_modelos.py (quando existem)
+  const previas = existsSync(join(CONT, 'modelos-previas.json')) ? json('modelos-previas.json') : {};
+  const mods = json('modelos.json').filter(m => existsSync(join(SAIDA, 'assets', 'modelos', m.arquivo))).map(m => ({ ...m, ...(previas[m.id] || {}) }));
+  const estante = existsSync(join(CONT, 'estante.json')) ? json('estante.json') : null;
+  const convite = blocoServicos(d.servicos, '../');
+  grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas, mods.length), servicos: blocoServicos(d.servicos, ''), sobre: blocoSobre({ cfg, perfil: d.perfil, raiz: '' }) }));
+  grava('radar/index.html', paginaRadar({ cfg, posts, eventos: d.eventos, videos: d.videos, home: d.home }));
+  grava('servicos/index.html', paginaServicos({ cfg, c: d.servicos }));
+  grava('sobre/index.html', paginaSobre({ cfg, perfil: d.perfil, estante, convite }));
   // Laboratório
-  grava('lab/index.html', labInicio({ cfg, nPerguntas }));
-  grava('modelos/index.html', paginaModelos({ cfg, modelos: json('modelos.json') }));
+  grava('lab/index.html', labInicio({ cfg, nPerguntas, modelos: mods }));
+  grava('modelos/index.html', paginaModelos({ cfg, modelos: mods }));
   grava('painel/index.html', paginaPainel({ cfg }));
   const dl = cfg.downloads || {};
-  grava('assets/js/cfg.js', `// Gerado por blog/_src/build.mjs a partir de site.config.json ("downloads"). A chave é a publicável do Supabase: pode ficar no site.\nwindow.CMW_CFG = ${JSON.stringify({ url: dl.supabase_url || '', chave: dl.supabase_chave || '', modelos: json('modelos.json').map(m => ({ id: m.id, nome: m.nome })) })};\n`);
+  grava('assets/js/cfg.js', `// Gerado por blog/_src/build.mjs a partir de site.config.json ("downloads"). A chave é a publicável do Supabase: pode ficar no site.\nwindow.CMW_CFG = ${JSON.stringify({ url: dl.supabase_url || '', chave: dl.supabase_chave || '', modelos: mods.map(m => ({ id: m.id, nome: m.nome })) })};\n`);
   if (!dl.supabase_url) console.log('aviso: "downloads" sem Supabase em site.config.json (os downloads funcionam, mas não são registrados)');
   grava('lab/matriz-raci/index.html', labRaci({ cfg }));
   grava('lab/mapa-de-influencia/index.html', labInfluencia({ cfg }));
@@ -63,8 +71,9 @@ function gera() {
   const dados = {
     posts: posts.map(p => ({ s: p.slug, t: p.titulo, r: curto(p.resumo), tp: p.tipo, tm: p.tema, tn: TEMAS[p.tema].nome, f: String(p.fonte_nome || '').split(/[,(|]/)[0].trim(), g: p.regiao || '', m: p.min })),
     lab: FERRAMENTAS.map(f => ({ t: f.nome, d: curto(f.frase, 110), u: `lab/${f.slug}/` })),
-    modelos: json('modelos.json').map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
-    secoes: [['Radar mundial', 'radar/'], ['IA & Mudança', '#ia'], ['Guias de campo', '#guias'], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Agenda e vídeos', '#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Sugestões de leitura', '#estante'], ['Quem escreve', '#sobre']].map(([t, u]) => ({ t, u: u[0] === '#' ? 'index.html' + u : u })),
+    modelos: mods.map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
+    servicos: d.servicos.servicos.map(x => ({ t: x.nome, d: curto(x.frase, 110), u: `servicos/#servico-${x.id}` })),
+    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
   };
   grava('assets/js/dados.js', `// Gerado por blog/_src/build.mjs. Não edite à mão.\nwindow.CMW_DADOS = ${JSON.stringify(dados)};\n`);
   const porMes = {};
@@ -74,7 +83,7 @@ function gera() {
   grava('assets/img/favicon.svg', marca().replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--azul-p\)/g, '#0A2463').replace(/var\(--azul\)/g, '#2F6FED'));
   if (cfg.url) {
     const base = cfg.url.replace(/\/$/, '');
-    const urls = ['', 'radar/', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/'];
+    const urls = ['', 'radar/', 'servicos/', 'sobre/', ...posts.map(p => `posts/${p.slug}/`), ...Object.keys(porMes).map(m => `mes/${m}/`), 'lab/', ...FERRAMENTAS.map(f => `lab/${f.slug}/`), 'modelos/'];
     grava('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${base}/${u}</loc></url>`).join('\n')}\n</urlset>\n`);
     grava('robots.txt', `User-agent: *\nAllow: /\nDisallow: /_src/\nDisallow: /painel/\nSitemap: ${base}/sitemap.xml\n`);
   }

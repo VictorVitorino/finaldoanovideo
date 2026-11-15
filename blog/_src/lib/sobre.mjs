@@ -7,14 +7,14 @@ import { iconeVivo, motivoLivro } from './vivo.mjs';
 import { pagina, titSecao, contato, frases, corrido } from './modelos.mjs';
 
 const tit = l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>');
-export const foto = (perfil, raiz, cls) => `<img${cls ? ` class="${cls}"` : ''} src="${raiz}${esc(perfil.foto)}" alt="${esc(perfil.nome)}" width="480" height="600" loading="lazy" decoding="async">`;
+export const foto = (perfil, raiz, cls) => `<img${cls ? ` class="${cls}"` : ''} src="${raiz}${esc(perfil.foto)}" alt="${esc(perfil.nome)}" width="720" height="720" loading="lazy" decoding="async">`;
 
 export const papeis = perfil => (perfil.papel_linhas || [perfil.papel]).map(l => `<span>${esc(l)}</span>`).join('');
-// cartão de contato: o iceberg da marca (ou a foto), nome, cargo em linhas e os canais; "Salvar contato" baixa um .vcf
+// cartão de contato: o iceberg da marca, a foto em círculo (quando o arquivo existe), nome, cargo em linhas e os canais; "Salvar contato" baixa um .vcf
 export const cartaoVisita = (cfg, perfil, raiz) => {
   const ct = contato(cfg);
-  return `<aside class="cv" data-inclina aria-label="Cartão de contato de ${esc(perfil.nome)}">
-      <div class="cv-topo">${perfil.temFoto ? foto(perfil, raiz, 'cv-foto') : `<div class="cv-cena">${iceberg({ recorte: [20, 100, 520, 280], id: 'cv' })}</div>`}</div>
+  return `<aside class="cv${perfil.temFoto ? ' cv--foto' : ''}" data-inclina aria-label="Cartão de contato de ${esc(perfil.nome)}">
+      <div class="cv-topo"><div class="cv-cena">${iceberg({ recorte: [20, 100, 520, 280], id: 'cv' })}</div></div>${perfil.temFoto ? foto(perfil, raiz, 'cv-rosto') : ''}
       <div class="cv-corpo">
         <b class="cv-nome">${esc(perfil.nome)}</b>
         <p class="cv-papel">${papeis(perfil)}</p>

@@ -73,12 +73,12 @@ export const blocoServicos = (c, raiz) => !c ? '' : `<section class="sec sec--se
 export function paginaServicos({ cfg, c, perfil }) {
   const raiz = '../', f = c.fluxo, j = c.jornada, g = c.grafico, v = c.viradas, ac = c.acompanhamento, ct = contato(cfg), q = c.quem;
   const acoes = botoesContato(cfg, { principal: 'btn--p', apoio: 'btn--s' });
-  // quem conduz: apresentação pessoal logo depois da abertura. Com o arquivo da foto (perfil.foto), entra o retrato; sem ele, a mesma moldura mostra o iceberg da marca.
+  // quem conduz: apresentação pessoal logo depois da abertura. Com o arquivo da foto (perfil.foto), o cartão mostra o retrato em círculo; sem ele, o iceberg da marca.
   const papel1 = perfil ? (perfil.papel_linhas || [perfil.papel])[0] : '';
   const quem = !(q && perfil) ? '' : `<section class="sec sec--quem" id="quem" aria-labelledby="quem-t">
   <div class="sec-in">
     <div class="quem${perfil.temFoto ? ' quem--foto' : ''}">
-      <figure class="quem-retrato${perfil.temFoto ? '' : ' quem-retrato--arte'} revela">${perfil.temFoto ? foto(perfil, raiz, '') : iceberg({ recorte: [66, 40, 440, 550], id: 'quem' })}${perfil.chamada ? `<figcaption>${perfil.chamada.map(l => `<span>${tit(l)}</span>`).join('')}</figcaption>` : ''}</figure>
+      <figure class="quem-retrato${perfil.temFoto ? ' quem-retrato--foto' : ' quem-retrato--arte'} revela">${perfil.temFoto ? `<span class="quem-rosto">${foto(perfil, raiz, '')}</span>` : iceberg({ recorte: [66, 40, 440, 550], id: 'quem' })}${perfil.chamada ? `<figcaption>${perfil.chamada.map(l => `<span>${tit(l)}</span>`).join('')}</figcaption>` : ''}</figure>
       <div class="quem-txt">
         <div class="quem-cab revela"><span class="olho">${esc(q.olho)}</span><h2 id="quem-t">${esc(perfil.nome)}</h2><p class="sobre-papel">${papeis(perfil)}</p></div>
         <div class="quem-bio revela" style="--i:1">${perfil.bio.slice(0, 2).map(p => `<p>${frases(p)}</p>`).join('')}</div>

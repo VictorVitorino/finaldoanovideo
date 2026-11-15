@@ -428,8 +428,9 @@ html.js .momento.visto::before { transform: none; }
 
 /* ---------- quem escreve (página inicial): só texto ---------- */
 .autor { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(22px, 5vw, 76px); align-items: center; }
-.autor--foto { grid-template-columns: minmax(150px, 220px) minmax(0, .9fr) minmax(0, 1.1fr); }
-.autor-foto img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 20px; box-shadow: var(--elev-3); }
+.autor--foto { grid-template-columns: minmax(150px, 210px) minmax(0, .9fr) minmax(0, 1.1fr); }
+.autor-foto { padding: 6px; border-radius: 50%; border: 1.5px solid rgba(47, 111, 237, .45); }
+.autor-foto img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; box-shadow: var(--elev-3); }
 .autor-nome { display: grid; gap: 10px; justify-items: start; }
 .autor-nome h2 { font-size: clamp(2.2rem, 4.2vw, 3.4rem); font-weight: 400; line-height: 1.04; letter-spacing: -.025em; }
 .autor-txt { display: grid; gap: 16px; }
@@ -445,9 +446,9 @@ html.js .momento.visto::before { transform: none; }
 .cv::before { content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; background: radial-gradient(260px circle at var(--mx) var(--my), rgba(255, 255, 255, .22), transparent 62%); transition: opacity .3s; }
 .cv.inclinado::before { opacity: 1; }
 .cv-topo { position: relative; aspect-ratio: 520 / 280; overflow: hidden; background: var(--azul-p); }
-.cv-cena, .cv-cena svg, .cv-foto { display: block; width: 100%; height: 100%; }
-.cv-foto { object-fit: cover; object-position: 50% 16%; }
-.cv-topo:has(.cv-foto) { aspect-ratio: 5 / 4; }
+.cv-cena, .cv-cena svg { display: block; width: 100%; height: 100%; }
+.cv-rosto { position: relative; z-index: 2; display: block; width: 104px; height: 104px; margin: -56px 0 0 20px; border-radius: 50%; object-fit: cover; border: 4px solid #123A96; box-shadow: 0 16px 30px -14px rgba(0, 0, 0, .8); }
+.cv--foto .cv-corpo { padding-top: 12px; }
 .cv-cena { position: relative; }
 .cv-cena::after { content: ''; position: absolute; left: 0; right: 0; top: calc(71.4% - 6px); height: 12px; opacity: .75; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='12'%3E%3Cpath d='M0 7q35-9 70 0t70 0' fill='none' stroke='%23fff' stroke-width='1.4'/%3E%3C/svg%3E") repeat-x; animation: onda-fundo 7s linear infinite; }
 .cv-corpo { display: grid; gap: 12px; padding: 20px 22px 22px; }
@@ -696,14 +697,20 @@ a.mod-arte { cursor: pointer; }
 .sec--quem { padding-bottom: 0; }
 .quem { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(28px, 5vw, 84px); align-items: center; }
 .quem-retrato { position: relative; margin: 0; justify-self: center; width: min(100%, 400px); aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: var(--azul-p); box-shadow: var(--elev-3); isolation: isolate; }
-.quem-retrato > :is(img, svg) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+.quem-retrato > svg { display: block; width: 100%; height: 100%; }
+.quem-retrato--foto { background: radial-gradient(circle farthest-corner at 76% 10%, #1E50C0, var(--azul-p) 44%, #071A4A); }
+.quem-rosto { position: absolute; left: 50%; top: 9%; width: 62%; aspect-ratio: 1; translate: -50% 0; padding: 7px; border-radius: 50%; border: 1.5px solid rgba(157, 189, 255, .75); box-shadow: 0 30px 60px -26px rgba(0, 0, 0, .85); }
+.quem-rosto::before { content: ''; position: absolute; inset: -9%; border-radius: 50%; border: 1px dashed rgba(157, 189, 255, .38); animation: rede-gira 70s linear infinite; }
+.quem-rosto img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .quem-retrato::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(7, 26, 74, 0) 48%, rgba(7, 26, 74, .9)); }
 .quem-retrato figcaption { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: grid; padding: 24px 26px; color: #fff; font-family: var(--tit); font-size: clamp(1.3rem, 2.2vw, 1.62rem); line-height: 1.14; letter-spacing: -.01em; }
 .quem-retrato figcaption::before { content: ''; width: 28px; height: 2px; margin-bottom: 12px; background: var(--azul-suave); }
 .quem-retrato figcaption span { display: block; }
 .quem-retrato figcaption em { font-style: italic; color: var(--azul-suave); }
-html.js .quem-retrato.revela > :is(img, svg) { clip-path: inset(0 0 100% 0); transform: scale(1.06); transition: clip-path 1s cubic-bezier(.7, 0, .2, 1) .1s, transform 1.4s var(--ease) .1s; }
-html.js .quem-retrato.revela.visto > :is(img, svg) { clip-path: inset(0); transform: none; }
+html.js .quem-retrato.revela > svg { clip-path: inset(0 0 100% 0); transform: scale(1.06); transition: clip-path 1s cubic-bezier(.7, 0, .2, 1) .1s, transform 1.4s var(--ease) .1s; }
+html.js .quem-retrato.revela.visto > svg { clip-path: inset(0); transform: none; }
+html.js .quem-retrato.revela .quem-rosto { opacity: 0; scale: .86; transition: opacity .7s var(--ease) .15s, scale .9s var(--mola) .15s; }
+html.js .quem-retrato.revela.visto .quem-rosto { opacity: 1; scale: 1; }
 html.js .quem-retrato.revela figcaption { opacity: 0; transform: translateY(10px); transition: opacity .7s var(--ease) .7s, transform .8s var(--ease) .7s; }
 html.js .quem-retrato.revela.visto figcaption { opacity: 1; transform: none; }
 .quem-txt { display: grid; gap: var(--e-3); min-width: 0; }
@@ -718,7 +725,7 @@ html.js .quem-retrato.revela.visto figcaption { opacity: 1; transform: none; }
 .quem-frentes b { font-size: .92rem; font-weight: 600; line-height: 1.3; color: var(--azul-p); }
 .quem-nota { max-width: 30em; padding-left: 16px; border-left: 2px solid var(--azul); font-family: var(--tit); font-size: 1.22rem; line-height: 1.35; color: var(--azul-p); }
 .fecho-rosto { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-.fecho-rosto img { width: 56px; height: 56px; flex: none; border-radius: 50%; object-fit: cover; object-position: 50% 22%; border: 2px solid rgba(255, 255, 255, .7); }
+.fecho-rosto img { width: 60px; height: 60px; flex: none; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255, 255, 255, .7); }
 .fecho-rosto span { display: grid; gap: 1px; }
 .fecho-rosto b { font-weight: 600; line-height: 1.2; }
 .fecho-rosto i { font-style: normal; font-size: .82rem; color: var(--azul-suave); }
@@ -727,7 +734,7 @@ html.js .quem-retrato.revela.visto figcaption { opacity: 1; transform: none; }
   .quem-retrato { justify-self: start; width: min(100%, 340px); }
 }
 @media (max-width: 520px) { .quem-frentes { grid-template-columns: minmax(0, 1fr); } }
-@media (prefers-reduced-motion: reduce) { html.js .quem-retrato.revela > :is(img, svg), html.js .quem-retrato.revela figcaption { clip-path: none; transform: none; opacity: 1; transition: none; } }
+@media (prefers-reduced-motion: reduce) { html.js .quem-retrato.revela > svg, html.js .quem-retrato.revela figcaption, html.js .quem-retrato.revela .quem-rosto { clip-path: none; transform: none; scale: 1; opacity: 1; transition: none; } .quem-rosto::before { animation: none; } }
 
 /* ---------- modelos: capa viva no site (o arquivo baixado é estático); "Ver prévia" abre as páginas reais ---------- */
 /* Apresentações: a própria capa do arquivo (iceberg) com fundo que respira, gelo flutuando, bolhas e título por palavra.
@@ -929,7 +936,7 @@ html:not(.js) .mod-lupa { display: none; }
   .pilares { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pilares-cab { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .retrato { justify-items: start; }
-  .autor--foto { grid-template-columns: minmax(120px, 180px) minmax(0, 1fr); }
+  .autor--foto { grid-template-columns: minmax(120px, 170px) minmax(0, 1fr); }
   .autor--foto .autor-txt { grid-column: 1 / -1; }
   .frentes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .viradas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -962,7 +969,7 @@ html:not(.js) .mod-lupa { display: none; }
   .trilha { grid-template-columns: minmax(0, 1fr); }
   .trilha li + li::before { display: none; }
   .autor, .autor--foto { grid-template-columns: minmax(0, 1fr); }
-  .autor--foto .autor-foto { max-width: 200px; }
+  .autor--foto .autor-foto { max-width: 160px; }
   .momentos::before { display: none; }
   .momentos { grid-template-columns: minmax(0, 1fr); border-top: 0; }
   .momento { border-left: 0; padding: 20px 0 4px; border-top: 1px solid var(--tinta); }

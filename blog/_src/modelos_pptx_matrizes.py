@@ -65,7 +65,7 @@ def matrizes(pasta=None):
         texto(s, x + 0.64, y + 0.16, w - 0.64, 0.9, [R(f'Slide {n}', AZ, entre=1), P(nome, tam=T_TAB, cor=TINTA, negrito=True, entre=1), P(traz, tam=T_ROTULO + 1, cor=CZ)])
 
     # 3 · síntese executiva
-    s = d.slide('Síntese executiva', f'A mudança ainda trava no porquê: [{por_barreira[maior_barreira] / pessoas_adkar:.0%}] das pessoas estão em {maior_barreira} e a adoção é de [{ind_adocao:.0%}]',
+    s = d.slide('Síntese executiva', f'A mudança ainda trava no porquê: [{por_barreira[maior_barreira] / pessoas_adkar:.0%}] das pessoas estão em [{maior_barreira}] e a adoção é de [{ind_adocao:.0%}]',
                 'A leitura de todas as matrizes em uma página, com as decisões pedidas ao comitê. É o slide que abre a conversa; os seguintes são a prova.\n'
                 'Cada quadro traz o número que resume uma planilha e uma linha de leitura. Atualize os seis quadros sempre que as planilhas mudarem.\n'
                 'No painel azul, escreva no máximo três decisões, cada uma como frase que se responde com sim, não ou uma escolha.', dica=EXEMPLO)

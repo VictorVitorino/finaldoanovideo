@@ -52,12 +52,16 @@ Fica em `lab/` e tem cinco páginas. Tudo roda no navegador de quem acessa; nada
 
 ## Modelos para baixar e painel de downloads
 
-- `modelos/`: doze artefatos. Em PowerPoint: kit de slides de gestão da mudança (11 slides editáveis), apresentação de kickoff, relatório executivo de adoção e workshop com patrocinadores (gerados por `_src/modelos_pptx_extra.py`). Em Excel: avaliação ADKAR com mapa de resistência, lista de impactos com dashboard, mapa de adoção, formulário de diagnóstico, mapa de riscos, plano editorial de treinamentos, matriz RACI e mapa de influência. Para baixar, a pessoa informa nome e e-mail uma vez e concorda com o registro; os downloads seguintes são em um clique.
+- `modelos/`: quinze artefatos, todos nativos e editáveis. Em PowerPoint (seis decks, 64 slides): kit de slides de gestão da mudança, apresentação de kickoff, relatório executivo de adoção, workshop com patrocinadores, slides das matrizes da mudança e painel de indicadores. Em Excel (nove planilhas, com as abas Como usar, preenchimento e Painel): painel de indicadores com os cálculos, avaliação ADKAR, lista de impactos, matriz de adoção, formulário de diagnóstico, mapa de riscos, plano de treinamentos, matriz RACI e mapa de influência. No site, cada cartão tem uma capa viva e o botão "Ver prévia", que mostra as primeiras páginas reais do arquivo antes do formulário. Para baixar, a pessoa informa nome e e-mail uma vez e concorda com o registro; os downloads seguintes são em um clique.
 - `painel/`: área restrita do autor, com total de downloads, e-mails diferentes, downloads por modelo, por e-mail e o registro completo, com filtro e exportação em CSV.
 - O registro fica no Supabase. A estrutura está em `blog/_src/supabase/001_downloads.sql`: quem visita só consegue inserir; ler exige login e o e-mail estar na tabela `painel_admins`.
 - Para ligar: preencha `downloads.supabase_url` e `downloads.supabase_chave` (chave publicável) em `blog/_src/site.config.json` e gere o site. Sem isso, os arquivos baixam, mas nada é registrado.
-- Limite conhecido: os arquivos `.xlsx` são públicos em `assets/modelos/`. O cadastro registra quem baixa pelo site, mas não impede quem tiver o endereço direto do arquivo.
-- Catálogo dos modelos: `blog/_src/content/modelos.json`. Planilhas: `python3 blog/_src/modelos_xlsx.py`. Slides: `python3 blog/_src/modelos_pptx.py`.
+- Limite conhecido: os arquivos são públicos em `assets/modelos/`. O cadastro registra quem baixa pelo site, mas não impede quem tiver o endereço direto do arquivo.
+- Catálogo dos modelos: `blog/_src/content/modelos.json`.
+- Planilhas: `python3 blog/_src/modelos_xlsx.py` gera as nove (estilo comum em `modelos_xlsx_estilo.py`).
+- Slides: `python3 blog/_src/modelos_pptx.py` (kit), `modelos_pptx_extra.py` (kickoff, relatório e workshop), `modelos_pptx_matrizes.py` e `modelos_pptx_indicadores.py`; o tema e os componentes ficam em `modelos_pptx_base.py`. Os exemplos dos decks repetem os das planilhas (bloco `EX_` em `modelos_pptx_base.py`).
+- Depois de regerar os arquivos, rode `python3 blog/_src/previas_modelos.py` e gere o site de novo.
+- Conferência feita só no LibreOffice: vale abrir cada arquivo uma vez no PowerPoint e no Excel.
 - Sugestões de leitura da página inicial: `blog/_src/content/estante.json`.
 - Banco em uso: projeto Supabase `change-management-world`. O usuário do painel é criado em Authentication, no Supabase.
 

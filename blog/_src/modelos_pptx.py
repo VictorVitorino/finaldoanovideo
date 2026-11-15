@@ -61,7 +61,7 @@ def kit(pasta=None):
 
     # 5 · impactos
     imp = sorted(EX_IMPACTOS, key=lambda r: (-r[5], -r[6]))
-    s = d.slide('Impactos', 'Os impactos mais altos estão em [Operações e Suprimentos]',
+    s = d.slide('Impactos', 'Os impactos de grau mais alto se concentram em duas áreas: [Operações e Suprimentos]',
                 'Resumo dos impactos. Os números do topo e as linhas da tabela vêm da planilha "Lista de impactos com dashboard".\n'
                 'Mostre só os impactos mais altos (grau 4 ou 5) e deixe a lista completa na planilha. Grau: 4 e 5 = alto, 3 = médio, 1 e 2 = baixo.\n'
                 'Para trocar a cor de uma célula de grau, selecione a célula e use Preenchimento: azul profundo para alto, azul vivo para médio, azul suave para baixo.',
@@ -76,7 +76,7 @@ def kit(pasta=None):
     tabela(s, MARGEM, 3.38, [2.2, 3.65, 1.25, 1.05, 0.85, UTIL - 9.0], linhas, 0.53, 0.36, nome='Tabela: impactos mais altos')
 
     # 6 · stakeholders
-    s = d.slide('Stakeholders', 'A prioridade é conquistar quem influencia e ainda não apoia',
+    s = d.slide('Stakeholders', 'A prioridade é conquistar quem influencia e não apoia',
                 'Mapa de influência (vertical) por apoio à mudança (horizontal). Arraste os círculos numerados para a posição de cada stakeholder; '
                 'as notas de 1 a 5 vêm da planilha "Mapa de influência de stakeholders".\n'
                 'Quadrante destacado: muita influência e pouco apoio. É onde a mudança costuma travar e onde o patrocinador precisa entrar.\n'
@@ -103,7 +103,8 @@ def kit(pasta=None):
     pessoas = [por_barreira.get(e, 0) for e in ELEMENTOS]
     avaliadas = sum(g[2] for g in EX_ADKAR)
     pb = pessoas.index(max(pessoas))
-    s = d.slide('Diagnóstico', f'[{pessoas[pb] / avaliadas:.0%}] das pessoas travam em [{ELEMENTOS[pb]}]: a ação começa ali',
+    s = d.slide('Diagnóstico', f'[{pessoas[pb] / avaliadas:.0%}] das pessoas travam em [{ELEMENTOS[pb]}]: '
+                + ('a ação começa por explicar o porquê' if pb == 0 else 'é ali que a ação precisa começar'),
                 'Leitura ADKAR do projeto: pessoas por ponto de barreira. Os números vêm do painel da planilha "Avaliação ADKAR com mapa de resistência": '
                 'clique no gráfico e use "Editar dados" para trocar os valores.\n'
                 'O ponto de barreira de cada grupo é o primeiro elemento, na ordem do modelo, com nota 3 ou menor. Não é a menor nota: não adianta treinar quem ainda não decidiu participar.\n'

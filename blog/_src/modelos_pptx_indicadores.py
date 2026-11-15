@@ -55,7 +55,7 @@ def indicadores(pasta=None):
     s = d.slide('O que medir', 'Quatro grupos de indicadores mostram, do preparo ao benefício, se a mudança vai virar resultado',
                 'A árvore de indicadores. Os dois primeiros grupos antecipam: mostram, antes do go-live, se a mudança tem chance de pegar. Os dois últimos confirmam: mostram, depois, se pegou e se valeu.\n'
                 'Use este slide para combinar com o comitê o que será acompanhado e por quê. Menos indicadores, com dono e fonte, valem mais do que uma lista longa.\n'
-                'Se trocar um indicador, troque também a ficha (slides 7 e 8) e a planilha.')
+                'Se trocar um indicador, troque também a ficha (slides 7 e 8) e a planilha.', dica='Exemplo ilustrativo: ajuste os indicadores e as metas ao seu projeto.')
     painel(s, MARGEM, Y_TOPO, UTIL, 0.66, [P('*A pergunta do comitê:* a mudança vai virar resultado?', tam=T_LEAD, cor=BR)], fundo=AZP, margem=0.28, my=0.1, ancora='meio')
     yg = Y_TOPO + 0.9
     for (x, w), g in zip(faixas(4), grupos):
@@ -167,7 +167,7 @@ def indicadores(pasta=None):
 
     # 10 · próximos passos
     criticos = [i for i, (st, _) in zip(inds, sits) if st == 'Crítico']
-    s = d.slide('Próximos passos', f'Até o próximo painel, [{POR_EXTENSO[len(criticos)]}] ações atacam os indicadores críticos',
+    s = d.slide('Próximos passos', f'Até o próximo painel, [{POR_EXTENSO[len(criticos)]}] ações atacam os indicadores críticos, cada uma com dono e alvo',
                 'Uma ação por indicador crítico, com o valor de hoje, o alvo para o próximo painel, o dono e a data.\n'
                 'O alvo do próximo painel é um passo, não a meta final: escolha um número que a ação consiga mover em um mês.\n'
                 'Abra o próximo painel por este slide: o que foi feito e quanto o indicador andou.', dica=EXEMPLO)

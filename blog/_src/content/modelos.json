@@ -6,7 +6,7 @@
     "olho": "Apresentação",
     "previa": "diagnostico",
     "formato": "PowerPoint",
-    "frase": "Slides editáveis: mudança em uma página, impactos, stakeholders, RACI, ADKAR, mapa de adoção, riscos, status e próximos passos."
+    "frase": "Slides editáveis para contar a mudança em três perguntas: estratégia em uma página, impactos, stakeholders, barreiras ADKAR, RACI, comunicação e capacitação, riscos, régua de adoção, status e próximos 90 dias."
   },
   {
     "id": "apresentacao-kickoff-da-mudanca",
@@ -15,7 +15,7 @@
     "olho": "Apresentação",
     "previa": "adocao",
     "formato": "PowerPoint",
-    "frase": "Para lançar a mudança: o porquê, de e para, o que muda para cada grupo, jornada até o go-live, rede de apoio e o que se pede de cada um."
+    "frase": "Para lançar a mudança: o porquê, aonde queremos chegar, de e para, o que muda para cada grupo, jornada até o go-live, rede de apoio e o que se pede de cada um."
   },
   {
     "id": "relatorio-executivo-de-adocao",
@@ -24,7 +24,7 @@
     "olho": "Apresentação",
     "previa": "diagnostico",
     "formato": "PowerPoint",
-    "frase": "Para o comitê: adoção em uma tela, avanço por área, causas pela leitura ADKAR, decisões necessárias e compromissos do próximo ciclo."
+    "frase": "Para o comitê: síntese com indicadores e situação, curva de adoção, avanço por área, causas pela leitura ADKAR, decisões necessárias e ações do próximo ciclo."
   },
   {
     "id": "workshop-com-patrocinadores",
@@ -33,7 +33,7 @@
     "olho": "Apresentação",
     "previa": "influencia",
     "formato": "PowerPoint",
-    "frase": "Roteiro de 90 minutos: o papel de quem patrocina, exercício de stakeholders e os compromissos de cada líder para 30 dias."
+    "frase": "Roteiro de 90 minutos em quatro blocos: onde estamos, o papel de quem patrocina com autoavaliação, exercício de stakeholders e os compromissos de cada líder para 30 dias."
   },
   {
     "id": "slides-das-matrizes-da-mudanca",
@@ -42,7 +42,7 @@
     "olho": "Matrizes",
     "previa": "raci",
     "formato": "PowerPoint",
-    "frase": "Um slide pronto para o comitê por matriz: RACI, mapa de influência, impactos, ADKAR, adoção, riscos e plano de treinamentos, com síntese executiva."
+    "frase": "Um slide pronto para o comitê por planilha: RACI, mapa de influência, impactos, ADKAR, prontidão, adoção, riscos e plano de treinamentos, com síntese executiva e próximos passos."
   },
   {
     "id": "painel-de-indicadores-da-mudanca",
@@ -51,7 +51,7 @@
     "olho": "Indicadores",
     "previa": "adocao",
     "formato": "PowerPoint",
-    "frase": "O que medir e por quê, painel de uma página, evolução da adoção, ficha dos indicadores e as decisões do período. Par da planilha com os cálculos."
+    "frase": "O que medir e por quê, painel de uma página, evolução por grupo de indicadores, ficha dos onze indicadores, leitura do período com decisões e próximos passos. Par da planilha com os cálculos."
   },
   {
     "id": "painel-de-indicadores-da-mudanca-xlsx",

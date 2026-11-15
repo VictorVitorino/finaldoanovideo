@@ -210,8 +210,15 @@ def _iceberg(id_, cx, yw, k=1.0, linha_de=None, linha_ate=LARG):
     return xml
 
 
+# Fundo da capa: uma luz atrás da ponta do iceberg, que escurece para as bordas. É o equivalente estático do fundo
+# que respira na capa viva do site (o degradê é nativo do arquivo: nada de imagem, nada de animação).
+FUNDO_CAPA = ('<a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="1E50C0"/></a:gs><a:gs pos="36000"><a:srgbClr val="0A2463"/></a:gs>'
+              '<a:gs pos="100000"><a:srgbClr val="071A4A"/></a:gs></a:gsLst><a:path path="circle"><a:fillToRect l="80500" t="14000" r="19500" b="86000"/></a:path></a:gradFill>')
+
+
 def _csld(nome, formas, fundo=None):
-    bg = f'<p:bg><p:bgPr>{_cor(fundo)}<a:effectLst/></p:bgPr></p:bg>' if fundo else ''
+    """fundo: cor em hexadecimal ou o XML de um preenchimento (degradê)."""
+    bg = f'<p:bg><p:bgPr>{fundo if fundo.startswith("<") else _cor(fundo)}<a:effectLst/></p:bgPr></p:bg>' if fundo else ''
     return f'<p:cSld {_NS} name="{nome}">{bg}<p:spTree>{_RAIZ_ARVORE}{formas}</p:spTree></p:cSld>'
 
 
@@ -258,7 +265,7 @@ def _xml_layouts():
     fecho = _iceberg(20, 11.15, 4.05, 0.55, linha_de=MARGEM, linha_ate=DIR)
     fecho += ph_olho(2, AZS) + _ph(3, 'Mensagem', 'title', None, (MARGEM, Y_TITULO, 9.2, 2.6), _nivel(1, tam=T_FRASE, cor=BR, fonte=TIT, negrito=False),
                                    'Escreva a mensagem final em uma frase', 't') + _assinatura(7, AZS, fio=AZ)
-    return [('title', _csld('Capa', capa, AZP)), ('secHead', _csld('Divisória', div, AZP)), ('titleOnly', _csld('Somente título', so_titulo)),
+    return [('title', _csld('Capa', capa, FUNDO_CAPA)), ('secHead', _csld('Divisória', div, AZP)), ('titleOnly', _csld('Somente título', so_titulo)),
             ('obj', _csld('Título e conteúdo', conteudo)), (None, _csld('Mensagem', mensagem)), (None, _csld('Fechamento', fecho, AZP)),
             ('blank', _csld('Em branco', _assinatura(7, CZ)))]
 

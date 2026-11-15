@@ -1,6 +1,6 @@
 // Change Management World · efeitos da jornada (sem dependências).
 // Galeria que desliza, ficha em foco, cartões que viram, fluxo BPMN, narrativa fixa, gráfico que se constrói
-// pilha de livros num cartão que vira e cartões que inclinam com o cursor. Cada efeito só existe na página que tem o seu gancho (data-*),
+// pilha de livros num cartão que vira, capas vivas dos modelos e cartões que reagem ao cursor. Cada efeito só existe na página que tem o seu gancho (data-*),
 // usa um requestAnimationFrame por tarefa e para quando sai da tela.
 (() => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -394,19 +394,72 @@
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   });
 
-  // ---------- cartões que inclinam com o cursor (perspectiva, reflexo que segue o ponteiro) ----------
+  // ---------- capas vivas dos modelos ----------
+  // Entram em cena na primeira vez que aparecem (.viu), só se movem enquanto estão na tela (.na-tela) e, nas apresentações,
+  // o campo entre colchetes do título ("[nome do projeto]") se preenche com exemplos: uma vez ao aparecer e em sequência com o cursor em cima.
+  const maquina = capa => {
+    const campo = capa.querySelector('[data-digita]'); if (!campo || calmo) return null;
+    if (campo._maq) return campo._maq;
+    const dt = $('.cl-dt', campo), orig = dt.textContent, maius = /^[A-ZÀ-Ý]/.test(orig);
+    const lista = campo.dataset.digita.split('|').map(t => maius ? t.charAt(0).toUpperCase() + t.slice(1) : t);
+    const espera = ms => new Promise(r => setTimeout(r, ms));
+    let ficha = 0, k = 0;
+    const roda = async voltas => {                       // cada chamada invalida a anterior: quem perde a ficha para no próximo passo
+      const minha = ++ficha, vale = () => minha === ficha;
+      const troca = async alvo => {
+        while (vale() && dt.textContent.length) { dt.textContent = dt.textContent.slice(0, -1); await espera(24); }
+        await espera(170);
+        for (let i = 1; vale() && i <= alvo.length; i++) { dt.textContent = alvo.slice(0, i); await espera(46 + Math.random() * 46); }
+      };
+      campo.classList.add('digitando'); await espera(320);
+      for (let v = 0; vale() && v < voltas; v++) { await troca(lista[k++ % lista.length]); if (!vale()) return; await espera(1500); }
+      if (!vale()) return;
+      if (dt.textContent !== orig) await troca(orig);
+      if (vale()) campo.classList.remove('digitando');
+    };
+    return campo._maq = { toca: roda, encerra: () => roda(0) };
+  };
+  const capas = $$('.capa-viva');
+  if (capas.length) {
+    if ('IntersectionObserver' in window) {
+      let vaga = 0;                                         // próxima hora livre: as demonstrações do campo acontecem uma de cada vez
+      const olho = new IntersectionObserver(es => es.forEach(e => {
+        const c = e.target; c.classList.toggle('na-tela', e.isIntersecting);
+        if (e.isIntersecting) c.classList.add('viu');
+        if (e.intersectionRatio >= .85 && !c._demo) {      // uma demonstração por capa, na primeira vez que ela aparece inteira
+          c._demo = true; const m = maquina(c); if (!m) return;
+          const agora = performance.now(); vaga = Math.max(agora + 2400, vaga + 4600);
+          setTimeout(() => { if (c.classList.contains('na-tela') && !c.classList.contains('inclinado')) m.toca(1); else { c._demo = false; vaga = Math.min(vaga, performance.now()); } }, vaga - agora);
+        }
+      }), { threshold: [0, .85] });
+      capas.forEach(c => olho.observe(c));
+    } else capas.forEach(c => c.classList.add('viu', 'na-tela'));
+  }
+
+  // ---------- cartões que reagem ao cursor: inclinação (pilares, cartão de contato) ou paralaxe em camadas (capas vivas), com reflexo que segue o ponteiro ----------
   if (!calmo && matchMedia('(pointer: fine)').matches) {
     let alvo = null, cx = 0, cy = 0, marcado = false, caixa = null;
     const pinta = () => {
       marcado = false; if (!alvo || !caixa) return;
       const px = Math.min(1, Math.max(0, (cx - caixa.left) / caixa.width)), py = Math.min(1, Math.max(0, (cy - caixa.top) / caixa.height));
       alvo.style.setProperty('--ry', ((px - .5) * 12).toFixed(2) + 'deg'); alvo.style.setProperty('--rx', ((.5 - py) * 9).toFixed(2) + 'deg');
+      alvo.style.setProperty('--ix', ((px - .5) * 2).toFixed(3)); alvo.style.setProperty('--iy', ((py - .5) * 2).toFixed(3));
       alvo.style.setProperty('--mx', (px * 100).toFixed(1) + '%'); alvo.style.setProperty('--my', (py * 100).toFixed(1) + '%');
     };
-    const sai = () => { if (!alvo) return; alvo.classList.remove('inclinado'); for (const k of ['--rx', '--ry']) alvo.style.removeProperty(k); alvo = null; caixa = null; };
+    const sai = () => {
+      if (!alvo) return; alvo.classList.remove('inclinado'); for (const k of ['--rx', '--ry', '--ix', '--iy']) alvo.style.removeProperty(k);
+      const m = alvo.classList.contains('capa-viva') ? maquina(alvo) : null; if (m) m.encerra();
+      alvo = null; caixa = null;
+    };
     document.addEventListener('pointermove', e => {
       const el = e.target.closest ? e.target.closest('[data-inclina]') : null;
-      if (el !== alvo) { sai(); if (el) { alvo = el; caixa = el.getBoundingClientRect(); el.classList.add('inclinado'); } }
+      if (el !== alvo) {
+        sai();
+        if (el) {
+          alvo = el; caixa = el.getBoundingClientRect(); el.classList.add('inclinado');
+          if (el.classList.contains('capa-viva')) { el.dataset.vez = el.dataset.vez === 'a' ? 'b' : 'a'; const m = maquina(el); if (m) m.toca(Infinity); }
+        }
+      }
       if (!alvo) return;
       cx = e.clientX; cy = e.clientY; if (!marcado) { marcado = true; requestAnimationFrame(pinta); }
     }, { passive: true });

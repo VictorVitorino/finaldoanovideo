@@ -436,6 +436,11 @@
       }
     ]
   },
+  "quem": {
+    "olho": "Quem conduz",
+    "frase": "No advisory, você fala direto comigo:\ndo diagnóstico ao acompanhamento.",
+    "link": "Conhecer minha trajetória"
+  },
   "fecho": {
     "olho": "Contato",
     "titulo": "Vamos conversar sobre o que você precisa?",

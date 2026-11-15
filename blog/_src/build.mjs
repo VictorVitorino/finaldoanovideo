@@ -47,7 +47,7 @@ function gera() {
   const convite = blocoServicos(d.servicos, '../');
   grava('index.html', inicio({ ...d, lab: secaoLab('', nPerguntas, mods.length), servicos: blocoServicos(d.servicos, ''), sobre: blocoSobre({ cfg, perfil: d.perfil, raiz: '' }) }));
   grava('radar/index.html', paginaRadar({ cfg, posts, eventos: d.eventos, videos: d.videos, home: d.home }));
-  grava('servicos/index.html', paginaServicos({ cfg, c: d.servicos }));
+  grava('servicos/index.html', paginaServicos({ cfg, c: d.servicos, perfil: d.perfil }));
   grava('sobre/index.html', paginaSobre({ cfg, perfil: d.perfil, estante, convite }));
   // Laboratório
   grava('lab/index.html', labInicio({ cfg, nPerguntas, modelos: mods }));
@@ -73,7 +73,7 @@ function gera() {
     lab: FERRAMENTAS.map(f => ({ t: f.nome, d: curto(f.frase, 110), u: `lab/${f.slug}/` })),
     modelos: mods.map(m => ({ t: m.nome, d: curto(m.frase, 110), u: `modelos/#${m.id}`, f: m.formato })),
     servicos: d.servicos.servicos.map(x => ({ t: x.nome, d: curto(x.frase, 110), u: `servicos/#servico-${x.id}` })),
-    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
+    secoes: [['Radar mundial', 'radar/'], ['Guias de campo', 'radar/#guias'], ['IA em números', 'radar/#ia'], ['Agenda e vídeos', 'radar/#agenda'], ['Posts do mês', `mes/${cfg.mesAtual}/`], ['Laboratório', 'lab/'], ['Modelos para baixar', 'modelos/'], ['Serviços', 'servicos/'], ['Quem conduz: Victor Vitorino', 'servicos/#quem'], ['Como funciona o acompanhamento', 'servicos/#acompanhamento'], ['Contato', 'servicos/#contato'], ['Sobre: quem escreve', 'sobre/'], ['Sugestões de leitura', 'sobre/#estante']].map(([t, u]) => ({ t, u })),
   };
   grava('assets/js/dados.js', `// Gerado por blog/_src/build.mjs. Não edite à mão.\nwindow.CMW_DADOS = ${JSON.stringify(dados)};\n`);
   const porMes = {};

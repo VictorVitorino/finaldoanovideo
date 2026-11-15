@@ -61,8 +61,35 @@ export function secaoLab(raiz, nPerguntas, nModelos) {
 }
 
 // ---------- capas vivas dos modelos ----------
-// No site, a capa de cada modelo é um cartão animado (o motivo se constrói ao entrar na tela e de novo ao passar o cursor,
-// o cartão inclina com profundidade e uma faixa de luz atravessa). O arquivo baixado é estático; as páginas reais aparecem em "Ver prévia".
+// Apresentações: no site aparece a própria capa do arquivo (olho, título e iceberg, lidos do primeiro slide por previas_modelos.py),
+// só que viva: o fundo respira, o gelo flutua, bolhas sobem, o título entra palavra a palavra e o campo [nome do projeto] se preenche
+// com exemplos. O arquivo baixado traz a mesma capa, estática. Planilhas: capa clara com o motivo do conteúdo, que se constrói.
+// Nas duas o texto fica parado (nítido) e as camadas se deslocam com o cursor. As páginas reais aparecem em "Ver prévia".
+const EXEMPLOS = ['novo ERP', 'CRM de vendas', 'programa de IA', 'RH digital'];
+// iceberg da capa: a mesma geometria de modelos_pptx_base.py (_iceberg), na escala do cartão (viewBox 320 × 200)
+const BERG = (() => {
+  const U = 22, CX = 250, YW = 66, x = dx => (CX + dx * U).toFixed(1), y = dy => (YW + dy * U).toFixed(1);
+  const poli = pts => 'M' + pts.map(([dx, dy]) => `${x(dx)} ${y(dy)}`).join('L') + 'Z';
+  const borda = [[-1.30, 0.17], [1.35, 0.17], [1.90, 1.15], [1.60, 2.40], [0.50, 3.50], [-0.65, 2.90], [-1.45, 1.80], [-1.65, 1.00]];
+  const facetas = [[0.08, 0.17], [-1.65, 1.00], [1.90, 1.15], [1.60, 2.40], [0.50, 3.50], [-0.65, 2.90]];
+  const ponta = [['b-p1', [[-0.38, -0.90], [0, -0.90], [0, -0.05], [-0.84, -0.05], [-0.68, -0.58]]], ['b-p2', [[0.02, -1.80], [0.75, -0.62], [0.92, -0.05], [0, -0.05], [0, -1.0]]],
+    ['b-p3', [[0.02, -1.80], [0.32, -0.98], [0.12, -0.05], [-0.34, -0.05], [-0.38, -0.90]]]];
+  const bolhas = [[-2.0, 3.0, 1.4], [-0.9, 3.45, 1.9], [0.9, 3.6, 1.2], [2.2, 2.9, 1.7], [1.5, 3.3, 1.0]];
+  const agua = `M${x(-2.05)} ${y(0.035)}H344`;
+  return `<svg class="cl-cena" viewBox="0 0 320 200" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false"><g class="b-fundo">${bolhas.map(([dx, dy, r], i) => `<circle class="b-bolha" style="--i:${i}" cx="${x(dx)}" cy="${y(dy)}" r="${r}"/>`).join('')}</g><g class="b-par"><g class="b-berg"><path class="b-borda" pathLength="1" d="${poli(borda)}"/>${facetas.map((f, i) => `<path class="b-faceta" pathLength="1" style="--i:${i}" d="M${x(0)} ${y(1.4)}L${x(f[0])} ${y(f[1])}"/>`).join('')}<g class="b-ponta">${ponta.map(([c, pts]) => `<path class="${c}" d="${poli(pts)}"/>`).join('')}</g></g></g><path class="b-agua" pathLength="1" d="${agua}"/><path class="b-reflexo" pathLength="1" d="${agua}"/></svg>`;
+})();
+// título da capa: uma linha do arquivo por linha, cada palavra numa caixa (entra em sequência) e o campo entre colchetes pronto para digitar exemplos
+const tituloCapa = (linhas, k) => {
+  let w = 0; const ex = EXEMPLOS.map((_, i) => EXEMPLOS[(i + k) % EXEMPLOS.length]).join('|');
+  const palavras = t => t.split(/(\s+)/).map(p => !p ? '' : /^\s+$/.test(p) ? ' ' : `<span class="cl-w" style="--w:${w++}">${esc(p)}</span>`).join('');
+  return linhas.map(l => `<span class="cl-l">${l.map(r => {
+    const html = r.t.split(/(\[[^\]]+\])/).map(p => { const c = /^\[(.+)\]$/.exec(p); return c ? `<span class="cl-w cl-campo" style="--w:${w++}" data-digita="${esc(ex)}">[<span class="cl-dt">${esc(c[1])}</span>]</span>` : palavras(p); }).join('');
+    return r.i ? `<em>${html}</em>` : html;
+  }).join('')}</span>`).join('');
+};
+let nCapas = 0;
+const capaDeck = m => { const c = m.capa_txt || { olho: 'Apresentação', titulo: [[{ t: m.nome, i: false }]] };
+  return `<span class="capa-viva capa-viva--ppt${m.capa_txt ? '' : ' capa-viva--solta'}" data-inclina aria-hidden="true"><span class="cl-fundo"><i class="cl-orbe"></i><i class="cl-orbe"></i><i class="cl-orbe"></i></span><span class="cl-mar"></span>${BERG}<span class="cl-txt"><small>${esc(c.olho || 'Apresentação')}</small><b>${tituloCapa(c.titulo, nCapas++)}</b><i>${esc(m.fatos || m.formato || '')}</i></span></span>`; };
 const MOTIVO = {
   barras: () => `<path class="m-e" d="M18 138h164"/>${[34, 56, 80, 104, 126].map((h, i) => `<rect class="m-b" style="--i:${i}" x="${26 + i * 31}" y="${138 - h}" width="21" height="${h}" rx="3"/>`).join('')}`,
   linha: () => `<path class="m-e" d="M18 138h164M18 138V22"/><path class="m-a" d="M22 118L62 96L100 104L140 62L178 34V138H22z"/><path class="m-l" pathLength="1" d="M22 118L62 96L100 104L140 62L178 34"/>${[[22, 118], [62, 96], [100, 104], [140, 62], [178, 34]].map(([x, y], i) => `<circle class="m-p" style="--i:${i}" cx="${x}" cy="${y}" r="5"/>`).join('')}`,
@@ -72,11 +99,11 @@ const MOTIVO = {
   tempo: () => `<path class="m-l" pathLength="1" d="M18 84h164"/>${[30, 65, 100, 135, 170].map((x, i) => `<rect class="m-c" style="--i:${i};--o:${i % 2 ? .5 : .85}" x="${x - 14}" y="${i % 2 ? 100 : 34}" width="28" height="30" rx="5"/><circle class="m-p" style="--i:${i}" cx="${x}" cy="84" r="6"/>`).join('')}`,
   letras: () => 'ARCICARIICARRICA'.split('').map((t, k) => { const i = k % 4, j = Math.floor(k / 4); return `<g class="m-c" style="--i:${i + j};--o:1"><rect class="${t === 'A' ? 'm-f1' : t === 'R' ? 'm-f2' : 'm-f3'}" x="${34 + i * 34}" y="${16 + j * 31}" width="30" height="27" rx="4"/><text x="${49 + i * 34}" y="${35 + j * 31}" text-anchor="middle">${t}</text></g>`; }).join(''),
   medidor: () => `<path class="m-e m-g" d="M30 118a70 70 0 01140 0"/><path class="m-l m-g" pathLength="1" d="M30 118a70 70 0 01140 0"/><path class="m-n" d="M100 118L100 58"/><circle class="m-p" style="--i:0" cx="100" cy="118" r="7"/>${[0, 1, 2].map(i => `<rect class="m-c" style="--i:${i + 2};--o:${[.4, .7, 1][i]}" x="${44 + i * 40}" y="130" width="32" height="8" rx="4"/>`).join('')}`,
-  pilha: () => [2, 1, 0].map(k => `<g class="m-s" style="--k:${k}"><rect x="46" y="38" width="112" height="72" rx="6"/>${k ? '' : `<path class="m-e" d="M58 54h44M58 66h70M58 78h56"/><rect class="m-f2" x="120" y="82" width="26" height="18" rx="3"/>`}</g>`).join(''),
 };
-const MOTIVO_DE = { 'kit-de-gestao-da-mudanca': 'pilha', 'apresentacao-kickoff-da-mudanca': 'barras', 'relatorio-executivo-de-adocao': 'linha', 'workshop-com-patrocinadores': 'quadrante', 'slides-das-matrizes-da-mudanca': 'letras', 'painel-de-indicadores-da-mudanca': 'medidor', 'painel-de-indicadores-da-mudanca-xlsx': 'medidor', 'avaliacao-adkar-mapa-de-resistencia': 'barras', 'lista-de-impactos-dashboard': 'calor', 'matriz-de-adocao': 'linha', 'formulario-de-diagnostico': 'radar', 'mapa-de-riscos': 'calor', 'plano-de-treinamentos': 'tempo', 'matriz-raci': 'letras', 'mapa-de-influencia': 'quadrante' };
-const capaViva = m => { const ppt = /power/i.test(m.formato || ''), mot = MOTIVO[MOTIVO_DE[m.id]] || MOTIVO[{ raci: 'letras', influencia: 'quadrante', adocao: 'linha', diagnostico: 'radar' }[m.previa]] || MOTIVO.barras;
-  return `<span class="capa-viva capa-viva--${ppt ? 'ppt' : 'xls'}" data-inclina><span class="cl-txt"><small>${esc(ppt ? 'Apresentação' : 'Planilha')}</small><b>${esc(m.nome)}</b><i>${esc(m.fatos || m.formato || '')}</i></span><span class="cl-arte"><svg viewBox="0 0 200 156" aria-hidden="true">${mot()}</svg></span><span class="cl-formas" aria-hidden="true"><i></i><i></i><i></i></span></span>`; };
+const MOTIVO_DE = { 'painel-de-indicadores-da-mudanca-xlsx': 'medidor', 'avaliacao-adkar-mapa-de-resistencia': 'barras', 'lista-de-impactos-dashboard': 'calor', 'matriz-de-adocao': 'linha', 'formulario-de-diagnostico': 'radar', 'mapa-de-riscos': 'calor', 'plano-de-treinamentos': 'tempo', 'matriz-raci': 'letras', 'mapa-de-influencia': 'quadrante' };
+const capaViva = m => { if (/power/i.test(m.formato || '')) return capaDeck(m);
+  const mot = MOTIVO[MOTIVO_DE[m.id]] || MOTIVO[{ raci: 'letras', influencia: 'quadrante', adocao: 'linha', diagnostico: 'radar' }[m.previa]] || MOTIVO.barras;
+  return `<span class="capa-viva capa-viva--xls" data-inclina aria-hidden="true"><span class="cl-txt"><small>Planilha</small><b>${esc(m.nome)}</b><i>${esc(m.fatos || m.formato || '')}</i></span><span class="cl-arte"><svg viewBox="0 0 200 156" aria-hidden="true" focusable="false">${mot()}</svg></span><span class="cl-formas"><i></i><i></i></span></span>`; };
 const cab = (raiz, f, extra = '') => `<header class="lab-cab"><div class="sec-in">
   <nav class="migalhas" aria-label="Você está em"><a href="${raiz}index.html">Início</a>${icone('seta')}<a href="${raiz}lab/">Laboratório</a>${icone('seta')}<span>${esc(f.nome)}</span></nav>
   <span class="olho">${esc(f.olho)}</span><h1>${esc(f.titulo || f.nome)}</h1><p class="lab-lead">${esc(f.lead || f.frase)}</p>${extra}</div></header>`;

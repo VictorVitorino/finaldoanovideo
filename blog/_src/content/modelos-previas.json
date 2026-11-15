@@ -24,7 +24,28 @@
   ],
   "capa": 0,
   "fatos": "15 slides editáveis",
-  "n": 15
+  "n": 15,
+  "capa_txt": {
+   "titulo": [
+    [
+     {
+      "t": "Gestão da mudança",
+      "i": false
+     }
+    ],
+    [
+     {
+      "t": "do ",
+      "i": false
+     },
+     {
+      "t": "[nome do projeto]",
+      "i": true
+     }
+    ]
+   ],
+   "olho": "Kit de slides"
+  }
  },
  "apresentacao-kickoff-da-mudanca": {
   "previas": [
@@ -51,7 +72,24 @@
   ],
   "capa": 0,
   "fatos": "8 slides editáveis",
-  "n": 8
+  "n": 8,
+  "capa_txt": {
+   "titulo": [
+    [
+     {
+      "t": "[Nome do projeto]:",
+      "i": true
+     }
+    ],
+    [
+     {
+      "t": "o que muda e por quê",
+      "i": false
+     }
+    ]
+   ],
+   "olho": "Kickoff da mudança"
+  }
  },
  "relatorio-executivo-de-adocao": {
   "previas": [
@@ -78,7 +116,24 @@
   ],
   "capa": 0,
   "fatos": "7 slides editáveis",
-  "n": 7
+  "n": 7,
+  "capa_txt": {
+   "titulo": [
+    [
+     {
+      "t": "Adoção do",
+      "i": false
+     }
+    ],
+    [
+     {
+      "t": "[nome do projeto]",
+      "i": true
+     }
+    ]
+   ],
+   "olho": "Relatório executivo"
+  }
  },
  "workshop-com-patrocinadores": {
   "previas": [
@@ -105,7 +160,24 @@
   ],
   "capa": 0,
   "fatos": "12 slides editáveis",
-  "n": 12
+  "n": 12,
+  "capa_txt": {
+   "titulo": [
+    [
+     {
+      "t": "O papel de quem",
+      "i": false
+     }
+    ],
+    [
+     {
+      "t": "patrocina a mudança",
+      "i": false
+     }
+    ]
+   ],
+   "olho": "Workshop com patrocinadores"
+  }
  },
  "slides-das-matrizes-da-mudanca": {
   "previas": [
@@ -132,7 +204,28 @@
   ],
   "capa": 0,
   "fatos": "12 slides editáveis",
-  "n": 12
+  "n": 12,
+  "capa_txt": {
+   "titulo": [
+    [
+     {
+      "t": "As matrizes da mudança",
+      "i": false
+     }
+    ],
+    [
+     {
+      "t": "do ",
+      "i": false
+     },
+     {
+      "t": "[nome do projeto]",
+      "i": true
+     }
+    ]
+   ],
+   "olho": "Matrizes da mudança"
+  }
  },
  "painel-de-indicadores-da-mudanca": {
   "previas": [
@@ -159,7 +252,28 @@
   ],
   "capa": 0,
   "fatos": "10 slides editáveis",
-  "n": 10
+  "n": 10,
+  "capa_txt": {
+   "titulo": [
+    [
+     {
+      "t": "Indicadores da mudança",
+      "i": false
+     }
+    ],
+    [
+     {
+      "t": "do ",
+      "i": false
+     },
+     {
+      "t": "[nome do projeto]",
+      "i": true
+     }
+    ]
+   ],
+   "olho": "Painel de indicadores"
+  }
  },
  "painel-de-indicadores-da-mudanca-xlsx": {
   "previas": [

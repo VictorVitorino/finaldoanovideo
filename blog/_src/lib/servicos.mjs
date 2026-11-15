@@ -2,9 +2,10 @@
 // Os efeitos (galeria que desliza, ficha em foco, cartões que viram, fluxo BPMN, narrativa fixa e gráfico que se constrói)
 // ficam em assets/js/efeitos.js; aqui só a estrutura. Sem JavaScript, tudo aparece como texto e listas.
 import { esc } from './md.mjs';
-import { icone } from './ilustra.mjs';
+import { icone, iceberg } from './ilustra.mjs';
 import { iconeVivo } from './vivo.mjs';
 import { pagina, titSecao, navGaleria, botoesContato, contato, frases, corrido } from './modelos.mjs';
+import { foto, papeis } from './sobre.mjs';
 
 const tit = l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>');
 const quebra = (t, max = 15) => { const ls = ['']; for (const p of t.split(' ')) { const k = ls.length - 1; if (ls[k] && (ls[k] + ' ' + p).length > max) ls.push(p); else ls[k] = (ls[k] + ' ' + p).trim(); } return ls; };
@@ -69,9 +70,27 @@ export const blocoServicos = (c, raiz) => !c ? '' : `<section class="sec sec--se
 </section>`;
 
 // ---------- página ----------
-export function paginaServicos({ cfg, c }) {
-  const raiz = '../', f = c.fluxo, j = c.jornada, g = c.grafico, v = c.viradas, ac = c.acompanhamento, ct = contato(cfg);
+export function paginaServicos({ cfg, c, perfil }) {
+  const raiz = '../', f = c.fluxo, j = c.jornada, g = c.grafico, v = c.viradas, ac = c.acompanhamento, ct = contato(cfg), q = c.quem;
   const acoes = botoesContato(cfg, { principal: 'btn--p', apoio: 'btn--s' });
+  // quem conduz: apresentação pessoal logo depois da abertura. Com o arquivo da foto (perfil.foto), entra o retrato; sem ele, a mesma moldura mostra o iceberg da marca.
+  const papel1 = perfil ? (perfil.papel_linhas || [perfil.papel])[0] : '';
+  const quem = !(q && perfil) ? '' : `<section class="sec sec--quem" id="quem" aria-labelledby="quem-t">
+  <div class="sec-in">
+    <div class="quem${perfil.temFoto ? ' quem--foto' : ''}">
+      <figure class="quem-retrato${perfil.temFoto ? '' : ' quem-retrato--arte'} revela">${perfil.temFoto ? foto(perfil, raiz, '') : iceberg({ recorte: [66, 40, 440, 550], id: 'quem' })}${perfil.chamada ? `<figcaption>${perfil.chamada.map(l => `<span>${tit(l)}</span>`).join('')}</figcaption>` : ''}</figure>
+      <div class="quem-txt">
+        <div class="quem-cab revela"><span class="olho">${esc(q.olho)}</span><h2 id="quem-t">${esc(perfil.nome)}</h2><p class="sobre-papel">${papeis(perfil)}</p></div>
+        <div class="quem-bio revela" style="--i:1">${perfil.bio.slice(0, 2).map(p => `<p>${frases(p)}</p>`).join('')}</div>
+        <ul class="quem-frentes revela" style="--i:2" aria-label="Frentes de atuação">${perfil.pilares.map((x, i) => `<li class="vivo" style="--i:${i}"><span class="quem-ic">${iconeVivo(x.icone || 'orbita')}</span><b>${esc(x.frente)}</b></li>`).join('')}</ul>
+        <p class="quem-nota revela" style="--i:3">${frases(q.frase)}</p>
+        <div class="sobre-acoes revela" style="--i:3">${ct.zap ? `<a class="btn btn--p" href="${esc(ct.zap)}" target="_blank" rel="noopener">${icone('conversa')}Chamar no WhatsApp</a>` : ''}<a class="btn btn--s" href="${raiz}sobre/">${esc(q.link)}${icone('seta')}</a><button type="button" class="link-seta so-js" data-salvar-contato data-nome="${esc(perfil.nome)}" data-papel="${esc(papel1)}" data-tel="${esc(ct.hrefTel.replace('tel:', ''))}" data-linkedin="${esc(cfg.linkedin || '')}" data-site="${esc(cfg.url || '')}">${icone('marcador')}Salvar contato</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+  const rosto = perfil && perfil.temFoto ? `<span class="fecho-rosto">${foto(perfil, raiz, '')}<span><b>${esc(perfil.nome)}</b><i>${esc(papel1)}</i></span></span>` : '';
   const ficha = s => `<article class="ficha" id="servico-${esc(s.id)}" data-det="${esc(s.id)}">
         <header class="ficha-cab"><small>${esc(s.olho)}</small><h3>${esc(s.nome)}</h3><p>${esc(s.frase)}</p></header>
         <div class="ficha-grade">
@@ -92,7 +111,7 @@ export function paginaServicos({ cfg, c }) {
   </div>
 </section>
 
-<section class="sec sec--servicos-pg" id="servicos" aria-labelledby="servicos-t">
+${quem}<section class="sec sec--servicos-pg" id="servicos" aria-labelledby="servicos-t">
   <div class="sec-in">
     ${titSecao('servicos', 'Serviços', esc(c.servicos_titulo), esc(c.servicos_nota))}
     <div class="galeria galeria--servicos galeria--centro revela" data-galeria data-inicio="${Math.floor(c.servicos.length / 2)}">
@@ -155,7 +174,7 @@ export function paginaServicos({ cfg, c }) {
 </section>
 
 <section class="sec sec--fecho" id="contato" aria-labelledby="fecho-t">
-  <div class="sec-in"><div class="convite convite--fecho holo holo--auto revela"><div class="convite-txt"><span class="olho">${esc(c.fecho.olho)}</span><h2 id="fecho-t">${esc(c.fecho.titulo)}</h2><p>${frases(c.fecho.texto)}</p></div><div class="convite-acoes">${botoesContato(cfg, { principal: 'btn--claro', apoio: 'btn--vidro', telefone: true })}</div></div></div>
+  <div class="sec-in"><div class="convite convite--fecho holo holo--auto revela"><div class="convite-txt">${rosto}<span class="olho">${esc(c.fecho.olho)}</span><h2 id="fecho-t">${esc(c.fecho.titulo)}</h2><p>${frases(c.fecho.texto)}</p></div><div class="convite-acoes">${botoesContato(cfg, { principal: 'btn--claro', apoio: 'btn--vidro', telefone: true })}</div></div></div>
 </section>`;
   return pagina({ cfg, raiz, titulo: 'Serviços', descricao: corrido(c.lead), corpo, caminho: 'servicos/', imagem: 'assets/img/og/servicos.jpg', classe: 'pg-servicos pg-escura', ativo: 'servicos' });
 }

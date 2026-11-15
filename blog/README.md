@@ -47,7 +47,7 @@ A capa usa o cenário do vídeo (a sala de reunião à noite, a mesa como linha 
 | `assets/img/linkedin/capa-blog-linkedin-retrato.png` | 2160 × 2700 (1080 × 1350 em dobro): para um post só de imagem; ocupa mais tela no celular. |
 | `assets/img/linkedin/capa-blog-1200x627.jpg` | Imagem de compartilhamento do início, do radar e dos meses (`og:image`): é o que o LinkedIn mostra quando alguém cola o link. |
 
-Para gerar de novo (por exemplo, se o endereço mudar): `node animacao/producao/capa_blog.mjs [endereço]`. Sem o argumento, o endereço vem de `_src/site.config.json` (`url`). O desenho fica em `animacao/src/raso/capa.js`.
+Para gerar de novo (por exemplo, se o endereço mudar): `node animacao/producao/capa_blog.mjs [endereço]`. Sem o argumento, o endereço vem de `_src/site.config.json` (`url`). Com `--saida <pasta>`, os arquivos vão para outra pasta, para conferir antes de publicar. O desenho fica em `animacao/src/raso/capa.js`.
 Depois de trocar a imagem, o LinkedIn pode levar um tempo para atualizar a prévia do link; o Post Inspector do LinkedIn força a atualização.
 
 ### Efeitos (do guia de design)
@@ -208,6 +208,7 @@ blog/
 - A página inicial é a raiz do site (`/`), sem `index.html`: a marca, o rodapé e as trilhas de navegação apontam para a raiz.
 - Na Vercel, `vercel.json` liga `cleanUrls`: quem abrir um endereço antigo terminado em `index.html` é levado para o endereço limpo.
 - A página de erro (`404.html`) usa caminhos a partir da raiz do site, para aparecer com estilo em qualquer endereço que não exista.
+- Para trocar o endereço do site (por exemplo, ao ligar um domínio próprio): mude `url` em `_src/site.config.json`, rode `node blog/_src/build.mjs` (endereço canônico, imagens de compartilhamento, `sitemap.xml` e `robots.txt`) e `node animacao/producao/capa_blog.mjs` (a capa do LinkedIn mostra o endereço). Só troque depois que o domínio novo estiver respondendo: as prévias de link do LinkedIn usam esse endereço.
 
 ## Ver no computador
 

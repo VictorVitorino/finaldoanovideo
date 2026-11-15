@@ -1,12 +1,13 @@
 // Gera a capa do blog para o LinkedIn a partir do cenário do filme "Além do raso" (capa-blog.html).
 //
-//   node producao/capa_blog.mjs [endereço]
+//   node producao/capa_blog.mjs [endereço] [--saida pasta]
 //
 // Saída em ../blog/assets/img/linkedin/:
 //   capa-blog-linkedin-paisagem.png   2400 x 1254 (1200 x 627 em dobro): para subir em um post com link
 //   capa-blog-linkedin-retrato.png    2160 x 2700 (1080 x 1350 em dobro): para um post de imagem
 //   capa-blog-1200x627.jpg            imagem de compartilhamento da página inicial (og:image)
 // O endereço que aparece na capa vem do argumento ou de blog/_src/site.config.json (url), sem o https://.
+// Com --saida, os arquivos vão para outra pasta (para conferir uma capa antes de publicar).
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
@@ -14,9 +15,11 @@ import { fileURLToPath, pathToFileURL } from 'url';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const BLOG = path.join(ROOT, '..', 'blog');
-const SAIDA = path.join(BLOG, 'assets', 'img', 'linkedin');
+const args = process.argv.slice(2), iSaida = args.indexOf('--saida');
+const SAIDA = iSaida >= 0 ? path.resolve(args[iSaida + 1]) : path.join(BLOG, 'assets', 'img', 'linkedin');
+if (iSaida >= 0) args.splice(iSaida, 2);
 const cfg = JSON.parse(fs.readFileSync(path.join(BLOG, '_src', 'site.config.json'), 'utf8'));
-const endereco = (process.argv[2] || cfg.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
+const endereco = (args[0] || cfg.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.woff2': 'font/woff2' };
 
 async function playwright() {
